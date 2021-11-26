@@ -1,0 +1,137 @@
+{
+  "version": "4deaf05e",
+  "entry": {
+    "module": "/build/entry.client-MTSZZSRC.js",
+    "imports": [
+      "/build/_shared/chunk-OQ4VQ54M.js",
+      "/build/_shared/chunk-EU6Z2VYX.js",
+      "/build/_shared/chunk-E7VMOUYL.js"
+    ]
+  },
+  "routes": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "module": "/build/root-H3A6QZFY.js",
+      "imports": [
+        "/build/_shared/chunk-4LN23IHK.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": true
+    },
+    "routes/$slug": {
+      "id": "routes/$slug",
+      "parentId": "root",
+      "path": ":slug",
+      "module": "/build/routes/$slug-6ZAFPOZS.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/courses/index": {
+      "id": "routes/courses/index",
+      "parentId": "root",
+      "path": "courses",
+      "index": true,
+      "module": "/build/routes/courses/index-XOM2WJFV.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/about": {
+      "id": "routes/demos/about",
+      "parentId": "root",
+      "path": "demos/about",
+      "module": "/build/routes/demos/about-4LGPZM3S.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/about/index": {
+      "id": "routes/demos/about/index",
+      "parentId": "routes/demos/about",
+      "index": true,
+      "module": "/build/routes/demos/about/index-6UNFXYFC.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/about/whoa": {
+      "id": "routes/demos/about/whoa",
+      "parentId": "routes/demos/about",
+      "path": "whoa",
+      "module": "/build/routes/demos/about/whoa-2CWLRB4Z.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/actions": {
+      "id": "routes/demos/actions",
+      "parentId": "root",
+      "path": "demos/actions",
+      "module": "/build/routes/demos/actions-U5W533GS.js",
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/correct": {
+      "id": "routes/demos/correct",
+      "parentId": "root",
+      "path": "demos/correct",
+      "module": "/build/routes/demos/correct-FNQKPPDQ.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/params": {
+      "id": "routes/demos/params",
+      "parentId": "root",
+      "path": "demos/params",
+      "module": "/build/routes/demos/params-M4XOUB2D.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/demos/params/$id": {
+      "id": "routes/demos/params/$id",
+      "parentId": "routes/demos/params",
+      "path": ":id",
+      "module": "/build/routes/demos/params/$id-YLGK762J.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": true
+    },
+    "routes/demos/params/index": {
+      "id": "routes/demos/params/index",
+      "parentId": "routes/demos/params",
+      "index": true,
+      "module": "/build/routes/demos/params/index-7JY6ANUL.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/index": {
+      "id": "routes/index",
+      "parentId": "root",
+      "index": true,
+      "module": "/build/routes/index-X77FXNAM.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    }
+  },
+  "url": "/build/manifest-4DEAF05E.js"
+}
