@@ -42,7 +42,7 @@ interface IjsonldWebpage {
   title: string
   domain: string
   publishTime?: string
-  modifiedTime: string
+  modifiedTime?: string
   description: string
 }
 
@@ -78,4 +78,20 @@ interface IMetaData {
   social: ISocialSettings
   webmaster?: any
   seo?: any
+}
+
+interface IjsonldPersonProps {
+  domain: string
+  description: string
+  avatarUrl: string
+}
+
+interface IBreadcrumb {
+  position: number,
+  name: string,
+  item: string,
+}
+interface IBreadcrumbList {
+  domain: string
+  breadcrumbList: IBreadcrumb[]
 }

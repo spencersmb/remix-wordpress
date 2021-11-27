@@ -194,14 +194,14 @@ export const metadata: any = {
   },
 }
 
-export function getWPMetadata() {
+export function getWPMetadata(domain: string) {
 
   const { generalSettings } = metadata;
 
   let { title, description, language } = generalSettings;
 
   const settings: any = {
-    domain: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://every-tuesday.com/',
+    domain: domain,
     title,
     siteTitle: title,
     description,
@@ -273,7 +273,7 @@ export function getWPMetadata() {
 export const defaultSeoImages = {
   generic: {
     url: '',
-    alt: '',
+    altText: '',
     width: 123,
     height: 123
   }

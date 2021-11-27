@@ -8,6 +8,7 @@ processes = []
 
 [env]
   PORT = "8080"
+  APP_ROOT_URL = "https://twilight-paper-1622.fly.dev"
 
 [experimental]
   allowed_public_ports = []

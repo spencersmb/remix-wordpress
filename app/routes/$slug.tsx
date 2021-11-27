@@ -1,9 +1,12 @@
-import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, redirect, useCatch, useLoaderData } from 'remix'
+import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import { fetchAPI } from '../lib/api/fetch'
 import useSite from '../hooks/useSite'
-import { defaultSeoImages } from '../lib/wp/site'
+import { defaultSeoImages, getWPMetadata } from '../lib/wp/site'
 import { flattenPost } from '../lib/utils/posts'
+import { Document, Layout } from '../root'
 import { isEmpty } from 'lodash'
+import { RouteData } from '@remix-run/server-runtime/routeData'
+import { getHtmlMetadataTags } from '../lib/utils/seo'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({loaderHeaders}) => {
@@ -18,6 +21,7 @@ export let loader: LoaderFunction = async ({ params }) => {
       slug: `${params.slug}`
     }
   })
+  // console.log('wpAPI.postBy', wpAPI.postBy)
 
   if(wpAPI.postBy === null){
     throw new Response("Not Found", { status: 404 });
@@ -31,68 +35,46 @@ export let loader: LoaderFunction = async ({ params }) => {
 interface IMetaType {
   data: {
     post: IPost
-  } | undefined
+  }
+  location:{
+    pathname: string
+  }
+  parentsData: RouteData
+  | undefined
 }
-// Props are coming from the loader function
-export let meta: MetaFunction = ({data}: IMetaType): any => {
 
-  if(!data){
+// https://remix.run/api/conventions#meta
+export let meta: MetaFunction = (metaData): any => {
+  const {data, location, parentsData} = metaData
+  console.log('metadata', metaData)
+  if(!data || !parentsData || !location){
     return {
       title: '404',
-      description: 'error'
+      description: 'error: No metaData or Parents Data'
     }
   }
 
-  const post = data?.post
-  const {metadata} = useSite()
-
-  // EXAMPLE OF ARRAYS THAT NEED TO BE CONVERTED
-  // article: {
-  //   publishedTime: post.seo.opengraphPublishedTime,
-  //     modifiedTime: post.seo.opengraphModifiedTime,
-  //     authors: [
-  //     `${metadata.domain}${post.author.uri}`
-  //   ],
-  //     tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.name) : [],
-
-  return {
-    title: post.seo.title,
-    description: post.seo.metaDesc,
-    canonical: `${metadata.domain}${post.slug}`,
-    'twitter:card': `@${metadata.social.twitter.username}`,
-    'twitter:site': `@${metadata.social.twitter.username}`,
-    'twitter:creator': 'summary_large_image',
-    'og:title': post.seo.title,
-    'og:type': 'article',
-    'og:description': post.seo.metaDesc,
-
-    // convert to function that takes array but returns single og:image tag with value and alt text
-    'og:image:alt': post.featuredImage?.altText || defaultSeoImages.generic.alt,
-    'og:image:url': post.featuredImage?.sourceUrl || defaultSeoImages.generic.url,
-    'og:image:width': '1920',
-    'og:image:height': '1080',
-
-    // convert this to function as well
-    'og:article:publishedTime': post.seo.opengraphPublishedTime,
-    'og:article:modifiedTime': post.seo.opengraphPublishedTime,
-    'og:article:author': `${metadata.domain}${post.author.uri}`,
-
-    //convert to function TAGS
-
-  };
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page: null,
+    location
+  })
 };
 
 export default function PostSlug() {
   let {post} = useLoaderData();
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{__html: post.content}} />
-      <Link to='/'>
-        Home
-      </Link>
-    </div>
+      <Layout>
+        <div>
+          <h1>{post.title}</h1>
+          <div dangerouslySetInnerHTML={{__html: post.content}} />
+          <Link to='/'>
+            Home
+          </Link>
+        </div>
+      </Layout>
   );
 }
 

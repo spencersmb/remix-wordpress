@@ -5,9 +5,10 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "buildPlugins": "node plugins/plugin-compiler.js",
+    "dev": "npm run buildPlugins && node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
-    "deploy": "flyctl deploy",
+    "deploy": "npm run build flyctl deploy",
     "start": "remix-serve build"
   },
   "dependencies": {
@@ -16,8 +17,11 @@
     "@remix-run/react": "^1.0.5",
     "@remix-run/serve": "^1.0.5",
     "deepmerge": "^4.2.2",
+    "dotenv": "^10.0.0",
     "graphql": "^16.0.1",
     "lodash": "^4.17.21",
+    "node-fetch": "^1.7.3",
+    "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -27,8 +31,10 @@
   "devDependencies": {
     "@remix-run/dev": "^1.0.5",
     "@types/lodash": "^4.14.177",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "he": "^1.2.0",
     "typescript": "^4.1.2"
   },
   "engines": {

@@ -16,12 +16,23 @@ import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global.css";
 import darkStylesUrl from "~/styles/dark.css";
 import useSite, { SiteContext } from "./hooks/useSite";
-import { getWPMenu, getWPMetadata } from './lib/wp/site'
+import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
 import { Provider } from 'react-redux'
 import { RouteData } from '@remix-run/react/routeData'
-import { isEmpty } from 'lodash'
+import {
+  jsonBreadcrumbsList,
+  jsonldBlog,
+  jsonldImageObject,
+  jsonldPerson,
+  jsonldWebpage,
+  jsonLdWebsite
+} from './lib/utils/jsonLd'
+import { ReactNode } from 'react'
+import NProgress from "nprogress";
+import nProgressStyles from "nprogress/nprogress.css";
+import { useTransition } from "remix";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -39,15 +50,19 @@ export let links: LinksFunction = () => {
       href: darkStylesUrl,
       media: "(prefers-color-scheme: dark)"
     },
-    { rel: "stylesheet", href: deleteMeRemixStyles }
+    { rel: "stylesheet", href: deleteMeRemixStyles },
+    { rel: "stylesheet", href: nProgressStyles }
   ];
 };
 
 export let loader: any = async () => {
-
+  let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
   return {
     ...getWPMenu(),
-    metadata: getWPMetadata()
+    metadata,
+    ENV: {
+      APP_ROOT_URL: process.env.APP_ROOT_URL,
+    }
   };
 };
 
@@ -59,53 +74,140 @@ export let loader: any = async () => {
 export default function App() {
   let {menus, metadata} = useLoaderData<any>();
 
+  // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
+  let transition = useTransition();
+  React.useEffect(() => {
+    // when the state is idle then we can to complete the progress bar
+    if (transition.state === "idle") NProgress.done();
+      // and when it's something else it means it's either submitting a form or
+    // waiting for the loaders of the next location so we start it
+    else NProgress.start();
+  }, [transition.state]);
+
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
     <SiteContext.Provider value={{
       menu: menus,
       metadata,
     }}>
       <Document>
-        <Layout>
-          <Outlet />
-        </Layout>
+        <Outlet />
       </Document>
     </SiteContext.Provider>
-    </Provider>
+    // </Provider>
   );
 }
-interface IMatches {
-  matches:{
-    pathname: string;
-    params: import("react-router").Params<string>;
-    data: RouteData;
-    handle: any;
-  }
-}
-const JsonLd = () => {
-  let matches = useMatches();
-  console.log('matches', matches)
-  let selected = matches.find( match => match.params.slug)
-  let isPost = isEmpty(selected)
-  let hasData = selected?.data
-  console.log('hasData empty', isEmpty(hasData))
-  console.log('isPost empty', isEmpty(isPost))
 
-  return null
+interface ISelectedMatch {
+  pathname: string;
+  params: import("react-router").Params<string>;
+  data: RouteData;
+  handle: any;
 }
+
+const JsonLd = () => {
+  let {metadata} = useLoaderData<any>();
+  let matches = useMatches();
+  let location = useLocation();
+  let selectedMatch: undefined | ISelectedMatch = matches.find( match => match.data?.post || match.data?.page)
+  const post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
+  const page: any = selectedMatch?.data?.page
+  const breadcrumbList = [
+    {
+      position: 1,
+      name: "Home",
+      item: metadata.domain,
+    }
+  ]
+  let image = defaultSeoImages.generic
+  let jsonWebpageSettings: IjsonldWebpage = {
+    title: metadata.title,
+    domain: metadata.domain,
+    description: metadata.description,
+    pageUrl: `${metadata.domain}${location.pathname}`,
+  }
+
+  if(post){
+    image = {
+      url: post.featuredImage?.sourceUrl  || '', // need default image
+      altText: post.featuredImage?.altText || '',
+      width: 1920,
+      height:928
+    }
+    jsonWebpageSettings = {
+      ...jsonWebpageSettings,
+      title: post.seo.title,
+      publishTime: post.seo.opengraphPublishedTime,
+      modifiedTime: post.seo.opengraphModifiedTime,
+      description: post.seo.metaDesc,
+    }
+    breadcrumbList.push(
+      {
+        position: 2,
+        name: `${post.title}`,
+        item: `${metadata.domain}${location.pathname}`
+      }
+    )
+  }
+
+  if(page){}
+
+
+  return (
+    <>
+      {/*Basic JsonLd Website*/}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonLdWebsite(metadata)}} />
+
+      {/*Basic JsonLd Image*/}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldImageObject({
+          pageUrl: location.pathname,
+          image
+        })}} />
+
+      {/*Basic JsonLd Webpage*/}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldWebpage(jsonWebpageSettings)}} />
+
+      {/*Basic JsonLd Person*/}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldPerson(metadata)}} />
+
+      {/*Basic JsonLd Breadcrumbs*/}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonBreadcrumbsList({
+          domain: metadata.domain,
+          breadcrumbList
+      })}} />
+
+      {/*JsonLd Blog*/}
+      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldBlog({
+          url: `${metadata.domain}${location.pathname}`,
+          images: [
+            `${post.featuredImage?.sourceUrl}` // need default image
+          ],
+          datePublished: post.seo.opengraphPublishedTime,
+          dateModified: post.seo.opengraphModifiedTime,
+          author: post.author.name,
+          description: post.seo.metaDesc,
+          title: post.seo.title,
+        })
+      }} />}
+
+    </>
+  )
+}
+
 export let meta: MetaFunction = () => {
   return{
     title:`Home - Every Tuesday`
   }
 }
-function Document({
+export function Document({
                     children,
                     title
                   }: {
   children: React.ReactNode;
   title?: string;
 }) {
-
+  let {ENV} = useLoaderData<any>();
+  console.log('ENV', ENV)
 
   return (
     <html lang="en">
@@ -129,16 +231,43 @@ function Document({
     <RouteChangeAnnouncement />
     <ScrollRestoration />
     <Scripts />
+    {ENV && <script
+      dangerouslySetInnerHTML={{
+        __html: `window.ENV = ${JSON.stringify(
+          ENV
+        )}`
+      }}
+    />}
     {process.env.NODE_ENV === "development" && <LiveReload />}
     </body>
     </html>
   );
 }
 
-function Layout({ children }: React.PropsWithChildren<{}>) {
+
+
+export const PrimaryNav = () => {
   const {menu, metadata} = useSite()
   const primaryMenu = getPrimaryMenu(menu)
-
+  return (
+    <nav aria-label="Main navigation" className="remix-app__header-nav">
+      <ul>
+        {primaryMenu.map((menuItem) => {
+          return (
+            <li key={menuItem.id}>
+              <Link to={menuItem.path}>{menuItem.label}</Link>
+            </li>
+          )
+          // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
+        })}
+      </ul>
+    </nav>
+  )
+}
+interface ILayoutProps {
+  alternateNav?: ReactNode
+}
+export function Layout({ children, alternateNav }: React.PropsWithChildren<{}> & ILayoutProps) {
   return (
     <div className="remix-app">
       <header className="remix-app__header">
@@ -146,18 +275,7 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
           <Link to="/" title="Remix" className="remix-app__header-home-link">
             <RemixLogo />
           </Link>
-          <nav aria-label="Main navigation" className="remix-app__header-nav">
-            <ul>
-              {primaryMenu.map((menuItem) => {
-                return (
-                  <li key={menuItem.id}>
-                    <Link to={menuItem.path}>{menuItem.label}</Link>
-                  </li>
-                )
-                // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
-              })}
-            </ul>
-          </nav>
+          {alternateNav ? alternateNav : <PrimaryNav />}
         </div>
       </header>
       <div className="remix-app__main">
