@@ -62,6 +62,7 @@ export let loader: any = async () => {
     metadata,
     ENV: {
       APP_ROOT_URL: process.env.APP_ROOT_URL,
+      PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
     }
   };
 };
@@ -206,8 +207,8 @@ export function Document({
   children: React.ReactNode;
   title?: string;
 }) {
-  let {ENV} = useLoaderData<any>();
-  console.log('ENV', ENV)
+  let data = useLoaderData<any>();
+  console.log('ENV', data)
 
   return (
     <html lang="en">
@@ -231,10 +232,10 @@ export function Document({
     <RouteChangeAnnouncement />
     <ScrollRestoration />
     <Scripts />
-    {ENV && <script
+    {data.ENV && <script
       dangerouslySetInnerHTML={{
         __html: `window.ENV = ${JSON.stringify(
-          ENV
+          data.ENV
         )}`
       }}
     />}
@@ -247,7 +248,7 @@ export function Document({
 
 
 export const PrimaryNav = () => {
-  const {menu, metadata} = useSite()
+  const {menu} = useSite()
   const primaryMenu = getPrimaryMenu(menu)
   return (
     <nav aria-label="Main navigation" className="remix-app__header-nav">

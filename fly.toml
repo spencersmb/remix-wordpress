@@ -9,6 +9,7 @@ processes = []
 [env]
   PORT = "8080"
   APP_ROOT_URL = "https://twilight-paper-1622.fly.dev"
+  PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
 
 [experimental]
   allowed_public_ports = []

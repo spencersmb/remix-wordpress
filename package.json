@@ -6,10 +6,10 @@
   "scripts": {
     "build": "remix build",
     "buildPlugins": "node plugins/plugin-compiler.js",
-    "dev": "npm run buildPlugins && node -r dotenv/config node_modules/.bin/remix dev",
+    "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
     "deploy": "npm run build flyctl deploy",
-    "start": "remix-serve build"
+    "start": "node -r dotenv/config node_modules/.bin/remix-serve build"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
@@ -26,6 +26,7 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "remix": "^1.0.5",
+    "tailwindcss": "^2.2.19",
     "xstate": "^4.26.1"
   },
   "devDependencies": {

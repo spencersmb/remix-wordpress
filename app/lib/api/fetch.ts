@@ -1,5 +1,11 @@
-const api_url = 'https://etheadless.graphcdn.app/'
-// const api_url = 'https://etheadless.local/graphql/'
+// const api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL
+const api_url = (typeof window === "undefined" ? process.env : window.ENV).PUBLIC_WP_API_URL
+// const api_url = 'https://etheadless.graphcdn.app/'
+// if(typeof window !== "undefined"){
+//   console.log(' window',  window)
+//   console.log('api_url_test', api_url_test)
+// }
+
 
 export async function fetchAPI(query: any, { variables }: any = {}) {
   const https = require("https");
@@ -9,7 +15,7 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
-    agent,
+    agent: process.env.NODE_ENV === 'development' ? agent : null,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -203,7 +209,7 @@ export async function getPreviewPostPageServer({postType, postId, cookie}: {post
     credentials: 'include',
     mode: 'cors',
     // @ts-ignore
-    agent,
+    agent: process.env.NODE_ENV === 'development' ? agent : null,
     headers: {
       'Content-Type': 'application/json',
       'Cookie': cookie

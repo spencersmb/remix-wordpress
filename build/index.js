@@ -68,7 +68,7 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
   });
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/root.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var root_exports = {};
 __export(root_exports, {
   CatchBoundary: () => CatchBoundary,
@@ -530,13 +530,13 @@ function jsonBreadcrumbsList({ breadcrumbList }) {
   }`;
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/root.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var import_nprogress = __toModule(require("nprogress"));
 
 // node_modules/nprogress/nprogress.css
 var nprogress_default = "/build/_assets/nprogress-JFUSETFZ.css";
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/root.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var import_remix4 = __toModule(require("remix"));
 var links = () => {
   return [
@@ -555,7 +555,8 @@ var loader = async () => {
   return __spreadProps(__spreadValues({}, getWPMenu()), {
     metadata: metadata2,
     ENV: {
-      APP_ROOT_URL: process.env.APP_ROOT_URL
+      APP_ROOT_URL: process.env.APP_ROOT_URL,
+      PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL
     }
   });
 };
@@ -668,8 +669,8 @@ function Document({
   children,
   title
 }) {
-  let { ENV } = (0, import_remix2.useLoaderData)();
-  console.log("ENV", ENV);
+  let data = (0, import_remix2.useLoaderData)();
+  console.log("ENV", data);
   return /* @__PURE__ */ React2.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React2.createElement("head", null, /* @__PURE__ */ React2.createElement("meta", {
@@ -692,14 +693,14 @@ function Document({
   }), /* @__PURE__ */ React2.createElement("meta", {
     name: "norton-safeweb-site-verification",
     content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"
-  }), /* @__PURE__ */ React2.createElement(import_remix2.Meta, null), /* @__PURE__ */ React2.createElement(import_remix2.Links, null), /* @__PURE__ */ React2.createElement(JsonLd, null)), /* @__PURE__ */ React2.createElement("body", null, children, /* @__PURE__ */ React2.createElement(RouteChangeAnnouncement, null), /* @__PURE__ */ React2.createElement(import_remix2.ScrollRestoration, null), /* @__PURE__ */ React2.createElement(import_remix2.Scripts, null), ENV && /* @__PURE__ */ React2.createElement("script", {
+  }), /* @__PURE__ */ React2.createElement(import_remix2.Meta, null), /* @__PURE__ */ React2.createElement(import_remix2.Links, null), /* @__PURE__ */ React2.createElement(JsonLd, null)), /* @__PURE__ */ React2.createElement("body", null, children, /* @__PURE__ */ React2.createElement(RouteChangeAnnouncement, null), /* @__PURE__ */ React2.createElement(import_remix2.ScrollRestoration, null), /* @__PURE__ */ React2.createElement(import_remix2.Scripts, null), data.ENV && /* @__PURE__ */ React2.createElement("script", {
     dangerouslySetInnerHTML: {
-      __html: `window.ENV = ${JSON.stringify(ENV)}`
+      __html: `window.ENV = ${JSON.stringify(data.ENV)}`
     }
   }), process.env.NODE_ENV === "development" && /* @__PURE__ */ React2.createElement(import_remix2.LiveReload, null)));
 }
 var PrimaryNav = () => {
-  const { menu, metadata: metadata2 } = useSite();
+  const { menu } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
   return /* @__PURE__ */ React2.createElement("nav", {
     "aria-label": "Main navigation",
@@ -820,7 +821,7 @@ var RouteChangeAnnouncement = React2.memo(() => {
   }, innerHtml);
 });
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/resource-library/members.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/members.tsx
 var members_exports = {};
 __export(members_exports, {
   default: () => members_default
@@ -830,7 +831,7 @@ var ResourceLibraryMembers = () => {
 };
 var members_default = ResourceLibraryMembers;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/resource-library/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/index.tsx
 var resource_library_exports = {};
 __export(resource_library_exports, {
   action: () => action,
@@ -933,8 +934,8 @@ function Document2({
   children,
   title
 }) {
-  let { ENV } = (0, import_remix5.useLoaderData)();
-  console.log("ENV", ENV);
+  let data = (0, import_remix5.useLoaderData)();
+  console.log("ENV", data);
   return /* @__PURE__ */ React3.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React3.createElement("head", null, /* @__PURE__ */ React3.createElement("meta", {
@@ -957,14 +958,14 @@ function Document2({
   }), /* @__PURE__ */ React3.createElement("meta", {
     name: "norton-safeweb-site-verification",
     content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"
-  }), /* @__PURE__ */ React3.createElement(import_remix5.Meta, null), /* @__PURE__ */ React3.createElement(import_remix5.Links, null), /* @__PURE__ */ React3.createElement(JsonLd2, null)), /* @__PURE__ */ React3.createElement("body", null, children, /* @__PURE__ */ React3.createElement(RouteChangeAnnouncement2, null), /* @__PURE__ */ React3.createElement(import_remix5.ScrollRestoration, null), /* @__PURE__ */ React3.createElement(import_remix5.Scripts, null), ENV && /* @__PURE__ */ React3.createElement("script", {
+  }), /* @__PURE__ */ React3.createElement(import_remix5.Meta, null), /* @__PURE__ */ React3.createElement(import_remix5.Links, null), /* @__PURE__ */ React3.createElement(JsonLd2, null)), /* @__PURE__ */ React3.createElement("body", null, children, /* @__PURE__ */ React3.createElement(RouteChangeAnnouncement2, null), /* @__PURE__ */ React3.createElement(import_remix5.ScrollRestoration, null), /* @__PURE__ */ React3.createElement(import_remix5.Scripts, null), data.ENV && /* @__PURE__ */ React3.createElement("script", {
     dangerouslySetInnerHTML: {
-      __html: `window.ENV = ${JSON.stringify(ENV)}`
+      __html: `window.ENV = ${JSON.stringify(data.ENV)}`
     }
   }), process.env.NODE_ENV === "development" && /* @__PURE__ */ React3.createElement(import_remix5.LiveReload, null)));
 }
 var PrimaryNav2 = () => {
-  const { menu, metadata: metadata2 } = useSite();
+  const { menu } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
   return /* @__PURE__ */ React3.createElement("nav", {
     "aria-label": "Main navigation",
@@ -1062,7 +1063,7 @@ var RouteChangeAnnouncement2 = React3.memo(() => {
   }, innerHtml);
 });
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/resource-library/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/index.tsx
 var loader2 = async ({ params }) => {
   const page = {
     title: "Resource Library",
@@ -1127,7 +1128,7 @@ var ResourceLibrarySignUp = () => {
 };
 var resource_library_default = ResourceLibrarySignUp;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/courses/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/courses/index.tsx
 var courses_exports = {};
 __export(courses_exports, {
   default: () => courses_default
@@ -1137,7 +1138,7 @@ var Courses = () => {
 };
 var courses_default = Courses;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/actions.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/actions.tsx
 var actions_exports = {};
 __export(actions_exports, {
   action: () => action2,
@@ -1186,7 +1187,7 @@ function ActionsDemo() {
   }, /* @__PURE__ */ React.createElement("code", null, "useActionData"))))));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/correct.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/correct.tsx
 var correct_exports = {};
 __export(correct_exports, {
   default: () => NiceWork
@@ -1195,7 +1196,7 @@ function NiceWork() {
   return /* @__PURE__ */ React.createElement("h1", null, "You got it right!");
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/params.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params.tsx
 var params_exports = {};
 __export(params_exports, {
   default: () => Boundaries,
@@ -1223,7 +1224,7 @@ function Boundaries() {
   }, "This one will throw an error")))));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/params/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/index.tsx
 var params_exports2 = {};
 __export(params_exports2, {
   default: () => Boundaries2
@@ -1234,7 +1235,7 @@ function Boundaries2() {
   }, "client errors"), ")"), /* @__PURE__ */ React.createElement("p", null, "Loaders and Actions can throw a ", /* @__PURE__ */ React.createElement("code", null, "Response"), " instead of an error and Remix will render the CatchBoundary instead of the component. This is great when loading data from a database isn't found. As soon as you know you can't render the component normally, throw a 404 response and send your app into the catch boundary. Just like error boundaries, catch boundaries bubble, too."));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/params/$id.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/$id.tsx
 var id_exports = {};
 __export(id_exports, {
   CatchBoundary: () => CatchBoundary2,
@@ -1284,7 +1285,7 @@ var meta4 = ({ data }) => {
   };
 };
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/about.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
 var about_exports = {};
 __export(about_exports, {
   default: () => Index,
@@ -1296,7 +1297,7 @@ var import_remix11 = __toModule(require("remix"));
 // app/styles/demos/about.css
 var about_default = "/build/_assets/about-GGM5BPB3.css";
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/about.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
 var meta5 = () => {
   return {
     title: "About Remix"
@@ -1315,7 +1316,7 @@ function Index() {
   }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix11.Outlet, null)));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/about/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/index.tsx
 var about_exports2 = {};
 __export(about_exports2, {
   default: () => AboutIndex
@@ -1327,7 +1328,7 @@ function AboutIndex() {
   }, "Check out one of them here."))));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/demos/about/whoa.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/whoa.tsx
 var whoa_exports = {};
 __export(whoa_exports, {
   default: () => AboutIndex2
@@ -1339,7 +1340,7 @@ function AboutIndex2() {
   }, "Go back to the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " index."))));
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/preview.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
 var preview_exports = {};
 __export(preview_exports, {
   default: () => preview_default,
@@ -1348,7 +1349,7 @@ __export(preview_exports, {
 var import_remix14 = __toModule(require("remix"));
 
 // app/lib/api/fetch.ts
-var api_url = "https://etheadless.graphcdn.app/";
+var api_url = (typeof window === "undefined" ? process.env : window.ENV).PUBLIC_WP_API_URL;
 async function fetchAPI(query3, { variables } = {}) {
   const https = require("https");
   const agent = new https.Agent({
@@ -1356,7 +1357,7 @@ async function fetchAPI(query3, { variables } = {}) {
   });
   const res = await fetch(api_url, {
     method: "POST",
-    agent,
+    agent: process.env.NODE_ENV === "development" ? agent : null,
     headers: {
       "Content-Type": "application/json"
     },
@@ -1539,7 +1540,7 @@ async function getPreviewPostPageServer({ postType, postId, cookie }) {
     method: "POST",
     credentials: "include",
     mode: "cors",
-    agent,
+    agent: process.env.NODE_ENV === "development" ? agent : null,
     headers: {
       "Content-Type": "application/json",
       "Cookie": cookie
@@ -1576,7 +1577,7 @@ async function getViewerClientSide() {
   });
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/preview.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
 var loader4 = async ({ request, params, context }) => {
   const cookies = request.headers.get("cookie");
   if (!cookies) {
@@ -1602,7 +1603,7 @@ var Preview = () => {
 };
 var preview_default = Preview;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/$slug.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/$slug.tsx
 var slug_exports = {};
 __export(slug_exports, {
   default: () => PostSlug,
@@ -1685,7 +1686,7 @@ function getHtmlMetadataTags({ metadata: metadata2, post, page, location }) {
   return __spreadValues({}, metadataTags);
 }
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/$slug.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/$slug.tsx
 var headers = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
@@ -1791,7 +1792,7 @@ query postBySlug($slug: String!) {
   }
 `;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/index.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/index.tsx
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
@@ -1946,7 +1947,7 @@ var query2 = `
     }
 `;
 
-// route-module:/Users/spencerbigum/Documents/github/etwp-remix/app/routes/login.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/login.tsx
 var login_exports = {};
 __export(login_exports, {
   action: () => action3,
