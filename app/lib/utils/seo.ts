@@ -7,27 +7,61 @@ interface IGetMetaTagsFunction{
   page: any
   location: Location
 }
+
+interface IOgImageType{
+  width: string
+  height: string
+  url: string
+  altText: string
+}
+
+interface IOgArticle {
+  publishedTime: string
+  modifiedTime: string
+  author: string
+  tags: {name: string}[]
+}
+function createOgImages(image: IOgImageType) {
+  return {
+    'og:image:alt': image.altText,
+    'og:image:url': image.url,
+    'og:image:width': image.width,
+    'og:image:height': image.height
+  }
+}
+function createOgArticle(article: IOgArticle){
+  return {
+    'og:article:publishedTime': article.publishedTime,
+    'og:article:modifiedTime': article.modifiedTime,
+    'og:article:author': article.author,
+    'og:article:tags': article.tags.map(tag => tag.name).join(', '),
+  }
+}
 export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTagsFunction){
 
-  // EXAMPLE OF ARRAYS THAT NEED TO BE CONVERTED
-  // article: {
-  //   publishedTime: post.seo.opengraphPublishedTime,
-  //     modifiedTime: post.seo.opengraphModifiedTime,
-  //     authors: [
-  //     `${metadata.domain}${post.author.uri}`
-  //   ],
-  //     tags: Array.isArray(post.tags) ? post.tags.map(tag => tag.name) : [],
+  let defaultImage = {
+    altText: defaultSeoImages.generic.altText,
+    url: defaultSeoImages.generic.url,
+    height: '1920',
+    width: '1080'
+  }
   const url = `${metadata.domain}${location.pathname}`
   let metadataTags: any = {
+    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     title: metadata.title,
     description: metadata.description,
     canonical: url,
+    'og:locale': 'en_US',
+    'og:title': metadata.title,
+    'og:site_name': metadata.siteTitle,
+    'og:type': 'website',
+    'og:description': metadata.description,
+    ...createOgImages(defaultImage),
     'twitter:card': `@${metadata.social.twitter.username}`,
     'twitter:site': `@${metadata.social.twitter.username}`,
     'twitter:creator': 'summary_large_image',
-    'og:title': metadata.title,
-    'og:type': 'article',
-    'og:description': metadata.description,
+    'twitter:label1': `Est. reading time`,
+    'twitter:data1': `1 minute`,
   }
 
   if(post){
@@ -36,27 +70,37 @@ export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTa
       title: post.seo.title,
       description: post.seo.metaDesc,
       canonical: url,
-      'twitter:card': `@${metadata.social.twitter.username}`,
-      'twitter:site': `@${metadata.social.twitter.username}`,
-      'twitter:creator': 'summary_large_image',
       'og:title': post.seo.title,
       'og:type': 'article',
       'og:description': post.seo.metaDesc,
+      ...createOgArticle({
+        publishedTime:post.seo.opengraphPublishedTime,
+        modifiedTime: post.seo.opengraphPublishedTime,
+        author: `${metadata.domain}${post.author.uri}`,
+        tags: post.tags
+      }),
+      ...createOgImages({
+        altText: post.featuredImage?.altText || defaultSeoImages.generic.altText,
+        url: post.featuredImage?.altText || defaultSeoImages.generic.altText,
+        width:'1920',
+        height: '1080'
+      }),
 
-      // convert to function that takes array but returns single og:image tag with value and alt text
-      'og:image:alt': post.featuredImage?.altText || defaultSeoImages.generic.altText,
-      'og:image:url': post.featuredImage?.sourceUrl || defaultSeoImages.generic.url,
-      'og:image:width': '1920',
-      'og:image:height': '1080',
-
-      // convert this to function as well
-      'og:article:publishedTime': post.seo.opengraphPublishedTime,
-      'og:article:modifiedTime': post.seo.opengraphPublishedTime,
-      'og:article:author': `${metadata.domain}${post.author.uri}`,
+      'twitter:card': `@${metadata.social.twitter.username}`,
+      'twitter:site': `@${metadata.social.twitter.username}`,
+      'twitter:creator': 'summary_large_image',
+      'twitter:label1': `Written by`,
+      'twitter:data1': `Teela`,
+      'twitter:label2': `Est. reading time`,
+      'twitter:data2': `1 minute`,
     }
   }
 
-  if(page){}
+  if(page){
+    metadataTags = {
+      ...metadataTags
+    }
+  }
 
   return {
     ...metadataTags

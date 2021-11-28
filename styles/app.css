@@ -1,0 +1,41 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root{
+    --slateGreen: #486e65;
+}
+
+@font-face {
+    font-family: "Sentinel Book";
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/sentinel/Sentinel-Book.woff") format("woff");
+    src: url("/fonts/sentinel/Sentinel-Book.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Sentinel SemiBold";
+    font-display: swap;
+    font-style: normal;
+    font-weight: 600;
+    src: url("/fonts/sentinel/Sentinel-Semibold.woff") format("woff");
+    src: url("/fonts/sentinel/Sentinel-Semibold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Sentinel SemiBoldItal";
+    font-display: swap;
+    font-style: italic;
+    font-weight: 600;
+    src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff") format("woff");
+    src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
+}
+
+@layer components {
+    .spencer{
+        @apply relative flex text-center text-red-300
+        hover:text-blue-500
+    }
+}

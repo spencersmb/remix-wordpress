@@ -46,11 +46,10 @@ interface IMetaType {
 // https://remix.run/api/conventions#meta
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
-  console.log('metadata', metaData)
   if(!data || !parentsData || !location){
     return {
       title: '404',
-      description: 'error: No metaData or Parents Data'
+      description: 'error: No metaData or Parents Data',
     }
   }
 

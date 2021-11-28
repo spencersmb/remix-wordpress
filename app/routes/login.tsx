@@ -1,9 +1,9 @@
-import { ActionFunction, createCookie, Form, json, LoaderFunction, redirect, useActionData } from 'remix'
+import { ActionFunction, createCookie, Form, json, LoaderFunction, redirect, useActionData, useLoaderData } from 'remix'
 import { Document, Layout } from '../root'
 import * as React from 'react'
 import {getViewerClientSide, logUserInClient, logUserInServer } from '../lib/api/fetch'
 
-
+// redo TYPES HERE for PROMiSE
 export let action: ActionFunction = async ({request}): Promise<any> => {
   let form = await request.formData();
   let password = form.get('password')
@@ -23,37 +23,58 @@ export let action: ActionFunction = async ({request}): Promise<any> => {
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
-  const response = await logUserInServer({username, password})
-  let testCookie = createCookie("cookie-name", {
-    // all of these are optional defaults that can be overridden at runtime
-    domain: "localhost",
-    // expires: new Date(Date.now() + 60),
-    httpOnly: true,
-    maxAge: 60 * 60 * 24 * 7,
-    path: "/",
-    sameSite: "lax",
-    secrets: ["s3cret1"],
-    secure: true
-  });
-  const wpCookies = response.headers.get('Set-Cookie') // Has 3 cookies in it
-  const parsed = wpCookies?.split(',')
-  const customHeaders = new Headers()
-  parsed?.forEach((item, index) => {
-    if(item.length === 0){
-      return
+  try{
+
+    const response = await logUserInServer({username, password})
+    let testCookie = createCookie("cookie-name", {
+      // all of these are optional defaults that can be overridden at runtime
+      domain: "localhost",
+      // expires: new Date(Date.now() + 60),
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+      sameSite: "lax",
+      secrets: ["s3cret1"],
+      secure: true
+    });
+    const wpCookies = response.headers.get('Set-Cookie') // Has 3 cookies in it
+    const parsed = wpCookies?.split(',')
+    const customHeaders = new Headers()
+    parsed?.forEach((item, index) => {
+      if(item.length === 0){
+        return
+      }
+      customHeaders.append('Set-Cookie', item.trim() )
+    })
+
+    customHeaders.append('Set-Cookie', await testCookie.serialize(''))
+    const {id, previewType} = previewUrlParams(request)
+    const previewUrl = `/preview?`
+
+    return redirect(previewUrl,{
+      headers:customHeaders
+    })
+  }catch (e){
+    return {
+      error: e
     }
-    customHeaders.append('Set-Cookie', item.trim() )
-  })
-
-  customHeaders.append('Set-Cookie', await testCookie.serialize(''))
-
-  return redirect('/preview',{
-    headers:customHeaders
-  })
+  }
 }
-
+export function unstable_shouldReload({
+                                        params,
+                                        submission
+                                      }) {
+  return (
+    submission &&
+    // submission.action === `/login/${params.projectId}`
+    submission.action === `/login/test`
+  );
+}
 const Login = () => {
   let actionData = useActionData<any | undefined>();
+  let data = useLoaderData()
+  console.log('data', data)
+
   console.log('actionData', actionData)
 
   async function sendLogin(){

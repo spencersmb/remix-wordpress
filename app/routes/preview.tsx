@@ -2,28 +2,50 @@ import { LoaderFunction, redirect, useLoaderData } from 'remix'
 import { getPreviewPostPageServer, getViewerServer } from '../lib/api/fetch'
 
 export let loader: LoaderFunction = async({request, params,context}) => {
-  // check for cookies
+  console.log('params', request)
   const cookies = request.headers.get('cookie')
-  if(!cookies){
-    return redirect('/login')
+  const {id, previewType, url} = previewUrlParams(request)
+
+  let loginUrl = `/login${url.search}`
+
+  // check for cookies
+  if(!cookies || !previewType || !id){
+    return redirect(loginUrl)
   }
 
-  console.log('cookies', cookies)
+  // check for logged in user
+  // try to get user info or post info and if request is rejected - redirect to login
+  // else pass data through
+  try{
+    const res = await getPreviewPostPageServer({previewType, id, cookies})
+    const json = await res.json()
+    const postPageData = json.data[previewType]
+    console.log('postPageData', postPageData)
 
+    if(postPageData === null){
+      return redirect(loginUrl)
+    }
 
-  const res = await getViewerServer(cookies)
-  const resPost = await getPreviewPostPageServer({
-    postType: 'post',
-    postId: '8678',
-    cookie: cookies
-  })
+    return {
+      cookies,
+      // user: await res.json(),
+      [previewType]: postPageData
+    }
 
-
-  return {
-    cookies,
-    user: await res.json(),
-    data: await resPost.json()
+  }catch (e){
+    console.log('e', e)
+    return {
+      data: 'error'
+    }
   }
+
+
+
+  // return {
+  //   cookies,
+  //   // user: await res.json(),
+  //   data: await resPost.json()
+  // }
 }
 
 const Preview = () => {

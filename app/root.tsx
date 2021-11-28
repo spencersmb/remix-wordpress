@@ -33,7 +33,7 @@ import { ReactNode } from 'react'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import { useTransition } from "remix";
-
+import styles from "./styles/app.css";
 /**
  * The `links` export is a function that returns an array of objects that map to
  * the attributes for an HTML `<link>` element. These will load `<link>` tags on
@@ -44,6 +44,7 @@ import { useTransition } from "remix";
  */
 export let links: LinksFunction = () => {
   return [
+    { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: globalStylesUrl },
     {
       rel: "stylesheet",
@@ -51,12 +52,13 @@ export let links: LinksFunction = () => {
       media: "(prefers-color-scheme: dark)"
     },
     { rel: "stylesheet", href: deleteMeRemixStyles },
-    { rel: "stylesheet", href: nProgressStyles }
+    { rel: "stylesheet", href: nProgressStyles },
   ];
 };
 
 export let loader: any = async () => {
   let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
+  // let metadata = getWPMetadata('http://localhost:3000')
   return {
     ...getWPMenu(),
     metadata,
@@ -105,7 +107,6 @@ interface ISelectedMatch {
   data: RouteData;
   handle: any;
 }
-
 const JsonLd = () => {
   let {metadata} = useLoaderData<any>();
   let matches = useMatches();
@@ -208,7 +209,7 @@ export function Document({
   title?: string;
 }) {
   let data = useLoaderData<any>();
-  console.log('ENV', data)
+  // console.log('ENV', data)
 
   return (
     <html lang="en">
@@ -217,12 +218,11 @@ export function Document({
       <meta name="viewport" content="width=device-width,initial-scale=1" />
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
       <meta name="application-name" content="Every-Tuesday"/>
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
       <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny"/>
       <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"/>
       {/*<title>{`Home - ${metadata.title}`}</title>*/}
-      {/*<link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff" as="font" type="font/woff2" crossOrigin="anonymous" />*/}
-      {/*<link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />*/}
+      <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <Meta />
       <Links />
       <JsonLd />
@@ -236,6 +236,11 @@ export function Document({
       dangerouslySetInnerHTML={{
         __html: `window.ENV = ${JSON.stringify(
           data.ENV
+          // {
+          //   PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
+          //   APP_ROOT_URL: 'http://localhost:3000'
+          // }
+          
         )}`
       }}
     />}

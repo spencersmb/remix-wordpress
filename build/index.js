@@ -88,7 +88,7 @@ var import_remix2 = __toModule(require("remix"));
 var remix_default = "/build/_assets/remix-5PPS2YMF.css";
 
 // app/styles/global.css
-var global_default = "/build/_assets/global-AKFP5T7A.css";
+var global_default = "/build/_assets/global-HU4DLT4P.css";
 
 // app/styles/dark.css
 var dark_default = "/build/_assets/dark-APYDFYJA.css";
@@ -538,8 +538,14 @@ var nprogress_default = "/build/_assets/nprogress-JFUSETFZ.css";
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var import_remix4 = __toModule(require("remix"));
+
+// app/styles/app.css
+var app_default = "/build/_assets/app-BZRNSVAO.css";
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var links = () => {
   return [
+    { rel: "stylesheet", href: app_default },
     { rel: "stylesheet", href: global_default },
     {
       rel: "stylesheet",
@@ -670,7 +676,6 @@ function Document({
   title
 }) {
   let data = (0, import_remix2.useLoaderData)();
-  console.log("ENV", data);
   return /* @__PURE__ */ React2.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React2.createElement("head", null, /* @__PURE__ */ React2.createElement("meta", {
@@ -685,14 +690,23 @@ function Document({
     name: "application-name",
     content: "Every-Tuesday"
   }), /* @__PURE__ */ React2.createElement("meta", {
-    name: "viewport",
-    content: "width=device-width,initial-scale=1"
-  }), /* @__PURE__ */ React2.createElement("meta", {
     name: "facebook-domain-verification",
     content: "49a7ouvzn8x5uhb6gdmg2km5pnbfny"
   }), /* @__PURE__ */ React2.createElement("meta", {
     name: "norton-safeweb-site-verification",
     content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"
+  }), /* @__PURE__ */ React2.createElement("link", {
+    rel: "preload",
+    href: "/fonts/sentinel/Sentinel-SemiboldItal.woff",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous"
+  }), /* @__PURE__ */ React2.createElement("link", {
+    rel: "preload",
+    href: "/fonts/sentinel/Sentinel-SemiboldItal.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous"
   }), /* @__PURE__ */ React2.createElement(import_remix2.Meta, null), /* @__PURE__ */ React2.createElement(import_remix2.Links, null), /* @__PURE__ */ React2.createElement(JsonLd, null)), /* @__PURE__ */ React2.createElement("body", null, children, /* @__PURE__ */ React2.createElement(RouteChangeAnnouncement, null), /* @__PURE__ */ React2.createElement(import_remix2.ScrollRestoration, null), /* @__PURE__ */ React2.createElement(import_remix2.Scripts, null), data.ENV && /* @__PURE__ */ React2.createElement("script", {
     dangerouslySetInnerHTML: {
       __html: `window.ENV = ${JSON.stringify(data.ENV)}`
@@ -846,124 +860,6 @@ var React3 = __toModule(require("react"));
 var import_remix5 = __toModule(require("remix"));
 var import_nprogress3 = __toModule(require("nprogress"));
 var import_remix6 = __toModule(require("remix"));
-var JsonLd2 = () => {
-  var _a, _b, _c, _d, _e;
-  let { metadata: metadata2 } = (0, import_remix5.useLoaderData)();
-  let matches = (0, import_remix5.useMatches)();
-  let location = (0, import_remix5.useLocation)();
-  let selectedMatch = matches.find((match) => {
-    var _a2, _b2;
-    return ((_a2 = match.data) == null ? void 0 : _a2.post) || ((_b2 = match.data) == null ? void 0 : _b2.page);
-  });
-  const post = selectedMatch ? (_a = selectedMatch == null ? void 0 : selectedMatch.data) == null ? void 0 : _a.post : null;
-  const page = (_b = selectedMatch == null ? void 0 : selectedMatch.data) == null ? void 0 : _b.page;
-  const breadcrumbList = [
-    {
-      position: 1,
-      name: "Home",
-      item: metadata2.domain
-    }
-  ];
-  let image = defaultSeoImages.generic;
-  let jsonWebpageSettings = {
-    title: metadata2.title,
-    domain: metadata2.domain,
-    description: metadata2.description,
-    pageUrl: `${metadata2.domain}${location.pathname}`
-  };
-  if (post) {
-    image = {
-      url: ((_c = post.featuredImage) == null ? void 0 : _c.sourceUrl) || "",
-      altText: ((_d = post.featuredImage) == null ? void 0 : _d.altText) || "",
-      width: 1920,
-      height: 928
-    };
-    jsonWebpageSettings = __spreadProps(__spreadValues({}, jsonWebpageSettings), {
-      title: post.seo.title,
-      publishTime: post.seo.opengraphPublishedTime,
-      modifiedTime: post.seo.opengraphModifiedTime,
-      description: post.seo.metaDesc
-    });
-    breadcrumbList.push({
-      position: 2,
-      name: `${post.title}`,
-      item: `${metadata2.domain}${location.pathname}`
-    });
-  }
-  if (page) {
-  }
-  return /* @__PURE__ */ React3.createElement(React3.Fragment, null, /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: { __html: jsonLdWebsite(metadata2) }
-  }), /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: { __html: jsonldImageObject({
-      pageUrl: location.pathname,
-      image
-    }) }
-  }), /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: { __html: jsonldWebpage(jsonWebpageSettings) }
-  }), /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: { __html: jsonldPerson(metadata2) }
-  }), /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: { __html: jsonBreadcrumbsList({
-      domain: metadata2.domain,
-      breadcrumbList
-    }) }
-  }), post && /* @__PURE__ */ React3.createElement("script", {
-    type: "application/ld+json",
-    dangerouslySetInnerHTML: {
-      __html: jsonldBlog({
-        url: `${metadata2.domain}${location.pathname}`,
-        images: [
-          `${(_e = post.featuredImage) == null ? void 0 : _e.sourceUrl}`
-        ],
-        datePublished: post.seo.opengraphPublishedTime,
-        dateModified: post.seo.opengraphModifiedTime,
-        author: post.author.name,
-        description: post.seo.metaDesc,
-        title: post.seo.title
-      })
-    }
-  }));
-};
-function Document2({
-  children,
-  title
-}) {
-  let data = (0, import_remix5.useLoaderData)();
-  console.log("ENV", data);
-  return /* @__PURE__ */ React3.createElement("html", {
-    lang: "en"
-  }, /* @__PURE__ */ React3.createElement("head", null, /* @__PURE__ */ React3.createElement("meta", {
-    charSet: "utf-8"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    name: "viewport",
-    content: "width=device-width,initial-scale=1"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    httpEquiv: "Content-Type",
-    content: "text/html; charset=utf-8"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    name: "application-name",
-    content: "Every-Tuesday"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    name: "viewport",
-    content: "width=device-width,initial-scale=1"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    name: "facebook-domain-verification",
-    content: "49a7ouvzn8x5uhb6gdmg2km5pnbfny"
-  }), /* @__PURE__ */ React3.createElement("meta", {
-    name: "norton-safeweb-site-verification",
-    content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"
-  }), /* @__PURE__ */ React3.createElement(import_remix5.Meta, null), /* @__PURE__ */ React3.createElement(import_remix5.Links, null), /* @__PURE__ */ React3.createElement(JsonLd2, null)), /* @__PURE__ */ React3.createElement("body", null, children, /* @__PURE__ */ React3.createElement(RouteChangeAnnouncement2, null), /* @__PURE__ */ React3.createElement(import_remix5.ScrollRestoration, null), /* @__PURE__ */ React3.createElement(import_remix5.Scripts, null), data.ENV && /* @__PURE__ */ React3.createElement("script", {
-    dangerouslySetInnerHTML: {
-      __html: `window.ENV = ${JSON.stringify(data.ENV)}`
-    }
-  }), process.env.NODE_ENV === "development" && /* @__PURE__ */ React3.createElement(import_remix5.LiveReload, null)));
-}
 var PrimaryNav2 = () => {
   const { menu } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
@@ -1097,7 +993,7 @@ var CustomNav = () => {
 var ResourceLibrarySignUp = () => {
   var _a, _b, _c;
   let actionData = (0, import_remix7.useActionData)();
-  return /* @__PURE__ */ React4.createElement(Document2, null, /* @__PURE__ */ React4.createElement(Layout2, {
+  return /* @__PURE__ */ React4.createElement(Layout2, {
     alternateNav: /* @__PURE__ */ React4.createElement(CustomNav, null)
   }, /* @__PURE__ */ React4.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
@@ -1124,7 +1020,7 @@ var ResourceLibrarySignUp = () => {
   }, actionData == null ? void 0 : actionData.fieldErrors.password) : null, /* @__PURE__ */ React4.createElement("button", {
     type: "submit",
     className: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-  }, "Login")))));
+  }, "Login"))));
 };
 var resource_library_default = ResourceLibrarySignUp;
 
@@ -1349,7 +1245,7 @@ __export(preview_exports, {
 var import_remix14 = __toModule(require("remix"));
 
 // app/lib/api/fetch.ts
-var api_url = (typeof window === "undefined" ? process.env : window.ENV).PUBLIC_WP_API_URL;
+var api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL;
 async function fetchAPI(query3, { variables } = {}) {
   const https = require("https");
   const agent = new https.Agent({
@@ -1357,7 +1253,7 @@ async function fetchAPI(query3, { variables } = {}) {
   });
   const res = await fetch(api_url, {
     method: "POST",
-    agent: process.env.NODE_ENV === "development" ? agent : null,
+    agent,
     headers: {
       "Content-Type": "application/json"
     },
@@ -1434,46 +1330,15 @@ async function logUserInServer(user) {
     })
   });
 }
-async function getViewerServer(cookie) {
-  const https = require("https");
-  const agent = new https.Agent({
-    rejectUnauthorized: false
-  });
-  const query3 = `
-    query getUser {
-      viewer {
-          id
-          databaseId
-          firstName
-          lastName
-          email
-          capabilities
-      }
-    }
-  `;
-  return fetch(api_url, {
-    method: "POST",
-    credentials: "include",
-    mode: "cors",
-    agent,
-    headers: {
-      "Content-Type": "application/json",
-      "Cookie": cookie
-    },
-    body: JSON.stringify({
-      query: query3
-    })
-  });
-}
-async function getPreviewPostPageServer({ postType, postId, cookie }) {
+async function getPreviewPostPageServer({ previewType, id, cookies }) {
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
   });
   const variables = {
-    id: postId
+    id
   };
-  const query3 = `
+  const queryPost = `
     query postById($id: ID!) {
         post(idType: DATABASE_ID, id: $id) {
             __typename
@@ -1536,6 +1401,47 @@ async function getPreviewPostPageServer({ postType, postId, cookie }) {
         }
     }
   `;
+  const queryPage = `
+    query pageById($id: ID!) {
+        page(idType: DATABASE_ID, id: $id) {
+          author {
+            node {
+                avatar {
+                    height
+                    url
+                    width
+                }
+                id
+                name
+                slug
+                uri
+            }
+        }
+        id
+        content
+        date
+        featuredImage {
+            node {
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+            }
+        }
+        title
+        content
+        seo{
+            title
+            opengraphPublishedTime
+            opengraphModifiedTime
+            metaDesc
+            readingTime
+        }
+      }
+    }
+  `;
   return fetch(api_url, {
     method: "POST",
     credentials: "include",
@@ -1543,10 +1449,10 @@ async function getPreviewPostPageServer({ postType, postId, cookie }) {
     agent: process.env.NODE_ENV === "development" ? agent : null,
     headers: {
       "Content-Type": "application/json",
-      "Cookie": cookie
+      "Cookie": cookies
     },
     body: JSON.stringify({
-      query: query3,
+      query: previewType === "post" ? queryPost : queryPage,
       variables
     })
   });
@@ -1579,22 +1485,31 @@ async function getViewerClientSide() {
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
 var loader4 = async ({ request, params, context }) => {
+  console.log("params", request);
   const cookies = request.headers.get("cookie");
-  if (!cookies) {
-    return (0, import_remix14.redirect)("/login");
+  const { id, previewType, url } = previewUrlParams(request);
+  let loginUrl = `/login${url.search}`;
+  if (!cookies || !previewType || !id) {
+    return (0, import_remix14.redirect)(loginUrl);
   }
-  console.log("cookies", cookies);
-  const res = await getViewerServer(cookies);
-  const resPost = await getPreviewPostPageServer({
-    postType: "post",
-    postId: "8678",
-    cookie: cookies
-  });
-  return {
-    cookies,
-    user: await res.json(),
-    data: await resPost.json()
-  };
+  try {
+    const res = await getPreviewPostPageServer({ previewType, id, cookies });
+    const json8 = await res.json();
+    const postPageData = json8.data[previewType];
+    console.log("postPageData", postPageData);
+    if (postPageData === null) {
+      return (0, import_remix14.redirect)(loginUrl);
+    }
+    return {
+      cookies,
+      [previewType]: postPageData
+    };
+  } catch (e) {
+    console.log("e", e);
+    return {
+      data: "error"
+    };
+  }
 };
 var Preview = () => {
   const data = (0, import_remix14.useLoaderData)();
@@ -1647,41 +1562,78 @@ function mapPostData(post = {}) {
 }
 
 // app/lib/utils/seo.ts
+function createOgImages(image) {
+  return {
+    "og:image:alt": image.altText,
+    "og:image:url": image.url,
+    "og:image:width": image.width,
+    "og:image:height": image.height
+  };
+}
+function createOgArticle(article) {
+  return {
+    "og:article:publishedTime": article.publishedTime,
+    "og:article:modifiedTime": article.modifiedTime,
+    "og:article:author": article.author,
+    "og:article:tags": article.tags.map((tag) => tag.name).join(", ")
+  };
+}
 function getHtmlMetadataTags({ metadata: metadata2, post, page, location }) {
   var _a, _b;
+  let defaultImage = {
+    altText: defaultSeoImages.generic.altText,
+    url: defaultSeoImages.generic.url,
+    height: "1920",
+    width: "1080"
+  };
   const url = `${metadata2.domain}${location.pathname}`;
-  let metadataTags = {
+  let metadataTags = __spreadProps(__spreadValues({
+    "robots:": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
     title: metadata2.title,
     description: metadata2.description,
     canonical: url,
+    "og:locale": "en_US",
+    "og:title": metadata2.title,
+    "og:site_name": metadata2.siteTitle,
+    "og:type": "website",
+    "og:description": metadata2.description
+  }, createOgImages(defaultImage)), {
     "twitter:card": `@${metadata2.social.twitter.username}`,
     "twitter:site": `@${metadata2.social.twitter.username}`,
     "twitter:creator": "summary_large_image",
-    "og:title": metadata2.title,
-    "og:type": "article",
-    "og:description": metadata2.description
-  };
+    "twitter:label1": `Est. reading time`,
+    "twitter:data1": `1 minute`
+  });
   if (post) {
-    metadataTags = __spreadProps(__spreadValues({}, metadataTags), {
+    metadataTags = __spreadProps(__spreadValues(__spreadValues(__spreadProps(__spreadValues({}, metadataTags), {
       title: post.seo.title,
       description: post.seo.metaDesc,
       canonical: url,
+      "og:title": post.seo.title,
+      "og:type": "article",
+      "og:description": post.seo.metaDesc
+    }), createOgArticle({
+      publishedTime: post.seo.opengraphPublishedTime,
+      modifiedTime: post.seo.opengraphPublishedTime,
+      author: `${metadata2.domain}${post.author.uri}`,
+      tags: post.tags
+    })), createOgImages({
+      altText: ((_a = post.featuredImage) == null ? void 0 : _a.altText) || defaultSeoImages.generic.altText,
+      url: ((_b = post.featuredImage) == null ? void 0 : _b.altText) || defaultSeoImages.generic.altText,
+      width: "1920",
+      height: "1080"
+    })), {
       "twitter:card": `@${metadata2.social.twitter.username}`,
       "twitter:site": `@${metadata2.social.twitter.username}`,
       "twitter:creator": "summary_large_image",
-      "og:title": post.seo.title,
-      "og:type": "article",
-      "og:description": post.seo.metaDesc,
-      "og:image:alt": ((_a = post.featuredImage) == null ? void 0 : _a.altText) || defaultSeoImages.generic.altText,
-      "og:image:url": ((_b = post.featuredImage) == null ? void 0 : _b.sourceUrl) || defaultSeoImages.generic.url,
-      "og:image:width": "1920",
-      "og:image:height": "1080",
-      "og:article:publishedTime": post.seo.opengraphPublishedTime,
-      "og:article:modifiedTime": post.seo.opengraphPublishedTime,
-      "og:article:author": `${metadata2.domain}${post.author.uri}`
+      "twitter:label1": `Written by`,
+      "twitter:data1": `Teela`,
+      "twitter:label2": `Est. reading time`,
+      "twitter:data2": `1 minute`
     });
   }
   if (page) {
+    metadataTags = __spreadValues({}, metadataTags);
   }
   return __spreadValues({}, metadataTags);
 }
@@ -1706,7 +1658,6 @@ var loader5 = async ({ params }) => {
 };
 var meta6 = (metaData) => {
   const { data, location, parentsData } = metaData;
-  console.log("metadata", metaData);
   if (!data || !parentsData || !location) {
     return {
       title: "404",
@@ -1803,7 +1754,6 @@ __export(routes_exports, {
 var import_remix16 = __toModule(require("remix"));
 var meta7 = (metaData) => {
   const { data, location, parentsData } = metaData;
-  console.log("metaData", metaData);
   if (!data || !parentsData || !location) {
     return {
       title: "404",
@@ -1848,11 +1798,16 @@ var loader6 = async () => {
       }
     ]
   };
-  let wpAPI = await fetchAPI(query2, {
-    variables: {
-      after: null
-    }
-  });
+  let wpAPI;
+  try {
+    wpAPI = await fetchAPI(query2, {
+      variables: {
+        after: null
+      }
+    });
+  } catch (e) {
+    console.log("error", e);
+  }
   const pageInfo = wpAPI == null ? void 0 : wpAPI.posts.pageInfo;
   const posts = flattenAllPosts(wpAPI == null ? void 0 : wpAPI.posts) || [];
   return __spreadProps(__spreadValues({}, data), {
@@ -1866,7 +1821,9 @@ function Index2() {
   }
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Welcome to Remix!"), /* @__PURE__ */ React.createElement("p", null, "We're stoked that you're here. \u{1F973}"), /* @__PURE__ */ React.createElement("p", null, "Feel free to take a look around the code to see how Remix does things, it might be a bit different than what you\u2019re used to. When you're ready to dive deeper, we've got plenty of resources to get you up-and-running quickly."), /* @__PURE__ */ React.createElement("p", null, "Check out all the demos in this starter, and then just delete the", " ", /* @__PURE__ */ React.createElement("code", null, "app/routes/demos"), " and ", /* @__PURE__ */ React.createElement("code", null, "app/styles/demos"), " ", "folders when you're ready to turn this into your next project.")), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Demos In This App"), /* @__PURE__ */ React.createElement("ul", null, data.demos.map((demo) => /* @__PURE__ */ React.createElement("li", {
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", {
+    className: "font-sentinel__SemiBoldItal text-slateGreen text-6xl spencer"
+  }, "Welcome to Remix!"), /* @__PURE__ */ React.createElement("p", null, "We're stoked that you're here. \u{1F973}"), /* @__PURE__ */ React.createElement("p", null, "Feel free to take a look around the code to see how Remix does things, it might be a bit different than what you\u2019re used to. When you're ready to dive deeper, we've got plenty of resources to get you up-and-running quickly."), /* @__PURE__ */ React.createElement("p", null, "Check out all the demos in this starter, and then just delete the", " ", /* @__PURE__ */ React.createElement("code", null, "app/routes/demos"), " and ", /* @__PURE__ */ React.createElement("code", null, "app/styles/demos"), " ", "folders when you're ready to turn this into your next project.")), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Demos In This App"), /* @__PURE__ */ React.createElement("ul", null, data.demos.map((demo) => /* @__PURE__ */ React.createElement("li", {
     key: demo.to,
     className: "remix__page__resource"
   }, /* @__PURE__ */ React.createElement(import_remix16.Link, {
@@ -1951,7 +1908,8 @@ var query2 = `
 var login_exports = {};
 __export(login_exports, {
   action: () => action3,
-  default: () => login_default
+  default: () => login_default,
+  unstable_shouldReload: () => unstable_shouldReload
 });
 var import_remix17 = __toModule(require("remix"));
 var React5 = __toModule(require("react"));
@@ -1966,33 +1924,49 @@ var action3 = async ({ request }) => {
   let fieldErrors = {};
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
-  const response = await logUserInServer({ username, password });
-  let testCookie = (0, import_remix17.createCookie)("cookie-name", {
-    domain: "localhost",
-    httpOnly: true,
-    maxAge: 60 * 60 * 24 * 7,
-    path: "/",
-    sameSite: "lax",
-    secrets: ["s3cret1"],
-    secure: true
-  });
-  const wpCookies = response.headers.get("Set-Cookie");
-  const parsed = wpCookies == null ? void 0 : wpCookies.split(",");
-  const customHeaders = new Headers();
-  parsed == null ? void 0 : parsed.forEach((item, index) => {
-    if (item.length === 0) {
-      return;
-    }
-    customHeaders.append("Set-Cookie", item.trim());
-  });
-  customHeaders.append("Set-Cookie", await testCookie.serialize(""));
-  return (0, import_remix17.redirect)("/preview", {
-    headers: customHeaders
-  });
+  try {
+    const response = await logUserInServer({ username, password });
+    let testCookie = (0, import_remix17.createCookie)("cookie-name", {
+      domain: "localhost",
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+      sameSite: "lax",
+      secrets: ["s3cret1"],
+      secure: true
+    });
+    const wpCookies = response.headers.get("Set-Cookie");
+    const parsed = wpCookies == null ? void 0 : wpCookies.split(",");
+    const customHeaders = new Headers();
+    parsed == null ? void 0 : parsed.forEach((item, index) => {
+      if (item.length === 0) {
+        return;
+      }
+      customHeaders.append("Set-Cookie", item.trim());
+    });
+    customHeaders.append("Set-Cookie", await testCookie.serialize(""));
+    const { id, previewType } = previewUrlParams(request);
+    const previewUrl = `/preview?`;
+    return (0, import_remix17.redirect)(previewUrl, {
+      headers: customHeaders
+    });
+  } catch (e) {
+    return {
+      error: e
+    };
+  }
 };
+function unstable_shouldReload({
+  params,
+  submission
+}) {
+  return submission && submission.action === `/login/test`;
+}
 var Login = () => {
   var _a, _b, _c, _d, _e, _f, _g;
   let actionData = (0, import_remix17.useActionData)();
+  let data = (0, import_remix17.useLoaderData)();
+  console.log("data", data);
   console.log("actionData", actionData);
   async function sendLogin() {
     const res = await logUserInClient({ username: "teelac", password: "Sparkles0626311?!" });

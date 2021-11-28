@@ -9,7 +9,6 @@ import { getHtmlMetadataTags } from '../lib/utils/seo'
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
-  console.log('metaData', metaData)
 
   if(!data || !parentsData || !location){
     return {
@@ -66,11 +65,17 @@ export let loader: LoaderFunction = async () => {
       }
     ]
   };
-  let wpAPI = await fetchAPI(query, {
-    variables: {
-      after: null
-    }
-  })
+  let wpAPI
+  try {
+    wpAPI = await fetchAPI(query, {
+      variables: {
+        after: null
+      }
+    })
+  }catch (e){
+    console.log('error', e)
+
+  }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
@@ -96,7 +101,7 @@ export default function Index() {
       <Layout>
         <div className="remix__page">
           <main>
-            <h2>Welcome to Remix!</h2>
+            <h2 className="font-sentinel__SemiBoldItal text-slateGreen text-6xl spencer">Welcome to Remix!</h2>
             <p>We're stoked that you're here. 🥳</p>
             <p>
               Feel free to take a look around the code to see how Remix does things,

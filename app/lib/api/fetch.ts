@@ -1,10 +1,5 @@
-// const api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL
-const api_url = (typeof window === "undefined" ? process.env : window.ENV).PUBLIC_WP_API_URL
-// const api_url = 'https://etheadless.graphcdn.app/'
-// if(typeof window !== "undefined"){
-//   console.log(' window',  window)
-//   console.log('api_url_test', api_url_test)
-// }
+const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
+// const api_url = 'https://etheadless.local/graphql/'
 
 
 export async function fetchAPI(query: any, { variables }: any = {}) {
@@ -15,7 +10,7 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
-    agent: process.env.NODE_ENV === 'development' ? agent : null,
+    agent,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -133,15 +128,15 @@ export async function getViewerServer(cookie: string){
     }),
   })
 }
-export async function getPreviewPostPageServer({postType, postId, cookie}: {postType: string, postId: string, cookie: string}){
+export async function getPreviewPostPageServer({previewType, id, cookies}: {previewType: string, id: string, cookies: string}){
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
   const variables = {
-    id: postId,
+    id,
   }
-  const query = `
+  const queryPost = `
     query postById($id: ID!) {
         post(idType: DATABASE_ID, id: $id) {
             __typename
@@ -204,6 +199,47 @@ export async function getPreviewPostPageServer({postType, postId, cookie}: {post
         }
     }
   `
+  const queryPage = `
+    query pageById($id: ID!) {
+        page(idType: DATABASE_ID, id: $id) {
+          author {
+            node {
+                avatar {
+                    height
+                    url
+                    width
+                }
+                id
+                name
+                slug
+                uri
+            }
+        }
+        id
+        content
+        date
+        featuredImage {
+            node {
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+            }
+        }
+        title
+        content
+        seo{
+            title
+            opengraphPublishedTime
+            opengraphModifiedTime
+            metaDesc
+            readingTime
+        }
+      }
+    }
+  `
   return fetch(api_url, {
     method: 'POST',
     credentials: 'include',
@@ -212,10 +248,10 @@ export async function getPreviewPostPageServer({postType, postId, cookie}: {post
     agent: process.env.NODE_ENV === 'development' ? agent : null,
     headers: {
       'Content-Type': 'application/json',
-      'Cookie': cookie
+      'Cookie': cookies
     },
     body: JSON.stringify({
-      query,
+      query: previewType === 'post' ? queryPost : queryPage,
       variables
     }),
   })

@@ -61,7 +61,6 @@ const CustomNav = () => {
 const ResourceLibrarySignUp = () => {
   let actionData = useActionData<ActionData | undefined>();
   return (
-    <Document>
       <Layout alternateNav={<CustomNav/>}>
       <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
         <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Login</h4>
@@ -112,8 +111,6 @@ const ResourceLibrarySignUp = () => {
         </Form>
       </div>
     </Layout>
-    </Document>
-
   )
 }
 

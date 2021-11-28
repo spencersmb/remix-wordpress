@@ -1,5 +1,5 @@
 {
-  "version": "bfd0c3dc",
+  "version": "1084951f",
   "entry": {
     "module": "/build/entry.client-L4PPNS36.js",
     "imports": [
@@ -11,9 +11,9 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-GLY56UXQ.js",
+      "module": "/build/root-QULIVRRF.js",
       "imports": [
-        "/build/_shared/chunk-ZVNOHV2A.js"
+        "/build/_shared/chunk-MTMCNID4.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -24,10 +24,10 @@
       "id": "routes/$slug",
       "parentId": "root",
       "path": ":slug",
-      "module": "/build/routes/$slug-SWIAOEKQ.js",
+      "module": "/build/routes/$slug-XZ7MKF5X.js",
       "imports": [
-        "/build/_shared/chunk-UQFDLCEE.js",
-        "/build/_shared/chunk-TWAY4EBQ.js"
+        "/build/_shared/chunk-FYJMAKBV.js",
+        "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -129,10 +129,10 @@
       "id": "routes/index",
       "parentId": "root",
       "index": true,
-      "module": "/build/routes/index-EB7MJWFK.js",
+      "module": "/build/routes/index-TEVIXDKI.js",
       "imports": [
-        "/build/_shared/chunk-UQFDLCEE.js",
-        "/build/_shared/chunk-TWAY4EBQ.js"
+        "/build/_shared/chunk-FYJMAKBV.js",
+        "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -143,9 +143,9 @@
       "id": "routes/login",
       "parentId": "root",
       "path": "login",
-      "module": "/build/routes/login-XTWQJFVT.js",
+      "module": "/build/routes/login-MRMRLF22.js",
       "imports": [
-        "/build/_shared/chunk-TWAY4EBQ.js"
+        "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": true,
       "hasLoader": false,
@@ -156,9 +156,9 @@
       "id": "routes/preview",
       "parentId": "root",
       "path": "preview",
-      "module": "/build/routes/preview-5ESACE7C.js",
+      "module": "/build/routes/preview-TA66QVLS.js",
       "imports": [
-        "/build/_shared/chunk-TWAY4EBQ.js"
+        "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -170,7 +170,7 @@
       "parentId": "root",
       "path": "resource-library",
       "index": true,
-      "module": "/build/routes/resource-library/index-EAPVBVRW.js",
+      "module": "/build/routes/resource-library/index-GW5CVXQW.js",
       "hasAction": true,
       "hasLoader": true,
       "hasCatchBoundary": false,
@@ -187,5 +187,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-BFD0C3DC.js"
+  "url": "/build/manifest-1084951F.js"
 }
