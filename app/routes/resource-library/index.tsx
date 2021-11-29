@@ -1,8 +1,6 @@
-import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData } from 'remix'
-import { fetchAPI } from '../../lib/api/fetch'
-import { flattenPost } from '../../lib/utils/posts'
+import { ActionFunction, Form, json, LoaderFunction, useActionData } from 'remix'
 import * as React from 'react'
-import { Document, Layout } from '../../root'
+import { Layout } from '../../root'
 
 export let loader: LoaderFunction = async ({ params }) => {
   const page = {

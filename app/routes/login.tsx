@@ -1,7 +1,30 @@
-import { ActionFunction, createCookie, Form, json, LoaderFunction, redirect, useActionData, useLoaderData } from 'remix'
-import { Document, Layout } from '../root'
+import {
+  ActionFunction,
+  createCookie,
+  Form,
+  LoaderFunction,
+  redirect,
+  useActionData,
+  useLoaderData,
+  useNavigate
+} from 'remix'
+import { Layout } from '../root'
 import * as React from 'react'
 import {getViewerClientSide, logUserInClient, logUserInServer } from '../lib/api/fetch'
+import { getPreviewRedirectUrl, previewUrlParams } from '../lib/utils/loaderHelpers'
+import { useState } from 'react'
+
+export let loader: LoaderFunction = async ({request}) => {
+  const {id, previewType, url} = previewUrlParams(request)
+
+  return {
+    params: {
+      id,
+      previewType,
+      url
+    }
+  }
+}
 
 // redo TYPES HERE for PROMiSE
 export let action: ActionFunction = async ({request}): Promise<any> => {
@@ -20,12 +43,30 @@ export let action: ActionFunction = async ({request}): Promise<any> => {
   let fields = { password, username };
   let fieldErrors = {};
 
-  if (Object.values(fieldErrors).some(Boolean))
+  if(password.length < 4){
+    fieldErrors = {
+      password: `Password length too small`
+    };
     return { fieldErrors, fields };
+  }
 
   try{
 
     const response = await logUserInServer({username, password})
+    const serverRes = await response.json()
+
+    if(serverRes.errors){
+        let errorMessages = serverRes.errors.map((error: any) => error.message)
+
+        fieldErrors = {
+          username: errorMessages.indexOf('invalid_username') > -1 ?  `Incorrect Username` : undefined,
+          password: errorMessages.indexOf('incorrect_password') > -1 ?  `Incorrect Password` : undefined
+        };
+    }
+
+    if (Object.values(fieldErrors).some(Boolean))
+      return { fieldErrors, fields };
+
     let testCookie = createCookie("cookie-name", {
       // all of these are optional defaults that can be overridden at runtime
       domain: "localhost",
@@ -49,37 +90,43 @@ export let action: ActionFunction = async ({request}): Promise<any> => {
 
     customHeaders.append('Set-Cookie', await testCookie.serialize(''))
     const {id, previewType} = previewUrlParams(request)
-    const previewUrl = `/preview?`
+    const idString = previewType === 'post' ? 'previewPostId' : 'postId'
+    const previewUrl = `/preview?postType=${previewType}&${idString}=${id}`
 
     return redirect(previewUrl,{
       headers:customHeaders
     })
   }catch (e){
-    return {
-      error: e
-    }
+    return { formError: `Form error: ${e}` };
   }
 }
-export function unstable_shouldReload({
-                                        params,
-                                        submission
-                                      }) {
-  return (
-    submission &&
-    // submission.action === `/login/${params.projectId}`
-    submission.action === `/login/test`
-  );
-}
+
 const Login = () => {
+  let navigate = useNavigate();
   let actionData = useActionData<any | undefined>();
   let data = useLoaderData()
+
+
+  const [ loginFields, setLoginFields ] = useState( {
+    username: '',
+    password: '',
+  } );
+  const [ errorMessage, setErrorMessage ] = useState( null );
+  const { username, password } = loginFields;
   console.log('data', data)
 
-  console.log('actionData', actionData)
-
   async function sendLogin(){
-    const res = await logUserInClient({username: 'teelac', password: 'Sparkles0626311?!'})
-    console.log('res', res)
+    const login = await logUserInClient({username: 'adasa', password: '?!'})
+    const res = await login.json()
+
+    if(res.errors){
+      // Set errors on state
+      return
+    }
+
+
+    console.log('res', await res.json())
+    navigate(getPreviewRedirectUrl(data.params.previewType, data.params.id))
   }
 
   async function getUser(){
@@ -97,14 +144,15 @@ const Login = () => {
         {/*    dangerouslySetInnerHTML={{ __html: sanitize( errorMessage ) }}*/}
         {/*  />*/}
         {/*)}*/}
-        <Form method='post' className="mb-4" aria-describedby={
+        <Form method='post' action={`/login?postType=post&previewPostId=8403`} className="mb-4" aria-describedby={
           actionData?.formError
             ? "form-error-message"
             : undefined
         }>
           <div>
-            <label htmlFor="username-input">Username</label>
+            <label className="leading-7 text-sm text-gray-600" htmlFor="username-input">Username</label>
             <input
+              className="mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               type="text"
               id="username-input"
               name="username"
@@ -120,7 +168,7 @@ const Login = () => {
             />
             {actionData?.fieldErrors?.username ? (
               <p
-                className="form-validation-error"
+                className="form-validation-error text-red-500"
                 role="alert"
                 id="username-error"
               >
@@ -150,7 +198,7 @@ const Login = () => {
             />
           {actionData?.fieldErrors?.password ? (
             <p
-              className="form-validation-error"
+              className="form-validation-error text-red-500"
               role="alert"
               id="password-error"
             >
@@ -162,10 +210,13 @@ const Login = () => {
             Login
           </button>
 
+          {actionData?.formError && <p className="text-black">
+            {actionData?.formError}
+          </p>}
           {/*{loading ? <p>Loading...</p> : null  }*/}
         </Form>
         <button onClick={sendLogin}>Client Side</button>
-        <button onClick={getUser}>Get User</button>
+        {/*<button onClick={getUser}>Get User</button>*/}
       </div>
     </Layout>
   )

@@ -1,5 +1,5 @@
 {
-  "version": "1084951f",
+  "version": "809b3eb1",
   "entry": {
     "module": "/build/entry.client-L4PPNS36.js",
     "imports": [
@@ -143,12 +143,13 @@
       "id": "routes/login",
       "parentId": "root",
       "path": "login",
-      "module": "/build/routes/login-MRMRLF22.js",
+      "module": "/build/routes/login-GLWR5VG3.js",
       "imports": [
+        "/build/_shared/chunk-3R5IJ5EK.js",
         "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": true,
-      "hasLoader": false,
+      "hasLoader": true,
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
     },
@@ -156,8 +157,9 @@
       "id": "routes/preview",
       "parentId": "root",
       "path": "preview",
-      "module": "/build/routes/preview-TA66QVLS.js",
+      "module": "/build/routes/preview-YIK5MBGK.js",
       "imports": [
+        "/build/_shared/chunk-3R5IJ5EK.js",
         "/build/_shared/chunk-L3PPIEM7.js"
       ],
       "hasAction": false,
@@ -170,7 +172,7 @@
       "parentId": "root",
       "path": "resource-library",
       "index": true,
-      "module": "/build/routes/resource-library/index-GW5CVXQW.js",
+      "module": "/build/routes/resource-library/index-CEFOA5D6.js",
       "hasAction": true,
       "hasLoader": true,
       "hasCatchBoundary": false,
@@ -187,5 +189,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-1084951F.js"
+  "url": "/build/manifest-809B3EB1.js"
 }

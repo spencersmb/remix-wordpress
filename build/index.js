@@ -540,7 +540,7 @@ var nprogress_default = "/build/_assets/nprogress-JFUSETFZ.css";
 var import_remix4 = __toModule(require("remix"));
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-BZRNSVAO.css";
+var app_default = "/build/_assets/app-N5OVKZ2I.css";
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var links = () => {
@@ -1262,12 +1262,12 @@ async function fetchAPI(query3, { variables } = {}) {
       variables
     })
   });
-  const json8 = await res.json();
-  if (json8.errors) {
-    console.error(json8.errors);
-    throw new Error("WP QUERY FETCH" + json8.errors);
+  const json7 = await res.json();
+  if (json7.errors) {
+    console.error(json7.errors);
+    throw new Error("WP QUERY FETCH" + json7.errors);
   }
-  return json8.data;
+  return json7.data;
 }
 async function logUserInClient(user) {
   const query3 = `
@@ -1483,6 +1483,33 @@ async function getViewerClientSide() {
   });
 }
 
+// app/lib/utils/loaderHelpers.ts
+var import_lodash = __toModule(require("lodash"));
+function previewUrlParams(request) {
+  let url = new URL(request.url);
+  let previewType = url.searchParams.get("postType");
+  let idSearchParam = previewType === "post" ? "previewPostId" : "PostId";
+  let id = url.searchParams.get(idSearchParam);
+  return {
+    id,
+    previewType,
+    url
+  };
+}
+var getPreviewRedirectUrl = (postType = "", previewPostId = "") => {
+  if ((0, import_lodash.isEmpty)(postType) || (0, import_lodash.isEmpty)(previewPostId)) {
+    return "/login";
+  }
+  switch (postType) {
+    case "post":
+      return `/blog/preview/${previewPostId}/`;
+    case "page":
+      return `/page/preview/${previewPostId}/`;
+    default:
+      return "/";
+  }
+};
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
 var loader4 = async ({ request, params, context }) => {
   console.log("params", request);
@@ -1494,8 +1521,8 @@ var loader4 = async ({ request, params, context }) => {
   }
   try {
     const res = await getPreviewPostPageServer({ previewType, id, cookies });
-    const json8 = await res.json();
-    const postPageData = json8.data[previewType];
+    const json7 = await res.json();
+    const postPageData = json7.data[previewType];
     console.log("postPageData", postPageData);
     if (postPageData === null) {
       return (0, import_remix14.redirect)(loginUrl);
@@ -1909,10 +1936,21 @@ var login_exports = {};
 __export(login_exports, {
   action: () => action3,
   default: () => login_default,
-  unstable_shouldReload: () => unstable_shouldReload
+  loader: () => loader7
 });
 var import_remix17 = __toModule(require("remix"));
 var React5 = __toModule(require("react"));
+var import_react3 = __toModule(require("react"));
+var loader7 = async ({ request }) => {
+  const { id, previewType, url } = previewUrlParams(request);
+  return {
+    params: {
+      id,
+      previewType,
+      url
+    }
+  };
+};
 var action3 = async ({ request }) => {
   let form = await request.formData();
   let password = form.get("password");
@@ -1922,10 +1960,24 @@ var action3 = async ({ request }) => {
   }
   let fields = { password, username };
   let fieldErrors = {};
-  if (Object.values(fieldErrors).some(Boolean))
+  if (password.length < 4) {
+    fieldErrors = {
+      password: `Password length too small`
+    };
     return { fieldErrors, fields };
+  }
   try {
     const response = await logUserInServer({ username, password });
+    const serverRes = await response.json();
+    if (serverRes.errors) {
+      let errorMessages = serverRes.errors.map((error) => error.message);
+      fieldErrors = {
+        username: errorMessages.indexOf("invalid_username") > -1 ? `Incorrect Username` : void 0,
+        password: errorMessages.indexOf("incorrect_password") > -1 ? `Incorrect Password` : void 0
+      };
+    }
+    if (Object.values(fieldErrors).some(Boolean))
+      return { fieldErrors, fields };
     let testCookie = (0, import_remix17.createCookie)("cookie-name", {
       domain: "localhost",
       httpOnly: true,
@@ -1946,31 +1998,35 @@ var action3 = async ({ request }) => {
     });
     customHeaders.append("Set-Cookie", await testCookie.serialize(""));
     const { id, previewType } = previewUrlParams(request);
-    const previewUrl = `/preview?`;
+    const idString = previewType === "post" ? "previewPostId" : "postId";
+    const previewUrl = `/preview?postType=${previewType}&${idString}=${id}`;
     return (0, import_remix17.redirect)(previewUrl, {
       headers: customHeaders
     });
   } catch (e) {
-    return {
-      error: e
-    };
+    return { formError: `Form error: ${e}` };
   }
 };
-function unstable_shouldReload({
-  params,
-  submission
-}) {
-  return submission && submission.action === `/login/test`;
-}
 var Login = () => {
   var _a, _b, _c, _d, _e, _f, _g;
+  let navigate = (0, import_remix17.useNavigate)();
   let actionData = (0, import_remix17.useActionData)();
   let data = (0, import_remix17.useLoaderData)();
+  const [loginFields, setLoginFields] = (0, import_react3.useState)({
+    username: "",
+    password: ""
+  });
+  const [errorMessage, setErrorMessage] = (0, import_react3.useState)(null);
+  const { username, password } = loginFields;
   console.log("data", data);
-  console.log("actionData", actionData);
   async function sendLogin() {
-    const res = await logUserInClient({ username: "teelac", password: "Sparkles0626311?!" });
-    console.log("res", res);
+    const login = await logUserInClient({ username: "adasa", password: "?!" });
+    const res = await login.json();
+    if (res.errors) {
+      return;
+    }
+    console.log("res", await res.json());
+    navigate(getPreviewRedirectUrl(data.params.previewType, data.params.id));
   }
   async function getUser() {
     const res = await getViewerClientSide();
@@ -1982,11 +2038,14 @@ var Login = () => {
     className: "text-gray-900 text-lg font-medium title-font mb-5 block"
   }, "Login"), /* @__PURE__ */ React5.createElement(import_remix17.Form, {
     method: "post",
+    action: `/login?postType=post&previewPostId=8403`,
     className: "mb-4",
     "aria-describedby": (actionData == null ? void 0 : actionData.formError) ? "form-error-message" : void 0
   }, /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
+    className: "leading-7 text-sm text-gray-600",
     htmlFor: "username-input"
   }, "Username"), /* @__PURE__ */ React5.createElement("input", {
+    className: "mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
     type: "text",
     id: "username-input",
     name: "username",
@@ -1994,7 +2053,7 @@ var Login = () => {
     "aria-invalid": Boolean((_b = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _b.username),
     "aria-describedby": ((_c = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _c.username) ? "username-error" : void 0
   }), ((_d = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _d.username) ? /* @__PURE__ */ React5.createElement("p", {
-    className: "form-validation-error",
+    className: "form-validation-error text-red-500",
     role: "alert",
     id: "username-error"
   }, actionData == null ? void 0 : actionData.fieldErrors.username) : null), /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
@@ -2008,17 +2067,17 @@ var Login = () => {
     "aria-invalid": Boolean((_e = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _e.password) || void 0,
     "aria-describedby": ((_f = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _f.password) ? "password-error" : void 0
   }), ((_g = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _g.password) ? /* @__PURE__ */ React5.createElement("p", {
-    className: "form-validation-error",
+    className: "form-validation-error text-red-500",
     role: "alert",
     id: "password-error"
   }, actionData == null ? void 0 : actionData.fieldErrors.password) : null), /* @__PURE__ */ React5.createElement("button", {
     type: "submit",
     className: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-  }, "Login")), /* @__PURE__ */ React5.createElement("button", {
+  }, "Login"), (actionData == null ? void 0 : actionData.formError) && /* @__PURE__ */ React5.createElement("p", {
+    className: "text-black"
+  }, actionData == null ? void 0 : actionData.formError)), /* @__PURE__ */ React5.createElement("button", {
     onClick: sendLogin
-  }, "Client Side"), /* @__PURE__ */ React5.createElement("button", {
-    onClick: getUser
-  }, "Get User")));
+  }, "Client Side")));
 };
 var login_default = Login;
 

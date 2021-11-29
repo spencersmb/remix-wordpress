@@ -1,5 +1,6 @@
 import { LoaderFunction, redirect, useLoaderData } from 'remix'
 import { getPreviewPostPageServer, getViewerServer } from '../lib/api/fetch'
+import { previewUrlParams } from '../lib/utils/loaderHelpers'
 
 export let loader: LoaderFunction = async({request, params,context}) => {
   console.log('params', request)
