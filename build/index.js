@@ -540,7 +540,7 @@ var nprogress_default = "/build/_assets/nprogress-JFUSETFZ.css";
 var import_remix4 = __toModule(require("remix"));
 
 // app/styles/app.css
-var app_default = "/build/_assets/app-N5OVKZ2I.css";
+var app_default = "/build/_assets/app-2NLS4PCN.css";
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var links = () => {
@@ -1024,225 +1024,17 @@ var ResourceLibrarySignUp = () => {
 };
 var resource_library_default = ResourceLibrarySignUp;
 
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/courses/index.tsx
-var courses_exports = {};
-__export(courses_exports, {
-  default: () => courses_default
-});
-var Courses = () => {
-  return /* @__PURE__ */ React.createElement("div", null, "Courses Page");
-};
-var courses_default = Courses;
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/actions.tsx
-var actions_exports = {};
-__export(actions_exports, {
-  action: () => action2,
-  default: () => ActionsDemo,
-  meta: () => meta2
-});
-var import_react2 = __toModule(require("react"));
-var import_remix8 = __toModule(require("remix"));
-function meta2() {
-  return { title: "Actions Demo" };
-}
-var action2 = async ({ request }) => {
-  let formData = await request.formData();
-  let answer = formData.get("answer");
-  if (typeof answer !== "string") {
-    return (0, import_remix8.json)("Come on, at least try!", { status: 400 });
-  }
-  if (answer !== "egg") {
-    return (0, import_remix8.json)(`Sorry, ${answer} is not right.`, { status: 400 });
-  }
-  return (0, import_remix8.redirect)("/demos/correct");
-};
-function ActionsDemo() {
-  let actionMessage = (0, import_remix8.useActionData)();
-  let answerRef = (0, import_react2.useRef)(null);
-  (0, import_react2.useEffect)(() => {
-    if (actionMessage && answerRef.current) {
-      answerRef.current.select();
-    }
-  }, [actionMessage]);
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix8.Form, {
-    method: "post",
-    className: "remix__form"
-  }, /* @__PURE__ */ React.createElement("h3", null, "Post an Action"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("i", null, "What is more useful when it is broken?")), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("div", null, "Answer:"), /* @__PURE__ */ React.createElement("input", {
-    ref: answerRef,
-    name: "answer",
-    type: "text"
-  })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", null, "Answer!")), actionMessage ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, actionMessage)) : null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h3", null, "Additional Resources"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, "Guide:", " ", /* @__PURE__ */ React.createElement("a", {
-    href: "https://remix.run/guides/data-writes"
-  }, "Data Writes")), /* @__PURE__ */ React.createElement("li", null, "API:", " ", /* @__PURE__ */ React.createElement("a", {
-    href: "https://remix.run/api/conventions#action"
-  }, "Route Action Export")), /* @__PURE__ */ React.createElement("li", null, "API:", " ", /* @__PURE__ */ React.createElement("a", {
-    href: "https://remix.run/api/remix#useactiondata"
-  }, /* @__PURE__ */ React.createElement("code", null, "useActionData"))))));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/correct.tsx
-var correct_exports = {};
-__export(correct_exports, {
-  default: () => NiceWork
-});
-function NiceWork() {
-  return /* @__PURE__ */ React.createElement("h1", null, "You got it right!");
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params.tsx
-var params_exports = {};
-__export(params_exports, {
-  default: () => Boundaries,
-  meta: () => meta3
-});
-var import_remix9 = __toModule(require("remix"));
-function meta3() {
-  return { title: "Boundaries Demo" };
-}
-function Boundaries() {
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix9.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "."
-  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "one"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "two"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "this-record-does-not-exist"
-  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "shh-its-a-secret"
-  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix9.Link, {
-    to: "kaboom"
-  }, "This one will throw an error")))));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/index.tsx
-var params_exports2 = {};
-__export(params_exports2, {
-  default: () => Boundaries2
-});
-function Boundaries2() {
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Params"), /* @__PURE__ */ React.createElement("p", null, "When you name a route segment with $ like", " ", /* @__PURE__ */ React.createElement("code", null, "routes/users/$userId.js"), ", the $ segment will be parsed from the URL and sent to your loaders and actions by the same name."), /* @__PURE__ */ React.createElement("h2", null, "Errors"), /* @__PURE__ */ React.createElement("p", null, "When a route throws and error in it's action, loader, or component, Remix automatically catches it, won't even try to render the component, but it will render the route's ErrorBoundary instead. If the route doesn't have one, it will bubble up to the routes above it until it hits the root."), /* @__PURE__ */ React.createElement("p", null, "So be as granular as you want with your error handling."), /* @__PURE__ */ React.createElement("h2", null, "Not Found"), /* @__PURE__ */ React.createElement("p", null, "(and other", " ", /* @__PURE__ */ React.createElement("a", {
-    href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses"
-  }, "client errors"), ")"), /* @__PURE__ */ React.createElement("p", null, "Loaders and Actions can throw a ", /* @__PURE__ */ React.createElement("code", null, "Response"), " instead of an error and Remix will render the CatchBoundary instead of the component. This is great when loading data from a database isn't found. As soon as you know you can't render the component normally, throw a 404 response and send your app into the catch boundary. Just like error boundaries, catch boundaries bubble, too."));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/$id.tsx
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/blog/preview/$id.tsx
 var id_exports = {};
 __export(id_exports, {
-  CatchBoundary: () => CatchBoundary2,
-  ErrorBoundary: () => ErrorBoundary2,
-  default: () => ParamDemo,
-  loader: () => loader3,
-  meta: () => meta4
+  default: () => id_default,
+  loader: () => loader3
 });
-var import_remix10 = __toModule(require("remix"));
-var loader3 = async ({ params }) => {
-  if (params.id === "this-record-does-not-exist") {
-    throw new Response("Not Found", { status: 404 });
-  }
-  if (params.id === "shh-its-a-secret") {
-    throw (0, import_remix10.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
-  }
-  if (params.id === "kaboom") {
-  }
-  return { param: params.id };
-};
-function ParamDemo() {
-  let data = (0, import_remix10.useLoaderData)();
-  return /* @__PURE__ */ React.createElement("h1", null, "The param is ", /* @__PURE__ */ React.createElement("i", {
-    style: { color: "red" }
-  }, data.param));
-}
-function CatchBoundary2() {
-  let caught = (0, import_remix10.useCatch)();
-  let message;
-  switch (caught.status) {
-    case 401:
-      message = /* @__PURE__ */ React.createElement("p", null, "Looks like you tried to visit a page that you do not have access to. Maybe ask the webmaster (", caught.data.webmasterEmail, ") for access.");
-    case 404:
-      message = /* @__PURE__ */ React.createElement("p", null, "Looks like you tried to visit a page that does not exist.");
-    default:
-      message = /* @__PURE__ */ React.createElement("p", null, "There was a problem with your request!", /* @__PURE__ */ React.createElement("br", null), caught.status, " ", caught.statusText);
-  }
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Oops!"), /* @__PURE__ */ React.createElement("p", null, message), /* @__PURE__ */ React.createElement("p", null, "(Isn't it cool that the user gets to stay in context and try a different link in the parts of the UI that didn't blow up?)"));
-}
-function ErrorBoundary2({ error }) {
-  console.error(error);
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Error!"), /* @__PURE__ */ React.createElement("p", null, error.message), /* @__PURE__ */ React.createElement("p", null, "(Isn't it cool that the user gets to stay in context and try a different link in the parts of the UI that didn't blow up?)"));
-}
-var meta4 = ({ data }) => {
-  return {
-    title: data ? `Param: ${data.param}` : "Oops..."
-  };
-};
+var import_remix9 = __toModule(require("remix"));
 
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
-var about_exports = {};
-__export(about_exports, {
-  default: () => Index,
-  links: () => links2,
-  meta: () => meta5
-});
-var import_remix11 = __toModule(require("remix"));
-
-// app/styles/demos/about.css
-var about_default = "/build/_assets/about-GGM5BPB3.css";
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
-var meta5 = () => {
-  return {
-    title: "About Remix"
-  };
-};
-var links2 = () => {
-  return [{ rel: "stylesheet", href: about_default }];
-};
-function Index() {
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "about"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "about__intro"
-  }, /* @__PURE__ */ React.createElement("h2", null, "About Us"), /* @__PURE__ */ React.createElement("p", null, "Ok, so this page isn't really ", /* @__PURE__ */ React.createElement("em", null, "about us"), ", but we did want to show you a few more things Remix can do."), /* @__PURE__ */ React.createElement("p", null, "Did you notice that things look a little different on this page? The CSS that we import in the route file and include in its", " ", /* @__PURE__ */ React.createElement("code", null, "links"), " export is only included on this route and its children."), /* @__PURE__ */ React.createElement("p", null, "Wait a sec...", /* @__PURE__ */ React.createElement("em", null, "its children"), "? To understand what we mean by this,", " ", /* @__PURE__ */ React.createElement("a", {
-    href: "https://remix.run/tutorial/4-nested-routes-params"
-  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix11.Outlet, null)));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/index.tsx
-var about_exports2 = {};
-__export(about_exports2, {
-  default: () => AboutIndex
-});
-var import_remix12 = __toModule(require("remix"));
-function AboutIndex() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
-    to: "whoa"
-  }, "Check out one of them here."))));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/whoa.tsx
-var whoa_exports = {};
-__export(whoa_exports, {
-  default: () => AboutIndex2
-});
-var import_remix13 = __toModule(require("remix"));
-function AboutIndex2() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
-    to: ".."
-  }, "Go back to the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " index."))));
-}
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
-var preview_exports = {};
-__export(preview_exports, {
-  default: () => preview_default,
-  loader: () => loader4
-});
-var import_remix14 = __toModule(require("remix"));
+// app/lib/utils/loaderHelpers.ts
+var import_lodash = __toModule(require("lodash"));
+var import_remix8 = __toModule(require("remix"));
 
 // app/lib/api/fetch.ts
 var api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL;
@@ -1297,40 +1089,9 @@ async function logUserInClient(user) {
     })
   });
 }
-async function logUserInServer(user) {
-  const https = require("https");
-  const agent = new https.Agent({
-    rejectUnauthorized: false
-  });
-  const query3 = `
-  mutation logIn($login: String!, $password: String!) {
-      loginWithCookies(input: {
-          login: $login
-          password: $password
-      }) {
-          status
-      },
-  }
-  `;
-  const variables = {
-    login: user.username,
-    password: user.password
-  };
-  return fetch(api_url, {
-    method: "POST",
-    credentials: "include",
-    mode: "cors",
-    agent,
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      query: query3,
-      variables
-    })
-  });
-}
-async function getPreviewPostPageServer({ previewType, id, cookies }) {
+async function getPreviewPostPageServer({ previewType, id }) {
+  console.log("getPreviewPostPageServer", previewType);
+  console.log("getPreviewPostPageServer id", id);
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
@@ -1445,46 +1206,18 @@ async function getPreviewPostPageServer({ previewType, id, cookies }) {
   return fetch(api_url, {
     method: "POST",
     credentials: "include",
-    mode: "cors",
-    agent: process.env.NODE_ENV === "development" ? agent : null,
-    headers: {
-      "Content-Type": "application/json",
-      "Cookie": cookies
-    },
-    body: JSON.stringify({
-      query: previewType === "post" ? queryPost : queryPage,
-      variables
-    })
-  });
-}
-async function getViewerClientSide() {
-  const query3 = `
-    query getUser {
-      viewer {
-          id
-          databaseId
-          firstName
-          lastName
-          email
-          capabilities
-      }
-    }
-  `;
-  return fetch(api_url, {
-    method: "POST",
-    credentials: "include",
-    mode: "cors",
+    agent,
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      query: query3
+      query: previewType === "blog" ? queryPost : queryPage,
+      variables
     })
   });
 }
 
 // app/lib/utils/loaderHelpers.ts
-var import_lodash = __toModule(require("lodash"));
 function previewUrlParams(request) {
   let url = new URL(request.url);
   let previewType = url.searchParams.get("postType");
@@ -1496,50 +1229,322 @@ function previewUrlParams(request) {
     url
   };
 }
-var getPreviewRedirectUrl = (postType = "", previewPostId = "") => {
-  if ((0, import_lodash.isEmpty)(postType) || (0, import_lodash.isEmpty)(previewPostId)) {
+function getLoginRedirectParams({ previewType, id }) {
+  if ((0, import_lodash.isEmpty)(previewType) || (0, import_lodash.isEmpty)(id)) {
     return "/login";
   }
-  switch (postType) {
-    case "post":
-      return `/blog/preview/${previewPostId}/`;
-    case "page":
-      return `/page/preview/${previewPostId}/`;
-    default:
-      return "/";
+  let idType = previewType === "blog" ? "previewPostId" : "postId";
+  let postType = previewType === "blog" ? "post" : "page";
+  return `/login?postType=${postType}&${idType}=${id}`;
+}
+var previewLoaderRouteHandler = async (request, params) => {
+  let url = new URL(request.url);
+  let previewType = url.pathname.split("/").splice(1).shift();
+  let id = params.id;
+  let loginUrl = getLoginRedirectParams({ previewType, id });
+  console.log("loginUrl", loginUrl);
+  if (!previewType || !id) {
+    return (0, import_remix8.redirect)(loginUrl);
+  }
+  try {
+    console.log("previewType", previewType);
+    const res = await getPreviewPostPageServer({ previewType, id });
+    const json7 = await res.json();
+    const postType = previewType === "blog" ? "post" : "page";
+    const postPageData = json7.data[postType];
+    console.log("postPageData", postPageData);
+    if (postPageData === null) {
+      return (0, import_remix8.redirect)(loginUrl);
+    }
+    return {
+      [previewType]: postPageData
+    };
+  } catch (e) {
+    console.error(`e in /${previewType}/preview/$id`, e);
+    return (0, import_remix8.redirect)(loginUrl);
   }
 };
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/blog/preview/$id.tsx
+var loader3 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var PostPreview = () => {
+  const data = (0, import_remix9.useLoaderData)();
+  console.log("data", data);
+  return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview Post"));
+};
+var id_default = PostPreview;
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/page/preview/$id.tsx
+var id_exports2 = {};
+__export(id_exports2, {
+  default: () => id_default2,
+  loader: () => loader4
+});
+var import_remix10 = __toModule(require("remix"));
+var loader4 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var PostPreview2 = () => {
+  const data = (0, import_remix10.useLoaderData)();
+  console.log("data", data);
+  return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview"));
+};
+var id_default2 = PostPreview2;
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/courses/index.tsx
+var courses_exports = {};
+__export(courses_exports, {
+  default: () => courses_default
+});
+var Courses = () => {
+  return /* @__PURE__ */ React.createElement("div", null, "Courses Page");
+};
+var courses_default = Courses;
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/actions.tsx
+var actions_exports = {};
+__export(actions_exports, {
+  action: () => action2,
+  default: () => ActionsDemo,
+  meta: () => meta2
+});
+var import_react2 = __toModule(require("react"));
+var import_remix11 = __toModule(require("remix"));
+function meta2() {
+  return { title: "Actions Demo" };
+}
+var action2 = async ({ request }) => {
+  let formData = await request.formData();
+  let answer = formData.get("answer");
+  if (typeof answer !== "string") {
+    return (0, import_remix11.json)("Come on, at least try!", { status: 400 });
+  }
+  if (answer !== "egg") {
+    return (0, import_remix11.json)(`Sorry, ${answer} is not right.`, { status: 400 });
+  }
+  return (0, import_remix11.redirect)("/demos/correct");
+};
+function ActionsDemo() {
+  let actionMessage = (0, import_remix11.useActionData)();
+  let answerRef = (0, import_react2.useRef)(null);
+  (0, import_react2.useEffect)(() => {
+    if (actionMessage && answerRef.current) {
+      answerRef.current.select();
+    }
+  }, [actionMessage]);
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "remix__page"
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix11.Form, {
+    method: "post",
+    className: "remix__form"
+  }, /* @__PURE__ */ React.createElement("h3", null, "Post an Action"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("i", null, "What is more useful when it is broken?")), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("div", null, "Answer:"), /* @__PURE__ */ React.createElement("input", {
+    ref: answerRef,
+    name: "answer",
+    type: "text"
+  })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", null, "Answer!")), actionMessage ? /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, actionMessage)) : null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h3", null, "Additional Resources"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, "Guide:", " ", /* @__PURE__ */ React.createElement("a", {
+    href: "https://remix.run/guides/data-writes"
+  }, "Data Writes")), /* @__PURE__ */ React.createElement("li", null, "API:", " ", /* @__PURE__ */ React.createElement("a", {
+    href: "https://remix.run/api/conventions#action"
+  }, "Route Action Export")), /* @__PURE__ */ React.createElement("li", null, "API:", " ", /* @__PURE__ */ React.createElement("a", {
+    href: "https://remix.run/api/remix#useactiondata"
+  }, /* @__PURE__ */ React.createElement("code", null, "useActionData"))))));
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/correct.tsx
+var correct_exports = {};
+__export(correct_exports, {
+  default: () => NiceWork
+});
+function NiceWork() {
+  return /* @__PURE__ */ React.createElement("h1", null, "You got it right!");
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params.tsx
+var params_exports = {};
+__export(params_exports, {
+  default: () => Boundaries,
+  meta: () => meta3
+});
+var import_remix12 = __toModule(require("remix"));
+function meta3() {
+  return { title: "Boundaries Demo" };
+}
+function Boundaries() {
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "remix__page"
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix12.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "."
+  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "one"
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "two"
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "this-record-does-not-exist"
+  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "shh-its-a-secret"
+  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix12.Link, {
+    to: "kaboom"
+  }, "This one will throw an error")))));
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/index.tsx
+var params_exports2 = {};
+__export(params_exports2, {
+  default: () => Boundaries2
+});
+function Boundaries2() {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Params"), /* @__PURE__ */ React.createElement("p", null, "When you name a route segment with $ like", " ", /* @__PURE__ */ React.createElement("code", null, "routes/users/$userId.js"), ", the $ segment will be parsed from the URL and sent to your loaders and actions by the same name."), /* @__PURE__ */ React.createElement("h2", null, "Errors"), /* @__PURE__ */ React.createElement("p", null, "When a route throws and error in it's action, loader, or component, Remix automatically catches it, won't even try to render the component, but it will render the route's ErrorBoundary instead. If the route doesn't have one, it will bubble up to the routes above it until it hits the root."), /* @__PURE__ */ React.createElement("p", null, "So be as granular as you want with your error handling."), /* @__PURE__ */ React.createElement("h2", null, "Not Found"), /* @__PURE__ */ React.createElement("p", null, "(and other", " ", /* @__PURE__ */ React.createElement("a", {
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses"
+  }, "client errors"), ")"), /* @__PURE__ */ React.createElement("p", null, "Loaders and Actions can throw a ", /* @__PURE__ */ React.createElement("code", null, "Response"), " instead of an error and Remix will render the CatchBoundary instead of the component. This is great when loading data from a database isn't found. As soon as you know you can't render the component normally, throw a 404 response and send your app into the catch boundary. Just like error boundaries, catch boundaries bubble, too."));
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params/$id.tsx
+var id_exports3 = {};
+__export(id_exports3, {
+  CatchBoundary: () => CatchBoundary2,
+  ErrorBoundary: () => ErrorBoundary2,
+  default: () => ParamDemo,
+  loader: () => loader5,
+  meta: () => meta4
+});
+var import_remix13 = __toModule(require("remix"));
+var loader5 = async ({ params }) => {
+  if (params.id === "this-record-does-not-exist") {
+    throw new Response("Not Found", { status: 404 });
+  }
+  if (params.id === "shh-its-a-secret") {
+    throw (0, import_remix13.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
+  }
+  if (params.id === "kaboom") {
+  }
+  return { param: params.id };
+};
+function ParamDemo() {
+  let data = (0, import_remix13.useLoaderData)();
+  return /* @__PURE__ */ React.createElement("h1", null, "The param is ", /* @__PURE__ */ React.createElement("i", {
+    style: { color: "red" }
+  }, data.param));
+}
+function CatchBoundary2() {
+  let caught = (0, import_remix13.useCatch)();
+  let message;
+  switch (caught.status) {
+    case 401:
+      message = /* @__PURE__ */ React.createElement("p", null, "Looks like you tried to visit a page that you do not have access to. Maybe ask the webmaster (", caught.data.webmasterEmail, ") for access.");
+    case 404:
+      message = /* @__PURE__ */ React.createElement("p", null, "Looks like you tried to visit a page that does not exist.");
+    default:
+      message = /* @__PURE__ */ React.createElement("p", null, "There was a problem with your request!", /* @__PURE__ */ React.createElement("br", null), caught.status, " ", caught.statusText);
+  }
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Oops!"), /* @__PURE__ */ React.createElement("p", null, message), /* @__PURE__ */ React.createElement("p", null, "(Isn't it cool that the user gets to stay in context and try a different link in the parts of the UI that didn't blow up?)"));
+}
+function ErrorBoundary2({ error }) {
+  console.error(error);
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Error!"), /* @__PURE__ */ React.createElement("p", null, error.message), /* @__PURE__ */ React.createElement("p", null, "(Isn't it cool that the user gets to stay in context and try a different link in the parts of the UI that didn't blow up?)"));
+}
+var meta4 = ({ data }) => {
+  return {
+    title: data ? `Param: ${data.param}` : "Oops..."
+  };
+};
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/api/wpLogin.ts
+var wpLogin_exports = {};
+__export(wpLogin_exports, {
+  loader: () => loader6
+});
+var import_remix14 = __toModule(require("remix"));
+var loader6 = async ({ request }) => {
+  return (0, import_remix14.redirect)(process.env.WORDPRESS_DB || "/");
+};
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
+var about_exports = {};
+__export(about_exports, {
+  default: () => Index,
+  links: () => links2,
+  meta: () => meta5
+});
+var import_remix15 = __toModule(require("remix"));
+
+// app/styles/demos/about.css
+var about_default = "/build/_assets/about-GGM5BPB3.css";
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
+var meta5 = () => {
+  return {
+    title: "About Remix"
+  };
+};
+var links2 = () => {
+  return [{ rel: "stylesheet", href: about_default }];
+};
+function Index() {
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "about"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "about__intro"
+  }, /* @__PURE__ */ React.createElement("h2", null, "About Us"), /* @__PURE__ */ React.createElement("p", null, "Ok, so this page isn't really ", /* @__PURE__ */ React.createElement("em", null, "about us"), ", but we did want to show you a few more things Remix can do."), /* @__PURE__ */ React.createElement("p", null, "Did you notice that things look a little different on this page? The CSS that we import in the route file and include in its", " ", /* @__PURE__ */ React.createElement("code", null, "links"), " export is only included on this route and its children."), /* @__PURE__ */ React.createElement("p", null, "Wait a sec...", /* @__PURE__ */ React.createElement("em", null, "its children"), "? To understand what we mean by this,", " ", /* @__PURE__ */ React.createElement("a", {
+    href: "https://remix.run/tutorial/4-nested-routes-params"
+  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix15.Outlet, null)));
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/index.tsx
+var about_exports2 = {};
+__export(about_exports2, {
+  default: () => AboutIndex
+});
+var import_remix16 = __toModule(require("remix"));
+function AboutIndex() {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
+    to: "whoa"
+  }, "Check out one of them here."))));
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/whoa.tsx
+var whoa_exports = {};
+__export(whoa_exports, {
+  default: () => AboutIndex2
+});
+var import_remix17 = __toModule(require("remix"));
+function AboutIndex2() {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix17.Link, {
+    to: ".."
+  }, "Go back to the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " index."))));
+}
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/preview.tsx
-var loader4 = async ({ request, params, context }) => {
+var preview_exports = {};
+__export(preview_exports, {
+  default: () => preview_default,
+  loader: () => loader7
+});
+var import_remix18 = __toModule(require("remix"));
+var loader7 = async ({ request, params, context }) => {
   console.log("params", request);
-  const cookies = request.headers.get("cookie");
   const { id, previewType, url } = previewUrlParams(request);
   let loginUrl = `/login${url.search}`;
-  if (!cookies || !previewType || !id) {
-    return (0, import_remix14.redirect)(loginUrl);
+  if (!previewType || !id) {
+    return (0, import_remix18.redirect)(loginUrl);
   }
   try {
-    const res = await getPreviewPostPageServer({ previewType, id, cookies });
+    const res = await getPreviewPostPageServer({ previewType, id });
     const json7 = await res.json();
     const postPageData = json7.data[previewType];
     console.log("postPageData", postPageData);
     if (postPageData === null) {
-      return (0, import_remix14.redirect)(loginUrl);
+      return (0, import_remix18.redirect)(loginUrl);
     }
     return {
-      cookies,
       [previewType]: postPageData
     };
   } catch (e) {
     console.log("e", e);
     return {
-      data: "error"
+      data: e
     };
   }
 };
 var Preview = () => {
-  const data = (0, import_remix14.useLoaderData)();
+  const data = (0, import_remix18.useLoaderData)();
   console.log("data", data);
   return /* @__PURE__ */ React.createElement("div", null, "Preview");
 };
@@ -1550,10 +1555,10 @@ var slug_exports = {};
 __export(slug_exports, {
   default: () => PostSlug,
   headers: () => headers,
-  loader: () => loader5,
+  loader: () => loader8,
   meta: () => meta6
 });
-var import_remix15 = __toModule(require("remix"));
+var import_remix19 = __toModule(require("remix"));
 
 // app/lib/utils/posts.ts
 function flattenAllPosts(posts) {
@@ -1671,7 +1676,7 @@ var headers = ({ loaderHeaders }) => {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   };
 };
-var loader5 = async ({ params }) => {
+var loader8 = async ({ params }) => {
   let wpAPI = await fetchAPI(query, {
     variables: {
       slug: `${params.slug}`
@@ -1681,7 +1686,7 @@ var loader5 = async ({ params }) => {
     throw new Response("Not Found", { status: 404 });
   }
   const post = flattenPost(wpAPI.postBy);
-  return (0, import_remix15.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
+  return (0, import_remix19.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
 };
 var meta6 = (metaData) => {
   const { data, location, parentsData } = metaData;
@@ -1699,10 +1704,10 @@ var meta6 = (metaData) => {
   });
 };
 function PostSlug() {
-  let { post } = (0, import_remix15.useLoaderData)();
+  let { post } = (0, import_remix19.useLoaderData)();
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, post.title), /* @__PURE__ */ React.createElement("div", {
     dangerouslySetInnerHTML: { __html: post.content }
-  }), /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }), /* @__PURE__ */ React.createElement(import_remix19.Link, {
     to: "/"
   }, "Home")));
 }
@@ -1774,11 +1779,11 @@ query postBySlug($slug: String!) {
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
-  loader: () => loader6,
+  loader: () => loader9,
   meta: () => meta7,
   query: () => query2
 });
-var import_remix16 = __toModule(require("remix"));
+var import_remix20 = __toModule(require("remix"));
 var meta7 = (metaData) => {
   const { data, location, parentsData } = metaData;
   if (!data || !parentsData || !location) {
@@ -1794,7 +1799,7 @@ var meta7 = (metaData) => {
     location
   });
 };
-var loader6 = async () => {
+var loader9 = async () => {
   let data = {
     resources: [
       {
@@ -1843,7 +1848,7 @@ var loader6 = async () => {
   });
 };
 function Index2() {
-  let data = (0, import_remix16.useLoaderData)();
+  let data = (0, import_remix20.useLoaderData)();
   function fetchMore() {
   }
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", {
@@ -1853,13 +1858,13 @@ function Index2() {
   }, "Welcome to Remix!"), /* @__PURE__ */ React.createElement("p", null, "We're stoked that you're here. \u{1F973}"), /* @__PURE__ */ React.createElement("p", null, "Feel free to take a look around the code to see how Remix does things, it might be a bit different than what you\u2019re used to. When you're ready to dive deeper, we've got plenty of resources to get you up-and-running quickly."), /* @__PURE__ */ React.createElement("p", null, "Check out all the demos in this starter, and then just delete the", " ", /* @__PURE__ */ React.createElement("code", null, "app/routes/demos"), " and ", /* @__PURE__ */ React.createElement("code", null, "app/styles/demos"), " ", "folders when you're ready to turn this into your next project.")), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Demos In This App"), /* @__PURE__ */ React.createElement("ul", null, data.demos.map((demo) => /* @__PURE__ */ React.createElement("li", {
     key: demo.to,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix16.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix20.Link, {
     to: demo.to,
     prefetch: "intent"
   }, demo.name)))), /* @__PURE__ */ React.createElement("h2", null, "Resources"), /* @__PURE__ */ React.createElement("ul", null, data.posts.map((post) => /* @__PURE__ */ React.createElement("li", {
     key: post.id,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix16.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix20.Link, {
     to: post.slug,
     prefetch: "intent"
   }, post.title)))), /* @__PURE__ */ React.createElement("button", {
@@ -1934,14 +1939,14 @@ var query2 = `
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/login.tsx
 var login_exports = {};
 __export(login_exports, {
-  action: () => action3,
   default: () => login_default,
-  loader: () => loader7
+  loader: () => loader10
 });
-var import_remix17 = __toModule(require("remix"));
+var import_remix21 = __toModule(require("remix"));
 var React5 = __toModule(require("react"));
 var import_react3 = __toModule(require("react"));
-var loader7 = async ({ request }) => {
+var import_lodash2 = __toModule(require("lodash"));
+var loader10 = async ({ request }) => {
   const { id, previewType, url } = previewUrlParams(request);
   return {
     params: {
@@ -1951,96 +1956,61 @@ var loader7 = async ({ request }) => {
     }
   };
 };
-var action3 = async ({ request }) => {
-  let form = await request.formData();
-  let password = form.get("password");
-  let username = form.get("username");
-  if (typeof password !== "string" || typeof username !== "string") {
-    return { formError: `Form not submitted correctly.` };
-  }
-  let fields = { password, username };
-  let fieldErrors = {};
-  if (password.length < 4) {
-    fieldErrors = {
-      password: `Password length too small`
-    };
-    return { fieldErrors, fields };
-  }
-  try {
-    const response = await logUserInServer({ username, password });
-    const serverRes = await response.json();
-    if (serverRes.errors) {
-      let errorMessages = serverRes.errors.map((error) => error.message);
-      fieldErrors = {
-        username: errorMessages.indexOf("invalid_username") > -1 ? `Incorrect Username` : void 0,
-        password: errorMessages.indexOf("incorrect_password") > -1 ? `Incorrect Password` : void 0
-      };
-    }
-    if (Object.values(fieldErrors).some(Boolean))
-      return { fieldErrors, fields };
-    let testCookie = (0, import_remix17.createCookie)("cookie-name", {
-      domain: "localhost",
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7,
-      path: "/",
-      sameSite: "lax",
-      secrets: ["s3cret1"],
-      secure: true
-    });
-    const wpCookies = response.headers.get("Set-Cookie");
-    const parsed = wpCookies == null ? void 0 : wpCookies.split(",");
-    const customHeaders = new Headers();
-    parsed == null ? void 0 : parsed.forEach((item, index) => {
-      if (item.length === 0) {
-        return;
-      }
-      customHeaders.append("Set-Cookie", item.trim());
-    });
-    customHeaders.append("Set-Cookie", await testCookie.serialize(""));
-    const { id, previewType } = previewUrlParams(request);
-    const idString = previewType === "post" ? "previewPostId" : "postId";
-    const previewUrl = `/preview?postType=${previewType}&${idString}=${id}`;
-    return (0, import_remix17.redirect)(previewUrl, {
-      headers: customHeaders
-    });
-  } catch (e) {
-    return { formError: `Form error: ${e}` };
-  }
-};
 var Login = () => {
-  var _a, _b, _c, _d, _e, _f, _g;
-  let navigate = (0, import_remix17.useNavigate)();
-  let actionData = (0, import_remix17.useActionData)();
-  let data = (0, import_remix17.useLoaderData)();
+  let navigate = (0, import_remix21.useNavigate)();
+  let data = (0, import_remix21.useLoaderData)();
   const [loginFields, setLoginFields] = (0, import_react3.useState)({
     username: "",
     password: ""
   });
-  const [errorMessage, setErrorMessage] = (0, import_react3.useState)(null);
+  const [errorMessage, setErrorMessage] = (0, import_react3.useState)({
+    formError: null,
+    username: null,
+    password: null
+  });
   const { username, password } = loginFields;
-  console.log("data", data);
-  async function sendLogin() {
-    const login = await logUserInClient({ username: "adasa", password: "?!" });
+  const handleOnChange = (event) => {
+    var _a;
+    setLoginFields(__spreadProps(__spreadValues({}, loginFields), { [(_a = event == null ? void 0 : event.target) == null ? void 0 : _a.name]: event.target.value }));
+  };
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const login = await logUserInClient({ username, password });
     const res = await login.json();
     if (res.errors) {
+      switch (res.errors[0].message) {
+        case "invalid_username":
+          setErrorMessage(__spreadProps(__spreadValues({}, errorMessage), {
+            username: "Invalid UserName"
+          }));
+          return;
+        case "incorrect_password":
+          setErrorMessage(__spreadProps(__spreadValues({}, errorMessage), {
+            password: "Invalid Password"
+          }));
+          return;
+        default:
+          console.error(res.errors);
+      }
       return;
     }
-    console.log("res", await res.json());
-    navigate(getPreviewRedirectUrl(data.params.previewType, data.params.id));
-  }
-  async function getUser() {
-    const res = await getViewerClientSide();
-    console.log("res", await res.json());
+    if (data.params) {
+      console.log("no");
+      return;
+    }
+    navigate("/api/wpLogin");
   }
   return /* @__PURE__ */ React5.createElement(Layout2, null, /* @__PURE__ */ React5.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
   }, /* @__PURE__ */ React5.createElement("h4", {
     className: "text-gray-900 text-lg font-medium title-font mb-5 block"
-  }, "Login"), /* @__PURE__ */ React5.createElement(import_remix17.Form, {
-    method: "post",
-    action: `/login?postType=post&previewPostId=8403`,
+  }, "Login"), !(0, import_lodash2.isEmpty)(errorMessage.formError) && /* @__PURE__ */ React5.createElement("div", {
+    className: "text-red-600",
+    dangerouslySetInnerHTML: { __html: errorMessage.formError || "" }
+  }), /* @__PURE__ */ React5.createElement("form", {
+    onSubmit: handleSubmit,
     className: "mb-4",
-    "aria-describedby": (actionData == null ? void 0 : actionData.formError) ? "form-error-message" : void 0
+    "aria-describedby": errorMessage.username || errorMessage.password ? "form-error-message" : void 0
   }, /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
     className: "leading-7 text-sm text-gray-600",
     htmlFor: "username-input"
@@ -2049,14 +2019,15 @@ var Login = () => {
     type: "text",
     id: "username-input",
     name: "username",
-    defaultValue: (_a = actionData == null ? void 0 : actionData.fields) == null ? void 0 : _a.username,
-    "aria-invalid": Boolean((_b = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _b.username),
-    "aria-describedby": ((_c = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _c.username) ? "username-error" : void 0
-  }), ((_d = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _d.username) ? /* @__PURE__ */ React5.createElement("p", {
+    onChange: handleOnChange,
+    defaultValue: username,
+    "aria-invalid": Boolean(errorMessage.username),
+    "aria-describedby": errorMessage.username ? "username-error" : void 0
+  }), errorMessage.username ? /* @__PURE__ */ React5.createElement("p", {
     className: "form-validation-error text-red-500",
     role: "alert",
     id: "username-error"
-  }, actionData == null ? void 0 : actionData.fieldErrors.username) : null), /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
+  }, errorMessage.username) : null), /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
     htmlFor: "password-input",
     className: "leading-7 text-sm text-gray-600"
   }, "Password:"), /* @__PURE__ */ React5.createElement("input", {
@@ -2064,20 +2035,17 @@ var Login = () => {
     type: "password",
     className: "mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
     name: "password",
-    "aria-invalid": Boolean((_e = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _e.password) || void 0,
-    "aria-describedby": ((_f = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _f.password) ? "password-error" : void 0
-  }), ((_g = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _g.password) ? /* @__PURE__ */ React5.createElement("p", {
+    onChange: handleOnChange,
+    "aria-invalid": Boolean(errorMessage.password) || void 0,
+    "aria-describedby": errorMessage.password ? "password-error" : void 0
+  }), errorMessage.password ? /* @__PURE__ */ React5.createElement("p", {
     className: "form-validation-error text-red-500",
     role: "alert",
     id: "password-error"
-  }, actionData == null ? void 0 : actionData.fieldErrors.password) : null), /* @__PURE__ */ React5.createElement("button", {
+  }, errorMessage.password) : null), /* @__PURE__ */ React5.createElement("button", {
     type: "submit",
     className: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-  }, "Login"), (actionData == null ? void 0 : actionData.formError) && /* @__PURE__ */ React5.createElement("p", {
-    className: "text-black"
-  }, actionData == null ? void 0 : actionData.formError)), /* @__PURE__ */ React5.createElement("button", {
-    onClick: sendLogin
-  }, "Client Side")));
+  }, "Login"))));
 };
 var login_default = Login;
 
@@ -2108,6 +2076,22 @@ var routes = {
     index: true,
     caseSensitive: void 0,
     module: resource_library_exports
+  },
+  "routes/blog/preview/$id": {
+    id: "routes/blog/preview/$id",
+    parentId: "root",
+    path: "blog/preview/:id",
+    index: void 0,
+    caseSensitive: void 0,
+    module: id_exports
+  },
+  "routes/page/preview/$id": {
+    id: "routes/page/preview/$id",
+    parentId: "root",
+    path: "page/preview/:id",
+    index: void 0,
+    caseSensitive: void 0,
+    module: id_exports2
   },
   "routes/courses/index": {
     id: "routes/courses/index",
@@ -2155,7 +2139,15 @@ var routes = {
     path: ":id",
     index: void 0,
     caseSensitive: void 0,
-    module: id_exports
+    module: id_exports3
+  },
+  "routes/api/wpLogin": {
+    id: "routes/api/wpLogin",
+    parentId: "root",
+    path: "api/wpLogin",
+    index: void 0,
+    caseSensitive: void 0,
+    module: wpLogin_exports
   },
   "routes/demos/about": {
     id: "routes/demos/about",

@@ -36,5 +36,5 @@ const compile = (pluginsArray) => {
 }
 
 compile([
-  'SearchIndex'
+  // 'SearchIndex'
 ])

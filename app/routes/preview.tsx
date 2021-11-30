@@ -4,13 +4,13 @@ import { previewUrlParams } from '../lib/utils/loaderHelpers'
 
 export let loader: LoaderFunction = async({request, params,context}) => {
   console.log('params', request)
-  const cookies = request.headers.get('cookie')
+  // const cookies = request.headers.get('cookie')
   const {id, previewType, url} = previewUrlParams(request)
 
   let loginUrl = `/login${url.search}`
 
   // check for cookies
-  if(!cookies || !previewType || !id){
+  if(!previewType || !id){
     return redirect(loginUrl)
   }
 
@@ -18,7 +18,7 @@ export let loader: LoaderFunction = async({request, params,context}) => {
   // try to get user info or post info and if request is rejected - redirect to login
   // else pass data through
   try{
-    const res = await getPreviewPostPageServer({previewType, id, cookies})
+    const res = await getPreviewPostPageServer({previewType, id})
     const json = await res.json()
     const postPageData = json.data[previewType]
     console.log('postPageData', postPageData)
@@ -28,7 +28,7 @@ export let loader: LoaderFunction = async({request, params,context}) => {
     }
 
     return {
-      cookies,
+      // cookies,
       // user: await res.json(),
       [previewType]: postPageData
     }
@@ -36,7 +36,7 @@ export let loader: LoaderFunction = async({request, params,context}) => {
   }catch (e){
     console.log('e', e)
     return {
-      data: 'error'
+      data: e
     }
   }
 

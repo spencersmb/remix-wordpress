@@ -29,10 +29,7 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
 }
 
 export async function logUserInClient(user: {password:string, username: string}){
-  // const https = require("https");
-  // const agent = new https.Agent({
-  //   rejectUnauthorized: false
-  // })
+
   const query = `
   mutation logIn($login: String!, $password: String!) {
       loginWithCookies(input: {
@@ -128,7 +125,10 @@ export async function getViewerServer(cookie: string){
     }),
   })
 }
-export async function getPreviewPostPageServer({previewType, id, cookies}: {previewType: string, id: string, cookies: string}){
+export async function getPreviewPostPageServer({previewType, id}: {previewType: string, id: string}){
+  console.log('getPreviewPostPageServer', previewType)
+  console.log('getPreviewPostPageServer id', id)
+
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
@@ -243,15 +243,14 @@ export async function getPreviewPostPageServer({previewType, id, cookies}: {prev
   return fetch(api_url, {
     method: 'POST',
     credentials: 'include',
-    mode: 'cors',
+    // mode: 'cors',
     // @ts-ignore
-    agent: process.env.NODE_ENV === 'development' ? agent : null,
+    agent,
     headers: {
       'Content-Type': 'application/json',
-      'Cookie': cookies
     },
     body: JSON.stringify({
-      query: previewType === 'post' ? queryPost : queryPage,
+      query: previewType === 'blog' ? queryPost : queryPage,
       variables
     }),
   })
