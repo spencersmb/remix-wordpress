@@ -1,5 +1,5 @@
 {
-  "version": "abcba0e5",
+  "version": "0ab31e55",
   "entry": {
     "module": "/build/entry.client-27NWW7FZ.js",
     "imports": [
@@ -25,10 +25,9 @@
       "id": "routes/$slug",
       "parentId": "root",
       "path": ":slug",
-      "module": "/build/routes/$slug-6XFC7L3C.js",
+      "module": "/build/routes/$slug-5FPGLSXB.js",
       "imports": [
         "/build/_shared/chunk-5JZQ24J4.js",
-        "/build/_shared/chunk-KRNHFW7P.js",
         "/build/_shared/chunk-SQIOAM3Y.js"
       ],
       "hasAction": false,
@@ -53,7 +52,11 @@
       "id": "routes/blog/preview/$id",
       "parentId": "root",
       "path": "blog/preview/:id",
-      "module": "/build/routes/blog/preview/$id-DUDZK76Y.js",
+      "module": "/build/routes/blog/preview/$id-PWGTVH4Z.js",
+      "imports": [
+        "/build/_shared/chunk-T33J2XHH.js",
+        "/build/_shared/chunk-SQIOAM3Y.js"
+      ],
       "hasAction": false,
       "hasLoader": true,
       "hasCatchBoundary": false,
@@ -160,10 +163,9 @@
       "id": "routes/index",
       "parentId": "root",
       "index": true,
-      "module": "/build/routes/index-XSIYVJVV.js",
+      "module": "/build/routes/index-5MLTXPL4.js",
       "imports": [
-        "/build/_shared/chunk-5JZQ24J4.js",
-        "/build/_shared/chunk-KRNHFW7P.js"
+        "/build/_shared/chunk-5JZQ24J4.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -174,11 +176,12 @@
       "id": "routes/login",
       "parentId": "root",
       "path": "login",
-      "module": "/build/routes/login-PLX6EUE7.js",
+      "module": "/build/routes/login-U4W7BAOB.js",
       "imports": [
-        "/build/_shared/chunk-KRNHFW7P.js"
+        "/build/_shared/chunk-T33J2XHH.js",
+        "/build/_shared/chunk-SQIOAM3Y.js"
       ],
-      "hasAction": false,
+      "hasAction": true,
       "hasLoader": true,
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
@@ -187,7 +190,11 @@
       "id": "routes/page/preview/$id",
       "parentId": "root",
       "path": "page/preview/:id",
-      "module": "/build/routes/page/preview/$id-N4QUMHXA.js",
+      "module": "/build/routes/page/preview/$id-3PN5UBKM.js",
+      "imports": [
+        "/build/_shared/chunk-T33J2XHH.js",
+        "/build/_shared/chunk-SQIOAM3Y.js"
+      ],
       "hasAction": false,
       "hasLoader": true,
       "hasCatchBoundary": false,
@@ -197,9 +204,9 @@
       "id": "routes/preview",
       "parentId": "root",
       "path": "preview",
-      "module": "/build/routes/preview-L5KYOGN4.js",
+      "module": "/build/routes/preview-4ORLT5SH.js",
       "imports": [
-        "/build/_shared/chunk-KRNHFW7P.js",
+        "/build/_shared/chunk-T33J2XHH.js",
         "/build/_shared/chunk-SQIOAM3Y.js"
       ],
       "hasAction": false,
@@ -232,5 +239,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-ABCBA0E5.js"
+  "url": "/build/manifest-0AB31E55.js"
 }

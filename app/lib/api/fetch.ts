@@ -1,3 +1,7 @@
+import { Auth, REFRESH_LOGIN } from '../graphql/mutations/auth'
+import { v4 } from 'uuid';
+import https from 'https'
+
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
 // const api_url = 'https://etheadless.local/graphql/'
 
@@ -125,7 +129,7 @@ export async function getViewerServer(cookie: string){
     }),
   })
 }
-export async function getPreviewPostPageServer({previewType, id}: {previewType: string, id: string}){
+export async function getPreviewPostPageServer({previewType, id, userToken}: {previewType: string, id: string, userToken: IAuthToken}){
   console.log('getPreviewPostPageServer', previewType)
   console.log('getPreviewPostPageServer id', id)
 
@@ -248,6 +252,7 @@ export async function getPreviewPostPageServer({previewType, id}: {previewType: 
     agent,
     headers: {
       'Content-Type': 'application/json',
+      authorization: userToken ? `Bearer ${userToken.token}` : '',
     },
     body: JSON.stringify({
       query: previewType === 'blog' ? queryPost : queryPage,
@@ -278,6 +283,68 @@ export async function getViewerClientSide(){
     },
     body: JSON.stringify({
       query
+    }),
+  })
+}
+
+/*
+JWT LOG USER IN
+ */
+export async function logUserInJWT({username, password}: {password:string, username: string}){
+  const https = require("https");
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
+
+  const variables = {
+    input: {
+      clientMutationId: v4(), // Generate a unique id
+      username,
+      password
+    },
+  }
+  return fetch(api_url, {
+    method: 'POST',
+    mode: 'cors',
+    // @ts-ignore
+    agent,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query:Auth,
+      variables,
+    }),
+  })
+}
+
+/*
+JWT Refresh User
+ */
+
+export async function refreshJWT({cmid, refresh}: IAuthToken): Promise<Response>{
+  const https = require("https");
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
+
+  const variables = {
+    input: {
+      clientMutationId: cmid,
+      jwtRefreshToken: refresh
+    },
+  }
+  return fetch(api_url, {
+    method: 'POST',
+    mode: 'cors',
+    // @ts-ignore
+    agent,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query:REFRESH_LOGIN,
+      variables,
     }),
   })
 }
