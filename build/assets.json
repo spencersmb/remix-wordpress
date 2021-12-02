@@ -1,20 +1,20 @@
 {
-  "version": "0ab31e55",
+  "version": "8f95fe12",
   "entry": {
-    "module": "/build/entry.client-27NWW7FZ.js",
+    "module": "/build/entry.client-TKDFJ7YH.js",
     "imports": [
-      "/build/_shared/chunk-U6S6DQTK.js",
-      "/build/_shared/chunk-KNZAXA4D.js",
-      "/build/_shared/chunk-E7VMOUYL.js"
+      "/build/_shared/chunk-6OB37ICV.js",
+      "/build/_shared/chunk-VASXBIWI.js",
+      "/build/_shared/chunk-5OQ3QANQ.js"
     ]
   },
   "routes": {
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-O7GVR32O.js",
+      "module": "/build/root-IEVAOXI7.js",
       "imports": [
-        "/build/_shared/chunk-HUM4IQL4.js"
+        "/build/_shared/chunk-XMBHGM2Y.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -25,10 +25,45 @@
       "id": "routes/$slug",
       "parentId": "root",
       "path": ":slug",
-      "module": "/build/routes/$slug-5FPGLSXB.js",
+      "module": "/build/routes/$slug-2JTD6IZK.js",
       "imports": [
-        "/build/_shared/chunk-5JZQ24J4.js",
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-CZ5EMZD5.js",
+        "/build/_shared/chunk-UCTYI4ZM.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/[manifest.json]": {
+      "id": "routes/[manifest.json]",
+      "parentId": "root",
+      "path": "manifest.json",
+      "module": "/build/routes/[manifest.json]-K7KGFBCT.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/[robots.txt]": {
+      "id": "routes/[robots.txt]",
+      "parentId": "root",
+      "path": "robots.txt",
+      "module": "/build/routes/[robots.txt]-SSGFP32Z.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/[sitemap.xml]": {
+      "id": "routes/[sitemap.xml]",
+      "parentId": "root",
+      "path": "sitemap.xml",
+      "module": "/build/routes/[sitemap.xml]-IMA77COB.js",
+      "imports": [
+        "/build/_shared/chunk-XYQ5NGPG.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -39,9 +74,9 @@
       "id": "routes/api/wpLogin",
       "parentId": "root",
       "path": "api/wpLogin",
-      "module": "/build/routes/api/wpLogin-LDAEXZNP.js",
+      "module": "/build/routes/api/wpLogin-5Q2BR4AF.js",
       "imports": [
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-UCTYI4ZM.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -52,10 +87,11 @@
       "id": "routes/blog/preview/$id",
       "parentId": "root",
       "path": "blog/preview/:id",
-      "module": "/build/routes/blog/preview/$id-PWGTVH4Z.js",
+      "module": "/build/routes/blog/preview/$id-COWXLXC7.js",
       "imports": [
-        "/build/_shared/chunk-T33J2XHH.js",
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-DIEAQH6R.js",
+        "/build/_shared/chunk-UCTYI4ZM.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -67,7 +103,7 @@
       "parentId": "root",
       "path": "courses",
       "index": true,
-      "module": "/build/routes/courses/index-KOJ6LFDP.js",
+      "module": "/build/routes/courses/index-JIY7NJ77.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -77,7 +113,7 @@
       "id": "routes/demos/about",
       "parentId": "root",
       "path": "demos/about",
-      "module": "/build/routes/demos/about-NB3HZXXB.js",
+      "module": "/build/routes/demos/about-7YYYUHQO.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -87,7 +123,7 @@
       "id": "routes/demos/about/index",
       "parentId": "routes/demos/about",
       "index": true,
-      "module": "/build/routes/demos/about/index-WS5XHXPZ.js",
+      "module": "/build/routes/demos/about/index-QVHCTRCL.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -97,7 +133,7 @@
       "id": "routes/demos/about/whoa",
       "parentId": "routes/demos/about",
       "path": "whoa",
-      "module": "/build/routes/demos/about/whoa-WKGRHBYB.js",
+      "module": "/build/routes/demos/about/whoa-WTFF5KLZ.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -107,9 +143,9 @@
       "id": "routes/demos/actions",
       "parentId": "root",
       "path": "demos/actions",
-      "module": "/build/routes/demos/actions-L3FIIMVH.js",
+      "module": "/build/routes/demos/actions-JUE7PUKN.js",
       "imports": [
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-UCTYI4ZM.js"
       ],
       "hasAction": true,
       "hasLoader": false,
@@ -120,7 +156,7 @@
       "id": "routes/demos/correct",
       "parentId": "root",
       "path": "demos/correct",
-      "module": "/build/routes/demos/correct-H44OZD7H.js",
+      "module": "/build/routes/demos/correct-TDZPJR7W.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -130,7 +166,7 @@
       "id": "routes/demos/params",
       "parentId": "root",
       "path": "demos/params",
-      "module": "/build/routes/demos/params-WHFU3QSF.js",
+      "module": "/build/routes/demos/params-HEOAVR4Y.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -140,9 +176,9 @@
       "id": "routes/demos/params/$id",
       "parentId": "routes/demos/params",
       "path": ":id",
-      "module": "/build/routes/demos/params/$id-X2GT53X3.js",
+      "module": "/build/routes/demos/params/$id-EKQPYBNE.js",
       "imports": [
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-UCTYI4ZM.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -153,9 +189,23 @@
       "id": "routes/demos/params/index",
       "parentId": "routes/demos/params",
       "index": true,
-      "module": "/build/routes/demos/params/index-QSTWWXAI.js",
+      "module": "/build/routes/demos/params/index-DNJNZUIX.js",
       "hasAction": false,
       "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/feed": {
+      "id": "routes/feed",
+      "parentId": "root",
+      "path": "feed",
+      "module": "/build/routes/feed-UCPYMNJN.js",
+      "imports": [
+        "/build/_shared/chunk-XYQ5NGPG.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
     },
@@ -163,9 +213,10 @@
       "id": "routes/index",
       "parentId": "root",
       "index": true,
-      "module": "/build/routes/index-5MLTXPL4.js",
+      "module": "/build/routes/index-JZGSFEPF.js",
       "imports": [
-        "/build/_shared/chunk-5JZQ24J4.js"
+        "/build/_shared/chunk-CZ5EMZD5.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -176,10 +227,11 @@
       "id": "routes/login",
       "parentId": "root",
       "path": "login",
-      "module": "/build/routes/login-U4W7BAOB.js",
+      "module": "/build/routes/login-B7VB7ZNT.js",
       "imports": [
-        "/build/_shared/chunk-T33J2XHH.js",
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-DIEAQH6R.js",
+        "/build/_shared/chunk-UCTYI4ZM.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": true,
       "hasLoader": true,
@@ -190,10 +242,11 @@
       "id": "routes/page/preview/$id",
       "parentId": "root",
       "path": "page/preview/:id",
-      "module": "/build/routes/page/preview/$id-3PN5UBKM.js",
+      "module": "/build/routes/page/preview/$id-4XVE5EFV.js",
       "imports": [
-        "/build/_shared/chunk-T33J2XHH.js",
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-DIEAQH6R.js",
+        "/build/_shared/chunk-UCTYI4ZM.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -204,10 +257,11 @@
       "id": "routes/preview",
       "parentId": "root",
       "path": "preview",
-      "module": "/build/routes/preview-4ORLT5SH.js",
+      "module": "/build/routes/preview-6LVOVJRR.js",
       "imports": [
-        "/build/_shared/chunk-T33J2XHH.js",
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-DIEAQH6R.js",
+        "/build/_shared/chunk-UCTYI4ZM.js",
+        "/build/_shared/chunk-CJRXY5FI.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -219,9 +273,9 @@
       "parentId": "root",
       "path": "resource-library",
       "index": true,
-      "module": "/build/routes/resource-library/index-CFSQINDB.js",
+      "module": "/build/routes/resource-library/index-BZVPDKQM.js",
       "imports": [
-        "/build/_shared/chunk-SQIOAM3Y.js"
+        "/build/_shared/chunk-UCTYI4ZM.js"
       ],
       "hasAction": true,
       "hasLoader": true,
@@ -232,12 +286,12 @@
       "id": "routes/resource-library/members",
       "parentId": "root",
       "path": "resource-library/members",
-      "module": "/build/routes/resource-library/members-274DE52U.js",
+      "module": "/build/routes/resource-library/members-ZJFZLEBX.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-0AB31E55.js"
+  "url": "/build/manifest-8F95FE12.js"
 }

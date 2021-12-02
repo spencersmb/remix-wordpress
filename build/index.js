@@ -1065,7 +1065,7 @@ var REFRESH_LOGIN = `
 // app/lib/api/fetch.ts
 var import_uuid = __toModule(require("uuid"));
 var api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL;
-async function fetchAPI(query3, { variables } = {}) {
+async function fetchAPI(query4, { variables } = {}) {
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
@@ -1077,7 +1077,7 @@ async function fetchAPI(query3, { variables } = {}) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      query: query3,
+      query: query4,
       variables
     })
   });
@@ -1436,6 +1436,187 @@ var PostPreview2 = () => {
 };
 var id_default2 = PostPreview2;
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[manifest.json].ts
+var manifest_json_exports = {};
+__export(manifest_json_exports, {
+  loader: () => loader5
+});
+var manifest = {
+  "short_name": "Every Tuesday Blog",
+  "name": "Every Tuesday: Procreate Freebies and Tutorials for Beginners",
+  "icons": [
+    {
+      "src": "/images/icons-vector.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3367D6",
+  "shortcuts": [
+    {
+      "name": "How's weather today?",
+      "short_name": "Today",
+      "description": "View weather information for today",
+      "url": "/today?source=pwa",
+      "icons": [{ "src": "/images/today.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "How's weather tomorrow?",
+      "short_name": "Tomorrow",
+      "description": "View weather information for tomorrow",
+      "url": "/tomorrow?source=pwa",
+      "icons": [{ "src": "/images/tomorrow.png", "sizes": "192x192" }]
+    }
+  ],
+  "description": "Design, Tips and Tricks",
+  "screenshots": [
+    {
+      "src": "/images/screenshot1.png",
+      "type": "image/png",
+      "sizes": "540x720"
+    },
+    {
+      "src": "/images/screenshot2.jpg",
+      "type": "image/jpg",
+      "sizes": "540x720"
+    }
+  ]
+};
+var loader5 = async ({ request }) => {
+  return new Response(JSON.stringify(manifest), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+};
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[sitemap.xml].ts
+var sitemap_xml_exports = {};
+__export(sitemap_xml_exports, {
+  loader: () => loader6
+});
+var import_prettier = __toModule(require("prettier"));
+var import_client = __toModule(require("@apollo/client"));
+
+// app/utils/graphqlUtils.ts
+function getGraphQLString(query4) {
+  var _a;
+  return (_a = query4.loc) == null ? void 0 : _a.source.body;
+}
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[sitemap.xml].ts
+async function getSitemapData() {
+  return fetchAPI(getGraphQLString(QUERY_SITEMAP), {
+    variables: {
+      count: 1e3
+    }
+  });
+}
+var loader6 = async ({ request }) => {
+  let url = new URL(request.url);
+  const { posts, pages } = await getSitemapData();
+  let xml = await generateXmlIndex({
+    pages: pages.edges,
+    posts: posts.edges,
+    homepage: url.origin
+  });
+  return new Response(xml, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/xml"
+    }
+  });
+};
+async function generateXmlIndex({ pages, posts, homepage }) {
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>HOMEPAGE</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+      </url>
+      ${pages.map((data) => {
+    const page = data.node;
+    return `
+              <url>
+                <loc>${homepage}/${page.slug}</loc>
+                <priority>0.3</priority>
+                <lastmod>${page.seo.opengraphModifiedTime}</lastmod>
+              </url>
+            `;
+  }).join("")}
+      ${posts.map((data) => {
+    const post = data.node;
+    return `
+            <url>
+              <loc>${homepage}/${post.slug}</loc>
+              <lastmod>${post.seo.opengraphModifiedTime}</lastmod>
+            </url>
+          `;
+  }).join("")}
+    </urlset>
+  `;
+  const sitemapFormatted = import_prettier.default.format(sitemap, {
+    printWidth: 120,
+    parser: "html"
+  });
+  return sitemapFormatted;
+}
+var QUERY_SITEMAP = import_client.gql`
+    query SiteMap($count: Int) {
+        posts(first: $count) {
+            __typename
+            edges {
+                __typename
+                node {
+                    status
+                    date
+                    modified
+                    title
+                    slug
+                    seo {
+                        title
+                        opengraphModifiedTime
+                        metaDesc
+                    }
+                }
+            }
+        }
+        pages(first: $count){
+            edges {
+                node {
+                    status
+                    title
+                    slug
+                    seo {
+                        title
+                        opengraphModifiedTime
+                    }
+                    author {
+                        node {
+                            username
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/courses/index.tsx
 var courses_exports = {};
 __export(courses_exports, {
@@ -1504,6 +1685,27 @@ function NiceWork() {
   return /* @__PURE__ */ React.createElement("h1", null, "You got it right!");
 }
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[robots.txt].ts
+var robots_txt_exports = {};
+__export(robots_txt_exports, {
+  loader: () => loader7
+});
+async function loader7() {
+  let xml = await generateRobotsTxt();
+  return new Response(xml, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/plain"
+    }
+  });
+}
+async function generateRobotsTxt() {
+  const sitemapUrl = `https://et-headless-wp.vercel.app/sitemap.xml`;
+  return `User-agent: *
+Allow: /
+Sitemap: ${sitemapUrl}`;
+}
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/params.tsx
 var params_exports = {};
 __export(params_exports, {
@@ -1549,11 +1751,11 @@ __export(id_exports3, {
   CatchBoundary: () => CatchBoundary2,
   ErrorBoundary: () => ErrorBoundary2,
   default: () => ParamDemo,
-  loader: () => loader5,
+  loader: () => loader8,
   meta: () => meta4
 });
 var import_remix14 = __toModule(require("remix"));
-var loader5 = async ({ params }) => {
+var loader8 = async ({ params }) => {
   if (params.id === "this-record-does-not-exist") {
     throw new Response("Not Found", { status: 404 });
   }
@@ -1596,10 +1798,10 @@ var meta4 = ({ data }) => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/api/wpLogin.ts
 var wpLogin_exports = {};
 __export(wpLogin_exports, {
-  loader: () => loader6
+  loader: () => loader9
 });
 var import_remix15 = __toModule(require("remix"));
-var loader6 = async ({ request }) => {
+var loader9 = async ({ request }) => {
   return (0, import_remix15.redirect)(process.env.WORDPRESS_DB || "/");
 };
 
@@ -1662,10 +1864,10 @@ function AboutIndex2() {
 var preview_exports = {};
 __export(preview_exports, {
   default: () => preview_default,
-  loader: () => loader7
+  loader: () => loader10
 });
 var import_remix19 = __toModule(require("remix"));
-var loader7 = async ({ request, params, context }) => {
+var loader10 = async ({ request, params, context }) => {
   console.log("params", request);
   const { id, previewType, url } = previewUrlParams(request);
   let loginUrl = `/login${url.search}`;
@@ -1702,7 +1904,7 @@ var slug_exports = {};
 __export(slug_exports, {
   default: () => PostSlug,
   headers: () => headers,
-  loader: () => loader8,
+  loader: () => loader11,
   meta: () => meta6
 });
 var import_remix20 = __toModule(require("remix"));
@@ -1823,7 +2025,7 @@ var headers = ({ loaderHeaders }) => {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   };
 };
-var loader8 = async ({ params }) => {
+var loader11 = async ({ params }) => {
   let wpAPI = await fetchAPI(query, {
     variables: {
       slug: `${params.slug}`
@@ -1926,7 +2128,7 @@ query postBySlug($slug: String!) {
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
-  loader: () => loader9,
+  loader: () => loader12,
   meta: () => meta7,
   query: () => query2
 });
@@ -1946,7 +2148,7 @@ var meta7 = (metaData) => {
     location
   });
 };
-var loader9 = async () => {
+var loader12 = async () => {
   let data = {
     resources: [
       {
@@ -2088,11 +2290,11 @@ var login_exports = {};
 __export(login_exports, {
   action: () => action3,
   default: () => login_default,
-  loader: () => loader10
+  loader: () => loader13
 });
 var import_remix22 = __toModule(require("remix"));
 var React5 = __toModule(require("react"));
-var loader10 = async ({ request }) => {
+var loader13 = async ({ request }) => {
   const { id, previewType, url } = previewUrlParams(request);
   return {
     params: {
@@ -2220,6 +2422,90 @@ var Login = () => {
 };
 var login_default = Login;
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/feed.ts
+var feed_exports = {};
+__export(feed_exports, {
+  loader: () => loader14
+});
+var import_rss = __toModule(require("rss"));
+var import_graphql_tag = __toModule(require("graphql-tag"));
+async function getFeedData() {
+  return fetchAPI(getGraphQLString(query3), {
+    variables: {
+      count: 10
+    }
+  });
+}
+var loader14 = async ({ request }) => {
+  let url = new URL(request.url);
+  const { posts } = await getFeedData();
+  let xml = await generateFeed(posts.edges, url.origin);
+  return new Response(xml, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/rss+xml"
+    }
+  });
+};
+async function generateFeed(posts, origin) {
+  const feed = new import_rss.default({
+    title: "myTitle",
+    description: "description",
+    site_url: origin,
+    feed_url: `${origin}/feed`,
+    copyright: `2015 Every-Tuesday`,
+    language: "us-EN",
+    pubDate: new Date()
+  });
+  posts.map((data) => {
+    const post = data.node;
+    console.log("data", post);
+    feed.item({
+      title: post.title,
+      guid: `${origin}/${post.slug}`,
+      url: `${origin}/${post.slug}`,
+      date: post.date,
+      description: post.excerpt,
+      author: post.author.node.name,
+      categories: post.categories.edges.map((cat) => cat.node.name) || []
+    });
+  });
+  return feed.xml({ indent: true });
+}
+var query3 = import_graphql_tag.default`
+    query FeedPosts($count: Int) {
+        posts(first: $count) {
+            edges {
+                node {
+                    author{
+                        node{
+                            name
+                        }
+                    }
+                    categories{
+                        edges{
+                            node{
+                                name
+                            }
+                        }
+                    }
+                    date
+                    modified
+                    title
+                    slug
+                    excerpt
+                    date
+                    seo {
+                        title
+                        opengraphModifiedTime
+                        metaDesc
+                    }
+                }
+            }
+        }
+    }
+`;
+
 // <stdin>
 var import_assets = __toModule(require("./assets.json"));
 var entry = { module: entry_server_exports };
@@ -2264,6 +2550,22 @@ var routes = {
     caseSensitive: void 0,
     module: id_exports2
   },
+  "routes/[manifest.json]": {
+    id: "routes/[manifest.json]",
+    parentId: "root",
+    path: "manifest.json",
+    index: void 0,
+    caseSensitive: void 0,
+    module: manifest_json_exports
+  },
+  "routes/[sitemap.xml]": {
+    id: "routes/[sitemap.xml]",
+    parentId: "root",
+    path: "sitemap.xml",
+    index: void 0,
+    caseSensitive: void 0,
+    module: sitemap_xml_exports
+  },
   "routes/courses/index": {
     id: "routes/courses/index",
     parentId: "root",
@@ -2287,6 +2589,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: correct_exports
+  },
+  "routes/[robots.txt]": {
+    id: "routes/[robots.txt]",
+    parentId: "root",
+    path: "robots.txt",
+    index: void 0,
+    caseSensitive: void 0,
+    module: robots_txt_exports
   },
   "routes/demos/params": {
     id: "routes/demos/params",
@@ -2375,6 +2685,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: login_exports
+  },
+  "routes/feed": {
+    id: "routes/feed",
+    parentId: "root",
+    path: "feed",
+    index: void 0,
+    caseSensitive: void 0,
+    module: feed_exports
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

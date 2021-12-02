@@ -53,6 +53,11 @@ interface IPostRaw {
     edges: [{node: Itag}]
   }
   featuredImage: IFeaturedImage
+  title: string
+  slug: string
+  date: string
+  excerpt: string
+  seo: IPostSeo
 }
 interface IPostSeo {
   fullHead: string
