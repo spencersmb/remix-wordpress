@@ -1,8 +1,17 @@
-import { ActionFunction, Form, json, LoaderFunction, useActionData } from 'remix'
+import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData } from 'remix'
 import * as React from 'react'
 import { Layout } from '../../root'
+import { createResourceUserSession } from '../../utils/resourceLibrarySession.server'
+import { v4 } from 'uuid';
+import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
 
 export let loader: LoaderFunction = async ({ params }) => {
+
+  // Check for Resource User Cookie
+  // If found redirect them to /members
+
+
+
   const page = {
     title: 'Resource Library',
     slug: 'resource-library',
@@ -42,24 +51,26 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     password: password !== process.env.RESOURCE_LIBRARY_PW ?  `Incorrect Password` : undefined
   };
 
+  console.log('fieldErrors', fieldErrors)
+
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
-  return { formError: `Form not submitted correctly.` };
+  let userId = v4()
+  let sessionStorage = createResourceUserSession(userId)
+  const customHeaders = new Headers()
+  customHeaders.append('Set-Cookie', await sessionStorage)
+
+  return redirect('/resource-library/members',{
+    headers:customHeaders
+  })
 
 }
 
-const CustomNav = () => {
-  return(
-    <nav>
-      <li>Nav</li>
-    </nav>
-  )
-}
 const ResourceLibrarySignUp = () => {
   let actionData = useActionData<ActionData | undefined>();
   return (
-      <Layout alternateNav={<CustomNav/>}>
+      <Layout alternateNav={<ResourceLibraryNav/>}>
       <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
         <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Login</h4>
         {/*{! isEmpty( errorMessage ) && (*/}

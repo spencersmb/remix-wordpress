@@ -43,12 +43,12 @@
     "xstate": "^4.26.1"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.3",
     "@remix-run/dev": "^1.0.5",
     "@types/lodash": "^4.14.177",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "@types/uuid": "^8.3.3",
     "autoprefixer": "^10.4.0",
     "concurrently": "^6.4.0",
     "he": "^1.2.0",

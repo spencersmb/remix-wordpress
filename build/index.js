@@ -838,65 +838,97 @@ var RouteChangeAnnouncement = React2.memo(() => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/members.tsx
 var members_exports = {};
 __export(members_exports, {
-  default: () => members_default
-});
-var ResourceLibraryMembers = () => {
-  return /* @__PURE__ */ React.createElement("div", null, "Members AREA");
-};
-var members_default = ResourceLibraryMembers;
-
-// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/index.tsx
-var resource_library_exports = {};
-__export(resource_library_exports, {
-  action: () => action,
-  default: () => resource_library_default,
+  default: () => members_default,
   loader: () => loader2
 });
-var import_remix7 = __toModule(require("remix"));
-var React4 = __toModule(require("react"));
+var import_remix8 = __toModule(require("remix"));
+
+// app/utils/resourceLibrarySession.server.ts
+var import_remix5 = __toModule(require("remix"));
+var sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  throw new Error("SESSION_SECRET must be set");
+}
+var resourceStorage = (0, import_remix5.createCookieSessionStorage)({
+  cookie: {
+    name: "resource_session",
+    secure: true,
+    secrets: [sessionSecret],
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+    httpOnly: true
+  }
+});
+async function createResourceUserSession(userId) {
+  let session = await resourceStorage.getSession();
+  session.set("userId", userId);
+  return await resourceStorage.commitSession(session);
+}
+function getResourceUserSession(request) {
+  return resourceStorage.getSession(request.headers.get("Cookie"));
+}
+async function requireResourceLibraryUser(request, redirectTo) {
+  let session = await getResourceUserSession(request);
+  let userToken = session.get("userId");
+  if (!userToken) {
+    throw (0, import_remix5.redirect)(redirectTo);
+  }
+  return userToken;
+}
+
+// app/components/resourceLibrary/resourceNav.tsx
+var React3 = __toModule(require("react"));
+var ResourceLibraryNav = ({ showLogout }) => {
+  return /* @__PURE__ */ React3.createElement("nav", null, /* @__PURE__ */ React3.createElement("li", null, "Nav"), showLogout && /* @__PURE__ */ React3.createElement("li", null, "Logout"));
+};
+var resourceNav_default = ResourceLibraryNav;
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/members.tsx
+var React5 = __toModule(require("react"));
 
 // app/root.tsx
-var React3 = __toModule(require("react"));
-var import_remix5 = __toModule(require("remix"));
-var import_nprogress3 = __toModule(require("nprogress"));
+var React4 = __toModule(require("react"));
 var import_remix6 = __toModule(require("remix"));
+var import_nprogress3 = __toModule(require("nprogress"));
+var import_remix7 = __toModule(require("remix"));
 var PrimaryNav2 = () => {
   const { menu } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
-  return /* @__PURE__ */ React3.createElement("nav", {
+  return /* @__PURE__ */ React4.createElement("nav", {
     "aria-label": "Main navigation",
     className: "remix-app__header-nav"
-  }, /* @__PURE__ */ React3.createElement("ul", null, primaryMenu.map((menuItem) => {
-    return /* @__PURE__ */ React3.createElement("li", {
+  }, /* @__PURE__ */ React4.createElement("ul", null, primaryMenu.map((menuItem) => {
+    return /* @__PURE__ */ React4.createElement("li", {
       key: menuItem.id
-    }, /* @__PURE__ */ React3.createElement(import_remix5.Link, {
+    }, /* @__PURE__ */ React4.createElement(import_remix6.Link, {
       to: menuItem.path
     }, menuItem.label));
   })));
 };
 function Layout2({ children, alternateNav }) {
-  return /* @__PURE__ */ React3.createElement("div", {
+  return /* @__PURE__ */ React4.createElement("div", {
     className: "remix-app"
-  }, /* @__PURE__ */ React3.createElement("header", {
+  }, /* @__PURE__ */ React4.createElement("header", {
     className: "remix-app__header"
-  }, /* @__PURE__ */ React3.createElement("div", {
+  }, /* @__PURE__ */ React4.createElement("div", {
     className: "container remix-app__header-content"
-  }, /* @__PURE__ */ React3.createElement(import_remix5.Link, {
+  }, /* @__PURE__ */ React4.createElement(import_remix6.Link, {
     to: "/",
     title: "Remix",
     className: "remix-app__header-home-link"
-  }, /* @__PURE__ */ React3.createElement(RemixLogo2, null)), alternateNav ? alternateNav : /* @__PURE__ */ React3.createElement(PrimaryNav2, null))), /* @__PURE__ */ React3.createElement("div", {
+  }, /* @__PURE__ */ React4.createElement(RemixLogo2, null)), alternateNav ? alternateNav : /* @__PURE__ */ React4.createElement(PrimaryNav2, null))), /* @__PURE__ */ React4.createElement("div", {
     className: "remix-app__main"
-  }, /* @__PURE__ */ React3.createElement("div", {
+  }, /* @__PURE__ */ React4.createElement("div", {
     className: "container remix-app__main-content"
-  }, children)), /* @__PURE__ */ React3.createElement("footer", {
+  }, children)), /* @__PURE__ */ React4.createElement("footer", {
     className: "remix-app__footer"
-  }, /* @__PURE__ */ React3.createElement("div", {
+  }, /* @__PURE__ */ React4.createElement("div", {
     className: "container remix-app__footer-content"
-  }, /* @__PURE__ */ React3.createElement("p", null, "\xA9 You!"))));
+  }, /* @__PURE__ */ React4.createElement("p", null, "\xA9 You!"))));
 }
 function RemixLogo2(props) {
-  return /* @__PURE__ */ React3.createElement("svg", __spreadValues({
+  return /* @__PURE__ */ React4.createElement("svg", __spreadValues({
     viewBox: "0 0 659 165",
     version: "1.1",
     xmlns: "http://www.w3.org/2000/svg",
@@ -906,29 +938,29 @@ function RemixLogo2(props) {
     width: "106",
     height: "30",
     fill: "currentColor"
-  }, props), /* @__PURE__ */ React3.createElement("title", {
+  }, props), /* @__PURE__ */ React4.createElement("title", {
     id: "remix-run-logo-title"
-  }, "Remix Logo"), /* @__PURE__ */ React3.createElement("path", {
+  }, "Remix Logo"), /* @__PURE__ */ React4.createElement("path", {
     d: "M0 161V136H45.5416C53.1486 136 54.8003 141.638 54.8003 145V161H0Z M133.85 124.16C135.3 142.762 135.3 151.482 135.3 161H92.2283C92.2283 158.927 92.2653 157.03 92.3028 155.107C92.4195 149.128 92.5411 142.894 91.5717 130.304C90.2905 111.872 82.3473 107.776 67.7419 107.776H54.8021H0V74.24H69.7918C88.2407 74.24 97.4651 68.632 97.4651 53.784C97.4651 40.728 88.2407 32.816 69.7918 32.816H0V0H77.4788C119.245 0 140 19.712 140 51.2C140 74.752 125.395 90.112 105.665 92.672C122.32 96 132.057 105.472 133.85 124.16Z"
-  }), /* @__PURE__ */ React3.createElement("path", {
+  }), /* @__PURE__ */ React4.createElement("path", {
     d: "M229.43 120.576C225.59 129.536 218.422 133.376 207.158 133.376C194.614 133.376 184.374 126.72 183.35 112.64H263.478V101.12C263.478 70.1437 243.254 44.0317 205.11 44.0317C169.526 44.0317 142.902 69.8877 142.902 105.984C142.902 142.336 169.014 164.352 205.622 164.352C235.83 164.352 256.822 149.76 262.71 123.648L229.43 120.576ZM183.862 92.6717C185.398 81.9197 191.286 73.7277 204.598 73.7277C216.886 73.7277 223.542 82.4317 224.054 92.6717H183.862Z"
-  }), /* @__PURE__ */ React3.createElement("path", {
+  }), /* @__PURE__ */ React4.createElement("path", {
     d: "M385.256 66.5597C380.392 53.2477 369.896 44.0317 349.672 44.0317C332.52 44.0317 320.232 51.7117 314.088 64.2557V47.1037H272.616V161.28H314.088V105.216C314.088 88.0638 318.952 76.7997 332.52 76.7997C345.064 76.7997 348.136 84.9917 348.136 100.608V161.28H389.608V105.216C389.608 88.0638 394.216 76.7997 408.04 76.7997C420.584 76.7997 423.4 84.9917 423.4 100.608V161.28H464.872V89.5997C464.872 65.7917 455.656 44.0317 424.168 44.0317C404.968 44.0317 391.4 53.7597 385.256 66.5597Z"
-  }), /* @__PURE__ */ React3.createElement("path", {
+  }), /* @__PURE__ */ React4.createElement("path", {
     d: "M478.436 47.104V161.28H519.908V47.104H478.436ZM478.18 36.352H520.164V0H478.18V36.352Z"
-  }), /* @__PURE__ */ React3.createElement("path", {
+  }), /* @__PURE__ */ React4.createElement("path", {
     d: "M654.54 47.1035H611.788L592.332 74.2395L573.388 47.1035H527.564L568.78 103.168L523.98 161.28H566.732L589.516 130.304L612.3 161.28H658.124L613.068 101.376L654.54 47.1035Z"
   }));
 }
-var RouteChangeAnnouncement2 = React3.memo(() => {
-  let [hydrated, setHydrated] = React3.useState(false);
-  let [innerHtml, setInnerHtml] = React3.useState("");
-  let location = (0, import_remix5.useLocation)();
-  React3.useEffect(() => {
+var RouteChangeAnnouncement2 = React4.memo(() => {
+  let [hydrated, setHydrated] = React4.useState(false);
+  let [innerHtml, setInnerHtml] = React4.useState("");
+  let location = (0, import_remix6.useLocation)();
+  React4.useEffect(() => {
     setHydrated(true);
   }, []);
-  let firstRenderRef = React3.useRef(true);
-  React3.useEffect(() => {
+  let firstRenderRef = React4.useRef(true);
+  React4.useEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false;
       return;
@@ -939,7 +971,7 @@ var RouteChangeAnnouncement2 = React3.memo(() => {
   if (!hydrated) {
     return null;
   }
-  return /* @__PURE__ */ React3.createElement("div", {
+  return /* @__PURE__ */ React4.createElement("div", {
     "aria-live": "assertive",
     "aria-atomic": true,
     id: "route-change-region",
@@ -959,8 +991,40 @@ var RouteChangeAnnouncement2 = React3.memo(() => {
   }, innerHtml);
 });
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/members.tsx
+var loader2 = async ({ request }) => {
+  await requireResourceLibraryUser(request, "/resource-library");
+  try {
+    return (0, import_remix8.json)({
+      resourceData: []
+    });
+  } catch (e) {
+    console.error(`e in /resource-library`, e);
+    return (0, import_remix8.redirect)("/resource-library");
+  }
+};
+var ResourceLibraryMembers = () => {
+  const data = (0, import_remix8.useLoaderData)();
+  console.log("data", data);
+  return /* @__PURE__ */ React5.createElement(Layout2, {
+    alternateNav: /* @__PURE__ */ React5.createElement(resourceNav_default, {
+      showLogout: true
+    })
+  }, /* @__PURE__ */ React5.createElement("div", null, "Members AREA"));
+};
+var members_default = ResourceLibraryMembers;
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/index.tsx
-var loader2 = async ({ params }) => {
+var resource_library_exports = {};
+__export(resource_library_exports, {
+  action: () => action,
+  default: () => resource_library_default,
+  loader: () => loader3
+});
+var import_remix9 = __toModule(require("remix"));
+var React6 = __toModule(require("react"));
+var import_uuid = __toModule(require("uuid"));
+var loader3 = async ({ params }) => {
   const page = {
     title: "Resource Library",
     slug: "resource-library",
@@ -971,7 +1035,7 @@ var loader2 = async ({ params }) => {
       metaDesc: "When you join the Tuesday Tribe, you\u2019ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more."
     }
   };
-  return (0, import_remix7.json)({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
+  return (0, import_remix9.json)({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
 };
 var action = async ({ request }) => {
   let form = await request.formData();
@@ -983,41 +1047,45 @@ var action = async ({ request }) => {
   let fieldErrors = {
     password: password !== process.env.RESOURCE_LIBRARY_PW ? `Incorrect Password` : void 0
   };
+  console.log("fieldErrors", fieldErrors);
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
-  return { formError: `Form not submitted correctly.` };
-};
-var CustomNav = () => {
-  return /* @__PURE__ */ React4.createElement("nav", null, /* @__PURE__ */ React4.createElement("li", null, "Nav"));
+  let userId = (0, import_uuid.v4)();
+  let sessionStorage = createResourceUserSession(userId);
+  const customHeaders = new Headers();
+  customHeaders.append("Set-Cookie", await sessionStorage);
+  return (0, import_remix9.redirect)("/resource-library/members", {
+    headers: customHeaders
+  });
 };
 var ResourceLibrarySignUp = () => {
   var _a, _b, _c;
-  let actionData = (0, import_remix7.useActionData)();
-  return /* @__PURE__ */ React4.createElement(Layout2, {
-    alternateNav: /* @__PURE__ */ React4.createElement(CustomNav, null)
-  }, /* @__PURE__ */ React4.createElement("div", {
+  let actionData = (0, import_remix9.useActionData)();
+  return /* @__PURE__ */ React6.createElement(Layout2, {
+    alternateNav: /* @__PURE__ */ React6.createElement(resourceNav_default, null)
+  }, /* @__PURE__ */ React6.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
-  }, /* @__PURE__ */ React4.createElement("h4", {
+  }, /* @__PURE__ */ React6.createElement("h4", {
     className: "text-gray-900 text-lg font-medium title-font mb-5 block"
-  }, "Login"), /* @__PURE__ */ React4.createElement(import_remix7.Form, {
+  }, "Login"), /* @__PURE__ */ React6.createElement(import_remix9.Form, {
     method: "post",
     className: "mb-4",
     "aria-describedby": (actionData == null ? void 0 : actionData.formError) ? "form-error-message" : void 0
-  }, /* @__PURE__ */ React4.createElement("label", {
+  }, /* @__PURE__ */ React6.createElement("label", {
     htmlFor: "password-input",
     className: "leading-7 text-sm text-gray-600"
-  }, "Password:", /* @__PURE__ */ React4.createElement("input", {
+  }, "Password:", /* @__PURE__ */ React6.createElement("input", {
     id: "password-input",
     type: "password",
     className: "mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
     name: "password",
     "aria-invalid": Boolean((_a = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _a.password) || void 0,
     "aria-describedby": ((_b = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _b.password) ? "password-error" : void 0
-  })), ((_c = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _c.password) ? /* @__PURE__ */ React4.createElement("p", {
+  })), ((_c = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _c.password) ? /* @__PURE__ */ React6.createElement("p", {
     className: "form-validation-error",
     role: "alert",
     id: "password-error"
-  }, actionData == null ? void 0 : actionData.fieldErrors.password) : null, /* @__PURE__ */ React4.createElement("button", {
+  }, actionData == null ? void 0 : actionData.fieldErrors.password) : null, /* @__PURE__ */ React6.createElement("button", {
     type: "submit",
     className: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
   }, "Login"))));
@@ -1028,13 +1096,13 @@ var resource_library_default = ResourceLibrarySignUp;
 var id_exports = {};
 __export(id_exports, {
   default: () => id_default,
-  loader: () => loader3
+  loader: () => loader4
 });
-var import_remix10 = __toModule(require("remix"));
+var import_remix12 = __toModule(require("remix"));
 
 // app/lib/utils/loaderHelpers.ts
 var import_lodash = __toModule(require("lodash"));
-var import_remix9 = __toModule(require("remix"));
+var import_remix11 = __toModule(require("remix"));
 
 // app/lib/graphql/mutations/auth.ts
 var Auth = `
@@ -1063,7 +1131,7 @@ var REFRESH_LOGIN = `
 `;
 
 // app/lib/api/fetch.ts
-var import_uuid = __toModule(require("uuid"));
+var import_uuid2 = __toModule(require("uuid"));
 var api_url = typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL;
 async function fetchAPI(query4, { variables } = {}) {
   const https = require("https");
@@ -1081,12 +1149,12 @@ async function fetchAPI(query4, { variables } = {}) {
       variables
     })
   });
-  const json7 = await res.json();
-  if (json7.errors) {
-    console.error(json7.errors);
-    throw new Error("WP QUERY FETCH" + json7.errors);
+  const json8 = await res.json();
+  if (json8.errors) {
+    console.error(json8.errors);
+    throw new Error("WP QUERY FETCH" + json8.errors);
   }
-  return json7.data;
+  return json8.data;
 }
 async function getPreviewPostPageServer({ previewType, id, userToken }) {
   console.log("getPreviewPostPageServer", previewType);
@@ -1223,7 +1291,7 @@ async function logUserInJWT({ username, password }) {
   });
   const variables = {
     input: {
-      clientMutationId: (0, import_uuid.v4)(),
+      clientMutationId: (0, import_uuid2.v4)(),
       username,
       password
     }
@@ -1267,16 +1335,16 @@ async function refreshJWT({ cmid, refresh }) {
 }
 
 // app/utils/session.server.ts
-var import_remix8 = __toModule(require("remix"));
-var sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret) {
+var import_remix10 = __toModule(require("remix"));
+var sessionSecret2 = process.env.SESSION_SECRET;
+if (!sessionSecret2) {
   throw new Error("SESSION_SECRET must be set");
 }
-var storage = (0, import_remix8.createCookieSessionStorage)({
+var storage = (0, import_remix10.createCookieSessionStorage)({
   cookie: {
-    name: "RJ_session",
+    name: "wp_session",
     secure: true,
-    secrets: [sessionSecret],
+    secrets: [sessionSecret2],
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
@@ -1285,6 +1353,7 @@ var storage = (0, import_remix8.createCookieSessionStorage)({
 });
 async function createUserSession(userId, token) {
   let session = await storage.getSession();
+  session.set("userId", userId);
   session.set("token", token);
   return await storage.commitSession(session);
 }
@@ -1295,12 +1364,14 @@ async function requireToken(request, redirectTo) {
   let session = await getUserSession(request);
   let userToken = session.get("token");
   if (!userToken || typeof userToken !== "object") {
-    throw (0, import_remix8.redirect)(redirectTo);
+    throw (0, import_remix10.redirect)(redirectTo);
   }
   return userToken;
 }
 async function isTokenExpired(token) {
   let currentDate = new Date(Date.now()).getTime();
+  console.log("currentDate", currentDate);
+  console.log("token.expires", token.expires);
   return token.expires < currentDate;
 }
 function setFutureDate(mins = 5) {
@@ -1374,7 +1445,7 @@ var previewLoaderRouteHandler = async (request, params) => {
   let isExpired = await isTokenExpired(userToken);
   console.log("isExpired", isExpired);
   if (!previewType || !id) {
-    return (0, import_remix9.redirect)(loginUrl);
+    return (0, import_remix11.redirect)(loginUrl);
   }
   if (isExpired) {
     try {
@@ -1386,7 +1457,7 @@ var previewLoaderRouteHandler = async (request, params) => {
       const sessionStorage = refreshCurrentSession(request, newToken);
       customHeaders.append("Set-Cookie", await sessionStorage);
     } catch (e) {
-      throw (0, import_remix9.redirect)(loginUrl);
+      throw (0, import_remix11.redirect)(loginUrl);
     }
   }
   try {
@@ -1395,9 +1466,9 @@ var previewLoaderRouteHandler = async (request, params) => {
       id,
       userToken
     });
-    const json7 = await res.json();
+    const json8 = await res.json();
     const postType = previewType === "blog" ? "post" : "page";
-    const postPageData = json7.data[postType];
+    const postPageData = json8.data[postType];
     let body = JSON.stringify({
       [postType]: postPageData
     });
@@ -1406,14 +1477,14 @@ var previewLoaderRouteHandler = async (request, params) => {
     });
   } catch (e) {
     console.error(`e in /${previewType}/preview/$id`, e);
-    return (0, import_remix9.redirect)(loginUrl);
+    return (0, import_remix11.redirect)(loginUrl);
   }
 };
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/blog/preview/$id.tsx
-var loader3 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var loader4 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
 var PostPreview = () => {
-  const data = (0, import_remix10.useLoaderData)();
+  const data = (0, import_remix12.useLoaderData)();
   const dataRes = JSON.parse(data);
   console.log("dataRes", dataRes);
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview Post"));
@@ -1424,12 +1495,12 @@ var id_default = PostPreview;
 var id_exports2 = {};
 __export(id_exports2, {
   default: () => id_default2,
-  loader: () => loader4
+  loader: () => loader5
 });
-var import_remix11 = __toModule(require("remix"));
-var loader4 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var import_remix13 = __toModule(require("remix"));
+var loader5 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
 var PostPreview2 = () => {
-  const data = (0, import_remix11.useLoaderData)();
+  const data = (0, import_remix13.useLoaderData)();
   const dataRes = JSON.parse(data);
   console.log("dataRes", dataRes);
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview"));
@@ -1439,7 +1510,7 @@ var id_default2 = PostPreview2;
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[manifest.json].ts
 var manifest_json_exports = {};
 __export(manifest_json_exports, {
-  loader: () => loader5
+  loader: () => loader6
 });
 var manifest = {
   "short_name": "Every Tuesday Blog",
@@ -1496,7 +1567,7 @@ var manifest = {
     }
   ]
 };
-var loader5 = async ({ request }) => {
+var loader6 = async ({ request }) => {
   return new Response(JSON.stringify(manifest), {
     status: 200,
     headers: {
@@ -1508,7 +1579,7 @@ var loader5 = async ({ request }) => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[sitemap.xml].ts
 var sitemap_xml_exports = {};
 __export(sitemap_xml_exports, {
-  loader: () => loader6
+  loader: () => loader7
 });
 var import_prettier = __toModule(require("prettier"));
 var import_client = __toModule(require("@apollo/client"));
@@ -1527,7 +1598,7 @@ async function getSitemapData() {
     }
   });
 }
-var loader6 = async ({ request }) => {
+var loader7 = async ({ request }) => {
   let url = new URL(request.url);
   const { posts, pages } = await getSitemapData();
   let xml = await generateXmlIndex({
@@ -1635,7 +1706,7 @@ __export(actions_exports, {
   meta: () => meta2
 });
 var import_react2 = __toModule(require("react"));
-var import_remix12 = __toModule(require("remix"));
+var import_remix14 = __toModule(require("remix"));
 function meta2() {
   return { title: "Actions Demo" };
 }
@@ -1643,15 +1714,15 @@ var action2 = async ({ request }) => {
   let formData = await request.formData();
   let answer = formData.get("answer");
   if (typeof answer !== "string") {
-    return (0, import_remix12.json)("Come on, at least try!", { status: 400 });
+    return (0, import_remix14.json)("Come on, at least try!", { status: 400 });
   }
   if (answer !== "egg") {
-    return (0, import_remix12.json)(`Sorry, ${answer} is not right.`, { status: 400 });
+    return (0, import_remix14.json)(`Sorry, ${answer} is not right.`, { status: 400 });
   }
-  return (0, import_remix12.redirect)("/demos/correct");
+  return (0, import_remix14.redirect)("/demos/correct");
 };
 function ActionsDemo() {
-  let actionMessage = (0, import_remix12.useActionData)();
+  let actionMessage = (0, import_remix14.useActionData)();
   let answerRef = (0, import_react2.useRef)(null);
   (0, import_react2.useEffect)(() => {
     if (actionMessage && answerRef.current) {
@@ -1660,7 +1731,7 @@ function ActionsDemo() {
   }, [actionMessage]);
   return /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix12.Form, {
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix14.Form, {
     method: "post",
     className: "remix__form"
   }, /* @__PURE__ */ React.createElement("h3", null, "Post an Action"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("i", null, "What is more useful when it is broken?")), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("div", null, "Answer:"), /* @__PURE__ */ React.createElement("input", {
@@ -1688,9 +1759,9 @@ function NiceWork() {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[robots.txt].ts
 var robots_txt_exports = {};
 __export(robots_txt_exports, {
-  loader: () => loader7
+  loader: () => loader8
 });
-async function loader7() {
+async function loader8() {
   let xml = await generateRobotsTxt();
   return new Response(xml, {
     status: 200,
@@ -1712,24 +1783,24 @@ __export(params_exports, {
   default: () => Boundaries,
   meta: () => meta3
 });
-var import_remix13 = __toModule(require("remix"));
+var import_remix15 = __toModule(require("remix"));
 function meta3() {
   return { title: "Boundaries Demo" };
 }
 function Boundaries() {
   return /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix13.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix15.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "."
-  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "one"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "two"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "this-record-does-not-exist"
-  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "shh-its-a-secret"
-  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix13.Link, {
+  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
     to: "kaboom"
   }, "This one will throw an error")))));
 }
@@ -1751,29 +1822,29 @@ __export(id_exports3, {
   CatchBoundary: () => CatchBoundary2,
   ErrorBoundary: () => ErrorBoundary2,
   default: () => ParamDemo,
-  loader: () => loader8,
+  loader: () => loader9,
   meta: () => meta4
 });
-var import_remix14 = __toModule(require("remix"));
-var loader8 = async ({ params }) => {
+var import_remix16 = __toModule(require("remix"));
+var loader9 = async ({ params }) => {
   if (params.id === "this-record-does-not-exist") {
     throw new Response("Not Found", { status: 404 });
   }
   if (params.id === "shh-its-a-secret") {
-    throw (0, import_remix14.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
+    throw (0, import_remix16.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
   }
   if (params.id === "kaboom") {
   }
   return { param: params.id };
 };
 function ParamDemo() {
-  let data = (0, import_remix14.useLoaderData)();
+  let data = (0, import_remix16.useLoaderData)();
   return /* @__PURE__ */ React.createElement("h1", null, "The param is ", /* @__PURE__ */ React.createElement("i", {
     style: { color: "red" }
   }, data.param));
 }
 function CatchBoundary2() {
-  let caught = (0, import_remix14.useCatch)();
+  let caught = (0, import_remix16.useCatch)();
   let message;
   switch (caught.status) {
     case 401:
@@ -1798,11 +1869,11 @@ var meta4 = ({ data }) => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/api/wpLogin.ts
 var wpLogin_exports = {};
 __export(wpLogin_exports, {
-  loader: () => loader9
+  loader: () => loader10
 });
-var import_remix15 = __toModule(require("remix"));
-var loader9 = async ({ request }) => {
-  return (0, import_remix15.redirect)(process.env.WORDPRESS_DB || "/");
+var import_remix17 = __toModule(require("remix"));
+var loader10 = async ({ request }) => {
+  return (0, import_remix17.redirect)(process.env.WORDPRESS_DB || "/");
 };
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
@@ -1812,7 +1883,7 @@ __export(about_exports, {
   links: () => links2,
   meta: () => meta5
 });
-var import_remix16 = __toModule(require("remix"));
+var import_remix18 = __toModule(require("remix"));
 
 // app/styles/demos/about.css
 var about_default = "/build/_assets/about-GGM5BPB3.css";
@@ -1833,7 +1904,7 @@ function Index() {
     className: "about__intro"
   }, /* @__PURE__ */ React.createElement("h2", null, "About Us"), /* @__PURE__ */ React.createElement("p", null, "Ok, so this page isn't really ", /* @__PURE__ */ React.createElement("em", null, "about us"), ", but we did want to show you a few more things Remix can do."), /* @__PURE__ */ React.createElement("p", null, "Did you notice that things look a little different on this page? The CSS that we import in the route file and include in its", " ", /* @__PURE__ */ React.createElement("code", null, "links"), " export is only included on this route and its children."), /* @__PURE__ */ React.createElement("p", null, "Wait a sec...", /* @__PURE__ */ React.createElement("em", null, "its children"), "? To understand what we mean by this,", " ", /* @__PURE__ */ React.createElement("a", {
     href: "https://remix.run/tutorial/4-nested-routes-params"
-  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix16.Outlet, null)));
+  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix18.Outlet, null)));
 }
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/index.tsx
@@ -1841,9 +1912,9 @@ var about_exports2 = {};
 __export(about_exports2, {
   default: () => AboutIndex
 });
-var import_remix17 = __toModule(require("remix"));
+var import_remix19 = __toModule(require("remix"));
 function AboutIndex() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix17.Link, {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix19.Link, {
     to: "whoa"
   }, "Check out one of them here."))));
 }
@@ -1853,9 +1924,9 @@ var whoa_exports = {};
 __export(whoa_exports, {
   default: () => AboutIndex2
 });
-var import_remix18 = __toModule(require("remix"));
+var import_remix20 = __toModule(require("remix"));
 function AboutIndex2() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix18.Link, {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix20.Link, {
     to: ".."
   }, "Go back to the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " index."))));
 }
@@ -1864,23 +1935,23 @@ function AboutIndex2() {
 var preview_exports = {};
 __export(preview_exports, {
   default: () => preview_default,
-  loader: () => loader10
+  loader: () => loader11
 });
-var import_remix19 = __toModule(require("remix"));
-var loader10 = async ({ request, params, context }) => {
+var import_remix21 = __toModule(require("remix"));
+var loader11 = async ({ request, params, context }) => {
   console.log("params", request);
   const { id, previewType, url } = previewUrlParams(request);
   let loginUrl = `/login${url.search}`;
   if (!previewType || !id) {
-    return (0, import_remix19.redirect)(loginUrl);
+    return (0, import_remix21.redirect)(loginUrl);
   }
   try {
     const res = await getPreviewPostPageServer({ previewType, id });
-    const json7 = await res.json();
-    const postPageData = json7.data[previewType];
+    const json8 = await res.json();
+    const postPageData = json8.data[previewType];
     console.log("postPageData", postPageData);
     if (postPageData === null) {
-      return (0, import_remix19.redirect)(loginUrl);
+      return (0, import_remix21.redirect)(loginUrl);
     }
     return {
       [previewType]: postPageData
@@ -1893,7 +1964,7 @@ var loader10 = async ({ request, params, context }) => {
   }
 };
 var Preview = () => {
-  const data = (0, import_remix19.useLoaderData)();
+  const data = (0, import_remix21.useLoaderData)();
   console.log("data", data);
   return /* @__PURE__ */ React.createElement("div", null, "Preview");
 };
@@ -1904,10 +1975,10 @@ var slug_exports = {};
 __export(slug_exports, {
   default: () => PostSlug,
   headers: () => headers,
-  loader: () => loader11,
+  loader: () => loader12,
   meta: () => meta6
 });
-var import_remix20 = __toModule(require("remix"));
+var import_remix22 = __toModule(require("remix"));
 
 // app/lib/utils/posts.ts
 function flattenAllPosts(posts) {
@@ -2025,7 +2096,7 @@ var headers = ({ loaderHeaders }) => {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   };
 };
-var loader11 = async ({ params }) => {
+var loader12 = async ({ params }) => {
   let wpAPI = await fetchAPI(query, {
     variables: {
       slug: `${params.slug}`
@@ -2035,7 +2106,7 @@ var loader11 = async ({ params }) => {
     throw new Response("Not Found", { status: 404 });
   }
   const post = flattenPost(wpAPI.postBy);
-  return (0, import_remix20.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
+  return (0, import_remix22.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
 };
 var meta6 = (metaData) => {
   const { data, location, parentsData } = metaData;
@@ -2053,10 +2124,10 @@ var meta6 = (metaData) => {
   });
 };
 function PostSlug() {
-  let { post } = (0, import_remix20.useLoaderData)();
+  let { post } = (0, import_remix22.useLoaderData)();
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, post.title), /* @__PURE__ */ React.createElement("div", {
     dangerouslySetInnerHTML: { __html: post.content }
-  }), /* @__PURE__ */ React.createElement(import_remix20.Link, {
+  }), /* @__PURE__ */ React.createElement(import_remix22.Link, {
     to: "/"
   }, "Home")));
 }
@@ -2128,11 +2199,11 @@ query postBySlug($slug: String!) {
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
-  loader: () => loader12,
+  loader: () => loader13,
   meta: () => meta7,
   query: () => query2
 });
-var import_remix21 = __toModule(require("remix"));
+var import_remix23 = __toModule(require("remix"));
 var meta7 = (metaData) => {
   const { data, location, parentsData } = metaData;
   if (!data || !parentsData || !location) {
@@ -2148,7 +2219,7 @@ var meta7 = (metaData) => {
     location
   });
 };
-var loader12 = async () => {
+var loader13 = async () => {
   let data = {
     resources: [
       {
@@ -2197,7 +2268,7 @@ var loader12 = async () => {
   });
 };
 function Index2() {
-  let data = (0, import_remix21.useLoaderData)();
+  let data = (0, import_remix23.useLoaderData)();
   function fetchMore() {
   }
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", {
@@ -2207,13 +2278,13 @@ function Index2() {
   }, "Welcome to Remix!"), /* @__PURE__ */ React.createElement("p", null, "We're stoked that you're here. \u{1F973}"), /* @__PURE__ */ React.createElement("p", null, "Feel free to take a look around the code to see how Remix does things, it might be a bit different than what you\u2019re used to. When you're ready to dive deeper, we've got plenty of resources to get you up-and-running quickly."), /* @__PURE__ */ React.createElement("p", null, "Check out all the demos in this starter, and then just delete the", " ", /* @__PURE__ */ React.createElement("code", null, "app/routes/demos"), " and ", /* @__PURE__ */ React.createElement("code", null, "app/styles/demos"), " ", "folders when you're ready to turn this into your next project.")), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Demos In This App"), /* @__PURE__ */ React.createElement("ul", null, data.demos.map((demo) => /* @__PURE__ */ React.createElement("li", {
     key: demo.to,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix21.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix23.Link, {
     to: demo.to,
     prefetch: "intent"
   }, demo.name)))), /* @__PURE__ */ React.createElement("h2", null, "Resources"), /* @__PURE__ */ React.createElement("ul", null, data.posts.map((post) => /* @__PURE__ */ React.createElement("li", {
     key: post.id,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix21.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix23.Link, {
     to: post.slug,
     prefetch: "intent"
   }, post.title)))), /* @__PURE__ */ React.createElement("button", {
@@ -2290,11 +2361,52 @@ var login_exports = {};
 __export(login_exports, {
   action: () => action3,
   default: () => login_default,
-  loader: () => loader13
+  loader: () => loader14,
+  meta: () => meta8
 });
-var import_remix22 = __toModule(require("remix"));
-var React5 = __toModule(require("react"));
-var loader13 = async ({ request }) => {
+var import_remix24 = __toModule(require("remix"));
+var React7 = __toModule(require("react"));
+var meta8 = (metaData) => {
+  const { data, location, parentsData } = metaData;
+  const page = {
+    id: "24",
+    title: "Login",
+    author: {
+      id: "23",
+      name: "Teela",
+      avatar: {
+        url: "",
+        width: 24,
+        height: 24
+      },
+      slug: "login"
+    },
+    slug: "login",
+    content: "",
+    date: "",
+    seo: {
+      title: "Login - Every Tuesday",
+      metaDesc: "Login Page for Every-Tuesday.com",
+      fullHead: "",
+      opengraphModifiedTime: "",
+      opengraphPublishedTime: "",
+      readingTime: "1min"
+    }
+  };
+  if (!data || !parentsData || !location) {
+    return {
+      title: "404",
+      description: "error: No metaData or Parents Data"
+    };
+  }
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page,
+    location
+  });
+};
+var loader14 = async ({ request }) => {
   const { id, previewType, url } = previewUrlParams(request);
   return {
     params: {
@@ -2339,25 +2451,17 @@ var action3 = async ({ request }) => {
       cmid: String(serverRes.data.login.clientMutationId)
     };
     let user = serverRes.data.login.user;
-    let url = new URL(request.url);
-    let jwtCookie = (0, import_remix22.createCookie)("wp-auth", {
-      domain: url.hostname,
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7,
-      path: "/",
-      sameSite: "lax",
-      secure: true
-    });
-    const { id, postType } = getPreviewUrlParams(request);
-    if (!id || !postType) {
-      return (0, import_remix22.redirect)(process.env.WORDPRESS_DB || "/");
-    }
     const sessionStorage = createUserSession(user.id, token);
     const customHeaders = new Headers();
-    customHeaders.append("Set-Cookie", await jwtCookie.serialize("Test"));
     customHeaders.append("Set-Cookie", await sessionStorage);
+    const { id, postType } = getPreviewUrlParams(request);
+    if (!id || !postType) {
+      return (0, import_remix24.redirect)(process.env.WORDPRESS_DB || "/", {
+        headers: customHeaders
+      });
+    }
     const redirectUrl = getPreviewRedirectUrl(postType, id);
-    return (0, import_remix22.redirect)(redirectUrl, {
+    return (0, import_remix24.redirect)(redirectUrl, {
       headers: customHeaders
     });
   } catch (e) {
@@ -2366,28 +2470,28 @@ var action3 = async ({ request }) => {
 };
 var Login = () => {
   var _a, _b, _c, _d, _e, _f, _g, _h, _i;
-  let actionData = (0, import_remix22.useActionData)();
-  let { params } = (0, import_remix22.useLoaderData)();
-  let transition = (0, import_remix22.useTransition)();
+  let actionData = (0, import_remix24.useActionData)();
+  let { params } = (0, import_remix24.useLoaderData)();
+  let transition = (0, import_remix24.useTransition)();
   let idParamName = getIDParamName(params.postType);
   let action4 = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : "/login";
-  return /* @__PURE__ */ React5.createElement(Layout2, null, /* @__PURE__ */ React5.createElement("div", {
+  return /* @__PURE__ */ React7.createElement(Layout2, null, /* @__PURE__ */ React7.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
-  }, /* @__PURE__ */ React5.createElement("h4", {
+  }, /* @__PURE__ */ React7.createElement("h4", {
     className: "text-gray-900 text-lg font-medium title-font mb-5 block"
-  }, "Login"), (actionData == null ? void 0 : actionData.formError) && /* @__PURE__ */ React5.createElement("div", {
+  }, "Login"), (actionData == null ? void 0 : actionData.formError) && /* @__PURE__ */ React7.createElement("div", {
     className: "text-red-600",
     dangerouslySetInnerHTML: { __html: actionData.formError || "" }
-  }), /* @__PURE__ */ React5.createElement(import_remix22.Form, {
+  }), /* @__PURE__ */ React7.createElement(import_remix24.Form, {
     method: "post",
     action: action4,
     "aria-disabled": transition.state !== "idle",
     className: "mb-4",
     "aria-describedby": ((_a = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _a.username) || ((_b = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _b.password) ? "form-error-message" : void 0
-  }, /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
+  }, /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("label", {
     className: "leading-7 text-sm text-gray-600",
     htmlFor: "username-input"
-  }, "Username"), /* @__PURE__ */ React5.createElement("input", {
+  }, "Username"), /* @__PURE__ */ React7.createElement("input", {
     className: "mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
     type: "text",
     id: "username-input",
@@ -2395,25 +2499,25 @@ var Login = () => {
     defaultValue: (_c = actionData == null ? void 0 : actionData.fields) == null ? void 0 : _c.username,
     "aria-invalid": Boolean((_d = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _d.username),
     "aria-describedby": ((_e = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _e.username) ? "username-error" : void 0
-  }), ((_f = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _f.username) ? /* @__PURE__ */ React5.createElement("p", {
+  }), ((_f = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _f.username) ? /* @__PURE__ */ React7.createElement("p", {
     className: "form-validation-error text-red-500",
     role: "alert",
     id: "username-error"
-  }, actionData == null ? void 0 : actionData.fieldErrors.username) : null), /* @__PURE__ */ React5.createElement("div", null, /* @__PURE__ */ React5.createElement("label", {
+  }, actionData == null ? void 0 : actionData.fieldErrors.username) : null), /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("label", {
     htmlFor: "password-input",
     className: "leading-7 text-sm text-gray-600"
-  }, "Password:"), /* @__PURE__ */ React5.createElement("input", {
+  }, "Password:"), /* @__PURE__ */ React7.createElement("input", {
     id: "password-input",
     type: "password",
     className: "mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",
     name: "password",
     "aria-invalid": Boolean((_g = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _g.password) || void 0,
     "aria-describedby": ((_h = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _h.password) ? "password-error" : void 0
-  }), ((_i = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _i.password) ? /* @__PURE__ */ React5.createElement("p", {
+  }), ((_i = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _i.password) ? /* @__PURE__ */ React7.createElement("p", {
     className: "form-validation-error text-red-500",
     role: "alert",
     id: "password-error"
-  }, actionData == null ? void 0 : actionData.fieldErrors.password) : null), /* @__PURE__ */ React5.createElement("button", {
+  }, actionData == null ? void 0 : actionData.fieldErrors.password) : null), /* @__PURE__ */ React7.createElement("button", {
     disabled: transition.state !== "idle",
     "aria-disabled": transition.state !== "idle",
     type: "submit",
@@ -2425,7 +2529,7 @@ var login_default = Login;
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/feed.ts
 var feed_exports = {};
 __export(feed_exports, {
-  loader: () => loader14
+  loader: () => loader15
 });
 var import_rss = __toModule(require("rss"));
 var import_graphql_tag = __toModule(require("graphql-tag"));
@@ -2436,7 +2540,7 @@ async function getFeedData() {
     }
   });
 }
-var loader14 = async ({ request }) => {
+var loader15 = async ({ request }) => {
   let url = new URL(request.url);
   const { posts } = await getFeedData();
   let xml = await generateFeed(posts.edges, url.origin);

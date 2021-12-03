@@ -1,5 +1,5 @@
 {
-  "version": "8f95fe12",
+  "version": "a04c7612",
   "entry": {
     "module": "/build/entry.client-TKDFJ7YH.js",
     "imports": [
@@ -227,8 +227,9 @@
       "id": "routes/login",
       "parentId": "root",
       "path": "login",
-      "module": "/build/routes/login-B7VB7ZNT.js",
+      "module": "/build/routes/login-BLEUI5QL.js",
       "imports": [
+        "/build/_shared/chunk-CZ5EMZD5.js",
         "/build/_shared/chunk-DIEAQH6R.js",
         "/build/_shared/chunk-UCTYI4ZM.js",
         "/build/_shared/chunk-CJRXY5FI.js"
@@ -273,8 +274,9 @@
       "parentId": "root",
       "path": "resource-library",
       "index": true,
-      "module": "/build/routes/resource-library/index-BZVPDKQM.js",
+      "module": "/build/routes/resource-library/index-7LUGPAL7.js",
       "imports": [
+        "/build/_shared/chunk-6GTAO3OY.js",
         "/build/_shared/chunk-UCTYI4ZM.js"
       ],
       "hasAction": true,
@@ -286,12 +288,16 @@
       "id": "routes/resource-library/members",
       "parentId": "root",
       "path": "resource-library/members",
-      "module": "/build/routes/resource-library/members-ZJFZLEBX.js",
+      "module": "/build/routes/resource-library/members-3V75BTON.js",
+      "imports": [
+        "/build/_shared/chunk-6GTAO3OY.js",
+        "/build/_shared/chunk-UCTYI4ZM.js"
+      ],
       "hasAction": false,
-      "hasLoader": false,
+      "hasLoader": true,
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-8F95FE12.js"
+  "url": "/build/manifest-A04C7612.js"
 }

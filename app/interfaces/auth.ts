@@ -11,3 +11,12 @@ interface IAuthRefreshResponse{
     }
   }
 }
+
+interface IUser {
+  id: string
+  username: string
+  name: string
+  email: string
+  firstName: string | null
+  lastName: string | null
+}

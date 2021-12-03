@@ -2,7 +2,7 @@ import {
   ActionFunction,
   createCookie, createCookieSessionStorage,
   Form,
-  LoaderFunction,
+  LoaderFunction, MetaFunction,
   redirect,
   useActionData,
   useLoaderData,
@@ -18,6 +18,53 @@ import {
 } from '../lib/utils/loaderHelpers'
 import { logUserInJWT } from '../lib/api/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
+import { getHtmlMetadataTags } from '../lib/utils/seo'
+
+
+export let meta: MetaFunction = (metaData): any => {
+  const {data, location, parentsData} = metaData
+  // hardcoded Page
+  const page: IPage = {
+    id: '24',
+    title: 'Login',
+    author: {
+      id: '23',
+      name: 'Teela',
+      avatar:{
+        url:'',
+        width: 24,
+        height: 24
+      },
+      slug: 'login'
+    },
+    slug: 'login',
+    content: '',
+    date: '',
+    seo: {
+      title: 'Login - Every Tuesday',
+      metaDesc: 'Login Page for Every-Tuesday.com',
+      fullHead:'',
+      opengraphModifiedTime: '',
+      opengraphPublishedTime: '',
+      readingTime: '1min'
+    }
+  }
+
+
+  if(!data || !parentsData || !location){
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data'
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page,
+    location
+  })
+}
 
 export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
   const {id, previewType, url} = previewUrlParams(request)
@@ -30,7 +77,6 @@ export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
     }
   }
 }
-
 
 // redo TYPES HERE for PROMiSE
 export let action: ActionFunction = async ({request}): Promise<ActionData | Response> => {
@@ -81,28 +127,17 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
 
     let user: IUser = serverRes.data.login.user
 
-    let url = new URL(request.url);
-
-    let jwtCookie = createCookie("wp-auth", {
-      domain: url.hostname,
-      // expires: new Date(Date.now() + 60),
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7,
-      path: "/",
-      sameSite: "lax",
-      secure: true
-    });
+    const sessionStorage = createUserSession(user.id, token)
+    const customHeaders = new Headers()
+    customHeaders.append('Set-Cookie', await sessionStorage)
 
     const {id, postType} = getPreviewUrlParams(request)
 
     if(!id || !postType){
-      return redirect(process.env.WORDPRESS_DB || '/')
+      return redirect(process.env.WORDPRESS_DB || '/', {
+        headers:customHeaders
+      })
     }
-
-    const sessionStorage = createUserSession(user.id, token)
-    const customHeaders = new Headers()
-    customHeaders.append('Set-Cookie', await jwtCookie.serialize('Test'))
-    customHeaders.append('Set-Cookie', await sessionStorage)
 
     const redirectUrl = getPreviewRedirectUrl(postType, id)
 
@@ -113,14 +148,7 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     return { formError: `Form error: ${e}` };
   }
 }
-interface IUser {
-  id: string
-  username: string
-  name: string
-  email: string
-  firstName: string | null
-  lastName: string | null
-}
+
 interface IDataType {
   params:{
     id: string | null
@@ -162,10 +190,10 @@ const Login = () => {
               aria-disabled={transition.state !== 'idle'}
               className="mb-4"
               aria-describedby={
-          actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
-            ? "form-error-message"
-            : undefined
-        }>
+                actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
+                  ? "form-error-message"
+                  : undefined
+              }>
           <div>
             <label className="leading-7 text-sm text-gray-600" htmlFor="username-input">Username</label>
             <input
@@ -194,9 +222,9 @@ const Login = () => {
             ) : null}
           </div>
           <div>
-          <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
-            Password:
-          </label>
+            <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
+              Password:
+            </label>
             <input
               id="password-input"
               type="password"
@@ -221,7 +249,7 @@ const Login = () => {
               >
                 {actionData?.fieldErrors.password}
               </p>
-          ) : null}
+            ) : null}
           </div>
           <button
             disabled={transition.state !== 'idle'}

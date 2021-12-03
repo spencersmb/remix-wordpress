@@ -7,7 +7,7 @@ if (!sessionSecret) {
 
 let storage = createCookieSessionStorage({
   cookie: {
-    name: "RJ_session",
+    name: "wp_session",
     secure: true,
     secrets: [sessionSecret],
     sameSite: "lax",
@@ -22,7 +22,7 @@ export async function createUserSession(
   token: IAuthToken
 ) {
   let session = await storage.getSession();
-  // session.set("userId", userId);
+  session.set("userId", userId);
   session.set("token", token);
   // needed for fetch
   // - token
@@ -57,6 +57,10 @@ export async function requireToken(
 
 export async function isTokenExpired (token: IAuthToken) {
   let currentDate = new Date( Date.now()).getTime()
+  console.log('currentDate', currentDate)
+  console.log('token.expires', token.expires)
+
+
   return token.expires < currentDate
 }
 
@@ -76,4 +80,15 @@ export async function refreshCurrentSession(request: Request, token: string){
   // update current session with new token data
   session.set('token', newToken)
   return storage.commitSession(session)
+}
+
+export async function logout(request: Request) {
+  let session = await storage.getSession(
+    request.headers.get("Cookie")
+  );
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await storage.destroySession(session)
+    }
+  });
 }
