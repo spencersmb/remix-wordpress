@@ -1,0 +1,15 @@
+{
+  "prettyLinks": {
+    "my-redirect": {
+      "url": "https://youtube.com",
+      "redirect": "/my-redirect",
+      "status": 301
+    },
+    "flourishes-honeydarko": {
+      "url": "https://espn.com",
+      "redirect": "flourishes-honeydarko",
+      "status": 301
+    }
+  }
+
+}
