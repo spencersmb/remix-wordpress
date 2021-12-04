@@ -74,7 +74,7 @@ function mkdirp(directory) {
 }
 
 async function fetchAPI(query, { variables } = {}) {
-  const api_url = process.env.PUBLIC_WP_API_URL
+  const api_url = "https://etheadless.graphcdn.app/"
 
   const https = require("https");
   const agent = new https.Agent({
