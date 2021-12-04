@@ -7,7 +7,7 @@
     "buildPlugins": "node plugins/plugin-compiler.js",
     "dev:remix": "node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
-    "deploy": "npm runn buildPlugins && npm run build && flyctl deploy",
+    "deploy": "npm run buildPlugins && npm run build && flyctl deploy",
     "start": "node -r dotenv/config node_modules/.bin/remix-serve build",
     "build": "npm run build:css && remix build",
     "build:css2": "tailwindcss -o app/styles/tailwind.css",
