@@ -65,18 +65,14 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
   }));
   let url = new URL(request.url);
   const file = fs.readFileSync("./_redirects.json", "utf8");
-  console.log("req", url.pathname);
   let removeSlashAtBegining = url.pathname.slice(1);
-  console.log("removeSlashAtBegining", removeSlashAtBegining);
   const data = JSON.parse(file);
   const foundRoute = data.prettyLinks[`${removeSlashAtBegining}`];
-  console.log("foundRoute", foundRoute);
   if (!!foundRoute) {
     return (0, import_remix.redirect)(foundRoute.url, {
       status: foundRoute.status
     });
   }
-  console.log("data", data);
   responseHeaders.set("Content-Type", "text/html");
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
