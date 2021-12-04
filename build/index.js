@@ -82,7 +82,7 @@ __export(root_exports, {
   meta: () => meta
 });
 var React2 = __toModule(require("react"));
-var import_remix2 = __toModule(require("remix"));
+var import_remix3 = __toModule(require("remix"));
 
 // app/styles/demos/remix.css
 var remix_default = "/build/_assets/remix-5PPS2YMF.css";
@@ -126,7 +126,8 @@ var siteInitialState = {
     },
     title: ""
   },
-  menu: []
+  menu: [],
+  user: null
 };
 var SiteContext = (0, import_react.createContext)(siteInitialState);
 SiteContext.displayName = "SiteContext";
@@ -537,10 +538,73 @@ var import_nprogress = __toModule(require("nprogress"));
 var nprogress_default = "/build/_assets/nprogress-JFUSETFZ.css";
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
-var import_remix4 = __toModule(require("remix"));
+var import_remix5 = __toModule(require("remix"));
 
 // app/styles/app.css
 var app_default = "/build/_assets/app-2NLS4PCN.css";
+
+// app/utils/session.server.ts
+var import_remix2 = __toModule(require("remix"));
+var sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  throw new Error("SESSION_SECRET must be set");
+}
+var storage = (0, import_remix2.createCookieSessionStorage)({
+  cookie: {
+    name: "wp_session",
+    secure: true,
+    secrets: [sessionSecret],
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+    httpOnly: true
+  }
+});
+async function createUserSession(userId, token) {
+  let session = await storage.getSession();
+  session.set("userId", userId);
+  session.set("token", token);
+  return await storage.commitSession(session);
+}
+function getUserSession(request) {
+  return storage.getSession(request.headers.get("Cookie"));
+}
+async function requireToken(request, redirectTo) {
+  let session = await getUserSession(request);
+  let userToken = session.get("token");
+  if (!userToken || typeof userToken !== "object") {
+    throw (0, import_remix2.redirect)(redirectTo);
+  }
+  return userToken;
+}
+async function isTokenExpired(token) {
+  let currentDate = new Date(Date.now()).getTime();
+  console.log("currentDate", currentDate);
+  console.log("token.expires", token.expires);
+  return token.expires < currentDate;
+}
+function setFutureDate(mins = 5) {
+  let currentDate = new Date();
+  return new Date(currentDate.getTime() + mins * 6e4).getTime();
+}
+async function refreshCurrentSession(request, token) {
+  let session = await getUserSession(request);
+  let oldUserToken = session.get("token");
+  let newToken = __spreadProps(__spreadValues({}, oldUserToken), {
+    token,
+    expires: setFutureDate()
+  });
+  session.set("token", newToken);
+  return storage.commitSession(session);
+}
+async function logout(request) {
+  let session = await storage.getSession(request.headers.get("Cookie"));
+  return (0, import_remix2.redirect)("/login", {
+    headers: {
+      "Set-Cookie": await storage.destroySession(session)
+    }
+  });
+}
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/root.tsx
 var links = () => {
@@ -556,10 +620,16 @@ var links = () => {
     { rel: "stylesheet", href: nprogress_default }
   ];
 };
-var loader = async () => {
+var loader = async ({ request }) => {
+  let session = await getUserSession(request);
+  console.log("user", session.has("userId"));
+  let user = session.has("userId") ? {
+    id: session.get("userId")
+  } : null;
   let metadata2 = getWPMetadata(process.env.APP_ROOT_URL || "no url found");
   return __spreadProps(__spreadValues({}, getWPMenu()), {
     metadata: metadata2,
+    user,
     ENV: {
       APP_ROOT_URL: process.env.APP_ROOT_URL,
       PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL
@@ -567,8 +637,8 @@ var loader = async () => {
   });
 };
 function App() {
-  let { menus, metadata: metadata2 } = (0, import_remix2.useLoaderData)();
-  let transition = (0, import_remix4.useTransition)();
+  let { menus, metadata: metadata2, user } = (0, import_remix3.useLoaderData)();
+  let transition = (0, import_remix5.useTransition)();
   React2.useEffect(() => {
     if (transition.state === "idle")
       import_nprogress.default.done();
@@ -578,15 +648,16 @@ function App() {
   return /* @__PURE__ */ React2.createElement(SiteContext.Provider, {
     value: {
       menu: menus,
-      metadata: metadata2
+      metadata: metadata2,
+      user
     }
-  }, /* @__PURE__ */ React2.createElement(Document, null, /* @__PURE__ */ React2.createElement(import_remix2.Outlet, null)));
+  }, /* @__PURE__ */ React2.createElement(Document, null, /* @__PURE__ */ React2.createElement(import_remix3.Outlet, null)));
 }
 var JsonLd = () => {
   var _a, _b, _c, _d, _e;
-  let { metadata: metadata2 } = (0, import_remix2.useLoaderData)();
-  let matches = (0, import_remix2.useMatches)();
-  let location = (0, import_remix2.useLocation)();
+  let { metadata: metadata2 } = (0, import_remix3.useLoaderData)();
+  let matches = (0, import_remix3.useMatches)();
+  let location = (0, import_remix3.useLocation)();
   let selectedMatch = matches.find((match) => {
     var _a2, _b2;
     return ((_a2 = match.data) == null ? void 0 : _a2.post) || ((_b2 = match.data) == null ? void 0 : _b2.page);
@@ -675,7 +746,7 @@ function Document({
   children,
   title
 }) {
-  let data = (0, import_remix2.useLoaderData)();
+  let data = (0, import_remix3.useLoaderData)();
   return /* @__PURE__ */ React2.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React2.createElement("head", null, /* @__PURE__ */ React2.createElement("meta", {
@@ -697,35 +768,36 @@ function Document({
     content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"
   }), /* @__PURE__ */ React2.createElement("link", {
     rel: "preload",
-    href: "/fonts/sentinel/Sentinel-SemiboldItal.woff",
-    as: "font",
-    type: "font/woff2",
-    crossOrigin: "anonymous"
-  }), /* @__PURE__ */ React2.createElement("link", {
-    rel: "preload",
     href: "/fonts/sentinel/Sentinel-SemiboldItal.woff2",
     as: "font",
     type: "font/woff2",
     crossOrigin: "anonymous"
-  }), /* @__PURE__ */ React2.createElement(import_remix2.Meta, null), /* @__PURE__ */ React2.createElement(import_remix2.Links, null), /* @__PURE__ */ React2.createElement(JsonLd, null)), /* @__PURE__ */ React2.createElement("body", null, children, /* @__PURE__ */ React2.createElement(RouteChangeAnnouncement, null), /* @__PURE__ */ React2.createElement(import_remix2.ScrollRestoration, null), /* @__PURE__ */ React2.createElement(import_remix2.Scripts, null), data.ENV && /* @__PURE__ */ React2.createElement("script", {
+  }), /* @__PURE__ */ React2.createElement(import_remix3.Meta, null), /* @__PURE__ */ React2.createElement(import_remix3.Links, null), /* @__PURE__ */ React2.createElement(JsonLd, null)), /* @__PURE__ */ React2.createElement("body", null, children, /* @__PURE__ */ React2.createElement(RouteChangeAnnouncement, null), /* @__PURE__ */ React2.createElement(import_remix3.ScrollRestoration, null), /* @__PURE__ */ React2.createElement(import_remix3.Scripts, null), data.ENV && /* @__PURE__ */ React2.createElement("script", {
     dangerouslySetInnerHTML: {
       __html: `window.ENV = ${JSON.stringify(data.ENV)}`
     }
-  }), process.env.NODE_ENV === "development" && /* @__PURE__ */ React2.createElement(import_remix2.LiveReload, null)));
+  }), process.env.NODE_ENV === "development" && /* @__PURE__ */ React2.createElement(import_remix3.LiveReload, null)));
 }
 var PrimaryNav = () => {
-  const { menu } = useSite();
+  const { menu, user } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
+  console.log("user", user);
   return /* @__PURE__ */ React2.createElement("nav", {
     "aria-label": "Main navigation",
     className: "remix-app__header-nav"
   }, /* @__PURE__ */ React2.createElement("ul", null, primaryMenu.map((menuItem) => {
     return /* @__PURE__ */ React2.createElement("li", {
       key: menuItem.id
-    }, /* @__PURE__ */ React2.createElement(import_remix2.Link, {
+    }, /* @__PURE__ */ React2.createElement(import_remix3.Link, {
       to: menuItem.path
     }, menuItem.label));
-  })));
+  }), user && /* @__PURE__ */ React2.createElement("li", null, /* @__PURE__ */ React2.createElement("form", {
+    action: "/logout",
+    method: "post"
+  }, /* @__PURE__ */ React2.createElement("button", {
+    type: "submit",
+    className: "button"
+  }, "Logout")))));
 };
 function Layout({ children, alternateNav }) {
   return /* @__PURE__ */ React2.createElement("div", {
@@ -734,9 +806,10 @@ function Layout({ children, alternateNav }) {
     className: "remix-app__header"
   }, /* @__PURE__ */ React2.createElement("div", {
     className: "container remix-app__header-content"
-  }, /* @__PURE__ */ React2.createElement(import_remix2.Link, {
+  }, /* @__PURE__ */ React2.createElement(import_remix3.Link, {
     to: "/",
     title: "Remix",
+    prefetch: "intent",
     className: "remix-app__header-home-link"
   }, /* @__PURE__ */ React2.createElement(RemixLogo, null)), alternateNav ? alternateNav : /* @__PURE__ */ React2.createElement(PrimaryNav, null))), /* @__PURE__ */ React2.createElement("div", {
     className: "remix-app__main"
@@ -749,7 +822,7 @@ function Layout({ children, alternateNav }) {
   }, /* @__PURE__ */ React2.createElement("p", null, "\xA9 You!"))));
 }
 function CatchBoundary() {
-  let caught = (0, import_remix2.useCatch)();
+  let caught = (0, import_remix3.useCatch)();
   let message;
   switch (caught.status) {
     case 401:
@@ -799,7 +872,7 @@ function RemixLogo(props) {
 var RouteChangeAnnouncement = React2.memo(() => {
   let [hydrated, setHydrated] = React2.useState(false);
   let [innerHtml, setInnerHtml] = React2.useState("");
-  let location = (0, import_remix2.useLocation)();
+  let location = (0, import_remix3.useLocation)();
   React2.useEffect(() => {
     setHydrated(true);
   }, []);
@@ -839,21 +912,22 @@ var RouteChangeAnnouncement = React2.memo(() => {
 var members_exports = {};
 __export(members_exports, {
   default: () => members_default,
-  loader: () => loader2
+  loader: () => loader2,
+  meta: () => meta2
 });
-var import_remix8 = __toModule(require("remix"));
+var import_remix9 = __toModule(require("remix"));
 
 // app/utils/resourceLibrarySession.server.ts
-var import_remix5 = __toModule(require("remix"));
-var sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret) {
+var import_remix6 = __toModule(require("remix"));
+var sessionSecret2 = process.env.SESSION_SECRET;
+if (!sessionSecret2) {
   throw new Error("SESSION_SECRET must be set");
 }
-var resourceStorage = (0, import_remix5.createCookieSessionStorage)({
+var resourceStorage = (0, import_remix6.createCookieSessionStorage)({
   cookie: {
     name: "resource_session",
     secure: true,
-    secrets: [sessionSecret],
+    secrets: [sessionSecret2],
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
@@ -872,15 +946,29 @@ async function requireResourceLibraryUser(request, redirectTo) {
   let session = await getResourceUserSession(request);
   let userToken = session.get("userId");
   if (!userToken) {
-    throw (0, import_remix5.redirect)(redirectTo);
+    throw (0, import_remix6.redirect)(redirectTo);
   }
   return userToken;
+}
+async function logoutResourceLibrary(request) {
+  let session = await resourceStorage.getSession(request.headers.get("Cookie"));
+  return (0, import_remix6.redirect)("/resource-library", {
+    headers: {
+      "Set-Cookie": await resourceStorage.destroySession(session)
+    }
+  });
 }
 
 // app/components/resourceLibrary/resourceNav.tsx
 var React3 = __toModule(require("react"));
 var ResourceLibraryNav = ({ showLogout }) => {
-  return /* @__PURE__ */ React3.createElement("nav", null, /* @__PURE__ */ React3.createElement("li", null, "Nav"), showLogout && /* @__PURE__ */ React3.createElement("li", null, "Logout"));
+  return /* @__PURE__ */ React3.createElement("nav", null, /* @__PURE__ */ React3.createElement("ul", null, /* @__PURE__ */ React3.createElement("li", null, "Nav"), showLogout && /* @__PURE__ */ React3.createElement("li", null, /* @__PURE__ */ React3.createElement("form", {
+    action: "/resource-library/logout",
+    method: "post"
+  }, /* @__PURE__ */ React3.createElement("button", {
+    type: "submit",
+    className: "button"
+  }, "Logout")))));
 };
 var resourceNav_default = ResourceLibraryNav;
 
@@ -889,22 +977,29 @@ var React5 = __toModule(require("react"));
 
 // app/root.tsx
 var React4 = __toModule(require("react"));
-var import_remix6 = __toModule(require("remix"));
-var import_nprogress3 = __toModule(require("nprogress"));
 var import_remix7 = __toModule(require("remix"));
+var import_nprogress3 = __toModule(require("nprogress"));
+var import_remix8 = __toModule(require("remix"));
 var PrimaryNav2 = () => {
-  const { menu } = useSite();
+  const { menu, user } = useSite();
   const primaryMenu = getPrimaryMenu(menu);
+  console.log("user", user);
   return /* @__PURE__ */ React4.createElement("nav", {
     "aria-label": "Main navigation",
     className: "remix-app__header-nav"
   }, /* @__PURE__ */ React4.createElement("ul", null, primaryMenu.map((menuItem) => {
     return /* @__PURE__ */ React4.createElement("li", {
       key: menuItem.id
-    }, /* @__PURE__ */ React4.createElement(import_remix6.Link, {
+    }, /* @__PURE__ */ React4.createElement(import_remix7.Link, {
       to: menuItem.path
     }, menuItem.label));
-  })));
+  }), user && /* @__PURE__ */ React4.createElement("li", null, /* @__PURE__ */ React4.createElement("form", {
+    action: "/logout",
+    method: "post"
+  }, /* @__PURE__ */ React4.createElement("button", {
+    type: "submit",
+    className: "button"
+  }, "Logout")))));
 };
 function Layout2({ children, alternateNav }) {
   return /* @__PURE__ */ React4.createElement("div", {
@@ -913,9 +1008,10 @@ function Layout2({ children, alternateNav }) {
     className: "remix-app__header"
   }, /* @__PURE__ */ React4.createElement("div", {
     className: "container remix-app__header-content"
-  }, /* @__PURE__ */ React4.createElement(import_remix6.Link, {
+  }, /* @__PURE__ */ React4.createElement(import_remix7.Link, {
     to: "/",
     title: "Remix",
+    prefetch: "intent",
     className: "remix-app__header-home-link"
   }, /* @__PURE__ */ React4.createElement(RemixLogo2, null)), alternateNav ? alternateNav : /* @__PURE__ */ React4.createElement(PrimaryNav2, null))), /* @__PURE__ */ React4.createElement("div", {
     className: "remix-app__main"
@@ -955,7 +1051,7 @@ function RemixLogo2(props) {
 var RouteChangeAnnouncement2 = React4.memo(() => {
   let [hydrated, setHydrated] = React4.useState(false);
   let [innerHtml, setInnerHtml] = React4.useState("");
-  let location = (0, import_remix6.useLocation)();
+  let location = (0, import_remix7.useLocation)();
   React4.useEffect(() => {
     setHydrated(true);
   }, []);
@@ -991,20 +1087,137 @@ var RouteChangeAnnouncement2 = React4.memo(() => {
   }, innerHtml);
 });
 
+// app/lib/utils/seo.ts
+function createOgImages(image) {
+  return {
+    "og:image:alt": image.altText,
+    "og:image:url": image.url,
+    "og:image:width": image.width,
+    "og:image:height": image.height
+  };
+}
+function createOgArticle(article) {
+  return {
+    "og:article:publishedTime": article.publishedTime,
+    "og:article:modifiedTime": article.modifiedTime,
+    "og:article:author": article.author,
+    "og:article:tags": article.tags.map((tag) => tag.name).join(", ")
+  };
+}
+function getHtmlMetadataTags({ metadata: metadata2, post, page, location }) {
+  var _a, _b;
+  let defaultImage = {
+    altText: defaultSeoImages.generic.altText,
+    url: defaultSeoImages.generic.url,
+    height: "1920",
+    width: "1080"
+  };
+  const url = `${metadata2.domain}${location.pathname}`;
+  let metadataTags = __spreadProps(__spreadValues({
+    "robots:": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+    title: metadata2.title,
+    description: metadata2.description,
+    canonical: url,
+    "og:locale": "en_US",
+    "og:title": metadata2.title,
+    "og:site_name": metadata2.siteTitle,
+    "og:type": "website",
+    "og:description": metadata2.description
+  }, createOgImages(defaultImage)), {
+    "twitter:card": `@${metadata2.social.twitter.username}`,
+    "twitter:site": `@${metadata2.social.twitter.username}`,
+    "twitter:creator": "summary_large_image",
+    "twitter:label1": `Est. reading time`,
+    "twitter:data1": `1 minute`
+  });
+  if (post) {
+    metadataTags = __spreadProps(__spreadValues(__spreadValues(__spreadProps(__spreadValues({}, metadataTags), {
+      title: post.seo.title,
+      description: post.seo.metaDesc,
+      canonical: url,
+      "og:title": post.seo.title,
+      "og:type": "article",
+      "og:description": post.seo.metaDesc
+    }), createOgArticle({
+      publishedTime: post.seo.opengraphPublishedTime,
+      modifiedTime: post.seo.opengraphPublishedTime,
+      author: `${metadata2.domain}${post.author.uri}`,
+      tags: post.tags
+    })), createOgImages({
+      altText: ((_a = post.featuredImage) == null ? void 0 : _a.altText) || defaultSeoImages.generic.altText,
+      url: ((_b = post.featuredImage) == null ? void 0 : _b.altText) || defaultSeoImages.generic.altText,
+      width: "1920",
+      height: "1080"
+    })), {
+      "twitter:card": `@${metadata2.social.twitter.username}`,
+      "twitter:site": `@${metadata2.social.twitter.username}`,
+      "twitter:creator": "summary_large_image",
+      "twitter:label1": `Written by`,
+      "twitter:data1": `Teela`,
+      "twitter:label2": `Est. reading time`,
+      "twitter:data2": `1 minute`
+    });
+  }
+  if (page) {
+    metadataTags = __spreadValues({}, metadataTags);
+  }
+  return __spreadValues({}, metadataTags);
+}
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/members.tsx
+var meta2 = (metaData) => {
+  const { data, location, parentsData } = metaData;
+  if (!data || !parentsData || !location) {
+    return {
+      title: "404",
+      description: "error: No metaData or Parents Data"
+    };
+  }
+  const page = {
+    id: "24",
+    title: "Resource Library: Members",
+    author: {
+      id: "22",
+      name: "Teela",
+      avatar: {
+        url: "",
+        width: 24,
+        height: 24
+      },
+      slug: "resource-library/members"
+    },
+    slug: "resource-library/members",
+    content: "",
+    date: "",
+    seo: {
+      title: "Resource Library: Members - Every Tuesday",
+      metaDesc: "Resource Library members only access with over 200+ assets for free!",
+      fullHead: "",
+      opengraphModifiedTime: "",
+      opengraphPublishedTime: "",
+      readingTime: "3min"
+    }
+  };
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: null,
+    page,
+    location
+  });
+};
 var loader2 = async ({ request }) => {
   await requireResourceLibraryUser(request, "/resource-library");
   try {
-    return (0, import_remix8.json)({
+    return (0, import_remix9.json)({
       resourceData: []
     });
   } catch (e) {
     console.error(`e in /resource-library`, e);
-    return (0, import_remix8.redirect)("/resource-library");
+    return (0, import_remix9.redirect)("/resource-library");
   }
 };
 var ResourceLibraryMembers = () => {
-  const data = (0, import_remix8.useLoaderData)();
+  const data = (0, import_remix9.useLoaderData)();
   console.log("data", data);
   return /* @__PURE__ */ React5.createElement(Layout2, {
     alternateNav: /* @__PURE__ */ React5.createElement(resourceNav_default, {
@@ -1014,17 +1227,31 @@ var ResourceLibraryMembers = () => {
 };
 var members_default = ResourceLibraryMembers;
 
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/logout.ts
+var logout_exports = {};
+__export(logout_exports, {
+  action: () => action,
+  loader: () => loader3
+});
+var import_remix10 = __toModule(require("remix"));
+var action = async ({ request }) => {
+  return logoutResourceLibrary(request);
+};
+var loader3 = async () => {
+  return (0, import_remix10.redirect)("/");
+};
+
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/resource-library/index.tsx
 var resource_library_exports = {};
 __export(resource_library_exports, {
-  action: () => action,
+  action: () => action2,
   default: () => resource_library_default,
-  loader: () => loader3
+  loader: () => loader4
 });
-var import_remix9 = __toModule(require("remix"));
+var import_remix11 = __toModule(require("remix"));
 var React6 = __toModule(require("react"));
 var import_uuid = __toModule(require("uuid"));
-var loader3 = async ({ params }) => {
+var loader4 = async ({ params }) => {
   const page = {
     title: "Resource Library",
     slug: "resource-library",
@@ -1035,9 +1262,9 @@ var loader3 = async ({ params }) => {
       metaDesc: "When you join the Tuesday Tribe, you\u2019ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more."
     }
   };
-  return (0, import_remix9.json)({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
+  return (0, import_remix11.json)({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
 };
-var action = async ({ request }) => {
+var action2 = async ({ request }) => {
   let form = await request.formData();
   let password = form.get("password");
   if (typeof password !== "string") {
@@ -1054,20 +1281,20 @@ var action = async ({ request }) => {
   let sessionStorage = createResourceUserSession(userId);
   const customHeaders = new Headers();
   customHeaders.append("Set-Cookie", await sessionStorage);
-  return (0, import_remix9.redirect)("/resource-library/members", {
+  return (0, import_remix11.redirect)("/resource-library/members", {
     headers: customHeaders
   });
 };
 var ResourceLibrarySignUp = () => {
   var _a, _b, _c;
-  let actionData = (0, import_remix9.useActionData)();
+  let actionData = (0, import_remix11.useActionData)();
   return /* @__PURE__ */ React6.createElement(Layout2, {
     alternateNav: /* @__PURE__ */ React6.createElement(resourceNav_default, null)
   }, /* @__PURE__ */ React6.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
   }, /* @__PURE__ */ React6.createElement("h4", {
     className: "text-gray-900 text-lg font-medium title-font mb-5 block"
-  }, "Login"), /* @__PURE__ */ React6.createElement(import_remix9.Form, {
+  }, "Resource Library Login"), /* @__PURE__ */ React6.createElement(import_remix11.Form, {
     method: "post",
     className: "mb-4",
     "aria-describedby": (actionData == null ? void 0 : actionData.formError) ? "form-error-message" : void 0
@@ -1096,13 +1323,13 @@ var resource_library_default = ResourceLibrarySignUp;
 var id_exports = {};
 __export(id_exports, {
   default: () => id_default,
-  loader: () => loader4
+  loader: () => loader5
 });
-var import_remix12 = __toModule(require("remix"));
+var import_remix13 = __toModule(require("remix"));
 
 // app/lib/utils/loaderHelpers.ts
 var import_lodash = __toModule(require("lodash"));
-var import_remix11 = __toModule(require("remix"));
+var import_remix12 = __toModule(require("remix"));
 
 // app/lib/graphql/mutations/auth.ts
 var Auth = `
@@ -1334,61 +1561,6 @@ async function refreshJWT({ cmid, refresh }) {
   });
 }
 
-// app/utils/session.server.ts
-var import_remix10 = __toModule(require("remix"));
-var sessionSecret2 = process.env.SESSION_SECRET;
-if (!sessionSecret2) {
-  throw new Error("SESSION_SECRET must be set");
-}
-var storage = (0, import_remix10.createCookieSessionStorage)({
-  cookie: {
-    name: "wp_session",
-    secure: true,
-    secrets: [sessionSecret2],
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-    httpOnly: true
-  }
-});
-async function createUserSession(userId, token) {
-  let session = await storage.getSession();
-  session.set("userId", userId);
-  session.set("token", token);
-  return await storage.commitSession(session);
-}
-function getUserSession(request) {
-  return storage.getSession(request.headers.get("Cookie"));
-}
-async function requireToken(request, redirectTo) {
-  let session = await getUserSession(request);
-  let userToken = session.get("token");
-  if (!userToken || typeof userToken !== "object") {
-    throw (0, import_remix10.redirect)(redirectTo);
-  }
-  return userToken;
-}
-async function isTokenExpired(token) {
-  let currentDate = new Date(Date.now()).getTime();
-  console.log("currentDate", currentDate);
-  console.log("token.expires", token.expires);
-  return token.expires < currentDate;
-}
-function setFutureDate(mins = 5) {
-  let currentDate = new Date();
-  return new Date(currentDate.getTime() + mins * 6e4).getTime();
-}
-async function refreshCurrentSession(request, token) {
-  let session = await getUserSession(request);
-  let oldUserToken = session.get("token");
-  let newToken = __spreadProps(__spreadValues({}, oldUserToken), {
-    token,
-    expires: setFutureDate()
-  });
-  session.set("token", newToken);
-  return storage.commitSession(session);
-}
-
 // app/lib/utils/loaderHelpers.ts
 function previewUrlParams(request) {
   let url = new URL(request.url);
@@ -1445,7 +1617,7 @@ var previewLoaderRouteHandler = async (request, params) => {
   let isExpired = await isTokenExpired(userToken);
   console.log("isExpired", isExpired);
   if (!previewType || !id) {
-    return (0, import_remix11.redirect)(loginUrl);
+    return (0, import_remix12.redirect)(loginUrl);
   }
   if (isExpired) {
     try {
@@ -1457,7 +1629,7 @@ var previewLoaderRouteHandler = async (request, params) => {
       const sessionStorage = refreshCurrentSession(request, newToken);
       customHeaders.append("Set-Cookie", await sessionStorage);
     } catch (e) {
-      throw (0, import_remix11.redirect)(loginUrl);
+      throw (0, import_remix12.redirect)(loginUrl);
     }
   }
   try {
@@ -1477,14 +1649,14 @@ var previewLoaderRouteHandler = async (request, params) => {
     });
   } catch (e) {
     console.error(`e in /${previewType}/preview/$id`, e);
-    return (0, import_remix11.redirect)(loginUrl);
+    return (0, import_remix12.redirect)(loginUrl);
   }
 };
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/blog/preview/$id.tsx
-var loader4 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var loader5 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
 var PostPreview = () => {
-  const data = (0, import_remix12.useLoaderData)();
+  const data = (0, import_remix13.useLoaderData)();
   const dataRes = JSON.parse(data);
   console.log("dataRes", dataRes);
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview Post"));
@@ -1495,12 +1667,12 @@ var id_default = PostPreview;
 var id_exports2 = {};
 __export(id_exports2, {
   default: () => id_default2,
-  loader: () => loader5
+  loader: () => loader6
 });
-var import_remix13 = __toModule(require("remix"));
-var loader5 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
+var import_remix14 = __toModule(require("remix"));
+var loader6 = async ({ request, params, context }) => previewLoaderRouteHandler(request, params);
 var PostPreview2 = () => {
-  const data = (0, import_remix13.useLoaderData)();
+  const data = (0, import_remix14.useLoaderData)();
   const dataRes = JSON.parse(data);
   console.log("dataRes", dataRes);
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, "Preview"));
@@ -1510,7 +1682,7 @@ var id_default2 = PostPreview2;
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[manifest.json].ts
 var manifest_json_exports = {};
 __export(manifest_json_exports, {
-  loader: () => loader6
+  loader: () => loader7
 });
 var manifest = {
   "short_name": "Every Tuesday Blog",
@@ -1567,7 +1739,7 @@ var manifest = {
     }
   ]
 };
-var loader6 = async ({ request }) => {
+var loader7 = async ({ request }) => {
   return new Response(JSON.stringify(manifest), {
     status: 200,
     headers: {
@@ -1579,7 +1751,7 @@ var loader6 = async ({ request }) => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[sitemap.xml].ts
 var sitemap_xml_exports = {};
 __export(sitemap_xml_exports, {
-  loader: () => loader7
+  loader: () => loader8
 });
 var import_prettier = __toModule(require("prettier"));
 var import_client = __toModule(require("@apollo/client"));
@@ -1598,7 +1770,7 @@ async function getSitemapData() {
     }
   });
 }
-var loader7 = async ({ request }) => {
+var loader8 = async ({ request }) => {
   let url = new URL(request.url);
   const { posts, pages } = await getSitemapData();
   let xml = await generateXmlIndex({
@@ -1701,28 +1873,28 @@ var courses_default = Courses;
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/actions.tsx
 var actions_exports = {};
 __export(actions_exports, {
-  action: () => action2,
+  action: () => action3,
   default: () => ActionsDemo,
-  meta: () => meta2
+  meta: () => meta3
 });
 var import_react2 = __toModule(require("react"));
-var import_remix14 = __toModule(require("remix"));
-function meta2() {
+var import_remix15 = __toModule(require("remix"));
+function meta3() {
   return { title: "Actions Demo" };
 }
-var action2 = async ({ request }) => {
+var action3 = async ({ request }) => {
   let formData = await request.formData();
   let answer = formData.get("answer");
   if (typeof answer !== "string") {
-    return (0, import_remix14.json)("Come on, at least try!", { status: 400 });
+    return (0, import_remix15.json)("Come on, at least try!", { status: 400 });
   }
   if (answer !== "egg") {
-    return (0, import_remix14.json)(`Sorry, ${answer} is not right.`, { status: 400 });
+    return (0, import_remix15.json)(`Sorry, ${answer} is not right.`, { status: 400 });
   }
-  return (0, import_remix14.redirect)("/demos/correct");
+  return (0, import_remix15.redirect)("/demos/correct");
 };
 function ActionsDemo() {
-  let actionMessage = (0, import_remix14.useActionData)();
+  let actionMessage = (0, import_remix15.useActionData)();
   let answerRef = (0, import_react2.useRef)(null);
   (0, import_react2.useEffect)(() => {
     if (actionMessage && answerRef.current) {
@@ -1731,7 +1903,7 @@ function ActionsDemo() {
   }, [actionMessage]);
   return /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix14.Form, {
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement("h2", null, "Actions!"), /* @__PURE__ */ React.createElement("p", null, "This form submission will send a post request that we handle in our `action` export. Any route can export an action to handle data mutations."), /* @__PURE__ */ React.createElement(import_remix15.Form, {
     method: "post",
     className: "remix__form"
   }, /* @__PURE__ */ React.createElement("h3", null, "Post an Action"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("i", null, "What is more useful when it is broken?")), /* @__PURE__ */ React.createElement("label", null, /* @__PURE__ */ React.createElement("div", null, "Answer:"), /* @__PURE__ */ React.createElement("input", {
@@ -1759,9 +1931,9 @@ function NiceWork() {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/[robots.txt].ts
 var robots_txt_exports = {};
 __export(robots_txt_exports, {
-  loader: () => loader8
+  loader: () => loader9
 });
-async function loader8() {
+async function loader9() {
   let xml = await generateRobotsTxt();
   return new Response(xml, {
     status: 200,
@@ -1781,26 +1953,26 @@ Sitemap: ${sitemapUrl}`;
 var params_exports = {};
 __export(params_exports, {
   default: () => Boundaries,
-  meta: () => meta3
+  meta: () => meta4
 });
-var import_remix15 = __toModule(require("remix"));
-function meta3() {
+var import_remix16 = __toModule(require("remix"));
+function meta4() {
   return { title: "Boundaries Demo" };
 }
 function Boundaries() {
   return /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"
-  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix15.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(import_remix16.Outlet, null)), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Click these Links"), /* @__PURE__ */ React.createElement("ul", null, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "."
-  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, "Start over")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "one"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "one"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "two"
-  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, "Param: ", /* @__PURE__ */ React.createElement("i", null, "two"))), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "this-record-does-not-exist"
-  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, "This will be a 404")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "shh-its-a-secret"
-  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix15.Link, {
+  }, "And this will be 401 Unauthorized")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement(import_remix16.Link, {
     to: "kaboom"
   }, "This one will throw an error")))));
 }
@@ -1822,29 +1994,29 @@ __export(id_exports3, {
   CatchBoundary: () => CatchBoundary2,
   ErrorBoundary: () => ErrorBoundary2,
   default: () => ParamDemo,
-  loader: () => loader9,
-  meta: () => meta4
+  loader: () => loader10,
+  meta: () => meta5
 });
-var import_remix16 = __toModule(require("remix"));
-var loader9 = async ({ params }) => {
+var import_remix17 = __toModule(require("remix"));
+var loader10 = async ({ params }) => {
   if (params.id === "this-record-does-not-exist") {
     throw new Response("Not Found", { status: 404 });
   }
   if (params.id === "shh-its-a-secret") {
-    throw (0, import_remix16.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
+    throw (0, import_remix17.json)({ webmasterEmail: "hello@remix.run" }, { status: 401 });
   }
   if (params.id === "kaboom") {
   }
   return { param: params.id };
 };
 function ParamDemo() {
-  let data = (0, import_remix16.useLoaderData)();
+  let data = (0, import_remix17.useLoaderData)();
   return /* @__PURE__ */ React.createElement("h1", null, "The param is ", /* @__PURE__ */ React.createElement("i", {
     style: { color: "red" }
   }, data.param));
 }
 function CatchBoundary2() {
-  let caught = (0, import_remix16.useCatch)();
+  let caught = (0, import_remix17.useCatch)();
   let message;
   switch (caught.status) {
     case 401:
@@ -1860,7 +2032,7 @@ function ErrorBoundary2({ error }) {
   console.error(error);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h2", null, "Error!"), /* @__PURE__ */ React.createElement("p", null, error.message), /* @__PURE__ */ React.createElement("p", null, "(Isn't it cool that the user gets to stay in context and try a different link in the parts of the UI that didn't blow up?)"));
 }
-var meta4 = ({ data }) => {
+var meta5 = ({ data }) => {
   return {
     title: data ? `Param: ${data.param}` : "Oops..."
   };
@@ -1869,11 +2041,11 @@ var meta4 = ({ data }) => {
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/api/wpLogin.ts
 var wpLogin_exports = {};
 __export(wpLogin_exports, {
-  loader: () => loader10
+  loader: () => loader11
 });
-var import_remix17 = __toModule(require("remix"));
-var loader10 = async ({ request }) => {
-  return (0, import_remix17.redirect)(process.env.WORDPRESS_DB || "/");
+var import_remix18 = __toModule(require("remix"));
+var loader11 = async ({ request }) => {
+  return (0, import_remix18.redirect)(process.env.WORDPRESS_DB || "/");
 };
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
@@ -1881,15 +2053,15 @@ var about_exports = {};
 __export(about_exports, {
   default: () => Index,
   links: () => links2,
-  meta: () => meta5
+  meta: () => meta6
 });
-var import_remix18 = __toModule(require("remix"));
+var import_remix19 = __toModule(require("remix"));
 
 // app/styles/demos/about.css
 var about_default = "/build/_assets/about-GGM5BPB3.css";
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about.tsx
-var meta5 = () => {
+var meta6 = () => {
   return {
     title: "About Remix"
   };
@@ -1904,7 +2076,7 @@ function Index() {
     className: "about__intro"
   }, /* @__PURE__ */ React.createElement("h2", null, "About Us"), /* @__PURE__ */ React.createElement("p", null, "Ok, so this page isn't really ", /* @__PURE__ */ React.createElement("em", null, "about us"), ", but we did want to show you a few more things Remix can do."), /* @__PURE__ */ React.createElement("p", null, "Did you notice that things look a little different on this page? The CSS that we import in the route file and include in its", " ", /* @__PURE__ */ React.createElement("code", null, "links"), " export is only included on this route and its children."), /* @__PURE__ */ React.createElement("p", null, "Wait a sec...", /* @__PURE__ */ React.createElement("em", null, "its children"), "? To understand what we mean by this,", " ", /* @__PURE__ */ React.createElement("a", {
     href: "https://remix.run/tutorial/4-nested-routes-params"
-  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix18.Outlet, null)));
+  }, "read all about nested routes in the docs"), "."), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement(import_remix19.Outlet, null)));
 }
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/demos/about/index.tsx
@@ -1912,9 +2084,9 @@ var about_exports2 = {};
 __export(about_exports2, {
   default: () => AboutIndex
 });
-var import_remix19 = __toModule(require("remix"));
+var import_remix20 = __toModule(require("remix"));
 function AboutIndex() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix19.Link, {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "You are looking at the index route for the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " URL segment, but there are nested routes as well!"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix20.Link, {
     to: "whoa"
   }, "Check out one of them here."))));
 }
@@ -1924,9 +2096,9 @@ var whoa_exports = {};
 __export(whoa_exports, {
   default: () => AboutIndex2
 });
-var import_remix20 = __toModule(require("remix"));
+var import_remix21 = __toModule(require("remix"));
 function AboutIndex2() {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix20.Link, {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", null, "Whoa, this is a nested route! We render the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " layout route component, and its ", /* @__PURE__ */ React.createElement("code", null, "Outlet"), " renders our route component. \u{1F92F}"), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, /* @__PURE__ */ React.createElement(import_remix21.Link, {
     to: ".."
   }, "Go back to the ", /* @__PURE__ */ React.createElement("code", null, "/about"), " index."))));
 }
@@ -1935,15 +2107,15 @@ function AboutIndex2() {
 var preview_exports = {};
 __export(preview_exports, {
   default: () => preview_default,
-  loader: () => loader11
+  loader: () => loader12
 });
-var import_remix21 = __toModule(require("remix"));
-var loader11 = async ({ request, params, context }) => {
+var import_remix22 = __toModule(require("remix"));
+var loader12 = async ({ request, params, context }) => {
   console.log("params", request);
   const { id, previewType, url } = previewUrlParams(request);
   let loginUrl = `/login${url.search}`;
   if (!previewType || !id) {
-    return (0, import_remix21.redirect)(loginUrl);
+    return (0, import_remix22.redirect)(loginUrl);
   }
   try {
     const res = await getPreviewPostPageServer({ previewType, id });
@@ -1951,7 +2123,7 @@ var loader11 = async ({ request, params, context }) => {
     const postPageData = json8.data[previewType];
     console.log("postPageData", postPageData);
     if (postPageData === null) {
-      return (0, import_remix21.redirect)(loginUrl);
+      return (0, import_remix22.redirect)(loginUrl);
     }
     return {
       [previewType]: postPageData
@@ -1964,21 +2136,35 @@ var loader11 = async ({ request, params, context }) => {
   }
 };
 var Preview = () => {
-  const data = (0, import_remix21.useLoaderData)();
+  const data = (0, import_remix22.useLoaderData)();
   console.log("data", data);
   return /* @__PURE__ */ React.createElement("div", null, "Preview");
 };
 var preview_default = Preview;
+
+// route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/logout.ts
+var logout_exports2 = {};
+__export(logout_exports2, {
+  action: () => action4,
+  loader: () => loader13
+});
+var import_remix23 = __toModule(require("remix"));
+var action4 = async ({ request }) => {
+  return logout(request);
+};
+var loader13 = async () => {
+  return (0, import_remix23.redirect)("/");
+};
 
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/$slug.tsx
 var slug_exports = {};
 __export(slug_exports, {
   default: () => PostSlug,
   headers: () => headers,
-  loader: () => loader12,
-  meta: () => meta6
+  loader: () => loader14,
+  meta: () => meta7
 });
-var import_remix22 = __toModule(require("remix"));
+var import_remix24 = __toModule(require("remix"));
 
 // app/lib/utils/posts.ts
 function flattenAllPosts(posts) {
@@ -2013,90 +2199,13 @@ function mapPostData(post = {}) {
   return modifiedData;
 }
 
-// app/lib/utils/seo.ts
-function createOgImages(image) {
-  return {
-    "og:image:alt": image.altText,
-    "og:image:url": image.url,
-    "og:image:width": image.width,
-    "og:image:height": image.height
-  };
-}
-function createOgArticle(article) {
-  return {
-    "og:article:publishedTime": article.publishedTime,
-    "og:article:modifiedTime": article.modifiedTime,
-    "og:article:author": article.author,
-    "og:article:tags": article.tags.map((tag) => tag.name).join(", ")
-  };
-}
-function getHtmlMetadataTags({ metadata: metadata2, post, page, location }) {
-  var _a, _b;
-  let defaultImage = {
-    altText: defaultSeoImages.generic.altText,
-    url: defaultSeoImages.generic.url,
-    height: "1920",
-    width: "1080"
-  };
-  const url = `${metadata2.domain}${location.pathname}`;
-  let metadataTags = __spreadProps(__spreadValues({
-    "robots:": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-    title: metadata2.title,
-    description: metadata2.description,
-    canonical: url,
-    "og:locale": "en_US",
-    "og:title": metadata2.title,
-    "og:site_name": metadata2.siteTitle,
-    "og:type": "website",
-    "og:description": metadata2.description
-  }, createOgImages(defaultImage)), {
-    "twitter:card": `@${metadata2.social.twitter.username}`,
-    "twitter:site": `@${metadata2.social.twitter.username}`,
-    "twitter:creator": "summary_large_image",
-    "twitter:label1": `Est. reading time`,
-    "twitter:data1": `1 minute`
-  });
-  if (post) {
-    metadataTags = __spreadProps(__spreadValues(__spreadValues(__spreadProps(__spreadValues({}, metadataTags), {
-      title: post.seo.title,
-      description: post.seo.metaDesc,
-      canonical: url,
-      "og:title": post.seo.title,
-      "og:type": "article",
-      "og:description": post.seo.metaDesc
-    }), createOgArticle({
-      publishedTime: post.seo.opengraphPublishedTime,
-      modifiedTime: post.seo.opengraphPublishedTime,
-      author: `${metadata2.domain}${post.author.uri}`,
-      tags: post.tags
-    })), createOgImages({
-      altText: ((_a = post.featuredImage) == null ? void 0 : _a.altText) || defaultSeoImages.generic.altText,
-      url: ((_b = post.featuredImage) == null ? void 0 : _b.altText) || defaultSeoImages.generic.altText,
-      width: "1920",
-      height: "1080"
-    })), {
-      "twitter:card": `@${metadata2.social.twitter.username}`,
-      "twitter:site": `@${metadata2.social.twitter.username}`,
-      "twitter:creator": "summary_large_image",
-      "twitter:label1": `Written by`,
-      "twitter:data1": `Teela`,
-      "twitter:label2": `Est. reading time`,
-      "twitter:data2": `1 minute`
-    });
-  }
-  if (page) {
-    metadataTags = __spreadValues({}, metadataTags);
-  }
-  return __spreadValues({}, metadataTags);
-}
-
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/$slug.tsx
 var headers = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   };
 };
-var loader12 = async ({ params }) => {
+var loader14 = async ({ params }) => {
   let wpAPI = await fetchAPI(query, {
     variables: {
       slug: `${params.slug}`
@@ -2106,9 +2215,9 @@ var loader12 = async ({ params }) => {
     throw new Response("Not Found", { status: 404 });
   }
   const post = flattenPost(wpAPI.postBy);
-  return (0, import_remix22.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
+  return (0, import_remix24.json)({ post }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } });
 };
-var meta6 = (metaData) => {
+var meta7 = (metaData) => {
   const { data, location, parentsData } = metaData;
   if (!data || !parentsData || !location) {
     return {
@@ -2124,10 +2233,10 @@ var meta6 = (metaData) => {
   });
 };
 function PostSlug() {
-  let { post } = (0, import_remix22.useLoaderData)();
+  let { post } = (0, import_remix24.useLoaderData)();
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h1", null, post.title), /* @__PURE__ */ React.createElement("div", {
     dangerouslySetInnerHTML: { __html: post.content }
-  }), /* @__PURE__ */ React.createElement(import_remix22.Link, {
+  }), /* @__PURE__ */ React.createElement(import_remix24.Link, {
     to: "/"
   }, "Home")));
 }
@@ -2199,12 +2308,18 @@ query postBySlug($slug: String!) {
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
-  loader: () => loader13,
-  meta: () => meta7,
+  headers: () => headers2,
+  loader: () => loader15,
+  meta: () => meta8,
   query: () => query2
 });
-var import_remix23 = __toModule(require("remix"));
-var meta7 = (metaData) => {
+var import_remix25 = __toModule(require("remix"));
+var headers2 = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+  };
+};
+var meta8 = (metaData) => {
   const { data, location, parentsData } = metaData;
   if (!data || !parentsData || !location) {
     return {
@@ -2219,7 +2334,7 @@ var meta7 = (metaData) => {
     location
   });
 };
-var loader13 = async () => {
+var loader15 = async () => {
   let data = {
     resources: [
       {
@@ -2268,7 +2383,7 @@ var loader13 = async () => {
   });
 };
 function Index2() {
-  let data = (0, import_remix23.useLoaderData)();
+  let data = (0, import_remix25.useLoaderData)();
   function fetchMore() {
   }
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", {
@@ -2278,13 +2393,13 @@ function Index2() {
   }, "Welcome to Remix!"), /* @__PURE__ */ React.createElement("p", null, "We're stoked that you're here. \u{1F973}"), /* @__PURE__ */ React.createElement("p", null, "Feel free to take a look around the code to see how Remix does things, it might be a bit different than what you\u2019re used to. When you're ready to dive deeper, we've got plenty of resources to get you up-and-running quickly."), /* @__PURE__ */ React.createElement("p", null, "Check out all the demos in this starter, and then just delete the", " ", /* @__PURE__ */ React.createElement("code", null, "app/routes/demos"), " and ", /* @__PURE__ */ React.createElement("code", null, "app/styles/demos"), " ", "folders when you're ready to turn this into your next project.")), /* @__PURE__ */ React.createElement("aside", null, /* @__PURE__ */ React.createElement("h2", null, "Demos In This App"), /* @__PURE__ */ React.createElement("ul", null, data.demos.map((demo) => /* @__PURE__ */ React.createElement("li", {
     key: demo.to,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix23.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix25.Link, {
     to: demo.to,
     prefetch: "intent"
   }, demo.name)))), /* @__PURE__ */ React.createElement("h2", null, "Resources"), /* @__PURE__ */ React.createElement("ul", null, data.posts.map((post) => /* @__PURE__ */ React.createElement("li", {
     key: post.id,
     className: "remix__page__resource"
-  }, /* @__PURE__ */ React.createElement(import_remix23.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix25.Link, {
     to: post.slug,
     prefetch: "intent"
   }, post.title)))), /* @__PURE__ */ React.createElement("button", {
@@ -2359,14 +2474,14 @@ var query2 = `
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/login.tsx
 var login_exports = {};
 __export(login_exports, {
-  action: () => action3,
+  action: () => action5,
   default: () => login_default,
-  loader: () => loader14,
-  meta: () => meta8
+  loader: () => loader16,
+  meta: () => meta9
 });
-var import_remix24 = __toModule(require("remix"));
+var import_remix26 = __toModule(require("remix"));
 var React7 = __toModule(require("react"));
-var meta8 = (metaData) => {
+var meta9 = (metaData) => {
   const { data, location, parentsData } = metaData;
   const page = {
     id: "24",
@@ -2406,7 +2521,7 @@ var meta8 = (metaData) => {
     location
   });
 };
-var loader14 = async ({ request }) => {
+var loader16 = async ({ request }) => {
   const { id, previewType, url } = previewUrlParams(request);
   return {
     params: {
@@ -2416,7 +2531,7 @@ var loader14 = async ({ request }) => {
     }
   };
 };
-var action3 = async ({ request }) => {
+var action5 = async ({ request }) => {
   let form = await request.formData();
   let password = form.get("password");
   let username = form.get("username");
@@ -2456,12 +2571,12 @@ var action3 = async ({ request }) => {
     customHeaders.append("Set-Cookie", await sessionStorage);
     const { id, postType } = getPreviewUrlParams(request);
     if (!id || !postType) {
-      return (0, import_remix24.redirect)(process.env.WORDPRESS_DB || "/", {
+      return (0, import_remix26.redirect)(process.env.WORDPRESS_DB || "/", {
         headers: customHeaders
       });
     }
     const redirectUrl = getPreviewRedirectUrl(postType, id);
-    return (0, import_remix24.redirect)(redirectUrl, {
+    return (0, import_remix26.redirect)(redirectUrl, {
       headers: customHeaders
     });
   } catch (e) {
@@ -2470,11 +2585,11 @@ var action3 = async ({ request }) => {
 };
 var Login = () => {
   var _a, _b, _c, _d, _e, _f, _g, _h, _i;
-  let actionData = (0, import_remix24.useActionData)();
-  let { params } = (0, import_remix24.useLoaderData)();
-  let transition = (0, import_remix24.useTransition)();
+  let actionData = (0, import_remix26.useActionData)();
+  let { params } = (0, import_remix26.useLoaderData)();
+  let transition = (0, import_remix26.useTransition)();
   let idParamName = getIDParamName(params.postType);
-  let action4 = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : "/login";
+  let action6 = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : "/login";
   return /* @__PURE__ */ React7.createElement(Layout2, null, /* @__PURE__ */ React7.createElement("div", {
     className: "login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto"
   }, /* @__PURE__ */ React7.createElement("h4", {
@@ -2482,9 +2597,9 @@ var Login = () => {
   }, "Login"), (actionData == null ? void 0 : actionData.formError) && /* @__PURE__ */ React7.createElement("div", {
     className: "text-red-600",
     dangerouslySetInnerHTML: { __html: actionData.formError || "" }
-  }), /* @__PURE__ */ React7.createElement(import_remix24.Form, {
+  }), /* @__PURE__ */ React7.createElement(import_remix26.Form, {
     method: "post",
-    action: action4,
+    action: action6,
     "aria-disabled": transition.state !== "idle",
     className: "mb-4",
     "aria-describedby": ((_a = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _a.username) || ((_b = actionData == null ? void 0 : actionData.fieldErrors) == null ? void 0 : _b.password) ? "form-error-message" : void 0
@@ -2529,10 +2644,10 @@ var login_default = Login;
 // route-module:/Users/spencerbigum/Documents/github/remix-wordpress/app/routes/feed.ts
 var feed_exports = {};
 __export(feed_exports, {
-  loader: () => loader15
+  loader: () => loader17
 });
 var import_rss = __toModule(require("rss"));
-var import_graphql_tag = __toModule(require("graphql-tag"));
+var import_client2 = __toModule(require("@apollo/client"));
 async function getFeedData() {
   return fetchAPI(getGraphQLString(query3), {
     variables: {
@@ -2540,7 +2655,7 @@ async function getFeedData() {
     }
   });
 }
-var loader15 = async ({ request }) => {
+var loader17 = async ({ request }) => {
   let url = new URL(request.url);
   const { posts } = await getFeedData();
   let xml = await generateFeed(posts.edges, url.origin);
@@ -2576,7 +2691,7 @@ async function generateFeed(posts, origin) {
   });
   return feed.xml({ indent: true });
 }
-var query3 = import_graphql_tag.default`
+var query3 = import_client2.gql`
     query FeedPosts($count: Int) {
         posts(first: $count) {
             edges {
@@ -2629,6 +2744,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: members_exports
+  },
+  "routes/resource-library/logout": {
+    id: "routes/resource-library/logout",
+    parentId: "root",
+    path: "resource-library/logout",
+    index: void 0,
+    caseSensitive: void 0,
+    module: logout_exports
   },
   "routes/resource-library/index": {
     id: "routes/resource-library/index",
@@ -2765,6 +2888,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: preview_exports
+  },
+  "routes/logout": {
+    id: "routes/logout",
+    parentId: "root",
+    path: "logout",
+    index: void 0,
+    caseSensitive: void 0,
+    module: logout_exports2
   },
   "routes/$slug": {
     id: "routes/$slug",

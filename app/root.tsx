@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   Link,
   Links,
-  LiveReload,
+  LiveReload, LoaderFunction,
   Meta, MetaFunction,
   Outlet,
   Scripts,
@@ -34,6 +34,7 @@ import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import { useTransition } from "remix";
 import styles from "./styles/app.css";
+import { getUserSession } from './utils/session.server'
 /**
  * The `links` export is a function that returns an array of objects that map to
  * the attributes for an HTML `<link>` element. These will load `<link>` tags on
@@ -56,12 +57,18 @@ export let links: LinksFunction = () => {
   ];
 };
 
-export let loader: any = async () => {
+export let loader: LoaderFunction = async ({request}) => {
+  let session = await getUserSession(request)
+  console.log('user', session.has('userId'))
+  let user = session.has('userId') ? {
+    id: session.get('userId')
+  } : null
   let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
   // let metadata = getWPMetadata('http://localhost:3000')
   return {
     ...getWPMenu(),
     metadata,
+    user,
     ENV: {
       APP_ROOT_URL: process.env.APP_ROOT_URL,
       PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
@@ -75,7 +82,7 @@ export let loader: any = async () => {
  * component for your app.
  */
 export default function App() {
-  let {menus, metadata} = useLoaderData<any>();
+  let {menus, metadata, user} = useLoaderData<any>();
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
   let transition = useTransition();
@@ -92,6 +99,7 @@ export default function App() {
     <SiteContext.Provider value={{
       menu: menus,
       metadata,
+      user
     }}>
       <Document>
         <Outlet />
@@ -221,7 +229,6 @@ export function Document({
       <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny"/>
       <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"/>
       {/*<title>{`Home - ${metadata.title}`}</title>*/}
-      <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <Meta />
       <Links />
@@ -253,8 +260,10 @@ export function Document({
 
 
 export const PrimaryNav = () => {
-  const {menu} = useSite()
+  const {menu, user} = useSite()
   const primaryMenu = getPrimaryMenu(menu)
+  console.log('user', user)
+
   return (
     <nav aria-label="Main navigation" className="remix-app__header-nav">
       <ul>
@@ -266,6 +275,15 @@ export const PrimaryNav = () => {
           )
           // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
         })}
+
+        {user && <li>
+          <form action="/logout" method="post">
+            <button type="submit" className="button">
+              Logout
+            </button>
+          </form>
+        </li>}
+
       </ul>
     </nav>
   )
@@ -278,7 +296,7 @@ export function Layout({ children, alternateNav }: React.PropsWithChildren<{}> &
     <div className="remix-app">
       <header className="remix-app__header">
         <div className="container remix-app__header-content">
-          <Link to="/" title="Remix" className="remix-app__header-home-link">
+          <Link to="/" title="Remix" prefetch="intent" className="remix-app__header-home-link">
             <RemixLogo />
           </Link>
           {alternateNav ? alternateNav : <PrimaryNav />}

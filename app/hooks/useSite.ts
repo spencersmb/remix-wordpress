@@ -32,7 +32,10 @@ export interface ISiteContextState {
   recentPosts?: IPost[]
   categories?: any[]
   metadata: IMetaData
-  menu: IMenu[]
+  menu: IMenu[],
+  user: null | {
+    isLoggedIn: boolean
+  }
 }
 export const siteInitialState: ISiteContextState  = {
   recentPosts: [],
@@ -65,7 +68,8 @@ export const siteInitialState: ISiteContextState  = {
     },
     title: '',
   },
-  menu:[]
+  menu:[],
+  user: null
 }
 export const SiteContext = createContext<ISiteContextState>(siteInitialState)
 SiteContext.displayName = 'SiteContext'

@@ -15,7 +15,8 @@
     "dev": "npm run buildPlugins && concurrently \"npm run dev:css\" \"npm run dev:remix\"",
     "dev:css": "postcss styles --base styles --dir app/styles -w",
     "dev:cssOld": "tailwindcss --config ./tailwind.config.js -o app/styles/tailwind.css --watch",
-    "tailwind": "npx tailwindcss build -o src/tailwind.css"
+    "tailwind": "npx tailwindcss build -o src/tailwind.css",
+    "clean": "node clean.js"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",

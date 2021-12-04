@@ -8,10 +8,16 @@ const ResourceLibraryNav = ({showLogout}: IProps) => {
 
   return(
     <nav>
-      <li>Nav</li>
-      {showLogout && <li>
-        Logout
-      </li>}
+      <ul>
+        <li>Nav</li>
+        {showLogout && <li>
+          <form action="/resource-library/logout" method="post">
+            <button type="submit" className="button">
+              Logout
+            </button>
+          </form>
+        </li>}
+      </ul>
     </nav>
   )
 }

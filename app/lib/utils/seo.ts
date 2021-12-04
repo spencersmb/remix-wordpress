@@ -3,8 +3,8 @@ import type { Location } from "history";
 
 interface IGetMetaTagsFunction{
   metadata: IMetaData
-  post: IPost
-  page: any
+  post: IPost | null
+  page: IPage | null
   location: Location
 }
 

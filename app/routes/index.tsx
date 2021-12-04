@@ -1,11 +1,17 @@
 import type { MetaFunction, LoaderFunction } from "remix";
-import { useLoaderData, json, Link } from "remix";
+import { useLoaderData, json, Link, HeadersFunction } from 'remix'
 import { QUERY_NEXT_POSTS } from '../lib/graphql/queries/posts'
 import { flattenAllPosts } from '../lib/utils/posts'
 import { fetchAPI } from '../lib/api/fetch'
 import { Document, Layout } from '../root'
 import { getHtmlMetadataTags } from '../lib/utils/seo'
 
+// headers for the entire DOC when someone refreshes the page or types in the url directly
+export const headers: HeadersFunction = ({loaderHeaders}) => {
+  return {
+    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+  }
+}
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
@@ -85,8 +91,6 @@ export let loader: LoaderFunction = async () => {
     posts,
     pageInfo
   }
-
-
 };
 
 // https://remix.run/guides/routing#index-routes

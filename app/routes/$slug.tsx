@@ -32,17 +32,6 @@ export let loader: LoaderFunction = async ({ params }) => {
   return json({post}, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 
-interface IMetaType {
-  data: {
-    post: IPost
-  }
-  location:{
-    pathname: string
-  }
-  parentsData: RouteData
-  | undefined
-}
-
 // https://remix.run/api/conventions#meta
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
