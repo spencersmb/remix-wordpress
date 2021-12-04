@@ -36,10 +36,13 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - uses: actions/checkout@v2
-    - uses: superfly/flyctl-actions@1.1
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
+    - uses: superfly/flyctl-actions@1.1
+      with:
+        args: "deploy"
     - run: npm run deploy
