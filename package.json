@@ -16,7 +16,8 @@
     "dev:css": "postcss styles --base styles --dir app/styles -w",
     "dev:cssOld": "tailwindcss --config ./tailwind.config.js -o app/styles/tailwind.css --watch",
     "tailwind": "npx tailwindcss build -o src/tailwind.css",
-    "clean": "node clean.js"
+    "clean": "node clean.js",
+    "graphCDN:build": "npx graphcdn push"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",

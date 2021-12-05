@@ -1,0 +1,14 @@
+schema: './schema.graphql'
+passThroughOnly: false
+rootTypeNames:
+  query: RootQuery
+  mutation: RootMutation
+rules:
+  - types:
+      - RootQuery
+    maxAge: 900
+    swr: 900
+    description: Cache everything (default)
+name: etheadless
+originUrl: 'https://etheadless.wpengine.com/graphql/'
+

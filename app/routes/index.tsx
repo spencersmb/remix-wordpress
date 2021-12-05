@@ -97,8 +97,54 @@ export let loader: LoaderFunction = async () => {
 export default function Index() {
   let data = useLoaderData<any>();
 
-  function fetchMore (){
+  const urls = [
+    'https://etheadless.wpengine.com/10-hand-lettering-enhancements/',
+    "https://courses.etheadless.wpengine.com/p/3d-lettering-in-procreate",
+    'https://etheadless.wpengine.com/wp-content/uploads/2018/03/install-patterns.jpg'
+  ]
 
+  urls.forEach(url => {
+    let urlObj = new URL(url)
+
+    // First check to replace url
+    // get first position of the host to check if its the primary domain
+    let host = urlObj.host
+    let domains = ['etheadless', 'everytuesday']
+    let isPrimaryDomain = domains.includes(host.split('.')[0])
+
+    // it still could have an asset, so we need to check the path for
+    let pathName = urlObj.pathname.slice(1)
+    let isWP_Content = pathName.split('/')[0] === 'wp-content'
+
+    // if its the primaryDomain but not an asset, alter the forwarding url
+    if(isPrimaryDomain && !isWP_Content){
+
+    }
+    // console.log('origin', urlObj.origin)
+    // console.log('isPrimaryDomain', isPrimaryDomain)
+    // console.log('pathName', urlObj.pathname)
+    // console.log('isWp_Content', isWP_Content)
+    //
+    // console.log('host', urlObj.host)
+    // console.log('hash', urlObj.hash)
+    // console.log('href', urlObj.href)
+  })
+
+
+
+  async function fetchMore (){
+    const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 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',
+        },
+        body: JSON.stringify({
+          ref: "main"
+        })
+    })
+    console.log('rep', rep)
   }
 
   return (

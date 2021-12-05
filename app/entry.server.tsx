@@ -1,11 +1,20 @@
 import { renderToString } from "react-dom/server";
 import { redirect, RemixServer } from 'remix'
 import type { EntryContext } from "remix";
-import path from 'path'
 import * as fs from 'fs'
 
 
-const here: any = (s:any) => path.join(__dirname, ...s)
+interface IPrettyLink {
+  redirectTo: string
+  status: string
+  slug: string
+}
+interface IPrettyLinks {
+  links: {
+    [key: string]: IPrettyLink
+  }
+}
+
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,
@@ -18,14 +27,14 @@ export default function handleRequest(
 
   // intercept 301 redirects here?
   let url = new URL(request.url);
-  const file = fs.readFileSync('./_redirects.json', 'utf8')
+  const file = fs.readFileSync('./public/wp-prettyLinks.json', 'utf8')
   let removeSlashAtBegining = url.pathname.slice(1)
-  const data = JSON.parse(file)
-  const foundRoute = data.prettyLinks[`${removeSlashAtBegining}`]
+  const data: IPrettyLinks = JSON.parse(file)
+  const foundRoute = data.links[`${removeSlashAtBegining}`]
 
   if(!!foundRoute){
-    return redirect(foundRoute.url, {
-      status: foundRoute.status
+    return redirect(foundRoute.redirectTo, {
+      status: parseInt(foundRoute.status)
     })
   }
 

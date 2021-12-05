@@ -56,7 +56,6 @@ __export(entry_server_exports, {
 });
 var import_server = __toModule(require("react-dom/server"));
 var import_remix = __toModule(require("remix"));
-var import_path = __toModule(require("path"));
 var fs = __toModule(require("fs"));
 function handleRequest(request, responseStatusCode, responseHeaders, remixContext) {
   let markup = (0, import_server.renderToString)(/* @__PURE__ */ React.createElement(import_remix.RemixServer, {
@@ -64,13 +63,13 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
     url: request.url
   }));
   let url = new URL(request.url);
-  const file = fs.readFileSync("./_redirects.json", "utf8");
+  const file = fs.readFileSync("./public/wp-prettyLinks.json", "utf8");
   let removeSlashAtBegining = url.pathname.slice(1);
   const data = JSON.parse(file);
-  const foundRoute = data.prettyLinks[`${removeSlashAtBegining}`];
+  const foundRoute = data.links[`${removeSlashAtBegining}`];
   if (!!foundRoute) {
-    return (0, import_remix.redirect)(foundRoute.url, {
-      status: foundRoute.status
+    return (0, import_remix.redirect)(foundRoute.redirectTo, {
+      status: parseInt(foundRoute.status)
     });
   }
   responseHeaders.set("Content-Type", "text/html");
@@ -2357,7 +2356,33 @@ var loader14 = async () => {
 };
 function Index2() {
   let data = (0, import_remix24.useLoaderData)();
-  function fetchMore() {
+  const urls = [
+    "https://etheadless.wpengine.com/10-hand-lettering-enhancements/",
+    "https://courses.etheadless.wpengine.com/p/3d-lettering-in-procreate",
+    "https://etheadless.wpengine.com/wp-content/uploads/2018/03/install-patterns.jpg"
+  ];
+  urls.forEach((url) => {
+    let urlObj = new URL(url);
+    let host = urlObj.host;
+    let domains = ["etheadless", "everytuesday"];
+    let isPrimaryDomain = domains.includes(host.split(".")[0]);
+    let pathName = urlObj.pathname.slice(1);
+    let isWP_Content = pathName.split("/")[0] === "wp-content";
+    if (isPrimaryDomain && !isWP_Content) {
+    }
+  });
+  async function fetchMore() {
+    const rep = await fetch("https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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"
+      },
+      body: JSON.stringify({
+        ref: "main"
+      })
+    });
+    console.log("rep", rep);
   }
   return /* @__PURE__ */ React.createElement(Layout2, null, /* @__PURE__ */ React.createElement("div", {
     className: "remix__page"

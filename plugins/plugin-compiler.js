@@ -13,9 +13,6 @@ const compile = (pluginsArray) => {
     const file = pluginImport.getFile(data)
     const outputLocation = path.join(pluginImport.outputDirectory, pluginImport.fileName);
 
-    // plugin.name SearchIndex
-    // plugin.outputDirectory ./public
-    // plugin.outputLocation public/wp-search.json
     if(file !== false){
       return await utils.createFile(
         {
@@ -28,7 +25,6 @@ const compile = (pluginsArray) => {
       )
     }
 
-    // return pluginImport.create()
   })
 
   Promise.all(actions).then((results)=>{
@@ -36,5 +32,6 @@ const compile = (pluginsArray) => {
 }
 
 compile([
-  'SearchIndex'
+  'SearchIndex',
+  'PrettyLinks'
 ])

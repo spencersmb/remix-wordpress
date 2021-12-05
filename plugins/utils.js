@@ -20,7 +20,6 @@ async function createFile({file, name, directory, location, verbose = false}) {
 /**
  * promiseToWriteFile
  */
-
 function promiseToWriteFile(location, content) {
   return new Promise((resolve, reject) => {
     fs.writeFile(location, content, (err) => {
@@ -56,10 +55,52 @@ function generateIndexSearch({ posts }) {
   });
 }
 
+function generatePrettyLinks({ prettyLinkTypes }) {
+
+  const items = prettyLinkTypes.map((link = {}) => {
+
+    let urlObj = new URL(link.url)
+
+    // First check to replace url
+    // get first position of the host to check if its the primary domain
+    let host = urlObj.host
+    let domains = ['etheadless', 'everytuesday']
+    let isPrimaryDomain = domains.includes(host.split('.')[0])
+
+    // it still could have an asset, so we need to check the path for
+    let pathName = urlObj.pathname.slice(1)
+    let isWP_Content = pathName.split('/')[0] === 'wp-content'
+    let isDev = process.env.NODE_ENV !== 'production'
+    let frontEnd = isDev ? 'http://localhost:3000' : 'https://every-tuesday.com'
+
+    let redirectTo = link.url
+
+    // if its the primaryDomain but not an asset, alter the forwarding url
+    if(isPrimaryDomain && !isWP_Content){
+      redirectTo = `${frontEnd}/${pathName}`
+    }
+
+    return {
+      redirectTo,
+      status: link.redirect_type,
+      slug: link.slug, // slug will be the key we match when checking for url redirects
+    };
+  });
+
+  const links = items.reduce((obj, item) => {
+    obj[item.slug] = item
+    return obj
+  }, {})
+
+  return JSON.stringify({
+    generated: Date.now(),
+    links,
+  });
+}
+
 /**
  * mkdirp
  */
-
 function mkdirp(directory) {
   const split = directory.split('/');
   let temp = '.';
@@ -105,11 +146,12 @@ async function fetchAPI(query, { variables } = {}) {
 
 function lowercaseFirstChar (text) {
   return text && text[0].toLowerCase() + text.slice(1) || text;
-};
+}
 
 module.exports = {
   createFile,
   lowercaseFirstChar,
   fetchAPI,
-  generateIndexSearch
+  generateIndexSearch,
+  generatePrettyLinks
 }
