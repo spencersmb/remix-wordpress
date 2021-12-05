@@ -1,8 +1,10 @@
+import { Layout } from '../../root'
+
 const Courses = () => {
   return (
-    <div>
+    <Layout>
       Courses Page
-    </div>
+    </Layout>
   )
 }
 

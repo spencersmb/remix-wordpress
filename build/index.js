@@ -638,13 +638,15 @@ var loader = async ({ request }) => {
     id: session.get("userId")
   } : null;
   let metadata2 = getWPMetadata(process.env.APP_ROOT_URL || "no url found");
+  let ENV = {
+    APP_ROOT_URL: process.env.APP_ROOT_URL,
+    PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL
+  };
+  console.log("ENV", ENV);
   return __spreadProps(__spreadValues({}, getWPMenu()), {
     metadata: metadata2,
     user,
-    ENV: {
-      APP_ROOT_URL: process.env.APP_ROOT_URL,
-      PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL
-    }
+    ENV
   });
 };
 function App() {
@@ -1877,7 +1879,7 @@ __export(courses_exports, {
   default: () => courses_default
 });
 var Courses = () => {
-  return /* @__PURE__ */ React.createElement("div", null, "Courses Page");
+  return /* @__PURE__ */ React.createElement(Layout2, null, "Courses Page");
 };
 var courses_default = Courses;
 
