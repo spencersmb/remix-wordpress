@@ -65,14 +65,17 @@ export let loader: LoaderFunction = async ({request}) => {
   } : null
   let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
   // let metadata = getWPMetadata('http://localhost:3000')
+  let ENV = {
+    APP_ROOT_URL: process.env.APP_ROOT_URL,
+      PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
+  }
+  console.log('ENV', ENV)
+  
   return {
     ...getWPMenu(),
     metadata,
     user,
-    ENV: {
-      APP_ROOT_URL: process.env.APP_ROOT_URL,
-      PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
-    }
+    ENV
   };
 };
 
