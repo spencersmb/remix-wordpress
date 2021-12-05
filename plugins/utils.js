@@ -56,6 +56,7 @@ function generateIndexSearch({ posts }) {
 }
 
 function generatePrettyLinks({ prettyLinkTypes }) {
+  console.log('process.env.', process.env.APP_ROOT_URL)
 
   const items = prettyLinkTypes.map((link = {}) => {
 
