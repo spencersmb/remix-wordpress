@@ -71,14 +71,12 @@ function generatePrettyLinks({ prettyLinkTypes }) {
     // it still could have an asset, so we need to check the path for
     let pathName = urlObj.pathname.slice(1)
     let isWP_Content = pathName.split('/')[0] === 'wp-content'
-    let isDev = process.env.NODE_ENV !== 'production'
-    let frontEnd = isDev ? 'http://localhost:3000' : 'https://every-tuesday.com'
 
     let redirectTo = link.url
 
     // if its the primaryDomain but not an asset, alter the forwarding url
     if(isPrimaryDomain && !isWP_Content){
-      redirectTo = `${frontEnd}/${pathName}`
+      redirectTo = `/${pathName}`
     }
 
     return {
