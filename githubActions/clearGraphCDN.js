@@ -1,3 +1,5 @@
+const fetch = require('node-fetch')
+
 async function clearGraphCDN(){
   const rep1 = await fetch('https://admin.graphcdn.io/etheadless',
     {
@@ -14,7 +16,8 @@ async function clearGraphCDN(){
           }`
       })
     })
-  console.log('cleared cache', rep1)
+  const body = await rep1.json()
+  console.log('cleared cache', body)
 }
 async function checkCache(){
   const rep2 = await fetch('https://etheadless.graphcdn.app',
@@ -52,7 +55,9 @@ async function checkCache(){
   const body = await rep2.json()
   console.log('cached query', body)
 }
-const action = () => {
-  console.log('run action')
-  checkCache().then()
+const action = async () => {
+  await clearGraphCDN()
+  await checkCache()
 }
+
+action()
