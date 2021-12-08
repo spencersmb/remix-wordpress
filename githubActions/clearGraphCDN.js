@@ -53,7 +53,8 @@ async function checkCache(){
   console.log('cached query', body)
 }
 const action = () => {
-  clearGraphCDN().then(async()=>{
-    await checkCache()
+  console.log('run action')
+  clearGraphCDN().then(()=>{
+    checkCache().then()
   })
 }
