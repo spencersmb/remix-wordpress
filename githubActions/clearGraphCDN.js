@@ -14,7 +14,7 @@ async function clearGraphCDN(){
           }`
       })
     })
-  console.log('rep', rep1)
+  console.log('cleared cache', rep1)
 }
 async function checkCache(){
   const rep2 = await fetch('https://etheadless.graphcdn.app',
@@ -49,12 +49,13 @@ async function checkCache(){
 `
       })
     })
-  await rep2.json()
+  const body = await rep2.json()
+  console.log('cached query', body)
 }
 const action = () => {
   clearGraphCDN().then(()=>{
     setTimeout(async ()=>{
       await checkCache()
-    },10000)
+    },1000)
   })
 }
