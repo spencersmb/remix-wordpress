@@ -15,7 +15,7 @@ import type { LinksFunction } from "remix";
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global.css";
 import darkStylesUrl from "~/styles/dark.css";
-import useSite, { SiteContext } from "./hooks/useSite";
+import useSite, { SiteContext } from './hooks/useSite'
 import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
@@ -35,6 +35,9 @@ import nProgressStyles from "nprogress/nprogress.css";
 import { useTransition } from "remix";
 import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
+import UseSiteProvider from './hooks/useSite/useSiteProvider'
+import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
+import { IFetchPaginationState } from './hooks/useFetchPagination'
 /**
  * The `links` export is a function that returns an array of objects that map to
  * the attributes for an HTML `<link>` element. These will load `<link>` tags on
@@ -86,6 +89,18 @@ export let loader: LoaderFunction = async ({request}) => {
  */
 export default function App() {
   let {menus, metadata, user} = useLoaderData<any>();
+  let matches = useMatches()
+  let selectedMatch: undefined | ISelectedMatch = matches.find( match => match.data?.pageInfo )
+  const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
+  const pageInfo: IwpPageInfo = selectedMatch ? selectedMatch?.data?.pageInfo : null
+
+  let defaultState: IFetchPaginationState | undefined = (posts && pageInfo) ? {
+    page: 1,
+    hasNextPage: pageInfo.hasNextPage,
+    endCursor: pageInfo.endCursor,
+    posts,
+    loading: false
+  } : undefined
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
   let transition = useTransition();
@@ -96,18 +111,20 @@ export default function App() {
     // waiting for the loaders of the next location so we start it
     else NProgress.start();
   }, [transition.state]);
-
+  const value = {
+    menu: menus,
+    metadata,
+    user
+  }
   return (
     // <Provider store={store}>
-    <SiteContext.Provider value={{
-      menu: menus,
-      metadata,
-      user
-    }}>
-      <Document>
-        <Outlet />
-      </Document>
-    </SiteContext.Provider>
+    <UseSiteProvider defaultState={value}>
+      <UseFetchPaginateProvider defaultState={defaultState}>
+        <Document>
+          <Outlet />
+        </Document>
+      </UseFetchPaginateProvider>
+    </UseSiteProvider>
     // </Provider>
   );
 }
@@ -212,13 +229,12 @@ export let meta: MetaFunction = () => {
     title:`Home - Every Tuesday`
   }
 }
-export function Document({
-                    children,
-                    title
-                  }: {
-  children: React.ReactNode;
-  title?: string;
-}) {
+
+interface IDocument {
+  children: React.ReactNode
+  title?: string
+}
+export function Document({children,title}: IDocument) {
   let data = useLoaderData<any>();
   // console.log('ENV', data)
 
@@ -259,11 +275,8 @@ export function Document({
     </html>
   );
 }
-
-
-
 export const PrimaryNav = () => {
-  const {menu, user} = useSite()
+  const {state: {menu, user}} = useSite()
   const primaryMenu = getPrimaryMenu(menu)
   console.log('user', user)
 

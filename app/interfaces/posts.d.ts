@@ -89,3 +89,10 @@ interface IPost {
   seo:IPostSeo
 }
 
+interface IwpPageInfo {
+  endCursor: string
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  startCursor: string
+
+}

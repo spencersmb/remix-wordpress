@@ -1,6 +1,5 @@
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import { fetchAPI } from '../lib/api/fetch'
-import useSite from '../hooks/useSite'
 import { defaultSeoImages, getWPMetadata } from '../lib/wp/site'
 import { flattenPost } from '../lib/utils/posts'
 import { Document, Layout } from '../root'

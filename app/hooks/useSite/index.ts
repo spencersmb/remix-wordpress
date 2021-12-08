@@ -1,4 +1,7 @@
-import { useContext, createContext} from 'react'
+import { useContext, createContext, Dispatch } from 'react'
+import { ISiteAction } from './useSiteReducer'
+
+// CREATE A NEW CONTEXT JUST FOR MODALS
 
 export interface IMenu{
   menuItems: IMenuItem[]
@@ -37,6 +40,10 @@ export interface ISiteContextState {
     isLoggedIn: boolean
   }
 }
+interface ISiteContextType {
+  state: ISiteContextState,
+  dispatch: Dispatch<ISiteAction>
+}
 export const siteInitialState: ISiteContextState  = {
   recentPosts: [],
   categories:[],
@@ -71,15 +78,57 @@ export const siteInitialState: ISiteContextState  = {
   menu:[],
   user: null
 }
-export const SiteContext = createContext<ISiteContextState>(siteInitialState)
+// export const SiteContext = createContext<ISiteContextState>(siteInitialState)
+
+export const SiteContext = createContext<ISiteContextType>({
+  state: siteInitialState,
+  dispatch: () => null
+})
 SiteContext.displayName = 'SiteContext'
 
+
+const useSiteContext = () => {
+  const context = useContext(SiteContext)
+  if (!context) {
+    throw new Error('useEssGridAuthContext must be used within a Auth Provider app')
+  }
+  return context
+}
 /**
  * useSite
  */
+const useSite = () => {
+  const {state, dispatch} = useSiteContext()
+  // const logUserIn = (options: { modal: boolean } = {modal: false} ) => {
+  //   //close modal
+  //   if(options?.modal){
+  //     // dispatch({type: EssAuthTypes.MODAL_CLOSE})
+  //   }
+  //   dispatch({
+  //     type: EssAuthTypes.LOGIN
+  //   })
+  // }
+  // const logoutAction = () => {
+  //   dispatch({
+  //     type: EssAuthTypes.LOGOUT
+  //   })
+  // }
 
-export default function useSite() {
-  const site = useContext(SiteContext);
-  return site;
+  return {
+    // logUserIn,
+    // logoutAction,
+    // getLogOutBtnProps,
+    // getOpenModalProps,
+    // openModal,
+    // closeModal,
+    // loginAction,
+    state,
+    dispatch
+  }
 }
+// export default function useSite() {
+//   const site = useContext(SiteContext);
+//   return site;
+// }
 
+export default useSite

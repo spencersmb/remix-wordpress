@@ -5,6 +5,10 @@ import { flattenAllPosts } from '../lib/utils/posts'
 import { fetchAPI } from '../lib/api/fetch'
 import { Document, Layout } from '../root'
 import { getHtmlMetadataTags } from '../lib/utils/seo'
+import { useContext, useEffect, useRef, useState } from 'react'
+import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
+import { Simulate } from 'react-dom/test-utils'
+import input = Simulate.input
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({loaderHeaders}) => {
@@ -96,49 +100,23 @@ export let loader: LoaderFunction = async () => {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
+  const {state, addPostsAction, loadingPosts} = useFetchPaginate()
 
-  const urls = [
-    'https://etheadless.wpengine.com/10-hand-lettering-enhancements/',
-    "https://courses.etheadless.wpengine.com/p/3d-lettering-in-procreate",
-    'https://etheadless.wpengine.com/wp-content/uploads/2018/03/install-patterns.jpg'
-  ]
+  let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
+    posts: data.posts,
+    page: 1,
+    endCursor: data.pageInfo.endCursor,
+    hasNextPage: data.pageInfo.hasNextPage,
+    loading: false
+  }
 
-  urls.forEach(url => {
-    let urlObj = new URL(url)
-
-    // First check to replace url
-    // get first position of the host to check if its the primary domain
-    let host = urlObj.host
-    let domains = ['etheadless', 'everytuesday']
-    let isPrimaryDomain = domains.includes(host.split('.')[0])
-
-    // it still could have an asset, so we need to check the path for
-    let pathName = urlObj.pathname.slice(1)
-    let isWP_Content = pathName.split('/')[0] === 'wp-content'
-
-    // if its the primaryDomain but not an asset, alter the forwarding url
-    if(isPrimaryDomain && !isWP_Content){
-
-    }
-    // console.log('origin', urlObj.origin)
-    // console.log('isPrimaryDomain', isPrimaryDomain)
-    // console.log('pathName', urlObj.pathname)
-    // console.log('isWp_Content', isWP_Content)
-    //
-    // console.log('host', urlObj.host)
-    // console.log('hash', urlObj.hash)
-    // console.log('href', urlObj.href)
-  })
-
-
-
-  async function fetchMore (){
+  async function fetchGithubAction (){
     const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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',
+          'Authorization': 'Bearer ',
         },
         body: JSON.stringify({
           ref: "main"
@@ -154,7 +132,7 @@ export default function Index() {
         headers: {
           "Access-Control-Allow-Origin":"*",
           'Content-Type': 'application/json', // and specify the Content-Type
-          'graphcdn-token': 'e3091df5c5aa5bc2cf316875f0a01978513f2ac0cedbcd7ec895ec7aded5e12c',
+          'graphcdn-token': '',
         },
         mode: 'cors',
         body: JSON.stringify({
@@ -164,6 +142,46 @@ export default function Index() {
         })
       })
     console.log('rep', rep)
+  }
+
+  async function fetchMore (){
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      after: stateSource.endCursor
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          variables
+        })
+      })
+    const {data} = await body.json()
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    addPostsAction({
+        page: stateSource.page + 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+        posts:[
+          ...stateSource.posts,
+          ...filteredPosts
+        ]
+      }
+    )
+    // setPageInfo({
+    //   page: pageInfo.page + 1,
+    //   endCursor: data.posts.pageInfo.endCursor,
+    //   hasNextPage: data.posts.pageInfo.hasNextPage,
+    //   posts: [
+    //     ...pageInfo.posts,
+    //     ...filteredPosts
+    //   ]
+    // })
   }
 
   return (
@@ -197,7 +215,7 @@ export default function Index() {
             </ul>
             <h2>Resources</h2>
             <ul>
-              {data.posts.map((post: any) => (
+              {stateSource.posts.map((post: any) => (
                 <li key={post.id} className="remix__page__resource">
                   <Link to={post.slug} prefetch="intent">
                     {post.title}
@@ -205,14 +223,14 @@ export default function Index() {
                 </li>
               ))}
             </ul>
-            <button onClick={fetchMore}>Fetch More</button>
+            <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>
           </aside>
         </div>
       </Layout>
   );
 }
 
-export const query = `
+const query = `
     query GetNextPosts($after: String) {
         posts(first: 10, after: $after) {
             __typename
@@ -226,19 +244,6 @@ export const query = `
             edges {
                 __typename
                 node {
-                    __typename
-                    author {
-                        node {
-                            avatar {
-                                height
-                                url
-                                width
-                            }
-                            id
-                            name
-                            slug
-                        }
-                    }
                     id
                     categories {
                         edges {
@@ -250,7 +255,6 @@ export const query = `
                             }
                         }
                     }
-                    content
                     date
                     excerpt
                     featuredImage {
@@ -264,15 +268,11 @@ export const query = `
                         }
                     }
                     modified
-                    databaseId
                     title
                     slug
                     isSticky
                 }
             }
-        }
-        allSettings {
-            readingSettingsPostsPerPage
         }
     }
 `
