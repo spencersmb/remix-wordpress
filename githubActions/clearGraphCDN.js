@@ -1,5 +1,5 @@
 async function clearGraphCDN(){
-  await fetch('https://admin.graphcdn.io/etheadless',
+  const rep1 = await fetch('https://admin.graphcdn.io/etheadless',
     {
       method: 'POST',
       headers: {
@@ -14,9 +14,10 @@ async function clearGraphCDN(){
           }`
       })
     })
+  console.log('rep', rep1)
 }
 async function checkCache(){
-  await fetch('https://etheadless.graphcdn.app',
+  const rep2 = await fetch('https://etheadless.graphcdn.app',
     {
       method: 'POST',
       headers: {
@@ -48,6 +49,7 @@ async function checkCache(){
 `
       })
     })
+  await rep2.json()
 }
 const action = () => {
   clearGraphCDN().then(()=>{

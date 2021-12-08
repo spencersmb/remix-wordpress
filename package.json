@@ -18,7 +18,7 @@
     "tailwind": "npx tailwindcss build -o src/tailwind.css",
     "clean": "node clean.js",
     "graphCDN:build": "npx graphcdn push",
-    "graphCDN:cacheResync": "node githubActions/clearGraphCDN.jsh"
+    "graphCDN:cacheResync": "node githubActions/clearGraphCDN.js"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
