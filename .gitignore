@@ -3,7 +3,9 @@ node_modules
 /.cache
 /server/build
 /public/build
+/build
 
 /public/wp-search.json
+/public/wp-prettyLinks.json
 /.env
 /app/.tailwind.css
