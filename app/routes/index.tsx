@@ -12,11 +12,11 @@ import input = Simulate.input
 import { async } from 'rxjs'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
-export const headers: HeadersFunction = ({loaderHeaders}) => {
-  return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
-  }
-}
+// export const headers: HeadersFunction = ({loaderHeaders}) => {
+//   return {
+//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
+//   }
+// }
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
@@ -154,27 +154,13 @@ export default function Index() {
         },
         mode: 'cors',
         body: JSON.stringify({
-          query: `query GetAllPosts {
-  posts(first: 1000) {
-    edges {
-      node {
+          query: `{posts{
+    edges{
+      node{
         title
-        excerpt
-        databaseId
-        slug
-        date
-        modified
-        categories {
-          edges {
-            node {
-              name
-            }
-          }
-        }
       }
     }
-  }
-}
+  }}
 `
         })
       })

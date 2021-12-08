@@ -28,35 +28,21 @@ async function checkCache(){
       },
       mode: 'cors',
       body: JSON.stringify({
-        query: `query GetAllPosts {
-  posts(first: 1000) {
-    edges {
-      node {
+        query: `{posts{
+    edges{
+      node{
         title
-        excerpt
-        databaseId
-        slug
-        date
-        modified
-        categories {
-          edges {
-            node {
-              name
-            }
-          }
-        }
       }
     }
-  }
-}
+  }}
 `
       })
     })
   const body = await rep2.json()
-  console.log('cached query', body)
+  console.log('cached query', body.data.posts.edges[0].node.title)
 }
 const action = async () => {
-  await clearGraphCDN()
+  // await clearGraphCDN()
   await checkCache()
 }
 
