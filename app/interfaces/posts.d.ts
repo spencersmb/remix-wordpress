@@ -15,7 +15,7 @@ interface IFeaturedImage {
   id: string
   sizes: string
   sourceUrl?: string
-  srcSet: null | any[]
+  srcSet: null | string[]
 }
 
 interface IFeaturedImageNode {
@@ -30,7 +30,7 @@ interface IFeaturedImage {
   id: string
   sizes: string
   sourceUrl?: string
-  srcSet: null | any[]
+  srcSet: null | string[]
 }
 
 interface IPostRaw {
@@ -52,7 +52,7 @@ interface IPostRaw {
   tags: {
     edges: [{node: Itag}]
   }
-  featuredImage: IFeaturedImage
+  featuredImage: {node: IFeaturedImage}
   title: string
   slug: string
   date: string

@@ -197,15 +197,6 @@ export default function Index() {
         ]
       }
     )
-    // setPageInfo({
-    //   page: pageInfo.page + 1,
-    //   endCursor: data.posts.pageInfo.endCursor,
-    //   hasNextPage: data.posts.pageInfo.hasNextPage,
-    //   posts: [
-    //     ...pageInfo.posts,
-    //     ...filteredPosts
-    //   ]
-    // })
   }
 
   return (
@@ -247,13 +238,7 @@ export default function Index() {
                 </li>
               ))}
             </ul>
-            <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>
-            <div>
-              <button onClick={fetchGraphCDN}>Clear Graph</button>
-            </div>
-            <div>
-              <button onClick={checkCache}>checkCache</button>
-            </div>
+            {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
           </aside>
         </div>
       </Layout>

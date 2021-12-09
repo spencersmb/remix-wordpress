@@ -2953,6 +2953,7 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     featuredImageDatabaseId: Int
     "Globally unique ID of the featured image assigned to the node"
     featuredImageId: ID
+    freebie: ResourceLibrary_Freebie
     "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
     guid: String
     "The globally unique identifier of the et_freebie object."
@@ -2979,7 +2980,6 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    resourceLibraryFreebie: ResourceLibrary_Resourcelibraryfreebie
     "The id field matches the WP_Post-&gt;ID field."
     resourceLibraryId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "The Yoast SEO data of the ResourceLibrary"
@@ -3070,7 +3070,7 @@ type ResourceLibraryToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type ResourceLibrary_Resourcelibraryfreebie {
+type ResourceLibrary_Freebie {
     downloadLink: String
     excerpt: String
     fieldGroupName: String

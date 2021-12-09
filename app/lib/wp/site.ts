@@ -1,4 +1,6 @@
-export function getWPMenu(){
+export function getWPMenu(resourceUser: string | null){
+
+
   return {
     menus: [
       {
@@ -111,7 +113,7 @@ export function getWPMenu(){
             cssClasses: [],
             parentId: null,
             label: "Resource Library",
-            path: "/resource-library",
+            path: resourceUser ? "/resource-library/members" : "/resource-library",
             target: null,
             featured: {
               courses: [

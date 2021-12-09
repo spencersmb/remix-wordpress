@@ -1,15 +1,21 @@
 import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData } from 'remix'
 import * as React from 'react'
 import { Layout } from '../../root'
-import { createResourceUserSession } from '../../utils/resourceLibrarySession.server'
+import { createResourceUserSession, getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import { v4 } from 'uuid';
 import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
+import { fetchAPI } from '../../lib/api/fetch'
+import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 
-export let loader: LoaderFunction = async ({ params }) => {
+export let loader: LoaderFunction = async ({ request }) => {
 
   // Check for Resource User Cookie
   // If found redirect them to /members
+  const user = await getResourceUserToken(request)
 
+  if(user){
+    return redirect('/resource-library/members')
+  }
 
 
   const page = {
@@ -67,8 +73,10 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
 
 }
 
-const ResourceLibrarySignUp = () => {
+const ResourceLibrarySignUp = async() => {
   let actionData = useActionData<ActionData | undefined>();
+
+  let preFetch = await fetchAPI(GetAllFreebiesQuery)
   return (
       <Layout alternateNav={<ResourceLibraryNav/>}>
         <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">

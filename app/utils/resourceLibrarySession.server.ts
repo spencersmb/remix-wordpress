@@ -32,7 +32,7 @@ export function getResourceUserSession(request: Request) {
 export async function getResourceUserToken(request: Request) {
   let session = await getResourceUserSession(request);
   let userToken = session.get("userId");
-  if (!userToken || typeof userToken !== "object") return null;
+  if (!userToken || typeof userToken !== "string") return null;
   return userToken;
 }
 

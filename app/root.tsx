@@ -38,6 +38,7 @@ import { getUserSession } from './utils/session.server'
 import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
 import { IFetchPaginationState } from './hooks/useFetchPagination'
+import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 /**
  * The `links` export is a function that returns an array of objects that map to
  * the attributes for an HTML `<link>` element. These will load `<link>` tags on
@@ -62,6 +63,7 @@ export let links: LinksFunction = () => {
 
 export let loader: LoaderFunction = async ({request}) => {
   let session = await getUserSession(request)
+  const resourceUser = await getResourceUserToken(request)
   console.log('user', session.has('userId'))
   let user = session.has('userId') ? {
     id: session.get('userId')
@@ -75,7 +77,7 @@ export let loader: LoaderFunction = async ({request}) => {
   console.log('ENV', ENV)
 
   return {
-    ...getWPMenu(),
+    ...getWPMenu(resourceUser),
     metadata,
     user,
     ENV
@@ -278,7 +280,6 @@ export function Document({children,title}: IDocument) {
 export const PrimaryNav = () => {
   const {state: {menu, user}} = useSite()
   const primaryMenu = getPrimaryMenu(menu)
-  console.log('user', user)
 
   return (
     <nav aria-label="Main navigation" className="remix-app__header-nav">

@@ -4,7 +4,9 @@ import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
 import * as React from 'react'
 import { Layout } from '../../root'
 import { getHtmlMetadataTags } from '../../lib/utils/seo'
-
+import { fetchAPI } from '../../lib/api/fetch'
+import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
+import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
@@ -50,12 +52,15 @@ export let meta: MetaFunction = (metaData): any => {
 
 export let loader: LoaderFunction = async ({request}) => {
   await requireResourceLibraryUser(request, '/resource-library')
-
+  let data = await fetchAPI(GetAllFreebiesQuery)
+  console.log('data', data)
+  
   try{
     // get Resource Library content
     // First 10 items in content?
     return json({
-      resourceData: []
+      freebies: flattenResourceData(data.resourceLibraries),
+      filterTags: data.cptTags
     })
   }catch (e){
     console.error(`e in /resource-library`, e)
@@ -65,14 +70,36 @@ export let loader: LoaderFunction = async ({request}) => {
 
 const ResourceLibraryMembers = () => {
   const data = useLoaderData()
-  console.log('data', data)
+  console.log('member data', data)
+  async function getItems(){
+    // const agent = new https.Agent({
+    //   rejectUnauthorized: false
+    // })
+    const res = await fetch('https://etheadless.local/graphql', {
+      method: 'POST',
+      // @ts-ignore
+      // agent,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: GetAllFreebiesQuery,
+      }),
+    })
+    const body = await res.json()
+    console.log('body', body)
 
+  }
   return (
     <Layout alternateNav={<ResourceLibraryNav showLogout={true}/>}>
       <div>
         Members AREA
+        <button onClick={getItems}>get itemts</button>
       </div>
     </Layout>
   )
 }
 export default ResourceLibraryMembers
+
+
+
