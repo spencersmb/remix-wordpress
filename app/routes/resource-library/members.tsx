@@ -6,7 +6,10 @@ import { Layout } from '../../root'
 import { getHtmlMetadataTags } from '../../lib/utils/seo'
 import { fetchAPI } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
-import { flattenResourceData } from '../../utils/resourceLibraryUtils'
+import { flattenResourceData, IFilterTag, IResourceFreebie } from '../../utils/resourceLibraryUtils'
+import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
+import { useState } from 'react'
+import useFreebies from '../../hooks/useFreebies'
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
@@ -52,12 +55,10 @@ export let meta: MetaFunction = (metaData): any => {
 
 export let loader: LoaderFunction = async ({request}) => {
   await requireResourceLibraryUser(request, '/resource-library')
-  let data = await fetchAPI(GetAllFreebiesQuery)
-  console.log('data', data)
-  
   try{
     // get Resource Library content
-    // First 10 items in content?
+    let data = await fetchAPI(GetAllFreebiesQuery)
+    console.log('data', data)
     return json({
       freebies: flattenResourceData(data.resourceLibraries),
       filterTags: data.cptTags
@@ -67,10 +68,39 @@ export let loader: LoaderFunction = async ({request}) => {
     return redirect('/resource-library')
   }
 }
-
+interface ILoaderData {
+  freebies: IResourceFreebie[]
+  filterTags: IFilterTag[]
+}
 const ResourceLibraryMembers = () => {
-  const data = useLoaderData()
+  const data = useLoaderData<ILoaderData>()
+
+  const {filter, handleFilterClick, handlePageClick, posts, pagination} = useFreebies<IResourceFreebie[]>({items: data.freebies})
+
+  const filterTest = data.freebies.filter(freebie => {
+    const tags = freebie.tags.map(tag => tag.slug)
+    const hasTag = tags.indexOf(filter)
+    if(filter === 'all'){
+      return freebie
+    }
+    return hasTag !== -1
+  })
+  console.log('filterTest', filterTest.length)
+  console.log('pagination', pagination)
+
+
+  // const [filter, setFilter] = useState('all')
+  // const handleFilterClick = (filterTag: string) => () => {
+  //   setFilter(filterTag)
+  // }
   console.log('member data', data)
+
+
+  // send RS items to context so we can filter by pages easily with 10 items per page
+
+
+
+
   async function getItems(){
     // const agent = new https.Agent({
     //   rejectUnauthorized: false
@@ -93,8 +123,24 @@ const ResourceLibraryMembers = () => {
   return (
     <Layout alternateNav={<ResourceLibraryNav showLogout={true}/>}>
       <div>
-        Members AREA
-        <button onClick={getItems}>get itemts</button>
+        <h1>Members Area</h1>
+        <FreebieFilter
+          filterTags={data.filterTags}
+          selectedFilter={filter}
+          handleClick={handleFilterClick}
+        />
+        <div>
+          {posts
+            .map(item => (
+            <div key={item.id}>
+              <h3>{item.title}</h3>
+            </div>
+          ))}
+        </div>
+
+        <div>
+          {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+        </div>
       </div>
     </Layout>
   )

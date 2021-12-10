@@ -1166,6 +1166,14 @@ type Course_EtCourses_courseTags {
     tag: String
 }
 
+"CPT Tag Object"
+type Cpt_tag {
+    "Tag Name"
+    name: String
+    "Tag Slug"
+    slug: String
+}
+
 "The payload for the createCategory mutation"
 type CreateCategoryPayload {
     "The created category"
@@ -3422,6 +3430,8 @@ type RootQuery {
         "Arguments for filtering the connection"
         where: RootQueryToCourseConnectionWhereArgs
     ): RootQueryToCourseConnection
+    "Get all the tags by custom post type"
+    cptTags(postType: String): [Cpt_tag]
     "Fields of the &#039;DiscussionSettings&#039; settings group"
     discussionSettings: DiscussionSettings
     "An object of the DownloadGrid Type. "

@@ -1,27 +1,30 @@
-import { mapPostData } from '../lib/utils/posts'
 
-interface ITag {
+export interface IFilterTag {
   name: string
+  slug: string
 }
 interface IResourceDataRaw {
+  id: string
   date: string
   featuredImage: {node: IFeaturedImage} | null
   freebie: {downloadLink: string, excerpt: string}
-  tags: {edges: {node: ITag}[]}
+  tags: {edges: {node: IFilterTag}[]}
   title: string
 }
 interface IMapResourceData {
   edges: {node: IResourceDataRaw}[]
 }
-interface IResourceFreebie{
+export interface IResourceFreebie{
+  id: string
   date: string
   featuredImage: IFeaturedImage | null
   freebie: {downloadLink: string, excerpt: string}
   title: string
-  tags: ITag[]
+  tags: IFilterTag[]
 }
 const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceFreebie => {
   return {
+    id: resourceItemRaw.id,
     date: resourceItemRaw.date,
     freebie: resourceItemRaw.freebie,
     title: resourceItemRaw.title,
@@ -32,8 +35,5 @@ const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceFreebie =>
 
 export const flattenResourceData = (resourceData: IMapResourceData): IResourceFreebie[] | boolean => {
   const dataFiltered = resourceData?.edges?.map(({ node}) => node);
-  console.log('dataFiltered', dataFiltered)
-  
-
   return Array.isArray(dataFiltered) && dataFiltered.map(mapResourceData)
 }

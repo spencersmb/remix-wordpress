@@ -7,6 +7,7 @@ export const GetAllFreebiesQuery = `
     resourceLibraries(first: 1000) {
       edges {
         node {
+          id
           title
           date
           dateGmt
@@ -27,6 +28,7 @@ export const GetAllFreebiesQuery = `
             edges {
               node {
                 name
+                slug
               }
             }
           }

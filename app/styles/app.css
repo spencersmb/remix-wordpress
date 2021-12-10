@@ -653,8 +653,17 @@ video {
 .mb-8 {
 	margin-bottom: 2rem;
 }
+.ml-3 {
+	margin-left: 0.75rem;
+}
+.mr-3 {
+	margin-right: 0.75rem;
+}
 .block {
 	display: block;
+}
+.flex {
+	display: flex;
 }
 .hidden {
 	display: none;
@@ -664,6 +673,9 @@ video {
 }
 .w-full {
 	width: 100%;
+}
+.flex-row {
+	flex-direction: row;
 }
 .rounded-lg {
 	border-radius: 0.5rem;
