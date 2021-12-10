@@ -6,7 +6,6 @@ interface IProps {
 
 const createPaginatedList = (items: any, postsPerPage: number, currentPage: number, filterTag: string) => {
 
-  // const filteredPages = items.filter( item => (item.tags.index))
   const filteredPages = items.filter((item: any) => {
 
     if(filterTag === 'all'){
@@ -25,10 +24,7 @@ const createPaginatedList = (items: any, postsPerPage: number, currentPage: numb
     page = 1;
   }
 
-  const offset = postsPerPage * (page - 1);
-
   return {
-    // posts: filteredPages.slice(offset, offset + postsPerPage),
     posts: filteredPages.filter((item: any,index: number) => (index < page * 10)),
     pagination: {
       currentPage: page,
@@ -64,9 +60,6 @@ function useFreebies<TData = any> ({
   }
   const handlePageClick: IhandlePageClick = () => {
     setPage(page + 1)
-    // customPage
-    //   ? setPage(customPage)
-    //   : setPage(page + 1)
   }
 
   return {

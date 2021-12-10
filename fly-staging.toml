@@ -1,0 +1,44 @@
+# fly.toml file generated for remix-staging on 2021-12-10T08:23:10-05:00
+
+app = "remix-staging"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+  APP_ROOT_URL = "https://remix-staging.fly.dev"
+  PORT = "8080"
+  PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
+  SESSION_SECRET = "1234"
+  WORDPRESS_DB = "https://etheadless.wpengine.com/wp-admin"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"

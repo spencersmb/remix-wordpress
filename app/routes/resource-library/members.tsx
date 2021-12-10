@@ -1,4 +1,4 @@
-import { json, LoaderFunction, MetaFunction, Outlet, redirect, useLoaderData } from 'remix'
+import { json, LoaderFunction, MetaFunction, redirect, useLoaderData } from 'remix'
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
 import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
 import * as React from 'react'
@@ -8,7 +8,6 @@ import { fetchAPI } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData, IFilterTag, IResourceFreebie } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
-import { useState } from 'react'
 import useFreebies from '../../hooks/useFreebies'
 
 export let meta: MetaFunction = (metaData): any => {
@@ -87,18 +86,7 @@ const ResourceLibraryMembers = () => {
   })
   console.log('filterTest', filterTest.length)
   console.log('pagination', pagination)
-
-
-  // const [filter, setFilter] = useState('all')
-  // const handleFilterClick = (filterTag: string) => () => {
-  //   setFilter(filterTag)
-  // }
   console.log('member data', data)
-
-
-  // send RS items to context so we can filter by pages easily with 10 items per page
-
-
 
 
   async function getItems(){

@@ -17,7 +17,6 @@ export let loader: LoaderFunction = async ({ request }) => {
     return redirect('/resource-library/members')
   }
 
-
   const page = {
     title: 'Resource Library',
     slug: 'resource-library',

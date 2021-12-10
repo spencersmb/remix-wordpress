@@ -1,4 +1,3 @@
-
 export interface IFilterTag {
   name: string
   slug: string
