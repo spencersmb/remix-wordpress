@@ -4,9 +4,12 @@
 name: 🚀 Deploy Staging
 
 on:
-  push:
+  pull_request:
     branches: [ staging ]
-
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  PUBLIC_WP_API_URL: "https://etheadless.wpengine.com/graphql/"
+  
 jobs:
   build:
 
