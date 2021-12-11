@@ -6,6 +6,7 @@ node_modules
 /build
 **/.DS_Store
 
+
 /public/wp-search.json
 /public/wp-prettyLinks.json
 /.env
