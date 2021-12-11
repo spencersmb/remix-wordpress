@@ -1,6 +1,5 @@
 import {
   ActionFunction,
-  createCookie, createCookieSessionStorage,
   Form,
   LoaderFunction, MetaFunction,
   redirect,
@@ -14,11 +13,10 @@ import {
   getIDParamName,
   getPreviewRedirectUrl,
   getPreviewUrlParams,
-  previewUrlParams
-} from '../lib/utils/loaderHelpers'
+} from '../utils/loaderHelpers'
 import { logUserInJWT } from '../lib/api/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { getHtmlMetadataTags } from '../lib/utils/seo'
+import { getHtmlMetadataTags } from '../utils/seo'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -67,12 +65,12 @@ export let meta: MetaFunction = (metaData): any => {
 }
 
 export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
-  const {id, previewType, url} = previewUrlParams(request)
+  const {id, postType, url} = getPreviewUrlParams(request)
 
   return {
     params: {
       id,
-      postType: previewType,
+      postType,
       url
     }
   }

@@ -1,26 +1,5 @@
-import { defaultSeoImages } from '../wp/site'
-import type { Location } from "history";
+import { defaultSeoImages } from '../lib/wp/site'
 
-interface IGetMetaTagsFunction{
-  metadata: IMetaData
-  post: IPost | null
-  page: IPage | null
-  location: Location
-}
-
-interface IOgImageType{
-  width: string
-  height: string
-  url: string
-  altText: string
-}
-
-interface IOgArticle {
-  publishedTime: string
-  modifiedTime: string
-  author: string
-  tags: {name: string}[]
-}
 function createOgImages(image: IOgImageType) {
   return {
     'og:image:alt': image.altText,

@@ -1,34 +1,32 @@
 import { isEmpty } from 'lodash'
 import { redirect } from 'remix'
-import { getPreviewPostPageServer, refreshJWT } from '../api/fetch'
+import { getPreviewPostPageServer, refreshJWT } from '../lib/api/fetch'
 import { Params } from 'react-router'
-import { getUserToken, isTokenExpired, refreshCurrentSession, requireToken } from '../../utils/session.server'
+import { isTokenExpired, refreshCurrentSession, requireToken } from './session.server'
+import { consoleHelper } from './windowUtils'
 
-interface IPreviewParams {
-  previewType: string | null,
-  id: string | null
-  url: URL
-}
-export function previewUrlParams(request: Request): IPreviewParams{
-  let url = new URL(request.url);
-  let previewType = url.searchParams.get("postType");
-  let idSearchParam = previewType === 'post' ? "previewPostId" : 'PostId'
-  let id = url.searchParams.get(idSearchParam);
 
-  return {
-    id,
-    previewType,
-    url
-  }
-}
 
+/*
+ getIDParamName - helper func to switch been pages or posts
+ */
 export function getIDParamName(type: string | null = ''): string {
   return type === 'post' ? "previewPostId" : 'postId'
 }
-/*
- SERVERSIDE HELPER
+
+/**
+ * @Function previewUrlParams
+ *
+ * Take the URL and convert the params to id & preview type to match the WP plugin
+ * on the backend that creates the preview URLS using their query params that get
+ * added onto the url (postId for pages & and previewPostId for posts)
  */
-export function getPreviewUrlParams(request: Request): {postType: string | null, id: string | null}{
+interface IPreviewParams {
+  postType: string | null,
+  id: string | null
+  url: URL
+}
+export function getPreviewUrlParams(request: Request): IPreviewParams{
 
   let url = new URL(request.url);
   let postType = url.searchParams.get("postType");
@@ -37,11 +35,24 @@ export function getPreviewUrlParams(request: Request): {postType: string | null,
 
   return {
     postType,
-    id
+    id,
+    url
   }
 }
 
-export function getLoginRedirectParams({previewType, id}:{previewType: string | undefined, id: string | undefined}): string{
+
+/**
+ * @Function getLoginRedirectParams
+ *
+ * Check URL for params and created redirect URL for login page
+ *
+ *
+ **/
+interface ILoginRedirectParams{
+  previewType: string | undefined
+  id: string | undefined
+}
+export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): string{
 
   if ( isEmpty( previewType ) || isEmpty( id ) ) {
     return '/login';
@@ -52,7 +63,15 @@ export function getLoginRedirectParams({previewType, id}:{previewType: string | 
   return `/login?postType=${postType}&${idType}=${id}`
 }
 
-export const getPreviewRedirectUrl = ( postType : string | null = '', previewPostId : string | null = ''  ) => {
+
+/**
+ * @Function getPreviewRedirectUrl
+ *
+ * Determine post or page URL for redirect
+ *
+ *
+ **/
+export const getPreviewRedirectUrl = ( postType : string | null = '', previewPostId : string | null = ''  ): string => {
 
   if ( isEmpty( postType ) || isEmpty( previewPostId ) ) {
     return '/login';
@@ -68,7 +87,22 @@ export const getPreviewRedirectUrl = ( postType : string | null = '', previewPos
   }
 };
 
-export const previewLoaderRouteHandler = async (request: Request, params: Params) => {
+
+/**
+ * @Function previewLoaderRouteHandler
+ *
+ * Route Handler for page/post Previews
+ *
+ * Check the authed user for a token
+ * Check token for expired time
+ *
+ * Try and refresh token else log out and redirect to login page with preview route params in url
+ *
+ * If tokens are valid, get preview post query and return it via a headers response to the page
+ * to retreive the data via useLoader in a page component.
+ *
+ **/
+export const previewLoaderRouteHandler = async (request: Request, params: Params): Promise<Response> => {
   let url = new URL(request.url);
   let previewType = url.pathname.split('/').splice(1).shift()
   let id = params.id
@@ -76,7 +110,7 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
   let userToken = await requireToken(request, loginUrl)
   const customHeaders = new Headers()
   let isExpired = await isTokenExpired(userToken)
-  console.log('isExpired', isExpired)
+  consoleHelper('isExpired', isExpired)
 
   // check for params
   // else redirect back to login with original url
@@ -90,13 +124,13 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
       let refresh = await refreshJWT(userToken)
       let res: IAuthRefreshResponse = await refresh.json()
       let newToken = res.data.refreshJwtAuthToken.authToken
-      console.log('res of refresh', res)
       userToken.token = newToken
+      consoleHelper('res of refresh', res)
 
       const sessionStorage = refreshCurrentSession(request, newToken)
       customHeaders.append('Set-Cookie', await sessionStorage)
     }catch (e){
-      throw redirect(loginUrl);
+      return redirect(loginUrl);
     }
   }
 
@@ -111,10 +145,6 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
     const json = await res.json()
     const postType = previewType === 'blog' ? 'post' : 'page'
     const postPageData = json.data[postType]
-
-    // if(postPageData === null){
-    //   return redirect(loginUrl)
-    // }
 
     let body = JSON.stringify({
       [postType]: postPageData

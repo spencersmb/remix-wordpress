@@ -4,10 +4,6 @@ export function flattenAllPosts(posts:any): IPost[] | false{
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
 
-export function flattenPost(post: IPostRaw): IPost {
-  return mapPostData(post)
-}
-
 export function mapPostData(post:IPostRaw | {} = {}): IPost {
   const data = { ...post };
   let modifiedData: any = {...post}

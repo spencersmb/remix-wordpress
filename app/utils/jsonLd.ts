@@ -4,6 +4,7 @@ interface IjsonldWebProps {
   description: string
   siteTitle: string
 }
+
 export function jsonLdWebsite(data: IjsonldWebProps): string{
   const {domain, description, siteTitle} = data
   return `{
@@ -49,7 +50,6 @@ export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string 
         'caption': '${image.altText}'
       }`
 }
-
 
 export function jsonldWebpage (props: IjsonldWebpage) {
   const {pageUrl, publishTime, modifiedTime, title, domain, description} = props

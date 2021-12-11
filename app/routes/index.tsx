@@ -1,10 +1,10 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData, json, Link, HeadersFunction } from 'remix'
 import { QUERY_NEXT_POSTS } from '../lib/graphql/queries/posts'
-import { flattenAllPosts } from '../lib/utils/posts'
+import { flattenAllPosts } from '../utils/posts'
 import { fetchAPI } from '../lib/api/fetch'
 import { Document, Layout } from '../root'
-import { getHtmlMetadataTags } from '../lib/utils/seo'
+import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
 import { Simulate } from 'react-dom/test-utils'
@@ -18,23 +18,23 @@ import { async } from 'rxjs'
 //   }
 // }
 
-// export let meta: MetaFunction = (metaData): any => {
-//   const {data, location, parentsData} = metaData
-//
-//   if(!data || !parentsData || !location){
-//     return {
-//       title: '404',
-//       description: 'error: No metaData or Parents Data'
-//     }
-//   }
-//
-//   return getHtmlMetadataTags({
-//     metadata: parentsData.root.metadata,
-//     post: data.post,
-//     page: data.page,
-//     location
-//   })
-// }
+export let meta: MetaFunction = (metaData): any => {
+  const {data, location, parentsData} = metaData
+
+  if(!data || !parentsData || !location){
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data'
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page: data.page,
+    location
+  })
+}
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -101,15 +101,15 @@ export let loader: LoaderFunction = async () => {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
-  // const {state, addPostsAction, loadingPosts} = useFetchPaginate()
+  const {state, addPostsAction, loadingPosts} = useFetchPaginate()
 
-  // let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
-  //   posts: data.posts,
-  //   page: 1,
-  //   endCursor: data.pageInfo.endCursor,
-  //   hasNextPage: data.pageInfo.hasNextPage,
-  //   loading: false
-  // }
+  let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
+    posts: data.posts,
+    page: 1,
+    endCursor: data.pageInfo.endCursor,
+    hasNextPage: data.pageInfo.hasNextPage,
+    loading: false
+  }
 
   async function fetchGithubAction (){
     const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
@@ -168,36 +168,36 @@ export default function Index() {
     console.log('rep', body)
   }
 
-  // async function fetchMore (){
-  //   loadingPosts()
-  //   const url = window.ENV.PUBLIC_WP_API_URL as string
-  //   const variables = {
-  //     after: stateSource.endCursor
-  //   }
-  //   const body = await fetch(url,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         query,
-  //         variables
-  //       })
-  //     })
-  //   const {data} = await body.json()
-  //   const filteredPosts = flattenAllPosts(data.posts) || []
-  //   addPostsAction({
-  //       page: stateSource.page + 1,
-  //       endCursor: data.posts.pageInfo.endCursor,
-  //       hasNextPage: data.posts.pageInfo.hasNextPage,
-  //       posts:[
-  //         ...stateSource.posts,
-  //         ...filteredPosts
-  //       ]
-  //     }
-  //   )
-  // }
+  async function fetchMore (){
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      after: stateSource.endCursor
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          variables
+        })
+      })
+    const {data} = await body.json()
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    addPostsAction({
+        page: stateSource.page + 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+        posts:[
+          ...stateSource.posts,
+          ...filteredPosts
+        ]
+      }
+    )
+  }
 
   return (
       <Layout>
@@ -230,15 +230,15 @@ export default function Index() {
             </ul>
             <h2>Resources</h2>
             <ul>
-              {/*{stateSource.posts.map((post: any) => (*/}
-              {/*  <li key={post.id} className="remix__page__resource">*/}
-              {/*    <Link to={post.slug} prefetch="intent">*/}
-              {/*      {post.title}*/}
-              {/*    </Link>*/}
-              {/*  </li>*/}
-              {/*))}*/}
+              {stateSource.posts.map((post: any) => (
+                <li key={post.id} className="remix__page__resource">
+                  <Link to={post.slug} prefetch="intent">
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
-            {/*{stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}*/}
+            {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
           </aside>
         </div>
       </Layout>

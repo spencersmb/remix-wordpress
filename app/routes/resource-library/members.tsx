@@ -3,7 +3,7 @@ import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.s
 import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
 import * as React from 'react'
 import { Layout } from '../../root'
-import { getHtmlMetadataTags } from '../../lib/utils/seo'
+import { getHtmlMetadataTags } from '../../utils/seo'
 import { fetchAPI } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData, IFilterTag, IResourceFreebie } from '../../utils/resourceLibraryUtils'

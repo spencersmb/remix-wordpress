@@ -28,7 +28,7 @@ import {
   jsonldPerson,
   jsonldWebpage,
   jsonLdWebsite
-} from './lib/utils/jsonLd'
+} from './utils/jsonLd'
 import { ReactNode } from 'react'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";

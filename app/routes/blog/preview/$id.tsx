@@ -1,5 +1,5 @@
 import { LoaderFunction, useLoaderData } from 'remix'
-import { previewLoaderRouteHandler } from '../../../lib/utils/loaderHelpers'
+import { previewLoaderRouteHandler } from '../../../utils/loaderHelpers'
 import { Layout } from '../../../root'
 
 export let loader: LoaderFunction = async({request, params,context}) => previewLoaderRouteHandler(request, params)

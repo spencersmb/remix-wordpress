@@ -5,7 +5,7 @@ import { Layout } from '../../root'
 import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { fetchAPI } from '../../lib/api/fetch'
+import { fetchAPI, fetchAPIClientSide } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 
 
@@ -81,7 +81,7 @@ const ResourceLibrary = () => {
   let actionData = useActionData<ActionData | undefined>();
   useEffect(() => {
     async function prefetchData(){
-      await fetchAPI(GetAllFreebiesQuery)
+      await fetchAPIClientSide(GetAllFreebiesQuery)
     }
     prefetchData().catch()
   }, [])

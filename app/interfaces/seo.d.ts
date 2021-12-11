@@ -85,7 +85,6 @@ interface IjsonldPersonProps {
   description: string
   avatarUrl: string
 }
-
 interface IBreadcrumb {
   position: number,
   name: string,
@@ -94,4 +93,23 @@ interface IBreadcrumb {
 interface IBreadcrumbList {
   domain: string
   breadcrumbList: IBreadcrumb[]
+}
+
+interface IGetMetaTagsFunction{
+  metadata: IMetaData
+  post: IPost | null
+  page: IPage | null
+  location: Location
+}
+interface IOgImageType{
+  width: string
+  height: string
+  url: string
+  altText: string
+}
+interface IOgArticle {
+  publishedTime: string
+  modifiedTime: string
+  author: string
+  tags: {name: string}[]
 }
