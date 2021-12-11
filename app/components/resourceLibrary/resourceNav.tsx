@@ -1,5 +1,13 @@
 import * as React from 'react'
 
+/**
+ * @Component ResourceLibraryNav
+ *
+ * Special Nav just for the Resource Library
+ *
+ * Form links to a route that is just an API to log user out on ServerSide
+ *
+ */
 
 interface IProps {
   showLogout?: boolean

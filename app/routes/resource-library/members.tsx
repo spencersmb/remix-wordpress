@@ -9,6 +9,7 @@ import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData, IFilterTag, IResourceFreebie } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
+import Freebie from '../../components/resourceLibrary/freebie'
 
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
@@ -76,38 +77,9 @@ const ResourceLibraryMembers = () => {
 
   const {filter, handleFilterClick, handlePageClick, posts, pagination} = useFreebies<IResourceFreebie[]>({items: data.freebies})
 
-  const filterTest = data.freebies.filter(freebie => {
-    const tags = freebie.tags.map(tag => tag.slug)
-    const hasTag = tags.indexOf(filter)
-    if(filter === 'all'){
-      return freebie
-    }
-    return hasTag !== -1
-  })
-  console.log('filterTest', filterTest.length)
-  console.log('pagination', pagination)
-  console.log('member data', data)
+  // console.log('pagination', pagination)
+  // console.log('member data', data)
 
-
-  async function getItems(){
-    // const agent = new https.Agent({
-    //   rejectUnauthorized: false
-    // })
-    const res = await fetch('https://etheadless.local/graphql', {
-      method: 'POST',
-      // @ts-ignore
-      // agent,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: GetAllFreebiesQuery,
-      }),
-    })
-    const body = await res.json()
-    console.log('body', body)
-
-  }
   return (
     <Layout alternateNav={<ResourceLibraryNav showLogout={true}/>}>
       <div>
@@ -119,11 +91,7 @@ const ResourceLibraryMembers = () => {
         />
         <div>
           {posts
-            .map(item => (
-            <div key={item.id}>
-              <h3>{item.title}</h3>
-            </div>
-          ))}
+            .map(item => (<Freebie {...item}/>))}
         </div>
 
         <div>

@@ -39,6 +39,8 @@ import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
 import { IFetchPaginationState } from './hooks/useFetchPagination'
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
+import { consoleHelper } from './utils/windowUtils'
+
 /**
  * The `links` export is a function that returns an array of objects that map to
  * the attributes for an HTML `<link>` element. These will load `<link>` tags on
@@ -61,23 +63,29 @@ export let links: LinksFunction = () => {
   ];
 };
 
+/*
+ Root Loader for the global App state
+ */
 export let loader: LoaderFunction = async ({request}) => {
-  let session = await getUserSession(request)
+  let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
-  console.log('user', session.has('userId'))
-  let user = session.has('userId') ? {
-    id: session.get('userId')
+  let user = wpAdminSession.has('userId') ? {
+    id: wpAdminSession.get('userId')
   } : null
+
+  // pass in the APP URL to see the correct urls on metaData
   let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
-  // let metadata = getWPMetadata('http://localhost:3000')
+
+  // Variables to expose to the front end
   let ENV = {
     APP_ROOT_URL: process.env.APP_ROOT_URL,
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
   }
-  console.log('ENV', ENV)
+  consoleHelper('Admin user', wpAdminSession.has('userId'))
+  consoleHelper('resourceUser', resourceUser)
 
   return {
-    ...getWPMenu(resourceUser),
+    ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
     metadata,
     user,
     ENV
