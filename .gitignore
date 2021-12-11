@@ -4,7 +4,7 @@ node_modules
 /server/build
 /public/build
 /build
-/.DS_Store
+**/.DS_Store
 
 /public/wp-search.json
 /public/wp-prettyLinks.json
