@@ -11,8 +11,12 @@ import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
 import Freebie from '../../components/resourceLibrary/freebie'
 
-export let meta: MetaFunction = (metaData): any => {
-  const {data, location, parentsData} = metaData
+export let meta: MetaFunction = (rootData): any => {
+
+  /*
+  rootData gets passed in from the root metadata function
+   */
+  const {data, location, parentsData} = rootData
   if(!data || !parentsData || !location){
     return {
       title: '404',
@@ -45,6 +49,10 @@ export let meta: MetaFunction = (metaData): any => {
       readingTime: '3min'
     }
   }
+
+  /*
+  Build Metadata tags for the page
+   */
   return getHtmlMetadataTags({
     metadata: parentsData.root.metadata,
     post: null,
@@ -58,7 +66,6 @@ export let loader: LoaderFunction = async ({request}) => {
   try{
     // get Resource Library content
     let data = await fetchAPI(GetAllFreebiesQuery)
-    console.log('data', data)
     return json({
       freebies: flattenResourceData(data.resourceLibraries),
       filterTags: data.cptTags

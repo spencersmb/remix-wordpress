@@ -10,7 +10,6 @@ import {
 import { Layout } from '../root'
 import * as React from 'react'
 import {
-  getIDParamName,
   getPreviewRedirectUrl,
   getPreviewUrlParams,
 } from '../utils/loaderHelpers'
@@ -18,9 +17,9 @@ import { logUserInJWT } from '../lib/api/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 
-
 export let meta: MetaFunction = (metaData): any => {
   const {data, location, parentsData} = metaData
+
   // hardcoded Page
   const page: IPage = {
     id: '24',
@@ -47,7 +46,6 @@ export let meta: MetaFunction = (metaData): any => {
       readingTime: '1min'
     }
   }
-
 
   if(!data || !parentsData || !location){
     return {
@@ -76,7 +74,6 @@ export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
   }
 }
 
-// redo TYPES HERE for PROMiSE
 export let action: ActionFunction = async ({request}): Promise<ActionData | Response> => {
   let form = await request.formData();
   let password = form.get('password')
@@ -105,7 +102,6 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
   }
 
   try{
-
     const response = await logUserInJWT({username, password})
     const serverRes = await response.json()
 
@@ -128,7 +124,6 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     const sessionStorage = createUserSession(user.id, token)
     const customHeaders = new Headers()
     customHeaders.append('Set-Cookie', await sessionStorage)
-
     const {id, postType} = getPreviewUrlParams(request)
 
     if(!id || !postType){
@@ -170,8 +165,7 @@ const Login = () => {
   let actionData = useActionData< ActionData | undefined>();
   let {params} = useLoaderData<IDataType>()
   let transition = useTransition();
-  let idParamName = getIDParamName(params.postType)
-  let action = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : '/login'
+  let action = params.postType ? `/login?postType=${params.postType}&postId=${params.id}` : '/login'
 
   return (
     <Layout>

@@ -1,4 +1,5 @@
 import { defaultSeoImages } from '../lib/wp/site'
+import { Location } from 'history'
 
 function createOgImages(image: IOgImageType) {
   return {
@@ -16,7 +17,7 @@ function createOgArticle(article: IOgArticle){
     'og:article:tags': article.tags.map(tag => tag.name).join(', '),
   }
 }
-export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTagsFunction){
+export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTagsFunction & {location: Location}){
 
   let defaultImage = {
     altText: defaultSeoImages.generic.altText,

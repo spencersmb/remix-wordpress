@@ -1,9 +1,10 @@
 import { isEmpty } from 'lodash'
-import { redirect } from 'remix'
+import { redirect, json } from 'remix'
 import { getPreviewPostPageServer, refreshJWT } from '../lib/api/fetch'
 import { Params } from 'react-router'
 import { isTokenExpired, refreshCurrentSession, requireToken } from './session.server'
 import { consoleHelper } from './windowUtils'
+import { mapPostData } from './posts'
 
 
 
@@ -30,8 +31,8 @@ export function getPreviewUrlParams(request: Request): IPreviewParams{
 
   let url = new URL(request.url);
   let postType = url.searchParams.get("postType");
-  let idSearchParam = getIDParamName(postType)
-  let id = url.searchParams.get(idSearchParam);
+  // let idSearchParam = getIDParamName(postType)
+  let id = url.searchParams.get("postId");
 
   return {
     postType,
@@ -101,9 +102,13 @@ export const getPreviewRedirectUrl = ( postType : string | null = '', previewPos
  * If tokens are valid, get preview post query and return it via a headers response to the page
  * to retreive the data via useLoader in a page component.
  *
+ *
+ *
  **/
 export const previewLoaderRouteHandler = async (request: Request, params: Params): Promise<Response> => {
   let url = new URL(request.url);
+
+  // if url is /blog this will mean post, else page
   let previewType = url.pathname.split('/').splice(1).shift()
   let id = params.id
   let loginUrl = getLoginRedirectParams({previewType, id})
@@ -142,17 +147,25 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
       id,
       userToken
     })
-    const json = await res.json()
+    const jsonResp = await res.json()
     const postType = previewType === 'blog' ? 'post' : 'page'
-    const postPageData = json.data[postType]
+    const postPageData = jsonResp.data[postType]
 
-    let body = JSON.stringify({
-      [postType]: postPageData
-    });
+    // let body = JSON.stringify({
+    //   [postType]: postType === 'post' ? mapPostData(postPageData) : postPageData
+    // });
 
-    return new Response(body, {
-      headers: customHeaders
-    });
+    // return new Response(body, {
+    //   headers: customHeaders
+    // });
+
+    return json({
+        [postType]: mapPostData(postPageData)
+      },
+  {
+        headers: customHeaders
+      }
+    )
 
   }catch (e){
     console.error(`e in /${previewType}/preview/$id`, e)

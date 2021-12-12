@@ -7,6 +7,7 @@ import * as React from 'react'
 import { useEffect } from 'react'
 import { fetchAPI, fetchAPIClientSide } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
+import { consoleHelper } from '../../utils/windowUtils'
 
 
 //TODO make api call to convertkit to check for email_subscriber
@@ -61,7 +62,7 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     password: password !== process.env.RESOURCE_LIBRARY_PW ?  `Incorrect Password` : undefined
   };
 
-  console.log('fieldErrors', fieldErrors)
+  consoleHelper('fieldErrors', fieldErrors)
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
@@ -79,6 +80,10 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
 
 const ResourceLibrary = () => {
   let actionData = useActionData<ActionData | undefined>();
+
+  /*
+  ON page load prefetch data query to speed things up
+   */
   useEffect(() => {
     async function prefetchData(){
       await fetchAPIClientSide(GetAllFreebiesQuery)

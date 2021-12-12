@@ -23,6 +23,16 @@ export const GetAllFreebiesQuery = `
           freebie{
             downloadLink
             excerpt
+              product {
+              ... on Product {
+                title
+                slug
+                details {
+                  gumroadLink
+                  price
+                }
+              }
+            }
           }
           tags {
             edges {

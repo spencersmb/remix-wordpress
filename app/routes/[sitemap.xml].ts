@@ -3,6 +3,7 @@ import { fetchAPI } from '../lib/api/fetch'
 import { LoaderFunction } from 'remix'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '../utils/graphqlUtils'
+import { sitemapPages } from '../components/sitemap/sitemap-pages'
 
 async function getSitemapData(){
   return fetchAPI(getGraphQLString(QUERY_SITEMAP), {
@@ -37,23 +38,23 @@ interface IGenerateSiteMapFunction{
   }[]
   homepage: string
 }
-async function generateXmlIndex({pages, posts, homepage}: IGenerateSiteMapFunction){
+async function generateXmlIndex({pages, posts, homepage}: IGenerateSiteMapFunction) {
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>HOMEPAGE</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
       </url>
-      ${pages
-    .map((data: any) => {
-      const page = data.node
+      ${sitemapPages
+    .map((page: any) => {
       return `
-              <url>
-                <loc>${homepage}/${page.slug}</loc>
-                <priority>0.3</priority>
-                <lastmod>${page.seo.opengraphModifiedTime}</lastmod>
-              </url>
-            `;
+        <url>
+          <loc>${homepage}/${page.slug}</loc>
+          <priority>0.3</priority>
+          <lastmod>${page.modifiedTime}</lastmod>
+        </url>
+      `;
     }).join('')
   }
       ${posts
@@ -78,6 +79,7 @@ async function generateXmlIndex({pages, posts, homepage}: IGenerateSiteMapFuncti
   return sitemapFormatted;
 }
 
+// TODO: Figure out how to do pages built in remix
 const QUERY_SITEMAP = gql`
     query SiteMap($count: Int) {
         posts(first: $count) {

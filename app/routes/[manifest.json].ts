@@ -1,5 +1,6 @@
 import { LoaderFunction } from 'remix'
 
+// TODO: Fill out
 const manifest = {
   "short_name": "Every Tuesday Blog",
   "name": "Every Tuesday: Procreate Freebies and Tutorials for Beginners",

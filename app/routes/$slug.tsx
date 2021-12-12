@@ -1,10 +1,7 @@
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import { fetchAPI } from '../lib/api/fetch'
-import { defaultSeoImages, getWPMetadata } from '../lib/wp/site'
 import { mapPostData } from '../utils/posts'
-import { Document, Layout } from '../root'
-import { isEmpty } from 'lodash'
-import { RouteData } from '@remix-run/server-runtime/routeData'
+import { Layout } from '../root'
 import { getHtmlMetadataTags } from '../utils/seo'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
@@ -20,15 +17,15 @@ export let loader: LoaderFunction = async ({ params }) => {
       slug: `${params.slug}`
     }
   })
-  // console.log('wpAPI.postBy', wpAPI.postBy)
 
   if(wpAPI.postBy === null){
+    //TODO: redirect to custom 404 page
     throw new Response("Not Found", { status: 404 });
   }
 
-  const post = mapPostData(wpAPI.postBy)
-
-  return json({post}, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({
+    post:  mapPostData(wpAPI.postBy)
+  })
 };
 
 // https://remix.run/api/conventions#meta

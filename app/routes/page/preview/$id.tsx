@@ -6,8 +6,7 @@ export let loader: LoaderFunction = async({request, params,context}) => previewL
 
 const PostPreview = () => {
   const data = useLoaderData()
-  const dataRes = JSON.parse(data)
-  console.log('dataRes', dataRes)
+  console.log('dataRes', data)
 
   return (
     <Layout>

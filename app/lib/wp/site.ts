@@ -1,6 +1,5 @@
 export function getWPMenu(resourceUser: string | null){
 
-
   return {
     menus: [
       {
