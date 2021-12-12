@@ -6,7 +6,7 @@ import { Layout } from '../../root'
 import { getHtmlMetadataTags } from '../../utils/seo'
 import { fetchAPI } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
-import { flattenResourceData, IFilterTag, IResourceFreebie } from '../../utils/resourceLibraryUtils'
+import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
 import Freebie from '../../components/resourceLibrary/freebie'
@@ -98,7 +98,7 @@ const ResourceLibraryMembers = () => {
         />
         <div>
           {posts
-            .map(item => (<Freebie {...item}/>))}
+            .map(item => (<Freebie key={item.id} {...item}/>))}
         </div>
 
         <div>

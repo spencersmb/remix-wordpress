@@ -1,10 +1,4 @@
 
-interface IjsonldWebProps {
-  domain: string
-  description: string
-  siteTitle: string
-}
-
 export function jsonLdWebsite(data: IjsonldWebProps): string{
   const {domain, description, siteTitle} = data
   return `{
@@ -25,16 +19,6 @@ export function jsonLdWebsite(data: IjsonldWebProps): string{
       }],
       'inLanguage': 'en-US'
     }`
-}
-
-interface IjsonldImageProps {
-  pageUrl: string
-  image: {
-    url: string
-    width: number
-    height: number
-    altText: string
-  }
 }
 
 export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string {
@@ -72,16 +56,6 @@ export function jsonldWebpage (props: IjsonldWebpage) {
           "target": ["${pageUrl}"]
         }]
       }`
-}
-
-interface IJsonldBlog {
-  url: string
-  images: string[]
-  datePublished: string
-  dateModified: string
-  author: string
-  description: string
-  title: string
 }
 
 export function jsonldBlog (props: IJsonldBlog): string{

@@ -10,7 +10,7 @@ import {
 import { Layout } from '../root'
 import * as React from 'react'
 import {
-  getPreviewRedirectUrl,
+  getPreviewRedirectUrlFromParams,
   getPreviewUrlParams,
 } from '../utils/loaderHelpers'
 import { logUserInJWT } from '../lib/api/fetch'
@@ -132,7 +132,7 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
       })
     }
 
-    const redirectUrl = getPreviewRedirectUrl(postType, id)
+    const redirectUrl = getPreviewRedirectUrlFromParams(postType, id)
 
     return redirect(redirectUrl,{
       headers:customHeaders
@@ -144,7 +144,7 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
 
 interface IDataType {
   params:{
-    id: string | null
+    id: string | undefined
     postType: string | null
     url: URL
   }

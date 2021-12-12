@@ -8,8 +8,6 @@ interface IMetaTagProperty {
   content: string
 }
 
-type IMeta = IMetaTagName | IMetaTagProperty
-
 interface IjsonldWebpage {
   pageUrl: string
   title: string
@@ -17,6 +15,38 @@ interface IjsonldWebpage {
   publishTime?: string
   modifiedTime?: string
   description: string
+}
+
+interface IjsonldPersonProps {
+  domain: string
+  description: string
+  avatarUrl: string
+}
+
+interface IjsonldWebProps {
+  domain: string
+  description: string
+  siteTitle: string
+}
+
+interface IjsonldImageProps {
+  pageUrl: string
+  image: {
+    url: string
+    width: number
+    height: number
+    altText: string
+  }
+}
+
+interface IJsonldBlog {
+  url: string
+  images: string[]
+  datePublished: string
+  dateModified: string
+  author: string
+  description: string
+  title: string
 }
 
 interface ISocialTwitter {
@@ -53,11 +83,6 @@ interface IMetaData {
   seo?: any
 }
 
-interface IjsonldPersonProps {
-  domain: string
-  description: string
-  avatarUrl: string
-}
 interface IBreadcrumb {
   position: number,
   name: string,

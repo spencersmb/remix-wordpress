@@ -1,4 +1,3 @@
-import { IResourceFreebie } from '../../utils/resourceLibraryUtils'
 
 /**
  * @Component Freebie
@@ -12,6 +11,8 @@ import { IResourceFreebie } from '../../utils/resourceLibraryUtils'
  */
 
 const Freebie = (item: IResourceFreebie) => {
+  console.log('item', item)
+  
   return (
     <div>
       <h3>{item.title}</h3>

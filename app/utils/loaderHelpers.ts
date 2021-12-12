@@ -2,18 +2,9 @@ import { isEmpty } from 'lodash'
 import { redirect, json } from 'remix'
 import { getPreviewPostPageServer, refreshJWT } from '../lib/api/fetch'
 import { Params } from 'react-router'
-import { isTokenExpired, refreshCurrentSession, requireToken } from './session.server'
+import { isTokenExpired, refreshCurrentSession, requireAdminUserToken } from './session.server'
 import { consoleHelper } from './windowUtils'
 import { mapPostData } from './posts'
-
-
-
-/*
- getIDParamName - helper func to switch been pages or posts
- */
-export function getIDParamName(type: string | null = ''): string {
-  return type === 'post' ? "previewPostId" : 'postId'
-}
 
 /**
  * @Function previewUrlParams
@@ -24,19 +15,16 @@ export function getIDParamName(type: string | null = ''): string {
  */
 interface IPreviewParams {
   postType: string | null,
-  id: string | null
+  id: string | undefined
   url: URL
 }
 export function getPreviewUrlParams(request: Request): IPreviewParams{
 
   let url = new URL(request.url);
-  let postType = url.searchParams.get("postType");
-  // let idSearchParam = getIDParamName(postType)
-  let id = url.searchParams.get("postId");
 
   return {
-    postType,
-    id,
+    postType: url.searchParams.get("postType"),
+    id: url.searchParams.get("postId") || undefined,
     url
   }
 }
@@ -72,7 +60,7 @@ export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): 
  *
  *
  **/
-export const getPreviewRedirectUrl = ( postType : string | null = '', previewPostId : string | null = ''  ): string => {
+export const getPreviewRedirectUrlFromParams = ( postType : string | null = '', previewPostId : string | null = ''  ): string => {
 
   if ( isEmpty( postType ) || isEmpty( previewPostId ) ) {
     return '/login';
@@ -112,7 +100,7 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
   let previewType = url.pathname.split('/').splice(1).shift()
   let id = params.id
   let loginUrl = getLoginRedirectParams({previewType, id})
-  let userToken = await requireToken(request, loginUrl)
+  let userToken = await requireAdminUserToken(request, loginUrl)
   const customHeaders = new Headers()
   let isExpired = await isTokenExpired(userToken)
   consoleHelper('isExpired', isExpired)
@@ -172,3 +160,34 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
     return redirect(loginUrl)
   }
 }
+
+export const getLoginRedirectUrl = (request:Request): string => {
+  let url = new URL(request.url);
+  let params = getPreviewUrlParams(request)
+
+  // if url is /blog this will mean post, else page
+  let previewType = url.pathname.split('/').splice(1).shift()
+  let id = params.id
+
+  if(!id){
+    return '/login'
+  }
+  return getLoginRedirectParams({previewType, id})
+}
+
+export const getPreviewRedirectUrl = ( request:Request ): string => {
+  const {id, postType} = getPreviewUrlParams(request)
+
+  if ( isEmpty( postType ) || isEmpty( id ) ) {
+    return '/login';
+  }
+
+  switch ( postType ) {
+    case 'post':
+      return `/blog/preview/${id}/`;
+    case 'page':
+      return `/page/preview/${id}/`;
+    default:
+      return '/login?postType=noPostTypeFound';
+  }
+};

@@ -1,4 +1,3 @@
-import { IFilterTag } from '../../utils/resourceLibraryUtils'
 import { consoleHelper } from '../../utils/windowUtils'
 
 /**
