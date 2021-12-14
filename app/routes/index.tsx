@@ -10,6 +10,7 @@ import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagina
 import { Simulate } from 'react-dom/test-utils'
 import input = Simulate.input
 import { async } from 'rxjs'
+import useSite from '../hooks/useSite'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 // export const headers: HeadersFunction = ({loaderHeaders}) => {
@@ -98,10 +99,16 @@ export let loader: LoaderFunction = async () => {
   }
 };
 
+function TestModal(){
+  return (
+    <div>Template Modal</div>
+  )
+}
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
   const {state, addPostsAction, loadingPosts} = useFetchPaginate()
+  const {openModal, closeModal} = useSite()
 
   let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
     posts: data.posts,
@@ -199,12 +206,16 @@ export default function Index() {
     )
   }
 
+  function open(){
+    openModal({template: TestModal})
+  }
+
   return (
       <Layout>
         <div className="remix__page">
           <main>
-            <h2 className="font-sentinel__SemiBoldItal text-slateGreen text-6xl spencer">Welcome to Remix! Staging 3</h2>
-            <p>We're stoked that you're here. 🥳</p>
+            <h2 className="font-sentinel__SemiBoldItal text-6xl">Welcome to Remix! Staging 3</h2>
+            <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
             <p>
               Feel free to take a look around the code to see how Remix does things,
               it might be a bit different than what you’re used to. When you're
@@ -241,6 +252,7 @@ export default function Index() {
             {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
           </aside>
         </div>
+        <div><button onClick={open}>OPen modal</button></div>
       </Layout>
   );
 }

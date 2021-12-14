@@ -1,33 +1,6 @@
-import { useContext, createContext, Dispatch } from 'react'
-import { ISiteAction } from './useSiteReducer'
-
-export interface IMenu{
-  menuItems: IMenuItem[]
-  name: string
-  slug: string
-}
-
-interface IMenuCourse {
-  details: {
-    url: string
-    name: string
-  }
-}
-
-export interface IMenuItem {
-  featured:{
-    courses: IMenuCourse[]
-  }
-  childItems: {
-    edges: {node: IMenuItem}[]
-  }
-  id: string
-  label: string
-  path: string
-  target: string
-  title: string
-  parentId: string | null
-}
+import { useContext, createContext, Dispatch, ReactElement, FunctionComponent } from 'react'
+import { ISiteAction, ISiteTypes } from './useSiteReducer'
+import { IModalTemplate } from '../../components/modals/modalTypes'
 
 export interface ISiteContextState {
   recentPosts?: IPost[]
@@ -36,6 +9,10 @@ export interface ISiteContextState {
   menu: IMenu[],
   user: null | {
     isLoggedIn: boolean
+  }
+  modal: {
+    open: boolean,
+    component: IModalTemplate
   }
 }
 interface ISiteContextType {
@@ -75,7 +52,11 @@ export const siteInitialState: ISiteContextState  = {
     title: '',
   },
   menu:[],
-  user: null
+  user: null,
+  modal:{
+    open: false,
+    component: null
+  }
 }
 export const SiteContext = createContext<ISiteContextType>({
   state: siteInitialState,
@@ -102,7 +83,22 @@ const useSiteContext = () => {
 const useSite = () => {
   const {state, dispatch} = useSiteContext()
 
+  const openModal = ({template}: {template: FunctionComponent | ReactElement}) => {
+    dispatch({
+      type: ISiteTypes.MODAL_OPEN,
+      payload: {template}
+    })
+  }
+
+  const closeModal = () => {
+    dispatch({
+      type: ISiteTypes.MODAL_CLOSE,
+    })
+  }
+
   return {
+    openModal,
+    closeModal,
     state,
     dispatch
   }

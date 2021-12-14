@@ -1,4 +1,4 @@
-import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData } from 'remix'
+import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData, useTransition } from 'remix'
 import { createResourceUserSession, getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import { v4 } from 'uuid'
 import { Layout } from '../../root'
@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { fetchAPI, fetchAPIClientSide } from '../../lib/api/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
+import { getGraphQLString } from '../../utils/graphqlUtils'
 
 
 //TODO make api call to convertkit to check for email_subscriber
@@ -19,7 +20,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // If found redirect them to /members
   const user = await getResourceUserToken(request)
 
-  if(user){
+  if (user) {
     return redirect('/resource-library/members')
   }
 
@@ -27,39 +28,45 @@ export let loader: LoaderFunction = async ({ request }) => {
     title: 'Resource Library',
     slug: 'resource-library',
     description: 'A jam packed resource library of design + lettering files',
-    seo:{
+    seo: {
       title: 'Resource Library - Every Tuesday',
       opengraphModifiedTime: '',
       metaDesc: 'When you join the Tuesday Tribe, you’ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more.'
     }
   }
-  return json({page}, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 
 type ActionData = {
   formError?: string;
   fieldErrors?: {
-    password: string | undefined;
+    email: string | undefined;
   };
   fields?: {
-    password: string;
+    email: string;
   };
 };
 
-export let action: ActionFunction = async ({request}): Promise<ActionData | Response> => {
+function validateEmail(email: string) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return undefined
+  }
+  return 'You have entered an invalid email address!'
+}
+export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
   let form = await request.formData();
-  let password = form.get('password')
+  let email = form.get('email')
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
-    typeof password !== "string"
+    typeof email !== "string"
   ) {
     return { formError: `Form not submitted correctly.` };
   }
 
-  let fields = { password };
+  let fields = { email };
   let fieldErrors = {
-    password: password !== process.env.RESOURCE_LIBRARY_PW ?  `Incorrect Password` : undefined
+    email: validateEmail(email)
   };
 
   consoleHelper('fieldErrors', fieldErrors)
@@ -67,71 +74,76 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
-  let userId = v4()
-  let sessionStorage = createResourceUserSession(userId)
-  const customHeaders = new Headers()
-  customHeaders.append('Set-Cookie', await sessionStorage)
 
-  return redirect('/resource-library/members',{
-    headers:customHeaders
-  })
+  return json({ form: 'success' })
 
 }
 
 const ResourceLibrary = () => {
   let actionData = useActionData<ActionData | undefined>();
+  console.log(actionData);
+
 
   /*
   ON page load prefetch data query to speed things up
    */
   useEffect(() => {
-    async function prefetchData(){
-      await fetchAPIClientSide(GetAllFreebiesQuery)
+    async function prefetchData() {
+      await fetchAPIClientSide(getGraphQLString(GetAllFreebiesQuery))
     }
     prefetchData().catch()
   }, [])
 
+  const formRef: any = React.useRef()
+  const transition = useTransition()
+
+  React.useEffect(() => {
+    if (transition.state === 'submitting') {
+      formRef.current?.reset()
+    }
+  }, [transition])
+
   return (
-    <Layout alternateNav={<ResourceLibraryNav/>}>
+    <Layout alternateNav={<ResourceLibraryNav />}>
       <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
-        <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Resource Library Login</h4>
+        <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Resource Library Sign Up</h4>
         {/*{! isEmpty( errorMessage ) && (*/}
         {/*  <div*/}
         {/*    className="text-red-600"*/}
         {/*    dangerouslySetInnerHTML={{ __html: sanitize( errorMessage ) }}*/}
         {/*  />*/}
         {/*)}*/}
-        <Form method='post' className="mb-4" aria-describedby={
+        <Form ref={formRef} method='post' className="mb-4" aria-describedby={
           actionData?.formError
             ? "form-error-message"
             : undefined
         }>
           <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
-            Password:
+            Email:
             <input
-              id="password-input"
-              type="password"
+              id="email-input"
+              type="email"
               className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              name="password"
+              name="email"
               aria-invalid={
                 Boolean(
-                  actionData?.fieldErrors?.password
+                  actionData?.fieldErrors?.email
                 ) || undefined
               }
               aria-describedby={
-                actionData?.fieldErrors?.password
-                  ? "password-error"
+                actionData?.fieldErrors?.email
+                  ? "email-error"
                   : undefined
               }
             />
           </label>
-          {actionData?.fieldErrors?.password ? (
+          {actionData?.fieldErrors?.email ? (
             <p
               className="form-validation-error"
               role="alert"
-              id="password-error"
+              id="email-error"
             >
-              {actionData?.fieldErrors.password}
+              {actionData?.fieldErrors.email}
             </p>
           ) : null}
 

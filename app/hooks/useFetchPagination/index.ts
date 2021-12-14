@@ -31,10 +31,10 @@ const useFetchPaginateContent = () => {
 const useFetchPaginate = () => {
   const {state, dispatch} = useFetchPaginateContent()
 
-  const addPostsAction = (pageInfo: IPageInfo) => {
+  const addPostsAction = (data: IPageInfo) => {
     dispatch({
       type: IFetchPaginateTypes.ADD_POSTS,
-      payload: pageInfo
+      payload: data
     })
   }
 

@@ -10,6 +10,7 @@ import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
 import Freebie from '../../components/resourceLibrary/freebie'
+import { getGraphQLString } from '../../utils/graphqlUtils'
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -61,11 +62,13 @@ export let meta: MetaFunction = (rootData): any => {
   })
 };
 
-export let loader: LoaderFunction = async ({request}) => {
+export let loader: LoaderFunction = async ({request,context, params}) => {
   await requireResourceLibraryUser(request, '/resource-library')
+
   try{
     // get Resource Library content
-    let data = await fetchAPI(GetAllFreebiesQuery)
+    console.log('fetch freebies')
+    let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
     return json({
       freebies: flattenResourceData(data.resourceLibraries),
       filterTags: data.cptTags
@@ -76,13 +79,13 @@ export let loader: LoaderFunction = async ({request}) => {
   }
 }
 interface ILoaderData {
-  freebies: IResourceFreebie[]
+  freebies: IResourceItem[]
   filterTags: IFilterTag[]
 }
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
 
-  const {filter, handleFilterClick, handlePageClick, posts, pagination} = useFreebies<IResourceFreebie[]>({items: data.freebies})
+  const {filter, handleFilterClick, handlePageClick, posts, pagination} = useFreebies<IResourceItem[]>({items: data.freebies})
 
   // console.log('pagination', pagination)
   // console.log('member data', data)

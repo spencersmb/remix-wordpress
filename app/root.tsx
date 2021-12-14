@@ -13,7 +13,7 @@ import {
 import type { LinksFunction } from "remix";
 
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
-import globalStylesUrl from "~/styles/global.css";
+import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
 import useSite, { SiteContext } from './hooks/useSite'
 import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
@@ -40,6 +40,10 @@ import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginat
 import { IFetchPaginationState } from './hooks/useFetchPagination'
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
+import BasicModal from './components/modals/BasicModal'
+import { fetchAPI } from "./lib/api/fetch";
+import { getGraphQLString } from "./utils/graphqlUtils";
+import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -51,7 +55,6 @@ import { consoleHelper } from './utils/windowUtils'
  */
 export let links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: styles },
     { rel: "stylesheet", href: globalStylesUrl },
     {
       rel: "stylesheet",
@@ -60,13 +63,14 @@ export let links: LinksFunction = () => {
     },
     { rel: "stylesheet", href: deleteMeRemixStyles },
     { rel: "stylesheet", href: nProgressStyles },
+    { rel: "stylesheet", href: styles },
   ];
 };
 
 /*
  Root Loader for the global App state
  */
-export let loader: LoaderFunction = async ({request}) => {
+export let loader: LoaderFunction = async ({ request }) => {
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
   let user = wpAdminSession.has('userId') ? {
@@ -88,7 +92,7 @@ export let loader: LoaderFunction = async ({request}) => {
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
     metadata,
     user,
-    ENV
+    ENV,
   };
 };
 
@@ -98,9 +102,9 @@ export let loader: LoaderFunction = async ({request}) => {
  * component for your app.
  */
 export default function App() {
-  let {menus, metadata, user} = useLoaderData<any>();
+  let { menus, metadata, user } = useLoaderData<any>();
   let matches = useMatches()
-  let selectedMatch: undefined | ISelectedMatch = matches.find( match => match.data?.pageInfo )
+  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
   const pageInfo: IwpPageInfo = selectedMatch ? selectedMatch?.data?.pageInfo : null
 
@@ -117,14 +121,18 @@ export default function App() {
   React.useEffect(() => {
     // when the state is idle then we can to complete the progress bar
     if (transition.state === "idle") NProgress.done();
-      // and when it's something else it means it's either submitting a form or
+    // and when it's something else it means it's either submitting a form or
     // waiting for the loaders of the next location so we start it
     else NProgress.start();
   }, [transition.state]);
   const value = {
     menu: menus,
     metadata,
-    user
+    user,
+    modal: {
+      open: false,
+      component: null
+    }
   }
   return (
     // <Provider store={store}>
@@ -147,15 +155,15 @@ interface ISelectedMatch {
 }
 const JsonLd = () => {
   let data = useLoaderData<any>();
-  if(!data){
-    return(
-      <Scripts/>
+  if (!data) {
+    return (
+      <Scripts />
     )
   }
-  let {metadata} = data
+  let { metadata } = data
   let matches = useMatches();
   let location = useLocation();
-  let selectedMatch: undefined | ISelectedMatch = matches.find( match => match.data?.post || match.data?.page)
+  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page)
   const post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   const page: any = selectedMatch?.data?.page
   const breadcrumbList = [
@@ -173,12 +181,12 @@ const JsonLd = () => {
     pageUrl: `${metadata.domain}${location.pathname}`,
   }
 
-  if(post){
+  if (post) {
     image = {
-      url: post.featuredImage?.sourceUrl  || '', // need default image
+      url: post.featuredImage?.sourceUrl || '', // need default image
       altText: post.featuredImage?.altText || '',
       width: 1920,
-      height:928
+      height: 928
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
@@ -196,34 +204,39 @@ const JsonLd = () => {
     )
   }
 
-  if(page){}
+  if (page) { }
 
 
   return (
     <>
       {/*Basic JsonLd Website*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonLdWebsite(metadata)}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
 
       {/*Basic JsonLd Image*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldImageObject({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: jsonldImageObject({
           pageUrl: location.pathname,
           image
-        })}} />
+        })
+      }} />
 
       {/*Basic JsonLd Webpage*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldWebpage(jsonWebpageSettings)}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
 
       {/*Basic JsonLd Person*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldPerson(metadata)}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} />
 
       {/*Basic JsonLd Breadcrumbs*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonBreadcrumbsList({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: jsonBreadcrumbsList({
           domain: metadata.domain,
           breadcrumbList
-      })}} />
+        })
+      }} />
 
       {/*JsonLd Blog*/}
-      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonldBlog({
+      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: jsonldBlog({
           url: `${metadata.domain}${location.pathname}`,
           images: [
             `${post.featuredImage?.sourceUrl}` // need default image
@@ -241,8 +254,8 @@ const JsonLd = () => {
 }
 
 export let meta: MetaFunction = () => {
-  return{
-    title:`Home - Every Tuesday`
+  return {
+    title: `Home - Every Tuesday`
   }
 }
 
@@ -250,49 +263,50 @@ interface IDocument {
   children: React.ReactNode
   title?: string
 }
-export function Document({children,title}: IDocument) {
+export function Document({ children, title }: IDocument) {
   let data = useLoaderData<any>();
   console.log('ENV', data)
 
   return (
     <html lang="en">
-    <head>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
-      <meta name="application-name" content="Every-Tuesday"/>
-      <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny"/>
-      <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l"/>
-      {/*<title>{`Home - ${metadata.title}`}</title>*/}
-      <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      <Meta />
-      <Links />
-      <JsonLd />
-    </head>
-    <body>
-    {children}
-    <RouteChangeAnnouncement />
-    <ScrollRestoration />
-    <Scripts />
-    {data && data.ENV&& <script
-      dangerouslySetInnerHTML={{
-        __html: `window.ENV = ${JSON.stringify(
-          // data.ENV
-          {
-            PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
-            APP_ROOT_URL: 'http://localhost:3000'
-          }
-          
-        )}`
-      }}
-    />}
-    {process.env.NODE_ENV === "development" && <LiveReload />}
-    </body>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="application-name" content="Every-Tuesday" />
+        <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
+        <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
+        {/*<title>{`Home - ${metadata.title}`}</title>*/}
+        <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <Meta />
+        <Links />
+        <JsonLd />
+      </head>
+      <body>
+        {children}
+        <RouteChangeAnnouncement />
+        <ScrollRestoration />
+        <Scripts />
+        {data && data.ENV && <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(
+              // data.ENV
+              {
+                PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
+                APP_ROOT_URL: 'http://localhost:3000'
+              }
+
+            )}`
+          }}
+        />}
+        {process.env.NODE_ENV === "development" && <LiveReload />}
+        <BasicModal />
+      </body>
     </html>
   );
 }
 export const PrimaryNav = () => {
-  const {state: {menu, user}} = useSite()
+  const { state: { menu, user } } = useSite()
   const primaryMenu = getPrimaryMenu(menu)
 
   return (
