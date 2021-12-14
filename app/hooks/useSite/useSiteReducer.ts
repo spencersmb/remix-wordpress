@@ -5,6 +5,7 @@ import { IModalTemplate } from '../../components/modals/modalTypes'
 export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',
   MODAL_CLOSE = 'MODAL_CLOSE',
+  LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -15,6 +16,7 @@ interface IOpenModal {
 export type ISiteAction =
   | IOpenModal
   | {type: ISiteTypes.MODAL_CLOSE}
+  | {type: ISiteTypes.LOGIN_RESOURCE_USER}
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
@@ -39,6 +41,14 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         }
       }
 
+    case ISiteTypes.LOGIN_RESOURCE_USER : 
+      return {
+        ...state,
+        user:{
+          wpAdmin: state.user?.wpAdmin,
+          resourceUser: true
+        }
+      }
     default: {
       // throw new Error(`Unhandled action type: ${action.type}`)
       return state

@@ -73,7 +73,7 @@ export let links: LinksFunction = () => {
 export let loader: LoaderFunction = async ({ request }) => {
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
-  let user = wpAdminSession.has('userId') ? {
+  let wpAdminUser = wpAdminSession.has('userId') ? {
     id: wpAdminSession.get('userId')
   } : null
 
@@ -91,7 +91,10 @@ export let loader: LoaderFunction = async ({ request }) => {
   return {
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
     metadata,
-    user,
+    user: {
+      wpAdmin: Boolean(wpAdminUser),
+      resourceUser: Boolean(resourceUser)
+    },
     ENV,
   };
 };
@@ -103,6 +106,7 @@ export let loader: LoaderFunction = async ({ request }) => {
  */
 export default function App() {
   let { menus, metadata, user } = useLoaderData<any>();
+  consoleHelper('user', user)
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
@@ -321,7 +325,7 @@ export const PrimaryNav = () => {
           // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
         })}
 
-        {user && <li>
+        {user?.wpAdmin && <li>
           <form action="/logout" method="post">
             <button type="submit" className="button">
               Logout

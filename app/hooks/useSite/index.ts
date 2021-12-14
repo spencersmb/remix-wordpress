@@ -8,7 +8,8 @@ export interface ISiteContextState {
   metadata: IMetaData
   menu: IMenu[],
   user: null | {
-    isLoggedIn: boolean
+    wpAdmin: boolean | undefined
+    resourceUser: boolean | undefined
   }
   modal: {
     open: boolean,
@@ -96,9 +97,16 @@ const useSite = () => {
     })
   }
 
+  const resourecLibraryLogin = () => {
+    dispatch({
+      type: ISiteTypes.LOGIN_RESOURCE_USER,
+    })
+  }
+
   return {
     openModal,
     closeModal,
+    resourecLibraryLogin,
     state,
     dispatch
   }

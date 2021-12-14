@@ -1,9 +1,59 @@
-import { ActionFunction, Form, json, LoaderFunction, redirect, useActionData } from "remix";
+import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData } from "remix";
 import { v4 } from "uuid";
 import { Layout } from "~/root"
 import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
+import { getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 
+export let meta: MetaFunction = (rootData): any => {
+
+  /*
+  rootData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = rootData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  const page: IPage = {
+    id: '24',
+    title: 'Resource Library: Login',
+    author: {
+      id: '22',
+      name: 'Teela',
+      avatar: {
+        url: '',
+        width: 24,
+        height: 24
+      },
+      slug: 'resource-library-login'
+    },
+    slug: 'resource-library-login',
+    content: '',
+    date: '',
+    seo: {
+      title: 'Resource Library: Login - Every Tuesday',
+      metaDesc: 'Resource Library members only access with over 200+ assets for free!',
+      fullHead: '',
+      opengraphModifiedTime: '',
+      opengraphPublishedTime: '',
+      readingTime: '3min'
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: null,
+    page,
+    location
+  })
+};
 
 export let loader: LoaderFunction = async ({ request }) => {
 
@@ -56,7 +106,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   const customHeaders = new Headers()
   customHeaders.append('Set-Cookie', await sessionStorage)
 
-  return redirect('/resource-library/members', {
+  return redirect('/resource-library/members?login=true', {
     headers: customHeaders
   })
 
@@ -65,7 +115,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 const ResourceLibraryLogin = () => {
   let actionData = useActionData<ActionData | undefined>();
   return (
-    <Layout>
+    <div>
       <h1>Login for Resource Library</h1>
       <Form method='post' className="mb-4" aria-describedby={
         actionData?.formError
@@ -105,7 +155,7 @@ const ResourceLibraryLogin = () => {
           Login
         </button>
       </Form>
-    </Layout>
+    </div>
   )
 }
 

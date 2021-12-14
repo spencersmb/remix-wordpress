@@ -11,14 +11,16 @@ import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
 import Freebie from '../../components/resourceLibrary/freebie'
 import { getGraphQLString } from '../../utils/graphqlUtils'
+import useSite from '~/hooks/useSite'
+import { useEffect } from 'react'
 
 export let meta: MetaFunction = (rootData): any => {
 
   /*
   rootData gets passed in from the root metadata function
    */
-  const {data, location, parentsData} = rootData
-  if(!data || !parentsData || !location){
+  const { data, location, parentsData } = rootData
+  if (!data || !parentsData || !location) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data',
@@ -31,20 +33,20 @@ export let meta: MetaFunction = (rootData): any => {
     author: {
       id: '22',
       name: 'Teela',
-      avatar:{
-        url:'',
+      avatar: {
+        url: '',
         width: 24,
         height: 24
       },
-      slug: 'resource-library/members'
+      slug: 'resource-library-members'
     },
-    slug: 'resource-library/members',
+    slug: 'resource-library-members',
     content: '',
     date: '',
     seo: {
       title: 'Resource Library: Members - Every Tuesday',
       metaDesc: 'Resource Library members only access with over 200+ assets for free!',
-      fullHead:'',
+      fullHead: '',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
       readingTime: '3min'
@@ -62,18 +64,19 @@ export let meta: MetaFunction = (rootData): any => {
   })
 };
 
-export let loader: LoaderFunction = async ({request,context, params}) => {
+export let loader: LoaderFunction = async ({ request, context, params }) => {
   await requireResourceLibraryUser(request, '/resource-library')
 
-  try{
+  try {
     // get Resource Library content
     console.log('fetch freebies')
     let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
     return json({
+      user: true,
       freebies: flattenResourceData(data.resourceLibraries),
       filterTags: data.cptTags
     })
-  }catch (e){
+  } catch (e) {
     console.error(`e in /resource-library`, e)
     return redirect('/resource-library')
   }
@@ -84,31 +87,38 @@ interface ILoaderData {
 }
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
+  console.log('data', data);
 
-  const {filter, handleFilterClick, handlePageClick, posts, pagination} = useFreebies<IResourceItem[]>({items: data.freebies})
+  const { state: { user }, resourecLibraryLogin } = useSite()
 
-  // console.log('pagination', pagination)
-  // console.log('member data', data)
+  console.log('user Member', user);
+
+
+  useEffect(() => {
+    if (!user?.resourceUser) {
+      resourecLibraryLogin()
+    }
+  }, [])
+
+  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: data.freebies })
 
   return (
-    <Layout alternateNav={<ResourceLibraryNav showLogout={true}/>}>
+    <div>
+      <h1>Members Area</h1>
+      <FreebieFilter
+        filterTags={data.filterTags}
+        selectedFilter={filter}
+        handleClick={handleFilterClick}
+      />
       <div>
-        <h1>Members Area</h1>
-        <FreebieFilter
-          filterTags={data.filterTags}
-          selectedFilter={filter}
-          handleClick={handleFilterClick}
-        />
-        <div>
-          {posts
-            .map(item => (<Freebie key={item.id} {...item}/>))}
-        </div>
-
-        <div>
-          {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
-        </div>
+        {posts
+          .map(item => (<Freebie key={item.id} {...item} />))}
       </div>
-    </Layout>
+
+      <div>
+        {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+      </div>
+    </div>
   )
 }
 export default ResourceLibraryMembers
