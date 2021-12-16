@@ -20,9 +20,9 @@ import useSite from '../hooks/useSite'
 // }
 
 export let meta: MetaFunction = (metaData): any => {
-  const {data, location, parentsData} = metaData
+  const { data, location, parentsData } = metaData
 
-  if(!data || !parentsData || !location){
+  if (!data || !parentsData || !location) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data'
@@ -84,7 +84,7 @@ export let loader: LoaderFunction = async () => {
         after: null
       }
     })
-  }catch (e){
+  } catch (e) {
     console.log('error', e)
 
   }
@@ -99,7 +99,7 @@ export let loader: LoaderFunction = async () => {
   }
 };
 
-function TestModal(){
+function TestModal() {
   return (
     <div>Template Modal</div>
   )
@@ -107,8 +107,8 @@ function TestModal(){
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
-  const {state, addPostsAction, loadingPosts} = useFetchPaginate()
-  const {openModal, closeModal} = useSite()
+  const { state, addPostsAction, loadingPosts } = useFetchPaginate()
+  const { openModal, closeModal } = useSite()
 
   let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
     posts: data.posts,
@@ -118,7 +118,7 @@ export default function Index() {
     loading: false
   }
 
-  async function fetchGithubAction (){
+  async function fetchGithubAction() {
     const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
       {
         method: 'POST',
@@ -129,16 +129,16 @@ export default function Index() {
         body: JSON.stringify({
           ref: "main"
         })
-    })
+      })
     console.log('rep', rep)
   }
 
-  async function fetchGraphCDN(){
+  async function fetchGraphCDN() {
     const rep1 = await fetch('https://admin.graphcdn.io/etheadless',
       {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Origin":"*",
+          "Access-Control-Allow-Origin": "*",
           'Content-Type': 'application/json', // and specify the Content-Type
           'graphcdn-token': 'e3091df5c5aa5bc2cf316875f0a01978513f2ac0cedbcd7ec895ec7aded5e12c',
         },
@@ -152,7 +152,7 @@ export default function Index() {
     console.log('rep', rep1)
   }
 
-  async function checkCache(){
+  async function checkCache() {
     const rep2 = await fetch('https://etheadless.graphcdn.app',
       {
         method: 'POST',
@@ -175,7 +175,7 @@ export default function Index() {
     console.log('rep', body)
   }
 
-  async function fetchMore (){
+  async function fetchMore() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
@@ -192,68 +192,68 @@ export default function Index() {
           variables
         })
       })
-    const {data} = await body.json()
+    const { data } = await body.json()
     const filteredPosts = flattenAllPosts(data.posts) || []
     addPostsAction({
-        page: stateSource.page + 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-        posts:[
-          ...stateSource.posts,
-          ...filteredPosts
-        ]
-      }
+      page: stateSource.page + 1,
+      endCursor: data.posts.pageInfo.endCursor,
+      hasNextPage: data.posts.pageInfo.hasNextPage,
+      posts: [
+        ...stateSource.posts,
+        ...filteredPosts
+      ]
+    }
     )
   }
 
-  function open(){
-    openModal({template: TestModal})
+  function open() {
+    openModal({ template: TestModal })
   }
 
   return (
-      <Layout>
-        <div className="remix__page">
-          <main>
-            <h2 className="font-sentinel__SemiBoldItal text-6xl">Welcome to Remix! Staging 3</h2>
-            <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
-            <p>
-              Feel free to take a look around the code to see how Remix does things,
-              it might be a bit different than what you’re used to. When you're
-              ready to dive deeper, we've got plenty of resources to get you
-              up-and-running quickly.
-            </p>
-            <p>
-              Check out all the demos in this starter, and then just delete the{" "}
-              <code>app/routes/demos</code> and <code>app/styles/demos</code>{" "}
-              folders when you're ready to turn this into your next project.
-            </p>
-          </main>
-          <aside>
-            <h2>Demos In This App</h2>
-            <ul>
-              {data.demos.map((demo: any) => (
-                <li key={demo.to} className="remix__page__resource">
-                  <Link to={demo.to} prefetch="intent">
-                    {demo.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <h2>Resources</h2>
-            <ul>
-              {stateSource.posts.map((post: any) => (
-                <li key={post.id} className="remix__page__resource">
-                  <Link to={post.slug} prefetch="intent">
-                    {post.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
-          </aside>
-        </div>
-        <div><button onClick={open}>OPen modal</button></div>
-      </Layout>
+    <Layout>
+      <div className="remix__page">
+        <main>
+          <h2 className="font-sentinel__SemiBoldItal text-6xl">Welcome to Remix! Staging 3</h2>
+          <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
+          <p>
+            Feel free to take a look around the code to see how Remix does things,
+            it might be a bit different than what you’re used to. When you're
+            ready to dive deeper, we've got plenty of resources to get you
+            up-and-running quickly.
+          </p>
+          <p>
+            Check out all the demos in this starter, and then just delete the{" "}
+            <code>app/routes/demos</code> and <code>app/styles/demos</code>{" "}
+            folders when you're ready to turn this into your next project.
+          </p>
+        </main>
+        <aside>
+          <h2>Demos In This App</h2>
+          <ul>
+            {data.demos.map((demo: any) => (
+              <li key={demo.to} className="remix__page__resource">
+                <Link to={demo.to} prefetch="intent">
+                  {demo.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <h2>Resources</h2>
+          <ul>
+            {stateSource.posts.map((post: any) => (
+              <li key={post.id} className="remix__page__resource">
+                <Link to={post.slug} prefetch="intent">
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
+        </aside>
+      </div>
+      <div><button onClick={open}>OPen modal</button></div>
+    </Layout>
   );
 }
 

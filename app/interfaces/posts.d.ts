@@ -32,6 +32,19 @@ interface IFeaturedImage {
   sourceUrl?: string
   srcSet: null | string[]
 }
+interface IDownload{
+  etdmCampaign: string
+  etdmDescriptor: string
+  etdmFileSize: string
+  etdmFileType: string
+  etdmLink: string
+  etdmSsVersion: string
+  etdmTitle: string
+  etdmVersion: string
+}
+interface IDownloadManager {
+  downloads: IDownload[] | null
+}
 
 interface IPostRaw {
   author: {
@@ -58,6 +71,7 @@ interface IPostRaw {
   date: string
   excerpt: string
   seo: IPostSeo
+  downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
 }
 interface IPostSeo {
   fullHead: string
@@ -87,6 +101,7 @@ interface IPost {
   slug: string
   id: string
   seo:IPostSeo
+  downloadManager: IDownloadManager
 }
 
 interface IwpPageInfo {

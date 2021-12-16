@@ -1,7 +1,9 @@
 import { renderToString } from "react-dom/server";
 import { redirect, RemixServer } from 'remix'
 import type { EntryContext } from "remix";
+// import {manualRedirectLinks} from "./re"
 import * as fs from 'fs'
+import { manualRedirectLinks } from "../redirects/redirect";
 
 
 interface IPrettyLink {
@@ -30,9 +32,12 @@ export default function handleRequest(
   const file = fs.readFileSync('./public/wp-prettyLinks.json', 'utf8')
   let removeSlashAtBegining = url.pathname.slice(1)
   const data: IPrettyLinks = JSON.parse(file)
-  const foundRoute = data.links[`${removeSlashAtBegining}`]
+  const redirects = Object.assign(data.links, manualRedirectLinks.links);
 
-  if(!!foundRoute){
+  const foundRoute = redirects[`${removeSlashAtBegining}`]
+
+
+  if (!!foundRoute) {
     return redirect(foundRoute.redirectTo, {
       status: parseInt(foundRoute.status)
     })

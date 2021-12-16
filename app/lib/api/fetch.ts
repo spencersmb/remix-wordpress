@@ -7,6 +7,8 @@ import { QUERY_PAGE_BY_ID } from '../graphql/queries/pages'
 
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
 // const api_url = 'https://etheadless.local/graphql/'
+console.log(api_url);
+
 
 export async function fetchAPI(query: any, { variables }: any = {}) {
   const https = require("https");

@@ -427,7 +427,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.translate-x-\[-50\%\], .translate-y-\[-50\%\], .transform {
+.translate-x-\[-50\%\], .translate-y-\[-50\%\] {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -441,13 +441,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border, .border-0 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
-}
-
-.btn, .shadow-lg {
-  --tw-ring-offset-shadow: 0 0 #0000;
-  --tw-ring-shadow: 0 0 #0000;
-  --tw-shadow: 0 0 #0000;
-  --tw-shadow-colored: 0 0 #0000;
 }
 
 .focus\:ring-2 {
@@ -508,30 +501,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
-.btn {
-  border-radius: 0.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-weight: 600;
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.btn-sky {
-  --tw-bg-opacity: 1;
-  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.btn-sky:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(3 105 161 / var(--tw-bg-opacity));
-}
-
 .spencer{
   background: red;
   position: relative;
@@ -552,6 +521,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: absolute;
 }
 
+.top-1\/2 {
+  top: 50%;
+}
+
+.right-auto {
+  right: auto;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -560,33 +541,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0px;
 }
 
-.top-1\/2 {
-  top: 50%;
-}
-
-.left-1\/2 {
-  left: 50%;
-}
-
-.right-auto {
-  right: auto;
+.z-\[1100\] {
+  z-index: 1100;
 }
 
 .z-\[1050\] {
   z-index: 1050;
 }
 
-.z-\[1100\] {
-  z-index: 1100;
-}
-
 .m-auto {
   margin: auto;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .mt-10 {
@@ -625,12 +589,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
-.hidden {
-  display: none;
+.grid {
+  display: grid;
 }
 
-.h-24 {
-  height: 6rem;
+.hidden {
+  display: none;
 }
 
 .h-0 {
@@ -649,10 +613,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0px;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
 .translate-x-\[-50\%\] {
   --tw-translate-x: -50%;
   transform: var(--tw-transform);
@@ -663,38 +623,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: var(--tw-transform);
 }
 
-.transform {
-  transform: var(--tw-transform);
-}
-
 .flex-row {
   flex-direction: row;
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-0\.5 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.125rem * var(--tw-space-y-reverse));
-}
-
-.space-y-0 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0px * var(--tw-space-y-reverse));
-}
-
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
-.rounded-full {
-  border-radius: 9999px;
 }
 
 .rounded-lg {
@@ -717,19 +647,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 0px;
 }
 
-.border-purple-200 {
-  --tw-border-opacity: 1;
-  border-color: rgb(233 213 255 / var(--tw-border-opacity));
-}
-
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {
@@ -737,25 +657,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-indigo-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
-}
-
-.bg-slate-700\/20 {
-  background-color: rgb(51 65 85 / 0.2);
-}
-
-.bg-slate-700\/50 {
-  background-color: rgb(51 65 85 / 0.5);
-}
-
-.bg-slate-900\/50 {
-  background-color: rgb(15 23 42 / 0.5);
-}
-
-.bg-slate-900\/80 {
-  background-color: rgb(15 23 42 / 0.8);
 }
 
 .bg-slate-900 {
@@ -765,21 +674,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-8 {
   padding: 2rem;
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 .py-1 {
@@ -797,12 +691,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0.5rem;
 }
 
-.text-center {
-  text-align: center;
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .font-sentinel__SemiBoldItal {
   font-family: Sentinel SemiBoldItal, serif;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
 }
 
 .text-lg {
@@ -815,18 +715,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.25rem;
 }
 
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-.font-semibold {
-  font-weight: 600;
 }
 
 .font-medium {
@@ -839,21 +730,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .leading-8 {
   line-height: 2rem;
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
-.text-purple-600 {
-  --tw-text-opacity: 1;
-  color: rgb(147 51 234 / var(--tw-text-opacity));
 }
 
 .text-red-600 {
@@ -886,14 +762,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.opacity-0 {
-  opacity: 0;
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.shadow-lg {
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+.opacity-0 {
+  opacity: 0;
 }
 
 .outline-none {
@@ -973,23 +848,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
 }
 
-.hover\:border-transparent:hover {
-  border-color: transparent;
-}
-
-.hover\:bg-purple-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(147 51 234 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-indigo-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
-}
-
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .focus\:border-indigo-500:focus {
@@ -1008,58 +869,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-purple-600:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(147 51 234 / var(--tw-ring-opacity));
-}
-
 .focus\:ring-indigo-200:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(199 210 254 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-offset-2:focus {
-  --tw-ring-offset-width: 2px;
-}
-
-@media (min-width: 640px) {
-  .sm\:mx-0 {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  .sm\:flex {
-    display: flex;
-  }
-
-  .sm\:shrink-0 {
-    flex-shrink: 0;
-  }
-
-  .sm\:items-center {
-    align-items: center;
-  }
-
-  .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-y-reverse: 0;
-    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(0px * var(--tw-space-y-reverse));
-  }
-
-  .sm\:space-x-6 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-x-reverse: 0;
-    margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-    margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .sm\:py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .sm\:text-left {
-    text-align: left;
-  }
 }
 
 @media (min-width: 768px) {

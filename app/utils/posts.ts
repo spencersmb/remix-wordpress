@@ -38,6 +38,12 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
     });
   }
 
+  if(data.downloadManager?.downloads){
+    modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
+      return download.downloadDetails
+    })
+  }
+
   return modifiedData
 
 }
