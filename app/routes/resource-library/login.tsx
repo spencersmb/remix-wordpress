@@ -70,17 +70,9 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 
-type ActionData = {
-  formError?: string;
-  fieldErrors?: {
-    password: string | undefined;
-  };
-  fields?: {
-    password: string;
-  };
-};
 
-export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
+
+export let action: ActionFunction = async ({ request }): Promise<PasswordActionData | Response> => {
   let form = await request.formData();
   let password = form.get('password')
   // we do this type check to be extra sure and to make TypeScript happy
@@ -106,14 +98,14 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   const customHeaders = new Headers()
   customHeaders.append('Set-Cookie', await sessionStorage)
 
-  return redirect('/resource-library/members?login=true', {
-    headers: customHeaders
+  return redirect('/resource-library/members', {
+    headers: customHeaders,
   })
 
 }
 
 const ResourceLibraryLogin = () => {
-  let actionData = useActionData<ActionData | undefined>();
+  let actionData = useActionData<PasswordActionData | undefined>();
   return (
     <div>
       <h1>Login for Resource Library</h1>

@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash'
-import { redirect, json } from 'remix'
+import { redirect, json, Cookie } from 'remix'
 import { getPreviewPostPageServer, refreshJWT } from '../lib/api/fetch'
 import { Params } from 'react-router'
 import { isTokenExpired, refreshCurrentSession, requireAdminUserToken } from './session.server'
@@ -191,3 +191,22 @@ export const getPreviewRedirectUrl = ( request:Request ): string => {
       return '/login?postType=noPostTypeFound';
   }
 };
+
+export async function findCookie(request: Request, cookie: Cookie){
+  const cookieHeader = request.headers.get("Cookie");
+  const loginCookie = await cookie.parse(cookieHeader)
+  return !isEmpty(loginCookie);
+}
+export async function checkForCookieLogin(request: Request, cookie: Cookie, redirectTo: string){
+  if (!cookie) {
+    throw redirect(redirectTo);
+  }
+  const hasCookie = await findCookie(request, cookie)
+  console.log("hasCookie", hasCookie);
+  
+  if (!hasCookie) {
+    console.log("redirect", redirectTo);
+    throw redirect(redirectTo);
+  }
+  return true
+}

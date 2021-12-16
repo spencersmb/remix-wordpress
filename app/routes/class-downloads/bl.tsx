@@ -3,7 +3,7 @@ import { Outlet } from "remix"
 const Procreate5xBonuses = () => {
   return (
     <div>
-      Bonuses
+      Procreate 5x Skillshare Bonuses
       <Outlet />
     </div>
   )

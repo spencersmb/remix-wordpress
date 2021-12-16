@@ -74,7 +74,7 @@ interface IPostRaw {
   downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
 }
 interface IPostSeo {
-  fullHead: string
+  fullHead?: string
   title: string
   opengraphPublishedTime: string
   opengraphModifiedTime: string

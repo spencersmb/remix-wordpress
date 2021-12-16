@@ -1,23 +1,88 @@
-import { createCookie, json, LoaderFunction } from "remix"
+import { ActionFunction, createCookie, Form, json, LoaderFunction, redirect, useActionData } from "remix"
+import { procreateBonusCookie } from "~/cookies"
+import { findCookie } from "~/utils/loaderHelpers"
 
-export let loader: LoaderFunction = async () => {
-  const customHeaders = new Headers()
-  const userPrefs = createCookie("user-prefs", {
-    maxAge: 604_800 // one week
-  });
-  customHeaders.append('Set-Cookie', await userPrefs.serialize({
-    procreateBonus: 'spencer'
-  }))
-  return json({}, {
-    headers: customHeaders,
-  })
+export let loader: LoaderFunction = async ({ request }) => {
+  const hasCookie = await findCookie(request, procreateBonusCookie)
+  if (hasCookie) {
+    return redirect('/class-downloads/bl/members')
+  }
+
+  return json({})
 }
 
+export let action: ActionFunction = async ({ request }) => {
 
+  let form = await request.formData();
+  let password = form.get('password')
+  // we do this type check to be extra sure and to make TypeScript happy
+  // we'll explore validation next!
+  if (
+    typeof password !== "string"
+  ) {
+    return { formError: `Form not submitted correctly.` };
+  }
+
+  let fields = { password };
+  let fieldErrors = {
+    password: password !== process.env.PROCREATE_5X_PW ? `Incorrect Password` : undefined
+  };
+
+  if (Object.values(fieldErrors).some(Boolean))
+    return { fieldErrors, fields };
+
+
+  const customHeaders = new Headers()
+  customHeaders.append('Set-Cookie', await procreateBonusCookie.serialize({
+    procreateBonusLogin: true
+  }))
+  return redirect('/class-downloads/bl/members', {
+    headers: customHeaders,
+  })
+
+}
 const ProcreateBonusesLogin = () => {
+  let actionData = useActionData<PasswordActionData | undefined>();
   return (
     <div>
-      Login form
+      <Form method='post' className="mb-4" aria-describedby={
+        actionData?.formError
+          ? "form-error-message"
+          : undefined
+      }>
+        <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
+          Password:
+          <input
+            id="password-input"
+            type="password"
+            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            name="password"
+            aria-invalid={
+              Boolean(
+                actionData?.fieldErrors?.password
+              ) || undefined
+            }
+            aria-describedby={
+              actionData?.fieldErrors?.password
+                ? "password-error"
+                : undefined
+            }
+          />
+        </label>
+        {actionData?.fieldErrors?.password ? (
+          <p
+            className="form-validation-error"
+            role="alert"
+            id="password-error"
+          >
+            {actionData?.fieldErrors.password}
+          </p>
+        ) : null}
+
+        <button type='submit' className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+          Login
+        </button>
+      </Form>
     </div>
   )
 }

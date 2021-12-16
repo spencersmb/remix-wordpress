@@ -86,8 +86,8 @@ export let loader: LoaderFunction = async ({ request }) => {
     APP_ROOT_URL: process.env.APP_ROOT_URL,
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
   }
-  consoleHelper('Admin user', wpAdminSession.has('userId'))
-  consoleHelper('resourceUser', resourceUser)
+  // consoleHelper('Admin user', wpAdminSession.has('userId'))
+  // consoleHelper('resourceUser', resourceUser)
 
   return {
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
@@ -270,7 +270,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<any>();
-  console.log('ENV', data)
+  // console.log('ENV', data)
 
   return (
     <html lang="en">

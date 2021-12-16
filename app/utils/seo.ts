@@ -17,7 +17,13 @@ function createOgArticle(article: IOgArticle){
     'og:article:tags': article.tags.map(tag => tag.name).join(', '),
   }
 }
-export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTagsFunction & {location: Location}){
+export function getHtmlMetadataTags({
+  follow = true,
+  metadata, 
+  post, 
+  page, 
+  location
+}: IGetMetaTagsFunction & {location: Location}){
 
   let defaultImage = {
     altText: defaultSeoImages.generic.altText,
@@ -25,9 +31,11 @@ export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTa
     height: '1920',
     width: '1080'
   }
+  let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  let googleNoFollow = 'noindex,nofollow'
   const url = `${metadata.domain}${location.pathname}`
   let metadataTags: any = {
-    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'robots:': follow ? googleFollow : googleNoFollow,
     title: metadata.title,
     description: metadata.description,
     canonical: url,

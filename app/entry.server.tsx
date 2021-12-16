@@ -32,10 +32,9 @@ export default function handleRequest(
   const file = fs.readFileSync('./public/wp-prettyLinks.json', 'utf8')
   let removeSlashAtBegining = url.pathname.slice(1)
   const data: IPrettyLinks = JSON.parse(file)
+  // Add extra manual redirect outside of DB
   const redirects = Object.assign(data.links, manualRedirectLinks.links);
-
   const foundRoute = redirects[`${removeSlashAtBegining}`]
-
 
   if (!!foundRoute) {
     return redirect(foundRoute.redirectTo, {

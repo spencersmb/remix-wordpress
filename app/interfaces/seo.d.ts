@@ -97,6 +97,7 @@ interface IGetMetaTagsFunction{
   metadata: IMetaData
   post: IPost | null
   page: IPage | null
+  follow?: boolean
 }
 interface IOgImageType{
   width: string
