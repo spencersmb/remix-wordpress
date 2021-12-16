@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client"
-import { json, LoaderFunction } from "remix"
+import { json, LoaderFunction, redirect, useLoaderData } from "remix"
 import { fetchAPI } from "~/lib/api/fetch"
 import { getGraphQLString } from "~/utils/graphqlUtils"
 
@@ -9,17 +9,20 @@ export let loader: LoaderFunction = async ({ request }) => {
     let wpAPI = await fetchAPI(getGraphQLString(query))
     return json({
       user: true,
-      freebies: wpAPI.downloadGridBy,
-      filterTags: data.cptTags
+      freebies: wpAPI.downloadGridBy.grid.items,
+      filterTags: wpAPI.gridTags
     })
   } catch (e) {
-    console.error(`e in /resource-library`, e)
-    return redirect('/resource-library')
+    console.error(`e in /class-downloads/bl/members`, e)
+    return redirect('/class-downloads/bl/members')
   }
 
 }
 
 const Procreate5xBonuses = () => {
+  let data = useLoaderData()
+  console.log(data);
+
 
   return (
     <div>
@@ -30,18 +33,16 @@ const Procreate5xBonuses = () => {
 
 export default Procreate5xBonuses
 
+
 const query = gql`
-  gridTags(slug: "beautiful-lettering"){
-    name
-    slug
-  }
-  downloadGridBy(slug: "beautiful-lettering"){
+query ProcreateBonusGrid {
+  downloadGridBy(slug: "beautiful-lettering") {
     title
-    grid{
-      items{
+    grid {
+      items {
         title
         excerpt
-        image{
+        image {
           srcSet
           sourceUrl
         }
@@ -52,4 +53,9 @@ const query = gql`
       }
     }
   }
+  gridTags(slug: "beautiful-lettering"){
+    name
+    slug
+  }
+}
 `

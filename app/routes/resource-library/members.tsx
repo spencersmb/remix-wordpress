@@ -68,8 +68,6 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
   await requireResourceLibraryUser(request, '/resource-library')
 
   try {
-    // get Resource Library content
-    console.log('fetch freebies')
     let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
     return json({
       user: true,
@@ -91,9 +89,10 @@ const ResourceLibraryMembers = () => {
 
   const { state: { user }, resourecLibraryLogin } = useSite()
 
-  console.log('user Member', user);
 
-
+  /*
+  * Check for user when coming directly from the login page to make sure the user is passed to the global context.
+  */
   useEffect(() => {
     if (!user?.resourceUser) {
       resourecLibraryLogin()
