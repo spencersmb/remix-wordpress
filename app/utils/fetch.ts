@@ -1,9 +1,9 @@
-import { Auth, REFRESH_LOGIN } from '../graphql/mutations/auth'
+import { Auth, REFRESH_LOGIN } from '../lib/graphql/mutations/auth'
 import { v4 } from 'uuid';
 import https from 'https'
-import { consoleHelper } from '../../utils/windowUtils'
-import { QUERY_POST_BY_ID } from '../graphql/queries/posts'
-import { QUERY_PAGE_BY_ID } from '../graphql/queries/pages'
+import { consoleHelper } from './windowUtils'
+import { QUERY_POST_BY_ID } from '../lib/graphql/queries/posts'
+import { QUERY_PAGE_BY_ID } from '../lib/graphql/queries/pages'
 
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
 // const api_url = 'https://etheadless.local/graphql/'

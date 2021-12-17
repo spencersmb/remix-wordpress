@@ -86,7 +86,26 @@ export function getHtmlMetadataTags({
 
   if(page){
     metadataTags = {
-      ...metadataTags
+      ...metadataTags,
+      title: page.seo.title,
+      description: page.seo.metaDesc,
+      canonical: url,
+      'og:title': page.seo.title,
+      'og:type': 'article',
+      'og:description': page.seo.metaDesc,
+      ...createOgImages({
+        altText: page.featuredImage?.altText || defaultSeoImages.generic.altText,
+        url: page.featuredImage?.altText || defaultSeoImages.generic.altText,
+        width:'1920',
+        height: '1080'
+      }),
+      'twitter:card': `@${metadata.social.twitter.username}`,
+      'twitter:site': `@${metadata.social.twitter.username}`,
+      'twitter:creator': 'summary_large_image',
+      'twitter:label1': `Written by`,
+      'twitter:data1': `Teela`,
+      'twitter:label2': `Est. reading time`,
+      'twitter:data2': `1 minute`,
     }
   }
 

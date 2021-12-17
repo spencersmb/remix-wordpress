@@ -27,3 +27,15 @@ interface IResourceItem{
   title: string
   tags: IFilterTag[]
 }
+
+interface IGridItem{
+  downloadLink: string
+  excerpt: string
+  image: {
+    sourceUrl: string
+    srcSet: string
+  }
+  tags: Itag[]
+  title: string
+}
+

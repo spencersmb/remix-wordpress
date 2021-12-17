@@ -1,15 +1,13 @@
-import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useTransition } from 'remix'
-import { createResourceUserSession, getResourceUserToken } from '../../utils/resourceLibrarySession.server'
-import { v4 } from 'uuid'
-import { Layout } from '../../root'
-import ResourceLibraryNav from '../../components/resourceLibrary/resourceNav'
+import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from 'remix'
+import { getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { fetchAPI, fetchAPIClientSide } from '../../lib/api/fetch'
+import { fetchAPIClientSide } from '../../utils/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import { getHtmlMetadataTags } from '~/utils/seo'
+import { ckFormIds } from '~/lib/convertKit/formIds'
 
 
 export let meta: MetaFunction = (rootData): any => {
@@ -95,7 +93,8 @@ type ActionData = {
   };
   fields?: {
     email: string;
-  };
+  }
+  form?: string
 };
 
 function validateEmail(email: string) {
@@ -105,6 +104,7 @@ function validateEmail(email: string) {
   return 'You have entered an invalid email address!'
 }
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
+
   let form = await request.formData();
   let email = form.get('email')
   // we do this type check to be extra sure and to make TypeScript happy
@@ -121,18 +121,34 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   };
 
   consoleHelper('fieldErrors', fieldErrors)
+  const id = ckFormIds.tuesdayTribe.homePage
+  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
+  // Sign user up
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      api_key: process.env.CK_KEY,
+      email,
+    }),
+  })
 
-  return json({ form: 'success' })
+  const jsonRes = await res.json()
+
+  return json({ form: 'success', res: jsonRes })
 
 }
 
 const ResourceLibraryHome = () => {
+  let data = useLoaderData()
+  consoleHelper(data);
   let actionData = useActionData<ActionData | undefined>();
-  console.log(actionData);
 
   /*
   ON page load prefetch data query to speed things up
@@ -152,7 +168,7 @@ const ResourceLibraryHome = () => {
       formRef.current?.reset()
     }
   }, [transition])
-
+  consoleHelper('data.form !==', data.form)
   return (
     <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
       <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Resource Library Sign Up</h4>
@@ -162,12 +178,12 @@ const ResourceLibraryHome = () => {
       {/*    dangerouslySetInnerHTML={{ __html: sanitize( errorMessage ) }}*/}
       {/*  />*/}
       {/*)}*/}
-      <Form ref={formRef} method='post' className="mb-4" aria-describedby={
+      {actionData?.form !== 'success' && <Form ref={formRef} method='post' className="mb-4" aria-describedby={
         actionData?.formError
           ? "form-error-message"
           : undefined
       }>
-        <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="email-input" className="leading-7 text-sm text-gray-600">
           Email:
           <input
             id="email-input"
@@ -200,7 +216,13 @@ const ResourceLibraryHome = () => {
           Login
         </button>
         {/*{loading ? <p>Loading...</p> : null  }*/}
-      </Form>
+      </Form>}
+
+      {actionData?.form === 'success' && <div>
+        <h2>Sucess</h2>
+        <h3>Instructions</h3>
+        <p>Accept email </p>
+      </div>}
     </div>
   )
 }

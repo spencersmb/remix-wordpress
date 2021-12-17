@@ -11,6 +11,7 @@ interface IPageCore {
     name: string,
     slug: string
   }
+  featuredImage?: IFeaturedImage 
   date: string
   id: string
   slug: string,

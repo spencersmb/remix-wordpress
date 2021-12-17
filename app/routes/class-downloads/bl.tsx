@@ -1,11 +1,12 @@
 import { Outlet } from "remix"
+import { Layout } from "~/root"
 
 const Procreate5xBonuses = () => {
   return (
-    <div>
+    <Layout>
       Procreate 5x Skillshare Bonuses
       <Outlet />
-    </div>
+    </Layout>
   )
 }
 

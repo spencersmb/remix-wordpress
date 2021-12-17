@@ -23,6 +23,7 @@ interface IFeaturedImageNode {
 }
 interface Itag {
     name: string
+    slug: string
 }
 interface IFeaturedImage {
   altText: string

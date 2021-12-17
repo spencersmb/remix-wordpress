@@ -41,7 +41,7 @@ import { IFetchPaginationState } from './hooks/useFetchPagination'
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
-import { fetchAPI } from "./lib/api/fetch";
+import { fetchAPI } from "./utils/fetch";
 import { getGraphQLString } from "./utils/graphqlUtils";
 import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 import RemixLogo from "./components/svgs/remixLogo";
@@ -158,6 +158,7 @@ interface ISelectedMatch {
   data: RouteData;
   handle: any;
 }
+
 const JsonLd = () => {
   let data = useLoaderData<any>();
   if (!data) {

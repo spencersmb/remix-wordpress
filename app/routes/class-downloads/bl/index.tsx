@@ -1,6 +1,57 @@
-import { ActionFunction, createCookie, Form, json, LoaderFunction, redirect, useActionData } from "remix"
+import { ActionFunction, createCookie, Form, json, LoaderFunction, MetaFunction, redirect, useActionData } from "remix"
 import { procreateBonusCookie } from "~/cookies"
 import { findCookie } from "~/utils/loaderHelpers"
+import { getHtmlMetadataTags } from "~/utils/seo";
+
+
+export let meta: MetaFunction = (rootData): any => {
+
+  /*
+  rootData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = rootData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  const page: IPage = {
+    id: '25',
+    title: 'Procreate 5x Bonus Downloads',
+    author: {
+      id: '25',
+      name: 'Teela',
+      avatar: {
+        url: '',
+        width: 24,
+        height: 24
+      },
+      slug: 'teela'
+    },
+    slug: 'bl',
+    content: '',
+    date: '',
+    seo: {
+      title: 'Procreate 5x Bonus Downloads - Every Tuesday',
+      metaDesc: 'Procreate 5x Bonus Downloads members only access!',
+      opengraphModifiedTime: '',
+      opengraphPublishedTime: '',
+      readingTime: '3min'
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: null,
+    page,
+    location
+  })
+};
 
 export let loader: LoaderFunction = async ({ request }) => {
   const hasCookie = await findCookie(request, procreateBonusCookie)

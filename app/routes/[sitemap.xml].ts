@@ -1,5 +1,5 @@
 import prettier from 'prettier';
-import { fetchAPI } from '../lib/api/fetch'
+import { fetchAPI } from '../utils/fetch'
 import { LoaderFunction } from 'remix'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '../utils/graphqlUtils'

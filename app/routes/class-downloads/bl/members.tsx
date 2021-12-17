@@ -1,11 +1,13 @@
 import { gql } from "@apollo/client"
-import { Cookie, createCookie, json, LoaderFunction, redirect, useLoaderData } from "remix"
-import { fetchAPI } from "~/lib/api/fetch"
+import { json, LoaderFunction, MetaFunction, redirect, useLoaderData } from "remix"
+import { fetchAPI } from "~/utils/fetch"
 import { getGraphQLString } from "~/utils/graphqlUtils"
 import { procreateBonusCookie } from "~/cookies"
 import { checkForCookieLogin } from "~/utils/loaderHelpers"
 import { getHtmlMetadataTags } from "~/utils/seo"
-
+import useFreebies from "~/hooks/useFreebies"
+import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
+import GridItem from "~/components/gridDownloads/gridItem"
 
 
 export let meta: MetaFunction = (rootData): any => {
@@ -73,14 +75,30 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
 
 }
-
+interface ILoaderData {
+  freebies: IGridItem[]
+  filterTags: IFilterTag[]
+}
 const Procreate5xBonuses = () => {
-  let data = useLoaderData()
-  console.log(data);
+  let data = useLoaderData<ILoaderData>()
+
+  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IGridItem[]>({ items: data.freebies })
 
   return (
     <div>
-      Logged In
+      <div>Logged In</div>
+      <FreebieFilter
+        filterTags={data.filterTags}
+        selectedFilter={filter}
+        handleClick={handleFilterClick}
+      />
+      <div>
+        {posts
+          .map(item => (<GridItem key={item.title} {...item} />))}
+      </div>
+      <div>
+        {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+      </div>
     </div>
   )
 }

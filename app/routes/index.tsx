@@ -1,23 +1,21 @@
-import type { MetaFunction, LoaderFunction } from "remix";
-import { useLoaderData, json, Link, HeadersFunction } from 'remix'
-import { QUERY_NEXT_POSTS } from '../lib/graphql/queries/posts'
+import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
+import { useLoaderData, Link } from 'remix'
 import { flattenAllPosts } from '../utils/posts'
-import { fetchAPI } from '../lib/api/fetch'
-import { Document, Layout } from '../root'
+import { fetchAPI } from '../utils/fetch'
+import { Layout } from '../root'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
 import { Simulate } from 'react-dom/test-utils'
 import input = Simulate.input
-import { async } from 'rxjs'
 import useSite from '../hooks/useSite'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
-// export const headers: HeadersFunction = ({loaderHeaders}) => {
-//   return {
-//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
-//   }
-// }
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+  }
+}
 
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData
