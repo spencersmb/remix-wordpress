@@ -13,5 +13,16 @@ export const procreateBonusCookie = createCookie(procreateCookieName, {
   httpOnly: true,
   sameSite: "lax",
   secrets: [sessionSecret],
+  secure: true  
+});
+
+const miniCourseName = "et-lfm-mcc"
+export const lfmMiniCourseCookie = createCookie(miniCourseName, {
+  maxAge: 604_800, // one week
+  path: '/',
+  expires: new Date(Date.now() + 60),
+  httpOnly: true,
+  sameSite: "lax",
+  secrets: [sessionSecret],
   secure: true
 });

@@ -12,6 +12,10 @@ processes = []
   PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
   WORDPRESS_DB = "https://etheadless.wpengine.com/wp-admin"
   SESSION_SECRET = "1234"
+  RESOURCE_LIBRARY_PW = "asdf"
+  PROCREATE_5X_PW = "1234"
+  CK_KEY = "xcho9pLm3lH9n0mIpQY2VA"
+  CK_SECRET = "26TJNlDD_RIOmkymXlEJRkj9wQZuA5UdqoepM1F4fx4"
 
 [experimental]
   allowed_public_ports = []

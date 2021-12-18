@@ -8,6 +8,7 @@ import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import { getHtmlMetadataTags } from '~/utils/seo'
 import { ckFormIds } from '~/lib/convertKit/formIds'
+import { validateEmail } from '~/utils/validation'
 
 
 export let meta: MetaFunction = (rootData): any => {
@@ -97,12 +98,7 @@ type ActionData = {
   form?: string
 };
 
-function validateEmail(email: string) {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-    return undefined
-  }
-  return 'You have entered an invalid email address!'
-}
+
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
 
   let form = await request.formData();
@@ -127,21 +123,23 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
-  // Sign user up
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      api_key: process.env.CK_KEY,
-      email,
-    }),
-  })
+  try {
+    // Sign user up
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: process.env.CK_KEY,
+        email,
+      }),
+    })
 
-  const jsonRes = await res.json()
-
-  return json({ form: 'success', res: jsonRes })
+    return json({ form: 'success' })
+  } catch (e) {
+    return json({ form: 'fail' })
+  }
 
 }
 
@@ -212,8 +210,12 @@ const ResourceLibraryHome = () => {
           </p>
         ) : null}
 
-        <button type='submit' className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-          Login
+        <button
+          disabled={transition.state !== 'idle'}
+          aria-disabled={transition.state !== 'idle'}
+          type='submit'
+          className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+          {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
         </button>
         {/*{loading ? <p>Loading...</p> : null  }*/}
       </Form>}

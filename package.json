@@ -24,8 +24,9 @@
   "dependencies": {
     "@apollo/client": "^3.5.6",
     "@reduxjs/toolkit": "^1.6.2",
-    "@remix-run/react": "^1.0.5",
-    "@remix-run/serve": "^1.0.5",
+    "@remix-run/node": "^1.1.1",
+    "@remix-run/react": "^1.1.1",
+    "@remix-run/serve": "^1.1.1",
     "@types/prettier": "^2.4.2",
     "@types/rss": "0.0.29",
     "cross-env": "^7.0.3",
@@ -42,13 +43,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
-    "remix": "^1.0.5",
+    "remix": "^1.1.1",
     "rss": "^1.2.2",
     "uuid": "^8.3.2",
     "xstate": "^4.26.1"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.0.5",
+    "@remix-run/dev": "^1.1.1",
     "@types/lodash": "^4.14.177",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.24",

@@ -212,7 +212,7 @@ export default function Index() {
     <Layout>
       <div className="remix__page">
         <main>
-          <h2 className="font-sentinel__SemiBoldItal text-6xl">Welcome to Remix! Staging 3</h2>
+          <h2 className="font-sentinel__SemiBoldItal text-6xl sky">Welcome to Remix! Staging 3</h2>
           <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
           <p>
             Feel free to take a look around the code to see how Remix does things,

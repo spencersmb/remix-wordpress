@@ -192,10 +192,13 @@ export const getPreviewRedirectUrl = ( request:Request ): string => {
   }
 };
 
-export async function findCookie(request: Request, cookie: Cookie){
+export async function findCookie<T>(request: Request, cookie: Cookie): Promise<{hasCookie: boolean, data: T}>{
   const cookieHeader = request.headers.get("Cookie");
   const loginCookie = await cookie.parse(cookieHeader)
-  return !isEmpty(loginCookie);
+  return {
+    hasCookie: !isEmpty(loginCookie),
+    data: {...loginCookie}
+  };
 }
 export async function checkForCookieLogin(request: Request, cookie: Cookie, redirectTo: string){
   if (!cookie) {

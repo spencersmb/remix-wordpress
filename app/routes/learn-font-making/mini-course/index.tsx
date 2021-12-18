@@ -1,9 +1,10 @@
-import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useTransition } from "remix";
-import { v4 } from "uuid";
-import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
-import { getHtmlMetadataTags } from "~/utils/seo";
-import { validateEmail } from "~/utils/validation";
-import { consoleHelper } from "~/utils/windowUtils";
+import React from 'react'
+import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, useActionData, useTransition } from 'remix'
+import { lfmMiniCourseCookie } from '~/cookies.server';
+import { ckFormIds } from '~/lib/convertKit/formIds';
+import { getHtmlMetadataTags } from '~/utils/seo';
+import { validateEmail } from '~/utils/validation';
+import { consoleHelper } from '~/utils/windowUtils';
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -19,8 +20,8 @@ export let meta: MetaFunction = (rootData): any => {
   }
 
   const page: IPage = {
-    id: '24',
-    title: 'Resource Library: Login',
+    id: '227',
+    title: 'Learn Font Making: Mini Course SignUp',
     author: {
       id: '22',
       name: 'Teela',
@@ -35,9 +36,8 @@ export let meta: MetaFunction = (rootData): any => {
     content: '',
     date: '',
     seo: {
-      title: 'Resource Library: Login - Every Tuesday',
-      metaDesc: 'Resource Library members only access with over 200+ assets for free!',
-      fullHead: '',
+      title: 'Learn Font Making: Mini Course SignUp - Every Tuesday',
+      metaDesc: 'Learn Font Making: Mini Course SignUp!',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
       readingTime: '3min'
@@ -56,33 +56,11 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-
-  const page = {
-    title: 'Resource Library Login',
-    slug: 'resource-library-login',
-    description: 'A jam packed resource library of design + lettering files',
-    seo: {
-      title: 'Resource Library Login- Every Tuesday',
-      opengraphModifiedTime: '',
-      metaDesc: 'When you join the Tuesday Tribe, you’ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more.'
-    }
-  }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
-};
-
-type ActionData = {
-  formError?: string;
-  subscriberError?: string
-  fieldErrors?: {
-    email: string | undefined;
-  };
-  fields?: {
-    email: string;
-  }
-  form?: string
+  return json({})
 };
 
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
+
   let form = await request.formData();
   let email = form.get('email')
   // we do this type check to be extra sure and to make TypeScript happy
@@ -98,41 +76,52 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     email: validateEmail(email)
   };
 
+  consoleHelper('fieldErrors', fieldErrors)
+  const id = ckFormIds.miniCourse.signUp
+  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
+
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
-  const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
+  // Sign user up
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: process.env.CK_KEY,
+        email,
+      }),
+    })
 
-  const result = await res.json()
-  // return json({ form: result })
-
-  if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
-    return { subscriberError: `Sorry, Email invalid.` };
+    return json({ form: 'success' })
+  } catch (e) {
+    return json({ form: 'fail' })
   }
-  let userId = v4()
-  let sessionStorage = createResourceUserSession(userId)
-  const customHeaders = new Headers()
-  customHeaders.append('Set-Cookie', await sessionStorage)
-
-  return redirect('/resource-library/members', {
-    headers: customHeaders,
-  })
 
 }
 
-const ResourceLibraryLogin = () => {
+type ActionData = {
+  formError?: string;
+  subscriberError?: string
+  fieldErrors?: {
+    email: string | undefined;
+  };
+  fields?: {
+    email: string;
+  }
+  form?: string
+};
+
+function LfmMiniCourseSignUp() {
   let actionData = useActionData<ActionData | undefined>();
-  consoleHelper('actionData', actionData)
   const transition = useTransition()
+
   return (
     <div>
-      <h1>SignUp for Learn Font Making Mini Course</h1>
+      MiniCourse Sign Up Page
       <Form method='post' className="mb-4" aria-describedby={
         actionData?.formError
           ? "form-error-message"
@@ -172,12 +161,19 @@ const ResourceLibraryLogin = () => {
           aria-disabled={transition.state !== 'idle'}
           type='submit'
           className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-          {transition.state === 'idle' ? 'Login' : '...Loading'}
+          {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
         </button>
       </Form>
-      {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Resouce Library <Link to={`/resource-library`}>here</Link></p></div>}
+      {actionData?.form === 'success' && <div>
+        <h2>Sucess</h2>
+        <h3>Instructions</h3>
+        <p>Accept email </p>
+      </div>}
+      <div>
+        <Link to='/learn-font-making/mini-course/video1'>Video 1</Link>
+      </div>
     </div>
   )
 }
 
-export default ResourceLibraryLogin
+export default LfmMiniCourseSignUp

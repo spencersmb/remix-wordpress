@@ -1,5 +1,5 @@
 import { ActionFunction, createCookie, Form, json, LoaderFunction, MetaFunction, redirect, useActionData } from "remix"
-import { procreateBonusCookie } from "~/cookies"
+import { procreateBonusCookie } from "~/cookies.server"
 import { findCookie } from "~/utils/loaderHelpers"
 import { getHtmlMetadataTags } from "~/utils/seo";
 
@@ -54,7 +54,7 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  const hasCookie = await findCookie(request, procreateBonusCookie)
+  const { hasCookie } = await findCookie(request, procreateBonusCookie)
   if (hasCookie) {
     return redirect('/class-downloads/bl/members')
   }
@@ -92,6 +92,7 @@ export let action: ActionFunction = async ({ request }) => {
   })
 
 }
+
 const ProcreateBonusesLogin = () => {
   let actionData = useActionData<PasswordActionData | undefined>();
   return (
