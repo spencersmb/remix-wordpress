@@ -123,7 +123,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function App() {
   let { menus, metadata, user, message } = useLoaderData<any>();
   consoleHelper('user', user)
-  consoleHelper('message', message)
+  console.log('message', message)
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
