@@ -5,12 +5,9 @@ import { Layout } from '~/root'
 import { findCookie } from '~/utils/loaderHelpers'
 import { consoleHelper } from '~/utils/windowUtils'
 export interface IlfmMiniCourseCookie {
-  hasCookie: boolean
-  data: {
-    video1: boolean
-    video2: boolean
-    video3: boolean
-  }
+  video1: boolean
+  video2: boolean
+  video3: boolean
 }
 export let loader: LoaderFunction = async ({ request }) => {
   // TODO: GET COOKIE DATA FUNCTION
@@ -30,9 +27,8 @@ interface IDataType {
 }
 function LfmMiniCourse(props: any) {
   const { data }: IDataType = useLoaderData()
-  consoleHelper('data wrapper', data)
   return (
-    <Layout>
+    <div>
       <nav>
         <ul className='flex flex-row'>
           <li>
@@ -50,7 +46,10 @@ function LfmMiniCourse(props: any) {
         </ul>
       </nav>
       <Outlet context={{ cookie: { ...data } }} />
-    </Layout>
+      <footer>
+        LFM MiniCourse Footer
+      </footer>
+    </div>
   )
 }
 

@@ -1,5 +1,5 @@
 import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
-import { useLoaderData, Link } from 'remix'
+import { useLoaderData, Link, ActionFunction } from 'remix'
 import { flattenAllPosts } from '../utils/posts'
 import { fetchAPI } from '../utils/fetch'
 import { Layout } from '../root'
@@ -9,6 +9,10 @@ import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagina
 import { Simulate } from 'react-dom/test-utils'
 import input = Simulate.input
 import useSite from '../hooks/useSite'
+import { validateEmail } from '~/utils/validation'
+import { consoleHelper } from '~/utils/windowUtils'
+import { ckFormIds } from '~/lib/convertKit/formIds'
+import { getSession } from '~/sessions.server'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -44,7 +48,8 @@ type IndexData = {
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
-export let loader: LoaderFunction = async () => {
+export let loader: LoaderFunction = async ({request}) => {
+
   let data: IndexData = {
     resources: [
       {
@@ -97,6 +102,51 @@ export let loader: LoaderFunction = async () => {
   }
 };
 
+export let action: ActionFunction = async ({ request }): Promise<any | Response> => {
+
+  let form = await request.formData();
+  let email = form.get('email')
+  // we do this type check to be extra sure and to make TypeScript happy
+  // we'll explore validation next!
+  if (
+    typeof email !== "string"
+  ) {
+    return { formError: `Form not submitted correctly.` };
+  }
+
+  let fields = { email };
+  let fieldErrors = {
+    email: validateEmail(email)
+  };
+
+  consoleHelper('fieldErrors', fieldErrors)
+  const id = ckFormIds.resourceLibrary.landingPage
+  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
+
+  if (Object.values(fieldErrors).some(Boolean))
+    return { fieldErrors, fields };
+  //
+  // try {
+  //   // Sign user up
+  //   const res = await fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       api_key: process.env.CK_KEY,
+  //       email,
+  //     }),
+  //   })
+  //
+  //   return json({ form: 'success' })
+  // } catch (e) {
+  //   return json({ form: 'fail' })
+  // }
+  return {value: 'string'}
+
+}
+
 function TestModal() {
   return (
     <div>Template Modal</div>
@@ -105,6 +155,7 @@ function TestModal() {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
+
   const { state, addPostsAction, loadingPosts } = useFetchPaginate()
   const { openModal, closeModal } = useSite()
 

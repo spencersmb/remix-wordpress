@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  json,
   Link,
   Links,
   LiveReload, LoaderFunction,
@@ -45,6 +46,8 @@ import { fetchAPI } from "./utils/fetch";
 import { getGraphQLString } from "./utils/graphqlUtils";
 import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 import RemixLogo from "./components/svgs/remixLogo";
+import FooterPrimary from '~/components/footer/FooterPrimary'
+import { commitSession, getSession } from '~/sessions.server'
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -72,6 +75,9 @@ export let links: LinksFunction = () => {
  Root Loader for the global App state
  */
 export let loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(
+    request.headers.get("Cookie")
+  );
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
   let wpAdminUser = wpAdminSession.has('userId') ? {
@@ -88,8 +94,12 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
   // consoleHelper('Admin user', wpAdminSession.has('userId'))
   // consoleHelper('resourceUser', resourceUser)
+  const ses = session.get("globalMessage")
+  const message = ses || null;
+  console.log('session', message)
 
-  return {
+  return json({
+    message,
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
     metadata,
     user: {
@@ -97,7 +107,12 @@ export let loader: LoaderFunction = async ({ request }) => {
       resourceUser: Boolean(resourceUser)
     },
     ENV,
-  };
+   },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      },
+    });
 };
 
 /**
@@ -106,8 +121,9 @@ export let loader: LoaderFunction = async ({ request }) => {
  * component for your app.
  */
 export default function App() {
-  let { menus, metadata, user } = useLoaderData<any>();
+  let { menus, metadata, user, message } = useLoaderData<any>();
   consoleHelper('user', user)
+  consoleHelper('message', message)
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
@@ -342,6 +358,7 @@ export const PrimaryNav = () => {
 interface ILayoutProps {
   alternateNav?: ReactNode
 }
+
 export function Layout({ children, alternateNav }: React.PropsWithChildren<{}> & ILayoutProps) {
   return (
     <div className="remix-app">
@@ -356,11 +373,7 @@ export function Layout({ children, alternateNav }: React.PropsWithChildren<{}> &
       <div className="remix-app__main">
         <div className="container remix-app__main-content">{children}</div>
       </div>
-      <footer className="remix-app__footer">
-        <div className="container remix-app__footer-content">
-          <p>&copy; You!</p>
-        </div>
-      </footer>
+      <FooterPrimary />
     </div>
   );
 }

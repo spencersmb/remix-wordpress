@@ -19,7 +19,7 @@ export let loader: LoaderFunction = async ({request}) => {
         video1: true,
         video2: true
       }))
-      return redirect('/learn-font-making/mini-course/video1', {
+      return redirect('/learn-font-making/mini-course/video2', {
         headers: customHeaders
       })
     case '3':
@@ -28,7 +28,7 @@ export let loader: LoaderFunction = async ({request}) => {
         video2: true,
         video3: true
       }))
-      return redirect('/learn-font-making/mini-course/video1', {
+      return redirect('/learn-font-making/mini-course/video3', {
         headers: customHeaders
       })
     default:

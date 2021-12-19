@@ -55,8 +55,10 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
-  // check for video 1 cookie
-  const { hasCookie, data }: IlfmMiniCourseCookie = await findCookie(request, lfmMiniCourseCookie)
+  /*
+  * Find and get the cookie with its value
+  */
+  const { hasCookie, data } = await findCookie<IlfmMiniCourseCookie>(request, lfmMiniCourseCookie)
   if (!hasCookie || !data.video2) {
     return redirect('/learn-font-making/mini-course')
   }

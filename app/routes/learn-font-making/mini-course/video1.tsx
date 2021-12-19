@@ -1,9 +1,7 @@
-import React from 'react'
-import { json, LoaderFunction, MetaFunction, redirect, useLoaderData, useMatches, useOutletContext } from 'remix'
+import { json, LoaderFunction, MetaFunction, redirect, useLoaderData, useOutletContext } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server'
 import { findCookie } from '~/utils/loaderHelpers'
 import { getHtmlMetadataTags } from '~/utils/seo'
-import { consoleHelper } from '~/utils/windowUtils'
 import { IlfmMiniCourseCookie } from '../mini-course'
 
 export let meta: MetaFunction = (rootData): any => {
@@ -56,8 +54,10 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
-  // check for video 1 cookie
-  const { hasCookie, data }: IlfmMiniCourseCookie = await findCookie(request, lfmMiniCourseCookie)
+  /*
+  * Find and get the cookie with its value
+  */
+  const { hasCookie, data } = await findCookie<IlfmMiniCourseCookie>(request, lfmMiniCourseCookie)
   if (!hasCookie || !data.video1) {
     return redirect('/learn-font-making/mini-course')
   }
