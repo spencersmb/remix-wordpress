@@ -23,6 +23,7 @@ interface IFeaturedImageNode {
 }
 interface Itag {
     name: string
+    slug: string
 }
 interface IFeaturedImage {
   altText: string
@@ -31,6 +32,19 @@ interface IFeaturedImage {
   sizes: string
   sourceUrl?: string
   srcSet: null | string[]
+}
+interface IDownload{
+  etdmCampaign: string
+  etdmDescriptor: string
+  etdmFileSize: string
+  etdmFileType: string
+  etdmLink: string
+  etdmSsVersion: string
+  etdmTitle: string
+  etdmVersion: string
+}
+interface IDownloadManager {
+  downloads: IDownload[] | null
 }
 
 interface IPostRaw {
@@ -58,9 +72,10 @@ interface IPostRaw {
   date: string
   excerpt: string
   seo: IPostSeo
+  downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
 }
 interface IPostSeo {
-  fullHead: string
+  fullHead?: string
   title: string
   opengraphPublishedTime: string
   opengraphModifiedTime: string
@@ -87,6 +102,7 @@ interface IPost {
   slug: string
   id: string
   seo:IPostSeo
+  downloadManager: IDownloadManager
 }
 
 interface IwpPageInfo {

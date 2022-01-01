@@ -1,6 +1,12 @@
 import { useSiteReducer } from './useSiteReducer'
-import { ReactChildren, ReactElement, useReducer } from 'react'
+import { ReactElement, useReducer } from 'react'
 import { ISiteContextState, SiteContext } from './index'
+
+/**
+ * @Component UseSiteProvider
+ *
+ * Primary component to provide context to the whole app for things like Navs, Modals, Users
+ */
 
 interface IProps {
   children?: ReactElement,

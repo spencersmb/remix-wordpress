@@ -1,6 +1,5 @@
 import {
   ActionFunction,
-  createCookie, createCookieSessionStorage,
   Form,
   LoaderFunction, MetaFunction,
   redirect,
@@ -11,18 +10,16 @@ import {
 import { Layout } from '../root'
 import * as React from 'react'
 import {
-  getIDParamName,
-  getPreviewRedirectUrl,
+  getPreviewRedirectUrlFromParams,
   getPreviewUrlParams,
-  previewUrlParams
-} from '../lib/utils/loaderHelpers'
-import { logUserInJWT } from '../lib/api/fetch'
+} from '../utils/loaderHelpers'
+import { logUserInJWT } from '../utils/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { getHtmlMetadataTags } from '../lib/utils/seo'
-
+import { getHtmlMetadataTags } from '../utils/seo'
 
 export let meta: MetaFunction = (metaData): any => {
-  const {data, location, parentsData} = metaData
+  const { data, location, parentsData } = metaData
+
   // hardcoded Page
   const page: IPage = {
     id: '24',
@@ -30,8 +27,8 @@ export let meta: MetaFunction = (metaData): any => {
     author: {
       id: '23',
       name: 'Teela',
-      avatar:{
-        url:'',
+      avatar: {
+        url: '',
         width: 24,
         height: 24
       },
@@ -43,15 +40,14 @@ export let meta: MetaFunction = (metaData): any => {
     seo: {
       title: 'Login - Every Tuesday',
       metaDesc: 'Login Page for Every-Tuesday.com',
-      fullHead:'',
+      fullHead: '',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
       readingTime: '1min'
     }
   }
 
-
-  if(!data || !parentsData || !location){
+  if (!data || !parentsData || !location) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data'
@@ -66,20 +62,19 @@ export let meta: MetaFunction = (metaData): any => {
   })
 }
 
-export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
-  const {id, previewType, url} = previewUrlParams(request)
+export let loader: LoaderFunction = async ({ request }): Promise<IDataType> => {
+  const { id, postType, url } = getPreviewUrlParams(request)
 
   return {
     params: {
       id,
-      postType: previewType,
+      postType,
       url
     }
   }
 }
 
-// redo TYPES HERE for PROMiSE
-export let action: ActionFunction = async ({request}): Promise<ActionData | Response> => {
+export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
   let form = await request.formData();
   let password = form.get('password')
   let username = form.get('username')
@@ -93,12 +88,12 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
   }
 
   let fields = { password, username };
-  let fieldErrors: {password: string | undefined, username: string | undefined} = {
+  let fieldErrors: { password: string | undefined, username: string | undefined } = {
     password: undefined,
     username: undefined
   };
 
-  if(password.length < 4){
+  if (password.length < 4) {
     fieldErrors = {
       password: `Password length too small`,
       username: undefined
@@ -106,12 +101,11 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     return { fieldErrors, fields };
   }
 
-  try{
-
-    const response = await logUserInJWT({username, password})
+  try {
+    const response = await logUserInJWT({ username, password })
     const serverRes = await response.json()
 
-    if(serverRes.errors){
+    if (serverRes.errors) {
       return {
         fields,
         formError: `Username/Password combination is incorrect`
@@ -120,9 +114,9 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
 
     let token: IAuthToken = {
       expires: setFutureDate(),
-      token: String( serverRes.data.login.authToken ),
-      refresh: String( serverRes.data.login.refreshToken ),
-      cmid: String( serverRes.data.login.clientMutationId )
+      token: String(serverRes.data.login.authToken),
+      refresh: String(serverRes.data.login.refreshToken),
+      cmid: String(serverRes.data.login.clientMutationId)
     }
 
     let user: IUser = serverRes.data.login.user
@@ -130,28 +124,27 @@ export let action: ActionFunction = async ({request}): Promise<ActionData | Resp
     const sessionStorage = createUserSession(user.id, token)
     const customHeaders = new Headers()
     customHeaders.append('Set-Cookie', await sessionStorage)
+    const { id, postType } = getPreviewUrlParams(request)
 
-    const {id, postType} = getPreviewUrlParams(request)
-
-    if(!id || !postType){
+    if (!id || !postType) {
       return redirect(process.env.WORDPRESS_DB || '/', {
-        headers:customHeaders
+        headers: customHeaders
       })
     }
 
-    const redirectUrl = getPreviewRedirectUrl(postType, id)
+    const redirectUrl = getPreviewRedirectUrlFromParams(postType, id)
 
-    return redirect(redirectUrl,{
-      headers:customHeaders
+    return redirect(redirectUrl, {
+      headers: customHeaders
     })
-  }catch (e){
+  } catch (e) {
     return { formError: `Form error: ${e}` };
   }
 }
 
 interface IDataType {
-  params:{
-    id: string | null
+  params: {
+    id: string | undefined
     postType: string | null
     url: URL
   }
@@ -169,11 +162,10 @@ type ActionData = {
 };
 
 const Login = () => {
-  let actionData = useActionData< ActionData | undefined>();
-  let {params} = useLoaderData<IDataType>()
+  let actionData = useActionData<ActionData | undefined>();
+  let { params } = useLoaderData<IDataType>()
   let transition = useTransition();
-  let idParamName = getIDParamName(params.postType)
-  let action = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : '/login'
+  let action = params.postType ? `/login?postType=${params.postType}&postId=${params.id}` : '/login'
 
   return (
     <Layout>
@@ -186,14 +178,14 @@ const Login = () => {
           />
         )}
         <Form method='post'
-              action={action}
-              aria-disabled={transition.state !== 'idle'}
-              className="mb-4"
-              aria-describedby={
-                actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
-                  ? "form-error-message"
-                  : undefined
-              }>
+          action={action}
+          aria-disabled={transition.state !== 'idle'}
+          className="mb-4"
+          aria-describedby={
+            actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
+              ? "form-error-message"
+              : undefined
+          }>
           <div>
             <label className="leading-7 text-sm text-gray-600" htmlFor="username-input">Username</label>
             <input
