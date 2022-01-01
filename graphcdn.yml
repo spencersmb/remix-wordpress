@@ -10,5 +10,4 @@ rules:
     swr: 900
     description: Cache everything (default)
 name: etheadless
-originUrl: 'https://etheadless.wpengine.com/graphql/'
-
+originUrl: 'https://api.every-tuesday.com/graphql/'

@@ -329,11 +329,11 @@ export function Document({ children, title }: IDocument) {
         {data && data.ENV && <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
-              // data.ENV
-              {
-                PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
-                APP_ROOT_URL: 'http://localhost:3000'
-              }
+              data.ENV
+              // {
+              //   PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
+              //   APP_ROOT_URL: 'http://localhost:3000'
+              // }
             )}`
           }}
         />}

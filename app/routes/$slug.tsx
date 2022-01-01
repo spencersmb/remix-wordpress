@@ -60,7 +60,7 @@ export default function PostDetailPage() {
   // May not need this once we edit the tuts
   useEventListenerQueryAll('.tt-freebie-download.tt-modal-trigger', triggerStyleStudies)
 
-  // REMOVE
+  // TODO: REMOVE
   function triggerStyleStudies(e: any) {
     e.preventDefault();
     const data = JSON.parse(e.currentTarget.getAttribute('data-params'))
@@ -74,9 +74,10 @@ export default function PostDetailPage() {
   }
 
   function handleCommentsClick(){
+    console.log('post.comments', post.comments)
+    
     showComments({comments: post.comments})
   }
-
 
   return (
     <Layout>

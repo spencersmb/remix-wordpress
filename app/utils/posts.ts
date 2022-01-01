@@ -51,7 +51,7 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
   }
 
   if(data.comments){
-    modifiedData.coments = data.comments.edges.map(({ node }) => {
+    modifiedData.comments = data.comments.edges.map(({ node }) => {
       return {
         ...node,
         author: node.author.node
