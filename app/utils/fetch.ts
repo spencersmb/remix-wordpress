@@ -9,6 +9,25 @@ const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : 
 // const api_url = 'https://etheadless.local/graphql/'
 // console.log(api_url);
 
+export async function fetchConvertKitSignUp({email, id}: {email: string, id: string}){
+  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      api_key: process.env.CK_KEY,
+      email,
+    }),
+  })
+  const json = await res.json()
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json
+}
 
 export async function fetchAPI(query: any, { variables }: any = {}) {
   const https = require("https");

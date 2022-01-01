@@ -4,7 +4,7 @@ interface ICKFormIds {
     // homepage: string
   },
   resourceLibrary:{
-    // footer: string,
+    footer: string,
     // aboutPage: string,
     // blogWidget: string,
     // freebieWidget: string,
@@ -25,12 +25,12 @@ export const ckFormIds: ICKFormIds = {
     // homepage: '1034740'
   },
   resourceLibrary:{
-    // footer: '969010',
+    footer: '2855591',
     // aboutPage: '969013',
     // blogWidget: '969014',
     // freebieWidget: '969015',
     // homePage: '2850591',
-    landingPage: '969011',
+    landingPage: '2850591',
     // sidebar: '969012'
   },
   styleStudies:{

@@ -62,7 +62,10 @@ export let action: ActionFunction = async ({ request }) => {
 
   session.flash(
     "globalMessage",
-    `Project successfully archived`
+    {
+      status: 'success',
+      message: `Project successfully archived`
+    }
   );
   //
   // try {
@@ -88,7 +91,7 @@ export let action: ActionFunction = async ({ request }) => {
   //     "Set-Cookie": await commitSession(session)
   //   },
   // })
-  console.log('ref action' ,request.headers.get("Referer"))
+  // console.log('ref action' ,request.headers.get("Referer"))
   return redirectBack(request,
     {
       headers: {
