@@ -1,21 +1,16 @@
-// app/sessions.js
 import {
-  createCookie,
-  createFileSessionStorage
-} from "remix";
-
-// In this example the Cookie is created separately.
-const sessionCookie = createCookie("__session", {
-  secrets: ["r3m1xr0ck5"],
-  sameSite: true
-});
+createCookieSessionStorage,
+} from 'remix'
 
 const { getSession, commitSession, destroySession } =
-  createFileSessionStorage({
-    // The root directory where you want to store the files.
-    // Make sure it's writable!
-    dir: "./app/sessions",
-    cookie: sessionCookie
+  createCookieSessionStorage({
+    // a Cookie from `createCookie` or the same CookieOptions to create one
+    cookie: {
+      name: "__session",
+      secrets: ["r3m1xr0ck5"],
+      sameSite: "lax",
+      path: '/',
+    }
   });
 
 export { getSession, commitSession, destroySession };

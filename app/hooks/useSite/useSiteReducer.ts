@@ -6,6 +6,7 @@ export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',
   MODAL_CLOSE = 'MODAL_CLOSE',
   LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
+  SHOW_COMMENTS = 'SHOW_COMMENTS',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -13,7 +14,15 @@ interface IOpenModal {
     template: IModalTemplate
   }
 }
+
+interface IShowComments {
+  type: ISiteTypes.SHOW_COMMENTS,
+  payload: {
+    comments: IPostComment[]
+  }
+}
 export type ISiteAction =
+  | IShowComments
   | IOpenModal
   | {type: ISiteTypes.MODAL_CLOSE}
   | {type: ISiteTypes.LOGIN_RESOURCE_USER}
@@ -41,12 +50,21 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         }
       }
 
-    case ISiteTypes.LOGIN_RESOURCE_USER : 
+    case ISiteTypes.LOGIN_RESOURCE_USER :
       return {
         ...state,
         user:{
           wpAdmin: state.user?.wpAdmin,
           resourceUser: true
+        }
+      }
+
+    case ISiteTypes.SHOW_COMMENTS:
+      return {
+        ...state,
+        commentsModal:{
+          show: true,
+          comments: action.payload.comments
         }
       }
     default: {

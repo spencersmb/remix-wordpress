@@ -132,7 +132,7 @@ const ResourceLibraryLogin = () => {
   const transition = useTransition()
   return (
     <div>
-      <h1>SignUp for Learn Font Making Mini Course</h1>
+      <h1>Resource Library Login</h1>
       <Form method='post' className="mb-4" aria-describedby={
         actionData?.formError
           ? "form-error-message"

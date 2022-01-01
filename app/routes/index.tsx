@@ -102,54 +102,9 @@ export let loader: LoaderFunction = async ({request}) => {
   }
 };
 
-export let action: ActionFunction = async ({ request }): Promise<any | Response> => {
-
-  let form = await request.formData();
-  let email = form.get('email')
-  // we do this type check to be extra sure and to make TypeScript happy
-  // we'll explore validation next!
-  if (
-    typeof email !== "string"
-  ) {
-    return { formError: `Form not submitted correctly.` };
-  }
-
-  let fields = { email };
-  let fieldErrors = {
-    email: validateEmail(email)
-  };
-
-  consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.resourceLibrary.landingPage
-  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
-
-  if (Object.values(fieldErrors).some(Boolean))
-    return { fieldErrors, fields };
-  //
-  // try {
-  //   // Sign user up
-  //   const res = await fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       api_key: process.env.CK_KEY,
-  //       email,
-  //     }),
-  //   })
-  //
-  //   return json({ form: 'success' })
-  // } catch (e) {
-  //   return json({ form: 'fail' })
-  // }
-  return {value: 'string'}
-
-}
-
 function TestModal() {
   return (
-    <div>Template Modal</div>
+    <div className=''>Template Modal</div>
   )
 }
 // https://remix.run/guides/routing#index-routes
@@ -352,3 +307,19 @@ const query = `
         }
     }
 `
+
+// mutation SEND_EMAIL {
+//   sendEmail(
+//     input: {
+//     to: "spencer.bigum@gmail.com"
+//     from: "test@test.com"
+//     subject: "test email"
+//     body: "test email"
+//     clientMutationId: "test"
+//   }
+// ) {
+//     origin
+//     sent
+//     message
+//   }
+// }

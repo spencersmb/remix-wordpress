@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  ActionFunction,
   json,
   Link,
   Links,
@@ -16,7 +17,7 @@ import type { LinksFunction } from "remix";
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
-import useSite, { SiteContext } from './hooks/useSite'
+import useSite, { SiteContext, siteInitialState } from './hooks/useSite'
 import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
@@ -30,7 +31,7 @@ import {
   jsonldWebpage,
   jsonLdWebsite
 } from './utils/jsonLd'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import { useTransition } from "remix";
@@ -48,6 +49,12 @@ import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 import RemixLogo from "./components/svgs/remixLogo";
 import FooterPrimary from '~/components/footer/FooterPrimary'
 import { commitSession, getSession } from '~/sessions.server'
+import { validateEmail } from '~/utils/validation'
+import { ckFormIds } from '~/lib/convertKit/formIds'
+import { redirectBack } from 'remix-utils'
+import NewsletterComponent from '~/components/newsletterComponent'
+import NewsletterFetcher from '~/components/newsletterFetcher'
+import CommentModal from '~/components/modals/commentModal'
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -70,6 +77,7 @@ export let links: LinksFunction = () => {
     { rel: "stylesheet", href: styles },
   ];
 };
+
 
 /*
  Root Loader for the global App state
@@ -96,7 +104,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // consoleHelper('resourceUser', resourceUser)
   const ses = session.get("globalMessage")
   const message = ses || null;
-  console.log('session', message)
+  console.log('session message', message)
 
   return json({
     message,
@@ -123,7 +131,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function App() {
   let { menus, metadata, user, message } = useLoaderData<any>();
   consoleHelper('user', user)
-  console.log('message', message)
+  console.log('message 2', message)
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
@@ -147,13 +155,10 @@ export default function App() {
     else NProgress.start();
   }, [transition.state]);
   const value = {
+    ...siteInitialState,
     menu: menus,
     metadata,
     user,
-    modal: {
-      open: false,
-      component: null
-    }
   }
   return (
     // <Provider store={store}>
@@ -280,14 +285,26 @@ export let meta: MetaFunction = () => {
     title: `Home - Every Tuesday`
   }
 }
-
+const Toastr = (props: any) => {
+  return (
+    <div>props.message</div>
+  )
+}
 interface IDocument {
   children: React.ReactNode
   title?: string
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<any>();
-  // console.log('ENV', data)
+  const {openModal} = useSite()
+  console.log('ENV', data)
+  useEffect(()=>{
+    if(data.message){
+      openModal({
+        template: <Toastr message={data.message} />
+      })
+    }
+  }, [])
 
   return (
     <html lang="en">
@@ -317,12 +334,12 @@ export function Document({ children, title }: IDocument) {
                 PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
                 APP_ROOT_URL: 'http://localhost:3000'
               }
-
             )}`
           }}
         />}
         {process.env.NODE_ENV === "development" && <LiveReload />}
         <BasicModal />
+        <CommentModal />
       </body>
     </html>
   );

@@ -8,6 +8,8 @@ import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
 import { useEventListenerQueryAll } from '~/hooks/useHtmlEvent'
+import MakersPostSignUp from '~/components/post/makersPostSignUp'
+import useSite from '~/hooks/useSite'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -51,12 +53,14 @@ export let meta: MetaFunction = (metaData): any => {
   })
 };
 
-export default function PostSlug() {
-  let { post } = useLoaderData();
-  // consoleHelper('post', post)
+export default function PostDetailPage() {
+  let { post } = useLoaderData<{post: IPost}>();
+  consoleHelper('post', post)
+  const {showComments} = useSite()
+  // May not need this once we edit the tuts
   useEventListenerQueryAll('.tt-freebie-download.tt-modal-trigger', triggerStyleStudies)
 
-
+  // REMOVE
   function triggerStyleStudies(e: any) {
     e.preventDefault();
     const data = JSON.parse(e.currentTarget.getAttribute('data-params'))
@@ -69,11 +73,25 @@ export default function PostSlug() {
     // if nothing found show pop-up for sign-up
   }
 
+  function handleCommentsClick(){
+    showComments({comments: post.comments})
+  }
+
+
   return (
     <Layout>
-      <div>
-        <h1>{post.title}</h1>
+      <div className='flex flex-col'>
+        <div className='flex flex-col'>
+          <h1 className='spencer lhCrop'>{post.title}</h1>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <MakersPostSignUp />
+        <div>
+          Comments
+          <div onClick={handleCommentsClick}>
+            Show Comment
+          </div>
+        </div>
         <Link to='/'>
           Home
         </Link>
@@ -85,24 +103,7 @@ export default function PostSlug() {
 const query = gql`
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
-        __typename
         id
-        downloadManager {
-          downloads {
-            ...on DownloadFreebie{
-              downloadDetails {
-                etdmCampaign
-                etdmDescriptor
-                etdmFileSize
-                etdmFileType
-                etdmLink
-                etdmSsVersion
-                etdmTitle
-                etdmVersion
-              }
-            }
-          }
-        }
         categories {
             edges {
                 node {
@@ -156,6 +157,76 @@ query postBySlug($slug: String!) {
                 name
                 slug
                 uri
+            }
+        }
+        etSocialNav{
+            pinterestImage{
+                sourceUrl
+                mediaDetails{
+                    sizes{
+                        name
+                        width
+                        height
+                        file
+                        sourceUrl
+                    }
+                }
+            }
+        }
+        tutorialManager {
+            paidProducts {
+                ... on Product {
+                    title
+                }
+            }
+            youtube {
+                embedUrl
+            }
+            colorSwatch
+            downloads {
+                __typename
+                ... on ResourceLibrary {
+                    title
+                    freebie {
+                        downloadLink
+                    }
+                }
+            }
+        }
+        comments {
+            edges {
+                node {
+                    databaseId
+                    id
+                    author {
+                        node {
+                            name
+                        }
+                    }
+                    date
+                    commentedOn {
+                        node {
+                            id
+                            status
+                        }
+                    }
+                    content
+                    replies {
+                        edges {
+                            node {
+                                id
+                                databaseId
+                                content
+                                date
+                                author {
+                                    node {
+                                        id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
       }

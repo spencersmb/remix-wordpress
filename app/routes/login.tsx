@@ -16,6 +16,7 @@ import {
 import { logUserInJWT } from '../utils/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
+import { DataFunctionArgs } from '@remix-run/server-runtime'
 
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData
@@ -74,10 +75,42 @@ export let loader: LoaderFunction = async ({ request }): Promise<IDataType> => {
   }
 }
 
+type ActionCallback = (args: DataFunctionArgs, form: FormData) => Promise<any>
+async function primaryLayoutAction (dataFunctionArgs: DataFunctionArgs, layoutAction: ActionCallback){
+  const {request} = dataFunctionArgs
+  let form = await request.formData();
+  let formType = form.get('type')
+
+  if(formType !== 'footer'){
+    // DO STUFF FOR WHATEVER ELSE WE WANT ON THE PAGE
+    return layoutAction(dataFunctionArgs, form) // must pass form because we already unwrapped the promise
+  }
+
+  // DO STUFF FOR FOOTER FORM API
+
+  return {
+    type: 'footer'
+  }
+}
+export let actionTest: ActionFunction = async (dataFunctionArgs): Promise<any> => primaryLayoutAction(dataFunctionArgs, async (args: DataFunctionArgs, form: FormData) =>{
+
+  // LOGIN FORM FOR EXAMPLE
+  let password = form.get('password')
+  let username = form.get('username')
+
+  // MAKE API REQ
+  return {
+    password,
+    username
+  }
+})
+
+
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
   let form = await request.formData();
   let password = form.get('password')
   let username = form.get('username')
+
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
@@ -126,6 +159,9 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     customHeaders.append('Set-Cookie', await sessionStorage)
     const { id, postType } = getPreviewUrlParams(request)
 
+    console.log('id', id)
+
+
     if (!id || !postType) {
       return redirect(process.env.WORDPRESS_DB || '/', {
         headers: customHeaders
@@ -133,6 +169,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     }
 
     const redirectUrl = getPreviewRedirectUrlFromParams(postType, id)
+
 
     return redirect(redirectUrl, {
       headers: customHeaders

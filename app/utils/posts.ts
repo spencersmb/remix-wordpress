@@ -3,7 +3,13 @@ export function flattenAllPosts(posts:any): IPost[] | false{
   const postsFiltered = posts?.edges?.map(({ node = {} }) => node);
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
-
+export function removeNodeFromResponse(itemArray: {node: any}[]){
+  return itemArray.map(({ node }) => {
+    return {
+      ...node,
+    };
+  });
+}
 export function mapPostData(post:IPostRaw | {} = {}): IPost {
   const data = { ...post };
   let modifiedData: any = {...post}
@@ -42,6 +48,16 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
     modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
       return download.downloadDetails
     })
+  }
+
+  if(data.comments){
+    modifiedData.coments = data.comments.edges.map(({ node }) => {
+      return {
+        ...node,
+        author: node.author.node
+      };
+    });
+
   }
 
   return modifiedData

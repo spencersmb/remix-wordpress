@@ -410,6 +410,10 @@ union MenuItem_Featured_Courses = Course
 
 union Post_Downloadmanager_Downloads = DownloadFreebie
 
+union Post_Tutorialmanager_Downloads = ResourceLibrary
+
+union Post_Tutorialmanager_PaidProducts = Product
+
 union ResourceLibrary_Freebie_Product = Product
 
 "Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from."
@@ -2641,6 +2645,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
+    etSocialNav: Post_Etsocialnav
     "The excerpt of the post."
     excerpt(
         "Format of the field output"
@@ -2701,6 +2706,19 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
+    "Connection between the Post type and the Post type"
+    relatedPosts(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: RelatedPostsConnectionWhereArgs
+    ): RelatedPostsConnection
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
     revisionOf: NodeWithRevisionsToContentNodeConnectionEdge
     "Connection between the post type and the post type"
@@ -2757,6 +2775,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     ): String
     "URLs queued to be pinged."
     toPing: [String]
+    tutorialManager: Post_Tutorialmanager
     "The unique resource identifier path"
     uri: String
 }
@@ -3133,6 +3152,48 @@ type Post_Downloadmanager {
     fieldGroupName: String
 }
 
+"Field Group"
+type Post_Etsocialnav {
+    fieldGroupName: String
+    "Add an image that is optimized for maximum exposure on Pinterest. We recommend using an image that is formatted in a 2:3 aspect ratio like 735x1102."
+    pinterestImage: MediaItem
+    pinterestMeta: Post_Etsocialnav_PinterestMeta
+}
+
+"Field Group"
+type Post_Etsocialnav_PinterestMeta {
+    "Craft a customized description that will be used when this post is shared on Pinterest. Leave this blank to use the title of the post. 140 Character Limit!"
+    description: String
+    fieldGroupName: String
+}
+
+"Field Group"
+type Post_Tutorialmanager {
+    "Link the URL for the color swatch here"
+    colorSwatch: String
+    "Select Freebies included in the tutorial"
+    downloads: [Post_Tutorialmanager_Downloads]
+    fieldGroupName: String
+    "Link paid products from the tutorial here"
+    paidProducts: [Post_Tutorialmanager_PaidProducts]
+    pinterest: Post_Tutorialmanager_Pinterest
+    youtube: Post_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type Post_Tutorialmanager_Pinterest {
+    fieldGroupName: String
+    "Add Pinterest Image"
+    image: MediaItem
+}
+
+"Field Group"
+type Post_Tutorialmanager_Youtube {
+    "Copy the Youtube Embed URL and paste it here"
+    embedUrl: String
+    fieldGroupName: String
+}
+
 "PrettyLink Object"
 type PrettyLinkType {
     "PrettyLink Time Stamp"
@@ -3441,6 +3502,24 @@ type RegisterUserPayload {
     clientMutationId: String
     "The User object mutation type."
     user: User
+}
+
+"Connection between the Post type and the Post type"
+type RelatedPostsConnection {
+    "Edges for the RelatedPostsConnection connection"
+    edges: [RelatedPostsConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [Post]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type RelatedPostsConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The item at the end of the edge"
+    node: Post
 }
 
 "The payload for the resetUserPassword mutation"
@@ -3803,6 +3882,11 @@ type RootMutation {
         "Input for the restoreComment mutation"
         input: RestoreCommentInput!
     ): RestoreCommentPayload
+    "The payload for the sendEmail mutation"
+    sendEmail(
+        "Input for the sendEmail mutation"
+        input: SendEmailInput!
+    ): SendEmailPayload
     "The payload for the sendPasswordResetEmail mutation"
     sendPasswordResetEmail(
         "Input for the sendPasswordResetEmail mutation"
@@ -5152,6 +5236,22 @@ type SEOWebmaster {
     yandexVerify: String
 }
 
+"The payload for the sendEmail mutation"
+type SendEmailPayload {
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Message"
+    message: String
+    "Origin that sent the request"
+    origin: String
+    "reply To address used"
+    replyTo: String
+    "Was the email sent"
+    sent: Boolean
+    "Who the email got sent to"
+    to: String
+}
+
 "The payload for the sendPasswordResetEmail mutation"
 type SendPasswordResetEmailPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -6263,6 +6363,8 @@ enum MediaItemSizeEnum {
     POST_THUMBNAIL
     "MediaItem with the thumbnail size"
     THUMBNAIL
+    "MediaItem with the yarpp-thumbnail size"
+    YARPP_THUMBNAIL
     "MediaItem with the 1536x1536 size"
     _1536X1536
     "MediaItem with the 2048x2048 size"
@@ -9011,6 +9113,12 @@ input RegisterUserInput {
     yim: String
 }
 
+"Arguments for filtering the RelatedPostsConnection connection"
+input RelatedPostsConnectionWhereArgs {
+    "Override's YARPP setting's \"Maximum number of related posts.\" The maximum number is 20."
+    limit: Int
+}
+
 "Input for the resetUserPassword mutation"
 input ResetUserPasswordInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -9917,6 +10025,22 @@ input RootQueryToUserConnectionWhereArgs {
     search: String
     "Array of column names to be searched. Accepts 'ID', 'login', 'nicename', 'email', 'url'."
     searchColumns: [UsersConnectionSearchColumnEnum]
+}
+
+"Input for the sendEmail mutation"
+input SendEmailInput {
+    "Body of email"
+    body: String
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Who to send the email from"
+    from: String
+    "Reply to address"
+    replyTo: String
+    "Subject of email"
+    subject: String
+    "Who to send the email to"
+    to: String
 }
 
 "Input for the sendPasswordResetEmail mutation"

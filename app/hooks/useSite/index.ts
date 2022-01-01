@@ -14,6 +14,10 @@ export interface ISiteContextState {
   modal: {
     open: boolean,
     component: IModalTemplate
+  },
+  commentsModal:{
+    show: boolean,
+    comments: any // TODO: FILL OUT
   }
 }
 interface ISiteContextType {
@@ -57,6 +61,10 @@ export const siteInitialState: ISiteContextState  = {
   modal:{
     open: false,
     component: null
+  },
+  commentsModal:{
+    show: false,
+    comments: []
   }
 }
 export const SiteContext = createContext<ISiteContextType>({
@@ -103,12 +111,20 @@ const useSite = () => {
     })
   }
 
+  const showComments = (data: IPostComments) => {
+    dispatch({
+      type: ISiteTypes.SHOW_COMMENTS,
+      payload: data
+    })
+  }
+
   return {
     openModal,
     closeModal,
     resourecLibraryLogin,
     state,
-    dispatch
+    dispatch,
+    showComments
   }
 }
 

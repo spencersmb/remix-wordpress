@@ -62,7 +62,10 @@ export let action: ActionFunction = async ({ request }) => {
 
   session.flash(
     "globalMessage",
-    `Project successfully archived`
+    {
+      status: 'success',
+      message: `Project successfully archived`
+    }
   );
   //
   // try {

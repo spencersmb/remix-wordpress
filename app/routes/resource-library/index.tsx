@@ -2,7 +2,7 @@ import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, use
 import { getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { fetchAPIClientSide } from '../../utils/fetch'
+import { fetchAPIClientSide, fetchConvertKitSignUp } from '../../utils/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'
@@ -117,24 +117,14 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   };
 
   consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.resourceLibrary.landingPage
-  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
   try {
     // Sign user up
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        api_key: process.env.CK_KEY,
-        email,
-      }),
-    })
+    const id = ckFormIds.resourceLibrary.landingPage
+    await fetchConvertKitSignUp({email, id})
 
     return json({ form: 'success' })
   } catch (e) {

@@ -47,7 +47,7 @@ export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): 
     return '/login';
   }
 
-  let idType = previewType === 'blog' ? "previewPostId" : 'postId'
+  let idType = previewType === 'blog' ? "postId" : 'postId'
   let postType = previewType === 'blog' ? "post" : 'page'
   return `/login?postType=${postType}&${idType}=${id}`
 }
@@ -206,7 +206,7 @@ export async function checkForCookieLogin(request: Request, cookie: Cookie, redi
   }
   const hasCookie = await findCookie(request, cookie)
   console.log("hasCookie", hasCookie);
-  
+
   if (!hasCookie) {
     console.log("redirect", redirectTo);
     throw redirect(redirectTo);
