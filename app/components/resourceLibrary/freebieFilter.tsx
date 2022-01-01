@@ -1,13 +1,4 @@
-import { consoleHelper } from '../../utils/windowUtils'
-
-/**
- * @Component FreebieFilter
- *
- * Filter Nav element for Resource Grids
- * A dumb component that we can use to show the filter nav and what Filters are selected
- *
- *
- */
+import { IFilterTag } from '../../utils/resourceLibraryUtils'
 
 interface IProps {
   filterTags: IFilterTag[]
@@ -15,7 +6,7 @@ interface IProps {
   handleClick: (filter: string) => any
 }
 const FreebieFilter = ({filterTags, selectedFilter = 'all', handleClick}: IProps) => {
-  consoleHelper('selectedFilter', selectedFilter)
+  console.log('selectedFilter', selectedFilter)
 
   return (
     <div>

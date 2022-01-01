@@ -1,5 +1,5 @@
 import RSS from 'rss'
-import { fetchAPI } from '../utils/fetch'
+import { fetchAPI } from '../lib/api/fetch'
 import { LoaderFunction } from 'remix'
 import { getGraphQLString } from '../utils/graphqlUtils'
 import { gql } from '@apollo/client'

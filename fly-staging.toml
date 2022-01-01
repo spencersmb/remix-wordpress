@@ -7,14 +7,11 @@ kill_timeout = 5
 processes = []
 
 [env]
-  APP_ROOT_URL = "https://twilight-paper-1622.fly.dev"
+  APP_ROOT_URL = "https://remix-staging.fly.dev"
+  PORT = "8080"
   PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
-  WORDPRESS_DB = "https://api.every-tuesday.com/wp-admin"
   SESSION_SECRET = "1234"
-  RESOURCE_LIBRARY_PW = "asdf"
-  PROCREATE_5X_PW = "1234"
-  CK_KEY = "xcho9pLm3lH9n0mIpQY2VA"
-  CK_SECRET = "26TJNlDD_RIOmkymXlEJRkj9wQZuA5UdqoepM1F4fx4"
+  WORDPRESS_DB = "https://etheadless.wpengine.com/wp-admin"
 
 [experimental]
   allowed_public_ports = []

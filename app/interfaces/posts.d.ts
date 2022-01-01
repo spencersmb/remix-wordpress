@@ -23,7 +23,6 @@ interface IFeaturedImageNode {
 }
 interface Itag {
     name: string
-    slug: string
 }
 interface IFeaturedImage {
   altText: string
@@ -32,19 +31,6 @@ interface IFeaturedImage {
   sizes: string
   sourceUrl?: string
   srcSet: null | string[]
-}
-interface IDownload{
-  etdmCampaign: string
-  etdmDescriptor: string
-  etdmFileSize: string
-  etdmFileType: string
-  etdmLink: string
-  etdmSsVersion: string
-  etdmTitle: string
-  etdmVersion: string
-}
-interface IDownloadManager {
-  downloads: IDownload[] | null
 }
 
 interface IPostRaw {
@@ -72,13 +58,9 @@ interface IPostRaw {
   date: string
   excerpt: string
   seo: IPostSeo
-  downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
-  comments: {
-    edges: {node: IPostCommentRaw}[]
-  }
 }
 interface IPostSeo {
-  fullHead?: string
+  fullHead: string
   title: string
   opengraphPublishedTime: string
   opengraphModifiedTime: string
@@ -105,8 +87,6 @@ interface IPost {
   slug: string
   id: string
   seo:IPostSeo
-  downloadManager: IDownloadManager
-  comments:IPostComment[]
 }
 
 interface IwpPageInfo {
@@ -115,41 +95,4 @@ interface IwpPageInfo {
   hasPreviousPage: boolean
   startCursor: string
 
-}
-interface ICommentContent {
-  author: {name: string}
-  content: string
-  databaseId: number
-  date: string
-  id: string
-}
-interface IPostCommentReply {
-  node: ICommentContent
-}
-
-type IPostCommentRaw = {
-  author: {node: string}
-  content: string
-  databaseId: number
-  date: string
-  id: string
-  replies: {
-    edges: {node: {
-        author: {node: string}
-        content: string
-        databaseId: number
-        date: string
-        id: string
-      }
-    }[]
-  }
-}
-type IPostComment = {
-  replies: {
-    edges: IPostCommentReply[]
-  }
-} & ICommentContent
-
-interface IPostComments {
-  comments: IPostComment[]
 }

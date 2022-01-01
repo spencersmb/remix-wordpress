@@ -1,9 +1,6 @@
-/*@import 'tailwindcss/base';*/
-/*@import 'tailwindcss/components';*/
-/*@import 'tailwindcss/utilities';*/
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root{
     --slateGreen: #486e65;
@@ -37,22 +34,8 @@
 }
 
 @layer components {
-    .btn {
-        @apply py-2 px-4 font-semibold rounded-lg shadow-lg;
-    }
-    .btn-sky {
-        @apply text-white bg-sky-500 hover:bg-sky-700;
-    }
     .spencer{
-        background: red;
-        @apply relative flex text-center
+        @apply relative flex text-center text-red-300
         hover:text-blue-500
-    }
-    .lhCrop::before {
-        content: '';
-        display: block;
-        height: 0;
-        width: 0;
-        margin-top: calc((1 - 1.5) * 0.5em);
     }
 }

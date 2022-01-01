@@ -1,6 +1,35 @@
-import { useContext, createContext, Dispatch, ReactElement, FunctionComponent } from 'react'
-import { ISiteAction, ISiteTypes } from './useSiteReducer'
-import { IModalTemplate } from '../../components/modals/modalTypes'
+import { useContext, createContext, Dispatch } from 'react'
+import { ISiteAction } from './useSiteReducer'
+
+// CREATE A NEW CONTEXT JUST FOR MODALS
+
+export interface IMenu{
+  menuItems: IMenuItem[]
+  name: string
+  slug: string
+}
+
+interface IMenuCourse {
+  details: {
+    url: string
+    name: string
+  }
+}
+
+export interface IMenuItem {
+  featured:{
+    courses: IMenuCourse[]
+  }
+  childItems: {
+    edges: {node: IMenuItem}[]
+  }
+  id: string
+  label: string
+  path: string
+  target: string
+  title: string
+  parentId: string | null
+}
 
 export interface ISiteContextState {
   recentPosts?: IPost[]
@@ -8,23 +37,13 @@ export interface ISiteContextState {
   metadata: IMetaData
   menu: IMenu[],
   user: null | {
-    wpAdmin: boolean | undefined
-    resourceUser: boolean | undefined
-  }
-  modal: {
-    open: boolean,
-    component: IModalTemplate
-  },
-  commentsModal:{
-    show: boolean,
-    comments: any // TODO: FILL OUT
+    isLoggedIn: boolean
   }
 }
 interface ISiteContextType {
   state: ISiteContextState,
   dispatch: Dispatch<ISiteAction>
 }
-
 export const siteInitialState: ISiteContextState  = {
   recentPosts: [],
   categories:[],
@@ -57,21 +76,16 @@ export const siteInitialState: ISiteContextState  = {
     title: '',
   },
   menu:[],
-  user: null,
-  modal:{
-    open: false,
-    component: null
-  },
-  commentsModal:{
-    show: false,
-    comments: []
-  }
+  user: null
 }
+// export const SiteContext = createContext<ISiteContextState>(siteInitialState)
+
 export const SiteContext = createContext<ISiteContextType>({
   state: siteInitialState,
   dispatch: () => null
 })
 SiteContext.displayName = 'SiteContext'
+
 
 const useSiteContext = () => {
   const context = useContext(SiteContext)
@@ -80,52 +94,41 @@ const useSiteContext = () => {
   }
   return context
 }
-
 /**
- * @Component useSite
- *
- * Primary context to contain global site data like users, site metadata, menus, etc.
- *
- * Currently used to track logged in Admin user as well as Resource Library user.
- *
+ * useSite
  */
 const useSite = () => {
   const {state, dispatch} = useSiteContext()
-
-  const openModal = ({template}: {template: FunctionComponent | ReactElement}) => {
-    dispatch({
-      type: ISiteTypes.MODAL_OPEN,
-      payload: {template}
-    })
-  }
-
-  const closeModal = () => {
-    dispatch({
-      type: ISiteTypes.MODAL_CLOSE,
-    })
-  }
-
-  const resourecLibraryLogin = () => {
-    dispatch({
-      type: ISiteTypes.LOGIN_RESOURCE_USER,
-    })
-  }
-
-  const showComments = (data: IPostComments) => {
-    dispatch({
-      type: ISiteTypes.SHOW_COMMENTS,
-      payload: data
-    })
-  }
+  // const logUserIn = (options: { modal: boolean } = {modal: false} ) => {
+  //   //close modal
+  //   if(options?.modal){
+  //     // dispatch({type: EssAuthTypes.MODAL_CLOSE})
+  //   }
+  //   dispatch({
+  //     type: EssAuthTypes.LOGIN
+  //   })
+  // }
+  // const logoutAction = () => {
+  //   dispatch({
+  //     type: EssAuthTypes.LOGOUT
+  //   })
+  // }
 
   return {
-    openModal,
-    closeModal,
-    resourecLibraryLogin,
+    // logUserIn,
+    // logoutAction,
+    // getLogOutBtnProps,
+    // getOpenModalProps,
+    // openModal,
+    // closeModal,
+    // loginAction,
     state,
-    dispatch,
-    showComments
+    dispatch
   }
 }
+// export default function useSite() {
+//   const site = useContext(SiteContext);
+//   return site;
+// }
 
 export default useSite

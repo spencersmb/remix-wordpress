@@ -1,72 +1,47 @@
 import { ISiteContextState } from './index'
 import { consoleHelper } from '../../utils/windowUtils'
-import { IModalTemplate } from '../../components/modals/modalTypes'
 
 export enum ISiteTypes {
+  ADD_POSTS = 'ADD_POSTS',
+  LOGOUT = 'LOGOUT',
   MODAL_OPEN = 'MODAL_OPEN',
   MODAL_CLOSE = 'MODAL_CLOSE',
-  LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
-  SHOW_COMMENTS = 'SHOW_COMMENTS',
-}
-interface IOpenModal {
-  type: ISiteTypes.MODAL_OPEN,
-  payload: {
-    template: IModalTemplate
-  }
 }
 
-interface IShowComments {
-  type: ISiteTypes.SHOW_COMMENTS,
-  payload: {
-    comments: IPostComment[]
-  }
-}
 export type ISiteAction =
-  | IShowComments
-  | IOpenModal
-  | {type: ISiteTypes.MODAL_CLOSE}
-  | {type: ISiteTypes.LOGIN_RESOURCE_USER}
+  | {type: ISiteTypes.ADD_POSTS}
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
   switch (action.type) {
 
-    case ISiteTypes.MODAL_OPEN :
+    case ISiteTypes.ADD_POSTS :
       return {
         ...state,
-        modal:{
-          ...state.modal,
-          component: action.payload.template,
-          open: true,
-        }
       }
+    // case EssAuthTypes.LOGOUT :
+    //   return {
+    //     ...state,
+    //     loggedIn: false
+    //   }
+    // case EssAuthTypes.MODAL_OPEN :
+    //   return {
+    //     ...state,
+    //     modal:{
+    //       ...state.modal,
+    //       component: action.payload.template,
+    //       open: true,
+    //     }
+    //   }
+    // case EssAuthTypes.MODAL_CLOSE :
+    //   return {
+    //     ...state,
+    //     modal:{
+    //       ...state.modal,
+    //       open: false,
+    //     }
+    //   }
 
-    case ISiteTypes.MODAL_CLOSE :
-      return {
-        ...state,
-        modal:{
-          ...state.modal,
-          open: false,
-        }
-      }
-
-    case ISiteTypes.LOGIN_RESOURCE_USER :
-      return {
-        ...state,
-        user:{
-          wpAdmin: state.user?.wpAdmin,
-          resourceUser: true
-        }
-      }
-
-    case ISiteTypes.SHOW_COMMENTS:
-      return {
-        ...state,
-        commentsModal:{
-          show: true,
-          comments: action.payload.comments
-        }
-      }
     default: {
       // throw new Error(`Unhandled action type: ${action.type}`)
       return state

@@ -1,5 +1,7 @@
 
 export async function loader() {
+  // let report = await getReport(params.id);
+  // let pdf = await generateReportPDF(report);
   let xml = await generateRobotsTxt()
   return new Response(xml, {
     status: 200,

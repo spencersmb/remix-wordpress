@@ -404,17 +404,9 @@ interface UniformResourceIdentifiable {
 union ContentRevisionUnion = Page | Post
 
 "Deprecated in favor of MenuItemLinkeable Interface"
-union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | Product | ResourceLibrary | Tag
+union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | ResourceLibrary | Tag
 
 union MenuItem_Featured_Courses = Course
-
-union Post_Downloadmanager_Downloads = DownloadFreebie
-
-union Post_Tutorialmanager_Downloads = ResourceLibrary
-
-union Post_Tutorialmanager_PaidProducts = Product
-
-union ResourceLibrary_Freebie_Product = Product
 
 "Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from."
 type Avatar {
@@ -456,7 +448,7 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
         last: Int
     ): CategoryToAncestorsCategoryConnection
     "The id field matches the WP_Post-&gt;ID field."
-    categoryId: Int @deprecated(reason: "Deprecated in favor of databaseId")
+    categoryId: Int @deprecated(reason : "Deprecated in favor of databaseId")
     "Connection between the category type and the category type"
     children(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -555,19 +547,6 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
         "Arguments for filtering the connection"
         where: CategoryToPostConnectionWhereArgs
     ): CategoryToPostConnection
-    "Connection between the category type and the Product type"
-    products(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: CategoryToProductConnectionWhereArgs
-    ): CategoryToProductConnection
     "The Yoast SEO data of the Categories taxonomy."
     seo: TaxonomySEO
     "An alphanumeric identifier for the object unique to its type."
@@ -678,24 +657,6 @@ type CategoryToPostConnectionEdge {
     node: Post
 }
 
-"Connection between the category type and the Product type"
-type CategoryToProductConnection {
-    "Edges for the CategoryToProductConnection connection"
-    edges: [CategoryToProductConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Product]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type CategoryToProductConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: Product
-}
-
 "Connection between the category type and the Taxonomy type"
 type CategoryToTaxonomyConnectionEdge {
     "The node of the connection, without the edges"
@@ -713,7 +674,7 @@ type Comment implements DatabaseIdentifier & Node {
     "IP address for the author. This field is equivalent to WP_Comment-&gt;comment_author_IP and the value matching the &quot;comment_author_IP&quot; column in SQL."
     authorIp: String
     "ID for the comment, unique among comments."
-    commentId: Int @deprecated(reason: "Deprecated in favor of databaseId")
+    commentId: Int @deprecated(reason : "Deprecated in favor of databaseId")
     "Connection between the Comment type and the ContentNode type"
     commentedOn: CommentToContentNodeConnectionEdge
     "Content of the comment. This field is equivalent to WP_Comment-&gt;comment_content and the value matching the &quot;comment_content&quot; column in SQL."
@@ -1014,7 +975,7 @@ type Course implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
     "The id field matches the WP_Post-&gt;ID field."
-    courseId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    courseId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -1239,14 +1200,6 @@ type CreateCoursePayload {
     course: Course
 }
 
-"The payload for the createDownloadFreebie mutation"
-type CreateDownloadFreebiePayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The Post object mutation type."
-    downloadFreebie: DownloadFreebie
-}
-
 "The payload for the createDownloadGrid mutation"
 type CreateDownloadGridPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -1285,14 +1238,6 @@ type CreatePostPayload {
     clientMutationId: String
     "The Post object mutation type."
     post: Post
-}
-
-"The payload for the createProduct mutation"
-type CreateProductPayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The Post object mutation type."
-    product: Product
 }
 
 "The payload for the createResourceLibrary mutation"
@@ -1355,16 +1300,6 @@ type DeleteCoursePayload {
     deletedId: ID
 }
 
-"The payload for the deleteDownloadFreebie mutation"
-type DeleteDownloadFreebiePayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The ID of the deleted object"
-    deletedId: ID
-    "The object before it was deleted"
-    downloadFreebie: DownloadFreebie
-}
-
 "The payload for the deleteDownloadGrid mutation"
 type DeleteDownloadGridPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -1415,16 +1350,6 @@ type DeletePostPayload {
     post: Post
 }
 
-"The payload for the deleteProduct mutation"
-type DeleteProductPayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The ID of the deleted object"
-    deletedId: ID
-    "The object before it was deleted"
-    product: Product
-}
-
 "The payload for the deleteResourceLibrary mutation"
 type DeleteResourceLibraryPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -1463,109 +1388,6 @@ type DiscussionSettings {
     defaultPingStatus: String
 }
 
-"The downloadFreebie type"
-type DownloadFreebie implements ContentNode & DatabaseIdentifier & Node & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
-    "Connection between the ContentNode type and the ContentType type"
-    contentType: ContentNodeToContentTypeConnectionEdge
-    "The unique identifier stored in the database"
-    databaseId: Int!
-    "Post publishing date."
-    date: String
-    "The publishing date set in GMT."
-    dateGmt: String
-    "The desired slug of the post"
-    desiredSlug: String
-    downloadDetails: DownloadFreebie_Downloaddetails
-    "The id field matches the WP_Post-&gt;ID field."
-    downloadFreebieId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
-    editingLockedBy: ContentNodeToEditLockConnectionEdge
-    "The RSS enclosure for the object"
-    enclosure: String
-    "Connection between the ContentNode type and the EnqueuedScript type"
-    enqueuedScripts(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedScriptConnection
-    "Connection between the ContentNode type and the EnqueuedStylesheet type"
-    enqueuedStylesheets(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedStylesheetConnection
-    "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
-    guid: String
-    "The globally unique identifier of the etdm_download object."
-    id: ID!
-    "Whether the node is a Content Node"
-    isContentNode: Boolean!
-    "Whether the object is a node in the preview state"
-    isPreview: Boolean
-    "Whether the object is restricted from the current viewer"
-    isRestricted: Boolean
-    "Whether the node is a Term"
-    isTermNode: Boolean!
-    "The user that most recently edited the node"
-    lastEditedBy: ContentNodeToEditLastConnectionEdge
-    "The permalink of the post"
-    link: String
-    "The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time."
-    modified: String
-    "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
-    modifiedGmt: String
-    "Connection between the downloadFreebie type and the downloadFreebie type"
-    preview: DownloadFreebieToPreviewConnectionEdge
-    "The database id of the preview node"
-    previewRevisionDatabaseId: Int
-    "Whether the object is a node in the preview state"
-    previewRevisionId: ID
-    "The Yoast SEO data of the downloadFreebie"
-    seo: PostTypeSEO
-    "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
-    slug: String
-    "The current status of the object"
-    status: String
-    "The template assigned to the node"
-    template: ContentTemplate
-    "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
-    title(
-        "Format of the field output"
-        format: PostObjectFieldFormatEnum
-    ): String
-    "The unique resource identifier path"
-    uri: String
-}
-
-"Connection between the downloadFreebie type and the downloadFreebie type"
-type DownloadFreebieToPreviewConnectionEdge {
-    "The node of the connection, without the edges"
-    node: DownloadFreebie
-}
-
-"Field Group"
-type DownloadFreebie_Downloaddetails {
-    etdmCampaign: String
-    etdmDescriptor: String
-    etdmFileSize: String
-    etdmFileType: String
-    etdmLink: String
-    etdmSsVersion: String
-    etdmTitle: String
-    etdmVersion: String
-    fieldGroupName: String
-}
-
 "The DownloadGrid type"
 type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
     "Connection between the ContentNode type and the ContentType type"
@@ -1579,7 +1401,7 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
     "The desired slug of the post"
     desiredSlug: String
     "The id field matches the WP_Post-&gt;ID field."
-    downloadGridId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    downloadGridId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
     "The RSS enclosure for the object"
@@ -1606,10 +1428,10 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
-    grid: DownloadGrid_Grid
+    grids: DownloadGrid_Grids
     "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
     guid: String
-    "The globally unique identifier of the downloadgrid object."
+    "The globally unique identifier of the download_grid object."
     id: ID!
     "Whether the node is a Content Node"
     isContentNode: Boolean!
@@ -1639,34 +1461,8 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
     slug: String
     "The current status of the object"
     status: String
-    "Connection between the DownloadGrid type and the tag type"
-    tags(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: DownloadGridToTagConnectionWhereArgs
-    ): DownloadGridToTagConnection
     "The template assigned to the node"
     template: ContentTemplate
-    "Connection between the DownloadGrid type and the TermNode type"
-    terms(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: DownloadGridToTermNodeConnectionWhereArgs
-    ): DownloadGridToTermNodeConnection
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
     title(
         "Format of the field output"
@@ -1682,52 +1478,14 @@ type DownloadGridToPreviewConnectionEdge {
     node: DownloadGrid
 }
 
-"Connection between the DownloadGrid type and the tag type"
-type DownloadGridToTagConnection {
-    "Edges for the DownloadGridToTagConnection connection"
-    edges: [DownloadGridToTagConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Tag]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type DownloadGridToTagConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The Yoast SEO Primary post_tag"
-    isPrimary: Boolean
-    "The item at the end of the edge"
-    node: Tag
-}
-
-"Connection between the DownloadGrid type and the TermNode type"
-type DownloadGridToTermNodeConnection {
-    "Edges for the DownloadGridToTermNodeConnection connection"
-    edges: [DownloadGridToTermNodeConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [TermNode]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type DownloadGridToTermNodeConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: TermNode
-}
-
 "Field Group"
-type DownloadGrid_Grid {
+type DownloadGrid_Grids {
     fieldGroupName: String
-    items: [DownloadGrid_Grid_items]
+    items: [DownloadGrid_Grids_items]
 }
 
 "Field Group"
-type DownloadGrid_Grid_items {
+type DownloadGrid_Grids_items {
     downloadLink: String
     excerpt: String
     fieldGroupName: String
@@ -1792,14 +1550,6 @@ type GeneralSettings {
     title: String
     "Site URL."
     url: String
-}
-
-"Grid Tag Object"
-type GridTag {
-    "Tag Name"
-    name: String
-    "Tag Slug"
-    slug: String
 }
 
 "Header Type"
@@ -2041,7 +1791,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     "Details about the mediaItem"
     mediaDetails: MediaDetails
     "The id field matches the WP_Post-&gt;ID field."
-    mediaItemId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    mediaItemId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "Url of the mediaItem"
     mediaItemUrl: String
     "Type of resource"
@@ -2171,7 +1921,7 @@ type Menu implements DatabaseIdentifier & Node {
     "The locations a menu is assigned to"
     locations: [MenuLocationEnum]
     "WP ID of the nav menu."
-    menuId: Int @deprecated(reason: "Deprecated in favor of the databaseId field")
+    menuId: Int @deprecated(reason : "Deprecated in favor of the databaseId field")
     "Connection between the Menu type and the MenuItem type"
     menuItems(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -2209,7 +1959,7 @@ type MenuItem implements DatabaseIdentifier & Node {
     "Connection from MenuItem to it&#039;s connected node"
     connectedNode: MenuItemToMenuItemLinkableConnectionEdge
     "The object connected to this menu item."
-    connectedObject: MenuItemObjectUnion @deprecated(reason: "Deprecated in favor of the connectedNode field")
+    connectedObject: MenuItemObjectUnion @deprecated(reason : "Deprecated in favor of the connectedNode field")
     "Class attribute for the menu item link"
     cssClasses: [String]
     "The unique identifier stored in the database"
@@ -2231,7 +1981,7 @@ type MenuItem implements DatabaseIdentifier & Node {
     "The Menu a MenuItem is part of"
     menu: MenuItemToMenuConnectionEdge
     "WP ID of the menu item."
-    menuItemId: Int @deprecated(reason: "Deprecated in favor of the databaseId field")
+    menuItemId: Int @deprecated(reason : "Deprecated in favor of the databaseId field")
     "Menu item order"
     order: Int
     "The database id of the parent menu item or null if it is the root"
@@ -2451,7 +2201,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
     modifiedGmt: String
     "The id field matches the WP_Post-&gt;ID field."
-    pageId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    pageId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "The parent of the node. The parent object can be of various types"
     parent: HierarchicalContentNodeToParentContentNodeConnectionEdge
     "Database id of the parent node"
@@ -2618,7 +2368,6 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
-    downloadManager: Post_Downloadmanager
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
     "The RSS enclosure for the object"
@@ -2645,7 +2394,6 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
-    etSocialNav: Post_Etsocialnav
     "The excerpt of the post."
     excerpt(
         "Format of the field output"
@@ -2699,26 +2447,13 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         where: PostToPostFormatConnectionWhereArgs
     ): PostToPostFormatConnection
     "The id field matches the WP_Post-&gt;ID field."
-    postId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    postId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "Connection between the post type and the post type"
     preview: PostToPreviewConnectionEdge
     "The database id of the preview node"
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "Connection between the Post type and the Post type"
-    relatedPosts(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: RelatedPostsConnectionWhereArgs
-    ): RelatedPostsConnection
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
     revisionOf: NodeWithRevisionsToContentNodeConnectionEdge
     "Connection between the post type and the post type"
@@ -2775,7 +2510,6 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     ): String
     "URLs queued to be pinged."
     toPing: [String]
-    tutorialManager: Post_Tutorialmanager
     "The unique resource identifier path"
     uri: String
 }
@@ -2836,7 +2570,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     "The human friendly name of the object."
     name: String
     "The id field matches the WP_Post-&gt;ID field."
-    postFormatId: Int @deprecated(reason: "Deprecated in favor of databaseId")
+    postFormatId: Int @deprecated(reason : "Deprecated in favor of databaseId")
     "Connection between the postFormat type and the post type"
     posts(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -2850,19 +2584,6 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
         "Arguments for filtering the connection"
         where: PostFormatToPostConnectionWhereArgs
     ): PostFormatToPostConnection
-    "Connection between the postFormat type and the Product type"
-    products(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: PostFormatToProductConnectionWhereArgs
-    ): PostFormatToProductConnection
     "The Yoast SEO data of the Formats taxonomy."
     seo: TaxonomySEO
     "An alphanumeric identifier for the object unique to its type."
@@ -2911,24 +2632,6 @@ type PostFormatToPostConnectionEdge {
     cursor: String
     "The item at the end of the edge"
     node: Post
-}
-
-"Connection between the postFormat type and the Product type"
-type PostFormatToProductConnection {
-    "Edges for the PostFormatToProductConnection connection"
-    edges: [PostFormatToProductConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Product]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type PostFormatToProductConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: Product
 }
 
 "Connection between the postFormat type and the Taxonomy type"
@@ -3146,54 +2849,6 @@ type Post_Converkitformsforposts {
     fieldGroupName: String
 }
 
-"Field Group"
-type Post_Downloadmanager {
-    downloads: [Post_Downloadmanager_Downloads]
-    fieldGroupName: String
-}
-
-"Field Group"
-type Post_Etsocialnav {
-    fieldGroupName: String
-    "Add an image that is optimized for maximum exposure on Pinterest. We recommend using an image that is formatted in a 2:3 aspect ratio like 735x1102."
-    pinterestImage: MediaItem
-    pinterestMeta: Post_Etsocialnav_PinterestMeta
-}
-
-"Field Group"
-type Post_Etsocialnav_PinterestMeta {
-    "Craft a customized description that will be used when this post is shared on Pinterest. Leave this blank to use the title of the post. 140 Character Limit!"
-    description: String
-    fieldGroupName: String
-}
-
-"Field Group"
-type Post_Tutorialmanager {
-    "Link the URL for the color swatch here"
-    colorSwatch: String
-    "Select Freebies included in the tutorial"
-    downloads: [Post_Tutorialmanager_Downloads]
-    fieldGroupName: String
-    "Link paid products from the tutorial here"
-    paidProducts: [Post_Tutorialmanager_PaidProducts]
-    pinterest: Post_Tutorialmanager_Pinterest
-    youtube: Post_Tutorialmanager_Youtube
-}
-
-"Field Group"
-type Post_Tutorialmanager_Pinterest {
-    fieldGroupName: String
-    "Add Pinterest Image"
-    image: MediaItem
-}
-
-"Field Group"
-type Post_Tutorialmanager_Youtube {
-    "Copy the Youtube Embed URL and paste it here"
-    embedUrl: String
-    fieldGroupName: String
-}
-
 "PrettyLink Object"
 type PrettyLinkType {
     "PrettyLink Time Stamp"
@@ -3232,256 +2887,6 @@ type PrettyLinkType {
     url: String
 }
 
-"The Product type"
-type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
-    "Connection between the Product type and the category type"
-    categories(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: ProductToCategoryConnectionWhereArgs
-    ): ProductToCategoryConnection
-    "Connection between the ContentNode type and the ContentType type"
-    contentType: ContentNodeToContentTypeConnectionEdge
-    "The unique resource identifier path"
-    databaseId: Int!
-    "Post publishing date."
-    date: String
-    "The publishing date set in GMT."
-    dateGmt: String
-    "The desired slug of the post"
-    desiredSlug: String
-    details: Product_Details
-    "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
-    editingLockedBy: ContentNodeToEditLockConnectionEdge
-    "The RSS enclosure for the object"
-    enclosure: String
-    "Connection between the ContentNode type and the EnqueuedScript type"
-    enqueuedScripts(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedScriptConnection
-    "Connection between the ContentNode type and the EnqueuedStylesheet type"
-    enqueuedStylesheets(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int
-    ): ContentNodeToEnqueuedStylesheetConnection
-    "Connection between the NodeWithFeaturedImage type and the MediaItem type"
-    featuredImage: NodeWithFeaturedImageToMediaItemConnectionEdge
-    "The database identifier for the featured image node assigned to the content node"
-    featuredImageDatabaseId: Int
-    "Globally unique ID of the featured image assigned to the node"
-    featuredImageId: ID
-    "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
-    guid: String
-    "The globally unique identifier of the product object."
-    id: ID!
-    "Whether the node is a Content Node"
-    isContentNode: Boolean!
-    "Whether the object is a node in the preview state"
-    isPreview: Boolean
-    "Whether the object is restricted from the current viewer"
-    isRestricted: Boolean
-    "Whether the node is a Term"
-    isTermNode: Boolean!
-    "The user that most recently edited the node"
-    lastEditedBy: ContentNodeToEditLastConnectionEdge
-    "The permalink of the post"
-    link: String
-    "The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time."
-    modified: String
-    "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
-    modifiedGmt: String
-    "Connection between the Product type and the postFormat type"
-    postFormats(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: ProductToPostFormatConnectionWhereArgs
-    ): ProductToPostFormatConnection
-    "Connection between the Product type and the Product type"
-    preview: ProductToPreviewConnectionEdge
-    "The database id of the preview node"
-    previewRevisionDatabaseId: Int
-    "Whether the object is a node in the preview state"
-    previewRevisionId: ID
-    "The id field matches the WP_Post-&gt;ID field."
-    productId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "The Yoast SEO data of the Product"
-    seo: PostTypeSEO
-    "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
-    slug: String
-    "The current status of the object"
-    status: String
-    "The template assigned to a node of content"
-    template: ContentTemplate
-    "Connection between the Product type and the TermNode type"
-    terms(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: ProductToTermNodeConnectionWhereArgs
-    ): ProductToTermNodeConnection
-    "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
-    title(
-        "Format of the field output"
-        format: PostObjectFieldFormatEnum
-    ): String
-    "The unique resource identifier path"
-    uri: String
-}
-
-"Connection between the Product type and the category type"
-type ProductToCategoryConnection {
-    "Edges for the ProductToCategoryConnection connection"
-    edges: [ProductToCategoryConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Category]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type ProductToCategoryConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The Yoast SEO Primary category"
-    isPrimary: Boolean
-    "The item at the end of the edge"
-    node: Category
-}
-
-"Connection between the Product type and the postFormat type"
-type ProductToPostFormatConnection {
-    "Edges for the ProductToPostFormatConnection connection"
-    edges: [ProductToPostFormatConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [PostFormat]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type ProductToPostFormatConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The Yoast SEO Primary post_format"
-    isPrimary: Boolean
-    "The item at the end of the edge"
-    node: PostFormat
-}
-
-"Connection between the Product type and the Product type"
-type ProductToPreviewConnectionEdge {
-    "The node of the connection, without the edges"
-    node: Product
-}
-
-"Connection between the Product type and the TermNode type"
-type ProductToTermNodeConnection {
-    "Edges for the ProductToTermNodeConnection connection"
-    edges: [ProductToTermNodeConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [TermNode]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type ProductToTermNodeConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: TermNode
-}
-
-"Field Group"
-type Product_Details {
-    extendedLicenseUrl: String
-    extendedPrice: String
-    fieldGroupName: String
-    "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
-    fontName: String
-    fontStyles: [Product_Details_fontStyles]
-    fonts: [Product_Details_fonts]
-    "Add Gumroad Url"
-    gumroadLink: String
-    hasExtendedPrice: Boolean
-    hasFontPreview: Boolean
-    "Add Licenses here"
-    licences: [Product_Details_licences]
-    "Add Product Price"
-    price: String
-    "Add Youtube link here"
-    youtube: Product_Details_Youtube
-    "Add Youtube link here"
-    youtubeLink: String
-}
-
-"Field Group"
-type Product_Details_Youtube {
-    fieldGroupName: String
-    url: String
-}
-
-"Field Group"
-type Product_Details_fontStyles {
-    fieldGroupName: String
-    style: String
-}
-
-"Field Group"
-type Product_Details_fonts {
-    fieldGroupName: String
-    "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
-    name: String
-    styles: [Product_Details_fonts_styles]
-}
-
-"Field Group"
-type Product_Details_fonts_styles {
-    fieldGroupName: String
-    name: String
-}
-
-"Field Group"
-type Product_Details_licences {
-    fieldGroupName: String
-    gumroadUrl: String
-    licenseType: String
-    price: Float
-}
-
 "The reading setting type"
 type ReadingSettings {
     "Blog pages show at most."
@@ -3502,24 +2907,6 @@ type RegisterUserPayload {
     clientMutationId: String
     "The User object mutation type."
     user: User
-}
-
-"Connection between the Post type and the Post type"
-type RelatedPostsConnection {
-    "Edges for the RelatedPostsConnection connection"
-    edges: [RelatedPostsConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Post]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type RelatedPostsConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: Post
 }
 
 "The payload for the resetUserPassword mutation"
@@ -3602,7 +2989,7 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
     "The id field matches the WP_Post-&gt;ID field."
-    resourceLibraryId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
+    resourceLibraryId: Int! @deprecated(reason : "Deprecated in favor of the databaseId field")
     "The Yoast SEO data of the ResourceLibrary"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
@@ -3695,9 +3082,6 @@ type ResourceLibrary_Freebie {
     downloadLink: String
     excerpt: String
     fieldGroupName: String
-    "Does this freebie requires a license to use for creating / selling products"
-    licenseRequired: Boolean
-    product: ResourceLibrary_Freebie_Product
 }
 
 "The payload for the restoreComment mutation"
@@ -3727,11 +3111,6 @@ type RootMutation {
         "Input for the createCourse mutation"
         input: CreateCourseInput!
     ): CreateCoursePayload
-    "The payload for the createDownloadFreebie mutation"
-    createDownloadFreebie(
-        "Input for the createDownloadFreebie mutation"
-        input: CreateDownloadFreebieInput!
-    ): CreateDownloadFreebiePayload
     "The payload for the createDownloadGrid mutation"
     createDownloadGrid(
         "Input for the createDownloadGrid mutation"
@@ -3757,11 +3136,6 @@ type RootMutation {
         "Input for the createPostFormat mutation"
         input: CreatePostFormatInput!
     ): CreatePostFormatPayload
-    "The payload for the createProduct mutation"
-    createProduct(
-        "Input for the createProduct mutation"
-        input: CreateProductInput!
-    ): CreateProductPayload
     "The payload for the createResourceLibrary mutation"
     createResourceLibrary(
         "Input for the createResourceLibrary mutation"
@@ -3792,11 +3166,6 @@ type RootMutation {
         "Input for the deleteCourse mutation"
         input: DeleteCourseInput!
     ): DeleteCoursePayload
-    "The payload for the deleteDownloadFreebie mutation"
-    deleteDownloadFreebie(
-        "Input for the deleteDownloadFreebie mutation"
-        input: DeleteDownloadFreebieInput!
-    ): DeleteDownloadFreebiePayload
     "The payload for the deleteDownloadGrid mutation"
     deleteDownloadGrid(
         "Input for the deleteDownloadGrid mutation"
@@ -3822,11 +3191,6 @@ type RootMutation {
         "Input for the deletePostFormat mutation"
         input: DeletePostFormatInput!
     ): DeletePostFormatPayload
-    "The payload for the deleteProduct mutation"
-    deleteProduct(
-        "Input for the deleteProduct mutation"
-        input: DeleteProductInput!
-    ): DeleteProductPayload
     "The payload for the deleteResourceLibrary mutation"
     deleteResourceLibrary(
         "Input for the deleteResourceLibrary mutation"
@@ -3882,11 +3246,6 @@ type RootMutation {
         "Input for the restoreComment mutation"
         input: RestoreCommentInput!
     ): RestoreCommentPayload
-    "The payload for the sendEmail mutation"
-    sendEmail(
-        "Input for the sendEmail mutation"
-        input: SendEmailInput!
-    ): SendEmailPayload
     "The payload for the sendPasswordResetEmail mutation"
     sendPasswordResetEmail(
         "Input for the sendPasswordResetEmail mutation"
@@ -3907,11 +3266,6 @@ type RootMutation {
         "Input for the updateCourse mutation"
         input: UpdateCourseInput!
     ): UpdateCoursePayload
-    "The payload for the updateDownloadFreebie mutation"
-    updateDownloadFreebie(
-        "Input for the updateDownloadFreebie mutation"
-        input: UpdateDownloadFreebieInput!
-    ): UpdateDownloadFreebiePayload
     "The payload for the updateDownloadGrid mutation"
     updateDownloadGrid(
         "Input for the updateDownloadGrid mutation"
@@ -3937,11 +3291,6 @@ type RootMutation {
         "Input for the UpdatePostFormat mutation"
         input: UpdatePostFormatInput!
     ): UpdatePostFormatPayload
-    "The payload for the updateProduct mutation"
-    updateProduct(
-        "Input for the updateProduct mutation"
-        input: UpdateProductInput!
-    ): UpdateProductPayload
     "The payload for the updateResourceLibrary mutation"
     updateResourceLibrary(
         "Input for the updateResourceLibrary mutation"
@@ -4067,7 +3416,7 @@ type RootQuery {
         slug: String,
         "Get the Course by its uri"
         uri: String
-    ): Course @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): Course @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "Connection between the RootQuery type and the Course type"
     courses(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -4085,40 +3434,7 @@ type RootQuery {
     cptTags(postType: String): [Cpt_tag]
     "Fields of the &#039;DiscussionSettings&#039; settings group"
     discussionSettings: DiscussionSettings
-    "An object of the downloadFreebie Type. Add Download links here"
-    downloadFreebie(
-        "Whether to return the node as a preview instance"
-        asPreview: Boolean,
-        "The globally unique identifier of the object."
-        id: ID!,
-        "Type of unique identifier to fetch by. Default is Global ID"
-        idType: DownloadFreebieIdType
-    ): DownloadFreebie
-    "A downloadFreebie object"
-    downloadFreebieBy(
-        "Get the downloadFreebie by its database ID"
-        downloadFreebieId: Int,
-        "Get the object by its global ID"
-        id: ID,
-        "Get the downloadFreebie by its slug (only available for non-hierarchical types)"
-        slug: String,
-        "Get the downloadFreebie by its uri"
-        uri: String
-    ): DownloadFreebie @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
-    "Connection between the RootQuery type and the downloadFreebie type"
-    downloadFreebies(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: RootQueryToDownloadFreebieConnectionWhereArgs
-    ): RootQueryToDownloadFreebieConnection
-    "An object of the DownloadGrid Type. Add New Grid"
+    "An object of the DownloadGrid Type. "
     downloadGrid(
         "Whether to return the node as a preview instance"
         asPreview: Boolean,
@@ -4137,7 +3453,7 @@ type RootQuery {
         slug: String,
         "Get the DownloadGrid by its uri"
         uri: String
-    ): DownloadGrid @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): DownloadGrid @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "Connection between the RootQuery type and the DownloadGrid type"
     downloadGrids(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -4157,8 +3473,6 @@ type RootQuery {
     getFooter: HCMSFooter
     "Get header"
     getHeader: HCMSHeader
-    "Get all the tags by grid type"
-    gridTags(slug: String): [GridTag]
     "An object of the mediaItem Type. "
     mediaItem(
         "Whether to return the node as a preview instance"
@@ -4178,7 +3492,7 @@ type RootQuery {
         slug: String,
         "Get the mediaItem by its uri"
         uri: String
-    ): MediaItem @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): MediaItem @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "Connection between the RootQuery type and the mediaItem type"
     mediaItems(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -4259,7 +3573,7 @@ type RootQuery {
         pageId: Int,
         "Get the page by its uri"
         uri: String
-    ): Page @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): Page @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "Connection between the RootQuery type and the page type"
     pages(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -4308,7 +3622,7 @@ type RootQuery {
         slug: String,
         "Get the post by its uri"
         uri: String
-    ): Post @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): Post @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "A 0bject"
     postFormat(
         "The globally unique identifier of the object."
@@ -4344,39 +3658,6 @@ type RootQuery {
     ): RootQueryToPostConnection
     "Describe what the field should be used for"
     prettyLinkTypes: [PrettyLinkType]
-    "An object of the Product Type. Add Products here"
-    product(
-        "Whether to return the node as a preview instance"
-        asPreview: Boolean,
-        "The globally unique identifier of the object."
-        id: ID!,
-        "Type of unique identifier to fetch by. Default is Global ID"
-        idType: ProductIdType
-    ): Product
-    "A Product object"
-    productBy(
-        "Get the object by its global ID"
-        id: ID,
-        "Get the Product by its database ID"
-        productId: Int,
-        "Get the Product by its slug (only available for non-hierarchical types)"
-        slug: String,
-        "Get the Product by its uri"
-        uri: String
-    ): Product @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
-    "Connection between the RootQuery type and the Product type"
-    products(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: RootQueryToProductConnectionWhereArgs
-    ): RootQueryToProductConnection
     "Fields of the &#039;ReadingSettings&#039; settings group"
     readingSettings: ReadingSettings
     "Connection between the RootQuery type and the EnqueuedScript type"
@@ -4433,7 +3714,7 @@ type RootQuery {
         slug: String,
         "Get the ResourceLibrary by its uri"
         uri: String
-    ): ResourceLibrary @deprecated(reason: "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
+    ): ResourceLibrary @deprecated(reason : "Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)")
     "Connection between the RootQuery type and the ContentRevisionUnion type"
     revisions(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -4681,24 +3962,6 @@ type RootQueryToCourseConnectionEdge {
     node: Course
 }
 
-"Connection between the RootQuery type and the downloadFreebie type"
-type RootQueryToDownloadFreebieConnection {
-    "Edges for the RootQueryToDownloadFreebieConnection connection"
-    edges: [RootQueryToDownloadFreebieConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [DownloadFreebie]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type RootQueryToDownloadFreebieConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: DownloadFreebie
-}
-
 "Connection between the RootQuery type and the DownloadGrid type"
 type RootQueryToDownloadGridConnection {
     "Edges for the RootQueryToDownloadGridConnection connection"
@@ -4879,24 +4142,6 @@ type RootQueryToPostFormatConnectionEdge {
     node: PostFormat
 }
 
-"Connection between the RootQuery type and the Product type"
-type RootQueryToProductConnection {
-    "Edges for the RootQueryToProductConnection connection"
-    edges: [RootQueryToProductConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Product]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type RootQueryToProductConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: Product
-}
-
 "Connection between the RootQuery type and the ResourceLibrary type"
 type RootQueryToResourceLibraryConnection {
     "Edges for the RootQueryToResourceLibraryConnection connection"
@@ -5071,12 +4316,10 @@ type SEOContentTypeArchive {
 "The Yoast SEO search appearance content types"
 type SEOContentTypes {
     course: SEOContentType
-    downloadFreebie: SEOContentType
     downloadGrid: SEOContentType
     mediaItem: SEOContentType
     page: SEOContentType
     post: SEOContentType
-    product: SEOContentType
     resourceLibrary: SEOContentType
 }
 
@@ -5236,22 +4479,6 @@ type SEOWebmaster {
     yandexVerify: String
 }
 
-"The payload for the sendEmail mutation"
-type SendEmailPayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "Message"
-    message: String
-    "Origin that sent the request"
-    origin: String
-    "reply To address used"
-    replyTo: String
-    "Was the email sent"
-    sent: Boolean
-    "Who the email got sent to"
-    to: String
-}
-
 "The payload for the sendPasswordResetEmail mutation"
 type SendPasswordResetEmailPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -5334,19 +4561,6 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     databaseId: Int!
     "The description of the object"
     description: String
-    "Connection between the tag type and the DownloadGrid type"
-    downloadGrids(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: TagToDownloadGridConnectionWhereArgs
-    ): TagToDownloadGridConnection
     "Connection between the TermNode type and the EnqueuedScript type"
     enqueuedScripts(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -5412,7 +4626,7 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     "An alphanumeric identifier for the object unique to its type."
     slug: String
     "The id field matches the WP_Post-&gt;ID field."
-    tagId: Int @deprecated(reason: "Deprecated in favor of databaseId")
+    tagId: Int @deprecated(reason : "Deprecated in favor of databaseId")
     "Connection between the tag type and the Taxonomy type"
     taxonomy: TagToTaxonomyConnectionEdge
     "The ID of the term group that this term object belongs to"
@@ -5457,24 +4671,6 @@ type TagToCourseConnectionEdge {
     cursor: String
     "The item at the end of the edge"
     node: Course
-}
-
-"Connection between the tag type and the DownloadGrid type"
-type TagToDownloadGridConnection {
-    "Edges for the TagToDownloadGridConnection connection"
-    edges: [TagToDownloadGridConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [DownloadGrid]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type TagToDownloadGridConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: DownloadGrid
 }
 
 "Connection between the tag type and the post type"
@@ -5705,14 +4901,6 @@ type UpdateCoursePayload {
     course: Course
 }
 
-"The payload for the updateDownloadFreebie mutation"
-type UpdateDownloadFreebiePayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The Post object mutation type."
-    downloadFreebie: DownloadFreebie
-}
-
 "The payload for the updateDownloadGrid mutation"
 type UpdateDownloadGridPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -5751,14 +4939,6 @@ type UpdatePostPayload {
     clientMutationId: String
     "The Post object mutation type."
     post: Post
-}
-
-"The payload for the updateProduct mutation"
-type UpdateProductPayload {
-    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The Post object mutation type."
-    product: Product
 }
 
 "The payload for the updateResourceLibrary mutation"
@@ -5963,7 +5143,7 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     "A website url that is associated with the user."
     url: String
     "The Id of the user. Equivalent to WP_User-&gt;ID"
-    userId: Int @deprecated(reason: "Deprecated in favor of the databaseId field")
+    userId: Int @deprecated(reason : "Deprecated in favor of the databaseId field")
     "Username for the user. This field is equivalent to WP_User-&gt;user_login."
     username: String
 }
@@ -6250,17 +5430,13 @@ enum ContentTypeEnum {
     "The Type of Content object"
     COURSES
     "The Type of Content object"
-    DOWNLOADGRID
-    "The Type of Content object"
-    ETDM_DOWNLOAD
+    DOWNLOAD_GRID
     "The Type of Content object"
     ET_FREEBIE
     "The Type of Content object"
     PAGE
     "The Type of Content object"
     POST
-    "The Type of Content object"
-    PRODUCT
 }
 
 "The Type of Identifier used to fetch a single Content Type node. To be used along with the \"id\" field. Default is \"ID\"."
@@ -6277,24 +5453,18 @@ enum ContentTypesOfCategoryEnum {
     COURSES
     "The Type of Content object"
     POST
-    "The Type of Content object"
-    PRODUCT
 }
 
 "Allowed Content Types of the PostFormat taxonomy."
 enum ContentTypesOfPostFormatEnum {
     "The Type of Content object"
     POST
-    "The Type of Content object"
-    PRODUCT
 }
 
 "Allowed Content Types of the Tag taxonomy."
 enum ContentTypesOfTagEnum {
     "The Type of Content object"
     COURSES
-    "The Type of Content object"
-    DOWNLOADGRID
     "The Type of Content object"
     ET_FREEBIE
     "The Type of Content object"
@@ -6303,18 +5473,6 @@ enum ContentTypesOfTagEnum {
 
 "The Type of Identifier used to fetch a single resource. Default is ID."
 enum CourseIdType {
-    "Identify a resource by the Database ID."
-    DATABASE_ID
-    "Identify a resource by the (hashed) Global ID."
-    ID
-    "Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier."
-    SLUG
-    "Identify a resource by the URI."
-    URI
-}
-
-"The Type of Identifier used to fetch a single resource. Default is ID."
-enum DownloadFreebieIdType {
     "Identify a resource by the Database ID."
     DATABASE_ID
     "Identify a resource by the (hashed) Global ID."
@@ -6363,8 +5521,6 @@ enum MediaItemSizeEnum {
     POST_THUMBNAIL
     "MediaItem with the thumbnail size"
     THUMBNAIL
-    "MediaItem with the yarpp-thumbnail size"
-    YARPP_THUMBNAIL
     "MediaItem with the 1536x1536 size"
     _1536X1536
     "MediaItem with the 2048x2048 size"
@@ -6709,18 +5865,6 @@ enum PostStatusEnum {
     REQUEST_PENDING
     "Objects with the trash status"
     TRASH
-}
-
-"The Type of Identifier used to fetch a single resource. Default is ID."
-enum ProductIdType {
-    "Identify a resource by the Database ID."
-    DATABASE_ID
-    "Identify a resource by the (hashed) Global ID."
-    ID
-    "Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier."
-    SLUG
-    "Identify a resource by the URI."
-    URI
 }
 
 "The logical relation between each item in the array when there are more than one."
@@ -7085,52 +6229,6 @@ input CategoryToPostConnectionWhereArgs {
     tagSlugAnd: [String]
     "Array of tag slugs, used to exclude objects in specified tags"
     tagSlugIn: [String]
-    "Title of the object"
-    title: String
-}
-
-"Arguments for filtering the CategoryToProductConnection connection"
-input CategoryToProductConnectionWhereArgs {
-    "Category ID"
-    categoryId: Int
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryIn: [ID]
-    "Use Category Slug"
-    categoryName: String
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryNotIn: [ID]
-    "Filter the connection based on dates"
-    dateQuery: DateQueryInput
-    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
-    hasPassword: Boolean
-    "Specific ID of the object"
-    id: Int
-    "Array of IDs for the objects to retrieve"
-    in: [ID]
-    "Get objects with a specific mimeType property"
-    mimeType: MimeTypeEnum
-    "Slug / post_name of the object"
-    name: String
-    "Specify objects to retrieve. Use slugs"
-    nameIn: [String]
-    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
-    notIn: [ID]
-    "What paramater to use to order the objects by."
-    orderby: [PostObjectsConnectionOrderbyInput]
-    "Use ID to return only children. Use 0 to return only top-level items"
-    parent: ID
-    "Specify objects whose parent is in an array"
-    parentIn: [ID]
-    "Specify posts whose parent is not in an array"
-    parentNotIn: [ID]
-    "Show posts with a specific password."
-    password: String
-    "Show Posts based on a keyword search"
-    search: String
-    "Retrieve posts where post status is in an array."
-    stati: [PostStatusEnum]
-    "Show posts with a specific status."
-    status: PostStatusEnum
     "Title of the object"
     title: String
 }
@@ -7537,24 +6635,6 @@ input CreateCourseInput {
     title: String
 }
 
-"Input for the createDownloadFreebie mutation"
-input CreateDownloadFreebieInput {
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
-    date: String
-    "A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types."
-    menuOrder: Int
-    "The password used to protect the content of the object"
-    password: String
-    "The slug of the object"
-    slug: String
-    "The status of the object"
-    status: PostStatusEnum
-    "The title of the object"
-    title: String
-}
-
 "Input for the createDownloadGrid mutation"
 input CreateDownloadGridInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -7569,8 +6649,6 @@ input CreateDownloadGridInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
-    "Set connections between the DownloadGrid and tags"
-    tags: DownloadGridTagsInput
     "The title of the object"
     title: String
 }
@@ -7685,28 +6763,6 @@ input CreatePostInput {
     title: String
     "URLs queued to be pinged."
     toPing: [String]
-}
-
-"Input for the createProduct mutation"
-input CreateProductInput {
-    "Set connections between the Product and categories"
-    categories: ProductCategoriesInput
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
-    date: String
-    "A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types."
-    menuOrder: Int
-    "The password used to protect the content of the object"
-    password: String
-    "Set connections between the Product and postFormats"
-    postFormats: ProductPostFormatsInput
-    "The slug of the object"
-    slug: String
-    "The status of the object"
-    status: PostStatusEnum
-    "The title of the object"
-    title: String
 }
 
 "Input for the createResourceLibrary mutation"
@@ -7855,16 +6911,6 @@ input DeleteCourseInput {
     id: ID!
 }
 
-"Input for the deleteDownloadFreebie mutation"
-input DeleteDownloadFreebieInput {
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "Whether the object should be force deleted instead of being moved to the trash"
-    forceDelete: Boolean
-    "The ID of the downloadFreebie to delete"
-    id: ID!
-}
-
 "Input for the deleteDownloadGrid mutation"
 input DeleteDownloadGridInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -7913,16 +6959,6 @@ input DeletePostInput {
     id: ID!
 }
 
-"Input for the deleteProduct mutation"
-input DeleteProductInput {
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "Whether the object should be force deleted instead of being moved to the trash"
-    forceDelete: Boolean
-    "The ID of the Product to delete"
-    id: ID!
-}
-
 "Input for the deleteResourceLibrary mutation"
 input DeleteResourceLibraryInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -7949,116 +6985,6 @@ input DeleteUserInput {
     id: ID!
     "Reassign posts and links to new User ID."
     reassignId: ID
-}
-
-"Set relationships between the DownloadGrid to tags"
-input DownloadGridTagsInput {
-    "If true, this will append the tag to existing related tags. If false, this will replace existing relationships. Default true."
-    append: Boolean
-    "The input list of items to set."
-    nodes: [DownloadGridTagsNodeInput]
-}
-
-"List of tags to connect the DownloadGrid to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists."
-input DownloadGridTagsNodeInput {
-    "The description of the tag. This field is used to set a description of the tag if a new one is created during the mutation."
-    description: String
-    "The ID of the tag. If present, this will be used to connect to the DownloadGrid. If no existing tag exists with this ID, no connection will be made."
-    id: ID
-    "The name of the tag. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field."
-    name: String
-    "The slug of the tag. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
-    slug: String
-}
-
-"Arguments for filtering the DownloadGridToTagConnection connection"
-input DownloadGridToTagConnectionWhereArgs {
-    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
-    cacheDomain: String
-    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
-    childOf: Int
-    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
-    childless: Boolean
-    "Retrieve terms where the description is LIKE the input value. Default empty."
-    descriptionLike: String
-    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
-    exclude: [ID]
-    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
-    excludeTree: [ID]
-    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
-    hideEmpty: Boolean
-    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
-    hierarchical: Boolean
-    "Array of term ids to include. Default empty array."
-    include: [ID]
-    "Array of names to return term(s) for. Default empty."
-    name: [String]
-    "Retrieve terms where the name is LIKE the input value. Default empty."
-    nameLike: String
-    "Array of object IDs. Results will be limited to terms associated with these objects."
-    objectIds: [ID]
-    "Direction the connection should be ordered in"
-    order: OrderEnum
-    "Field(s) to order terms by. Defaults to 'name'."
-    orderby: TermObjectsConnectionOrderbyEnum
-    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
-    padCounts: Boolean
-    "Parent term ID to retrieve direct-child terms of. Default empty."
-    parent: Int
-    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
-    search: String
-    "Array of slugs to return term(s) for. Default empty."
-    slug: [String]
-    "Array of term taxonomy IDs, to match when querying terms."
-    termTaxonomId: [ID]
-    "Whether to prime meta caches for matched terms. Default true."
-    updateTermMetaCache: Boolean
-}
-
-"Arguments for filtering the DownloadGridToTermNodeConnection connection"
-input DownloadGridToTermNodeConnectionWhereArgs {
-    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
-    cacheDomain: String
-    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
-    childOf: Int
-    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
-    childless: Boolean
-    "Retrieve terms where the description is LIKE the input value. Default empty."
-    descriptionLike: String
-    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
-    exclude: [ID]
-    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
-    excludeTree: [ID]
-    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
-    hideEmpty: Boolean
-    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
-    hierarchical: Boolean
-    "Array of term ids to include. Default empty array."
-    include: [ID]
-    "Array of names to return term(s) for. Default empty."
-    name: [String]
-    "Retrieve terms where the name is LIKE the input value. Default empty."
-    nameLike: String
-    "Array of object IDs. Results will be limited to terms associated with these objects."
-    objectIds: [ID]
-    "Direction the connection should be ordered in"
-    order: OrderEnum
-    "Field(s) to order terms by. Defaults to 'name'."
-    orderby: TermObjectsConnectionOrderbyEnum
-    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
-    padCounts: Boolean
-    "Parent term ID to retrieve direct-child terms of. Default empty."
-    parent: Int
-    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
-    search: String
-    "Array of slugs to return term(s) for. Default empty."
-    slug: [String]
-    "The Taxonomy to filter terms by"
-    taxonomies: [TaxonomyEnum]
-    "Array of term taxonomy IDs, to match when querying terms."
-    termTaxonomId: [ID]
-    "Whether to prime meta caches for matched terms. Default true."
-    updateTermMetaCache: Boolean
 }
 
 "Arguments for filtering the HierarchicalContentNodeToContentNodeAncestorsConnection connection"
@@ -8489,52 +7415,6 @@ input PostFormatToPostConnectionWhereArgs {
     title: String
 }
 
-"Arguments for filtering the PostFormatToProductConnection connection"
-input PostFormatToProductConnectionWhereArgs {
-    "Category ID"
-    categoryId: Int
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryIn: [ID]
-    "Use Category Slug"
-    categoryName: String
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryNotIn: [ID]
-    "Filter the connection based on dates"
-    dateQuery: DateQueryInput
-    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
-    hasPassword: Boolean
-    "Specific ID of the object"
-    id: Int
-    "Array of IDs for the objects to retrieve"
-    in: [ID]
-    "Get objects with a specific mimeType property"
-    mimeType: MimeTypeEnum
-    "Slug / post_name of the object"
-    name: String
-    "Specify objects to retrieve. Use slugs"
-    nameIn: [String]
-    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
-    notIn: [ID]
-    "What paramater to use to order the objects by."
-    orderby: [PostObjectsConnectionOrderbyInput]
-    "Use ID to return only children. Use 0 to return only top-level items"
-    parent: ID
-    "Specify objects whose parent is in an array"
-    parentIn: [ID]
-    "Specify posts whose parent is not in an array"
-    parentNotIn: [ID]
-    "Show posts with a specific password."
-    password: String
-    "Show Posts based on a keyword search"
-    search: String
-    "Retrieve posts where post status is in an array."
-    stati: [PostStatusEnum]
-    "Show posts with a specific status."
-    status: PostStatusEnum
-    "Title of the object"
-    title: String
-}
-
 "Options for ordering the connection"
 input PostObjectsConnectionOrderbyInput {
     "The field to order the connection by"
@@ -8889,180 +7769,6 @@ input PostToTermNodeConnectionWhereArgs {
     updateTermMetaCache: Boolean
 }
 
-"Set relationships between the Product to categories"
-input ProductCategoriesInput {
-    "If true, this will append the category to existing related categories. If false, this will replace existing relationships. Default true."
-    append: Boolean
-    "The input list of items to set."
-    nodes: [ProductCategoriesNodeInput]
-}
-
-"List of categories to connect the Product to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists."
-input ProductCategoriesNodeInput {
-    "The description of the category. This field is used to set a description of the category if a new one is created during the mutation."
-    description: String
-    "The ID of the category. If present, this will be used to connect to the Product. If no existing category exists with this ID, no connection will be made."
-    id: ID
-    "The name of the category. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field."
-    name: String
-    "The slug of the category. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
-    slug: String
-}
-
-"Set relationships between the Product to postFormats"
-input ProductPostFormatsInput {
-    "If true, this will append the postFormat to existing related postFormats. If false, this will replace existing relationships. Default true."
-    append: Boolean
-    "The input list of items to set."
-    nodes: [ProductPostFormatsNodeInput]
-}
-
-"List of postFormats to connect the Product to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists."
-input ProductPostFormatsNodeInput {
-    "The description of the postFormat. This field is used to set a description of the postFormat if a new one is created during the mutation."
-    description: String
-    "The ID of the postFormat. If present, this will be used to connect to the Product. If no existing postFormat exists with this ID, no connection will be made."
-    id: ID
-    "The name of the postFormat. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field."
-    name: String
-    "The slug of the postFormat. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
-    slug: String
-}
-
-"Arguments for filtering the ProductToCategoryConnection connection"
-input ProductToCategoryConnectionWhereArgs {
-    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
-    cacheDomain: String
-    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
-    childOf: Int
-    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
-    childless: Boolean
-    "Retrieve terms where the description is LIKE the input value. Default empty."
-    descriptionLike: String
-    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
-    exclude: [ID]
-    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
-    excludeTree: [ID]
-    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
-    hideEmpty: Boolean
-    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
-    hierarchical: Boolean
-    "Array of term ids to include. Default empty array."
-    include: [ID]
-    "Array of names to return term(s) for. Default empty."
-    name: [String]
-    "Retrieve terms where the name is LIKE the input value. Default empty."
-    nameLike: String
-    "Array of object IDs. Results will be limited to terms associated with these objects."
-    objectIds: [ID]
-    "Direction the connection should be ordered in"
-    order: OrderEnum
-    "Field(s) to order terms by. Defaults to 'name'."
-    orderby: TermObjectsConnectionOrderbyEnum
-    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
-    padCounts: Boolean
-    "Parent term ID to retrieve direct-child terms of. Default empty."
-    parent: Int
-    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
-    search: String
-    "Array of slugs to return term(s) for. Default empty."
-    slug: [String]
-    "Array of term taxonomy IDs, to match when querying terms."
-    termTaxonomId: [ID]
-    "Whether to prime meta caches for matched terms. Default true."
-    updateTermMetaCache: Boolean
-}
-
-"Arguments for filtering the ProductToPostFormatConnection connection"
-input ProductToPostFormatConnectionWhereArgs {
-    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
-    cacheDomain: String
-    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
-    childOf: Int
-    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
-    childless: Boolean
-    "Retrieve terms where the description is LIKE the input value. Default empty."
-    descriptionLike: String
-    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
-    exclude: [ID]
-    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
-    excludeTree: [ID]
-    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
-    hideEmpty: Boolean
-    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
-    hierarchical: Boolean
-    "Array of term ids to include. Default empty array."
-    include: [ID]
-    "Array of names to return term(s) for. Default empty."
-    name: [String]
-    "Retrieve terms where the name is LIKE the input value. Default empty."
-    nameLike: String
-    "Array of object IDs. Results will be limited to terms associated with these objects."
-    objectIds: [ID]
-    "Direction the connection should be ordered in"
-    order: OrderEnum
-    "Field(s) to order terms by. Defaults to 'name'."
-    orderby: TermObjectsConnectionOrderbyEnum
-    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
-    padCounts: Boolean
-    "Parent term ID to retrieve direct-child terms of. Default empty."
-    parent: Int
-    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
-    search: String
-    "Array of slugs to return term(s) for. Default empty."
-    slug: [String]
-    "Array of term taxonomy IDs, to match when querying terms."
-    termTaxonomId: [ID]
-    "Whether to prime meta caches for matched terms. Default true."
-    updateTermMetaCache: Boolean
-}
-
-"Arguments for filtering the ProductToTermNodeConnection connection"
-input ProductToTermNodeConnectionWhereArgs {
-    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
-    cacheDomain: String
-    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
-    childOf: Int
-    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
-    childless: Boolean
-    "Retrieve terms where the description is LIKE the input value. Default empty."
-    descriptionLike: String
-    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
-    exclude: [ID]
-    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
-    excludeTree: [ID]
-    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
-    hideEmpty: Boolean
-    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
-    hierarchical: Boolean
-    "Array of term ids to include. Default empty array."
-    include: [ID]
-    "Array of names to return term(s) for. Default empty."
-    name: [String]
-    "Retrieve terms where the name is LIKE the input value. Default empty."
-    nameLike: String
-    "Array of object IDs. Results will be limited to terms associated with these objects."
-    objectIds: [ID]
-    "Direction the connection should be ordered in"
-    order: OrderEnum
-    "Field(s) to order terms by. Defaults to 'name'."
-    orderby: TermObjectsConnectionOrderbyEnum
-    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
-    padCounts: Boolean
-    "Parent term ID to retrieve direct-child terms of. Default empty."
-    parent: Int
-    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
-    search: String
-    "Array of slugs to return term(s) for. Default empty."
-    slug: [String]
-    "The Taxonomy to filter terms by"
-    taxonomies: [TaxonomyEnum]
-    "Array of term taxonomy IDs, to match when querying terms."
-    termTaxonomId: [ID]
-    "Whether to prime meta caches for matched terms. Default true."
-    updateTermMetaCache: Boolean
-}
-
 "Input for the refreshJwtAuthToken mutation"
 input RefreshJwtAuthTokenInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -9111,12 +7817,6 @@ input RegisterUserInput {
     websiteUrl: String
     "User's Yahoo IM account."
     yim: String
-}
-
-"Arguments for filtering the RelatedPostsConnection connection"
-input RelatedPostsConnectionWhereArgs {
-    "Override's YARPP setting's \"Maximum number of related posts.\" The maximum number is 20."
-    limit: Int
 }
 
 "Input for the resetUserPassword mutation"
@@ -9493,44 +8193,6 @@ input RootQueryToCourseConnectionWhereArgs {
     title: String
 }
 
-"Arguments for filtering the RootQueryToDownloadFreebieConnection connection"
-input RootQueryToDownloadFreebieConnectionWhereArgs {
-    "Filter the connection based on dates"
-    dateQuery: DateQueryInput
-    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
-    hasPassword: Boolean
-    "Specific ID of the object"
-    id: Int
-    "Array of IDs for the objects to retrieve"
-    in: [ID]
-    "Get objects with a specific mimeType property"
-    mimeType: MimeTypeEnum
-    "Slug / post_name of the object"
-    name: String
-    "Specify objects to retrieve. Use slugs"
-    nameIn: [String]
-    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
-    notIn: [ID]
-    "What paramater to use to order the objects by."
-    orderby: [PostObjectsConnectionOrderbyInput]
-    "Use ID to return only children. Use 0 to return only top-level items"
-    parent: ID
-    "Specify objects whose parent is in an array"
-    parentIn: [ID]
-    "Specify posts whose parent is not in an array"
-    parentNotIn: [ID]
-    "Show posts with a specific password."
-    password: String
-    "Show Posts based on a keyword search"
-    search: String
-    "Retrieve posts where post status is in an array."
-    stati: [PostStatusEnum]
-    "Show posts with a specific status."
-    status: PostStatusEnum
-    "Title of the object"
-    title: String
-}
-
 "Arguments for filtering the RootQueryToDownloadGridConnection connection"
 input RootQueryToDownloadGridConnectionWhereArgs {
     "Filter the connection based on dates"
@@ -9565,18 +8227,6 @@ input RootQueryToDownloadGridConnectionWhereArgs {
     stati: [PostStatusEnum]
     "Show posts with a specific status."
     status: PostStatusEnum
-    "Tag Slug"
-    tag: String
-    "Use Tag ID"
-    tagId: String
-    "Array of tag IDs, used to display objects from one tag OR another"
-    tagIn: [ID]
-    "Array of tag IDs, used to display objects from one tag OR another"
-    tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
-    tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
-    tagSlugIn: [String]
     "Title of the object"
     title: String
 }
@@ -9807,52 +8457,6 @@ input RootQueryToPostFormatConnectionWhereArgs {
     updateTermMetaCache: Boolean
 }
 
-"Arguments for filtering the RootQueryToProductConnection connection"
-input RootQueryToProductConnectionWhereArgs {
-    "Category ID"
-    categoryId: Int
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryIn: [ID]
-    "Use Category Slug"
-    categoryName: String
-    "Array of category IDs, used to display objects from one category OR another"
-    categoryNotIn: [ID]
-    "Filter the connection based on dates"
-    dateQuery: DateQueryInput
-    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
-    hasPassword: Boolean
-    "Specific ID of the object"
-    id: Int
-    "Array of IDs for the objects to retrieve"
-    in: [ID]
-    "Get objects with a specific mimeType property"
-    mimeType: MimeTypeEnum
-    "Slug / post_name of the object"
-    name: String
-    "Specify objects to retrieve. Use slugs"
-    nameIn: [String]
-    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
-    notIn: [ID]
-    "What paramater to use to order the objects by."
-    orderby: [PostObjectsConnectionOrderbyInput]
-    "Use ID to return only children. Use 0 to return only top-level items"
-    parent: ID
-    "Specify objects whose parent is in an array"
-    parentIn: [ID]
-    "Specify posts whose parent is not in an array"
-    parentNotIn: [ID]
-    "Show posts with a specific password."
-    password: String
-    "Show Posts based on a keyword search"
-    search: String
-    "Retrieve posts where post status is in an array."
-    stati: [PostStatusEnum]
-    "Show posts with a specific status."
-    status: PostStatusEnum
-    "Title of the object"
-    title: String
-}
-
 "Arguments for filtering the RootQueryToResourceLibraryConnection connection"
 input RootQueryToResourceLibraryConnectionWhereArgs {
     "Filter the connection based on dates"
@@ -10027,22 +8631,6 @@ input RootQueryToUserConnectionWhereArgs {
     searchColumns: [UsersConnectionSearchColumnEnum]
 }
 
-"Input for the sendEmail mutation"
-input SendEmailInput {
-    "Body of email"
-    body: String
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "Who to send the email from"
-    from: String
-    "Reply to address"
-    replyTo: String
-    "Subject of email"
-    subject: String
-    "Who to send the email to"
-    to: String
-}
-
 "Input for the sendPasswordResetEmail mutation"
 input SendPasswordResetEmailInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -10101,56 +8689,6 @@ input TagToCourseConnectionWhereArgs {
     categoryName: String
     "Array of category IDs, used to display objects from one category OR another"
     categoryNotIn: [ID]
-    "Filter the connection based on dates"
-    dateQuery: DateQueryInput
-    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
-    hasPassword: Boolean
-    "Specific ID of the object"
-    id: Int
-    "Array of IDs for the objects to retrieve"
-    in: [ID]
-    "Get objects with a specific mimeType property"
-    mimeType: MimeTypeEnum
-    "Slug / post_name of the object"
-    name: String
-    "Specify objects to retrieve. Use slugs"
-    nameIn: [String]
-    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
-    notIn: [ID]
-    "What paramater to use to order the objects by."
-    orderby: [PostObjectsConnectionOrderbyInput]
-    "Use ID to return only children. Use 0 to return only top-level items"
-    parent: ID
-    "Specify objects whose parent is in an array"
-    parentIn: [ID]
-    "Specify posts whose parent is not in an array"
-    parentNotIn: [ID]
-    "Show posts with a specific password."
-    password: String
-    "Show Posts based on a keyword search"
-    search: String
-    "Retrieve posts where post status is in an array."
-    stati: [PostStatusEnum]
-    "Show posts with a specific status."
-    status: PostStatusEnum
-    "Tag Slug"
-    tag: String
-    "Use Tag ID"
-    tagId: String
-    "Array of tag IDs, used to display objects from one tag OR another"
-    tagIn: [ID]
-    "Array of tag IDs, used to display objects from one tag OR another"
-    tagNotIn: [ID]
-    "Array of tag slugs, used to display objects from one tag OR another"
-    tagSlugAnd: [String]
-    "Array of tag slugs, used to exclude objects in specified tags"
-    tagSlugIn: [String]
-    "Title of the object"
-    title: String
-}
-
-"Arguments for filtering the TagToDownloadGridConnection connection"
-input TagToDownloadGridConnectionWhereArgs {
     "Filter the connection based on dates"
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
@@ -10385,26 +8923,6 @@ input UpdateCourseInput {
     title: String
 }
 
-"Input for the updateDownloadFreebie mutation"
-input UpdateDownloadFreebieInput {
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
-    date: String
-    "The ID of the downloadFreebie object"
-    id: ID!
-    "A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types."
-    menuOrder: Int
-    "The password used to protect the content of the object"
-    password: String
-    "The slug of the object"
-    slug: String
-    "The status of the object"
-    status: PostStatusEnum
-    "The title of the object"
-    title: String
-}
-
 "Input for the updateDownloadGrid mutation"
 input UpdateDownloadGridInput {
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -10421,8 +8939,6 @@ input UpdateDownloadGridInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
-    "Set connections between the DownloadGrid and tags"
-    tags: DownloadGridTagsInput
     "The title of the object"
     title: String
 }
@@ -10545,30 +9061,6 @@ input UpdatePostInput {
     title: String
     "URLs queued to be pinged."
     toPing: [String]
-}
-
-"Input for the updateProduct mutation"
-input UpdateProductInput {
-    "Set connections between the Product and categories"
-    categories: ProductCategoriesInput
-    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
-    clientMutationId: String
-    "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
-    date: String
-    "The ID of the Product object"
-    id: ID!
-    "A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types."
-    menuOrder: Int
-    "The password used to protect the content of the object"
-    password: String
-    "Set connections between the Product and postFormats"
-    postFormats: ProductPostFormatsInput
-    "The slug of the object"
-    slug: String
-    "The status of the object"
-    status: PostStatusEnum
-    "The title of the object"
-    title: String
 }
 
 "Input for the updateResourceLibrary mutation"

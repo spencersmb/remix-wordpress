@@ -1,5 +1,6 @@
 import {
   ActionFunction,
+  createCookie, createCookieSessionStorage,
   Form,
   LoaderFunction, MetaFunction,
   redirect,
@@ -10,17 +11,18 @@ import {
 import { Layout } from '../root'
 import * as React from 'react'
 import {
-  getPreviewRedirectUrlFromParams,
+  getIDParamName,
+  getPreviewRedirectUrl,
   getPreviewUrlParams,
-} from '../utils/loaderHelpers'
-import { logUserInJWT } from '../utils/fetch'
+  previewUrlParams
+} from '../lib/utils/loaderHelpers'
+import { logUserInJWT } from '../lib/api/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { getHtmlMetadataTags } from '../utils/seo'
-import { DataFunctionArgs } from '@remix-run/server-runtime'
+import { getHtmlMetadataTags } from '../lib/utils/seo'
+
 
 export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-
+  const {data, location, parentsData} = metaData
   // hardcoded Page
   const page: IPage = {
     id: '24',
@@ -28,8 +30,8 @@ export let meta: MetaFunction = (metaData): any => {
     author: {
       id: '23',
       name: 'Teela',
-      avatar: {
-        url: '',
+      avatar:{
+        url:'',
         width: 24,
         height: 24
       },
@@ -41,14 +43,15 @@ export let meta: MetaFunction = (metaData): any => {
     seo: {
       title: 'Login - Every Tuesday',
       metaDesc: 'Login Page for Every-Tuesday.com',
-      fullHead: '',
+      fullHead:'',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
       readingTime: '1min'
     }
   }
 
-  if (!data || !parentsData || !location) {
+
+  if(!data || !parentsData || !location){
     return {
       title: '404',
       description: 'error: No metaData or Parents Data'
@@ -63,54 +66,23 @@ export let meta: MetaFunction = (metaData): any => {
   })
 }
 
-export let loader: LoaderFunction = async ({ request }): Promise<IDataType> => {
-  const { id, postType, url } = getPreviewUrlParams(request)
+export let loader: LoaderFunction = async ({request}): Promise<IDataType> => {
+  const {id, previewType, url} = previewUrlParams(request)
 
   return {
     params: {
       id,
-      postType,
+      postType: previewType,
       url
     }
   }
 }
 
-type ActionCallback = (args: DataFunctionArgs, form: FormData) => Promise<any>
-async function primaryLayoutAction (dataFunctionArgs: DataFunctionArgs, layoutAction: ActionCallback){
-  const {request} = dataFunctionArgs
-  let form = await request.formData();
-  let formType = form.get('type')
-
-  if(formType !== 'footer'){
-    // DO STUFF FOR WHATEVER ELSE WE WANT ON THE PAGE
-    return layoutAction(dataFunctionArgs, form) // must pass form because we already unwrapped the promise
-  }
-
-  // DO STUFF FOR FOOTER FORM API
-
-  return {
-    type: 'footer'
-  }
-}
-export let actionTest: ActionFunction = async (dataFunctionArgs): Promise<any> => primaryLayoutAction(dataFunctionArgs, async (args: DataFunctionArgs, form: FormData) =>{
-
-  // LOGIN FORM FOR EXAMPLE
-  let password = form.get('password')
-  let username = form.get('username')
-
-  // MAKE API REQ
-  return {
-    password,
-    username
-  }
-})
-
-
-export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
+// redo TYPES HERE for PROMiSE
+export let action: ActionFunction = async ({request}): Promise<ActionData | Response> => {
   let form = await request.formData();
   let password = form.get('password')
   let username = form.get('username')
-
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
@@ -121,12 +93,12 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   }
 
   let fields = { password, username };
-  let fieldErrors: { password: string | undefined, username: string | undefined } = {
+  let fieldErrors: {password: string | undefined, username: string | undefined} = {
     password: undefined,
     username: undefined
   };
 
-  if (password.length < 4) {
+  if(password.length < 4){
     fieldErrors = {
       password: `Password length too small`,
       username: undefined
@@ -134,11 +106,12 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     return { fieldErrors, fields };
   }
 
-  try {
-    const response = await logUserInJWT({ username, password })
+  try{
+
+    const response = await logUserInJWT({username, password})
     const serverRes = await response.json()
 
-    if (serverRes.errors) {
+    if(serverRes.errors){
       return {
         fields,
         formError: `Username/Password combination is incorrect`
@@ -147,9 +120,9 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
     let token: IAuthToken = {
       expires: setFutureDate(),
-      token: String(serverRes.data.login.authToken),
-      refresh: String(serverRes.data.login.refreshToken),
-      cmid: String(serverRes.data.login.clientMutationId)
+      token: String( serverRes.data.login.authToken ),
+      refresh: String( serverRes.data.login.refreshToken ),
+      cmid: String( serverRes.data.login.clientMutationId )
     }
 
     let user: IUser = serverRes.data.login.user
@@ -157,31 +130,28 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     const sessionStorage = createUserSession(user.id, token)
     const customHeaders = new Headers()
     customHeaders.append('Set-Cookie', await sessionStorage)
-    const { id, postType } = getPreviewUrlParams(request)
 
-    console.log('id', id)
+    const {id, postType} = getPreviewUrlParams(request)
 
-
-    if (!id || !postType) {
+    if(!id || !postType){
       return redirect(process.env.WORDPRESS_DB || '/', {
-        headers: customHeaders
+        headers:customHeaders
       })
     }
 
-    const redirectUrl = getPreviewRedirectUrlFromParams(postType, id)
+    const redirectUrl = getPreviewRedirectUrl(postType, id)
 
-
-    return redirect(redirectUrl, {
-      headers: customHeaders
+    return redirect(redirectUrl,{
+      headers:customHeaders
     })
-  } catch (e) {
+  }catch (e){
     return { formError: `Form error: ${e}` };
   }
 }
 
 interface IDataType {
-  params: {
-    id: string | undefined
+  params:{
+    id: string | null
     postType: string | null
     url: URL
   }
@@ -199,10 +169,11 @@ type ActionData = {
 };
 
 const Login = () => {
-  let actionData = useActionData<ActionData | undefined>();
-  let { params } = useLoaderData<IDataType>()
+  let actionData = useActionData< ActionData | undefined>();
+  let {params} = useLoaderData<IDataType>()
   let transition = useTransition();
-  let action = params.postType ? `/login?postType=${params.postType}&postId=${params.id}` : '/login'
+  let idParamName = getIDParamName(params.postType)
+  let action = params.postType ? `/login?postType=${params.postType}&${idParamName}=${params.id}` : '/login'
 
   return (
     <Layout>
@@ -215,14 +186,14 @@ const Login = () => {
           />
         )}
         <Form method='post'
-          action={action}
-          aria-disabled={transition.state !== 'idle'}
-          className="mb-4"
-          aria-describedby={
-            actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
-              ? "form-error-message"
-              : undefined
-          }>
+              action={action}
+              aria-disabled={transition.state !== 'idle'}
+              className="mb-4"
+              aria-describedby={
+                actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
+                  ? "form-error-message"
+                  : undefined
+              }>
           <div>
             <label className="leading-7 text-sm text-gray-600" htmlFor="username-input">Username</label>
             <input
