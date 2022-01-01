@@ -102,6 +102,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     return { fieldErrors, fields };
 
   const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
+  console.log('converkitUrl', url)
   const res = await fetch(url, {
     method: 'GET',
     headers: {

@@ -8,6 +8,7 @@ import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
 import { useEventListenerQueryAll } from '~/hooks/useHtmlEvent'
+import MakersPostSignUp from '~/components/post/makersPostSignUp'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -74,6 +75,7 @@ export default function PostSlug() {
       <div>
         <h1>{post.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <MakersPostSignUp />
         <Link to='/'>
           Home
         </Link>
