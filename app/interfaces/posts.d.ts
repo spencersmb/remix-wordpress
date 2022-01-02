@@ -73,6 +73,9 @@ interface IPostRaw {
   excerpt: string
   seo: IPostSeo
   downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
+  comments: {
+    edges: {node: IPostCommentRaw}[]
+  }
 }
 interface IPostSeo {
   fullHead?: string
@@ -103,6 +106,7 @@ interface IPost {
   id: string
   seo:IPostSeo
   downloadManager: IDownloadManager
+  comments:IPostComment[]
 }
 
 interface IwpPageInfo {
@@ -111,4 +115,41 @@ interface IwpPageInfo {
   hasPreviousPage: boolean
   startCursor: string
 
+}
+interface ICommentContent {
+  author: {name: string}
+  content: string
+  databaseId: number
+  date: string
+  id: string
+}
+interface IPostCommentReply {
+  node: ICommentContent
+}
+
+type IPostCommentRaw = {
+  author: {node: string}
+  content: string
+  databaseId: number
+  date: string
+  id: string
+  replies: {
+    edges: {node: {
+        author: {node: string}
+        content: string
+        databaseId: number
+        date: string
+        id: string
+      }
+    }[]
+  }
+}
+type IPostComment = {
+  replies: {
+    edges: IPostCommentReply[]
+  }
+} & ICommentContent
+
+interface IPostComments {
+  comments: IPostComment[]
 }

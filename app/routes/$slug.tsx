@@ -9,6 +9,7 @@ import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
 import { useEventListenerQueryAll } from '~/hooks/useHtmlEvent'
 import MakersPostSignUp from '~/components/post/makersPostSignUp'
+import useSite from '~/hooks/useSite'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -54,6 +55,7 @@ export let meta: MetaFunction = (metaData): any => {
 
 export default function PostSlug() {
   let { post } = useLoaderData();
+  const { showComments } = useSite();
   // consoleHelper('post', post)
   useEventListenerQueryAll('.tt-freebie-download.tt-modal-trigger', triggerStyleStudies)
 
@@ -70,12 +72,24 @@ export default function PostSlug() {
     // if nothing found show pop-up for sign-up
   }
 
+  function handleCommentsClick() {
+    console.log('post.comments', post.comments)
+
+    showComments({ comments: post.comments })
+  }
+
   return (
     <Layout>
       <div>
         <h1>{post.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <MakersPostSignUp />
+        <div>
+          Comments
+          <div onClick={handleCommentsClick}>
+            Show Comment
+          </div>
+        </div>
         <Link to='/'>
           Home
         </Link>

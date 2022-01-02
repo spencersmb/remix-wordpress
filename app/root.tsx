@@ -16,7 +16,7 @@ import type { LinksFunction } from "remix";
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
-import useSite, { SiteContext } from './hooks/useSite'
+import useSite, { SiteContext, siteInitialState } from './hooks/useSite'
 import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
@@ -48,6 +48,7 @@ import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 import RemixLogo from "./components/svgs/remixLogo";
 import FooterPrimary from '~/components/footer/FooterPrimary'
 import { commitSession, getSession } from '~/sessions.server'
+import CommentModal from "./components/modals/commentModal";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -147,13 +148,10 @@ export default function App() {
     else NProgress.start();
   }, [transition.state]);
   const value = {
+    ...siteInitialState,
     menu: menus,
     metadata,
     user,
-    modal: {
-      open: false,
-      component: null
-    }
   }
   return (
     // <Provider store={store}>
@@ -323,6 +321,7 @@ export function Document({ children, title }: IDocument) {
         />}
         {process.env.NODE_ENV === "development" && <LiveReload />}
         <BasicModal />
+        <CommentModal />
       </body>
     </html>
   );
