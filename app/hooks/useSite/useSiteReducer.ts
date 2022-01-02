@@ -64,8 +64,7 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         ...state,
         commentsModal:{
           show: true,
-          // comments: action.payload.comments
-          comments: []
+          comments: action.payload.comments
         }
       }
     default: {
