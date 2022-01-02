@@ -17,6 +17,7 @@ export interface ISiteContextState {
   },
   commentsModal:{
     show: boolean,
+    commentOn: number
     comments: any // TODO: FILL OUT
   }
 }
@@ -64,6 +65,7 @@ export const siteInitialState: ISiteContextState  = {
   },
   commentsModal:{
     show: false,
+    commentOn: 0,
     comments: []
   }
 }
@@ -111,10 +113,19 @@ const useSite = () => {
     })
   }
 
-  const showComments = (data: IPostComments) => {
+  const showComments = (data: {
+    commentOn: number
+    comments: IPostComment[]
+  }) => {
     dispatch({
       type: ISiteTypes.SHOW_COMMENTS,
       payload: data
+    })
+  }
+
+  const hideComments = () => {
+    dispatch({
+      type: ISiteTypes.HIDE_COMMENTS,
     })
   }
 
@@ -123,6 +134,7 @@ const useSite = () => {
     closeModal,
     resourecLibraryLogin,
     showComments,
+    hideComments,
     state,
     dispatch
   }

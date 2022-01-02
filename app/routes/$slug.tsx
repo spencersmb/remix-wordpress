@@ -55,28 +55,24 @@ export let meta: MetaFunction = (metaData): any => {
 
 export default function PostSlug() {
   let { post } = useLoaderData();
-  const { showComments } = useSite();
-  // consoleHelper('post', post)
-  useEventListenerQueryAll('.tt-freebie-download.tt-modal-trigger', triggerStyleStudies)
-
-
-  function triggerStyleStudies(e: any) {
-    e.preventDefault();
-    const data = JSON.parse(e.currentTarget.getAttribute('data-params'))
-    console.log(data);
-
-
-    // get tile from data-attr to match with the data title in the post
-    // find the match
-    // detect if Resource user is signed in, or if localstorage has data in it saying they signed up at some point
-    // if nothing found show pop-up for sign-up
-  }
+  const { showComments, hideComments } = useSite();
+  consoleHelper('post', post)
 
   function handleCommentsClick() {
     console.log('post.comments', post.comments)
 
-    showComments({ comments: post.comments })
+    showComments({
+      commentOn: post.databaseId,
+      comments: post.comments
+    })
   }
+
+  useEffect(() => {
+    return () => {
+      // unmount or change route, close modal
+      hideComments()
+    }
+  }, [])
 
   return (
     <Layout>

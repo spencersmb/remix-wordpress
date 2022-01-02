@@ -1,0 +1,1 @@
+type IClickEvent = React.MouseEvent<HTMLElement>

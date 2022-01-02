@@ -7,6 +7,7 @@ export enum ISiteTypes {
   MODAL_CLOSE = 'MODAL_CLOSE',
   LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
   SHOW_COMMENTS = 'SHOW_COMMENTS',
+  HIDE_COMMENTS = 'HIDE_COMMENTS',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -17,15 +18,18 @@ interface IOpenModal {
 interface IShowComments {
   type: ISiteTypes.SHOW_COMMENTS,
   payload: {
+    commentOn: number
+    parent?: number
     comments: IPostComment[]
   }
 }
 
 export type ISiteAction =
-  | IShowComments
-  | IOpenModal
-  | {type: ISiteTypes.MODAL_CLOSE}
-  | {type: ISiteTypes.LOGIN_RESOURCE_USER}
+| IOpenModal
+| {type: ISiteTypes.MODAL_CLOSE}
+| {type: ISiteTypes.LOGIN_RESOURCE_USER}
+| IShowComments
+| {type: ISiteTypes.HIDE_COMMENTS}
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
@@ -64,7 +68,20 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         ...state,
         commentsModal:{
           show: true,
-          comments: action.payload.comments
+          commentOn: action.payload.commentOn,
+          comments: action.payload.comments,
+          parent: action.payload.parent
+        }
+      }
+
+    case ISiteTypes.HIDE_COMMENTS:
+      return {
+        ...state,
+        commentsModal:{
+          show: false,
+          commentOn: 0,
+          parent: undefined,
+          comments: []
         }
       }
     default: {

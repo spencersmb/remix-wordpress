@@ -47,7 +47,7 @@ export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): 
     return '/login';
   }
 
-  let idType = previewType === 'blog' ? "previewPostId" : 'postId'
+  let idType = previewType === 'blog' ? "postId" : 'postId'
   let postType = previewType === 'blog' ? "post" : 'page'
   return `/login?postType=${postType}&${idType}=${id}`
 }
