@@ -4,10 +4,6 @@ export function flattenAllPosts(posts:any): IPost[] | false{
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
 
-export function flattenPost(post: IPostRaw): IPost {
-  return mapPostData(post)
-}
-
 export function mapPostData(post:IPostRaw | {} = {}): IPost {
   const data = { ...post };
   let modifiedData: any = {...post}
@@ -40,6 +36,29 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
         name: node.name,
       };
     });
+  }
+
+  if(data.downloadManager?.downloads){
+    modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
+      return download.downloadDetails
+    })
+  }
+
+
+  if(data.comments){
+    modifiedData.comments = data.comments.edges.map(({ node }) => {
+      return {
+        ...node,
+        replies: node.replies.edges.map(({ node }) => {
+          return {
+            ...node,
+            author: node.author.node
+          }
+        }),
+        author: node.author.node
+      };
+    });
+
   }
 
   return modifiedData

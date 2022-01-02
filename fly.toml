@@ -11,7 +11,6 @@ processes = []
   APP_ROOT_URL = "https://twilight-paper-1622.fly.dev"
   PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
   WORDPRESS_DB = "https://etheadless.wpengine.com/wp-admin"
-  SESSION_SECRET = "1234"
 
 [experimental]
   allowed_public_ports = []

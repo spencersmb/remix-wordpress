@@ -1,13 +1,12 @@
 import { LoaderFunction, useLoaderData } from 'remix'
-import { previewLoaderRouteHandler } from '../../../lib/utils/loaderHelpers'
+import { previewLoaderRouteHandler } from '../../../utils/loaderHelpers'
 import { Layout } from '../../../root'
 
 export let loader: LoaderFunction = async({request, params,context}) => previewLoaderRouteHandler(request, params)
 
 const PostPreview = () => {
   const data = useLoaderData()
-  const dataRes = JSON.parse(data)
-  console.log('dataRes', dataRes)
+  console.log('dataRes', data)
 
   return (
     <Layout>

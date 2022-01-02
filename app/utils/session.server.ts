@@ -43,7 +43,7 @@ export async function getUserToken(request: Request) {
   return userToken;
 }
 
-export async function requireToken(
+export async function requireAdminUserToken(
   request: Request,
   redirectTo: string
 ): Promise<IAuthToken> {

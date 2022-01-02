@@ -1,26 +1,6 @@
-import { defaultSeoImages } from '../wp/site'
-import type { Location } from "history";
+import { defaultSeoImages } from '../lib/wp/site'
+import { Location } from 'history'
 
-interface IGetMetaTagsFunction{
-  metadata: IMetaData
-  post: IPost | null
-  page: IPage | null
-  location: Location
-}
-
-interface IOgImageType{
-  width: string
-  height: string
-  url: string
-  altText: string
-}
-
-interface IOgArticle {
-  publishedTime: string
-  modifiedTime: string
-  author: string
-  tags: {name: string}[]
-}
 function createOgImages(image: IOgImageType) {
   return {
     'og:image:alt': image.altText,
@@ -37,7 +17,13 @@ function createOgArticle(article: IOgArticle){
     'og:article:tags': article.tags.map(tag => tag.name).join(', '),
   }
 }
-export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTagsFunction){
+export function getHtmlMetadataTags({
+  follow = true,
+  metadata, 
+  post, 
+  page, 
+  location
+}: IGetMetaTagsFunction & {location: Location}){
 
   let defaultImage = {
     altText: defaultSeoImages.generic.altText,
@@ -45,9 +31,11 @@ export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTa
     height: '1920',
     width: '1080'
   }
+  let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  let googleNoFollow = 'noindex,nofollow'
   const url = `${metadata.domain}${location.pathname}`
   let metadataTags: any = {
-    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'robots:': follow ? googleFollow : googleNoFollow,
     title: metadata.title,
     description: metadata.description,
     canonical: url,
@@ -98,7 +86,26 @@ export function getHtmlMetadataTags({metadata, post, page, location}: IGetMetaTa
 
   if(page){
     metadataTags = {
-      ...metadataTags
+      ...metadataTags,
+      title: page.seo.title,
+      description: page.seo.metaDesc,
+      canonical: url,
+      'og:title': page.seo.title,
+      'og:type': 'article',
+      'og:description': page.seo.metaDesc,
+      ...createOgImages({
+        altText: page.featuredImage?.altText || defaultSeoImages.generic.altText,
+        url: page.featuredImage?.altText || defaultSeoImages.generic.altText,
+        width:'1920',
+        height: '1080'
+      }),
+      'twitter:card': `@${metadata.social.twitter.username}`,
+      'twitter:site': `@${metadata.social.twitter.username}`,
+      'twitter:creator': 'summary_large_image',
+      'twitter:label1': `Written by`,
+      'twitter:data1': `Teela`,
+      'twitter:label2': `Est. reading time`,
+      'twitter:data2': `1 minute`,
     }
   }
 

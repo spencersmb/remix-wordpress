@@ -56,7 +56,6 @@ function generateIndexSearch({ posts }) {
 }
 
 function generatePrettyLinks({ prettyLinkTypes }) {
-  // console.log('process.env.', process.env.APP_ROOT_URL)
 
   const items = prettyLinkTypes.map((link = {}) => {
 
@@ -74,7 +73,7 @@ function generatePrettyLinks({ prettyLinkTypes }) {
 
     let redirectTo = link.url
 
-    // if its the primaryDomain but not an asset, alter the forwarding url
+    // if its the primaryDomain but not an asset like an image from the wp-content folder, alter the forwarding url
     if(isPrimaryDomain && !isWP_Content){
       redirectTo = `/${pathName}`
     }

@@ -1,40 +1,44 @@
-import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
-import { fetchAPI } from '../lib/api/fetch'
-import { defaultSeoImages, getWPMetadata } from '../lib/wp/site'
-import { flattenPost } from '../lib/utils/posts'
-import { Document, Layout } from '../root'
-import { isEmpty } from 'lodash'
-import { RouteData } from '@remix-run/server-runtime/routeData'
-import { getHtmlMetadataTags } from '../lib/utils/seo'
+import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData, useParams } from 'remix'
+import { fetchAPI } from '../utils/fetch'
+import { mapPostData } from '../utils/posts'
+import { Layout } from '../root'
+import { getHtmlMetadataTags } from '../utils/seo'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { gql } from '@apollo/client'
+import { getGraphQLString } from '~/utils/graphqlUtils'
+import { consoleHelper } from '~/utils/windowUtils'
+import { useEventListenerQueryAll } from '~/hooks/useHtmlEvent'
+import MakersPostSignUp from '~/components/post/makersPostSignUp'
+import useSite from '~/hooks/useSite'
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
-export const headers: HeadersFunction = ({loaderHeaders}) => {
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   }
 }
 
 export let loader: LoaderFunction = async ({ params }) => {
-  let wpAPI = await fetchAPI(query, {
+  let wpAPI = await fetchAPI(getGraphQLString(query), {
     variables: {
       slug: `${params.slug}`
     }
   })
-  // console.log('wpAPI.postBy', wpAPI.postBy)
 
-  if(wpAPI.postBy === null){
+  if (wpAPI.postBy === null) {
+    //TODO: redirect to custom 404 page
     throw new Response("Not Found", { status: 404 });
   }
 
-  const post = flattenPost(wpAPI.postBy)
-
-  return json({post}, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({
+    post: mapPostData(wpAPI.postBy)
+  })
 };
 
 // https://remix.run/api/conventions#meta
 export let meta: MetaFunction = (metaData): any => {
-  const {data, location, parentsData} = metaData
-  if(!data || !parentsData || !location){
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data',
@@ -50,38 +54,53 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export default function PostSlug() {
-  let {post} = useLoaderData();
+  let { post } = useLoaderData();
+  const { showComments } = useSite();
+  // consoleHelper('post', post)
+  useEventListenerQueryAll('.tt-freebie-download.tt-modal-trigger', triggerStyleStudies)
+
+
+  function triggerStyleStudies(e: any) {
+    e.preventDefault();
+    const data = JSON.parse(e.currentTarget.getAttribute('data-params'))
+    console.log(data);
+
+
+    // get tile from data-attr to match with the data title in the post
+    // find the match
+    // detect if Resource user is signed in, or if localstorage has data in it saying they signed up at some point
+    // if nothing found show pop-up for sign-up
+  }
+
+  function handleCommentsClick() {
+    console.log('post.comments', post.comments)
+
+    showComments({ comments: post.comments })
+  }
 
   return (
-      <Layout>
+    <Layout>
+      <div>
+        <h1>{post.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <MakersPostSignUp />
         <div>
-          <h1>{post.title}</h1>
-          <div dangerouslySetInnerHTML={{__html: post.content}} />
-          <Link to='/'>
-            Home
-          </Link>
+          Comments
+          <div onClick={handleCommentsClick}>
+            Show Comment
+          </div>
         </div>
-      </Layout>
+        <Link to='/'>
+          Home
+        </Link>
+      </div>
+    </Layout>
   );
 }
 
-const query = `
+const query = gql`
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
-        __typename
-        author {
-            node {
-                avatar {
-                    height
-                    url
-                    width
-                }
-                id
-                name
-                slug
-                uri
-            }
-        }
         id
         categories {
             edges {
@@ -124,6 +143,90 @@ query postBySlug($slug: String!) {
             opengraphModifiedTime
             metaDesc
             readingTime
+        }
+        author {
+            node {
+                avatar {
+                    height
+                    url
+                    width
+                }
+                id
+                name
+                slug
+                uri
+            }
+        }
+        etSocialNav{
+            pinterestImage{
+                sourceUrl
+                mediaDetails{
+                    sizes{
+                        name
+                        width
+                        height
+                        file
+                        sourceUrl
+                    }
+                }
+            }
+        }
+        tutorialManager {
+            paidProducts {
+                ... on Product {
+                    title
+                }
+            }
+            youtube {
+                embedUrl
+            }
+            colorSwatch
+            downloads {
+                __typename
+                ... on ResourceLibrary {
+                    title
+                    freebie {
+                        downloadLink
+                    }
+                }
+            }
+        }
+        comments {
+            edges {
+                node {
+                    databaseId
+                    id
+                    author {
+                        node {
+                            name
+                        }
+                    }
+                    date
+                    commentedOn {
+                        node {
+                            id
+                            status
+                        }
+                    }
+                    content
+                    replies {
+                        edges {
+                            node {
+                                id
+                                databaseId
+                                content
+                                date
+                                author {
+                                    node {
+                                        id
+                                        name
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
       }
   }

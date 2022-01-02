@@ -10,7 +10,6 @@ processes = []
   APP_ROOT_URL = "https://remix-staging.fly.dev"
   PORT = "8080"
   PUBLIC_WP_API_URL = "https://etheadless.graphcdn.app/"
-  SESSION_SECRET = "1234"
   WORDPRESS_DB = "https://etheadless.wpengine.com/wp-admin"
 
 [experimental]
