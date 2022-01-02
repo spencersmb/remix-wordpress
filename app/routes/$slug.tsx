@@ -101,7 +101,6 @@ export default function PostSlug() {
 const query = gql`
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
-        __typename
         id
         categories {
             edges {
@@ -156,6 +155,76 @@ query postBySlug($slug: String!) {
                 name
                 slug
                 uri
+            }
+        }
+        etSocialNav{
+            pinterestImage{
+                sourceUrl
+                mediaDetails{
+                    sizes{
+                        name
+                        width
+                        height
+                        file
+                        sourceUrl
+                    }
+                }
+            }
+        }
+        tutorialManager {
+            paidProducts {
+                ... on Product {
+                    title
+                }
+            }
+            youtube {
+                embedUrl
+            }
+            colorSwatch
+            downloads {
+                __typename
+                ... on ResourceLibrary {
+                    title
+                    freebie {
+                        downloadLink
+                    }
+                }
+            }
+        }
+        comments {
+            edges {
+                node {
+                    databaseId
+                    id
+                    author {
+                        node {
+                            name
+                        }
+                    }
+                    date
+                    commentedOn {
+                        node {
+                            id
+                            status
+                        }
+                    }
+                    content
+                    replies {
+                        edges {
+                            node {
+                                id
+                                databaseId
+                                content
+                                date
+                                author {
+                                    node {
+                                        id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
       }
