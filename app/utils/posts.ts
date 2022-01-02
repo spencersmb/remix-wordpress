@@ -49,6 +49,12 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
     modifiedData.comments = data.comments.edges.map(({ node }) => {
       return {
         ...node,
+        replies: node.replies.edges.map(({ node }) => {
+          return {
+            ...node,
+            author: node.author.node
+          }
+        }),
         author: node.author.node
       };
     });

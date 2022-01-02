@@ -219,6 +219,7 @@ query postBySlug($slug: String!) {
                                 author {
                                     node {
                                         id
+                                        name
                                     }
                                 }
                             }
