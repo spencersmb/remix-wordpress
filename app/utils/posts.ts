@@ -47,20 +47,23 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
 
   if(data.comments){
     modifiedData.comments = data.comments.edges.map(({ node }) => {
-      return {
-        ...node,
-        replies: node.replies.edges.map(({ node }) => {
-          return {
-            ...node,
-            author: node.author.node
-          }
-        }),
-        author: node.author.node
-      };
+      return parseComment(node)
     });
 
   }
 
   return modifiedData
 
+}
+export function parseComment(node: IPostCommentRaw): IPostComment {
+  return {
+    ...node,
+    replies: node.replies.edges.map(({ node }) => {
+      return {
+        ...node,
+        author: node.author.node
+      }
+    }),
+    author: node.author.node
+  }
 }

@@ -55,10 +55,13 @@ export let meta: MetaFunction = (metaData): any => {
 
 export default function PostSlug() {
   let { post } = useLoaderData();
-  const { showComments, hideComments } = useSite();
+  const { showComments, hideComments, state: { commentsModal } } = useSite();
   consoleHelper('post', post)
 
   function handleCommentsClick() {
+    if (commentsModal.show) {
+      return
+    }
     console.log('post.comments', post.comments)
 
     showComments({

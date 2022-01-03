@@ -8,6 +8,8 @@ export enum ISiteTypes {
   LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
   SHOW_COMMENTS = 'SHOW_COMMENTS',
   HIDE_COMMENTS = 'HIDE_COMMENTS',
+  ADD_COMMENT = 'ADD_COMMENT',
+  ADD_COMMENT_REPLY = 'ADD_COMMENT_REPLY',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -15,11 +17,25 @@ interface IOpenModal {
     template: IModalTemplate
   }
 }
+
+interface IAddComment {
+  type: ISiteTypes.ADD_COMMENT,
+  payload: {
+    comment: IPostComment
+  }
+}
+
+interface IAddCommentReply {
+  type: ISiteTypes.ADD_COMMENT_REPLY,
+  payload: {
+    comment: IPostComment
+  }
+}
+
 interface IShowComments {
   type: ISiteTypes.SHOW_COMMENTS,
   payload: {
     commentOn: number
-    parent?: number
     comments: IPostComment[]
   }
 }
@@ -29,6 +45,8 @@ export type ISiteAction =
 | {type: ISiteTypes.MODAL_CLOSE}
 | {type: ISiteTypes.LOGIN_RESOURCE_USER}
 | IShowComments
+| IAddComment
+| IAddCommentReply
 | {type: ISiteTypes.HIDE_COMMENTS}
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
@@ -70,7 +88,6 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
           show: true,
           commentOn: action.payload.commentOn,
           comments: action.payload.comments,
-          parent: action.payload.parent
         }
       }
 
@@ -80,10 +97,53 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         commentsModal:{
           show: false,
           commentOn: 0,
-          parent: undefined,
           comments: []
         }
       }
+
+    case ISiteTypes.ADD_COMMENT:{
+      const comments = [
+        action.payload.comment,
+        ...state.commentsModal.comments
+      ]
+      return{
+        ...state,
+        commentsModal:{
+          ...state.commentsModal,
+          comments
+        }
+      }
+    }
+
+    case ISiteTypes.ADD_COMMENT_REPLY:{
+      const comments = [
+        action.payload.comment,
+        ...state.commentsModal.comments
+      ]
+      const updatedComments = state.commentsModal.comments.map((comment: IPostComment) => {
+          if(comment.databaseId === action.payload.comment.parent){
+            const newReplies = [
+              action.payload.comment,
+              ...comment.replies
+            ]
+            return {
+              ...comment,
+              replies: newReplies
+            }
+          }else{
+            return comment
+          }
+      })
+
+      console.log('updated Comments', updatedComments)
+      return{
+        ...state,
+        commentsModal:{
+          ...state.commentsModal,
+          comments: updatedComments
+        }
+      }
+    }
     default: {
       // throw new Error(`Unhandled action type: ${action.type}`)
       return state

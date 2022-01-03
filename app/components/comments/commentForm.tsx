@@ -1,19 +1,9 @@
-import { ChangeEventHandler, FormEvent, FormEventHandler, MouseEventHandler, useState } from 'react'
-import { log } from 'xstate/lib/actions'
-import useSite from '~/hooks/useSite'
-import { CREATE_COMMENT } from '~/lib/graphql/mutations/comments'
-import { fetchAPIClientSide } from '~/utils/fetch'
-import { getGraphQLString } from '~/utils/graphqlUtils'
-import { parseComment } from '~/utils/posts'
-import { validateEmail } from '~/utils/validation'
+import { FormEvent, useState } from "react";
+import useSite from "~/hooks/useSite";
+import { fetchSubmitComment } from "~/utils/fetch";
+import { parseComment } from "~/utils/posts";
+import { validateEmail } from "~/utils/validation";
 
-interface ISubmitComment {
-  commentOn: number
-  content: string
-  author: string
-  authorEmail: string
-  parent?: number
-}
 interface ICommentResponse {
   createComment: {
     success: boolean,
@@ -21,6 +11,7 @@ interface ICommentResponse {
   } | null, // null means they havn't been approved yet
   parent: boolean
 }
+
 interface IProps {
   postId: number
   replyToComment?: IPostComment
@@ -28,115 +19,7 @@ interface IProps {
   primary?: boolean
   // onError: () => void
 }
-interface IFetchSubmitComment {
-  errors?: { message: string }[]
-  data: {
-    createComment: {
-      success: boolean,
-      comment: IPostCommentRaw
-    } | null
-    parent: boolean
-  }
-}
-async function fetchSubmitComment(comment: ISubmitComment): Promise<IFetchSubmitComment> {
-  console.log('FetchSubmit Comment', comment);
 
-  //SUCCESS
-  // "data": {
-  //   "createComment": {
-  //     "success": true,
-  //       "comment": {
-  //       "id": "Y29tbWVudDoyMTgzODI=",
-  //         "content": "<p>This is a test reply pending, yo</p>\n",
-  //           "author": {
-  //         "node": {
-  //           "name": "Teela"
-  //         }
-  //       }
-  //     }
-  //   }
-  // },
-
-  // "errors": [
-  //   {
-  //     "message": "Duplicate comment detected; it looks as though you&#8217;ve already said that!",
-  //     "extensions": {
-  //       "category": "user"
-  //     },
-  //     "locations": [
-  //       {
-  //         "line": 38,
-  //         "column": 3
-  //       }
-  //     ],
-  //     "path": [
-  //       "createComment"
-  //     ]
-  //   }
-  // ],
-  //   "data": {
-  //   "createComment": null
-  // },
-
-  // ResponseA === Replyied to comment success, but first user submission
-  const fakeResponseA = {
-    createComment: null, // null means they havn't been approved yet
-    parent: Boolean(comment.parent)
-  }
-  const fakeResponseB = {
-    createComment: {
-      success: true,
-      comment: {
-        id: "Y29tbWVudDoyMTgzODI===",
-        databaseId: 5494,
-        content: "<p>This is a test reply pending, yo</p>\n",
-        date: '132131',
-        commentedOn: {
-          node: {
-            databaseId: 5245,
-            id: "cG9zdDo1NDM0"
-          }
-        },
-        parent: 218387,
-        author: {
-          node: {
-            id: '12123',
-            name: "Spencer"
-          }
-        },
-        replies: {
-          edges: []
-        }
-      }
-    }, // null means they havn't been approved yet
-    parent: Boolean(comment.parent)
-  }
-  const resB = {
-    data: {
-      ...fakeResponseB
-    }
-  }
-  const resA = {
-    data: {
-      ...fakeResponseA
-    }
-  }
-  const errorResponse = {
-    errors: [
-      { message: "Duplicate comment detected; it looks as though you&#8217;ve already said that!" }
-    ],
-    data: {
-      createComment: null
-    }
-  }
-  return resB
-  // const res = await fetchAPIClientSide(getGraphQLString(CREATE_COMMENT), {
-  //   variables: {
-  //     input: { ...comment }
-  //   }
-  // })
-  // console.log(res)
-}
 const CommentForm = (props: IProps) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -338,75 +221,5 @@ const CommentForm = (props: IProps) => {
     </div>
   )
 }
-interface ISendComment {
-  commentOn: number
-  content: string
-  author: string
-  authorEmail: string
-  parent?: number
-}
-function CommentModal() {
-  const { state: { commentsModal }, addComment } = useSite()
-  console.log('OFficial Comments', commentsModal.comments)
-  if (commentsModal.show) {
-    return (
-      <div>
-        Comment MODAL
-        <CommentForm postId={commentsModal.commentOn} primary={true} />
 
-        {commentsModal.comments.length > 0 && <div>
-          {commentsModal.comments.map((comment: IPostComment) =>
-            <Comment
-              key={comment.id}
-              comment={comment}
-              postId={commentsModal.commentOn}
-            />
-          )
-          }
-        </div>}
-      </div>
-    )
-  }
-
-  return null
-
-}
-
-export default CommentModal
-
-interface ICommentProps {
-  comment: IPostComment
-  postId: number
-}
-const Comment = (props: ICommentProps) => {
-  const { comment, postId } = props
-  const [showReplyForm, setShowReplyForm] = useState(false)
-
-  function handleReplyClick() {
-    console.log('click', !showReplyForm)
-    setShowReplyForm(!showReplyForm)
-  }
-
-  function commentOnCompelte(response: any) {
-
-    // if user has already commented before, close the form
-    if (response.createComment) {
-      setShowReplyForm(false)
-    }
-    // if first time post, do not close the comment form
-  }
-
-  return (
-    <div key={comment.id}>
-      <h3>{comment.author.name}</h3>
-      <button onClick={handleReplyClick}>Reply</button>
-      {showReplyForm && <div>
-        Reply Form
-        <CommentForm
-          postId={postId}
-          onComplete={commentOnCompelte}
-          replyToComment={comment} />
-      </div>}
-    </div>
-  )
-}
+export default CommentForm

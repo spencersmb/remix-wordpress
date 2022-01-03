@@ -129,12 +129,32 @@ const useSite = () => {
     })
   }
 
+  const addComment = (data: {
+    comment: IPostComment
+  }) => {
+    dispatch({
+      type: ISiteTypes.ADD_COMMENT,
+      payload: data
+    })
+  }
+
+  const addCommentReply = (data: {
+    comment: IPostComment
+  }) => {
+    dispatch({
+      type: ISiteTypes.ADD_COMMENT_REPLY,
+      payload: data
+    })
+  }
+
   return {
     openModal,
     closeModal,
     resourecLibraryLogin,
     showComments,
     hideComments,
+    addComment,
+    addCommentReply,
     state,
     dispatch
   }

@@ -128,14 +128,21 @@ interface IPostCommentReply {
 }
 
 type IPostCommentRaw = {
-  author: {node: string}
+  author: {node: {name: string, id: string}}
   content: string
   databaseId: number
+  commentedOn:{
+    node:{
+      databaseId: number
+    }
+  }
   date: string
   id: string
+  parent: number
   replies: {
-    edges: {node: {
-        author: {node: string}
+    edges: {
+      node: {
+        author: {node: {id: string, name: string}}
         content: string
         databaseId: number
         date: string
@@ -145,10 +152,14 @@ type IPostCommentRaw = {
   }
 }
 type IPostComment = {
-  replies: {
-    edges: IPostCommentReply[]
-  }
-} & ICommentContent
+  author: {name: string}
+  content: string
+  databaseId: number
+  date: string
+  id: string
+  parent: number
+  replies: ICommentContent[]
+}
 
 interface IPostComments {
   comments: IPostComment[]
