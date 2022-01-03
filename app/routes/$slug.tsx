@@ -194,6 +194,12 @@ query postBySlug($slug: String!) {
             edges {
                 node {
                     databaseId
+                    approved
+                    parent {
+                      node {
+                        databaseId
+                      }
+                    }
                     id
                     author {
                         node {

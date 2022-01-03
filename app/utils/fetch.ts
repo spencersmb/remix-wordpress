@@ -4,6 +4,8 @@ import https from 'https'
 import { consoleHelper } from './windowUtils'
 import { QUERY_POST_BY_ID } from '../lib/graphql/queries/posts'
 import { QUERY_PAGE_BY_ID } from '../lib/graphql/queries/pages'
+import { getGraphQLString } from './graphqlUtils';
+import { CREATE_COMMENT } from '~/lib/graphql/mutations/comments';
 
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
 // const api_url = 'https://etheadless.local/graphql/'
@@ -73,7 +75,7 @@ export async function fetchAPIClientSide(query: any, { variables }: any = {}) {
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('WP QUERY FETCH' + json.errors)
+    throw new Error('Server Error: ' + json.errors[0].message)
   }
   return json.data
 }
@@ -167,5 +169,118 @@ export async function refreshJWT({cmid, refresh}: IAuthToken): Promise<Response>
       query:REFRESH_LOGIN,
       variables,
     }),
+  })
+}
+
+interface IFetchSubmitComment {
+  errors?: { message: string }[]
+  createComment: {
+        success: boolean,
+        comment: IPostCommentRaw
+      } | null
+}
+
+interface ISubmitComment {
+  commentOn: number
+  content: string
+  author: string
+  authorEmail: string
+  parent?: number
+}
+export async function fetchSubmitComment(comment: ISubmitComment): Promise<ICommentResponse> {
+  console.log('FetchSubmit Comment', comment);
+
+  //SUCCESS
+  // "data": {
+  //   "createComment": {
+  //     "success": true,
+  //       "comment": {
+  //       "id": "Y29tbWVudDoyMTgzODI=",
+  //         "content": "<p>This is a test reply pending, yo</p>\n",
+  //           "author": {
+  //         "node": {
+  //           "name": "Teela"
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
+
+  // "errors": [
+  //   {
+  //     "message": "Duplicate comment detected; it looks as though you&#8217;ve already said that!",
+  //     "extensions": {
+  //       "category": "user"
+  //     },
+  //     "locations": [
+  //       {
+  //         "line": 38,
+  //         "column": 3
+  //       }
+  //     ],
+  //     "path": [
+  //       "createComment"
+  //     ]
+  //   }
+  // ],
+  //   "data": {
+  //   "createComment": null
+  // },
+
+  // ResponseA === Replyied to comment success, but first user submission
+  const fakeResponseA = {
+    createComment: null, // null means they havn't been approved yet
+    parent: Boolean(comment.parent)
+  }
+  const fakeResponseB = {
+    createComment: {
+      success: true,
+      comment: {
+        id: "Y29tbWVudDoyMTgzODI===",
+        databaseId: 5494,
+        content: "<p>This is a test reply pending, yo</p>\n",
+        date: '132131',
+        commentedOn: {
+          node: {
+            databaseId: 5245,
+            id: "cG9zdDo1NDM0"
+          }
+        },
+        parent: 218387,
+        author: {
+          node: {
+            id: '12123',
+            name: "Spencer"
+          }
+        },
+        replies: {
+          edges: []
+        }
+      }
+    }, // null means they havn't been approved yet
+    parent: Boolean(comment.parent)
+  }
+  const resB = {
+    data: {
+      ...fakeResponseB
+    }
+  }
+  const resA = {
+    data: {
+      ...fakeResponseA
+    }
+  }
+  const errorResponse = {
+    errors: [
+      { message: "Duplicate comment detected; it looks as though you&#8217;ve already said that!" }
+    ],
+    data: {
+      createComment: null
+    }
+  }
+  return fetchAPIClientSide(getGraphQLString(CREATE_COMMENT), {
+    variables: {
+      input: { ...comment }
+    }
   })
 }

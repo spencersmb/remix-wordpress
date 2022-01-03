@@ -55,6 +55,7 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
   return modifiedData
 
 }
+
 export function parseComment(node: IPostCommentRaw): IPostComment {
   return {
     ...node,
@@ -64,6 +65,7 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
         author: node.author.node
       }
     }),
+    parent: node.parent?.node.databaseId || null,
     author: node.author.node
   }
 }

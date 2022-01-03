@@ -131,6 +131,12 @@ type IPostCommentRaw = {
   author: {node: {name: string, id: string}}
   content: string
   databaseId: number
+  approved: boolean
+  parent: {
+    node: {
+      databaseId: number
+    }
+  } | null
   commentedOn:{
     node:{
       databaseId: number
@@ -138,7 +144,6 @@ type IPostCommentRaw = {
   }
   date: string
   id: string
-  parent: number
   replies: {
     edges: {
       node: {
@@ -157,10 +162,22 @@ type IPostComment = {
   databaseId: number
   date: string
   id: string
-  parent: number
+  parent: number | null
   replies: ICommentContent[]
 }
 
 interface IPostComments {
   comments: IPostComment[]
+}
+
+interface ICommentResponse {
+  createComment: {
+    success: boolean,
+    comment: IPostCommentRaw | null
+  } // null means they havn't been approved yet
+}
+
+interface IGQLError{
+  message: string
+  path: string[]
 }
