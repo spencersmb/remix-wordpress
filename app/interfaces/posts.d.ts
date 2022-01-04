@@ -86,6 +86,7 @@ interface IPostSeo {
   readingTime: string
 }
 interface IPost {
+  databaseId: number //postID in wp
   author: {
     avatar: {
       height: number
@@ -98,7 +99,7 @@ interface IPost {
     uri: string
   }
   content: string
-  categories?: ICategories[]
+  categories: ICategories[]
   tags:Itag[]
   featuredImage: IFeaturedImage
   title: string

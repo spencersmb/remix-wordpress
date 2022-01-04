@@ -54,7 +54,7 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export default function PostSlug() {
-  let { post } = useLoaderData();
+  let { post } = useLoaderData<{ post: IPost }>();
   const { showComments, hideComments, state: { commentsModal } } = useSite();
   consoleHelper('post', post)
 
@@ -82,7 +82,14 @@ export default function PostSlug() {
       <div>
         <h1>{post.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        {post.categories.length > 0 && <div>
+          <h2>Categories</h2>
+          <ul>
+            {post.categories.map(cat => <li key={cat.id}><Link to={`/category/${cat.slug}`}>{cat.name}</Link></li>)}
+          </ul>
+        </div>}
         <MakersPostSignUp />
+
         <div>
           Comments
           <div onClick={handleCommentsClick}>

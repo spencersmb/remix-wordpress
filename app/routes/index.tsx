@@ -48,7 +48,7 @@ type IndexData = {
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
-export let loader: LoaderFunction = async ({request}) => {
+export let loader: LoaderFunction = async ({ request }) => {
 
   let data: IndexData = {
     resources: [
@@ -102,6 +102,7 @@ export let loader: LoaderFunction = async ({request}) => {
   }
 };
 
+// TODO: AM I USING THIS
 export let action: ActionFunction = async ({ request }): Promise<any | Response> => {
 
   let form = await request.formData();
@@ -143,7 +144,7 @@ export let action: ActionFunction = async ({ request }): Promise<any | Response>
   // } catch (e) {
   //   return json({ form: 'fail' })
   // }
-  return {value: 'string'}
+  return { value: 'string' }
 
 }
 
@@ -159,13 +160,14 @@ export default function Index() {
   const { state, addPostsAction, loadingPosts } = useFetchPaginate()
   const { openModal, closeModal } = useSite()
 
-  let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
-    posts: data.posts,
-    page: 1,
-    endCursor: data.pageInfo.endCursor,
-    hasNextPage: data.pageInfo.hasNextPage,
-    loading: false
-  }
+  // let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
+  //   ...state,
+  //   posts: data.posts,
+  //   page: 1,
+  //   endCursor: data.pageInfo.endCursor,
+  //   hasNextPage: data.pageInfo.hasNextPage,
+  //   loading: false
+  // }
 
   async function fetchGithubAction() {
     const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
@@ -228,7 +230,7 @@ export default function Index() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      after: stateSource.endCursor
+      after: state.endCursor
     }
     const body = await fetch(url,
       {
@@ -244,11 +246,11 @@ export default function Index() {
     const { data } = await body.json()
     const filteredPosts = flattenAllPosts(data.posts) || []
     addPostsAction({
-      page: stateSource.page + 1,
+      page: state.page + 1,
       endCursor: data.posts.pageInfo.endCursor,
       hasNextPage: data.posts.pageInfo.hasNextPage,
       posts: [
-        ...stateSource.posts,
+        ...state.posts,
         ...filteredPosts
       ]
     }
@@ -290,15 +292,17 @@ export default function Index() {
           </ul>
           <h2>Resources</h2>
           <ul>
-            {stateSource.posts.map((post: any) => (
-              <li key={post.id} className="remix__page__resource">
-                <Link to={post.slug} prefetch="intent">
-                  {post.title}
-                </Link>
-              </li>
-            ))}
+            {state.posts.map((post: any) => {
+              return (
+                <li key={post.id} className="remix__page__resource">
+                  <Link to={post.slug} prefetch="intent">
+                    {post.title}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
-          {stateSource.hasNextPage && <button onClick={fetchMore}>{stateSource.loading ? 'Loading...' : 'Fetch More'}</button>}
+          {state.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
         </aside>
       </div>
       <div><button onClick={open}>OPen modal</button></div>

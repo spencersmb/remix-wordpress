@@ -1,12 +1,13 @@
 import { createContext, Dispatch, useContext } from 'react'
 import { IFetchPaginateAction, IFetchPaginateTypes, IPageInfo } from './useFetchPaginationReducer'
 
-export const fetchInitialState = {
+export const fetchInitialState:IFetchPaginationState = {
   loading: false,
   page: 1,
   endCursor: '',
   hasNextPage: false,
-  posts: []
+  posts: [],
+  categories: {}
 }
 
 export const FetchPaginateContext = createContext<IFetchPaginateContextType>({
@@ -38,6 +39,13 @@ const useFetchPaginate = () => {
     })
   }
 
+  const addCategoriAction = (data: IPageInfo & {category: string}) => {
+    dispatch({
+      type: IFetchPaginateTypes.ADD_CATEGORY,
+      payload: data
+    })
+  }
+
   const loadingPosts = ()=>{
     dispatch({
       type: IFetchPaginateTypes.LOADING
@@ -45,6 +53,7 @@ const useFetchPaginate = () => {
   }
 
   return {
+    addCategoriAction,
     loadingPosts,
     addPostsAction,
     state,
@@ -59,7 +68,17 @@ export interface IFetchPaginationState{
   endCursor: string,
   hasNextPage: boolean,
   posts: IPost[],
-  loading: boolean
+  loading: boolean,
+  categories:{
+    [key: string]: {
+      pageInfo: {
+        page: number,
+        endCursor: string,
+        hasNextPage: boolean,
+      }
+      posts: IPost[]
+    }
+  }
 }
 export interface IFetchPaginateContextType {
   state: IFetchPaginationState,

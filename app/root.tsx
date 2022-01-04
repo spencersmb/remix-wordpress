@@ -38,7 +38,7 @@ import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
 import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
-import { IFetchPaginationState } from './hooks/useFetchPagination'
+import { fetchInitialState, IFetchPaginationState } from './hooks/useFetchPagination'
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
@@ -131,6 +131,7 @@ export default function App() {
   const pageInfo: IwpPageInfo = selectedMatch ? selectedMatch?.data?.pageInfo : null
 
   let defaultState: IFetchPaginationState | undefined = (posts && pageInfo) ? {
+    ...fetchInitialState,
     page: 1,
     hasNextPage: pageInfo.hasNextPage,
     endCursor: pageInfo.endCursor,
