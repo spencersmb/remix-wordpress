@@ -38,17 +38,14 @@ import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
 import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
-import { fetchInitialState, IFetchPaginationState } from './hooks/useFetchPagination'
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
-import { fetchAPI } from "./utils/fetch";
-import { getGraphQLString } from "./utils/graphqlUtils";
-import { GetAllFreebiesQuery } from "./lib/graphql/queries/resourceLibrary";
 import RemixLogo from "./components/svgs/remixLogo";
 import FooterPrimary from '~/components/footer/FooterPrimary'
 import { commitSession, getSession } from '~/sessions.server'
 import CommentModal from "./components/modals/commentModal";
+import { getDefaultState } from "./utils/appUtils";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -125,19 +122,8 @@ export default function App() {
   let { menus, metadata, user, message } = useLoaderData<any>();
   consoleHelper('user', user)
   console.log('message', message)
-  let matches = useMatches()
-  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
-  const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
-  const pageInfo: IwpPageInfo = selectedMatch ? selectedMatch?.data?.pageInfo : null
 
-  let defaultState: IFetchPaginationState | undefined = (posts && pageInfo) ? {
-    ...fetchInitialState,
-    page: 1,
-    hasNextPage: pageInfo.hasNextPage,
-    endCursor: pageInfo.endCursor,
-    posts,
-    loading: false
-  } : undefined
+  let defaultState = getDefaultState()
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
   let transition = useTransition();

@@ -14,7 +14,7 @@ interface IFeaturedImage {
   caption: string
   id: string
   sizes: string
-  sourceUrl?: string
+  sourceUrl: string
   srcSet: null | string[]
 }
 
@@ -25,14 +25,7 @@ interface Itag {
     name: string
     slug: string
 }
-interface IFeaturedImage {
-  altText: string
-  caption: string
-  id: string
-  sizes: string
-  sourceUrl?: string
-  srcSet: null | string[]
-}
+
 interface IDownload{
   etdmCampaign: string
   etdmDescriptor: string

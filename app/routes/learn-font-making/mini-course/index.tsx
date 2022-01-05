@@ -2,6 +2,7 @@ import React from 'react'
 import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, useActionData, useTransition } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server';
 import { ckFormIds } from '~/lib/convertKit/formIds';
+import { getStaticPageMeta } from '~/utils/pageUtils';
 import { getHtmlMetadataTags } from '~/utils/seo';
 import { validateEmail } from '~/utils/validation';
 import { consoleHelper } from '~/utils/windowUtils';
@@ -18,31 +19,11 @@ export let meta: MetaFunction = (rootData): any => {
       description: 'error: No metaData or Parents Data',
     }
   }
-
-  const page: IPage = {
-    id: '227',
-    title: 'Learn Font Making: Mini Course SignUp',
-    author: {
-      id: '22',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'resource-library-login'
-    },
-    slug: 'resource-library-login',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Learn Font Making: Mini Course SignUp - Every Tuesday',
-      metaDesc: 'Learn Font Making: Mini Course SignUp!',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: '3min'
-    }
-  }
+  const page = getStaticPageMeta({
+    title: `Learn Font Making: Mini Course SignUp - Every Tuesday`,
+    desc: `Learn Font Making: Mini Course SignUp!`,
+    slug: `mini-course`
+  })
 
   /*
   Build Metadata tags for the page

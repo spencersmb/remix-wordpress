@@ -194,7 +194,7 @@ export const getPreviewRedirectUrl = ( request:Request ): string => {
 
 export async function findCookie<T>(request: Request, cookie: Cookie): Promise<{hasCookie: boolean, data: T}>{
   const cookieHeader = request.headers.get("Cookie");
-  const cookieData = await cookie.parse(cookieHeader)
+  const cookieData = await cookie.parse(cookieHeader);
   return {
     hasCookie: !isEmpty(cookieData),
     data: {...cookieData}

@@ -12,7 +12,7 @@ interface IPageCore {
     slug: string
   }
   featuredImage?: IFeaturedImage 
-  date: string
+  date: string | number
   id: string
   slug: string,
   seo:IPostSeo

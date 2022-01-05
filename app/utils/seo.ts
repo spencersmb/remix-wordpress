@@ -1,5 +1,6 @@
 import { defaultSeoImages } from '../lib/wp/site'
 import { Location } from 'history'
+import { defaultFeaturedImage } from './pageUtils'
 
 function createOgImages(image: IOgImageType) {
   return {
@@ -68,8 +69,8 @@ export function getHtmlMetadataTags({
         tags: post.tags
       }),
       ...createOgImages({
-        altText: post.featuredImage?.altText || defaultSeoImages.generic.altText,
-        url: post.featuredImage?.altText || defaultSeoImages.generic.altText,
+        altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
+        url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
         width:'1920',
         height: '1080'
       }),
@@ -94,8 +95,8 @@ export function getHtmlMetadataTags({
       'og:type': 'article',
       'og:description': page.seo.metaDesc,
       ...createOgImages({
-        altText: page.featuredImage?.altText || defaultSeoImages.generic.altText,
-        url: page.featuredImage?.altText || defaultSeoImages.generic.altText,
+        altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
+        url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
         width:'1920',
         height: '1080'
       }),

@@ -56,21 +56,17 @@ const useFetchPaginate = () => {
     addCategoriAction,
     loadingPosts,
     addPostsAction,
-    state,
+    state:{
+      ...state
+      
+    },
     dispatch
   }
 }
 
 export default useFetchPaginate
-
-export interface IFetchPaginationState{
-  page: number,
-  endCursor: string,
-  hasNextPage: boolean,
-  posts: IPost[],
-  loading: boolean,
-  categories:{
-    [key: string]: {
+export interface ICategories {
+  [key: string]: {
       pageInfo: {
         page: number,
         endCursor: string,
@@ -78,7 +74,14 @@ export interface IFetchPaginationState{
       }
       posts: IPost[]
     }
-  }
+}
+export interface IFetchPaginationState{
+  page: number,
+  endCursor: string,
+  hasNextPage: boolean,
+  posts: IPost[],
+  loading: boolean,
+  categories:ICategories
 }
 export interface IFetchPaginateContextType {
   state: IFetchPaginationState,

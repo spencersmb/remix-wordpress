@@ -724,6 +724,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 500;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .leading-7 {
   line-height: 1.75rem;
 }

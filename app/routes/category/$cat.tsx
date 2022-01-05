@@ -1,12 +1,43 @@
 import { gql } from "@apollo/client";
+import { capitalize } from "lodash";
 import { useEffect, useRef } from "react";
-import { json, Link, LoaderFunction, useLoaderData } from "remix";
+import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate, { IFetchPaginationState } from "~/hooks/useFetchPagination";
 import { Layout } from "~/root";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
+import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
+import { getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
+
+// headers for the entire DOC when someone refreshes the page or types in the url directly
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+  }
+}
+
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+  const category = capitalize(data.category)
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: null,
+    page: getStaticPageMeta({
+      title: `${category} Archives - Every-Tuesday`,
+      desc: `Every-Tuesday Category: ${category}`,
+      slug: `${data.category}`
+    }),
+    location
+  })
+};
 
 export let loader: LoaderFunction = async ({ params }) => {
   let wpAPI = await fetchAPI(getGraphQLString(query), {
@@ -42,26 +73,9 @@ export default function CategoryPage() {
     category: string
   }>();
   const { state, addCategoriAction, loadingPosts } = useFetchPaginate()
-  const categoriesRef = useRef(state.categories[category])
   consoleHelper('posts', posts)
   consoleHelper('pageInfo', pageInfo)
-  console.log('state', state.categories)
-  // TODO: Use FetchPaginate, but add in state for categories.[categoryName] = array(of posts).
-  // let stateSource: IFetchPaginationState = (state.categories[category] && state.categories[category].posts.length > 0) ? state : {
-  //   ...state,
-  //   loading: false,
-  //   categories: {
-  //     [category]: {
-  //       pageInfo: {
-  //         page: 1,
-  //         hasNextPage: pageInfo.hasNextPage,
-  //         endCursor: pageInfo.endCursor,
-  //       },
-  //       posts: [...posts]
-  //     }
-  //   }
-  // }
-  // consoleHelper('stateSource', stateSource)
+
   function getEndCurosor() {
     if (!state.categories[category]) {
       return pageInfo.endCursor
@@ -144,26 +158,17 @@ export default function CategoryPage() {
     <Layout>
       Category
       <div>
-        {RenderPosts()}
-        {/* {stateSource.categories[category] && stateSource.categories[category].posts.map(post => {
+        {state.categories[category] && state.categories[category].posts.map(post => {
           return (
             <div key={post.id}>
               <Link to={`/${post.slug}`}><h2>{post.title}</h2></Link>
             </div>
           )
-        })} */}
-        {/* {state.categories[category] && state.categories[category].posts.map(post => {
-          return (
-            <div key={post.id}>
-              <Link to={`/${post.slug}`}><h2>{post.title}</h2></Link>
-            </div>
-          )
-        })} */}
+        })}
       </div>
 
       <div>
-        {/* {stateSource.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{stateSource.loading ? 'Loading...' : 'Load More'}</button>} */}
-        {/* {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>} */}
+        {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
       </div>
     </Layout>
   )

@@ -7,9 +7,9 @@ if (!sessionSecret) {
 
 const procreateCookieName = "etBonuses-procreate-5x"
 export const procreateBonusCookie = createCookie(procreateCookieName, {
-  maxAge: 604_800, // one week
+  maxAge: 60 * 60 * 24 * 360, // one week
   path: '/',
-  expires: new Date(Date.now() + 60),
+  expires: new Date(Date.now() + 60 * 60 * 24 * 360),
   httpOnly: true,
   sameSite: "lax",
   secrets: [sessionSecret],
@@ -18,9 +18,9 @@ export const procreateBonusCookie = createCookie(procreateCookieName, {
 
 const miniCourseName = "et-lfm-mcc"
 export const lfmMiniCourseCookie = createCookie(miniCourseName, {
-  maxAge: 604_800, // one week
+  maxAge: 60 * 60 * 24 * 360, // one week
   path: '/',
-  expires: new Date(Date.now() + 60),
+  expires: new Date(Date.now() + 60 * 60 * 24 * 360),
   httpOnly: true,
   sameSite: "lax",
   secrets: [sessionSecret],

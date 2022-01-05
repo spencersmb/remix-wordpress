@@ -1,6 +1,7 @@
 import { json, LoaderFunction, MetaFunction, redirect, useLoaderData, useOutletContext } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server'
 import { findCookie } from '~/utils/loaderHelpers'
+import { getStaticPageMeta } from '~/utils/pageUtils'
 import { getHtmlMetadataTags } from '~/utils/seo'
 import { IlfmMiniCourseCookie } from '../mini-course'
 
@@ -16,31 +17,13 @@ export let meta: MetaFunction = (rootData): any => {
       description: 'error: No metaData or Parents Data',
     }
   }
+  console.log('data', location)
 
-  const page: IPage = {
-    id: '25',
-    title: 'Procreate 5x Bonus Downloads',
-    author: {
-      id: '25',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'teela'
-    },
-    slug: 'bl',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Procreate 5x Bonus Downloads - Every Tuesday',
-      metaDesc: 'Procreate 5x Bonus Downloads members only access!',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: '3min'
-    }
-  }
+  const page = getStaticPageMeta({
+    title: `Learn Font Making - Mini Course: Video 1`,
+    desc: `Learn Font Making: Mini Course - Video 1: Choosing a Font Style that Sells`,
+    slug: `video-1`
+  })
 
   /*
   Build Metadata tags for the page
