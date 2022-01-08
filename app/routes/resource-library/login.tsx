@@ -102,7 +102,6 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     return { fieldErrors, fields };
 
   const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
-  console.log('converkitUrl', url)
   const res = await fetch(url, {
     method: 'GET',
     headers: {
@@ -111,19 +110,41 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   })
 
   const result = await res.json()
-  // return json({ form: result })
 
   if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
     return { subscriberError: `Sorry, Email invalid.` };
   }
-  let userId = v4()
-  let sessionStorage = createResourceUserSession(userId)
+
+  let userId = result.subscribers[0].id
+  const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
+
+  const resTag = await fetch(urlTags, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  const tagResults = await resTag.json()
+  const user = {
+    id: userId,
+    tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+  }
+
+
+  let sessionStorage = createResourceUserSession(user)
   const customHeaders = new Headers()
   customHeaders.append('Set-Cookie', await sessionStorage)
 
+  // Wait to redirect here, pass down the logged in user, so I can add it to context, then redirect.
   return redirect('/resource-library/members', {
     headers: customHeaders,
   })
+
+  // return json({
+  //   user
+  // }, {
+  //   headers: customHeaders
+  // })
 
 }
 

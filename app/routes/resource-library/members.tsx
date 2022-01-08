@@ -65,14 +65,14 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
-  await requireResourceLibraryUser(request, '/resource-library')
+  const user = await requireResourceLibraryUser(request, '/resource-library')
 
   try {
     let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
     return json({
-      user: true,
       freebies: flattenResourceData(data.resourceLibraries),
-      filterTags: data.cptTags
+      filterTags: data.cptTags,
+      user
     })
   } catch (e) {
     console.error(`e in /resource-library`, e)
@@ -81,21 +81,24 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
 }
 interface ILoaderData {
   freebies: IResourceItem[]
-  filterTags: IFilterTag[]
+  filterTags: IFilterTag[],
+  user: IResourceUser
 }
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
-  console.log('data', data);
-
   const { state: { user }, resourecLibraryLogin } = useSite()
+  // console.log('data', data);
 
 
   /*
   * Check for user when coming directly from the login page to make sure the user is passed to the global context.
+  * Right now user comes from the server side on page refreush and is set in the State, but when you come from a route, it isn't set because the redirect after a form submission happens on the server before the client takes over again. So we must pass the data down to an action manually.
   */
   useEffect(() => {
-    if (!user?.resourceUser) {
-      resourecLibraryLogin()
+    console.log('check for user', user);
+
+    if (!user.resourceUser) {
+      resourecLibraryLogin({ user: data.user })
     }
   }, [])
 

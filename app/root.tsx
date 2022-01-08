@@ -94,7 +94,8 @@ export let loader: LoaderFunction = async ({ request }) => {
   // consoleHelper('resourceUser', resourceUser)
   const ses = session.get("globalMessage")
   const message = ses || null;
-  console.log('session', message)
+  console.log('session message', message)
+  console.log('resourceUser', resourceUser);
 
   return json({
     message,
@@ -102,7 +103,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     metadata,
     user: {
       wpAdmin: Boolean(wpAdminUser),
-      resourceUser: Boolean(resourceUser)
+      resourceUser: resourceUser
     },
     ENV,
   },

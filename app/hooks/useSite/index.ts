@@ -7,9 +7,9 @@ export interface ISiteContextState {
   categories?: any[]
   metadata: IMetaData
   menu: IMenu[],
-  user: null | {
-    wpAdmin: boolean | undefined
-    resourceUser: boolean | undefined
+  user: {
+    wpAdmin: boolean
+    resourceUser: IResourceUser | null
   }
   modal: {
     open: boolean,
@@ -107,9 +107,12 @@ const useSite = () => {
     })
   }
 
-  const resourecLibraryLogin = () => {
+  const resourecLibraryLogin = (data: {user: IResourceUser}) => {
     dispatch({
       type: ISiteTypes.LOGIN_RESOURCE_USER,
+      payload:{
+        user: data.user
+      }
     })
   }
 

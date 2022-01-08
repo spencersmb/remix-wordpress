@@ -18,10 +18,10 @@ let resourceStorage = createCookieSessionStorage({
 });
 
 export async function createResourceUserSession(
-  userId: string,
+  user: IResourceUser,
 ) {
   let session = await resourceStorage.getSession();
-  session.set("userId", userId);
+  session.set("user", user); 
   return await resourceStorage.commitSession(session)
 }
 
@@ -31,9 +31,9 @@ export function getResourceUserSession(request: Request) {
 
 export async function getResourceUserToken(request: Request) {
   let session = await getResourceUserSession(request);
-  let userToken = session.get("userId");
-  if (!userToken || typeof userToken !== "string") return null;
-  return userToken;
+  let userSession = session.get("user");
+  if (!userSession) return null;
+  return userSession;
 }
 
 export async function requireResourceLibraryUser(
@@ -41,12 +41,12 @@ export async function requireResourceLibraryUser(
   redirectTo: string
 ): Promise<IAuthToken> {
   let session = await getResourceUserSession(request);
-  let userToken = session.get("userId");
+  let userSession = session.get("user");
 
-  if (!userToken) {
+  if (!userSession) {
     throw redirect(redirectTo);
   }
-  return userToken;
+  return userSession;
 }
 
 export async function logoutResourceLibrary(request: Request) {

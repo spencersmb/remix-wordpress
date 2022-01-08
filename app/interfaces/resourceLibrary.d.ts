@@ -39,3 +39,7 @@ interface IGridItem{
   title: string
 }
 
+interface IResourceUser {
+  id: string
+  tags: string[]
+}

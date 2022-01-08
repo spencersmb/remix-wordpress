@@ -40,10 +40,17 @@ interface IShowComments {
   }
 }
 
+interface ILoginResourceUser{
+  type: ISiteTypes.LOGIN_RESOURCE_USER,
+  payload: {
+    user: IResourceUser
+  }
+}
+
 export type ISiteAction =
 | IOpenModal
 | {type: ISiteTypes.MODAL_CLOSE}
-| {type: ISiteTypes.LOGIN_RESOURCE_USER}
+| ILoginResourceUser
 | IShowComments
 | IAddComment
 | IAddCommentReply
@@ -76,8 +83,8 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
       return {
         ...state,
         user:{
-          wpAdmin: state.user?.wpAdmin,
-          resourceUser: true
+          ...state.user,
+          resourceUser: action.payload.user
         }
       }
     

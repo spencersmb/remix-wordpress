@@ -1,12 +1,8 @@
 import { RouteData } from "@remix-run/react/routeData"
 import { useMatches } from "remix"
 import { IFetchPaginationState, fetchInitialState } from "~/hooks/useFetchPagination"
-interface ISelectedMatch {
-  pathname: string;
-  params: import("react-router").Params<string>;
-  data: RouteData;
-  handle: any;
-}
+import { ISelectedMatch } from "~/interfaces/remix"
+
 export const getDefaultState = () => {
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)

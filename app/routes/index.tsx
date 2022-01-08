@@ -294,8 +294,8 @@ export default function Index() {
           <ul>
             {state.posts.map((post: any) => {
               return (
-                <li key={post.id} className="remix__page__resource">
-                  <Link to={post.slug} prefetch="intent">
+                <li key={post.id} >
+                  <Link to={`/${post.slug}`} prefetch="intent">
                     {post.title}
                   </Link>
                 </li>
