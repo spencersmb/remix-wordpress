@@ -81,7 +81,6 @@ export async function fetchAPIClientSide(query: any, { variables }: any = {}) {
 }
 
 
-
 export async function getPreviewPostPageServer({previewType, id, userToken}: {previewType: string, id: string, userToken: IAuthToken}){
   consoleHelper('getPreviewPostPageServer', previewType)
   consoleHelper('getPreviewPostPageServer id', id)
@@ -283,4 +282,32 @@ export async function fetchSubmitComment(comment: ISubmitComment): Promise<IComm
       input: { ...comment }
     }
   })
+}
+
+/*
+  Shopify Fetch
+*/
+export async function fetchShopifyStoreFrontRequest({query, variables }: {query: string, variables: any}){
+  const token = (typeof window !== "undefined" ? window.ENV.SHOPIFY_STOREFRONT_ACCESS_TOKEN : process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN) as string
+  const url = `https://everytuesday.myshopify.com/api/2022-01/graphql.json`
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': token
+      },
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    })
+
+    if(!res.ok){
+      console.error(res)
+      throw new Error('Shopify Error' + res)
+    }
+
+    const {data} = await res.json()
+
+    return data
 }

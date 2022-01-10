@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Link, useMatches } from 'remix'
+import { userStateMatches } from '~/hooks/remixHooks'
 import useSite from '~/hooks/useSite'
 import { ISelectedMatch } from '~/interfaces/remix'
 
@@ -12,21 +13,14 @@ import { ISelectedMatch } from '~/interfaces/remix'
  *
  */
 
-interface IProps {
-  resourceUser: IResourceUser | null
-}
 const ResourceLibraryNav = () => {
-  const matches = useMatches()
-  let selectedMatchUser: undefined | ISelectedMatch = matches.find(match => match.data?.user)
-  console.log('selectedMatchUser', selectedMatchUser);
-  let resourceUser = selectedMatchUser?.data.user.resourceUser
-  // const { state: { user: { resourceUser } } } = useSite()
+  // Pass user directly using useMatches instead of waiting for context
+  const { state } = userStateMatches()
 
   return (
     <nav>
       <ul className='flex flex-row'>
-
-        {!resourceUser &&
+        {!state?.user.resourceUser &&
           <>
             <li>
               <Link to="/resource-library" title="Resource Library Home" prefetch="intent" className="remix-app__header-home-link">Resource Home</Link>
@@ -38,7 +32,7 @@ const ResourceLibraryNav = () => {
             </li>
           </>
         }
-        {resourceUser && <li>
+        {state?.user.resourceUser && <li>
           <form action="/resource-library/logout" method="post">
             <button type="submit" className="button">
               Logout

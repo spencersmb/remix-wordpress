@@ -46,6 +46,9 @@ import FooterPrimary from '~/components/footer/FooterPrimary'
 import { commitSession, getSession } from '~/sessions.server'
 import CommentModal from "./components/modals/commentModal";
 import { getDefaultState } from "./utils/appUtils";
+import UseCartProvider from "./hooks/useCart/useCartProvider";
+import { createCart, getUserCart } from "./utils/cartUtils";
+import { shopifyCartCookie } from "./cookies.server";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -73,11 +76,27 @@ export let links: LinksFunction = () => {
  Root Loader for the global App state
  */
 export let loader: LoaderFunction = async ({ request }) => {
+  const customHeaders = new Headers()
+  // Used for session message storage
   const session = await getSession(
     request.headers.get("Cookie")
   );
+
+
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
+
+  // check for cart Cookie and make api queries to get cart
+  const shopifyCart = await getUserCart(request)
+  console.log('shopifyCart linne items', shopifyCart.cart?.lines.edges.length)
+
+  // if it's a new cart, set a new cookie with a new ID
+  if (shopifyCart?.newCart) {
+    customHeaders.append('Set-Cookie', await shopifyCartCookie.serialize({
+      cartId: shopifyCart.cart?.cardId
+    }))
+  }
+
   let wpAdminUser = wpAdminSession.has('userId') ? {
     id: wpAdminSession.get('userId')
   } : null
@@ -89,6 +108,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   let ENV = {
     APP_ROOT_URL: process.env.APP_ROOT_URL,
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
+    SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
   }
   // consoleHelper('Admin user', wpAdminSession.has('userId'))
   // consoleHelper('resourceUser', resourceUser)
@@ -96,6 +116,8 @@ export let loader: LoaderFunction = async ({ request }) => {
   const message = ses || null;
   console.log('session message', message)
   console.log('resourceUser', resourceUser);
+
+  customHeaders.append('Set-Cookie', await commitSession(session))
 
   return json({
     message,
@@ -105,13 +127,13 @@ export let loader: LoaderFunction = async ({ request }) => {
       wpAdmin: Boolean(wpAdminUser),
       resourceUser: resourceUser
     },
+    cart: shopifyCart.cart,
     ENV,
   },
     {
-      headers: {
-        "Set-Cookie": await commitSession(session)
-      },
-    });
+      headers: customHeaders
+    }
+  );
 };
 
 /**
@@ -120,9 +142,13 @@ export let loader: LoaderFunction = async ({ request }) => {
  * component for your app.
  */
 export default function App() {
-  let { menus, metadata, user, message } = useLoaderData<any>();
+  let { menus, metadata, user, message, cart } = useLoaderData<any>();
   consoleHelper('user', user)
-  console.log('message', message)
+
+  let defaultCart: IShopifyCart = {
+    ...cart,
+    isOpen: false,
+  }
 
   let defaultState = getDefaultState()
 
@@ -143,13 +169,15 @@ export default function App() {
   }
   return (
     // <Provider store={store}>
-    <UseSiteProvider defaultState={value}>
-      <UseFetchPaginateProvider defaultState={defaultState}>
-        <Document>
-          <Outlet />
-        </Document>
-      </UseFetchPaginateProvider>
-    </UseSiteProvider>
+    <UseCartProvider defaultState={defaultCart}>
+      <UseSiteProvider defaultState={value}>
+        <UseFetchPaginateProvider defaultState={defaultState}>
+          <Document>
+            <Outlet />
+          </Document>
+        </UseFetchPaginateProvider>
+      </UseSiteProvider>
+    </UseCartProvider>
     // </Provider>
   );
 }

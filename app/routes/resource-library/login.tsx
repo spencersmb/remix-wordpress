@@ -1,9 +1,8 @@
-import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useTransition } from "remix";
+import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useMatches, useTransition } from "remix";
 import { v4 } from "uuid";
 import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
 import { getHtmlMetadataTags } from "~/utils/seo";
 import { validateEmail } from "~/utils/validation";
-import { consoleHelper } from "~/utils/windowUtils";
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -150,7 +149,6 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
 const ResourceLibraryLogin = () => {
   let actionData = useActionData<ActionData | undefined>();
-  consoleHelper('actionData', actionData)
   const transition = useTransition()
   return (
     <div>

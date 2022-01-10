@@ -1,7 +1,6 @@
-import { json, Link, LoaderFunction, Outlet, useMatches } from "remix";
+import { Link, Outlet } from "remix";
 import ResourceLibraryNav from "~/components/resourceLibrary/resourceNav";
 import RemixLogo from "~/components/svgs/remixLogo";
-import useSite from "~/hooks/useSite";
 
 const ResourceLibrary = () => {
   return (

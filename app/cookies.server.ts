@@ -26,3 +26,14 @@ export const lfmMiniCourseCookie = createCookie(miniCourseName, {
   secrets: [sessionSecret],
   secure: true
 });
+
+export const shopifyCartCookieName = "et-shopfiy-cart"
+export const shopifyCartCookie = createCookie(shopifyCartCookieName, {
+  maxAge: 60 * 60 * 24 * 360, // one week
+  path: '/',
+  expires: new Date(Date.now() + 60 * 60 * 24 * 360),
+  httpOnly: true,
+  sameSite: "lax",
+  secrets: [sessionSecret],
+  secure: true  
+});

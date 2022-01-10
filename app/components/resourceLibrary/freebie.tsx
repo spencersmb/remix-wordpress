@@ -16,9 +16,9 @@ import { consoleHelper } from '~/utils/windowUtils'
  */
 
 const Freebie = (item: IResourceItem) => {
-  consoleHelper('item', item)
-  const {openModal, closeModal} = useSite()
-  function popUpDownload(){
+  // consoleHelper('item', item)
+  const { openModal, closeModal } = useSite()
+  function popUpDownload() {
     openModal({
       template: <LicenseAgreementPopUp
         closeModal={closeModal}
@@ -27,13 +27,13 @@ const Freebie = (item: IResourceItem) => {
     })
   }
 
-  function normalDownload(){
+  function normalDownload() {
     window.open(item.freebie.downloadLink);
   }
 
-  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>){
+  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    if(item.freebie.licenseRequired){
+    if (item.freebie.licenseRequired) {
       popUpDownload()
       return
     }

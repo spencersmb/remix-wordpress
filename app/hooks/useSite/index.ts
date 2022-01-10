@@ -58,7 +58,10 @@ export const siteInitialState: ISiteContextState  = {
     title: '',
   },
   menu:[],
-  user: null,
+  user: {
+    resourceUser: null,
+    wpAdmin: false
+  },
   modal:{
     open: false,
     component: null
