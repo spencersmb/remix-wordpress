@@ -93,7 +93,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // if it's a new cart, set a new cookie with a new ID
   if (shopifyCart?.newCart) {
     customHeaders.append('Set-Cookie', await shopifyCartCookie.serialize({
-      cartId: shopifyCart.cart?.cardId
+      cartId: shopifyCart.cart?.cartId
     }))
   }
 
@@ -108,7 +108,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   let ENV = {
     APP_ROOT_URL: process.env.APP_ROOT_URL,
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
-    SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
+    SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
   }
   // consoleHelper('Admin user', wpAdminSession.has('userId'))
   // consoleHelper('resourceUser', resourceUser)
@@ -169,15 +169,15 @@ export default function App() {
   }
   return (
     // <Provider store={store}>
-    <UseCartProvider defaultState={defaultCart}>
-      <UseSiteProvider defaultState={value}>
-        <UseFetchPaginateProvider defaultState={defaultState}>
-          <Document>
-            <Outlet />
-          </Document>
-        </UseFetchPaginateProvider>
-      </UseSiteProvider>
-    </UseCartProvider>
+    // <UseCartProvider defaultState={defaultCart}>
+    <UseSiteProvider defaultState={value}>
+      <UseFetchPaginateProvider defaultState={defaultState}>
+        <Document>
+          <Outlet />
+        </Document>
+      </UseFetchPaginateProvider>
+    </UseSiteProvider>
+    // </UseCartProvider>
     // </Provider>
   );
 }

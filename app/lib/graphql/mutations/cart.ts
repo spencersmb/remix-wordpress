@@ -21,6 +21,7 @@ export const GET_CART = `
       lines(first: 100){
         edges{
           node{
+            id
             quantity
             estimatedCost{
               subtotalAmount{
@@ -57,10 +58,23 @@ mutation AddToCart($cartId: ID!, $varientId: ID!){
           node{
             id
             quantity
+            estimatedCost{
+              subtotalAmount{
+                amount
+              }
+              totalAmount{
+                amount
+              }
+            }
             merchandise{
               ...on ProductVariant{
+                id
+                title
                 product{
                   title
+                }
+                priceV2{
+                  amount
                 }
               }
             }

@@ -1,33 +1,57 @@
 import { consoleHelper } from '../../utils/windowUtils'
 import { IModalTemplate } from '../../components/modals/modalTypes'
+import { defaultEmptyCartState } from '~/utils/cartUtils'
 
 export enum IShoppingCartTypes {
-  MODAL_OPEN = 'MODAL_OPEN',
+  ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',
+  EMPTY_CART = 'EMPTY_CART',
+  NEW_CART = 'NEW_CART',
 }
-interface IOpenModal {
-  type: IShoppingCartTypes.MODAL_OPEN,
+interface IAddItemToCart {
+  type: IShoppingCartTypes.ADD_ITEM_TO_CART,
   payload: {
-    template: IModalTemplate
+    lines: ICartLines
+  }
+}
+
+interface IEmptyCart {
+  type: IShoppingCartTypes.EMPTY_CART
+}
+
+interface INewCart {
+  type: IShoppingCartTypes.NEW_CART,
+  payload: {
+    cartId: string
+    checkoutUrl: string
   }
 }
 
 export type IShoppingCartActions =
-| IOpenModal
+| IAddItemToCart
+| IEmptyCart
+| INewCart
 
 export const useCartReducer = (cart: IShopifyCart, action: IShoppingCartActions): IShopifyCart => {
   consoleHelper('site reducer action', action)
   switch (action.type) {
   
-
     // add to cart we need to first make the api query and then we can call this reducer
-    case IShoppingCartTypes.MODAL_OPEN :
+    case IShoppingCartTypes.ADD_ITEM_TO_CART :
       return {
         ...cart,
-        // modal:{
-        //   ...state.modal,
-        //   component: action.payload.template,
-        //   open: true,
-        // }
+        lines: action.payload.lines
+      }
+    case IShoppingCartTypes.NEW_CART : 
+      return{
+        ...cart,
+        id: action.payload.cartId,
+        checkoutUrl: action.payload.checkoutUrl,
+      }
+    case IShoppingCartTypes.EMPTY_CART : 
+      return{
+        ...cart,
+        ...defaultEmptyCartState,
+        isOpen: false
       }
     default: {
       // throw new Error(`Unhandled action type: ${action.type}`)

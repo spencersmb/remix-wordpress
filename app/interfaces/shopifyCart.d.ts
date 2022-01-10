@@ -1,17 +1,35 @@
+interface ICartLine {
+  node: {
+    id: string
+    quantity: number
+    merchandise: {
+      product: {
+        title: string
+      }
+    }
+  }
+}
+
+interface ICartLines {
+  edges: ICartLine[]
+}
+
 interface IShopifyCart {
   checkoutUrl: string
-  lines: any[]
+  lines: {
+    edges: ICartLine[]
+  }
   id: string
   isOpen: boolean
 }
 
 interface ICartQueryResponse {
-  cardId: string
+  cartId: string
   checkoutUrl: string
 }
 
 interface IGetCartQueryResponse{
-  cardId: string
+  cartId: string
   checkoutUrl: string
   estimatedCost:{
     totalAmount:{
@@ -19,6 +37,16 @@ interface IGetCartQueryResponse{
     }
   }
   lines:{
-    edges: any[]
+    edges: ICartLine[]
+  }
+}
+
+interface IAddCartItemResponse {
+  cartLinesAdd: {
+    cart: {
+      lines: {
+        edges: ICartLine[]
+      }
+    }
   }
 }

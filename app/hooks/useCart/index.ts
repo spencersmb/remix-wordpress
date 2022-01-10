@@ -11,7 +11,9 @@ export const cartInitialState: IShopifyCart  = {
   checkoutUrl: '',
   id: '',
   isOpen: false,
-  lines: []
+  lines: {
+    edges: []
+  }
 }
 export const CartContext = createContext<ICartContextType>({
   cart: cartInitialState,
@@ -38,15 +40,35 @@ const useCartContext = () => {
 const useCart = () => {
   const {cart, dispatch} = useCartContext()
 
-  const openModal = ({template}: {template: FunctionComponent | ReactElement}) => {
+  const loadNewCart = ({cartId, checkoutUrl}: {cartId: string, checkoutUrl: string}) => {
     dispatch({
-      type: IShoppingCartTypes.MODAL_OPEN,
-      payload: {template}
+      type: IShoppingCartTypes.NEW_CART,
+      payload: {
+        cartId,
+        checkoutUrl
+      }
+    })
+  }
+
+  const addItemToCart = (lines: ICartLines) => {
+    dispatch({
+      type: IShoppingCartTypes.ADD_ITEM_TO_CART,
+      payload: {
+        lines
+      }
+    })
+  }
+
+  const emptyCart = () =>{
+    dispatch({
+      type: IShoppingCartTypes.EMPTY_CART
     })
   }
 
   return {
-    openModal,
+    loadNewCart,
+    emptyCart,
+    addItemToCart,
     cart,
     dispatch
   }

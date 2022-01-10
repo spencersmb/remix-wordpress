@@ -1,4 +1,4 @@
-import { json, LoaderFunction, MetaFunction, redirect, useLoaderData } from 'remix'
+import { json, LoaderFunction, MetaFunction, redirect, useFetcher, useLoaderData, useMatches } from 'remix'
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
 import { getHtmlMetadataTags } from '../../utils/seo'
 import { fetchAPI } from '../../utils/fetch'
@@ -10,9 +10,10 @@ import Freebie from '../../components/resourceLibrary/freebie'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import useSite from '~/hooks/useSite'
 import { useEffect } from 'react'
-import { createCart } from '~/utils/cartUtils'
+import { addItemToShopifyCart, createCart } from '~/utils/cartUtils'
 import useCart from '~/hooks/useCart'
 import { ADD_ITEM_TO_CART } from '~/lib/graphql/mutations/cart'
+import { ISelectedMatch } from '~/interfaces/remix'
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -85,11 +86,24 @@ interface ILoaderData {
   filterTags: IFilterTag[],
   user: IResourceUser,
 }
+
+function useCartMatches() {
+  const matches = useMatches()
+  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.cart)
+  return {
+    cart: selectedMatch?.data.cart
+  }
+
+}
+
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
   const { state: { user }, resourecLibraryLogin } = useSite()
-  const { cart } = useCart()
-  console.log('cart', cart);
+  const { cart } = useCartMatches()
+  console.log('match', cart);
+
+  // const { cart, addItemToCart } = useCart()
+  // console.log('cart', cart);
 
   // console.log('data', data);
 
@@ -122,51 +136,17 @@ const ResourceLibraryMembers = () => {
     console.log('res', res);
     const apiRes = await res.json()
     console.log('apiRes', apiRes);
-
-
   }
 
   async function addItem() {
     // Gouache Lovers Brush Set: Extended
     const varientId = "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTcyODQ1ODU2Mzc5MQ=="
-    const url = `https://everytuesday.myshopify.com/api/2022-01/graphql.json`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': "e45e2c4d0ca39305febec0b1737a7081"
-      },
-      body: JSON.stringify({
-        query: ADD_ITEM_TO_CART,
-        variables: {
-          cartId: cart.id,
-          varientId
-        },
-      }),
-    })
-    console.log('res', res);
-    const apiRes = await res.json()
-    console.log('apiRes', apiRes);
+    // const addCartResponse = await addItemToShopifyCart(varientId, cart.id)
+    // addItemToCart(addCartResponse)
   }
-  interface ICartLine {
-    node: {
-      id: string
-      quantity: number
-      merchandise: {
-        product: {
-          title: string
-        }
-      }
-    }
-  }
-  interface IAddCartItemResponse {
-    cartLinesAdd: {
-      cart: {
-        lines: {
-          edges: ICartLine[]
-        }
-      }
-    }
+
+  async function clearCart() {
+    // empty cart
   }
 
   const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: data.freebies })
@@ -175,8 +155,10 @@ const ResourceLibraryMembers = () => {
     <div>
       <h1>Members Area</h1>
       <button onClick={shopifyTestCall}>Test Shopify Call</button>
+      <button onClick={clearCart}>Empty Cart</button>
       <div>
         <button onClick={addItem}>Add Item to Cart</button>
+        <div>Cart items: {cart.lines.edges.length}</div>
       </div>
       {!data.user.tags.includes('Resource Library tag') && <div>Hello Signup </div>}
       <FreebieFilter
@@ -188,7 +170,10 @@ const ResourceLibraryMembers = () => {
         {posts
           .map(item => (<Freebie key={item.id} {...item} />))}
       </div>
-
+      <div>
+        <EmptyCartBtn />
+        <AddToCartBtn />
+      </div>
       <div>
         {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
       </div>
@@ -196,6 +181,62 @@ const ResourceLibraryMembers = () => {
   )
 }
 export default ResourceLibraryMembers
+
+const EmptyCartBtn = () => {
+  const shopifyForm = useFetcher();
+  const { emptyCart, loadNewCart } = useCart()
+
+  // useEffect(() => {
+  //   if (shopifyForm.state === 'loading') {
+  //     // emptyCart()
+  //   }
+  //   if (shopifyForm.type === 'done') {
+  //     // we created a new cartID and checkoutURL in the API and set it in a new cookie
+  //     // pass it down and add it to the emptyCart reduction action
+  //     if (shopifyForm.data?.cart) {
+  //       // loadNewCart(shopifyForm.data.cart)
+  //     }
+  //   }
+  // }, [shopifyForm.type])
+  return (
+    <shopifyForm.Form
+      method="post"
+      className="mb-4"
+      action="/shopify/emptyCart"
+    >
+      {!shopifyForm.data?.pass && <button
+        disabled={shopifyForm.state === "submitting"}
+        aria-disabled={shopifyForm.state === "submitting"}
+        type='submit'
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        {shopifyForm.state === "loading" ? '...loading' : 'Empty Cart'}
+      </button>}
+    </shopifyForm.Form>
+  )
+
+}
+
+const AddToCartBtn = () => {
+  const varientId = "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zOTcyODQ1ODU2Mzc5MQ=="
+  const shopifyForm = useFetcher();
+
+  return (
+    <shopifyForm.Form
+      method="post"
+      className="mb-4"
+      action={`/shopify/addItemToCart?id=${varientId}`}
+    >
+      {!shopifyForm.data?.pass && <button
+        disabled={shopifyForm.state === "submitting"}
+        aria-disabled={shopifyForm.state === "submitting"}
+        type='submit'
+        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        {shopifyForm.state === "loading" ? '...loading' : 'Add Item'}
+      </button>}
+    </shopifyForm.Form>
+  )
+
+}
 
 
 
