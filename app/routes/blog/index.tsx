@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, LoaderFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import { Layout } from "~/root";
@@ -11,7 +12,25 @@ type IndexData = {
   demos: Array<{ name: string; to: string }>;
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
+export let loader: LoaderFunction = async ({ request, }) => {
+  let variables = {
+    first: 11,
+    after: null
+  }
+  // check URL for params to fetch the correct amount of items
+  let url = new URL(request.url)
+  let params = url.searchParams
+  let page = params.get('page')
+  console.log('params', params);
+
+  if (page) {
+    variables = {
+      first: parseInt(page, 10) * 10,
+      after: null
+    }
+  }
+
+
 
   let data: IndexData = {
     resources: [
@@ -46,9 +65,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   let wpAPI
   try {
     wpAPI = await fetchAPI(query, {
-      variables: {
-        after: null
-      }
+      variables
     })
   } catch (e) {
     console.log('error', e)
@@ -61,21 +78,42 @@ export let loader: LoaderFunction = async ({ request }) => {
   return {
     ...data,
     posts,
-    pageInfo
+    pageInfo,
+    page: page ? parseInt(page, 10) : 1
   }
 };
 function BlogIndex() {
   let data = useLoaderData<any>();
   console.log('data', data)
-  const { state, addPostsAction, loadingPosts } = useFetchPaginate()
+  // const [posts, setPosts] = useState(data.posts)
+  const { state, addPostsAction, loadingPosts } = useFetchPaginate({
+    posts: data.posts,
+    pageInfo: {
+      ...data.pageInfo,
+      page: data.page
+    }
+  })
   console.log('state', state);
 
+  useEffect(() => {
+    if (state.pageInfo.page === 1) {
+      return
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', state.pageInfo.page.toString())
+
+    window.history.replaceState('page2', 'Title: ET', url.href);
+
+    // if page = 4 - means get the first 40 items
+  }, [state.pageInfo.page])
 
   async function fetchMore() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      after: state.endCursor
+      first: 10,
+      after: state.pageInfo.endCursor
     }
     const body = await fetch(url,
       {
@@ -91,9 +129,11 @@ function BlogIndex() {
     const { data } = await body.json()
     const filteredPosts = flattenAllPosts(data.posts) || []
     addPostsAction({
-      page: state.page + 1,
-      endCursor: data.posts.pageInfo.endCursor,
-      hasNextPage: data.posts.pageInfo.hasNextPage,
+      pageInfo: {
+        page: state.pageInfo.page + 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
       posts: [
         ...state.posts,
         ...filteredPosts
@@ -101,12 +141,18 @@ function BlogIndex() {
     }
     )
   }
-
+  const featuredPost = data.posts[0]
   return (
     <Layout>
       BLog index
+      <div>
+        Featured
+        <h2 className="text-blue-500">
+          {featuredPost.title}
+        </h2>
+      </div>
       <ul>
-        {state.posts.map((post: any) => {
+        {state.posts.map((post: any, index) => {
           return (
             <li key={post.id} className="remix__page__resource">
               <Link to={`/${post.slug}`} prefetch="intent">
@@ -114,9 +160,10 @@ function BlogIndex() {
               </Link>
             </li>
           )
-        })}
+        }).slice(1) // Remove first time because its the featured post
+        }
       </ul>
-      {state.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
+      {state.pageInfo.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
     </Layout>
   )
 }
@@ -124,8 +171,8 @@ function BlogIndex() {
 export default BlogIndex
 
 const query = `
-    query GetNextPosts($after: String) {
-        posts(first: 10, after: $after) {
+    query GetNextPosts($first: Int, $after: String) {
+        posts(first: $first, after: $after) {
             __typename
             pageInfo {
                 endCursor

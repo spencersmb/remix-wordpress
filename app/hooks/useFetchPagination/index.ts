@@ -1,13 +1,16 @@
 import { createContext, Dispatch, useContext } from 'react'
-import { IFetchPaginateAction, IFetchPaginateTypes, IPageInfo } from './useFetchPaginationReducer'
+import { IFetchPaginateAction, IFetchPaginateTypes, IPageInfo, IPageInfoOld } from './useFetchPaginationReducer'
 
 export const fetchInitialState:IFetchPaginationState = {
   loading: false,
-  page: 1,
-  endCursor: '',
-  hasNextPage: false,
+  pageInfo: {
+    page: 1,
+    endCursor: '',
+    hasNextPage: false,
+  },
   posts: [],
-  categories: {}
+  categories: {},
+  init: false
 }
 
 export const FetchPaginateContext = createContext<IFetchPaginateContextType>({
@@ -16,8 +19,55 @@ export const FetchPaginateContext = createContext<IFetchPaginateContextType>({
 })
 FetchPaginateContext.displayName = 'FetchPaginateContext'
 
-const useFetchPaginateContent = () => {
-  const context = useContext(FetchPaginateContext)
+interface updateContext {
+  posts?: any
+  pageInfo?: {
+    page: number,
+    endCursor: string,
+    hasNextPage: boolean,
+  }
+  category?: {
+    [id: string] : {
+      posts: any
+      pageInfo: {
+        page: number,
+        endCursor: string,
+        hasNextPage: boolean,
+      }
+    }
+  }
+}
+const useFetchPaginateContent = (newData?:updateContext) => {
+  let context
+  // console.log('FetchPaginateContext', FetchPaginateContext);
+  
+  context = useContext(FetchPaginateContext)
+  // console.log('context pre', context);
+  
+  // if(newData){
+  //   context = createContext<IFetchPaginateContextType>({
+  //     state: fetchInitialState,
+  //     dispatch: () => null
+  //   })
+  // }
+  // console.log('!context.state.init', context.state.init);
+  
+  // Only do this on first Render load to getData in from Server
+  if((newData?.posts && newData.pageInfo) && context.state.posts.length === 0){
+    context.state.init = true
+    context.state.posts = newData.posts
+    context.state.pageInfo = newData.pageInfo
+  }
+  else if(newData?.category && !context.state.categories[Object.keys(newData?.category)[0]]){
+    // console.log('setCategory State');
+    
+    const catName = Object.keys(newData.category)[0]
+    context.state.categories[catName] = newData.category[catName]
+  }else{
+    // console.log('skip');
+    context.state.init = true
+  }
+  
   if (!context) {
     throw new Error('usePaginateFetch must be used within a FetchPaginate Provider component')
   }
@@ -29,8 +79,8 @@ const useFetchPaginateContent = () => {
  ** Adds posts to the global context so users don't have to keep hitting
  ** an API if they don't refresh the page.
  */
-const useFetchPaginate = () => {
-  const {state, dispatch} = useFetchPaginateContent()
+const useFetchPaginate = (newData?: updateContext) => {
+  const {state, dispatch} = useFetchPaginateContent(newData)
 
   const addPostsAction = (data: IPageInfo) => {
     dispatch({
@@ -56,10 +106,7 @@ const useFetchPaginate = () => {
     addCategoriAction,
     loadingPosts,
     addPostsAction,
-    state:{
-      ...state
-      
-    },
+    state,
     dispatch
   }
 }
@@ -76,12 +123,15 @@ export interface ICategories {
     }
 }
 export interface IFetchPaginationState{
-  page: number,
-  endCursor: string,
-  hasNextPage: boolean,
+  pageInfo:{
+    page: number,
+    endCursor: string,
+    hasNextPage: boolean,
+  }
   posts: IPost[],
   loading: boolean,
   categories:ICategories
+  init: boolean
 }
 export interface IFetchPaginateContextType {
   state: IFetchPaginationState,

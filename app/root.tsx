@@ -49,6 +49,7 @@ import { getDefaultState } from "./utils/appUtils";
 import UseCartProvider from "./hooks/useCart/useCartProvider";
 import { createCart, getUserCart } from "./utils/cartUtils";
 import { shopifyCartCookie } from "./cookies.server";
+import { fetchInitialState } from "./hooks/useFetchPagination";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -150,7 +151,7 @@ export default function App() {
     isOpen: false,
   }
 
-  let defaultState = getDefaultState()
+  let defaultState = fetchInitialState
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
   let transition = useTransition();

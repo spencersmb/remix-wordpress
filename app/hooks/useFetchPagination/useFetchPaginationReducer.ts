@@ -47,9 +47,9 @@ export const useFetchPaginationReducer = (state: IFetchPaginationState, action: 
           ...state.categories,
           [action.payload.category]:{
             pageInfo: {
-              page: action.payload.page,
-              endCursor: action.payload.endCursor,
-              hasNextPage: action.payload.hasNextPage
+              page: action.payload.pageInfo.page + 1,
+              endCursor: action.payload.pageInfo.endCursor,
+              hasNextPage: action.payload.pageInfo.hasNextPage
             },
             posts
           }
@@ -66,6 +66,14 @@ export const useFetchPaginationReducer = (state: IFetchPaginationState, action: 
 }
 
 export interface IPageInfo {
+  pageInfo:{
+    page: number,
+    endCursor: string,
+    hasNextPage: boolean,
+  }
+  posts: IPost[]
+}
+export interface IPageInfoOld {
   page: number,
   endCursor: string,
   hasNextPage: boolean,

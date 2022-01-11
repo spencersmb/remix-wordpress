@@ -39,12 +39,26 @@ export let meta: MetaFunction = (metaData): any => {
   })
 };
 
-export let loader: LoaderFunction = async ({ params }) => {
-  let wpAPI = await fetchAPI(getGraphQLString(query), {
-    variables: {
+export let loader: LoaderFunction = async ({ request, params }) => {
+  let variables = {
+    first: 10,
+    after: null,
+    catName: params.cat
+  }
+  let url = new URL(request.url)
+  let searchParams = url.searchParams
+  let page = searchParams.get('page')
+  console.log('searchParams', searchParams);
+
+  if (page) {
+    variables = {
+      first: parseInt(page, 10) * 10,
       after: null,
       catName: params.cat
     }
+  }
+  let wpAPI = await fetchAPI(getGraphQLString(query), {
+    variables
   })
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
@@ -57,24 +71,37 @@ export let loader: LoaderFunction = async ({ params }) => {
   return json({
     category: params.cat,
     pageInfo,
-    posts
+    posts,
+    page: page ? parseInt(page, 10) : 1
   })
 };
 
 
 export default function CategoryPage() {
-  let { posts, pageInfo, category } = useLoaderData<{
+  let { posts, pageInfo, category, page } = useLoaderData<{
     posts: IPost[],
     pageInfo: {
       endCursor: string
       hasNextPage: boolean
       hasPreviousPage: boolean
     },
+    page: number
     category: string
   }>();
-  const { state, addCategoriAction, loadingPosts } = useFetchPaginate()
-  consoleHelper('posts', posts)
+  const { state, addCategoriAction, loadingPosts } = useFetchPaginate({
+    category: {
+      [category]: {
+        posts,
+        pageInfo: {
+          ...pageInfo,
+          page
+        }
+      }
+    }
+  })
+  consoleHelper('posts', posts.length)
   consoleHelper('pageInfo', pageInfo)
+  consoleHelper('state', state)
 
   function getEndCurosor() {
     if (!state.categories[category]) {
@@ -86,10 +113,10 @@ export default function CategoryPage() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      after: getEndCurosor(),
+      first: 10,
+      after: state.categories[category].pageInfo.endCursor,
       catName: category
     }
-    console.log('after', variables)
     const body = await fetch(url,
       {
         method: 'POST',
@@ -102,6 +129,7 @@ export default function CategoryPage() {
         })
       })
     const { data } = await body.json()
+
     const filteredPosts = flattenAllPosts(data.posts) || []
     let updatedPosts = []
     if (!state.categories[category]) {
@@ -116,13 +144,32 @@ export default function CategoryPage() {
     }
     addCategoriAction({
       category,
-      page: !state.categories[category] ? 2 : state.categories[category].pageInfo.page,
-      endCursor: data.posts.pageInfo.endCursor,
-      hasNextPage: data.posts.pageInfo.hasNextPage,
+      pageInfo: {
+        page: state.categories[category].pageInfo.page,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
       posts: updatedPosts
     }
     )
   }
+
+  useEffect(() => {
+    if (state.categories[category].pageInfo.page === 1) {
+      return
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
+
+    window.history.replaceState(
+      `page: ${state.categories[category].pageInfo.page}`,
+      'Title: ET',
+      url.href
+    );
+
+    // if page = 4 - means get the first 40 items
+  }, [state.categories[category].pageInfo.page])
 
   function RenderPosts() {
     if (!state.categories[category]) {
@@ -175,9 +222,9 @@ export default function CategoryPage() {
 }
 
 const query = gql`
-  query CategoryPageQuery($catName: String!, $after: String) {
+  query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
     posts(
-      first: 10
+      first: $first
       after: $after
       where: {
         categoryName: $catName, 
