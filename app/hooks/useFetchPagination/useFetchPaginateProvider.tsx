@@ -39,6 +39,10 @@ const UseFetchPaginateProvider = ({ children, defaultState }: IProps) => {
       }
     }
   }
+
+  if (state.posts.length === 0 && (defaultState && defaultState?.posts.length > 0)) {
+    updatedState.posts = defaultState.posts
+  }
   // console.log('UseFetchPaginateProvider: state', state)
   // console.log('defaultArray.values', defaultArray.toString())
   // console.log('stateCatArray', stateCatArray.toString())

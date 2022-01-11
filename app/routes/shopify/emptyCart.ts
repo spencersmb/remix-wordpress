@@ -4,8 +4,6 @@ import { createCart } from "~/utils/cartUtils";
 
 export let action: ActionFunction = async ({request, params}) => {
   const cart = await createCart()
-  console.log('empty cart cart', cart);
-  
   const cartId = cart?.cartId || null
   return json({
     cart
