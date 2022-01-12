@@ -54,7 +54,6 @@ export let meta: MetaFunction = (rootData): any => {
   return getHtmlMetadataTags({
     follow: false,
     metadata: parentsData.root.metadata,
-    post: null,
     page,
     location
   })

@@ -29,7 +29,6 @@ export let meta: MetaFunction = (metaData): any => {
   const category = capitalize(data.category)
   return getHtmlMetadataTags({
     metadata: parentsData.root.metadata,
-    post: null,
     page: getStaticPageMeta({
       title: `${category} Archives - Every-Tuesday`,
       desc: `Every-Tuesday Category: ${category}`,
@@ -48,7 +47,6 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   let url = new URL(request.url)
   let searchParams = url.searchParams
   let page = searchParams.get('page')
-  console.log('searchParams', searchParams);
 
   if (page) {
     variables = {
@@ -88,7 +86,7 @@ export default function CategoryPage() {
     page: number
     category: string
   }>();
-  const { state, addCategoriAction, loadingPosts } = useFetchPaginate({
+  const { state, addCategoriAction, loadingPosts, clearCategory } = useFetchPaginate({
     category: {
       [category]: {
         posts,
@@ -99,16 +97,10 @@ export default function CategoryPage() {
       }
     }
   })
-  consoleHelper('posts', posts.length)
-  consoleHelper('pageInfo', pageInfo)
-  consoleHelper('state', state)
+  consoleHelper('cat posts', posts.length)
+  consoleHelper('cat pageInfo', pageInfo)
+  consoleHelper('cat state', state)
 
-  function getEndCurosor() {
-    if (!state.categories[category]) {
-      return pageInfo.endCursor
-    }
-    return state.categories[category].pageInfo.endCursor
-  }
   async function fetchMorePosts() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
@@ -145,7 +137,7 @@ export default function CategoryPage() {
     addCategoriAction({
       category,
       pageInfo: {
-        page: state.categories[category].pageInfo.page,
+        page: state.categories[category].pageInfo.page + 1,
         endCursor: data.posts.pageInfo.endCursor,
         hasNextPage: data.posts.pageInfo.hasNextPage,
       },
@@ -154,6 +146,7 @@ export default function CategoryPage() {
     )
   }
 
+  // update page param in URL on pageChange
   useEffect(() => {
     if (state.categories[category].pageInfo.page === 1) {
       return
@@ -170,6 +163,13 @@ export default function CategoryPage() {
 
     // if page = 4 - means get the first 40 items
   }, [state.categories[category].pageInfo.page])
+
+  // clear cat when leaving the page to always get most recent data
+  useEffect(() => {
+    return () => {
+      clearCategory()
+    }
+  }, [])
 
   function RenderPosts() {
     if (!state.categories[category]) {

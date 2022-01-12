@@ -24,30 +24,7 @@ interface IProps {
  */
 const UseFetchPaginateProvider = ({ children, defaultState }: IProps) => {
   const [state, dispatch] = useReducer(useFetchPaginationReducer, defaultState ? defaultState : fetchInitialState)
-  let updatedState = state
-  const defaultArray = Object.keys(defaultState?.categories || {})
-  const stateCatArray = Object.keys(state?.categories || {})
-
-  // check for mismatching states on user navigation
-  if (defaultArray.toString() !== stateCatArray.toString()) {
-    // console.log('modifiy state')
-    updatedState = {
-      ...state,
-      categories: {
-        ...state.categories,
-        ...defaultState?.categories
-      }
-    }
-  }
-
-  // if (state.posts.length === 0 && (defaultState && defaultState?.posts.length > 0)) {
-  //   updatedState.posts = defaultState.posts
-  // }
-  // console.log('UseFetchPaginateProvider: state', state)
-  // console.log('defaultArray.values', defaultArray.toString())
-  // console.log('stateCatArray', stateCatArray.toString())
-  // console.log('UseFetchPaginateProvider: defaultState', defaultState)
-  const value = { state: updatedState, dispatch }
+  const value = { state, dispatch }
   return <FetchPaginateContext.Provider value={value}>
     {children}
   </FetchPaginateContext.Provider>

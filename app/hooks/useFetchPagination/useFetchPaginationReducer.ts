@@ -1,10 +1,12 @@
 import { consoleHelper } from '../../utils/windowUtils'
-import { IFetchPaginationState } from './index'
+import { fetchInitialState, IFetchPaginationState } from './index'
 
 export enum IFetchPaginateTypes {
   ADD_POSTS = 'ADD_POSTS',
   ADD_CATEGORY = 'ADD_CATEGORY',
   LOADING = 'LOADING',
+  CLEAR_CATEGORY = 'CLEAR_CATEGORY',
+  CLEAR_POSTS = 'CLEAR_POSTS',
 }
 export const useFetchPaginationReducer = (state: IFetchPaginationState, action: IFetchPaginateAction): IFetchPaginationState => {
   consoleHelper('fetch pagination reducer action', action)
@@ -26,12 +28,10 @@ export const useFetchPaginationReducer = (state: IFetchPaginationState, action: 
     case IFetchPaginateTypes.ADD_CATEGORY :
       console.log('posts add_category',state);
       // check for category
-      // update posts
-
-      // replace
+      // update posts with current + new posts
       let posts = []
-      const hasPosts = state.categories[action.payload.category]
-      if(hasPosts){
+      const catExists = state.categories[action.payload.category]
+      if(catExists){
         posts = [
           ...state.categories[action.payload.category].posts,
           ...action.payload.posts
@@ -41,20 +41,31 @@ export const useFetchPaginationReducer = (state: IFetchPaginationState, action: 
           ...action.payload.posts
         ]
       }
+
+      // Then return the final category Object
       return {
         ...state,
         categories:{
           ...state.categories,
           [action.payload.category]:{
-            pageInfo: {
-              page: action.payload.pageInfo.page + 1,
-              endCursor: action.payload.pageInfo.endCursor,
-              hasNextPage: action.payload.pageInfo.hasNextPage
-            },
+            pageInfo: action.payload.pageInfo,
             posts
           }
         },
         loading: false
+      }
+
+    case IFetchPaginateTypes.CLEAR_CATEGORY :
+      return{
+        ...state,
+        categories:{}
+      }
+
+    case IFetchPaginateTypes.CLEAR_POSTS :
+      return{
+        ...state,
+        posts: [],
+        pageInfo: fetchInitialState.pageInfo
       }
 
 
@@ -91,3 +102,5 @@ export type IFetchPaginateAction =
   | IFetchPaginateAddCategory
   | IFetchPaginateAddPosts
   | {type: IFetchPaginateTypes.LOADING}
+  | {type: IFetchPaginateTypes.CLEAR_CATEGORY}
+  | {type: IFetchPaginateTypes.CLEAR_POSTS}

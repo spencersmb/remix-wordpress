@@ -95,8 +95,8 @@ interface IBreadcrumbList {
 
 interface IGetMetaTagsFunction{
   metadata: IMetaData
-  post: IPost | null
-  page: IPage | null
+  post?: IPost
+  page?: IPage
   follow?: boolean
 }
 interface IOgImageType{

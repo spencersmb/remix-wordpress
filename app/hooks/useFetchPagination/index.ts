@@ -102,10 +102,23 @@ const useFetchPaginate = (newData?: updateContext) => {
     })
   }
 
+  const clearCategory = () => {
+    dispatch({
+      type: IFetchPaginateTypes.CLEAR_CATEGORY
+    })
+  }
+
+  const clearPosts = () => {
+    dispatch({
+      type: IFetchPaginateTypes.CLEAR_POSTS
+    })
+  }
   return {
     addCategoriAction,
     loadingPosts,
     addPostsAction,
+    clearCategory,
+    clearPosts,
     state,
     dispatch
   }

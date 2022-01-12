@@ -157,7 +157,13 @@ function TestModal() {
 export default function Index() {
   let data = useLoaderData<any>();
 
-  const { state, addPostsAction, loadingPosts } = useFetchPaginate()
+  const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
+    posts: data.posts,
+    pageInfo: {
+      ...data.pageInfo,
+      page: data.page
+    }
+  })
   const { openModal, closeModal } = useSite()
 
   // let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
@@ -230,7 +236,7 @@ export default function Index() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      after: state.endCursor
+      after: state.pageInfo.endCursor
     }
     const body = await fetch(url,
       {
@@ -246,9 +252,11 @@ export default function Index() {
     const { data } = await body.json()
     const filteredPosts = flattenAllPosts(data.posts) || []
     addPostsAction({
-      page: state.page + 1,
-      endCursor: data.posts.pageInfo.endCursor,
-      hasNextPage: data.posts.pageInfo.hasNextPage,
+      pageInfo: {
+        page: state.pageInfo.page + 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
       posts: [
         ...state.posts,
         ...filteredPosts
@@ -302,7 +310,7 @@ export default function Index() {
               )
             })}
           </ul>
-          {state.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
+          {state.pageInfo.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
         </aside>
       </div>
       <div><button onClick={open}>OPen modal</button></div>

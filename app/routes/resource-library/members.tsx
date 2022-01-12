@@ -59,7 +59,6 @@ export let meta: MetaFunction = (rootData): any => {
    */
   return getHtmlMetadataTags({
     metadata: parentsData.root.metadata,
-    post: null,
     page,
     location
   })

@@ -1,15 +1,38 @@
 import { useEffect, useState } from "react";
-import { Link, LoaderFunction, useLoaderData } from "remix";
+import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import { Layout } from "~/root";
 import { fetchAPI } from "~/utils/fetch";
+import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
+import { getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
-
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
   demos: Array<{ name: string; to: string }>;
+};
+
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  const page = getStaticPageMeta({
+    title: `Blog - Every-Tuesday`,
+    desc: `Get the most up-to-date content on Procreate`,
+    slug: `blog`
+  })
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    page: page,
+    location
+  })
 };
 
 export let loader: LoaderFunction = async ({ request, }) => {
@@ -84,16 +107,16 @@ export let loader: LoaderFunction = async ({ request, }) => {
 };
 function BlogIndex() {
   let data = useLoaderData<any>();
-  console.log('data', data)
+  console.log('Blog Index data', data)
   // const [posts, setPosts] = useState(data.posts)
-  const { state, addPostsAction, loadingPosts } = useFetchPaginate({
+  const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
     posts: data.posts,
     pageInfo: {
       ...data.pageInfo,
       page: data.page
     }
   })
-  console.log('state', state);
+  console.log('Blog Index state', state);
 
   useEffect(() => {
     if (state.pageInfo.page === 1) {
@@ -103,10 +126,16 @@ function BlogIndex() {
     const url = new URL(window.location.href);
     url.searchParams.set('page', state.pageInfo.page.toString())
 
-    window.history.replaceState('page2', 'Title: ET', url.href);
+    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Title: ET', url.href);
 
     // if page = 4 - means get the first 40 items
   }, [state.pageInfo.page])
+
+  useEffect(() => {
+    return () => {
+      clearPosts()
+    }
+  }, [])
 
   async function fetchMore() {
     loadingPosts()
