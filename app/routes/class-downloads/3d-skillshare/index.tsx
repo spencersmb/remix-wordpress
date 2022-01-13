@@ -57,7 +57,7 @@ export let action: ActionFunction = async ({ request }) => {
 
   let fields = { password };
   let fieldErrors = {
-    password: password !== process.env.BL_PW ? `Incorrect Password` : undefined
+    password: password !== process.env.PROCREATE_5X_PW ? `Incorrect Password` : undefined
   };
 
   if (Object.values(fieldErrors).some(Boolean))

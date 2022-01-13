@@ -25,7 +25,7 @@ export let meta: MetaFunction = (metaData): any => {
   const page = getStaticPageMeta({
     title: `Blog - Every-Tuesday`,
     desc: `Get the most up-to-date content on Procreate`,
-    slug: `blog`
+    slug: `blog`,
   })
 
   return getHtmlMetadataTags({
@@ -52,7 +52,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
       after: null
     }
   }
-
 
 
   let data: IndexData = {
@@ -126,7 +125,7 @@ function BlogIndex() {
     const url = new URL(window.location.href);
     url.searchParams.set('page', state.pageInfo.page.toString())
 
-    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Title: ET', url.href);
+    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
     // if page = 4 - means get the first 40 items
   }, [state.pageInfo.page])
@@ -167,9 +166,9 @@ function BlogIndex() {
         ...state.posts,
         ...filteredPosts
       ]
-    }
-    )
+    })
   }
+
   const featuredPost = data.posts[0]
   return (
     <Layout>

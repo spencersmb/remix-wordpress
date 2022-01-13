@@ -4,7 +4,7 @@ import { findCookie } from "~/utils/loaderHelpers"
 import { getStaticPageMeta } from "~/utils/pageUtils";
 import { getHtmlMetadataTags } from "~/utils/seo";
 
-
+const slug = `procreate-5x-bonuses`
 export let meta: MetaFunction = (rootData): any => {
 
   /*
@@ -21,7 +21,7 @@ export let meta: MetaFunction = (rootData): any => {
   const page = getStaticPageMeta({
     title: `Procreate 5x Bonus Downloads - Every-Tuesday`,
     desc: `Procreate 5x Bonus Downloads members only access!`,
-    slug: `bl`,
+    slug,
   })
 
   /*
@@ -37,7 +37,7 @@ export let meta: MetaFunction = (rootData): any => {
 export let loader: LoaderFunction = async ({ request }) => {
   const { hasCookie } = await findCookie(request, procreateBonusCookie)
   if (hasCookie) {
-    return redirect('/class-downloads/bl/members')
+    return redirect(`/class-downloads/${slug}/members`)
   }
 
   return json({})
@@ -57,7 +57,7 @@ export let action: ActionFunction = async ({ request }) => {
 
   let fields = { password };
   let fieldErrors = {
-    password: password !== process.env.BL_PW ? `Incorrect Password` : undefined
+    password: password !== process.env.PROCREATE_5X_PW ? `Incorrect Password` : undefined
   };
 
   if (Object.values(fieldErrors).some(Boolean))

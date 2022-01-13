@@ -27,7 +27,10 @@ function createPaginatedList (items: any, postsPerPage: number, currentPage: num
       return item
     }
 
+    console.log('item', item);
     const tags = item.tags.map((tag: any) => tag.slug)
+    console.log('tags', tags);
+    
     const hasTag = tags.indexOf(filterTag)
 
     return hasTag !== -1

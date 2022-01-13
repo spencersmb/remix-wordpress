@@ -9,6 +9,7 @@ import useFreebies from "~/hooks/useFreebies"
 import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
 import GridItem from "~/components/gridDownloads/gridItem"
 import { getStaticPageMeta } from "~/utils/pageUtils"
+import { lockedPagesMeta } from "~/utils/lockedPagesUtils"
 
 const slug = 'bl'
 const querySlug = "beautiful-lettering"
@@ -19,7 +20,7 @@ export let meta: MetaFunction = (rootData): any => {
   /*
   rootData gets passed in from the root metadata function
    */
-  const { data, location, parentsData } = rootData
+  const { data, location, parentsData, params } = rootData
   if (!data || !parentsData || !location) {
     return {
       title: '404',
@@ -27,11 +28,22 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
-  const page = getStaticPageMeta({
-    title: `Procreate 5x Bonus Downloads Members Area`,
-    desc: `Procreate 5x Bonus Downloads members only access!`,
-    slug,
-  })
+  const lookUpSlug = params.slug;
+  if (!lookUpSlug) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  const lockedMeta = lockedPagesMeta[lookUpSlug]
+
+  if (!lockedMeta) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
 
   /*
   Build Metadata tags for the page
@@ -39,7 +51,7 @@ export let meta: MetaFunction = (rootData): any => {
   return getHtmlMetadataTags({
     follow: false,
     metadata: parentsData.root.metadata,
-    page,
+    page: lockedMeta.membersPage,
     location
   })
 };

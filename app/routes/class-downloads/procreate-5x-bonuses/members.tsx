@@ -10,10 +10,7 @@ import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
 import GridItem from "~/components/gridDownloads/gridItem"
 import { getStaticPageMeta } from "~/utils/pageUtils"
 
-const slug = 'bl'
-const querySlug = "beautiful-lettering"
-const membersPath = `/class-downloads/${slug}/members`
-
+const slug = `procreate-5x-bonuses`
 export let meta: MetaFunction = (rootData): any => {
 
   /*
@@ -45,22 +42,18 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  await checkForCookieLogin(request, procreateBonusCookie, '/class-downloads/bl')
+  await checkForCookieLogin(request, procreateBonusCookie, `/class-downloads/${slug}`)
 
   try {
-    let wpAPI = await fetchAPI(getGraphQLString(query), {
-      variables: {
-        querySlug
-      }
-    })
+    let wpAPI = await fetchAPI(getGraphQLString(query))
     return json({
       user: true,
       freebies: wpAPI.downloadGridBy.grid.items,
       filterTags: wpAPI.gridTags
     })
   } catch (e) {
-    console.error(`e in ${membersPath}`, e)
-    return redirect(membersPath)
+    console.error(`e in /class-downloads/${slug}/members`, e)
+    return redirect(`/class-downloads/${slug}/members`)
   }
 
 }
@@ -70,13 +63,14 @@ interface ILoaderData {
 }
 const Procreate5xBonuses = () => {
   let data = useLoaderData<ILoaderData>()
-  console.log('BL data.freebies', data.freebies);
+  console.log('Procreate5xBonuses data.freebies', data.freebies);
 
   const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IGridItem[]>({ items: data.freebies })
 
   return (
     <div>
-      <div>Logged In 2</div>
+
+      <div>Logged In</div>
       <FreebieFilter
         filterTags={data.filterTags}
         selectedFilter={filter}
@@ -97,8 +91,8 @@ export default Procreate5xBonuses
 
 
 const query = gql`
-query ProcreateBonusGrid($querySlug: String) {
-  downloadGridBy(slug: $querySlug) {
+query ProcreateBonusGrid {
+  downloadGridBy(slug: "beautiful-lettering") {
     title
     grid {
       items {
@@ -125,7 +119,7 @@ query ProcreateBonusGrid($querySlug: String) {
       }
     }
   }
-  gridTags(slug: $querySlug){
+  gridTags(slug: "beautiful-lettering"){
     name
     slug
   }

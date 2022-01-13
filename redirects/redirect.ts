@@ -5,6 +5,11 @@ export const manualRedirectLinks = {
         redirectTo: 'class-downloads/bl',
         status: 301
       },
+      '3d-skillshare': {
+        title: '3D Lettering Bonuses',
+        redirectTo: 'class-downloads/3d-skillshare',
+        status: 301
+      },
       'learn-font-making-mini-course':{
         title: 'Learn Font Making Mini Course',
         redirectTo: 'learn-font-making/mini-course',

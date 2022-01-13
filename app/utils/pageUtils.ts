@@ -4,6 +4,8 @@ interface StaticPageProps {
   slug: string
   desc: string
 }
+
+// TODO - get correct DEFAULT URL
 export const defaultFeaturedImage:IFeaturedImage = {
   altText: 'Every Tuesday. The ultimate resource for Procreate digital brushes and online learning.',
   caption: '',
@@ -27,7 +29,7 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
     },
     content: '',
     date,
-    title,
+    title: `${title} - Every Tuesday`,
     id: '',
     slug,
     seo:{
