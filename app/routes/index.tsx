@@ -95,8 +95,9 @@ export let loader: LoaderFunction = async ({ request }) => {
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
-
-  registerFont('./app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf', { family: 'tuesday' })
+  const nonPublic = './app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
+  const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
+  registerFont(publicFont, { family: 'tuesday' })
   const alphabet = ['a', 'b', 'c', 'd']
   const images: any = []
   for (let i in alphabet) {
