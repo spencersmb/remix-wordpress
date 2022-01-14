@@ -12,6 +12,7 @@ import { consoleHelper } from '~/utils/windowUtils'
 import { ckFormIds } from '~/lib/convertKit/formIds'
 import { getSession } from '~/sessions.server'
 import { createCanvas, Image, registerFont } from "canvas";
+import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
 // @ts-ignore
 import text2png from 'text2png'
 // headers for the entire DOC when someone refreshes the page or types in the url directly
@@ -97,7 +98,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   const nonPublic = './app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
   const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-  registerFont(publicFont, { family: 'tuesday' })
+  registerFont(tuesdayFont, { family: 'tuesday' })
   const alphabet = ['a', 'b', 'c', 'd']
   const images: any = []
   for (let i in alphabet) {
