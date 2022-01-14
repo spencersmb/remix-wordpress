@@ -99,17 +99,17 @@ export let loader: LoaderFunction = async ({ request }) => {
   registerFont('./app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf', { family: 'tuesday' })
   const alphabet = ['a', 'b', 'c', 'd']
   const images: any = []
-  // for (let i in alphabet) {
-  //   const imageBuffer = await text2png(alphabet[i], {
-  //     font: '24px tuesday',
-  //     color: 'linen',
-  //     // backgroundColor: 'linen',
-  //     lineSpacing: 10,
-  //     padding: 20
-  //   });
+  for (let i in alphabet) {
+    const imageBuffer = await text2png(alphabet[i], {
+      font: '24px tuesday',
+      color: 'linen',
+      // backgroundColor: 'linen',
+      lineSpacing: 10,
+      padding: 20
+    });
 
-  //   images.push(imageBuffer.toString('base64'))
-  // }
+    images.push(imageBuffer.toString('base64'))
+  }
 
   // const dataUri = text2png('Tuesday', {
   //   font: '80px tuesday',
