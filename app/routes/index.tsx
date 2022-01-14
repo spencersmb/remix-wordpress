@@ -100,7 +100,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   const alphabet = ['a', 'b', 'c', 'd']
   const images: any = []
   for (let i in alphabet) {
-    const imageBuffer = await text2png(alphabet[i], {
+    const imageBuffer = text2png(alphabet[i], {
       font: '24px tuesday',
       color: 'linen',
       // backgroundColor: 'linen',
@@ -111,13 +111,13 @@ export let loader: LoaderFunction = async ({ request }) => {
     images.push(imageBuffer.toString('base64'))
   }
 
-  // const dataUri = text2png('Tuesday', {
-  //   font: '80px tuesday',
-  //   color: 'linen',
-  //   // backgroundColor: 'linen',
-  //   lineSpacing: 10,
-  //   padding: 20
-  // });
+  const dataUri = text2png('Tuesday', {
+    font: '80px tuesday',
+    color: 'linen',
+    // backgroundColor: 'linen',
+    lineSpacing: 10,
+    padding: 20
+  });
 
   // https://remix.run/api/remix#json
   return {
@@ -125,7 +125,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     posts,
     pageInfo,
     images,
-    // image: `<img src="data:image/png;base64, ${dataUri.toString('base64')}" />`
+    image: dataUri.toString('base64')
   }
 };
 
@@ -293,6 +293,9 @@ export default function Index() {
     <Layout>
       <div className="remix__page">
         {/* <div dangerouslySetInnerHTML={{ __html: data.image }} /> */}
+        <div>
+          <img src={`data:image/png;base64, ${data.image}`} alt="" />
+        </div>
         <div>
           {data.images.map((base: string, index: number) => (<div key={index}>
             <img src={`data:image/png;base64, ${base}`} />
