@@ -30,6 +30,7 @@
     "@shopify/shopify-api": "^2.0.0",
     "@types/prettier": "^2.4.2",
     "@types/rss": "0.0.29",
+    "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "deepmerge": "^4.2.2",
     "dotenv": "^10.0.0",
@@ -47,6 +48,8 @@
     "remix": "^1.1.1",
     "remix-utils": "^2.2.0",
     "rss": "^1.2.2",
+    "text-to-image": "^4.1.1",
+    "text2png": "^2.3.0",
     "uuid": "^8.3.2",
     "xstate": "^4.26.1"
   },

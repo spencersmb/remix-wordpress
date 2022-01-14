@@ -6,14 +6,14 @@ import { Layout } from '../root'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
-import { Simulate } from 'react-dom/test-utils'
-import input = Simulate.input
 import useSite from '../hooks/useSite'
 import { validateEmail } from '~/utils/validation'
 import { consoleHelper } from '~/utils/windowUtils'
 import { ckFormIds } from '~/lib/convertKit/formIds'
 import { getSession } from '~/sessions.server'
-
+import { createCanvas, Image, registerFont } from "canvas";
+// @ts-ignore
+import text2png from 'text2png'
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
@@ -44,12 +44,13 @@ type IndexData = {
   demos: Array<{ name: string; to: string }>;
 };
 
+
+
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
 export let loader: LoaderFunction = async ({ request }) => {
-
   let data: IndexData = {
     resources: [
       {
@@ -94,11 +95,51 @@ export let loader: LoaderFunction = async ({ request }) => {
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
+
+  const canvas = createCanvas(200, 30)
+  const ctx = canvas.getContext('2d')
+
+  registerFont('./public/fonts/tuesday/tuesdayscript-regular-webfont.ttf', { family: 'tuesday' })
+
+  // Write "Awesome!"
+  ctx.font = '30px tuesday'
+  ctx.fillStyle = "#fff"
+  ctx.fill();
+  ctx.fillText('Awesome!', 0, 22, 300)
+  ctx.imageSmoothingQuality = "high"
+
+  // const dataUri = await textToImage.generate('Lorem ipsum dolor sit amet', {
+  //   debug: true,
+  //   maxWidth: 720,
+  //   fontSize: 18,
+  //   fontFamily: 'Arial',
+  //   lineHeight: 30,
+  //   margin: 5,
+  //   bgColor: 'blue',
+  //   textColor: 'red',
+  // });
+
+  const dataUri = text2png('Tuesday', {
+    font: '80px tuesday',
+    color: 'linen',
+    // backgroundColor: 'linen',
+    lineSpacing: 10,
+    padding: 20
+  });
+
+
+
+  const image = new Image();
+  // image.src = canvas.toDataURL();
+  image.src = canvas.toDataURL("image/png");
+
+
   // https://remix.run/api/remix#json
   return {
     ...data,
     posts,
-    pageInfo
+    pageInfo,
+    image: `<img src="data:image/png;base64, ${dataUri.toString('base64')}" />`
   }
 };
 
@@ -156,6 +197,8 @@ function TestModal() {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
+  console.log('data', data);
+
 
   const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
     posts: data.posts,
@@ -165,15 +208,6 @@ export default function Index() {
     }
   })
   const { openModal, closeModal } = useSite()
-
-  // let stateSource: IFetchPaginationState = state.posts.length > 0 ? state : {
-  //   ...state,
-  //   posts: data.posts,
-  //   page: 1,
-  //   endCursor: data.pageInfo.endCursor,
-  //   hasNextPage: data.pageInfo.hasNextPage,
-  //   loading: false
-  // }
 
   async function fetchGithubAction() {
     const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
@@ -272,6 +306,7 @@ export default function Index() {
   return (
     <Layout>
       <div className="remix__page">
+        <div dangerouslySetInnerHTML={{ __html: data.image }} />
         <main>
           <h2 className="font-sentinel__SemiBoldItal text-6xl sky">Welcome to Remix! Staging 3</h2>
           <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>

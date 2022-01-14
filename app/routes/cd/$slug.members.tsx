@@ -7,7 +7,7 @@ import useFreebies from "~/hooks/useFreebies"
 import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
 import GridItem from "~/components/gridDownloads/gridItem"
 import { getlockedPageMetaTags, getLockedPageRedirectLogoutPath } from "~/utils/lockedPagesUtils"
-import { createLockedPageCookie, lockedPageServer } from "~/server/lockedPages.server"
+import { createLockedPageCookie } from "~/server/lockedPages.server"
 import { Layout } from "~/root"
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
@@ -20,7 +20,6 @@ export let loader: LoaderFunction = async ({ request, params }) => {
       status: 404
     });
   }
-
 
   let { downloadGridBy, gridTags } = await fetchAPI(getGraphQLString(query), {
     variables: {
