@@ -100,7 +100,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   const nonPublic = `./${tuesdayFont}`
   // const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
   registerFont(nonPublic, { family: 'tuesday' })
-  const alphabet = ['a', 'b', 'c', 'd']
+  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
   const images: any = []
   for (let i in alphabet) {
     const imageBuffer = text2png(alphabet[i], {
