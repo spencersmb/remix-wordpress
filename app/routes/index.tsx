@@ -96,28 +96,20 @@ export let loader: LoaderFunction = async ({ request }) => {
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
 
-  const canvas = createCanvas(200, 30)
-  const ctx = canvas.getContext('2d')
+  registerFont('./app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf', { family: 'tuesday' })
+  const alphabet = ['a', 'b', 'c', 'd']
+  const images = []
+  for (let i in alphabet) {
+    const imageBuffer = await text2png(alphabet[i], {
+      font: '24px tuesday',
+      color: 'linen',
+      // backgroundColor: 'linen',
+      lineSpacing: 10,
+      padding: 20
+    });
 
-  registerFont('./public/fonts/tuesday/tuesdayscript-regular-webfont.ttf', { family: 'tuesday' })
-
-  // Write "Awesome!"
-  ctx.font = '30px tuesday'
-  ctx.fillStyle = "#fff"
-  ctx.fill();
-  ctx.fillText('Awesome!', 0, 22, 300)
-  ctx.imageSmoothingQuality = "high"
-
-  // const dataUri = await textToImage.generate('Lorem ipsum dolor sit amet', {
-  //   debug: true,
-  //   maxWidth: 720,
-  //   fontSize: 18,
-  //   fontFamily: 'Arial',
-  //   lineHeight: 30,
-  //   margin: 5,
-  //   bgColor: 'blue',
-  //   textColor: 'red',
-  // });
+    images.push(imageBuffer.toString('base64'))
+  }
 
   const dataUri = text2png('Tuesday', {
     font: '80px tuesday',
@@ -127,18 +119,12 @@ export let loader: LoaderFunction = async ({ request }) => {
     padding: 20
   });
 
-
-
-  const image = new Image();
-  // image.src = canvas.toDataURL();
-  image.src = canvas.toDataURL("image/png");
-
-
   // https://remix.run/api/remix#json
   return {
     ...data,
     posts,
     pageInfo,
+    images,
     image: `<img src="data:image/png;base64, ${dataUri.toString('base64')}" />`
   }
 };
@@ -307,6 +293,11 @@ export default function Index() {
     <Layout>
       <div className="remix__page">
         <div dangerouslySetInnerHTML={{ __html: data.image }} />
+        <div>
+          {data.images.map((base: string, index: number) => (<div key={index}>
+            <img src={`data:image/png;base64, ${base}`} />
+          </div>))}
+        </div>
         <main>
           <h2 className="font-sentinel__SemiBoldItal text-6xl sky">Welcome to Remix! Staging 3</h2>
           <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
