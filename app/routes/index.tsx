@@ -95,10 +95,11 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
+  // console.log('tuesdayFont', tuesdayFont);
 
-  const nonPublic = './app/server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-  const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-  registerFont(tuesdayFont, { family: 'tuesday' })
+  const nonPublic = `./${tuesdayFont}`
+  // const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
+  registerFont(nonPublic, { family: 'tuesday' })
   const alphabet = ['a', 'b', 'c', 'd']
   const images: any = []
   for (let i in alphabet) {
