@@ -1,15 +1,16 @@
 import { Layout } from "~/root"
-import { ActionFunction, Cookie, createCookie, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData } from "remix"
-import { procreateBonusCookie } from "~/cookies.server"
+import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from "remix"
 import { findCookie } from "~/utils/loaderHelpers"
-import { getStaticPageMeta } from "~/utils/pageUtils";
-import { getHtmlMetadataTags } from "~/utils/seo";
-import { getlockedPageMetaTags, lockedPagesMeta } from "~/utils/lockedPagesUtils";
-import { lockedPageServer } from "~/server/lockedPages.server";
+import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";
+import { createLockedPageCookie, lockedPageServer } from "~/server/lockedPages.server";
+import { gql } from "@apollo/client";
+import { fetchAPI } from "~/utils/fetch";
+import { getGraphQLString } from "~/utils/graphqlUtils";
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData))
 
 export let loader: LoaderFunction = async ({ request, params }) => {
+
   const lookUpSlug = params.slug;
 
   if (!lookUpSlug) {
@@ -17,16 +18,29 @@ export let loader: LoaderFunction = async ({ request, params }) => {
       status: 404
     });
   }
-  const skillshareClass = lockedPageServer[lookUpSlug]
 
-  const { hasCookie } = await findCookie(request, skillshareClass.cookie.data)
+  let { downloadGridBy } = await fetchAPI(getGraphQLString(query), {
+    variables: {
+      slug: lookUpSlug
+    }
+  })
+
+  if (!downloadGridBy) {
+    throw new Response("Not Found", {
+      status: 404
+    });
+  }
+
+  const getCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
+
+  const { hasCookie } = await findCookie(request, getCookie)
 
   if (hasCookie) {
-    return redirect(skillshareClass.membersPath)
+    return redirect(getLockedPageRedirectMembersPath(lookUpSlug))
   }
 
   return json({
-    title: skillshareClass.title
+    ...downloadGridBy
   })
 }
 
@@ -35,7 +49,6 @@ export let action: ActionFunction = async ({ request, params }) => {
   if (!lookUpSlug) {
     return { formError: `No Url Parameter` };
   }
-  const skillshareClass = lockedPageServer[lookUpSlug]
 
   let form = await request.formData();
   let password = form.get('password')
@@ -46,36 +59,44 @@ export let action: ActionFunction = async ({ request, params }) => {
   ) {
     return { formError: `Form not submitted correctly.` };
   }
-  const serverPw = skillshareClass.password
-  if (!serverPw) {
-    return { formError: `Server Password Not Found.` };
-  }
+  let { downloadGridBy } = await fetchAPI(getGraphQLString(query), {
+    variables: {
+      slug: lookUpSlug
+    }
+  })
+  // const serverPw = skillshareClass.password
+  // if (!serverPw) {
+  //   return { formError: `Server Password Not Found.` };
+  // }
 
   let fields = { password };
   let fieldErrors = {
-    password: password !== serverPw ? `Incorrect Password` : undefined
+    password: password !== downloadGridBy.page.password ? `Incorrect Password` : undefined
   };
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
   const customHeaders = new Headers()
-  customHeaders.append('Set-Cookie', await skillshareClass.cookie.data.serialize({
-    [skillshareClass.cookie.key]: true
+  const createPageCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
+  customHeaders.append('Set-Cookie', await createPageCookie.serialize({
+    [downloadGridBy.page.cookie.key]: true
   }))
-  return redirect(skillshareClass.membersPath, {
+  const membersPath = getLockedPageRedirectMembersPath(lookUpSlug)
+  return redirect(membersPath, {
     headers: customHeaders,
   })
-
 }
 
-const BeautifulLetteringBonuses = () => {
-  let { title } = useLoaderData();
+const LockePageLogin = () => {
+  let data = useLoaderData();
+  console.log('data', data);
+  let transition = useTransition()
   let actionData = useActionData<PasswordActionData | undefined>();
 
   return (
     <Layout>
-      Locked Page Template: {title}
+      Locked Page Template
       <div>
         <Form method='post' className="mb-4" aria-describedby={
           actionData?.formError
@@ -110,9 +131,11 @@ const BeautifulLetteringBonuses = () => {
               {actionData?.fieldErrors.password}
             </p>
           ) : null}
-
-          <button type='submit' className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            Login
+          <button
+            disabled={transition.state !== 'idle'}
+            aria-disabled={transition.state !== 'idle'}
+            type='submit' className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            {transition.state === "idle" ? 'Login' : '...loading'}
           </button>
         </Form>
       </div>
@@ -120,4 +143,21 @@ const BeautifulLetteringBonuses = () => {
   )
 }
 
-export default BeautifulLetteringBonuses
+export default LockePageLogin
+
+const query = gql`
+  query LockedPageQuery($slug: String!) {
+    downloadGridBy(slug: $slug) {
+      title
+      slug
+      modified
+      page {
+        password
+        cookie {
+          key
+          name
+        }
+      }
+    }
+  }
+`

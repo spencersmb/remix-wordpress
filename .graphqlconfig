@@ -1,10 +1,11 @@
+
 {
   "name": "Untitled GraphQL Schema",
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "https://api.every-tuesday.com/graphql",
+        "url": "https://etheadless.local/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },

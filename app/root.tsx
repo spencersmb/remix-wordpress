@@ -87,9 +87,9 @@ export let loader: LoaderFunction = async ({ request }) => {
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUserToken(request)
 
+  // TOOD: REMOVE SHOPIFY
   // check for cart Cookie and make api queries to get cart
   const shopifyCart = await getUserCart(request)
-  console.log('shopifyCart linne items', shopifyCart.cart?.lines.edges.length)
 
   // if it's a new cart, set a new cookie with a new ID
   if (shopifyCart?.newCart) {

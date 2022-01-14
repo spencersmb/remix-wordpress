@@ -1,7 +1,10 @@
-import { MetaFunction } from "remix";
+import { RouteData } from "@remix-run/react/routeData";
+import { Params } from "react-router";
+import { AppData, MetaFunction } from "remix";
 import { lockedPageEnumSlugs } from "~/enums/lockedPages";
 import { getStaticPageMeta } from "./pageUtils";
 import { getHtmlMetadataTags } from "./seo";
+import type { Location } from "history";
 
 interface ILockedPage {
   [id: string]: {
@@ -24,8 +27,13 @@ export const lockedPagesMeta: ILockedPage = {
     })
   }
 }
-
-export const getlockedPageMetaTags: MetaFunction = (rootData): any => {
+type MetaMembers = (args: {
+        data: AppData;
+        parentsData: RouteData;
+        params: Params;
+        location: Location;
+    }, locked?:{membersPage: boolean}) => any
+export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined): any => {
 
   /*
   rootData gets passed in from the root metadata function
@@ -60,7 +68,18 @@ export const getlockedPageMetaTags: MetaFunction = (rootData): any => {
    */
   return getHtmlMetadataTags({
     metadata: parentsData.root.metadata,
-    page: skillshare.page,
+    page: locked ? skillshare.membersPage : skillshare.page,
     location
   })
 };
+
+const parentPath = 'cd'
+export function getLockedPageRedirectMembersPath(slug: string): string {
+  // ex: /class-downloads/bl
+  return `/${parentPath}/${slug}/members`
+}
+
+export function getLockedPageRedirectLogoutPath(slug: string): string {
+  // ex: /class-downloads/bl
+  return `/${parentPath}/${slug}`
+}

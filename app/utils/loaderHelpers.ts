@@ -204,10 +204,10 @@ export async function checkForCookieLogin(request: Request, cookie: Cookie, redi
   if (!cookie) {
     throw redirect(redirectTo);
   }
-  const hasCookie = await findCookie(request, cookie)
-  console.log("hasCookie", hasCookie);
+  const cookieLookUp = await findCookie(request, cookie)
+  console.log("hasCookie", cookieLookUp);
   
-  if (!hasCookie) {
+  if (isEmpty(cookieLookUp.data)) {
     console.log("redirect", redirectTo);
     throw redirect(redirectTo);
   }

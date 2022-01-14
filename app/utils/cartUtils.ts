@@ -31,7 +31,6 @@ export async function getShopifyCart (cartId: string): Promise<IGetCartQueryResp
       cartId
     }
   })
-  console.log('get cart data', data);
   
   if(!data){
     return null

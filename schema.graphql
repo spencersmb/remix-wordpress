@@ -5,6 +5,12 @@ schema {
     mutation: RootMutation
 }
 
+"A Field Group registered by ACF"
+interface AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+}
+
 "The author of a comment"
 interface Commenter {
     "Identifies the primary key from the database."
@@ -25,6 +31,8 @@ interface Commenter {
 interface ContentNode {
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The ID of the node in the database."
     databaseId: Int!
     "Post publishing date."
@@ -223,6 +231,8 @@ interface NodeWithExcerpt {
 interface NodeWithFeaturedImage {
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique identifier stored in the database"
     databaseId: Int!
     "Post publishing date."
@@ -380,6 +390,8 @@ interface TermNode {
     name: String
     "An alphanumeric identifier for the object unique to its type."
     slug: String
+    "The name of the taxonomy that the object is associated with"
+    taxonomyName: String
     "The ID of the term group that this term object belongs to"
     termGroupId: Int
     "The taxonomy ID that the object is associated with"
@@ -403,18 +415,38 @@ interface UniformResourceIdentifiable {
 "A union of Content Node Types that support revisions"
 union ContentRevisionUnion = Page | Post
 
+union DownloadFreebie_Tutorialmanager_Downloads = ResourceLibrary
+
+union DownloadFreebie_Tutorialmanager_PaidProducts = Product
+
 "Deprecated in favor of MenuItemLinkeable Interface"
 union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | Product | ResourceLibrary | Tag
 
 union MenuItem_Featured_Courses = Course
 
-union Post_Downloadmanager_Downloads = DownloadFreebie
-
 union Post_Tutorialmanager_Downloads = ResourceLibrary
 
 union Post_Tutorialmanager_PaidProducts = Product
 
+union Product_Tutorialmanager_Downloads = ResourceLibrary
+
+union Product_Tutorialmanager_PaidProducts = Product
+
 union ResourceLibrary_Freebie_Product = Product
+
+"The payload for the addToWishlist mutation"
+type AddToWishlistPayload {
+    "True if the product is removed, false otherwise"
+    added: Boolean
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Description of the error"
+    error: String
+    "The Product id that was added"
+    productId: Int
+    "The Product ids in the wishlist"
+    wishlistProductIds: [Int]
+}
 
 "Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from."
 type Avatar {
@@ -574,6 +606,8 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
     slug: String
     "Connection between the category type and the Taxonomy type"
     taxonomy: CategoryToTaxonomyConnectionEdge
+    "The name of the taxonomy that the object is associated with"
+    taxonomyName: String
     "The ID of the term group that this term object belongs to"
     termGroupId: Int
     "The taxonomy ID that the object is associated with"
@@ -1013,6 +1047,8 @@ type Course implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
     ): String
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The id field matches the WP_Post-&gt;ID field."
     courseId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
     "The unique resource identifier path"
@@ -1049,7 +1085,6 @@ type Course implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
-    et_courses: Course_EtCourses
     "Connection between the NodeWithFeaturedImage type and the MediaItem type"
     featuredImage: NodeWithFeaturedImageToMediaItemConnectionEdge
     "The database identifier for the featured image node assigned to the content node"
@@ -1187,22 +1222,6 @@ type CourseToTermNodeConnectionEdge {
     cursor: String
     "The item at the end of the edge"
     node: TermNode
-}
-
-"Field Group"
-type Course_EtCourses {
-    "Add tags here"
-    courseTags: [Course_EtCourses_courseTags]
-    "Add Course URL"
-    courseUrl: String
-    fieldGroupName: String
-}
-
-"Field Group"
-type Course_EtCourses_courseTags {
-    fieldGroupName: String
-    "Add Item for each tag"
-    tag: String
 }
 
 "CPT Tag Object"
@@ -1467,6 +1486,8 @@ type DiscussionSettings {
 type DownloadFreebie implements ContentNode & DatabaseIdentifier & Node & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique identifier stored in the database"
     databaseId: Int!
     "Post publishing date."
@@ -1475,6 +1496,7 @@ type DownloadFreebie implements ContentNode & DatabaseIdentifier & Node & NodeWi
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Download Details&quot; was set to Show in GraphQL."
     downloadDetails: DownloadFreebie_Downloaddetails
     "The id field matches the WP_Post-&gt;ID field."
     downloadFreebieId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
@@ -1543,6 +1565,8 @@ type DownloadFreebie implements ContentNode & DatabaseIdentifier & Node & NodeWi
         "Format of the field output"
         format: PostObjectFieldFormatEnum
     ): String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Tutorial Manager&quot; was set to Show in GraphQL."
+    tutorialManager: DownloadFreebie_Tutorialmanager
     "The unique resource identifier path"
     uri: String
 }
@@ -1554,7 +1578,7 @@ type DownloadFreebieToPreviewConnectionEdge {
 }
 
 "Field Group"
-type DownloadFreebie_Downloaddetails {
+type DownloadFreebie_Downloaddetails implements AcfFieldGroup {
     etdmCampaign: String
     etdmDescriptor: String
     etdmFileSize: String
@@ -1563,6 +1587,30 @@ type DownloadFreebie_Downloaddetails {
     etdmSsVersion: String
     etdmTitle: String
     etdmVersion: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
+    "Link the URL for the color swatch here"
+    colorSwatch: String
+    "Select Freebies included in the tutorial"
+    downloads: [DownloadFreebie_Tutorialmanager_Downloads]
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Link paid products from the tutorial here"
+    paidProducts: [DownloadFreebie_Tutorialmanager_PaidProducts]
+    "Add post excerpt here. The part above the Read Me dotted line."
+    postExcerpt: String
+    youtube: DownloadFreebie_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Youtube implements AcfFieldGroup {
+    "Copy the Youtube Embed URL and paste it here"
+    embedUrl: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
 }
 
@@ -1570,6 +1618,8 @@ type DownloadFreebie_Downloaddetails {
 type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -1606,6 +1656,7 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Resource Grids&quot; was set to Show in GraphQL."
     grid: DownloadGrid_Grid
     "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
     guid: String
@@ -1627,6 +1678,8 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
     modified: String
     "The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT."
     modifiedGmt: String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Page&quot; was set to Show in GraphQL."
+    page: DownloadGrid_Page
     "Connection between the DownloadGrid type and the DownloadGrid type"
     preview: DownloadGridToPreviewConnectionEdge
     "The database id of the preview node"
@@ -1721,19 +1774,38 @@ type DownloadGridToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type DownloadGrid_Grid {
+type DownloadGrid_Grid implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     items: [DownloadGrid_Grid_items]
 }
 
 "Field Group"
-type DownloadGrid_Grid_items {
+type DownloadGrid_Grid_items implements AcfFieldGroup {
     downloadLink: String
     excerpt: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
     image: MediaItem
     tags: [Tag]
     title: String
+}
+
+"Field Group"
+type DownloadGrid_Page implements AcfFieldGroup {
+    "Add the Cookie name and login key that gets set here"
+    cookie: DownloadGrid_Page_Cookie
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    password: String
+}
+
+"Field Group"
+type DownloadGrid_Page_Cookie implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    key: String
+    name: String
 }
 
 "Script enqueued by the CMS"
@@ -1978,6 +2050,8 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     ): MediaItemToCommentConnection
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique identifier stored in the database"
     databaseId: Int!
     "Post publishing date."
@@ -2216,7 +2290,7 @@ type MenuItem implements DatabaseIdentifier & Node {
     databaseId: Int!
     "Description of the menu item."
     description: String
-    "Added to the GraphQL Schema because the ACF Field Group &quot;featured&quot; was assigned to Menu Items"
+    "Added to the GraphQL Schema because the ACF Field Group &quot;featured&quot; was set to Show in GraphQL."
     featured: MenuItem_Featured
     "The globally unique identifier of the nav menu item object."
     id: ID!
@@ -2279,8 +2353,9 @@ type MenuItemToMenuItemLinkableConnectionEdge {
 }
 
 "Field Group"
-type MenuItem_Featured {
+type MenuItem_Featured implements AcfFieldGroup {
     courses: [MenuItem_Featured_Courses]
+    "The name of the ACF Field Group"
     fieldGroupName: String
 }
 
@@ -2380,6 +2455,8 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     ): String
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -2609,7 +2686,8 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     ): String
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
-    converkitFormsForPosts: Post_Converkitformsforposts
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -2618,7 +2696,6 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
-    downloadManager: Post_Downloadmanager
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
     "The RSS enclosure for the object"
@@ -2645,6 +2722,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "The number of items to return before the referenced \"before\" cursor"
         last: Int
     ): ContentNodeToEnqueuedStylesheetConnection
+    "Added to the GraphQL Schema because the ACF Field Group &quot;EveryTuesday Social Nav Options&quot; was set to Show in GraphQL."
     etSocialNav: Post_Etsocialnav
     "The excerpt of the post."
     excerpt(
@@ -2775,6 +2853,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     ): String
     "URLs queued to be pinged."
     toPing: [String]
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Tutorial Manager&quot; was set to Show in GraphQL."
     tutorialManager: Post_Tutorialmanager
     "The unique resource identifier path"
     uri: String
@@ -2869,6 +2948,8 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     slug: String
     "Connection between the postFormat type and the Taxonomy type"
     taxonomy: PostFormatToTaxonomyConnectionEdge
+    "The name of the taxonomy that the object is associated with"
+    taxonomyName: String
     "The ID of the term group that this term object belongs to"
     termGroupId: Int
     "The taxonomy ID that the object is associated with"
@@ -3142,18 +3223,8 @@ type PostTypeSEO {
 }
 
 "Field Group"
-type Post_Converkitformsforposts {
-    fieldGroupName: String
-}
-
-"Field Group"
-type Post_Downloadmanager {
-    downloads: [Post_Downloadmanager_Downloads]
-    fieldGroupName: String
-}
-
-"Field Group"
-type Post_Etsocialnav {
+type Post_Etsocialnav implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     "Add an image that is optimized for maximum exposure on Pinterest. We recommend using an image that is formatted in a 2:3 aspect ratio like 735x1102."
     pinterestImage: MediaItem
@@ -3161,36 +3232,33 @@ type Post_Etsocialnav {
 }
 
 "Field Group"
-type Post_Etsocialnav_PinterestMeta {
+type Post_Etsocialnav_PinterestMeta implements AcfFieldGroup {
     "Craft a customized description that will be used when this post is shared on Pinterest. Leave this blank to use the title of the post. 140 Character Limit!"
     description: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
 }
 
 "Field Group"
-type Post_Tutorialmanager {
+type Post_Tutorialmanager implements AcfFieldGroup {
     "Link the URL for the color swatch here"
     colorSwatch: String
     "Select Freebies included in the tutorial"
     downloads: [Post_Tutorialmanager_Downloads]
+    "The name of the ACF Field Group"
     fieldGroupName: String
     "Link paid products from the tutorial here"
     paidProducts: [Post_Tutorialmanager_PaidProducts]
-    pinterest: Post_Tutorialmanager_Pinterest
+    "Add post excerpt here. The part above the Read Me dotted line."
+    postExcerpt: String
     youtube: Post_Tutorialmanager_Youtube
 }
 
 "Field Group"
-type Post_Tutorialmanager_Pinterest {
-    fieldGroupName: String
-    "Add Pinterest Image"
-    image: MediaItem
-}
-
-"Field Group"
-type Post_Tutorialmanager_Youtube {
+type Post_Tutorialmanager_Youtube implements AcfFieldGroup {
     "Copy the Youtube Embed URL and paste it here"
     embedUrl: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
 }
 
@@ -3249,6 +3317,8 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     ): ProductToCategoryConnection
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -3257,6 +3327,7 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Product&quot; was set to Show in GraphQL."
     details: Product_Details
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
@@ -3357,6 +3428,8 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
         "Format of the field output"
         format: PostObjectFieldFormatEnum
     ): String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Tutorial Manager&quot; was set to Show in GraphQL."
+    tutorialManager: Product_Tutorialmanager
     "The unique resource identifier path"
     uri: String
 }
@@ -3426,9 +3499,10 @@ type ProductToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type Product_Details {
+type Product_Details implements AcfFieldGroup {
     extendedLicenseUrl: String
     extendedPrice: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
     "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
     fontName: String
@@ -3449,19 +3523,22 @@ type Product_Details {
 }
 
 "Field Group"
-type Product_Details_Youtube {
+type Product_Details_Youtube implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     url: String
 }
 
 "Field Group"
-type Product_Details_fontStyles {
+type Product_Details_fontStyles implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     style: String
 }
 
 "Field Group"
-type Product_Details_fonts {
+type Product_Details_fonts implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
     name: String
@@ -3469,17 +3546,42 @@ type Product_Details_fonts {
 }
 
 "Field Group"
-type Product_Details_fonts_styles {
+type Product_Details_fonts_styles implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     name: String
 }
 
 "Field Group"
-type Product_Details_licences {
+type Product_Details_licences implements AcfFieldGroup {
+    "The name of the ACF Field Group"
     fieldGroupName: String
     gumroadUrl: String
     licenseType: String
     price: Float
+}
+
+"Field Group"
+type Product_Tutorialmanager implements AcfFieldGroup {
+    "Link the URL for the color swatch here"
+    colorSwatch: String
+    "Select Freebies included in the tutorial"
+    downloads: [Product_Tutorialmanager_Downloads]
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Link paid products from the tutorial here"
+    paidProducts: [Product_Tutorialmanager_PaidProducts]
+    "Add post excerpt here. The part above the Read Me dotted line."
+    postExcerpt: String
+    youtube: Product_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type Product_Tutorialmanager_Youtube implements AcfFieldGroup {
+    "Copy the Youtube Embed URL and paste it here"
+    embedUrl: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
 }
 
 "The reading setting type"
@@ -3522,6 +3624,20 @@ type RelatedPostsConnectionEdge {
     node: Post
 }
 
+"The payload for the removeFromWishlist mutation"
+type RemoveFromWishlistPayload {
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Description of the error"
+    error: String
+    "The Product id that was deleted"
+    productId: Int
+    "True if the product is removed, false otherwise"
+    removed: Boolean
+    "The Product ids in the wishlist"
+    wishlistProductIds: [Int]
+}
+
 "The payload for the resetUserPassword mutation"
 type ResetUserPasswordPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -3534,6 +3650,8 @@ type ResetUserPasswordPayload {
 type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
+    "The name of the Content Type the node belongs to"
+    contentTypeName: String!
     "The unique resource identifier path"
     databaseId: Int!
     "Post publishing date."
@@ -3574,6 +3692,7 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     featuredImageDatabaseId: Int
     "Globally unique ID of the featured image assigned to the node"
     featuredImageId: ID
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Resource Library Freebie&quot; was set to Show in GraphQL."
     freebie: ResourceLibrary_Freebie
     "The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table."
     guid: String
@@ -3691,9 +3810,10 @@ type ResourceLibraryToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type ResourceLibrary_Freebie {
+type ResourceLibrary_Freebie implements AcfFieldGroup {
     downloadLink: String
     excerpt: String
+    "The name of the ACF Field Group"
     fieldGroupName: String
     "Does this freebie requires a license to use for creating / selling products"
     licenseRequired: Boolean
@@ -3712,6 +3832,11 @@ type RestoreCommentPayload {
 
 "The root mutation"
 type RootMutation {
+    "The payload for the addToWishlist mutation"
+    addToWishlist(
+        "Input for the addToWishlist mutation"
+        input: AddToWishlistInput!
+    ): AddToWishlistPayload
     "The payload for the createCategory mutation"
     createCategory(
         "Input for the createCategory mutation"
@@ -3872,6 +3997,11 @@ type RootMutation {
         "Input for the registerUser mutation"
         input: RegisterUserInput!
     ): RegisterUserPayload
+    "The payload for the removeFromWishlist mutation"
+    removeFromWishlist(
+        "Input for the removeFromWishlist mutation"
+        input: RemoveFromWishlistInput!
+    ): RemoveFromWishlistPayload
     "The payload for the resetUserPassword mutation"
     resetUserPassword(
         "Input for the resetUserPassword mutation"
@@ -5415,6 +5545,8 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     tagId: Int @deprecated(reason: "Deprecated in favor of databaseId")
     "Connection between the tag type and the Taxonomy type"
     taxonomy: TagToTaxonomyConnectionEdge
+    "The name of the taxonomy that the object is associated with"
+    taxonomyName: String
     "The ID of the term group that this term object belongs to"
     termGroupId: Int
     "The taxonomy ID that the object is associated with"
@@ -6879,6 +7011,14 @@ enum UsersConnectionSearchColumnEnum {
     NICENAME
     "The URL of the user\\s website."
     URL
+}
+
+"Input for the addToWishlist mutation"
+input AddToWishlistInput {
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Product id"
+    productId: Int
 }
 
 "Arguments for filtering the CategoryToCategoryConnection connection"
@@ -9117,6 +9257,14 @@ input RegisterUserInput {
 input RelatedPostsConnectionWhereArgs {
     "Override's YARPP setting's \"Maximum number of related posts.\" The maximum number is 20."
     limit: Int
+}
+
+"Input for the removeFromWishlist mutation"
+input RemoveFromWishlistInput {
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "Product id"
+    productId: Int
 }
 
 "Input for the resetUserPassword mutation"

@@ -2,93 +2,64 @@ import { gql } from "@apollo/client"
 import { json, LoaderFunction, MetaFunction, redirect, useLoaderData } from "remix"
 import { fetchAPI } from "~/utils/fetch"
 import { getGraphQLString } from "~/utils/graphqlUtils"
-import { procreateBonusCookie } from "~/cookies.server"
 import { checkForCookieLogin } from "~/utils/loaderHelpers"
-import { getHtmlMetadataTags } from "~/utils/seo"
 import useFreebies from "~/hooks/useFreebies"
 import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
 import GridItem from "~/components/gridDownloads/gridItem"
-import { getStaticPageMeta } from "~/utils/pageUtils"
-import { lockedPagesMeta } from "~/utils/lockedPagesUtils"
+import { getlockedPageMetaTags, getLockedPageRedirectLogoutPath } from "~/utils/lockedPagesUtils"
+import { createLockedPageCookie, lockedPageServer } from "~/server/lockedPages.server"
+import { Layout } from "~/root"
 
-const slug = 'bl'
-const querySlug = "beautiful-lettering"
-const membersPath = `/class-downloads/${slug}/members`
+export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
-export let meta: MetaFunction = (rootData): any => {
-
-  /*
-  rootData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData, params } = rootData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
+export let loader: LoaderFunction = async ({ request, params }) => {
   const lookUpSlug = params.slug;
+
   if (!lookUpSlug) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
+    throw new Response("Not Found", {
+      status: 404
+    });
   }
 
-  const lockedMeta = lockedPagesMeta[lookUpSlug]
 
-  if (!lockedMeta) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
+  let { downloadGridBy, gridTags } = await fetchAPI(getGraphQLString(query), {
+    variables: {
+      slug: lookUpSlug
     }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getHtmlMetadataTags({
-    follow: false,
-    metadata: parentsData.root.metadata,
-    page: lockedMeta.membersPage,
-    location
   })
-};
 
-export let loader: LoaderFunction = async ({ request }) => {
-  await checkForCookieLogin(request, procreateBonusCookie, '/class-downloads/bl')
-
-  try {
-    let wpAPI = await fetchAPI(getGraphQLString(query), {
-      variables: {
-        querySlug
-      }
-    })
-    return json({
-      user: true,
-      freebies: wpAPI.downloadGridBy.grid.items,
-      filterTags: wpAPI.gridTags
-    })
-  } catch (e) {
-    console.error(`e in ${membersPath}`, e)
-    return redirect(membersPath)
+  if (!downloadGridBy) {
+    throw new Response("Not Found", {
+      status: 404
+    });
   }
+
+  const getCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
+  const logoutRedirect = getLockedPageRedirectLogoutPath(lookUpSlug)
+  await checkForCookieLogin(request, getCookie, logoutRedirect)
+
+  return json({
+    user: true,
+    freebies: downloadGridBy.grid.items,
+    filterTags: gridTags,
+    ...downloadGridBy
+  })
 
 }
 interface ILoaderData {
   freebies: IGridItem[]
   filterTags: IFilterTag[]
+  title: string
 }
-const Procreate5xBonuses = () => {
+const LockedMembersPage = () => {
   let data = useLoaderData<ILoaderData>()
-  console.log('BL data.freebies', data.freebies);
+  console.log(`${data.title} data.freebies`, data.freebies);
 
   const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IGridItem[]>({ items: data.freebies })
 
   return (
-    <div>
-      <div>Logged In 2</div>
+    <Layout>
+      <div>Logged In: {data.title}</div>
       <FreebieFilter
         filterTags={data.filterTags}
         selectedFilter={filter}
@@ -101,17 +72,25 @@ const Procreate5xBonuses = () => {
       <div>
         {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
       </div>
-    </div>
+    </Layout>
   )
 }
 
-export default Procreate5xBonuses
+export default LockedMembersPage
 
 
 const query = gql`
-query ProcreateBonusGrid($querySlug: String) {
-  downloadGridBy(slug: $querySlug) {
+query LockedPageGrid($slug: String) {
+  downloadGridBy(slug: $slug) {
     title
+    modified
+    page {
+      password
+      cookie {
+        key
+        name
+      }
+    }
     grid {
       items {
         title
@@ -137,7 +116,7 @@ query ProcreateBonusGrid($querySlug: String) {
       }
     }
   }
-  gridTags(slug: $querySlug){
+  gridTags(slug: $slug){
     name
     slug
   }
