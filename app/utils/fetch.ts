@@ -171,6 +171,9 @@ export async function refreshJWT({cmid, refresh}: IAuthToken): Promise<Response>
   })
 }
 
+/*
+COmment fetch
+*/
 interface IFetchSubmitComment {
   errors?: { message: string }[]
   createComment: {
@@ -310,4 +313,43 @@ export async function fetchShopifyStoreFrontRequest({query, variables }: {query:
     const {data} = await res.json()
 
     return data
+}
+
+/*
+Font File fetch
+*/
+export async function fetchFontPreviewFile(fontName: string){
+
+  // const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
+  const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  const json = await res.json()
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json
+}
+
+export async function fetchFontPreviewFileB(fontName: string, style: string){
+
+  // const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
+  const url = `${process.env.APP_ROOT_URL}/api/font/fileB?font=${fontName}&style=${style}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  const json = await res.json()
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json
 }

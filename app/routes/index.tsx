@@ -1,7 +1,7 @@
 import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
 import { useLoaderData, Link, ActionFunction } from 'remix'
 import { flattenAllPosts } from '../utils/posts'
-import { fetchAPI } from '../utils/fetch'
+import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch'
 import { Layout } from '../root'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
@@ -13,8 +13,8 @@ import { ckFormIds } from '~/lib/convertKit/formIds'
 import { getSession } from '~/sessions.server'
 import { createCanvas, Image, registerFont } from "canvas";
 import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-// @ts-ignore
 import text2png from 'text2png'
+import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils.server";
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
@@ -95,40 +95,39 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
-  // console.log('tuesdayFont', tuesdayFont);
 
-  const nonPublic = `./${tuesdayFont}`
-  // const publicFont = './public/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-  registerFont(nonPublic, { family: 'tuesday' })
-  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-  const images: any = []
-  for (let i in alphabet) {
-    const imageBuffer = text2png(alphabet[i], {
-      font: '24px tuesday',
-      color: 'linen',
-      // backgroundColor: 'linen',
-      lineSpacing: 10,
-      padding: 20
-    });
+  const fontPreview = await fetchFontPreviewFile('skinny')
+  // const nonPublic = `./${tuesdayFont}`
+  // registerFont(nonPublic, { family: 'tuesday' })
 
-    images.push(imageBuffer.toString('base64'))
-  }
 
-  const dataUri = text2png('Tuesday', {
-    font: '80px tuesday',
-    color: 'linen',
-    // backgroundColor: 'linen',
-    lineSpacing: 10,
-    padding: 20
-  });
+  // const dataUri = text2png('Tuesday', {
+  //   font: '80px tuesday',
+  //   color: 'linen',
+  //   // backgroundColor: 'linen',
+  //   lineSpacing: 10,
+  //   padding: 20
+  // });
 
   // https://remix.run/api/remix#json
+  // font: '24px tuesday',
+  //   color: 'linen',
+  //     // backgroundColor: 'linen',
+  //     lineSpacing: 10,
+  //       padding: 20
   return {
     ...data,
     posts,
     pageInfo,
-    images,
-    image: dataUri.toString('base64')
+    // images: createAlphabetImages({
+    //   size: '24px',
+    //   fontFamily: 'tuesday',
+    //   color: 'linen',
+    //   lineSpacing: 10,
+    //   padding: 20
+    // }),
+    fontPreview
+    // image: dataUri.toString('base64')
   }
 };
 
@@ -292,18 +291,52 @@ export default function Index() {
     openModal({ template: TestModal })
   }
 
+  /*
+    Font preview loader example
+  */
+
+
+
   return (
     <Layout>
       <div className="remix__page">
-        {/* <div dangerouslySetInnerHTML={{ __html: data.image }} /> */}
         <div>
+          {data.fontPreview.font.name} Preview
+          <img src={`data:image/png;base64, ${data.fontPreview.fontImages.title}`} />
+        </div>
+        <div>
+          {data.fontPreview.font.files.map((file: any) => {
+            const alphabetBaseImage = data.fontPreview.fontImages[file.type].alphabet
+            return alphabetBaseImage.map((image: string, index: number) => {
+              return (
+                <div key={index}>
+                  <img src={`data:image/png;base64, ${image}`} />
+                </div>
+              )
+            })
+          })}
+        </div>
+        <div>
+          {data.fontPreview.font.files.map((file: any) => {
+            const numbersBaseImage = data.fontPreview.fontImages[file.type].numbers
+            return numbersBaseImage.map((image: string, index: number) => {
+              return (
+                <div key={index}>
+                  <img src={`data:image/png;base64, ${image}`} />
+                </div>
+              )
+            })
+          })}
+        </div>
+        {/* <div dangerouslySetInnerHTML={{ __html: data.image }} /> */}
+        {/* <div>
           <img src={`data:image/png;base64, ${data.image}`} alt="" />
         </div>
         <div>
           {data.images.map((base: string, index: number) => (<div key={index}>
             <img src={`data:image/png;base64, ${base}`} />
           </div>))}
-        </div>
+        </div> */}
         <main>
           <h2 className="font-sentinel__SemiBoldItal text-6xl sky">Welcome to Remix! Staging 3</h2>
           <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>

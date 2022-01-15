@@ -5,3 +5,5 @@ declare interface Window {
     SHOPIFY_STOREFRONT_ACCESS_TOKEN: string
   }
 }
+
+declare module "text2png"
