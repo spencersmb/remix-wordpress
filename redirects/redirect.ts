@@ -1,15 +1,37 @@
 export const manualRedirectLinks = {
   links: {
+      /*
+       * LOCKED PAGES
+       */
       'bl': {
-        title: 'procreate 5x bonuses',
+        title: 'Beautiful Lettering Class Bonuses',
         redirectTo: 'class-downloads/bl',
         status: 301
       },
       '3d-skillshare': {
-        title: '3D Lettering Bonuses',
+        title: '3D Lettering Class Bonuses',
         redirectTo: 'class-downloads/3d-skillshare',
         status: 301
       },
+      '5x-bonuses': {
+        title: 'Procreate 5x Bonuses',
+        redirectTo: 'class-downloads/5x-bonuses',
+        status: 301
+      },
+      'florals-bonuses': {
+        title: 'Procreate Florals Class Bonuses',
+        redirectTo: 'class-downloads/florals-bonuses',
+        status: 301
+      },
+      'procreate-watercolor-bonuses': {
+        title: 'Procreate Watercolor Class Bonuses',
+        redirectTo: 'class-downloads/procreate-watercolor-bonuses',
+        status: 301
+      },
+      
+      /*
+       * Learn Font Making: Mini-Course
+       */
       'learn-font-making-mini-course':{
         title: 'Learn Font Making Mini Course',
         redirectTo: 'learn-font-making/mini-course',

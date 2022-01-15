@@ -2,7 +2,7 @@ import { Layout } from "~/root"
 import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from "remix"
 import { findCookie } from "~/utils/loaderHelpers"
 import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";
-import { createLockedPageCookie, lockedPageServer } from "~/server/lockedPages.server";
+import { createLockedPageCookie } from "~/server/lockedPages.server";
 import { gql } from "@apollo/client";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";

@@ -45,8 +45,6 @@ type IndexData = {
   demos: Array<{ name: string; to: string }>;
 };
 
-
-
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
@@ -96,38 +94,13 @@ export let loader: LoaderFunction = async ({ request }) => {
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
-  const fontPreview = await fetchFontPreviewFile('skinny')
-  // const nonPublic = `./${tuesdayFont}`
-  // registerFont(nonPublic, { family: 'tuesday' })
-
-
-  // const dataUri = text2png('Tuesday', {
-  //   font: '80px tuesday',
-  //   color: 'linen',
-  //   // backgroundColor: 'linen',
-  //   lineSpacing: 10,
-  //   padding: 20
-  // });
+  // const fontPreview = await fetchFontPreviewFile('skinny')
 
   // https://remix.run/api/remix#json
-  // font: '24px tuesday',
-  //   color: 'linen',
-  //     // backgroundColor: 'linen',
-  //     lineSpacing: 10,
-  //       padding: 20
   return {
     ...data,
     posts,
     pageInfo,
-    // images: createAlphabetImages({
-    //   size: '24px',
-    //   fontFamily: 'tuesday',
-    //   color: 'linen',
-    //   lineSpacing: 10,
-    //   padding: 20
-    // }),
-    fontPreview
-    // image: dataUri.toString('base64')
   }
 };
 
@@ -300,43 +273,6 @@ export default function Index() {
   return (
     <Layout>
       <div className="remix__page">
-        <div>
-          {data.fontPreview.font.name} Preview
-          <img src={`data:image/png;base64, ${data.fontPreview.fontImages.title}`} />
-        </div>
-        <div>
-          {data.fontPreview.font.files.map((file: any) => {
-            const alphabetBaseImage = data.fontPreview.fontImages[file.type].alphabet
-            return alphabetBaseImage.map((image: string, index: number) => {
-              return (
-                <div key={index}>
-                  <img src={`data:image/png;base64, ${image}`} />
-                </div>
-              )
-            })
-          })}
-        </div>
-        <div>
-          {data.fontPreview.font.files.map((file: any) => {
-            const numbersBaseImage = data.fontPreview.fontImages[file.type].numbers
-            return numbersBaseImage.map((image: string, index: number) => {
-              return (
-                <div key={index}>
-                  <img src={`data:image/png;base64, ${image}`} />
-                </div>
-              )
-            })
-          })}
-        </div>
-        {/* <div dangerouslySetInnerHTML={{ __html: data.image }} /> */}
-        {/* <div>
-          <img src={`data:image/png;base64, ${data.image}`} alt="" />
-        </div>
-        <div>
-          {data.images.map((base: string, index: number) => (<div key={index}>
-            <img src={`data:image/png;base64, ${base}`} />
-          </div>))}
-        </div> */}
         <main>
           <h2 className="font-sentinel__SemiBoldItal text-6xl sky">Welcome to Remix! Staging 3</h2>
           <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>

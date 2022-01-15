@@ -16,23 +16,73 @@ interface ILockedPage {
 export const lockedPagesMeta: ILockedPage = {
   [lockedPageEnumSlugs.beautifulLettering]: {
     page: getStaticPageMeta({
-      title: `Beautiful Lettering Bonus Downloads - Every-Tuesday`,
+      title: `Beautiful Lettering Bonus Downloads`,
       desc: `Beautiful Lettering Bonus Downloads members only access!`,
       slug: lockedPageEnumSlugs.beautifulLettering,
     }),
     membersPage: getStaticPageMeta({
-      title: `Procreate 5x Bonus Downloads Members Area`,
-      desc: `Procreate 5x Bonus Downloads members only access!`,
+      title: `PBeautiful Lettering Bonus Downloads Members Area`,
+      desc: `PBeautiful Lettering Bonus Downloads members only access!`,
       slug: lockedPageEnumSlugs.beautifulLettering,
     })
-  }
+  },
+  [lockedPageEnumSlugs.procreate5x]: {
+    page: getStaticPageMeta({
+      title: `Procreate 5x Bonus Downloads`,
+      desc: `Procreate 5x Bonus Downloads members only access!`,
+      slug: lockedPageEnumSlugs.procreate5x,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Procreate 5x Bonus Downloads Members Area`,
+      desc: `Procreate 5x Bonus Downloads members area!`,
+      slug: lockedPageEnumSlugs.procreate5x,
+    })
+  },
+  [lockedPageEnumSlugs.procreateFlorals]: {
+    page: getStaticPageMeta({
+      title: `Procreate Florals Class Bonus Downloads`,
+      desc: `Procreate Florals Class Bonus Downloads members only access!`,
+      slug: lockedPageEnumSlugs.procreateFlorals,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Procreate Florals Class Bonus Downloads Members Area`,
+      desc: `Procreate Florals Class Bonus Downloads members area!`,
+      slug: lockedPageEnumSlugs.procreateFlorals,
+    })
+  },
+  [lockedPageEnumSlugs.procreateWatercolors]: {
+    page: getStaticPageMeta({
+      title: `Procreate Watercolors Class Bonus Downloads`,
+      desc: `Procreate Watercolors Class Bonus Downloads members only access!`,
+      slug: lockedPageEnumSlugs.procreateWatercolors,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Procreate Watercolors Class Bonus Downloads Members Area`,
+      desc: `Procreate Watercolors Class Bonus Downloads members area!`,
+      slug: lockedPageEnumSlugs.procreateWatercolors,
+    })
+  },
+  [lockedPageEnumSlugs.threeDLettering]: {
+    page: getStaticPageMeta({
+      title: `Procreate 3d Lettering Class Bonus Downloads`,
+      desc: `Procreate 3d Lettering Class Bonus Downloads members only access!`,
+      slug: lockedPageEnumSlugs.threeDLettering,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Procreate 3d Lettering Class Bonus Downloads Members Area`,
+      desc: `Procreate 3d Lettering Class Bonus Downloads members area!`,
+      slug: lockedPageEnumSlugs.threeDLettering,
+    })
+  },
 }
+
 type MetaMembers = (args: {
         data: AppData;
         parentsData: RouteData;
         params: Params;
         location: Location;
     }, locked?:{membersPage: boolean}) => any
+
 export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined): any => {
 
   /*
@@ -54,9 +104,9 @@ export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined)
     }
   }
 
-  const skillshare = lockedPagesMeta[lookUpSlug]
+  const lockedMeta = lockedPagesMeta[lookUpSlug]
 
-  if (!skillshare) {
+  if (!lockedMeta) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data',
@@ -68,12 +118,12 @@ export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined)
    */
   return getHtmlMetadataTags({
     metadata: parentsData.root.metadata,
-    page: locked ? skillshare.membersPage : skillshare.page,
+    page: locked ? lockedMeta.membersPage : lockedMeta.page,
     location
   })
 };
 
-const parentPath = 'cd'
+const parentPath = 'class-downloads'
 export function getLockedPageRedirectMembersPath(slug: string): string {
   // ex: /class-downloads/bl
   return `/${parentPath}/${slug}/members`
