@@ -52,7 +52,7 @@ export function getWPMenu(resourceUser: string | null){
             cssClasses: [],
             parentId: null,
             label: "Products",
-            path: "http://google.com",
+            path: "/products",
             target: "_blank",
             featured: {
               courses: null

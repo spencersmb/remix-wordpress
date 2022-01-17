@@ -74,6 +74,30 @@ export const lockedPagesMeta: ILockedPage = {
       slug: lockedPageEnumSlugs.threeDLettering,
     })
   },
+  [lockedPageEnumSlugs.etAffiliates]: {
+    page: getStaticPageMeta({
+      title: `Every Tuesday Affiliate Asset Downloads`,
+      desc: `Every Tuesday Affiliate Asset Downloads for cross promotions.`,
+      slug: lockedPageEnumSlugs.etAffiliates,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Every Tuesday Affiliate Asset Downloads`,
+      desc: `Every Tuesday Affiliate Asset Downloads for cross promotions.`,
+      slug: lockedPageEnumSlugs.etAffiliates,
+    })
+  },
+  [lockedPageEnumSlugs.lfmAffiliates]: {
+    page: getStaticPageMeta({
+      title: `Learn Font Making Affiliate Asset Downloads`,
+      desc: `Learn Font Making Affiliate Asset Downloads`,
+      slug: lockedPageEnumSlugs.lfmAffiliates,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Learn Font Making Affiliate Asset Downloads`,
+      desc: `Learn Font Making Affiliate Asset Downloads`,
+      slug: lockedPageEnumSlugs.lfmAffiliates,
+    })
+  },
 }
 
 type MetaMembers = (args: {

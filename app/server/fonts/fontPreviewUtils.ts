@@ -2,7 +2,7 @@ import text2png from 'text2png'
 import tuesdayFont from './tuesday/tuesdayscript-regular-webfont.ttf'
 import skinnyJeansScript from './skinny-jeans/SkinnyJeans-Script.woff'
 import skinnyJeansCaps from './skinny-jeans/SkinnyJeans-Caps.woff'
-import skinnyJeansSymbols from './skinny-jeans/SkinnyJeans-Symbols.woff'
+import skinnyJeansSymbol from './skinny-jeans/SkinnyJeans-Symbols.woff'
 
 interface ICreateText2Png{
   size: string
@@ -77,18 +77,7 @@ export function createUpperLowercaseImages({size, fontFamily, color, lineSpacing
   return images
 }
 
-interface IFontFile {
-  type: string
-  family: string
-  url: string
-}
-interface IFontFamily {
-  name: string
-  files: IFontFile[]
-}
-interface IFontAsset {
-  [id: string]: IFontFamily
-}
+
 export const fontAssets: IFontAsset = {
   'tuesday': {
     name: 'Tuesday Script',
@@ -105,19 +94,20 @@ export const fontAssets: IFontAsset = {
     files: [
       {
         type: 'script',
-        family: 'SkinnyJeans-Script',
+        family: 'skinny',
         url: skinnyJeansScript
       },
       {
         type: 'caps',
-        family: 'SkinnyJeans-Caps',
+        family: 'skinny-caps',
         url: skinnyJeansCaps
       },
-      // {
-      //   type: 'symbols',
-      //   family: 'skinny-symbols',
-      //   url: skinnyJeansSymbols
-      // }
+      {
+        type: 'symbols',
+        family: 'skinny-symbols',
+        url: skinnyJeansSymbol
+
+      },
     ]
   }
 }

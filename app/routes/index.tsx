@@ -14,7 +14,7 @@ import { getSession } from '~/sessions.server'
 import { createCanvas, Image, registerFont } from "canvas";
 import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
 import text2png from 'text2png'
-import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils.server";
+import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils";
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {

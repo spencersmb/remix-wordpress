@@ -3,9 +3,8 @@ import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import { Layout } from "~/root";
 import { fetchAPI } from "~/utils/fetch";
-import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
-import { getHtmlMetadataTags } from "~/utils/seo";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 
 type IndexData = {
@@ -13,27 +12,11 @@ type IndexData = {
   demos: Array<{ name: string; to: string }>;
 };
 
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  const page = getStaticPageMeta({
-    title: `Blog - Every-Tuesday`,
-    desc: `Get the most up-to-date content on Procreate`,
-    slug: `blog`,
-  })
-
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    page: page,
-    location
-  })
-};
+export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
+  title: `Blog - Every-Tuesday`,
+  desc: `Get the most up-to-date content on Procreate`,
+  slug: `blog`,
+}))
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
@@ -52,7 +35,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
       after: null
     }
   }
-
 
   let data: IndexData = {
     resources: [
@@ -104,6 +86,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
     page: page ? parseInt(page, 10) : 1
   }
 };
+
 function BlogIndex() {
   let data = useLoaderData<any>();
   console.log('Blog Index data', data)

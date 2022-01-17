@@ -90,7 +90,7 @@ export let action: ActionFunction = async ({ request, params }) => {
 
 const LockePageLogin = () => {
   let data = useLoaderData();
-  console.log('data', data);
+  console.log('locked page data', data);
   let transition = useTransition()
   let actionData = useActionData<PasswordActionData | undefined>();
 

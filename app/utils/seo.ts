@@ -1,6 +1,9 @@
 import { defaultSeoImages } from '../lib/wp/site'
 import { Location } from 'history'
-import { defaultFeaturedImage } from './pageUtils'
+import { defaultFeaturedImage, getStaticPageMeta } from './pageUtils'
+import { AppData } from 'remix'
+import { RouteData } from '@remix-run/react/routeData'
+import { Params } from 'react-router'
 
 function createOgImages(image: IOgImageType) {
   return {
@@ -113,4 +116,38 @@ export function getHtmlMetadataTags({
   return {
     ...metadataTags
   };
+}
+
+interface IBasicPageMetaTags{
+  data: AppData;
+  parentsData: RouteData;
+  params: Params;
+  location: Location;
+}
+interface IBasicPageInfo {
+  title: string,
+  desc: string
+  slug: string
+}
+type IgetBasicPageMetaTags = (metaData: IBasicPageMetaTags, pageData:IBasicPageInfo) => void
+export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc, slug} ) => {
+    const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  const page = getStaticPageMeta({
+    title,
+    desc,
+    slug
+  })
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    page,
+    location
+  })
 }

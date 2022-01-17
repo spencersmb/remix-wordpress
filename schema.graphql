@@ -2784,19 +2784,8 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "Connection between the Post type and the Post type"
-    relatedPosts(
-        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
-        after: String,
-        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
-        before: String,
-        "The number of items to return after the referenced \"after\" cursor"
-        first: Int,
-        "The number of items to return before the referenced \"before\" cursor"
-        last: Int,
-        "Arguments for filtering the connection"
-        where: RelatedPostsConnectionWhereArgs
-    ): RelatedPostsConnection
+    "Related Object"
+    relatedPosts: [Post]
     "If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node."
     revisionOf: NodeWithRevisionsToContentNodeConnectionEdge
     "Connection between the post type and the post type"
@@ -3516,6 +3505,7 @@ type Product_Details implements AcfFieldGroup {
     licences: [Product_Details_licences]
     "Add Product Price"
     price: String
+    type: String
     "Add Youtube link here"
     youtube: Product_Details_Youtube
     "Add Youtube link here"
@@ -3556,9 +3546,9 @@ type Product_Details_fonts_styles implements AcfFieldGroup {
 type Product_Details_licences implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
-    gumroadUrl: String
     licenseType: String
     price: Float
+    url: String
 }
 
 "Field Group"
@@ -3604,24 +3594,6 @@ type RegisterUserPayload {
     clientMutationId: String
     "The User object mutation type."
     user: User
-}
-
-"Connection between the Post type and the Post type"
-type RelatedPostsConnection {
-    "Edges for the RelatedPostsConnection connection"
-    edges: [RelatedPostsConnectionEdge]
-    "The nodes of the connection, without the edges"
-    nodes: [Post]
-    "Information about pagination in a connection."
-    pageInfo: WPPageInfo
-}
-
-"An edge in a connection"
-type RelatedPostsConnectionEdge {
-    "A cursor for use in pagination"
-    cursor: String
-    "The item at the end of the edge"
-    node: Post
 }
 
 "The payload for the removeFromWishlist mutation"
@@ -9251,12 +9223,6 @@ input RegisterUserInput {
     websiteUrl: String
     "User's Yahoo IM account."
     yim: String
-}
-
-"Arguments for filtering the RelatedPostsConnection connection"
-input RelatedPostsConnectionWhereArgs {
-    "Override's YARPP setting's \"Maximum number of related posts.\" The maximum number is 20."
-    limit: Int
 }
 
 "Input for the removeFromWishlist mutation"

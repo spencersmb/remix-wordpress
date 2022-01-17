@@ -8,6 +8,7 @@ import { getGraphQLString } from './graphqlUtils';
 import { CREATE_COMMENT } from '~/lib/graphql/mutations/comments';
 
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
+const root_url = (typeof window !== "undefined" ? window.ENV.APP_ROOT_URL : process.env.APP_ROOT_URL) as string
 // const api_url = 'https://etheadless.local/graphql/'
 // console.log(api_url);
 
@@ -321,7 +322,7 @@ Font File fetch
 export async function fetchFontPreviewFile(fontName: string){
 
   // const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
-  const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
+  const url = `${root_url}/api/font/file?font=${fontName}`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {

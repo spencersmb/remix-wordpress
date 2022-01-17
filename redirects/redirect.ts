@@ -2,6 +2,9 @@ export const manualRedirectLinks = {
   links: {
       /*
        * LOCKED PAGES
+        Step 1: Edit lockedPageEnumSlugs in app/enums/lockedPages
+        Step 2: Edit utils/lockedPagesUtils for metaData
+        Step 3: add DownloadGrid in wp Backend
        */
       'bl': {
         title: 'Beautiful Lettering Class Bonuses',
@@ -28,6 +31,16 @@ export const manualRedirectLinks = {
         redirectTo: 'class-downloads/procreate-watercolor-bonuses',
         status: 301
       },
+      'et-affiliates': {
+        title: 'Every Tuesday Affiliate Downloads',
+        redirectTo: 'class-downloads/et-affiliates',
+        status: 301
+      },
+      'lfm-affiliates': {
+        title: 'Learn Font Making Affiliate Downloads',
+        redirectTo: 'class-downloads/lfm-affiliates',
+        status: 301
+      },
       
       /*
        * Learn Font Making: Mini-Course
@@ -50,6 +63,11 @@ export const manualRedirectLinks = {
       'the-simple-tools-i-use-to-create-and-sell-hand-lettered-fonts':{
         title: 'The Tools',
         redirectTo: 'learn-font-making/mini-course/video-3',
+        status: 301
+      },
+      'vectorize-lettering-font-making':{
+        title: 'How to Vectorize Lettering for Font Making',
+        redirectTo: 'learn-font-making/launch-videos/vectorize-your-lettering',
         status: 301
       }
   }

@@ -353,7 +353,7 @@ export const PrimaryNav = () => {
         {primaryMenu.map((menuItem) => {
           return (
             <li key={menuItem.id}>
-              <Link to={menuItem.path}>{menuItem.label}</Link>
+              <Link to={menuItem.path} prefetch="intent">{menuItem.label}</Link>
             </li>
           )
           // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;

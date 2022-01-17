@@ -4,4 +4,6 @@ export enum lockedPageEnumSlugs {
   procreate5x = '5x-bonuses',
   procreateFlorals = 'florals-bonuses',
   procreateWatercolors = 'procreate-watercolor-bonuses',
+  etAffiliates = 'et-affiliates',
+  lfmAffiliates = 'lfm-affiliates',
 }

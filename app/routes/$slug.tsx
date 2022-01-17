@@ -162,6 +162,10 @@ query postBySlug($slug: String!) {
                 uri
             }
         }
+        relatedPosts {
+          title
+          slug
+        }
         etSocialNav{
             pinterestImage{
                 sourceUrl
