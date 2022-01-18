@@ -321,7 +321,6 @@ Font File fetch
 */
 export async function fetchFontPreviewFile(fontName: string){
 
-  // const url = `${process.env.APP_ROOT_URL}/api/font/file?font=${fontName}`;
   const url = `${root_url}/api/font/file?font=${fontName}`;
   const res = await fetch(url, {
     method: 'GET',

@@ -3,7 +3,7 @@ declare enum LicenseEnum {
   EXTENDED = 'extended',
   SERVER = 'server'
 }
-interface IFont {
+interface IProductFont {
   name: string
   styles: { name: string }[]
 }
@@ -16,10 +16,12 @@ interface IProduct {
   title: string
   slug: string
   details: {
-    fonts: IFont[]
+    fonts: IProductFont[]
   }
   licences: ILicense[]
   youtube: {
     url: string
   }
 }
+
+

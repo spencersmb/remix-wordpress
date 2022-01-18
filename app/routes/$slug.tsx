@@ -84,7 +84,7 @@ export default function PostSlug() {
         {post.categories.length > 0 && <div>
           <h2>Categories</h2>
           <ul>
-            {post.categories.map(cat => <li key={cat.id}><Link to={`/category/${cat.slug}`}>{cat.name}</Link></li>)}
+            {post.categories.map(cat => <li key={cat.id}><Link prefetch="intent" to={`/category/${cat.slug}`}>{cat.name}</Link></li>)}
           </ul>
         </div>}
         <MakersPostSignUp />

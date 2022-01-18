@@ -77,40 +77,6 @@ export function createUpperLowercaseImages({size, fontFamily, color, lineSpacing
   return images
 }
 
-
-export const fontAssets: IFontAsset = {
-  'tuesday': {
-    name: 'Tuesday Script',
-    files: [
-      {
-        type: 'regular',
-        family: 'tuesday',
-        url: tuesdayFont
-      }
-    ]
-  },
-  'skinny':{
-    name: 'Skinny Jeans',
-    files: [
-      {
-        type: 'script',
-        family: 'skinny',
-        url: skinnyJeansScript
-      },
-      {
-        type: 'caps',
-        family: 'skinny-caps',
-        url: skinnyJeansCaps
-      },
-      {
-        type: 'symbols',
-        family: 'skinny-symbols',
-        url: skinnyJeansSymbol
-
-      },
-    ]
-  }
-}
 interface IRegisteredFont {
   [id: string]: {
     name: string

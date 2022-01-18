@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { useEffect } from "react";
-import { HeadersFunction, json, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { useFonts } from "~/hooks/useFonts";
 import { Layout } from "~/root";
 import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch";
@@ -42,57 +42,24 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   console.log('data', data);
-  const { fontLoadingState } = useFonts('skinny')
-  // useEffect(() => {
-  //   async function loadFonts() {
-  //     try {
-  //       const data: { font: IFontFamily } = await fetchFontPreviewFile('skinny')
-  //       console.log('data', data);
-
-  //       let myFonts: FontFace[] = []
-  //       data.font.files.map((file) => {
-  //         const fontUrl = `.${file.url}`
-  //         myFonts.push(new FontFace(file.family, `url(${fontUrl})`))
-  //       })
-
-  //       myFonts.forEach(async (item) => {
-  //         try {
-  //           const promise = await item.load()
-  //           document.fonts.add(promise)
-  //         } catch (e) {
-  //           console.error('Font Loading error', e);
-  //         }
-  //       })
-  //     } catch (e) {
-  //       console.error('Font Loading Error', e)
-  //     }
-
-  //     // Promise.all(myFontsPromise).then(fontRes => {
-  //     //   console.log('fontRes', fontRes);
-  //     //   fontRes.map(font => {
-  //     //     document.fonts.add(font)
-  //     //   })
-  //     // })
-  //     // const myFont = new FontFace('skinny', `url(./${fonts.font.files[0].url})`);
-  //     // const loadedFont = await myFont.load()
-  //     // document.fonts.add(loadedFont);
-  //     // console.log('Font loaded', loadedFont);
-  //     // console.log('myFont', myFont);
-  //   }
-  //   const font = loadFonts();
-
-
-  //   // const myFont = new FontFace('skinny', 'url()');
-  // }, [])
+  const { fontLoadingState } = useFonts('cornerbakery')
+  console.log('fontLoadingState', fontLoadingState);
 
   return (
     <Layout>
       PRODUCTS PAGE
-      {fontLoadingState === 'completed' && <>
-        <h1 style={{ fontFamily: 'skinny' }}>Products</h1>
-        <h1 style={{ fontFamily: 'skinny-caps' }}>Products</h1>
-        <h1 style={{ fontFamily: 'skinny-symbols' }}>Products</h1>
-      </>}
+      {
+        fontLoadingState.status === 'completed' && fontLoadingState.font?.files.map(font => {
+          return (
+            <h1 key={font.family} style={{ fontFamily: font.family }}>Products</h1>
+          )
+        })
+      }
+      <ul>
+        {data.products.map((product: IProduct) => (<li key={product.slug}>
+          <Link prefetch="intent" to={`/products/${product.slug}`} >{product.title}</Link>
+        </li>))}
+      </ul>
     </Layout>
   )
 }

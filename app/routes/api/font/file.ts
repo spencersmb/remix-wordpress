@@ -1,15 +1,22 @@
-import { registerFont } from "canvas";
 import { json, LoaderFunction } from "remix";
-import { createAlphabetImages, createFontTitle, createNumberImages, createUpperLowercaseImages, fontAssets, registeredFonts } from "~/server/fonts/fontPreviewUtils";
 import skinnyJeansScript from '../../../server/fonts/skinny-jeans/SkinnyJeans-Script.woff'
 import skinnyJeansCaps from '../../../server/fonts/skinny-jeans/SkinnyJeans-Caps.woff'
 import skinnyJeansSymbols from '../../../server/fonts/skinny-jeans/SkinnyJeans-Symbols.woff'
+import tuesdayFont from '../../../server/fonts/tuesday/tuesdayscript-regular-webfont.woff'
+import missMagnolia from '../../../server/fonts/miss-magnolia/MissMagnolia-Regular.woff'
+import honeymoon from '../../../server/fonts/honeymoon/honeymoon-regular-webfont.woff'
+import hawthorne from '../../../server/fonts/hawthorne/HawthorneScript-Regular.woff'
+import espresso from '../../../server/fonts/espresso-roast/EspressoRoast-Script.woff'
+import espressoCaps from '../../../server/fonts/espresso-roast/EspressoRoast-Caps.woff'
+import espressoSymbols from '../../../server/fonts/espresso-roast/EspressoRoast-Symbols.woff'
+import cornerBakery from '../../../server/fonts/cornerbakery/CornerBakery-Regular.woff'
+
+import { FontPreviewName } from "~/enums/fonts";
 
 export let loader: LoaderFunction = async({request, params}) => {
   const url = new URL(request.url)
   
   const fontSlug = url.searchParams.get('font')
-  // const fontStyle = url.searchParams.get('style')
 
   if(!fontSlug){
     return {
@@ -20,7 +27,6 @@ export let loader: LoaderFunction = async({request, params}) => {
   }
   
   const font = fontAssetsFile[fontSlug]
-  // const font = registeredFonts[fontSlug]
 
   if(!font){
     return {
@@ -29,96 +35,25 @@ export let loader: LoaderFunction = async({request, params}) => {
         }
       }
   }
-  // registerFont(`./${font.styles[fontStyle].url}`, { family: `${font.styles[fontStyle].family}`})
-
-  // let fontImages = {
-  //   alphabet: createAlphabetImages({
-  //     size: '24px',
-  //     fontFamily: font.styles[fontStyle].family,
-  //     color: 'linen',
-  //     lineSpacing: 10,
-  //     padding: 20
-  //   }),
-  //   numbers: createNumberImages({
-  //     size: '24px',
-  //     fontFamily: font.styles[fontStyle].family,
-  //     color: 'linen',
-  //     lineSpacing: 10,
-  //     padding: 20
-  //   }),
-  //   upperLower: createUpperLowercaseImages({
-  //     size: '90px',
-  //     fontFamily: font.styles[fontStyle].family,
-  //     color: 'linen',
-  //     lineSpacing: 10,
-  //     padding: 20
-  //   })
-  // }
-
-  // registerFont(`./${skinnyJeansScript}`, { family: 'SkinnyJeans-Script' })
-  // registerFont(`./${skinnyJeansCaps}`, { family: 'SkinnyJeans-Caps', style:"caps" })
-  let fontImages: any = {}
-  // font.files.forEach(file => {
-  //   // registerFont(`./${file.url}`, { family: `${file.family}` })
-  // })
-  // font.files.forEach(file => {
-  //   console.log('file.family', file.family);
-  //   console.log('file.type', file.type);
-  //   console.log('file.ulr', file.url)
-
-  //   fontImages['title'] = createFontTitle({
-  //     title: font.name,
-  //     size: '60px',
-  //     fontFamily: fontSlug,
-  //     color: 'linen',
-  //     lineSpacing: 10,
-  //     padding: 20
-  //   })
-    
-  //   fontImages[file.type] = {
-  //     alphabet: createAlphabetImages({
-  //       size: '24px',
-  //       fontFamily: file.family,
-  //       color: 'linen',
-  //       lineSpacing: 10,
-  //       padding: 20
-  //     }),
-  //     numbers: createNumberImages({
-  //       size: '24px',
-  //       fontFamily: file.family,
-  //       color: 'linen',
-  //       lineSpacing: 10,
-  //       padding: 20
-  //     }),
-  //     upperLower: createUpperLowercaseImages({
-  //       size: '90px',
-  //       fontFamily: file.family,
-  //       color: 'linen',
-  //       lineSpacing: 10,
-  //       padding: 20
-  //     })
-  //   }
-  // })
-    
+  
   return json({
-    font,
-    fontImages
+    font
   })
 }
 
 
 const fontAssetsFile: IFontAsset = {
-  // 'tuesday': {
-  //   name: 'Tuesday Script',
-  //   files: [
-  //     {
-  //       type: 'regular',
-  //       family: 'tuesday',
-  //       url: tuesdayFont
-  //     }
-  //   ]
-  // },
-  'skinny':{
+  [FontPreviewName.TUESDAY]: {
+    name: 'Tuesday Script',
+    files: [
+      {
+        type: 'regular',
+        family: 'tuesday',
+        url: tuesdayFont
+      }
+    ]
+  },
+  [FontPreviewName.SKINNYJEANS]:{
     name: 'Skinny Jeans',
     files: [
       {
@@ -138,5 +73,65 @@ const fontAssetsFile: IFontAsset = {
 
       },
     ]
-  }
+  },
+  [FontPreviewName.MISSMAGNOLIA]: {
+    name: 'Miss Magnolia',
+    files: [
+      {
+        type: 'regular',
+        family: 'miss-magnolia',
+        url: missMagnolia
+      }
+    ]
+  },
+  [FontPreviewName.HONEYMOON]: {
+    name: 'Honeymoon',
+    files: [
+      {
+        type: 'regular',
+        family: 'honeymoon',
+        url: honeymoon
+      }
+    ]
+  },
+  [FontPreviewName.HAWTHORNE]: {
+    name: 'Hawthorne',
+    files: [
+      {
+        type: 'regular',
+        family: 'hawthorne',
+        url: hawthorne
+      }
+    ]
+  },
+  [FontPreviewName.ESPRESSOROAST]: {
+    name: 'Espresso Roast',
+    files: [
+      {
+        type: 'script',
+        family: 'espresso',
+        url: espresso
+      },
+      {
+        type: 'caps',
+        family: 'espresso-caps',
+        url: espressoCaps
+      },
+      {
+        type: 'symbols',
+        family: 'espresso-symbols',
+        url: espressoSymbols
+      },
+    ]
+  },
+  [FontPreviewName.CORNERBAKERY]: {
+    name: 'Corner Bakery',
+    files: [
+      {
+        type: 'regular',
+        family: 'cornerbakery',
+        url: cornerBakery
+      },
+    ]
+  },
 }
