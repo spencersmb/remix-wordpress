@@ -80,7 +80,10 @@ export default function PostSlug() {
     <Layout>
       <div>
         <h1>{post.title}</h1>
+        <div>insert Date / author</div>
+        <div>insert featured image</div>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+
         {post.categories.length > 0 && <div>
           <h2>Categories</h2>
           <ul>

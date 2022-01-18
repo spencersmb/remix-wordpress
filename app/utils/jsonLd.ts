@@ -59,7 +59,7 @@ export function jsonldWebpage (props: IjsonldWebpage) {
 }
 
 export function jsonldBlog (props: IJsonldBlog): string{
-  const {url, title} = props
+  const {url, title, dateModified, datePublished, description} = props
   return `
   {
     "@context": "https://schema.org",
@@ -72,16 +72,44 @@ export function jsonldBlog (props: IJsonldBlog): string{
     "image": [
       "https://res.cloudinary.com/every-tuesday/images/f_auto,q_auto/v1633831040/create-a-cute-notebook-icon-in-adobe-illustrator/create-a-cute-notebook-icon-in-adobe-illustrator.jpg?_i=AA"
      ],
-    "datePublished": "2019-02-26T13:01:10+00:00",
-    "dateModified": "2021-10-10T01:57:58+00:00",
+    "datePublished": "${dateModified}",
+    "dateModified": "${datePublished}",
     "author": {"@type": "Person","name": "Teela"},
-    "description": "Create a cute vector notebook icon in Adobe Illustrator in this week's video tutorial, perfect for Illustrator beginners!"
+    "description": "${description}"
+  }
+  `
+}
+
+export function jsonldProduct (props: IJsonldProduct): string{
+  const {url, product} = props
+  
+  return `
+  {
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "@id": "${product.id}",
+  "url": "${url}",
+  "name": "${product.title}",
+  "image": "${product.featuredImage.node.sourceUrl}",
+  "description": "${product.seo.metaDesc}",
+  "brand": {
+    "name": "Every Tuesday"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "{{ shop.currency }}",
+    "price": "{{ current_variant.price | money_without_currency }}",
+    "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ shop.name }}"
+    }
   }
   `
 }
 
 export function jsonldPerson (props: IjsonldPersonProps) {
-  const {avatarUrl, domain, description} = props
+  const {author, domain, description} = props
   return `{
           "@context": "https://schema.org",
           "@type": "Person",
@@ -91,8 +119,8 @@ export function jsonldPerson (props: IjsonldPersonProps) {
           "@type": "ImageObject",
           "@id": "${domain}/#personlogo",
           "inLanguage": "en-US",
-          "url": "${avatarUrl}",
-          "contentUrl": "${avatarUrl}",
+          "url": "${author.avatar.url}",
+          "contentUrl": "${author.avatar.url}",
           "caption": "Teela"
         },
         "description": "${description}"

@@ -142,26 +142,30 @@ export function getWPMenu(resourceUser: string | null){
     ],
   }
 }
-
-export const metadata: any = {
+export const siteAuthor = {
+  author: {
+    avatar: {
+      height: 96,
+      url: "https://secure.gravatar.com/avatar/64857a955396b7ae5131db1265407d77?s=96&d=mm&r=g",
+      width: 96
+    },
+    id: "dXNlcjox",
+    name: "Teela",
+    slug: "teelac"
+  }
+}
+export const metadata: ISiteMetaDataStarter = {
   generalSettings: {
     description: "Graphic Design Tips, Tricks, Tutorials and Freebies",
     language: "En",
-    title: "Every-Tuesday"
+    title: "Every-Tuesday",
+    shopPlatform: "gumroad",
+    author: siteAuthor.author
   },
   seo: {
-    webmaster: {
-      yandexVerify: "",
-      msVerify: "",
-      googleVerify: "",
-      baiduVerify: ""
-    },
     social: {
       youTube: {
         url: "http://youtube.com/everytues"
-      },
-      wikipedia: {
-        url: ""
       },
       twitter: {
         username: "teelacunningham",
@@ -170,12 +174,6 @@ export const metadata: any = {
       pinterest: {
         metaTag: "",
         url: "http://pinterest.com/teelac"
-      },
-      mySpace: {
-        url: ""
-      },
-      linkedIn: {
-        url: ""
       },
       instagram: {
         url: "http://instagram.com/everytuesday"
@@ -195,88 +193,37 @@ export const metadata: any = {
   },
 }
 
-export function getWPMetadata(domain: string) {
+function mapSocialMetaData(social: ISiteSocialStarter): ISiteSocialMapped{
 
-  const { generalSettings } = metadata;
+  return {
+    youtube: social.youTube.url,
+    instagram: social.instagram.url,
+    twitter: {
+      url: `https://twitter.com/${social.twitter.username}`,
+      cardType: social.twitter.cardType,
+      username: social.twitter.username
+    },
+    facebook: social.facebook.url,
+    pinterest: social.pinterest.url
+  }
 
-  let { title, description, language } = generalSettings;
+}
+export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
+  const { generalSettings, seo } = metadata;
 
-  const settings: any = {
-    domain: domain,
-    title,
+  let { title, description, language, shopPlatform, author} = generalSettings;
+
+  let social = mapSocialMetaData(seo.social)
+
+  return {
+    title: decodeHtmlEntities(title),
     siteTitle: title,
     description,
-    language: '',
-    social: {}
-  };
-
-  // It looks like the value of `language` when US English is set
-  // in WordPress is empty or "", meaning, we have to infer that
-  // if there's no value, it's English. On the other hand, if there
-  // is a code, we need to grab the 2char version of it to use ofr
-  // the HTML lang attribute
-
-  if (!language || language === '') {
-    settings.language = 'en';
-  } else {
-    settings.language = language.split('_')[0];
-  }
-
-  const { webmaster, social } = metadata.seo;
-
-  if (social) {
-    settings.social = {}
-
-    Object.keys(social).forEach((key) => {
-      const { url } = social[key];
-      const keysArray = Object.keys(social[key])
-
-      if(key === 'twitter' && settings.social){
-        settings.social[key] = {
-          url: `https://twitter.com/${social.twitter.username}`,
-          username: social.twitter.username,
-          cardType: social.twitter.cardType,
-        }
-        return
-      }
-
-      if(key === 'pinterest' && settings.social){
-        settings.social[key] = url;
-        return
-      }
-
-      if (!url || key === '__typename') return;
-
-      if(keysArray.length > 2 ){
-        settings.social[key] = {
-          ...social[key]
-        }
-        return
-      }
-      settings.social[key] = url;
-
-    });
-  }
-
-  if (webmaster) {
-    settings.webmaster = {};
-
-    Object.keys(webmaster).forEach((key) => {
-      if (!webmaster[key] || key === '__typename') return;
-      settings.webmaster[key] = webmaster[key];
-    });
-  }
-
-  settings.title = decodeHtmlEntities(settings.title);
-
-  return settings;
-}
-export const defaultSeoImages = {
-  generic: {
-    url: '',
-    altText: '',
-    width: 123,
-    height: 123
+    domain,
+    language,
+    shopPlatform,
+    social,
+    author
   }
 }
 

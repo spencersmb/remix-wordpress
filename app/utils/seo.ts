@@ -1,9 +1,10 @@
-import { defaultSeoImages } from '../lib/wp/site'
 import { Location } from 'history'
 import { defaultFeaturedImage, getStaticPageMeta } from './pageUtils'
 import { AppData } from 'remix'
 import { RouteData } from '@remix-run/react/routeData'
 import { Params } from 'react-router'
+import { getProductStdPrice, getStandardLicense } from './productPageUtils'
+import { formatePrice } from './priceUtils'
 
 function createOgImages(image: IOgImageType) {
   return {
@@ -26,12 +27,13 @@ export function getHtmlMetadataTags({
   metadata, 
   post, 
   page, 
+  product,
   location
 }: IGetMetaTagsFunction & {location: Location}){
 
   let defaultImage = {
-    altText: defaultSeoImages.generic.altText,
-    url: defaultSeoImages.generic.url,
+    altText: defaultFeaturedImage.altText,
+    url: defaultFeaturedImage.sourceUrl,
     height: '1920',
     width: '1080'
   }
@@ -45,7 +47,7 @@ export function getHtmlMetadataTags({
     canonical: url,
     'og:locale': 'en_US',
     'og:title': metadata.title,
-    'og:site_name': metadata.siteTitle,
+    'og:site_name': `${metadata.siteTitle}.com`,
     'og:type': 'website',
     'og:description': metadata.description,
     ...createOgImages(defaultImage),
@@ -110,6 +112,32 @@ export function getHtmlMetadataTags({
       'twitter:data1': `Teela`,
       'twitter:label2': `Est. reading time`,
       'twitter:data2': `1 minute`,
+    }
+  }
+
+  if(product){
+    const price = getProductStdPrice(product, metadata.shopPlatform)
+    metadataTags = {
+      ...metadataTags,
+      title: product.seo.title,
+      description: product.seo.metaDesc,
+      canonical: url,
+      'og:title': product.seo.title,
+      'og:description': product.seo.metaDesc,
+      ...createOgImages({
+        altText: product.featuredImage?.node.altText || defaultFeaturedImage.altText,
+        url: product.featuredImage?.node.sourceUrl || defaultFeaturedImage.sourceUrl,
+        width:'1920',
+        height: '1080'
+      }),
+      // TODO: Replace with getter fn to get images and check if we are doing shopify or internal
+      'og:image:secure_url': [
+        'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-1_1200x1200.jpg?v=1622432040',
+        'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-2_1200x1200.jpg?v=1622432054'
+      ],
+      'og:price:currency': 'USD',
+      'og:price:amount': price,
+      'og:price:amount_currency': formatePrice(price)
     }
   }
 

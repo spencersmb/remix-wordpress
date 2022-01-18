@@ -7,7 +7,19 @@ interface IMetaTagProperty {
   property: string
   content: string
 }
-
+interface IAuthor {
+  avatar: {
+    height: number
+    url: string
+    width: number
+  }
+  id: string
+  name: string,
+  slug: string
+}
+interface ISiteAuthor {
+  author: IAuthor
+}
 interface IjsonldWebpage {
   pageUrl: string
   title: string
@@ -20,7 +32,7 @@ interface IjsonldWebpage {
 interface IjsonldPersonProps {
   domain: string
   description: string
-  avatarUrl: string
+  author: IAuthor
 }
 
 interface IjsonldWebProps {
@@ -47,6 +59,13 @@ interface IJsonldBlog {
   author: string
   description: string
   title: string
+}
+
+interface IJsonldProduct {
+  url: string
+  images: string[]
+  product: IProduct,
+  shopPlatform: string
 }
 
 interface ISocialTwitter {
@@ -79,9 +98,9 @@ interface IMetaData {
   description: string
   language: string
   social: ISocialSettings
-  webmaster?: any
   seo?: any
 }
+
 
 interface IBreadcrumb {
   position: number,
@@ -94,9 +113,10 @@ interface IBreadcrumbList {
 }
 
 interface IGetMetaTagsFunction{
-  metadata: IMetaData
+  metadata: ISiteMetaDataMapped
   post?: IPost
   page?: IPage
+  product? : IProduct
   follow?: boolean
 }
 interface IOgImageType{
@@ -110,4 +130,86 @@ interface IOgArticle {
   modifiedTime: string
   author: string
   tags: {name: string}[]
+}
+
+interface ISocialOptionA {
+  url: string
+}
+interface ISocialOptionB {
+  username: string
+  cardType: string
+}
+
+interface ISocialOptionC {
+  metaTag: string
+  url: string
+}
+
+interface ISocialOptionD {
+  url: string
+  defaultImage: {
+    altText: string
+    sourceUrl: string
+    mediaDetails: {
+      height: number,
+      width: number
+    }
+  }
+}
+interface ISiteSocialStarter {
+  youTube: {
+    url: string
+  },
+  twitter: {
+    username: string
+    cardType: string
+  },
+  pinterest: {
+    metaTag: string
+    url: string
+  },
+  instagram: {
+    url: string
+  },
+  facebook: {
+    url: string
+    defaultImage: {
+      altText: string
+      sourceUrl: string
+      mediaDetails: {
+        height: number,
+        width: number
+      }
+    }
+  }
+}
+interface ISiteMetaDataStarter {
+    generalSettings: {
+      description: string
+      language: string
+      title: string
+      shopPlatform: string
+      author: IAuthor
+    },
+  seo: {
+    social: ISiteSocialStarter
+  },
+}
+interface ISiteSocialMapped{
+  twitter: ISocialTwitter
+  facebook: string
+  pinterest: string
+  instagram: string
+  youtube: string
+}
+interface ISiteMetaDataMapped {
+  title: string
+  domain: string
+  siteTitle: string
+  description: string
+  language: string
+  social: ISiteSocialMapped
+  shopPlatform: string
+  author: IAuthor
+  seo?: any
 }

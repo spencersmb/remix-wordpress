@@ -8,19 +8,33 @@ interface IProductFont {
   styles: { name: string }[]
 }
 interface ILicense {
-  gumroadUrl: string
   licenseType: LicenseEnum
+  url: string
   price: number
 }
 interface IProduct {
+  id: string
   title: string
   slug: string
-  details: {
-    fonts: IProductFont[]
+  featuredImage: {
+    node: IFeaturedImage
   }
-  licences: ILicense[]
-  youtube: {
-    url: string
+  details: {
+    // fonts: IProductFont[]
+    licences: ILicense[]
+    youtube: {
+      url: string
+    }
+  }
+  seo: IPostSeo & {
+    schema: {
+      raw: string
+    }
+    opengraphImage: {
+      id: string
+      altText: string
+      sourceUrl: string
+    }
   }
 }
 

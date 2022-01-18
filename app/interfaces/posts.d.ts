@@ -11,11 +11,13 @@ interface ICategoryRaw {
 
 interface IFeaturedImage {
   altText: string
-  caption: string
   id: string
   sizes: string
   sourceUrl: string
   srcSet: null | string[]
+  mediaDetails: {
+    sizes: {sourceUrl: string}[]
+  }
 }
 
 interface IFeaturedImageNode {

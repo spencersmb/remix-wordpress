@@ -12,12 +12,11 @@ import {
   useLocation, useMatches
 } from 'remix'
 import type { LinksFunction } from "remix";
-
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
 import useSite, { SiteContext, siteInitialState } from './hooks/useSite'
-import { defaultSeoImages, getWPMenu, getWPMetadata } from './lib/wp/site'
+import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
 import { Provider } from 'react-redux'
@@ -27,6 +26,7 @@ import {
   jsonldBlog,
   jsonldImageObject,
   jsonldPerson,
+  jsonldProduct,
   jsonldWebpage,
   jsonLdWebsite
 } from './utils/jsonLd'
@@ -50,6 +50,7 @@ import UseCartProvider from "./hooks/useCart/useCartProvider";
 import { createCart, getUserCart } from "./utils/cartUtils";
 import { shopifyCartCookie } from "./cookies.server";
 import { fetchInitialState } from "./hooks/useFetchPagination";
+import { defaultFeaturedImage } from "./utils/pageUtils";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -103,7 +104,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   } : null
 
   // pass in the APP URL to see the correct urls on metaData
-  let metadata = getWPMetadata(process.env.APP_ROOT_URL || 'no url found')
+  let metadata = createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
 
   // Variables to expose to the front end
   let ENV = {
@@ -189,9 +190,17 @@ interface ISelectedMatch {
   data: RouteData;
   handle: any;
 }
-
+interface IRootData {
+  ENV: IEnv
+  cart: IShopifyCart
+  menus: IMenu[]
+  message: string | null
+  metadata: ISiteMetaDataMapped
+  user: IUser
+}
 const JsonLd = () => {
-  let data = useLoaderData<any>();
+  let data = useLoaderData<IRootData>();
+
   if (!data) {
     return (
       <Scripts />
@@ -200,17 +209,23 @@ const JsonLd = () => {
   let { metadata } = data
   let matches = useMatches();
   let location = useLocation();
-  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page)
-  const post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
-  const page: any = selectedMatch?.data?.page
-  const breadcrumbList = [
+  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
+  let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
+  let page: any = selectedMatch?.data?.page
+  let product: any = selectedMatch?.data?.product
+  let breadcrumbList = [
     {
       position: 1,
       name: "Home",
       item: metadata.domain,
     }
   ]
-  let image = defaultSeoImages.generic
+  let image = {
+    url: defaultFeaturedImage.sourceUrl,
+    altText: defaultFeaturedImage.altText,
+    width: 1920,
+    height: 928
+  }
   let jsonWebpageSettings: IjsonldWebpage = {
     title: metadata.title,
     domain: metadata.domain,
@@ -220,10 +235,9 @@ const JsonLd = () => {
 
   if (post) {
     image = {
-      url: post.featuredImage?.sourceUrl || '', // need default image
-      altText: post.featuredImage?.altText || '',
-      width: 1920,
-      height: 928
+      ...image,
+      url: post.featuredImage?.sourceUrl || image.url, // need default image
+      altText: post.featuredImage?.altText || image.altText,
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
@@ -241,7 +255,28 @@ const JsonLd = () => {
     )
   }
 
-  if (page) { }
+  if (page) {
+    image = {
+      ...image,
+      url: page.featuredImage?.sourceUrl || image.url, // need default image
+      altText: page.featuredImage?.altText || image.altText,
+    }
+    jsonWebpageSettings = {
+      ...jsonWebpageSettings,
+      title: page.seo.title,
+      publishTime: page.seo.opengraphPublishedTime,
+      modifiedTime: page.seo.opengraphModifiedTime,
+      description: page.seo.metaDesc,
+    }
+    breadcrumbList.push(
+      {
+        position: 2,
+        name: `${page.title}`,
+        item: `${metadata.domain}${location.pathname}`
+      }
+    )
+
+  }
 
 
   return (
@@ -283,6 +318,18 @@ const JsonLd = () => {
           author: post.author.name,
           description: post.seo.metaDesc,
           title: post.seo.title,
+        })
+      }} />}
+
+      {/*JsonLd Product*/}
+      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: jsonldProduct({
+          url: `${metadata.domain}${location.pathname}`,
+          images: [
+            `${product.featuredImage?.sourceUrl}` // need default image
+          ],
+          product,
+          shopPlatform: metadata.shopPlatform
         })
       }} />}
 

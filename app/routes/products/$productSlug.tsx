@@ -1,9 +1,25 @@
 import { gql } from "@apollo/client";
-import { LoaderFunction, json, useLoaderData } from "remix";
+import { LoaderFunction, json, useLoaderData, MetaFunction } from "remix";
+import { Layout } from "~/root";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
-import { mapPostData } from "~/utils/posts";
+import { getHtmlMetadataTags } from "~/utils/seo";
 
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    product: data.product,
+    location
+  })
+};
 export let loader: LoaderFunction = async ({ params }) => {
   console.log('params', params);
   if (!params.productSlug) {
@@ -33,12 +49,13 @@ export let loader: LoaderFunction = async ({ params }) => {
 };
 export default function ProductPage() {
   const data = useLoaderData()
-  console.log('product data', data);
+  // console.log('product data', data);
 
   return (
-    <div>
+    <Layout>
       Product: {data.product.title}
-    </div>
+      {/* <div dangerouslySetInnerHTML={{ __html: data.product.seo.schema.raw }}></div> */}
+    </Layout>
   )
 }
 
@@ -46,10 +63,17 @@ const query = gql`
   query ProductQuery($slug: String!){
      productBy(slug: $slug) {
       title
+      id
       featuredImage{
         node{
+          sizes
           altText
           sourceUrl
+          mediaDetails {
+            sizes {
+              sourceUrl
+            }
+          }
         }
       }
       details{
@@ -61,6 +85,22 @@ const query = gql`
           price
           url
         }
+      }
+      seo{
+        fullHead
+        metaDesc
+        title
+        opengraphModifiedTime
+        opengraphPublishedTime
+        schema {
+          raw
+        }
+        opengraphImage {
+          id
+          altText
+          sourceUrl
+        }
+        opengraphType
       }
     }
   }

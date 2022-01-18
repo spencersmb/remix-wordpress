@@ -159,7 +159,9 @@ function BlogIndex() {
       <div>
         Featured
         <h2 className="text-blue-500">
-          {featuredPost.title}
+          <Link to={`/${featuredPost.slug}`} prefetch="intent">
+            {featuredPost.title}
+          </Link>
         </h2>
       </div>
       <ul>

@@ -8,10 +8,12 @@ interface StaticPageProps {
 // TODO - get correct DEFAULT URL
 export const defaultFeaturedImage:IFeaturedImage = {
   altText: 'Every Tuesday. The ultimate resource for Procreate digital brushes and online learning.',
-  caption: '',
   id: '311',
   sizes:'',
   srcSet: [],
+  mediaDetails:{
+    sizes:[]
+  },
   sourceUrl: 'https://res.cloudinary.com/every-tuesday/images/v1633831046/peeling-sticker-lettering-effect-procreate/peeling-sticker-lettering-effect-procreate-jpg?_i=AA'
 }
 export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage => {
