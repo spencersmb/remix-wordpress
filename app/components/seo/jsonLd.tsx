@@ -110,15 +110,15 @@ const JsonLd = () => {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
 
       {/*Basic JsonLd Person*/}
-      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} /> */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} />
 
       {/*Basic JsonLd Breadcrumbs*/}
-      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonBreadcrumbsList({
           domain: metadata.domain,
           breadcrumbList
         })
-      }} /> */}
+      }} />
 
       {/*JsonLd Blog*/}
       {/* {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
