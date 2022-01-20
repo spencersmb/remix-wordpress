@@ -101,16 +101,16 @@ function BlogIndex() {
   console.log('Blog Index state', state);
 
   useEffect(() => {
-    if (state.pageInfo.page === 1) {
-      return
-    }
+    // if (state.pageInfo.page === 1) {
+    //   return
+    // }
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', state.pageInfo.page.toString())
+    // const url = new URL(window.location.href);
+    // url.searchParams.set('page', state.pageInfo.page.toString())
 
-    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+    // window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
-    // if page = 4 - means get the first 40 items
+    // // if page = 4 - means get the first 40 items
   }, [state.pageInfo.page])
 
   useEffect(() => {
