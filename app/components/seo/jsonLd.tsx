@@ -96,15 +96,15 @@ const JsonLd = () => {
   return (
     <>
       {/* Basic JsonLd Website */}
-      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} /> */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
 
       {/*Basic JsonLd Image*/}
-      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldImageObject({
           pageUrl: location.pathname,
           image
         })
-      }} /> */}
+      }} />
 
       {/*Basic JsonLd Webpage*/}
       {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} /> */}
