@@ -94,19 +94,22 @@ function FooterPrimary() {
               }
 
               const socialkeys = Object.keys(metadata.social)
+
+
               return (
                 <div key={index} >
                   <h5 className='font-sentinel__SemiBoldItal text-heading-h5'>{block.heading}</h5>
                   {socialkeys.map(key => {
-
-                    //@ts-ignore
-                    switch (metadata[key]) {
+                    console.log('socialKeys', metadata.social[key]);
+                    switch (key) {
                       case 'youtube':
-
-                      default:
                         return (
-                          <li>`no social found</li>
+                          <li key={key}>
+                            <a href={metadata.social[key]} target={'_blank'}>Youtube Icon</a>
+                          </li>
                         )
+                      default:
+                        return null
                     }
                   })}
                 </div>
