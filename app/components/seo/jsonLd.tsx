@@ -96,32 +96,32 @@ const JsonLd = () => {
   return (
     <>
       {/* Basic JsonLd Website */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} /> */}
 
       {/*Basic JsonLd Image*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldImageObject({
           pageUrl: location.pathname,
           image
         })
-      }} />
+      }} /> */}
 
       {/*Basic JsonLd Webpage*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} /> */}
 
       {/*Basic JsonLd Person*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} /> */}
 
       {/*Basic JsonLd Breadcrumbs*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonBreadcrumbsList({
           domain: metadata.domain,
           breadcrumbList
         })
-      }} />
+      }} /> */}
 
       {/*JsonLd Blog*/}
-      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldBlog({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -133,10 +133,10 @@ const JsonLd = () => {
           description: post.seo.metaDesc,
           title: post.seo.title,
         })
-      }} />}
+      }} />} */}
 
       {/*JsonLd Product*/}
-      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldProduct({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -145,7 +145,7 @@ const JsonLd = () => {
           product,
           shopPlatform: metadata.shopPlatform
         })
-      }} />}
+      }} />} */}
 
     </>
   )
