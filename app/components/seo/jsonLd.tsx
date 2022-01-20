@@ -95,7 +95,7 @@ const JsonLd = () => {
 
   return (
     <>
-      Basic JsonLd Website
+      {/* Basic JsonLd Website */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
 
       {/*Basic JsonLd Image*/}

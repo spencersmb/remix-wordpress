@@ -211,7 +211,7 @@ export function Document({ children, title }: IDocument) {
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <Meta />
         <Links />
-        {/* <JsonLd /> */}
+        <JsonLd />
       </head>
       <body>
         {children}
