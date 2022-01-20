@@ -1,12 +1,14 @@
-/*@import 'tailwindcss/base';*/
-/*@import 'tailwindcss/components';*/
-/*@import 'tailwindcss/utilities';*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
+.root,
+:root,
+#docs-root {
   --slateGreen: #486e65;
+  --primary-plum-600: #5e4242;
+  --primary-plum-700: #4c3434;
+  --secondary-500: #c59743;
 }
 
 @font-face {
@@ -44,7 +46,19 @@
   }
   .spencer {
     background: red;
-    @apply relative flex text-center
-        hover:text-blue-500;
+    /* @apply relative flex text-center */
+    /* hover:text-blue-500; */
+  }
+  .btn-underlined {
+    @apply underline underline-offset-4 uppercase;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .container {
+    padding: 0 15px;
+    margin: 0 auto;
+    position: relative;
+    @apply laptop:max-w-[1440px];
   }
 }

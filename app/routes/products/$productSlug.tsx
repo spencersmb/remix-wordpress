@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { LoaderFunction, json, useLoaderData, MetaFunction } from "remix";
-import { Layout } from "~/root";
+import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getHtmlMetadataTags } from "~/utils/seo";
@@ -54,6 +54,9 @@ export default function ProductPage() {
   return (
     <Layout>
       Product: {data.product.title}
+      <div className="text-neutral-50">
+        test
+      </div>
       {/* <div dangerouslySetInnerHTML={{ __html: data.product.seo.schema.raw }}></div> */}
     </Layout>
   )

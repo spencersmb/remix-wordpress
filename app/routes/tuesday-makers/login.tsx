@@ -1,6 +1,5 @@
 import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useMatches, useTransition } from "remix";
-import { v4 } from "uuid";
-import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
+import { createResourceUserSession } from "~/utils/resourceLibrarySession.server";
 import { getHtmlMetadataTags } from "~/utils/seo";
 import { validateEmail } from "~/utils/validation";
 
@@ -17,9 +16,10 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
+  // TODO: REPLACE WITH PAGE Component
   const page: IPage = {
     id: '24',
-    title: 'Resource Library: Login',
+    title: 'Tuesday Makers: Login',
     author: {
       id: '22',
       name: 'Teela',
@@ -34,8 +34,8 @@ export let meta: MetaFunction = (rootData): any => {
     content: '',
     date: '',
     seo: {
-      title: 'Resource Library: Login - Every Tuesday',
-      metaDesc: 'Resource Library members only access with over 200+ assets for free!',
+      title: 'Tuesday Makers: Login - Every Tuesday',
+      metaDesc: 'Tuesday Makers members only access with over 200+ assets for free!',
       fullHead: '',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
@@ -134,7 +134,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   customHeaders.append('Set-Cookie', await sessionStorage)
 
   // Wait to redirect here, pass down the logged in user, so I can add it to context, then redirect.
-  return redirect('/resource-library/members', {
+  return redirect('/tuesday-makers/members', {
     headers: customHeaders,
   })
 
@@ -194,7 +194,7 @@ const ResourceLibraryLogin = () => {
           {transition.state === 'idle' ? 'Login' : '...Loading'}
         </button>
       </Form>
-      {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Resouce Library <Link to={`/resource-library`}>here</Link></p></div>}
+      {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Tuesday Makers Library <Link to={`/tuesday-makers`}>here</Link></p></div>}
     </div>
   )
 }

@@ -53,7 +53,7 @@ export async function logoutResourceLibrary(request: Request) {
   let session = await resourceStorage.getSession(
     request.headers.get("Cookie")
   );
-  return redirect("/resource-library/login", {
+  return redirect("/tuesday-makers/login", {
     headers: {
       "Set-Cookie": await resourceStorage.destroySession(session)
     }

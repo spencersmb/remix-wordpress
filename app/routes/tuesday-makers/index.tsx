@@ -24,6 +24,7 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
+  // TODO: Replace with Page component
   const page: IPage = {
     id: '24',
     title: 'Resource Library',
@@ -70,7 +71,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   const user = await getResourceUserToken(request)
 
   if (user) {
-    return redirect('/resource-library/members')
+    return redirect('/tuesday-makers/members')
   }
 
   const page = {
@@ -168,7 +169,7 @@ const ResourceLibraryHome = () => {
   consoleHelper('data.form !==', data.form)
   return (
     <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
-      <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Resource Library Sign Up</h4>
+      <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Tuesday Makers Sign Up</h4>
       {/*{! isEmpty( errorMessage ) && (*/}
       {/*  <div*/}
       {/*    className="text-red-600"*/}

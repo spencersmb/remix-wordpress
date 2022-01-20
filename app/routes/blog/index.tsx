@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
-import { Layout } from "~/root";
+import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
 import { flattenAllPosts } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";

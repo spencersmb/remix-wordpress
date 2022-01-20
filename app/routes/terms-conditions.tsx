@@ -1,4 +1,4 @@
-import { Layout } from "~/root";
+import Layout from "~/components/layoutTemplates/layout";
 
 export default function TermsConditionPage() {
   return (

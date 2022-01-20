@@ -103,40 +103,6 @@ export function getWPMenu(resourceUser: string | null){
               courses: null
             }
           },
-          {
-            childItems: {
-              edges: []
-            },
-            id: "cG9zdDo4Njk3",
-            title: null,
-            cssClasses: [],
-            parentId: null,
-            label: "Resource Library",
-            path: resourceUser ? "/resource-library/members" : "/resource-library",
-            target: null,
-            featured: {
-              courses: [
-                {
-                  id: "cG9zdDo4MzM5",
-                  details: {
-                    url: "http://learn.every-tuesday.com/3d-lettering-in-procreate"
-                  }
-                },
-                {
-                  id: "cG9zdDo4MTI2",
-                  details: {
-                    url: null
-                  }
-                },
-                {
-                  id: "cG9zdDo3Njk5",
-                  details: {
-                    url: null
-                  }
-                }
-              ]
-            }
-          },
         ]
       }
     ],

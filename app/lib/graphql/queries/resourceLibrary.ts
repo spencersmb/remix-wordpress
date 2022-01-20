@@ -34,7 +34,7 @@ export const GetAllFreebiesQuery = gql`
                                     licences{
                                         licenseType
                                         price
-                                        gumroadUrl
+                                        url
                                     }
                                     
                                 }

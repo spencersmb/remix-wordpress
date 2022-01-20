@@ -7,7 +7,6 @@ import {
   useLoaderData,
   useTransition
 } from 'remix'
-import { Layout } from '../root'
 import * as React from 'react'
 import {
   getPreviewRedirectUrlFromParams,
@@ -16,11 +15,13 @@ import {
 import { logUserInJWT } from '../utils/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
+import Layout from '~/components/layoutTemplates/layout'
 
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData
 
   // hardcoded Page
+  // TODO: REPLACE PAGE
   const page: IPage = {
     id: '24',
     title: 'Login',

@@ -3,7 +3,7 @@ import { capitalize } from "lodash";
 import { useEffect, useRef } from "react";
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate, { IFetchPaginationState } from "~/hooks/useFetchPagination";
-import { Layout } from "~/root";
+import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getStaticPageMeta } from "~/utils/pageUtils";

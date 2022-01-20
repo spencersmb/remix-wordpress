@@ -1,4 +1,4 @@
-import { Layout } from "~/root"
+import Layout from "~/components/layoutTemplates/layout"
 import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from "remix"
 import { findCookie } from "~/utils/loaderHelpers"
 import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";

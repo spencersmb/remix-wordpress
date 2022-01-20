@@ -28,6 +28,7 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
+  // TODO: ADD PAGE COMPONENT
   const page: IPage = {
     id: '24',
     title: 'Resource Library: Members',
@@ -65,7 +66,7 @@ export let meta: MetaFunction = (rootData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
-  const user = await requireResourceLibraryUser(request, '/resource-library')
+  const user = await requireResourceLibraryUser(request, '/tuesday-makers')
 
   try {
     let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
@@ -76,8 +77,8 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
       user
     })
   } catch (e) {
-    console.error(`e in /resource-library`, e)
-    return redirect('/resource-library')
+    console.error(`e in /tuesday-makers`, e)
+    return redirect('/tuesday-makers')
   }
 }
 interface ILoaderData {
@@ -287,8 +288,6 @@ const AddToCartBtn = () => {
   )
 
 }
-
-
 
 const query = `{
   products(first:5) {

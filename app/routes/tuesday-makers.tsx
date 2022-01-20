@@ -1,14 +1,13 @@
 import { Link, Outlet } from "remix";
 import ResourceLibraryNav from "~/components/resourceLibrary/resourceNav";
-import RemixLogo from "~/components/svgs/remixLogo";
 
-const ResourceLibrary = () => {
+const TuesdayMakers = () => {
   return (
     <>
       <header className="remix-app__header">
         <div className="container remix-app__header-content">
           <Link to="/" title="Remix" prefetch="intent" className="remix-app__header-home-link">
-            <RemixLogo />
+            LOGO
           </Link>
           <ResourceLibraryNav />
         </div>
@@ -18,4 +17,4 @@ const ResourceLibrary = () => {
   )
 }
 
-export default ResourceLibrary
+export default TuesdayMakers

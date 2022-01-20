@@ -1,7 +1,7 @@
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData, useParams } from 'remix'
 import { fetchAPI } from '../utils/fetch'
 import { mapPostData } from '../utils/posts'
-import { Layout } from '../root'
+import Layout from "~/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
 import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { gql } from '@apollo/client'

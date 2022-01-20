@@ -20,17 +20,6 @@ import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
 import { Provider } from 'react-redux'
-import { RouteData } from '@remix-run/react/routeData'
-import {
-  jsonBreadcrumbsList,
-  jsonldBlog,
-  jsonldImageObject,
-  jsonldPerson,
-  jsonldProduct,
-  jsonldWebpage,
-  jsonLdWebsite
-} from './utils/jsonLd'
-import { ReactNode } from 'react'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import { useTransition } from "remix";
@@ -41,8 +30,6 @@ import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginat
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
-import RemixLogo from "./components/svgs/remixLogo";
-import FooterPrimary from '~/components/footer/FooterPrimary'
 import { commitSession, getSession } from '~/sessions.server'
 import CommentModal from "./components/modals/commentModal";
 import { getDefaultState } from "./utils/appUtils";
@@ -51,6 +38,8 @@ import { createCart, getUserCart } from "./utils/cartUtils";
 import { shopifyCartCookie } from "./cookies.server";
 import { fetchInitialState } from "./hooks/useFetchPagination";
 import { defaultFeaturedImage } from "./utils/pageUtils";
+import JsonLd from "./components/seo/jsonLd";
+import Layout from "./components/layoutTemplates/layout";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -184,158 +173,13 @@ export default function App() {
   );
 }
 
-interface ISelectedMatch {
-  pathname: string;
-  params: import("react-router").Params<string>;
-  data: RouteData;
-  handle: any;
-}
-interface IRootData {
-  ENV: IEnv
-  cart: IShopifyCart
-  menus: IMenu[]
-  message: string | null
-  metadata: ISiteMetaDataMapped
-  user: IUser
-}
-const JsonLd = () => {
-  let data = useLoaderData<IRootData>();
+// interface ISelectedMatch {
+//   pathname: string;
+//   params: import("react-router").Params<string>;
+//   data: RouteData;
+//   handle: any;
+// }
 
-  if (!data) {
-    return (
-      <Scripts />
-    )
-  }
-  let { metadata } = data
-  let matches = useMatches();
-  let location = useLocation();
-  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
-  let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
-  let page: any = selectedMatch?.data?.page
-  let product: any = selectedMatch?.data?.product
-  let breadcrumbList = [
-    {
-      position: 1,
-      name: "Home",
-      item: metadata.domain,
-    }
-  ]
-  let image = {
-    url: defaultFeaturedImage.sourceUrl,
-    altText: defaultFeaturedImage.altText,
-    width: 1920,
-    height: 928
-  }
-  let jsonWebpageSettings: IjsonldWebpage = {
-    title: metadata.title,
-    domain: metadata.domain,
-    description: metadata.description,
-    pageUrl: `${metadata.domain}${location.pathname}`,
-  }
-
-  if (post) {
-    image = {
-      ...image,
-      url: post.featuredImage?.sourceUrl || image.url, // need default image
-      altText: post.featuredImage?.altText || image.altText,
-    }
-    jsonWebpageSettings = {
-      ...jsonWebpageSettings,
-      title: post.seo.title,
-      publishTime: post.seo.opengraphPublishedTime,
-      modifiedTime: post.seo.opengraphModifiedTime,
-      description: post.seo.metaDesc,
-    }
-    breadcrumbList.push(
-      {
-        position: 2,
-        name: `${post.title}`,
-        item: `${metadata.domain}${location.pathname}`
-      }
-    )
-  }
-
-  if (page) {
-    image = {
-      ...image,
-      url: page.featuredImage?.sourceUrl || image.url, // need default image
-      altText: page.featuredImage?.altText || image.altText,
-    }
-    jsonWebpageSettings = {
-      ...jsonWebpageSettings,
-      title: page.seo.title,
-      publishTime: page.seo.opengraphPublishedTime,
-      modifiedTime: page.seo.opengraphModifiedTime,
-      description: page.seo.metaDesc,
-    }
-    breadcrumbList.push(
-      {
-        position: 2,
-        name: `${page.title}`,
-        item: `${metadata.domain}${location.pathname}`
-      }
-    )
-
-  }
-
-
-  return (
-    <>
-      {/*Basic JsonLd Website*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
-
-      {/*Basic JsonLd Image*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: jsonldImageObject({
-          pageUrl: location.pathname,
-          image
-        })
-      }} />
-
-      {/*Basic JsonLd Webpage*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
-
-      {/*Basic JsonLd Person*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} />
-
-      {/*Basic JsonLd Breadcrumbs*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: jsonBreadcrumbsList({
-          domain: metadata.domain,
-          breadcrumbList
-        })
-      }} />
-
-      {/*JsonLd Blog*/}
-      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: jsonldBlog({
-          url: `${metadata.domain}${location.pathname}`,
-          images: [
-            `${post.featuredImage?.sourceUrl}` // need default image
-          ],
-          datePublished: post.seo.opengraphPublishedTime,
-          dateModified: post.seo.opengraphModifiedTime,
-          author: post.author.name,
-          description: post.seo.metaDesc,
-          title: post.seo.title,
-        })
-      }} />}
-
-      {/*JsonLd Product*/}
-      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: jsonldProduct({
-          url: `${metadata.domain}${location.pathname}`,
-          images: [
-            `${product.featuredImage?.sourceUrl}` // need default image
-          ],
-          product,
-          shopPlatform: metadata.shopPlatform
-        })
-      }} />}
-
-    </>
-  )
-}
 
 export let meta: MetaFunction = () => {
   return {
@@ -349,7 +193,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<any>();
-  // console.log('ENV', data)
+  console.log('ENV', data)
 
   return (
     <html lang="en">
@@ -361,6 +205,9 @@ export function Document({ children, title }: IDocument) {
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
         <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
         {/*<title>{`Home - ${metadata.title}`}</title>*/}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <Meta />
         <Links />
@@ -388,56 +235,6 @@ export function Document({ children, title }: IDocument) {
         <CommentModal />
       </body>
     </html>
-  );
-}
-export const PrimaryNav = () => {
-  const { state: { menu, user } } = useSite()
-  const primaryMenu = getPrimaryMenu(menu)
-
-  return (
-    <nav aria-label="Main navigation" className="remix-app__header-nav">
-      <ul>
-        {primaryMenu.map((menuItem) => {
-          return (
-            <li key={menuItem.id}>
-              <Link to={menuItem.path} prefetch="intent">{menuItem.label}</Link>
-            </li>
-          )
-          // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
-        })}
-
-        {user?.wpAdmin && <li>
-          <form action="/logout" method="post">
-            <button type="submit" className="button">
-              Logout
-            </button>
-          </form>
-        </li>}
-
-      </ul>
-    </nav>
-  )
-}
-interface ILayoutProps {
-  alternateNav?: ReactNode
-}
-
-export function Layout({ children, alternateNav }: React.PropsWithChildren<{}> & ILayoutProps) {
-  return (
-    <div className="remix-app">
-      <header className="remix-app__header">
-        <div className="container remix-app__header-content">
-          <Link to="/" title="Remix" prefetch="intent" className="remix-app__header-home-link">
-            <RemixLogo />
-          </Link>
-          {alternateNav ? alternateNav : <PrimaryNav />}
-        </div>
-      </header>
-      <div className="remix-app__main">
-        <div className="container remix-app__main-content">{children}</div>
-      </div>
-      <FooterPrimary />
-    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { useEffect } from "react";
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { useFonts } from "~/hooks/useFonts";
-import { Layout } from "~/root";
+import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "~/utils/seo";

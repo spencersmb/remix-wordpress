@@ -8,7 +8,7 @@ import FreebieFilter from "~/components/resourceLibrary/freebieFilter"
 import GridItem from "~/components/gridDownloads/gridItem"
 import { getlockedPageMetaTags, getLockedPageRedirectLogoutPath } from "~/utils/lockedPagesUtils"
 import { createLockedPageCookie } from "~/server/lockedPages.server"
-import { Layout } from "~/root"
+import Layout from "~/components/layoutTemplates/layout"
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 

@@ -69,6 +69,15 @@ export const manualRedirectLinks = {
         title: 'How to Vectorize Lettering for Font Making',
         redirectTo: 'learn-font-making/launch-videos/vectorize-your-lettering',
         status: 301
-      }
+      },
+
+      /*
+       * Resource Library
+       */
+      'resource-library':{
+        title: 'Resource Library',
+        redirectTo: 'tuesday-makers',
+        status: 301
+      },
   }
 };

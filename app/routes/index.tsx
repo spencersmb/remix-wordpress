@@ -2,7 +2,6 @@ import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
 import { useLoaderData, Link, ActionFunction } from 'remix'
 import { flattenAllPosts } from '../utils/posts'
 import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch'
-import { Layout } from '../root'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
@@ -15,6 +14,7 @@ import { createCanvas, Image, registerFont } from "canvas";
 import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
 import text2png from 'text2png'
 import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils";
+import Layout from "~/components/layoutTemplates/layout";
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
