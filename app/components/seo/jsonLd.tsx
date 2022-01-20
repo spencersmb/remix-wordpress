@@ -25,6 +25,7 @@ const JsonLd = () => {
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
   let product: any = selectedMatch?.data?.product
+
   let breadcrumbList = [
     {
       position: 1,
@@ -68,6 +69,7 @@ const JsonLd = () => {
   }
 
   if (page) {
+
     image = {
       ...image,
       url: page.featuredImage?.sourceUrl || image.url, // need default image
@@ -93,7 +95,7 @@ const JsonLd = () => {
 
   return (
     <>
-      {/*Basic JsonLd Website*/}
+      Basic JsonLd Website
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
 
       {/*Basic JsonLd Image*/}

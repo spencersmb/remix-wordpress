@@ -865,6 +865,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 35px;
 }
 
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
 .pt-12 {
   padding-top: 3rem;
 }
@@ -887,14 +895,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pr-2 {
   padding-right: 0.5rem;
-}
-
-.pt-2 {
-  padding-top: 0.5rem;
-}
-
-.pb-12 {
-  padding-bottom: 3rem;
 }
 
 .text-center {
@@ -925,12 +925,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.5rem;
 }
 
-.text-xl {
+.text-heading-h5 {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
 
-.text-heading-h5 {
+.text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
@@ -993,6 +993,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-primary-50 {
+  --tw-text-opacity: 1;
+  color: rgb(242 236 236 / var(--tw-text-opacity));
+}
+
 .text-primary-300 {
   --tw-text-opacity: 1;
   color: rgb(205 167 167 / var(--tw-text-opacity));
@@ -1015,11 +1020,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-neutral-50 {
   --tw-text-opacity: 1;
   color: rgb(252 250 251 / var(--tw-text-opacity));
-}
-
-.text-primary-50 {
-  --tw-text-opacity: 1;
-  color: rgb(242 236 236 / var(--tw-text-opacity));
 }
 
 .opacity-0 {

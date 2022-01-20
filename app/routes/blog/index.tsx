@@ -83,7 +83,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
     ...data,
     posts,
     pageInfo,
-    page: page ? parseInt(page, 10) : 1
+    pageUrlParams: page ? parseInt(page, 10) : 1
   }
 };
 
@@ -95,7 +95,7 @@ function BlogIndex() {
     posts: data.posts,
     pageInfo: {
       ...data.pageInfo,
-      page: data.page
+      page: data.pageUrlParams
     }
   })
   console.log('Blog Index state', state);
