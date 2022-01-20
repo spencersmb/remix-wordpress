@@ -121,7 +121,7 @@ const JsonLd = () => {
       }} />
 
       {/*JsonLd Blog*/}
-      {/* {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldBlog({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -133,7 +133,7 @@ const JsonLd = () => {
           description: post.seo.metaDesc,
           title: post.seo.title,
         })
-      }} />} */}
+      }} />}
 
       {/*JsonLd Product*/}
       {/* {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
