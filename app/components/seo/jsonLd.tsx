@@ -136,7 +136,7 @@ const JsonLd = () => {
       }} />}
 
       {/*JsonLd Product*/}
-      {/* {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldProduct({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -145,7 +145,7 @@ const JsonLd = () => {
           product,
           shopPlatform: metadata.shopPlatform
         })
-      }} />} */}
+      }} />}
 
     </>
   )
