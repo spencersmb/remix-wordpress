@@ -56,7 +56,7 @@ export default function Layout({ children, alternateNav }: React.PropsWithChildr
       <div className="pt-[68] laptop:pt-[89px]">
         <div className="container remix-app__main-content">{children}</div>
       </div>
-      <FooterPrimary />
+      {/* <FooterPrimary /> */}
     </div>
   );
 }

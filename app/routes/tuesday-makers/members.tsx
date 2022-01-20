@@ -193,14 +193,14 @@ const ResourceLibraryMembers = () => {
   return (
     <div>
       <h1>Members Area</h1>
-      <button onClick={shopifyTestCall}>Test Shopify Call</button>
+      {/* <button onClick={shopifyTestCall}>Test Shopify Call</button>
       <a href="https://transactions.sendowl.com/cart?merchant_id=210642" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/view-cart.png" /></a> <script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
       <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/add_to_cart" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/add-to-cart.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
-      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/purchase" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
-      {/* <button onClick={clearCart}>Empty Cart</button> */}
+      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/purchase" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script> */}
+      <button onClick={clearCart}>Empty Cart</button>
       <div>
-        {/* <button onClick={addItem}>Add Item to Cart</button> */}
-        <div>Cart items: {cart.lines.edges.length}</div>
+        <button onClick={addItem}>Add Item to Cart</button>
+        <div>Cart items: {cart?.lines.edges.length}</div>
       </div>
       {!data.user.tags.includes('Resource Library tag') && <div>Hello Signup </div>}
       <FreebieFilter

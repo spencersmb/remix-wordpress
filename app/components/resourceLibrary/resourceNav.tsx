@@ -23,17 +23,17 @@ const ResourceLibraryNav = () => {
         {!state?.user.resourceUser &&
           <>
             <li>
-              <Link to="/resource-library" title="Resource Library Home" prefetch="intent" className="remix-app__header-home-link">Resource Home</Link>
+              <Link to="/tuesday-makers" title="Resource Library Home" prefetch="intent" className="remix-app__header-home-link">Resource Home</Link>
             </li>
             <li>
-              <Link to="/resource-library/login" title="Remix Login" prefetch="intent" className="remix-app__header-home-link">
+              <Link to="/tuesday-makers/login" title="Remix Login" prefetch="intent" className="remix-app__header-home-link">
                 Login
               </Link>
             </li>
           </>
         }
         {state?.user.resourceUser && <li>
-          <form action="/resource-library/logout" method="post">
+          <form action="/tuesday-makers/logout" method="post">
             <button type="submit" className="button">
               Logout
             </button>
