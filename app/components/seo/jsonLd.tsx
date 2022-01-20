@@ -107,7 +107,7 @@ const JsonLd = () => {
       }} />
 
       {/*Basic JsonLd Webpage*/}
-      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} /> */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
 
       {/*Basic JsonLd Person*/}
       {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} /> */}
