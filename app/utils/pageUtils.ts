@@ -44,3 +44,36 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
     featuredImage: defaultFeaturedImage
   }
 }
+
+export const hasClass = (el: (HTMLElement | Element )| null, className: string) => {
+  if(!el){
+    return
+  }
+  if (el.classList) return el.classList.contains(className);
+  else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+};
+export const addClass = (el: HTMLElement | Element | null, className: string) => {
+  if(!el){
+    return
+  }
+  const classList = className.split(' ');
+  if (el.classList) el.classList.add(classList[0]);
+  else if (!hasClass(el, classList[0])) el.className += " " + classList[0];
+  if (classList.length > 1) addClass(el, classList.slice(1).join(' '));
+};
+export const removeClass = (el: HTMLElement | null, className: string) => {
+  if(!el){
+    return
+  }
+  const classList = className.split(' ');
+  if (el.classList) el.classList.remove(classList[0]);
+  else if(hasClass(el, classList[0])) {
+    const reg = new RegExp('(\\s|^)' + classList[0] + '(\\s|$)');
+    el.className=el.className.replace(reg, ' ');
+  }
+  if (classList.length > 1) removeClass(el, classList.slice(1).join(' '));
+};
+export const toggleClass = (el: HTMLElement, className: string, bool: boolean) => {
+  if(bool) addClass(el, className);
+  else removeClass(el, className);
+};

@@ -1,12 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
 .root,
 :root,
 #docs-root {
   --slateGreen: #486e65;
-  --primary-plum-600: #5e4242;
+  --primary-plum-50: #f2ecec;
+  --primary-plum-100: #f0e3dc;
+  --primary-plum-200: #f0d6c7;
+  --primary-plum-300: #cda7a7;
+  --primary-plum-400: #976969;
+  --primary-plum-600: #5f3d3d;
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
 }
@@ -41,24 +47,50 @@
   .btn {
     @apply py-2 px-4 font-semibold rounded-lg shadow-lg;
   }
-  .btn-sky {
-    @apply text-white bg-sky-500 hover:bg-sky-700;
-  }
-  .spencer {
-    background: red;
-    /* @apply relative flex text-center */
-    /* hover:text-blue-500; */
-  }
   .btn-underlined {
     @apply underline underline-offset-4 uppercase;
     font-size: 14px;
     font-weight: 500;
   }
-
   .container {
     padding: 0 15px;
     margin: 0 auto;
     position: relative;
     @apply laptop:max-w-[1440px];
+  }
+  .svgChildHover-color svg {
+    fill: #000;
+  }
+}
+
+@layer utilities {
+  .underlined {
+    position: relative;
+  }
+  .underlined:hover:after {
+    background-color: currentColor;
+    transform: scaleX(1);
+    display: inline-block;
+  }
+  .underlined:after {
+    content: "";
+    height: 2px;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+    transform-origin: left;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    background-color: currentColor;
+  }
+  .underlined-active:after {
+    background-color: currentColor;
+    transform: scaleX(1);
+    display: inline-block;
+  }
+  .inView {
+    @apply translate-y-[0px];
   }
 }

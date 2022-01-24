@@ -1,7 +1,13 @@
 import { Link, useFetcher } from '@remix-run/react'
 import MakersSignUpForm from '~/components/forms/makersSignUpForm'
+import { cssColors } from '~/enums/colors';
 import useSite from '~/hooks/useSite';
 import EveryTuesdayLogo from '../svgs/everyTuesdayLogo';
+import FacebookSvg from '../svgs/social/facebookSvg';
+import InstagramSvg from '../svgs/social/instagramSvg';
+import PinterestSvg from '../svgs/social/pinterestSvg';
+import YoutubeSvg from '../svgs/social/youtubeSvg';
+import MakersFooterSignUp from './makersSignUpFooter';
 
 const footerLinks = [
   {
@@ -50,27 +56,24 @@ const footerLinks = [
 ]
 
 function FooterPrimary() {
-  const tuesdayMakersSignUp = useFetcher();
   const { state: { metadata } } = useSite()
 
   return (
 
-    <footer className='bg-primary-800 relative pt-[30px] pb-[35px] laptop:pt-[40px] laptop:pb-[50px]'>
+    <footer className='bg-primary-800 relative pt-[100px] pb-[35px] laptop:pt-[80px] desktop:pt-[120px] laptop:pb-[50px]'>
       <div className='container'>
-        <MakersSignUpForm
-          Form={tuesdayMakersSignUp.Form}
-          type={tuesdayMakersSignUp.type}
-          state={tuesdayMakersSignUp.state}
-          data={tuesdayMakersSignUp.data}
-        />
+
+        <MakersFooterSignUp />
 
         {/* FOOTER LINKS */}
-        <div className='flex flex-col tablet:flex-row justify-between pb-12'>
+        <div className='flex flex-col pb-12 justify-between laptop:flex-row '>
 
           {/* LOGO / TAGLINE */}
-          <div>
+          <div className='pb-12 laptop:pb-0'>
             <div className='max-w-[249px]'>
-              <EveryTuesdayLogo fill={`var(--secondary-500)`} />
+              <Link to={'/'} prefetch='intent'>
+                <EveryTuesdayLogo fill={`var(--secondary-500)`} />
+              </Link>
             </div>
             <p className='text-primary-50 font-sentinel__SemiBoldItal text-heading-h5 pt-2'>
               Digital Art + Lettering
@@ -82,13 +85,15 @@ function FooterPrimary() {
             {footerLinks.map((block, index) => {
               if (index !== 2) {
                 return (
-                  <div key={index} >
-                    <h5 className='font-sentinel__SemiBoldItal text-heading-h5'>{block.heading}</h5>
-                    {block.links.map(link => (
-                      <li key={link.url}>
-                        <Link to={link.url}>{link.text}</Link>
-                      </li>
-                    ))}
+                  <div key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
+                    <h5 className='font-sentinel__SemiBoldItal text-heading-h5 pb-6'>{block.heading}</h5>
+                    <ul>
+                      {block.links.map(link => (
+                        <li key={link.url} className='text-primary-300 text-lg btn-spencer pb-3'>
+                          <Link className='hover:text-primary-400 underlined' to={link.url}>{link.text}</Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )
               }
@@ -97,21 +102,48 @@ function FooterPrimary() {
 
 
               return (
-                <div key={index} >
-                  <h5 className='font-sentinel__SemiBoldItal text-heading-h5'>{block.heading}</h5>
-                  {socialkeys.map(key => {
-                    console.log('socialKeys', metadata.social[key]);
-                    switch (key) {
-                      case 'youtube':
-                        return (
-                          <li key={key}>
-                            <a href={metadata.social[key]} target={'_blank'}>Youtube Icon</a>
-                          </li>
-                        )
-                      default:
-                        return null
-                    }
-                  })}
+                <div key={index}>
+                  <h5 className='font-sentinel__SemiBoldItal text-heading-h5 pb-6'>{block.heading}</h5>
+                  <ul className='flex flex-row'>
+                    {socialkeys.map(key => {
+                      switch (key) {
+                        case 'youtube':
+                          return (
+                            <li key={key} className='flex'>
+                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                                <YoutubeSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                              </a>
+                            </li>
+                          )
+                        case 'facebook':
+                          return (
+                            <li key={key} className='flex pl-9'>
+                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                                <FacebookSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                              </a>
+                            </li>
+                          )
+                        case 'instagram':
+                          return (
+                            <li key={key} className='flex pl-9'>
+                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                                <InstagramSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                              </a>
+                            </li>
+                          )
+                        case 'pinterest':
+                          return (
+                            <li key={key} className='flex pl-9'>
+                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                                <PinterestSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                              </a>
+                            </li>
+                          )
+                        default:
+                          return null
+                      }
+                    })}
+                  </ul>
                 </div>
               )
             })}
@@ -119,13 +151,13 @@ function FooterPrimary() {
         </div>
 
         {/* COPYRIGHT */}
-        <div className='flex flex-col laptop:flex-row laptop:justify-between text-primary-300 text-sm font-light border-t-[1px] border-primary-300 pt-12'>
-          <div>
+        <div className='flex flex-col-reverse tablet:flex-row tablet:justify-between text-primary-300 text-sm font-light border-t-[1px] border-primary-300 pt-12'>
+          <div >
             © Copyright 2021 Every Tuesday, LLC
           </div>
-          <div>
-            <Link to={'/'} className='pr-6'>Privacy & Cookies</Link>
-            <Link to={'/'}>Terms & Conditions</Link>
+          <div className='flex pb-6 tablet:pb-0'>
+            <Link to={'/'} className='mr-6 hover:text-primary-400 underlined'>Privacy & Cookies</Link>
+            <Link to={'/'} className='hover:text-primary-400 underlined'>Terms & Conditions</Link>
           </div>
         </div>
 

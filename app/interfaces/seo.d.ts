@@ -86,7 +86,7 @@ interface ISocialFacebook {
 }
 type ISocialSettings = {
   twitter: ISocialTwitter
-  facebook: ISocialFacebook
+  facebook: string
   pinterest: string
   instagram: string
   youtube: string

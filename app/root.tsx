@@ -213,7 +213,7 @@ export function Document({ children, title }: IDocument) {
         <Links />
         <JsonLd />
       </head>
-      <body>
+      <body className="selection:bg-teal-300 selection:text-teal-900">
         {children}
         <RouteChangeAnnouncement />
         <ScrollRestoration />

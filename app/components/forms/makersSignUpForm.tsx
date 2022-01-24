@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import { FormProps } from '@remix-run/react/components'
 import useSite from '~/hooks/useSite'
+import InputBase from '../input/inputBase'
+import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
+import YellowSubmitBtn from '../buttons/submitBtn'
+import SubmitBtn from '../buttons/submitBtn'
 type FetcherData = {
   fieldErrors?: {
     email: string
@@ -38,7 +42,8 @@ const MakersPopUp = () => {
 function MakersSignUpForm(props: Props) {
   const { Form, data, state, type } = props
   const { openModal } = useSite()
-  // console.log('props', props)
+  console.log('state', state)
+  console.log('type', type)
 
   const ref = useRef<any>();
   useEffect(() => {
@@ -56,25 +61,18 @@ function MakersSignUpForm(props: Props) {
       <Form
         ref={ref}
         method="post"
-        className="mb-4"
+        className="flex flex-col tablet:flex-row"
         action="/convertkit/tuesday-makers"
       >
-        <div>
-          <label className="leading-7 text-sm text-gray-600" htmlFor="email-input">Email</label>
-          <input
-            className="mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        <div className='flex-1 mb-5 tablet:mr-6 tablet:mb-0'>
+          {/* <label className="leading-7 text-sm text-gray-600" htmlFor="email-input">Email</label> */}
+          <InputBase
             type="email"
             id="email-input"
             name="email"
-            required
-            aria-invalid={Boolean(
-              data?.fieldErrors?.email
-            )}
-            aria-describedby={
-              data?.fieldErrors?.email
-                ? "username-error"
-                : undefined
-            }
+            placeholder='Enter Email'
+            required={true}
+            invalid={Boolean(data?.fieldErrors?.email)}
           />
           {data?.fieldErrors?.email ? (
             <p
@@ -86,25 +84,16 @@ function MakersSignUpForm(props: Props) {
             </p>
           ) : null}
         </div>
-        <div>
+        <div className='hidden'>
           <input type="text" name='type' value='footer' readOnly className='hidden' />
         </div>
-        <div>
-          {!data?.pass && <button
-            disabled={state === "submitting"}
-            aria-disabled={state === "submitting"}
-            type='submit'
-            className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            {state === "submitting" ? '...loading' : 'Subscribe'}
-          </button>}
+        <div className='flex'>
+          <SubmitBtn
+            state={state}
+            btnText='Send the Goods!'
+          />
         </div>
-        {type === "done" ? (
-          data?.pass ? (
-            <p>Thanks for subscribing!</p>
-          ) : data?.formError ? (
-            <p data-error>{data?.formError}</p>
-          ) : null
-        ) : null}
+
       </Form>
     </div>
   )

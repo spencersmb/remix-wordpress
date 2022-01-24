@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   // mode: 'jit',
   content: ["./app/**/*.{ts,tsx}"],
@@ -40,7 +41,7 @@ module.exports = {
         900: '#151213'
       },
       'primary': {
-        50: '#F2ECEC',
+        50: "var(--primary-plum-50)",
         100: '#F0E3DC',
         200: '#F0D6C7',
         300: '#CDA7A7',
@@ -48,7 +49,7 @@ module.exports = {
         500: '#845C5C',
         600: "var(--primary-plum-600)",
         700: "var(--primary-plum-700)",
-        800: '#392727',
+        800: '#3c2626',
         900: '#130D0D'
       },
       'secondary': {
@@ -56,7 +57,7 @@ module.exports = {
         100: '#F2E2C5',
         200: '#EDD8B2',
         300: '#E4C58C',
-        400: '#DBB165',
+        400: '#f2c066',
         500: "var(--secondary-500)",
         600: '#97722F',
         700: '#654C1F',
@@ -109,9 +110,56 @@ module.exports = {
         'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
       },
       fontSize: {
-        'heading-h5': ['1.25rem', '1.75rem']
+        'heading-h5': ['1.5rem', '1.75rem'],
+        'display-2': ['3.375rem', '3.75rem'],
+        'heading-3': ['2.063rem', '2.5rem'],
+      },
+      boxShadow: {
+        'et_4': '0px 40px 50px rgba(0, 0, 0, 0.2)',
+      },
+      borderRadius: {
+        '2.5xl': '1.25rem'
+      },
+      'transitionDuration':{
+        '600': '600ms'
+      },
+      //https://tailwindcss.com/docs/plugins#dynamic-utilities
+      svgColor: {
+          1: '1'
       }
     }
   },
-  plugins: [],
+  plugins: [
+     plugin(function({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          svg: (value) => ({
+            fill: value
+          }),
+        },
+        { values: theme('svgColor') }
+      )
+    })
+    // plugin(function({ addComponents }) {
+    //   addComponents({
+    //     '.underlined':{
+    //       position: 'relative',
+          
+    //       '&::after':{
+    //         content: "",
+    //         height: '2px',
+    //         transform: 'scaleX(0)',
+    //         transition: 'transform 0.25s ease',
+    //         transformOrigin: 'left',
+    //         left: '0',
+    //         bottom: '-4px',
+    //         width: '100%',
+    //         display: 'block',
+    //         position: 'absolute',
+    //         backgroundColor: 'currentColor',
+    //       }
+    //     }
+    //   }
+    // )})
+  ],
 }
