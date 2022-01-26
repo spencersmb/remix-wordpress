@@ -45,6 +45,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;
+  color: var(--primary-plum-600);
 }
 
 a {
@@ -53,8 +54,17 @@ a {
   transition: color 0.3s;
 }
 
-a:hover {
-  color: var(--color-links-hover);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+ul {
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 hr {
@@ -66,7 +76,7 @@ hr {
   margin-bottom: 2rem;
 }
 
-input:where([type="text"]),
+/* input:where([type="text"]),
 input:where([type="search"]) {
   display: block;
   border: 1px solid var(--color-border);
@@ -78,7 +88,7 @@ input:where([type="search"]) {
   padding-left: 0.5em;
   background-color: hsl(0 0% 100% / 20%);
   color: var(--color-foreground);
-}
+} */
 
 .sr-only {
   position: absolute;

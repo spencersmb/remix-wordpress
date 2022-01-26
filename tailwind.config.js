@@ -46,7 +46,7 @@ module.exports = {
         200: '#F0D6C7',
         300: '#CDA7A7',
         400: '#976969',
-        500: '#845C5C',
+        500: '#8d5c5c',
         600: "var(--primary-plum-600)",
         700: "var(--primary-plum-700)",
         800: '#3c2626',
@@ -108,9 +108,15 @@ module.exports = {
       gridTemplateColumns: {
         'navMobile': 'minmax(50px, 1fr) minmax(50px, auto) minmax(50px, auto)',
         'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
+        'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
+        'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr);',
+        'desktop': 'minmax(0,1fr) repeat(12,minmax(auto, calc((1440px - (11 * 30px)) / 12))) minmax(0,1fr);'
       },
       fontSize: {
         'heading-h5': ['1.5rem', '1.75rem'],
+        'h4': ['1.75rem', '2.125rem'],
+        'h3': ['2.063rem', '2.5rem'],
+        'display-1': ['4rem', '4.5rem'],
         'display-2': ['3.375rem', '3.75rem'],
         'heading-3': ['2.063rem', '2.5rem'],
       },

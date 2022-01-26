@@ -11,8 +11,8 @@ const MakersFooterSignUp = () => {
 
 
       {/* CONTENT */}
-      <div className="flex flex-col mt-64 ml-auto text-primary-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[628px] mb-[10px] laptop:mt-0 relative">
-        <div className="absolute w-full top-[-350px] left-[0px] max-w-[600px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[530px] laptop:top-[-20px] laptop:left-[-530px] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
+      <div className="flex flex-col mt-48 ml-auto text-primary-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[628px] mb-[10px] laptop:mt-0 relative">
+        <div className="absolute w-full top-[-250px] left-[0px] max-w-[600px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[530px] laptop:top-[-20px] laptop:left-[-530px] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
           <img src={`/images/makers-ipad.png`} />
         </div>
         <h4 className="font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2 pb-4">

@@ -69,3 +69,16 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
     author: node.author.node
   }
 }
+
+export function getMediaSizeUrl(container:{mediaDetails: {sizes: IMediaDetailSize[]} , sourceUrl: string}, name: string): IMediaDetailSize{
+
+  return container.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+    
+    if(currentValue.name === name){
+      return currentValue
+    }else{ 
+      return previousValue
+    }
+    
+  }, {})
+}

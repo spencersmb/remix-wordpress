@@ -80,8 +80,27 @@ interface IPostSeo {
   metaDesc: string
   readingTime: string
 }
+
+interface IMediaDetailSize {
+  name: string
+  width: string
+  height: string
+  file: string
+  sourceUrl: string
+}
+
+interface ISocialNav {
+  pinterestImage:{
+    sourceUrl: string
+    mediaDetails:{
+      sizes: IMediaDetailSize[]
+    }
+  }
+}
+
 interface IPost {
   databaseId: number //postID in wp
+  date: string
   author: {
     avatar: {
       height: number
@@ -103,6 +122,7 @@ interface IPost {
   seo:IPostSeo
   downloadManager: IDownloadManager
   comments:IPostComment[]
+  etSocialNav: ISocialNav
 }
 
 interface IwpPageInfo {

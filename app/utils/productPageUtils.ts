@@ -3,6 +3,8 @@ export function getStandardLicense(product: IProduct): ILicense{
   return licenses.reduce((previousValue: any, currentValue: any) => {
     if(currentValue.licenseType === 'standard'){
       return currentValue
+    }else{
+      return previousValue
     }
   },{})
 }

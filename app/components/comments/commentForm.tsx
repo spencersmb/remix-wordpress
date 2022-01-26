@@ -1,8 +1,13 @@
-import { FormEvent, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { FormEvent, useEffect, useState } from "react";
 import useSite from "~/hooks/useSite";
 import { fetchSubmitComment } from "~/utils/fetch";
 import { parseComment } from "~/utils/posts";
 import { validateEmail } from "~/utils/validation";
+import { consoleHelper } from "~/utils/windowUtils";
+import SubmitBtn from "../buttons/submitBtn";
+import InputBase from "../input/inputBase";
+import TwSpinnerOne from "../svgs/spinners/twSpinnerOne";
 
 interface ICommentResponse {
   createComment: {
@@ -18,12 +23,53 @@ interface IProps {
   primary?: boolean
   // onError: () => void
 }
+interface InputError {
+  name: string
+  message: string
+}
 interface IFormError { name: undefined | string, email: undefined | string, comment: string | undefined }
+interface IFormState {
+  error: undefined | InputError
+  name: {
+    value: string
+    touched: boolean
+    isValid: boolean | undefined
+  }
+  email: {
+    value: string
+    touched: boolean
+    isValid: boolean | undefined
+  }
+  comment: {
+    value: string
+    touched: boolean
+    isValid: boolean | undefined
+  }
+}
 const CommentForm = (props: IProps) => {
   const { addComment, addCommentReply } = useSite()
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [formState, setFormState] = useState<IFormState>({
+    error: undefined,
+    name: {
+      value: '',
+      touched: false,
+      isValid: undefined
+    },
+    email: {
+      value: '',
+      touched: false,
+      isValid: undefined
+    },
+    comment: {
+      value: '',
+      touched: false,
+      isValid: undefined
+    }
+  });
+  const [emailTouched, setEmailTouched] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
 
   // used on the Reply to Comment flow, to still notify user their pending comment
@@ -35,15 +81,67 @@ const CommentForm = (props: IProps) => {
 
 
   function handleNameChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    setName(event.target.value)
+    const isValid = validateName(event.target.value);
+    let error = undefined;
+
+    if (!isValid) {
+      error = {
+        name: 'name',
+        message: 'Name must be at least 2 characters long'
+      }
+    }
+    setFormState({
+      ...formState,
+      error,
+      name: {
+        value: event.target.value,
+        touched: true,
+        isValid
+      }
+    })
   }
 
+  useEffect(() => {
+
+  }, [formState.name.isValid, formState.email.isValid, formState.comment.isValid])
+
   function handleEmailChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    setEmail(event.target.value)
+    let emailAddress = event.target.value
+    const invalidEmail = Boolean(typeof validateEmail(emailAddress) === 'string')
+    let error = undefined;
+    if (invalidEmail) {
+      error = {
+        name: 'email',
+        message: 'Email is invalid'
+      }
+    }
+    setFormState({
+      ...formState,
+      error,
+      email: {
+        value: emailAddress,
+        touched: true,
+        isValid: !invalidEmail
+      }
+    })
   }
 
   function handleCommentChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    setComment(event.target.value)
+    setFormState({
+      ...formState,
+      comment: {
+        value: event.target.value,
+        touched: true,
+        isValid: true
+      }
+    })
+  }
+
+  function validateName(name: string) {
+    if (typeof name !== 'string' || name.length < 4) {
+      return false
+    }
+    return true
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -152,105 +250,125 @@ const CommentForm = (props: IProps) => {
   function commentOnError(response: Error) {
     setCommentError(response.message)
   }
+
   return (
     <div>
       {commentError && <div><p dangerouslySetInnerHTML={{ __html: commentError }}></p></div>}
       {!hideForm && <form onSubmit={handleSubmit}>
-        <label htmlFor="name-input" className="leading-7 text-sm text-gray-600">
-          name:
-          <input
-            id="name-input"
-            type="text"
-            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            name="name"
-            onChange={handleNameChange}
-            value={name}
-            aria-invalid={
-              Boolean(
-                formError.name
-              ) || undefined
-            }
-            aria-describedby={
-              formError.name
-                ? "name-error"
-                : undefined
-            }
-          />
-          {formError.name ? (
-            <p
-              className="form-validation-error"
-              role="alert"
-              id="name-error"
-            >
-              {formError.name}
-            </p>
-          ) : null}
-        </label>
-        <label htmlFor="email-input" className="leading-7 text-sm text-gray-600">
-          email:
-          <input
-            id="email-input"
-            type="email"
-            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            aria-invalid={
-              Boolean(
-                formError.email
-              ) || undefined
-            }
-            aria-describedby={
-              formError.email
-                ? "email-error"
-                : undefined
-            }
-          />
-          {formError.email ? (
-            <p
-              className="form-validation-error"
-              role="alert"
-              id="email-error"
-            >
-              {formError.email}
-            </p>
-          ) : null}
-        </label>
-        <label htmlFor="comment-input" className="leading-7 text-sm text-gray-600">
-          comment label:
-          <textarea
-            id="comment-input"
-            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            name="comment"
-            onChange={handleCommentChange}
-            value={comment}
-            aria-invalid={
-              Boolean(
+
+        {/* INPUTS */}
+        <div className="flex flex-col mt-8 tablet:flex-row  tablet:flex-wrap">
+          {/* NAME */}
+          <div className=" flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
+            <InputBase
+              placeholder="Name"
+              className={`input-basic ${formState.name.isValid && formState.name.touched
+                ? 'input-success'
+                : formState.name.isValid === false && formState.name.touched ? 'input-error' : ''}`}
+              id="name-input"
+              type="text"
+              name='name'
+              onChange={handleNameChange}
+              value={formState.name.value}
+              invalid={formError.name !== undefined || name.length < 4}
+              disabled={submitting}
+            />
+          </div>
+
+          {/* EMAIL */}
+          <div className="flex-auto tablet:flex-[0_1_50%]">
+            <InputBase
+              placeholder="Email"
+              className={`input-basic ${formState.email.isValid && formState.email.touched
+                ? 'input-success'
+                : formState.email.isValid === false && formState.email.touched ? 'input-error' : ''}`}
+              id="email-input"
+              type="email"
+              name='email'
+              onChange={handleEmailChange}
+              value={formState.email.value}
+              required
+              invalid={formError.email !== undefined}
+              disabled={submitting}
+            />
+          </div>
+
+          {/* TEXTAREA */}
+          <div className=" flex-[0_1_100%]">
+            <textarea
+              id="comment-input"
+              className="text-neutral-500 bg-neutral-100 outline-none border-0 py-4 px-5 rounded-lg w-full mb-2.5"
+              name="comment"
+              placeholder="Leave comment here..."
+              onChange={handleCommentChange}
+              rows={4}
+              value={formState.comment.value}
+              // TODO: Fix Invalid status on all inputs
+              aria-invalid={
+                Boolean(
+                  formError.comment
+                ) || undefined
+              }
+              aria-describedby={
                 formError.comment
-              ) || undefined
-            }
-            aria-describedby={
-              formError.comment
-                ? "comment-error"
-                : undefined
-            }
-          />
-          {formError.comment ? (
-            <p
-              className="form-validation-error"
-              role="alert"
-              id="comment-error"
-            >
-              {formError.comment}
-            </p>
-          ) : null}
-        </label>
-        <button
-          type='submit'
-          disabled={submitting}
-        >
-          {submitting ? 'Submitting Comment...' : 'Post Comment'}
-        </button>
+                  ? "comment-error"
+                  : undefined
+              }
+            />
+            {formError.comment ? (
+              <p
+                className="form-validation-error"
+                role="alert"
+                id="comment-error"
+              >
+                {formError.comment}
+              </p>
+            ) : null}
+          </div>
+        </div>
+        {/* END INPUTS */}
+
+        {/* SUBMIT BUTTON */}
+        <div className="flex justify-end flex-col-reverse items-end">
+          <div>
+            <button
+              disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
+              aria-disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
+              type='submit'
+              className={`text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-200 disabled:text-neutral-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 active:scale-[.98] ${'bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white focus:ring-secondary-400 active:bg-secondary-500 active:scale-[.98]'}`}>
+              {(submitting) && <TwSpinnerOne />}
+              {submitting ? '...processing' : 'Post Comment'}
+            </button>
+          </div>
+          <div>
+            <AnimatePresence >
+              {formState.error
+                ?
+                <motion.div
+                  variants={{
+                    visible: { height: "auto" },
+                    initial: { height: 0 },
+                  }}
+                  key="content"
+                  initial="initial"
+                  animate="visible"
+                  exit="initial"
+                  className="form-validation-error text-error-500 italic text-sm overflow-hidden"
+                  role="alert"
+                  id="name-error"
+                  transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                >
+                  <div className="pb-4">
+                    {formState.error.message}
+                  </div>
+                </motion.div>
+                : null
+
+              }
+            </AnimatePresence>
+
+          </div>
+        </div>
       </form>}
       {pendingComment && <div><p>Comment submitted successfully, but needs to be approved by Teela.</p></div>}
     </div>
