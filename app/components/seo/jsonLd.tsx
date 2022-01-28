@@ -77,7 +77,7 @@ const JsonLd = () => {
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
-      title: page.seo.title,
+      title: `${page.seo.title} - Every Tuesday`,
       publishTime: page.seo.opengraphPublishedTime,
       modifiedTime: page.seo.opengraphModifiedTime,
       description: page.seo.metaDesc,
@@ -91,7 +91,6 @@ const JsonLd = () => {
     )
 
   }
-
 
   return (
     <>

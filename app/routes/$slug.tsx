@@ -3,17 +3,20 @@ import { fetchAPI } from '../utils/fetch'
 import { getMediaSizeUrl, mapPostData } from '../utils/posts'
 import Layout from "~/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
-import { useEventListenerQueryAll } from '~/hooks/useHtmlEvent'
 import MakersPostSignUp from '~/components/post/makersPostSignUp'
 import useSite from '~/hooks/useSite'
 import Breadcrumbs from '~/components/blog/breadcrumbs'
 import BlogDateAuthor from '~/components/blog/date'
 import PinterestBlock from '~/components/blog/pinterestBlock'
 import CommentsSvg from '~/components/svgs/commentsSvg'
+
+
+//TODO: Check Comment reply - style single comments
+// TODO: Load Comments after page has loaded....
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -61,8 +64,6 @@ export default function PostSlug() {
   let { post, url } = useLoaderData<{ post: IPost, url: any }>();
   const { showComments, hideComments, state: { commentsModal } } = useSite();
   consoleHelper('post', post)
-  console.log('location', url);
-
 
   function handleCommentsClick() {
     console.log('click comments');
@@ -74,12 +75,13 @@ export default function PostSlug() {
 
     showComments({
       commentOn: post.databaseId,
-      comments: post.comments
+      comments: post.comments.list,
+      pageInfo: post.comments.pageInfo
     })
   }
 
   useEffect(() => {
-    handleCommentsClick()
+    // handleCommentsClick()
     return () => {
       // unmount or change route, close modal
       hideComments()
@@ -95,7 +97,7 @@ export default function PostSlug() {
       text: post.title
     }
   ]
-  const pinterestImage = getMediaSizeUrl(post.etSocialNav.pinterestImage, 'medium')
+  const pinterestImage = getMediaSizeUrl(post.etSocialNav, 'medium')
 
   return (
     <Layout>
@@ -150,8 +152,8 @@ export default function PostSlug() {
 
               {/* COUNT */}
               <div>
-                {post.comments.length !== 0
-                  ? <p className='text-primary-400'><span className='font-semibold text-primary-700'>{post.comments.length}</span> comments</p>
+                {post.comments.list.length !== 0
+                  ? <p className='text-primary-400'><span className='font-semibold text-primary-700'>{post.comments.list.length}</span> comments</p>
                   : <p className='font-sentinel__SemiBoldItal text-neutral-600'>Leave a comment</p>}
               </div>
             </div>
@@ -273,7 +275,11 @@ query postBySlug($slug: String!) {
                 }
             }
         }
-        comments {
+        comments(first: 500, after: null, where: {parent: null}) {
+            pageInfo{
+              endCursor
+              hasNextPage
+            }
             edges {
                 node {
                     databaseId
@@ -286,7 +292,13 @@ query postBySlug($slug: String!) {
                     id
                     author {
                         node {
+                          isRestricted
                             name
+                            ... on CommentAuthor {
+                              gravatar{
+                                url
+                              }
+                            }
                         }
                     }
                     date
@@ -304,12 +316,23 @@ query postBySlug($slug: String!) {
                                 databaseId
                                 content
                                 date
+                                parent {
+                                  node {
+                                    databaseId
+                                  }
+                                }
                                 author {
                                     node {
-                                        id
                                         name
+                                      ... on CommentAuthor {
+                                        gravatar{
+                                          url
+
+                                        }
+                                      }
                                     }
                                 }
+                                
                             }
                         }
                     }

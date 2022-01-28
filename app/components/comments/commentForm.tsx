@@ -4,9 +4,8 @@ import useSite from "~/hooks/useSite";
 import { fetchSubmitComment } from "~/utils/fetch";
 import { parseComment } from "~/utils/posts";
 import { validateEmail } from "~/utils/validation";
-import { consoleHelper } from "~/utils/windowUtils";
-import SubmitBtn from "../buttons/submitBtn";
 import InputBase from "../input/inputBase";
+import CommentsSvg from "../svgs/commentsSvg";
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne";
 
 interface ICommentResponse {
@@ -21,6 +20,8 @@ interface IProps {
   replyToComment?: IPostComment
   onComplete?: (response: ICommentResponse) => void
   primary?: boolean
+  btnText?: string
+  subForm?: boolean
   // onError: () => void
 }
 interface InputError {
@@ -46,38 +47,36 @@ interface IFormState {
     isValid: boolean | undefined
   }
 }
+const defaultFormState: IFormState = {
+  error: undefined,
+  name: {
+    value: '',
+    touched: false,
+    isValid: undefined
+  },
+  email: {
+    value: '',
+    touched: false,
+    isValid: undefined
+  },
+  comment: {
+    value: '',
+    touched: false,
+    isValid: undefined
+  }
+}
 const CommentForm = (props: IProps) => {
   const { addComment, addCommentReply } = useSite()
 
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [formState, setFormState] = useState<IFormState>({
-    error: undefined,
-    name: {
-      value: '',
-      touched: false,
-      isValid: undefined
-    },
-    email: {
-      value: '',
-      touched: false,
-      isValid: undefined
-    },
-    comment: {
-      value: '',
-      touched: false,
-      isValid: undefined
-    }
-  });
-  const [emailTouched, setEmailTouched] = useState<boolean>(false);
-  const [comment, setComment] = useState<string>('');
+  const [formState, setFormState] = useState<IFormState>(defaultFormState);
 
   // used on the Reply to Comment flow, to still notify user their pending comment
   const [hideForm, setHideForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [pendingComment, setPendingComment] = useState(false)
   const [commentError, setCommentError] = useState<string | undefined>(undefined)
-  const [formError, setFormError] = useState<IFormError>({ name: undefined, email: undefined, comment: undefined });
+
+  const buttonText = props.btnText || 'Post Comment'
 
 
   function handleNameChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
@@ -100,10 +99,6 @@ const CommentForm = (props: IProps) => {
       }
     })
   }
-
-  useEffect(() => {
-
-  }, [formState.name.isValid, formState.email.isValid, formState.comment.isValid])
 
   function handleEmailChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
     let emailAddress = event.target.value
@@ -147,57 +142,20 @@ const CommentForm = (props: IProps) => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    // reset comment error on submission
-    if (commentError) {
-      setCommentError(undefined)
-    }
+    let parent = props.replyToComment
 
-    if (typeof name !== 'string') {
-      // TOOD: ERROR handling
-      setFormError({
-        ...formError,
-        name: 'Invalid Name String type'
-      })
-      return
-    }
-    if (name.length < 4) {
-      setFormError({
-        ...formError,
-        name: 'Name must be at least 4 letters long.'
-      })
-      return
-    }
-    if (typeof email !== 'string') {
-      setFormError({
-        ...formError,
-        email: 'Invalid Email String type'
-      })
-      return
-    }
-    if (comment.length < 3) {
-      setFormError({
-        ...formError,
-        comment: 'Comments must be at least 3 letters long.'
-      })
-      return
-    }
-    const notvalidEmail = validateEmail(email)
+      ? props.replyToComment.parent   // if replyToComment.parent is defined, then we are replying to a comment
+        ? props.replyToComment.parent
+        : props.replyToComment.databaseId
+      : undefined
 
-    if (notvalidEmail) {
-      setFormError({
-        ...formError,
-        email: 'Invalid Email'
-      })
-      return
-    }
-    let parent = props.replyToComment ? props.replyToComment.databaseId : undefined
     try {
       setSubmitting(true)
       const result = await fetchSubmitComment({
-        author: name,
-        authorEmail: email,
+        author: formState.name.value,
+        authorEmail: formState.email.value,
         commentOn: props.postId,
-        content: comment,
+        content: formState.comment.value,
         parent
       })
       console.log('fetch result', result)
@@ -222,13 +180,12 @@ const CommentForm = (props: IProps) => {
   }
 
   function commentOnComplete(response: ICommentResponse, parent: number | undefined) {
-    setName('')
-    setEmail('')
-    setComment('')
+    setFormState(defaultFormState)
     console.log('response Comment', response);
 
     // IF no comment response set Message so that the user knows their comment needs to be approved
     if (!response.createComment.comment) {
+      setHideForm(true)
       setPendingComment(true)
     }
 
@@ -252,125 +209,166 @@ const CommentForm = (props: IProps) => {
   }
 
   return (
-    <div>
-      {commentError && <div><p dangerouslySetInnerHTML={{ __html: commentError }}></p></div>}
-      {!hideForm && <form onSubmit={handleSubmit}>
+    <div className="mb-4">
+      <AnimatePresence>
+        {!hideForm ?
+          <motion.div
+            variants={{
+              visible: { height: "auto" },
+              hidden: { height: 0 },
+            }}
+            key="content"
+            initial="visible"
+            animate="visible"
+            exit="hidden"
+            id="form-motion"
+            className="overflow-hidden"
+          >
 
-        {/* INPUTS */}
-        <div className="flex flex-col mt-8 tablet:flex-row  tablet:flex-wrap">
-          {/* NAME */}
-          <div className=" flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
-            <InputBase
-              placeholder="Name"
-              className={`input-basic ${formState.name.isValid && formState.name.touched
-                ? 'input-success'
-                : formState.name.isValid === false && formState.name.touched ? 'input-error' : ''}`}
-              id="name-input"
-              type="text"
-              name='name'
-              onChange={handleNameChange}
-              value={formState.name.value}
-              invalid={formError.name !== undefined || name.length < 4}
-              disabled={submitting}
-            />
-          </div>
+            <form className={`${props.subForm ? 'px-2 py-6' : 'px-6 py-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmit}>
 
-          {/* EMAIL */}
-          <div className="flex-auto tablet:flex-[0_1_50%]">
-            <InputBase
-              placeholder="Email"
-              className={`input-basic ${formState.email.isValid && formState.email.touched
-                ? 'input-success'
-                : formState.email.isValid === false && formState.email.touched ? 'input-error' : ''}`}
-              id="email-input"
-              type="email"
-              name='email'
-              onChange={handleEmailChange}
-              value={formState.email.value}
-              required
-              invalid={formError.email !== undefined}
-              disabled={submitting}
-            />
-          </div>
+              {/* INPUTS */}
+              <div className="flex flex-col tablet:flex-row  tablet:flex-wrap">
+                {/* NAME */}
+                <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
+                  <InputBase
+                    placeholder="Name"
+                    className={`input-basic ${formState.name.isValid && formState.name.touched
+                      ? 'input-success'
+                      : formState.name.isValid === false && formState.name.touched ? 'input-error' : ''}`}
+                    id="name-input"
+                    type="text"
+                    name='name'
+                    onChange={handleNameChange}
+                    value={formState.name.value}
+                    invalid={formState.name.isValid === false || formState.name.value.length < 4}
+                    disabled={submitting}
+                  />
+                </div>
 
-          {/* TEXTAREA */}
-          <div className=" flex-[0_1_100%]">
-            <textarea
-              id="comment-input"
-              className="text-neutral-500 bg-neutral-100 outline-none border-0 py-4 px-5 rounded-lg w-full mb-2.5"
-              name="comment"
-              placeholder="Leave comment here..."
-              onChange={handleCommentChange}
-              rows={4}
-              value={formState.comment.value}
-              // TODO: Fix Invalid status on all inputs
-              aria-invalid={
-                Boolean(
-                  formError.comment
-                ) || undefined
-              }
-              aria-describedby={
-                formError.comment
-                  ? "comment-error"
-                  : undefined
-              }
-            />
-            {formError.comment ? (
-              <p
-                className="form-validation-error"
-                role="alert"
-                id="comment-error"
-              >
-                {formError.comment}
-              </p>
-            ) : null}
-          </div>
-        </div>
-        {/* END INPUTS */}
+                {/* EMAIL */}
+                <div className="flex-auto tablet:flex-[0_1_50%]">
+                  <InputBase
+                    placeholder="Email"
+                    className={`input-basic ${formState.email.isValid && formState.email.touched
+                      ? 'input-success'
+                      : formState.email.isValid === false && formState.email.touched ? 'input-error' : ''}`}
+                    id="email-input"
+                    type="email"
+                    name='email'
+                    onChange={handleEmailChange}
+                    value={formState.email.value}
+                    required
+                    invalid={formState.email.isValid === false}
+                    disabled={submitting}
+                  />
+                </div>
 
-        {/* SUBMIT BUTTON */}
-        <div className="flex justify-end flex-col-reverse items-end">
-          <div>
-            <button
-              disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
-              aria-disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
-              type='submit'
-              className={`text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-200 disabled:text-neutral-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 active:scale-[.98] ${'bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white focus:ring-secondary-400 active:bg-secondary-500 active:scale-[.98]'}`}>
-              {(submitting) && <TwSpinnerOne />}
-              {submitting ? '...processing' : 'Post Comment'}
-            </button>
-          </div>
-          <div>
-            <AnimatePresence >
-              {formState.error
-                ?
-                <motion.div
-                  variants={{
-                    visible: { height: "auto" },
-                    initial: { height: 0 },
-                  }}
-                  key="content"
-                  initial="initial"
-                  animate="visible"
-                  exit="initial"
-                  className="form-validation-error text-error-500 italic text-sm overflow-hidden"
-                  role="alert"
-                  id="name-error"
-                  transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
-                >
-                  <div className="pb-4">
-                    {formState.error.message}
-                  </div>
-                </motion.div>
-                : null
+                {/* TEXTAREA */}
+                <div className=" flex-[0_1_100%] mb-2.5">
+                  <textarea
+                    id="comment-input"
+                    className="textarea-basic"
+                    name="comment"
+                    placeholder="Leave comment here..."
+                    onChange={handleCommentChange}
+                    rows={4}
+                    disabled={submitting}
+                    value={formState.comment.value}
+                    // TODO: Fix Invalid status on all inputs
+                    aria-invalid={
+                      Boolean(
+                        formState.comment.isValid
+                      ) || undefined
+                    }
+                    aria-describedby={
+                      formState.comment.isValid
+                        ? "comment-error"
+                        : undefined
+                    }
+                  />
+                </div>
+              </div>
+              {/* END INPUTS */}
 
-              }
-            </AnimatePresence>
+              {/* SUBMIT BUTTON */}
+              <div className="flex flex-col-reverse tablet:items-end">
+                <div>
+                  <button
+                    disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
+                    aria-disabled={submitting || !formState.name.isValid || !formState.email.isValid || !formState.comment.isValid}
+                    type='submit'
+                    className={`w-full text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-200 disabled:text-neutral-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 active:scale-[.98] ${'bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white focus:ring-secondary-400 active:bg-secondary-500 active:scale-[.98]'} tablet:w-auto`}>
+                    {(submitting) && <TwSpinnerOne />}
+                    {submitting ? '...processing' : buttonText}
+                  </button>
+                </div>
 
-          </div>
-        </div>
-      </form>}
-      {pendingComment && <div><p>Comment submitted successfully, but needs to be approved by Teela.</p></div>}
+                {/* Error MESSAGE */}
+                <div>
+                  <AnimatePresence>
+                    {/* SERVER ERROR */}
+                    {commentError && <div className="form-validation-error text-error-500 italic text-sm overflow-hidden">
+                      <p className="pb-4 pr-2" dangerouslySetInnerHTML={{ __html: commentError }}></p>
+                    </div>}
+
+                    {/* FORM ERROR */}
+                    {formState.error
+                      ?
+                      <motion.div
+                        variants={{
+                          visible: { height: "auto" },
+                          initial: { height: 0 },
+                        }}
+                        key="content"
+                        initial="initial"
+                        animate="visible"
+                        exit="initial"
+                        className="form-validation-error text-error-500 italic text-sm overflow-hidden"
+                        role="alert"
+                        id="name-error"
+                        transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      >
+                        <div className="pb-4 pr-4">
+                          {formState.error.message}
+                        </div>
+                      </motion.div>
+                      : null
+
+                    }
+                  </AnimatePresence>
+                </div>
+              </div>
+
+            </form>
+          </motion.div> : null
+        }
+
+        {pendingComment &&
+          <motion.div
+            variants={{
+              visible: { height: "auto", opacity: 1 },
+              hidden: { height: 0, opacity: 0 },
+            }}
+            key="form-notify"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            id="form-notify"
+            className={`overflow-hidden`}>
+            <div className={`${props.subForm ? 'mt-4' : 'm-6'} bg-teal-200 text-teal-600 flex flex-row justify-center items-center rounded-lg px-3 py-3`}>
+              <div className="w-[24px] h-[24px] mr-4">
+                <CommentsSvg stroke={`#0c9488`} />
+              </div>
+              <p>Comment submitted successfully, but needs to be approved by Teela.</p>
+            </div>
+
+          </motion.div>
+        }
+      </AnimatePresence>
+
+
+
     </div>
   )
 }

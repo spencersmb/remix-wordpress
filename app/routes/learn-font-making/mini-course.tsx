@@ -1,9 +1,8 @@
 import React from 'react'
 import { json, Link, LoaderFunction, Outlet, useLoaderData } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server'
-import { Layout } from '~/root'
 import { findCookie } from '~/utils/loaderHelpers'
-import { consoleHelper } from '~/utils/windowUtils'
+
 export interface IlfmMiniCourseCookie {
   video1: boolean
   video2: boolean

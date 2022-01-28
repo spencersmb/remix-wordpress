@@ -113,12 +113,13 @@ module.exports = {
         'desktop': 'minmax(0,1fr) repeat(12,minmax(auto, calc((1440px - (11 * 30px)) / 12))) minmax(0,1fr);'
       },
       fontSize: {
-        'heading-h5': ['1.5rem', '1.75rem'],
+        'h5': ['1.5rem', '1.75rem'],
         'h4': ['1.75rem', '2.125rem'],
         'h3': ['2.063rem', '2.5rem'],
         'display-1': ['4rem', '4.5rem'],
         'display-2': ['3.375rem', '3.75rem'],
         'heading-3': ['2.063rem', '2.5rem'],
+        'xl': ['1.25rem', '2rem'],
       },
       boxShadow: {
         'et_4': '0px 40px 50px rgba(0, 0, 0, 0.2)',

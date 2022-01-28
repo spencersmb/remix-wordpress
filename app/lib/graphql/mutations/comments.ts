@@ -8,22 +8,6 @@ export const CREATE_COMMENT = gql`
                 agent
                 date
                 databaseId
-                replies {
-                    edges {
-                        node {
-                            id
-                            databaseId
-                            content
-                            date
-                            author {
-                                node {
-                                    id
-                                    name
-                                }
-                            }
-                        }
-                    }
-                }
                 parent {
                   node {
                     databaseId
@@ -36,6 +20,32 @@ export const CREATE_COMMENT = gql`
                     node {
                       id
                       name
+                      ... on CommentAuthor {
+                        gravatar{
+                          url
+                        }
+                      }
+                    }
+                }
+                replies {
+                    edges {
+                        node {
+                            id
+                            databaseId
+                            content
+                            date
+                            author {
+                                node {
+                                    id
+                                    name
+                                    ... on CommentAuthor {
+                                      gravatar{
+                                        url
+                                      }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

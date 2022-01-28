@@ -69,6 +69,10 @@ interface IPostRaw {
   seo: IPostSeo
   downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
   comments: {
+    pageInfo: {
+      endCursor: string
+      hasNextPage: boolean
+    }
     edges: {node: IPostCommentRaw}[]
   }
 }
@@ -90,7 +94,7 @@ interface IMediaDetailSize {
 }
 
 interface ISocialNav {
-  pinterestImage:{
+  pinterestImage?:{
     sourceUrl: string
     mediaDetails:{
       sizes: IMediaDetailSize[]
@@ -121,7 +125,13 @@ interface IPost {
   id: string
   seo:IPostSeo
   downloadManager: IDownloadManager
-  comments:IPostComment[]
+  comments:{
+    pageInfo: {
+      endCursor: string
+      hasNextPage: boolean
+    }
+    list:IPostComment[]
+  }
   etSocialNav: ISocialNav
 }
 
@@ -138,13 +148,21 @@ interface ICommentContent {
   databaseId: number
   date: string
   id: string
+  
 }
 interface IPostCommentReply {
   node: ICommentContent
 }
-
+interface ICommentAuthor  {
+  name: string, 
+  id: string , 
+  databaseId: string , 
+  gravatar: {
+    url: string
+  }
+}
 type IPostCommentRaw = {
-  author: {node: {name: string, id: string}}
+  author: {node: ICommentAuthor},
   content: string
   databaseId: number
   approved: boolean
@@ -163,23 +181,28 @@ type IPostCommentRaw = {
   replies: {
     edges: {
       node: {
-        author: {node: {id: string, name: string}}
+        author: {node: ICommentAuthor}
         content: string
         databaseId: number
         date: string
         id: string
+        parent: {
+          node: {
+            databaseId: number
+          }
+        } | null
       }
     }[]
   }
 }
 type IPostComment = {
-  author: {name: string}
+  author: ICommentAuthor
   content: string
   databaseId: number
   date: string
   id: string
-  parent: number | null
-  replies: ICommentContent[]
+  parent?: number | null
+  replies?: IPostComment[]
 }
 
 interface IPostComments {

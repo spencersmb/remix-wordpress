@@ -75,7 +75,7 @@ function FooterPrimary() {
                 <EveryTuesdayLogo fill={`var(--secondary-500)`} />
               </Link>
             </div>
-            <p className='text-primary-50 font-sentinel__SemiBoldItal text-heading-h5 pt-2'>
+            <p className='text-primary-50 font-sentinel__SemiBoldItal text-h5 pt-2'>
               Digital Art + Lettering
             </p>
           </div>
@@ -86,7 +86,7 @@ function FooterPrimary() {
               if (index !== 2) {
                 return (
                   <div key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
-                    <h5 className='font-sentinel__SemiBoldItal text-heading-h5 pb-6'>{block.heading}</h5>
+                    <h5 className='font-sentinel__SemiBoldItal text-h5 pb-6'>{block.heading}</h5>
                     <ul>
                       {block.links.map(link => (
                         <li key={link.url} className='text-primary-300 text-lg btn-spencer pb-3'>
@@ -103,7 +103,7 @@ function FooterPrimary() {
 
               return (
                 <div key={index}>
-                  <h5 className='font-sentinel__SemiBoldItal text-heading-h5 pb-6'>{block.heading}</h5>
+                  <h5 className='font-sentinel__SemiBoldItal text-h5 pb-6'>{block.heading}</h5>
                   <ul className='flex flex-row'>
                     {socialkeys.map(key => {
                       switch (key) {

@@ -799,6 +799,8 @@ type CommentAuthor implements Commenter & Node {
     databaseId: Int!
     "The email for the comment author"
     email: String
+    "Avatar MD5"
+    gravatar: GravatarType
     "The globally unique identifier for the comment author object"
     id: ID!
     "Whether the object is restricted from the current viewer"
@@ -1864,6 +1866,28 @@ type GeneralSettings {
     title: String
     "Site URL."
     url: String
+}
+
+"Gravatar"
+type GravatarType {
+    "mm"
+    default: String
+    "Extras"
+    extra_attr: String
+    "Force the default image"
+    force_default: Boolean
+    "Found avatar"
+    found_avatar: Boolean
+    "Image Height"
+    height: Int
+    "image rating"
+    rating: String
+    "Image Size"
+    size: Int
+    "Url for the Avatar"
+    url: String
+    "Image Width"
+    width: Int
 }
 
 "Grid Tag Object"

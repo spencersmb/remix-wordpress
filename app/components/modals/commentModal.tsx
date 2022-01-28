@@ -3,6 +3,11 @@ import CommentForm from '../comments/commentForm'
 import Comment from '../comments/comment'
 import { AnimatePresence, motion } from 'framer-motion'
 import CloseSvg from '../svgs/closeSvg'
+import { useState } from 'react'
+import { gql } from '@apollo/client'
+import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
+import { getGraphQLString } from '~/utils/graphqlUtils'
+import { parseComment } from '~/utils/posts'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -18,7 +23,50 @@ import CloseSvg from '../svgs/closeSvg'
  *
  */
 const CommentModal = () => {
-  const { state: { commentsModal }, addComment, hideComments } = useSite()
+  const { state: { commentsModal }, addComment, hideComments, fetchMoreComments } = useSite()
+  const [loading, setLoading] = useState(false)
+  async function fetchMore() {
+    setLoading(true)
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      after: commentsModal.pageInfo.endCursor,
+      postID: commentsModal.commentOn
+    }
+
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(query),
+          variables
+        })
+      })
+    const { data } = await body.json()
+    console.log('data', data);
+
+    fetchMoreComments({
+      comments: data.comments.edges.map(({ node }: any) => parseComment(node)),
+      pageInfo: data.comments.pageInfo
+    })
+    setLoading(false)
+
+    // const filteredPosts = flattenAllPosts(data.posts) || []
+    // addPostsAction({
+    //   pageInfo: {
+    //     page: state.pageInfo.page + 1,
+    //     endCursor: data.posts.pageInfo.endCursor,
+    //     hasNextPage: data.posts.pageInfo.hasNextPage,
+    //   },
+    //   posts: [
+    //     ...state.posts,
+    //     ...filteredPosts
+    //   ]
+    // }
+    // )
+  }
 
   return (
     <AnimatePresence>
@@ -26,32 +74,52 @@ const CommentModal = () => {
         ? <>
           <motion.div
             key='modalContainer'
-            className='bg-white fixed h-screen block z-[1100] opacity-0 translate-x-[0] top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full tablet:max-w-[700px] '
+            className='bg-white fixed h-screen block z-[1100] opacity-0 translate-x-[0] top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full laptop:max-w-[700px] '
             initial={containerMotion.closed}
             animate={containerMotion.open}
             exit={containerMotion.closed}
           >
-            <div className='px-6 py-4 tablet:px-12 tablet:py-8 laptop:pr-10'>
-              <div className="comments_header flex flex-row justify-between">
+            <div className='flex flex-col'>
+
+              {/* COMMENT HEADER */}
+              <div className="comments_header flex flex-row justify-between pt-6 px-6 tablet:px-12 laptop:pr-10">
                 <div className='flex flex-row font-sentinel__SemiBoldItal text-h3 text-primary-700 items-end'>
-                  Comments <span className='text-heading-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
+                  Comments <span className='text-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
                 </div>
                 <div className='w-[40px] hover:cursor-pointer' onClick={hideComments}>
                   <CloseSvg fill={'var(--primary-plum-700)'} />
                 </div>
               </div>
-              <CommentForm postId={commentsModal.commentOn} primary={true} />
 
-              {commentsModal.comments.length > 0 && <div>
-                {commentsModal.comments.map((comment: IPostComment) =>
-                  <Comment
-                    key={comment.id}
-                    comment={comment}
-                    postId={commentsModal.commentOn}
-                  />
-                )
-                }
-              </div>}
+              {/* COMMENT FORM */}
+              <div className=''>
+                <CommentForm postId={commentsModal.commentOn} primary={true} />
+              </div>
+
+              {/* COMMENTS */}
+              {commentsModal.comments.length > 0 &&
+                <div className='px-6 tablet:px-12 laptop:pr-10'>
+                  {commentsModal.comments.map((comment: IPostComment) =>
+                    <Comment
+                      key={comment.id}
+                      comment={comment}
+                      postId={commentsModal.commentOn}
+                    />
+                  )
+                  }
+                </div>}
+
+              {/* LOAD MORE COMMENTS */}
+              {commentsModal.pageInfo.hasNextPage &&
+                <div>
+                  <button
+                    onClick={fetchMore}
+                    className={`text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white active:bg-secondary-500 active:scale-[.98]}`}>
+                    {(loading) && <TwSpinnerOne />}
+                    {loading ? 'Loading...' : 'Load More Comments'}
+                  </button>
+                </div>
+              }
             </div>
           </motion.div>
           <motion.div
@@ -134,3 +202,77 @@ const variants = {
 export default CommentModal
 
 
+const query = gql`
+  query GetMoreComments($after: String, $postID: ID) {
+    comments(first: 10, after: $after, where: {contentId: $postID}) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          databaseId
+          approved
+          parent {
+            node {
+              databaseId
+            }
+          }
+          id
+          author {
+            node {
+              name
+              isRestricted
+              databaseId
+              ... on CommentAuthor {
+                gravatar {
+                  url
+                }
+              }
+            }
+          }
+          date
+          commentedOn {
+            node {
+              id
+              status
+            }
+          }
+          content
+          replies {
+            edges {
+              node {
+                id
+                databaseId
+                content
+                date
+                author {
+                  node {
+                    id
+                    name
+                    email
+                    ... on CommentAuthor {
+                      id
+                      email
+                      gravatar {
+                        default
+                        extra_attr
+                        force_default
+                        found_avatar
+                        height
+                        rating
+                        size
+                        url
+                        width
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`

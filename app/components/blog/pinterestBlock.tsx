@@ -31,7 +31,7 @@ function PinterestBlock(props: IProps) {
 
           {/* IMAGE */}
           <div className="w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.url} alt={''} />
+            {props?.url && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.url} alt={''} />}
           </div>
 
         </div>

@@ -8,7 +8,7 @@ import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
-import { getHtmlMetadataTags } from "~/utils/seo";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
@@ -17,26 +17,15 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
   }
 }
-
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
   const category = capitalize(data.category)
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    page: getStaticPageMeta({
-      title: `${category} Archives - Every-Tuesday`,
-      desc: `Every-Tuesday Category: ${category}`,
-      slug: `${data.category}`
-    }),
-    location
+  return getBasicPageMetaTags(metaData, {
+    title: `${category} Archives`,
+    desc: `Every-Tuesday Category: ${category}`,
+    slug: `${data.category}`
   })
-};
+}
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   let variables = {
@@ -46,11 +35,11 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   }
   let url = new URL(request.url)
   let searchParams = url.searchParams
-  let page = searchParams.get('page')
+  let pageParams = searchParams.get('page')
 
-  if (page) {
+  if (pageParams) {
     variables = {
-      first: parseInt(page, 10) * 10,
+      first: parseInt(pageParams, 10) * 10,
       after: null,
       catName: params.cat
     }
@@ -65,25 +54,36 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   //   //TODO: redirect to custom 404 page
   //   throw new Response("Not Found", { status: 404 });
   // }
-
+  const category = capitalize(params.cat)
+  const page = {
+    title: `${category} Archives`,
+    slug: params.cat,
+    description: `Every-Tuesday Category: ${category}`,
+    seo: {
+      title: `${category} Archives`,
+      opengraphModifiedTime: '', //TODO: figure out how to get this
+      metaDesc: `The Arhives page for ${category}. This page contains all the posts in the ${category} category.`,
+    }
+  }
   return json({
     category: params.cat,
     pageInfo,
     posts,
-    page: page ? parseInt(page, 10) : 1
+    page,
+    pageParams: pageParams ? parseInt(pageParams, 10) : 1
   })
 };
 
 
 export default function CategoryPage() {
-  let { posts, pageInfo, category, page } = useLoaderData<{
+  let { posts, pageInfo, category, pageParams } = useLoaderData<{
     posts: IPost[],
     pageInfo: {
       endCursor: string
       hasNextPage: boolean
       hasPreviousPage: boolean
     },
-    page: number
+    pageParams: number
     category: string
   }>();
   const { state, addCategoriAction, loadingPosts, clearCategory } = useFetchPaginate({
@@ -92,7 +92,7 @@ export default function CategoryPage() {
         posts,
         pageInfo: {
           ...pageInfo,
-          page
+          page: pageParams
         }
       }
     }

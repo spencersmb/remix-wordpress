@@ -10,6 +10,7 @@ export enum ISiteTypes {
   HIDE_COMMENTS = 'HIDE_COMMENTS',
   ADD_COMMENT = 'ADD_COMMENT',
   ADD_COMMENT_REPLY = 'ADD_COMMENT_REPLY',
+  FETCH_MORE_COMMENTS = 'FETCH_MORE_COMMENTS',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -36,7 +37,22 @@ interface IShowComments {
   type: ISiteTypes.SHOW_COMMENTS,
   payload: {
     commentOn: number
-    comments: IPostComment[]
+    comments: IPostComment[],
+    pageInfo: {
+      hasNextPage: boolean
+      endCursor: string
+    }
+  }
+}
+
+interface IFetchMoreComments {
+  type: ISiteTypes.FETCH_MORE_COMMENTS,
+  payload: {
+    comments: IPostComment[],
+    pageInfo: {
+      hasNextPage: boolean
+      endCursor: string
+    }
   }
 }
 
@@ -55,6 +71,7 @@ export type ISiteAction =
 | IAddComment
 | IAddCommentReply
 | {type: ISiteTypes.HIDE_COMMENTS}
+| IFetchMoreComments
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
@@ -95,6 +112,7 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
           show: true,
           commentOn: action.payload.commentOn,
           comments: action.payload.comments,
+          pageInfo: action.payload.pageInfo
         }
       }
 
@@ -104,7 +122,11 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         commentsModal:{
           show: false,
           commentOn: 0,
-          comments: []
+          comments: [],
+          pageInfo: {
+            hasNextPage: false,
+            endCursor: ''
+          }
         }
       }
 
@@ -129,9 +151,10 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
       ]
       const updatedComments = state.commentsModal.comments.map((comment: IPostComment) => {
           if(comment.databaseId === action.payload.comment.parent){
+            const replies = comment.replies ? comment.replies : []
             const newReplies = [
               action.payload.comment,
-              ...comment.replies
+              ...replies
             ]
             return {
               ...comment,
@@ -148,6 +171,21 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         commentsModal:{
           ...state.commentsModal,
           comments: updatedComments
+        }
+      }
+    }
+
+    case ISiteTypes.FETCH_MORE_COMMENTS:{
+      const comments = [
+        ...state.commentsModal.comments,
+        ...action.payload.comments
+      ]
+      return{
+        ...state,
+        commentsModal:{
+          ...state.commentsModal,
+          pageInfo: action.payload.pageInfo,
+          comments
         }
       }
     }

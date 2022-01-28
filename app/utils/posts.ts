@@ -46,9 +46,12 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
 
 
   if(data.comments){
-    modifiedData.comments = data.comments.edges.map(({ node }) => {
-      return parseComment(node)
-    });
+    modifiedData.comments = {
+      pageInfo: data.comments.pageInfo,
+      list: data.comments.edges.map(({ node }) => {
+        return parseComment(node)
+      }),
+    }
 
   }
 
@@ -57,11 +60,13 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
 }
 
 export function parseComment(node: IPostCommentRaw): IPostComment {
+
   return {
     ...node,
     replies: node.replies.edges.map(({ node }) => {
       return {
         ...node,
+        parent: node.parent?.node.databaseId || null,
         author: node.author.node
       }
     }),
@@ -70,9 +75,19 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
   }
 }
 
-export function getMediaSizeUrl(container:{mediaDetails: {sizes: IMediaDetailSize[]} , sourceUrl: string}, name: string): IMediaDetailSize{
+export function getMediaSizeUrl(socialNav: ISocialNav, name: string): IMediaDetailSize{
 
-  return container.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+  if(!socialNav.pinterestImage){
+    return {
+      file: '',
+      height: '',
+      name: '',
+      sourceUrl: '', // TODO: add a default image
+      width: '',
+    }
+  }
+
+  return socialNav.pinterestImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
     
     if(currentValue.name === name){
       return currentValue
@@ -81,4 +96,26 @@ export function getMediaSizeUrl(container:{mediaDetails: {sizes: IMediaDetailSiz
     }
     
   }, {})
+}
+
+export function formatDate(date: string): string{
+  const blogDate = new Date(date)
+  const monthIndex: number = blogDate.getMonth()
+  const day: number = blogDate.getDate()
+  
+  const months: string[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+  return `${months[monthIndex]} ${day}, ${blogDate.getFullYear()}`
 }

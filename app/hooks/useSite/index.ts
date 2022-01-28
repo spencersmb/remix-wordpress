@@ -18,7 +18,11 @@ export interface ISiteContextState {
   commentsModal:{
     show: boolean,
     commentOn: number
-    comments: any // TODO: FILL OUT
+    comments: IPostComment[]
+    pageInfo: {
+      hasNextPage: boolean
+      endCursor: string
+    }
   }
 }
 interface ISiteContextType {
@@ -43,17 +47,7 @@ export const siteInitialState: ISiteContextState  = {
       },
       pinterest: "http://pinterest.com/teelac",
       instagram: "http://instagram.com/everytuesday",
-      facebook: {
-        url: "http://facebook.com/everytues",
-        defaultImage: {
-          altText: "Every-Tuesday Logo Black",
-          sourceUrl: "http://etheadless.local/wp-content/uploads/2013/09/et-logo-black.png",
-          mediaDetails: {
-            "height": 143,
-            "width": 510
-          }
-        }
-      }
+      facebook: "http://facebook.com/everytues"
     },
     title: '',
   },
@@ -69,7 +63,11 @@ export const siteInitialState: ISiteContextState  = {
   commentsModal:{
     show: false,
     commentOn: 0,
-    comments: []
+    comments: [],
+    pageInfo: {
+      hasNextPage: false,
+      endCursor: ''
+    }
   }
 }
 export const SiteContext = createContext<ISiteContextType>({
@@ -122,6 +120,10 @@ const useSite = () => {
   const showComments = (data: {
     commentOn: number
     comments: IPostComment[]
+    pageInfo:{
+      hasNextPage: boolean
+      endCursor: string
+    }
   }) => {
     dispatch({
       type: ISiteTypes.SHOW_COMMENTS,
@@ -153,6 +155,14 @@ const useSite = () => {
     })
   }
 
+
+  const fetchMoreComments = (data: {comments: IPostComment[], pageInfo: {hasNextPage: boolean, endCursor: string}}) => {
+    dispatch({
+      type: ISiteTypes.FETCH_MORE_COMMENTS,
+      payload: data
+    })
+  }
+
   return {
     openModal,
     closeModal,
@@ -161,6 +171,7 @@ const useSite = () => {
     hideComments,
     addComment,
     addCommentReply,
+    fetchMoreComments,
     state,
     dispatch
   }

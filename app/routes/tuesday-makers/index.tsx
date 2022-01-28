@@ -74,6 +74,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     return redirect('/tuesday-makers/members')
   }
 
+  // TODO: ADD THIS TO ALL PAGES FOR JSLONLD CONTENT EXAMPLE BELOW
   const page = {
     title: 'Resource Library',
     slug: 'resource-library',

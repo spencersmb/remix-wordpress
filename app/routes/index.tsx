@@ -322,7 +322,6 @@ export default function Index() {
 const query = `
     query GetNextPosts($after: String) {
         posts(first: 10, after: $after) {
-            __typename
             pageInfo {
                 endCursor
                 hasNextPage
@@ -333,6 +332,51 @@ const query = `
             edges {
                 __typename
                 node {
+                  comments(first: 10) {
+      edges {
+        node {
+          databaseId
+          approved
+          parent {
+            node {
+              databaseId
+            }
+          }
+          id
+          author {
+            node {
+              name
+              email
+            }
+          }
+          date
+          commentedOn {
+            node {
+              id
+              status
+            }
+          }
+          content
+          replies {
+            edges {
+              node {
+                id
+                databaseId
+                content
+                date
+                author {
+                  node {
+                    id
+                    name
+                    email
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
                     id
                     categories {
                         edges {
