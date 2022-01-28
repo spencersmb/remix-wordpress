@@ -9,7 +9,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
   const lastElement = links?.pop()
   return (
     <div className="mt-8">
-      <ul className="text-primary-400 flex flex-row text-xs tablet:text-base">
+      <ul className="text-primary-500 flex flex-row text-xs tablet:text-base">
         <li><Link to={'/'}>Home </Link> <span className="mr-1">/</span></li>
         {links && links.map((link, index) => {
           const linkText = `${link.text}`
@@ -17,7 +17,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
             <li key={index} ><Link to={link.url}>{linkText}</Link></li>
           )
         })}
-        {lastElement && <li className="text-primary-300"><span className="mx-1">/</span>{lastElement.text}</li>}
+        {lastElement && <li className=""><span className="mx-1">/</span>{lastElement.text}</li>}
       </ul>
     </div>
   )

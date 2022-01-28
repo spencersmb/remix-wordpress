@@ -71,8 +71,9 @@ function FooterPrimary() {
           {/* LOGO / TAGLINE */}
           <div className='pb-12 laptop:pb-0'>
             <div className='max-w-[249px]'>
-              <Link to={'/'} prefetch='intent'>
+              <Link to={'/'} prefetch='intent' aria-label='Link to Every-Tuesday Home page'>
                 <EveryTuesdayLogo fill={`var(--secondary-500)`} />
+                <span className="sr-only">Every Tuesday Home Page</span>
               </Link>
             </div>
             <p className='text-primary-50 font-sentinel__SemiBoldItal text-h5 pt-2'>
@@ -90,7 +91,7 @@ function FooterPrimary() {
                     <ul>
                       {block.links.map(link => (
                         <li key={link.url} className='text-primary-300 text-lg btn-spencer pb-3'>
-                          <Link className='hover:text-primary-400 underlined' to={link.url}>{link.text}</Link>
+                          <Link className='hover:text-primary-400 underlined' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                         </li>
                       ))}
                     </ul>
@@ -112,6 +113,7 @@ function FooterPrimary() {
                             <li key={key} className='flex'>
                               <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
                                 <YoutubeSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                                <span className="sr-only">Every Tuesday on Youtube</span>
                               </a>
                             </li>
                           )
@@ -120,6 +122,7 @@ function FooterPrimary() {
                             <li key={key} className='flex pl-9'>
                               <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
                                 <FacebookSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                                <span className="sr-only">Every Tuesday on Facebook</span>
                               </a>
                             </li>
                           )
@@ -128,6 +131,7 @@ function FooterPrimary() {
                             <li key={key} className='flex pl-9'>
                               <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
                                 <InstagramSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                                <span className="sr-only">Every Tuesday on Instagram</span>
                               </a>
                             </li>
                           )
@@ -136,6 +140,7 @@ function FooterPrimary() {
                             <li key={key} className='flex pl-9'>
                               <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
                                 <PinterestSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
+                                <span className="sr-only">Every Tuesday on Pinterest</span>
                               </a>
                             </li>
                           )

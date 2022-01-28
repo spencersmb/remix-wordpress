@@ -4,6 +4,7 @@ import Stroke1 from "../svgs/strokes/stroke-1"
 
 interface IProps {
   url: string
+  postTitle: string
 }
 
 function PinterestBlock(props: IProps) {
@@ -23,7 +24,7 @@ function PinterestBlock(props: IProps) {
                 <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
               </div>
             </div>
-            <h5 className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</h5>
+            <div className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</div>
             <p className="text-center mb-8">Create your own personal library of my tutorials you love!</p>
 
             <CircularStrokeBtn />
@@ -31,7 +32,7 @@ function PinterestBlock(props: IProps) {
 
           {/* IMAGE */}
           <div className="w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            {props?.url && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.url} alt={''} />}
+            {props?.url && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.url} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
           </div>
 
         </div>

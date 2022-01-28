@@ -14,7 +14,7 @@ interface IFeaturedImage {
   id: string
   sizes: string
   sourceUrl: string
-  srcSet: null | string[]
+  srcSet: string
   mediaDetails: {
     sizes: {sourceUrl: string}[]
   }

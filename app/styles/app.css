@@ -396,6 +396,17 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 1440px;
   }
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .visible {
   visibility: visible;
 }
@@ -1116,9 +1127,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-primary-600 {
   color: var(--primary-plum-600);
 }
-.text-primary-400 {
+.text-primary-500 {
   --tw-text-opacity: 1;
-  color: rgb(151 105 105 / var(--tw-text-opacity));
+  color: rgb(141 92 92 / var(--tw-text-opacity));
 }
 .text-neutral-800 {
   --tw-text-opacity: 1;
@@ -1155,14 +1166,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.text-primary-300 {
-  --tw-text-opacity: 1;
-  color: rgb(205 167 167 / var(--tw-text-opacity));
-}
-.text-primary-500 {
-  --tw-text-opacity: 1;
-  color: rgb(141 92 92 / var(--tw-text-opacity));
-}
 .text-neutral-500 {
   --tw-text-opacity: 1;
   color: rgb(161 146 154 / var(--tw-text-opacity));
@@ -1181,6 +1184,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .text-primary-50 {
   color: var(--primary-plum-50);
+}
+.text-primary-300 {
+  --tw-text-opacity: 1;
+  color: rgb(205 167 167 / var(--tw-text-opacity));
 }
 .text-gray-200 {
   --tw-text-opacity: 1;
@@ -1763,6 +1770,17 @@ Ensure the default browser behavior of the `hidden` attribute.
     line-height: 1.5rem;
   }
 }
+.blog-content a {
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+.blog-content a:hover {
+  --tw-text-opacity: 1;
+  color: rgb(94 234 212 / var(--tw-text-opacity));
+}
 .blog-content p {
   padding-bottom: 1rem;
   font-size: 1.125rem;
@@ -1780,6 +1798,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   .blog-content p:first-child {
     font-size: 1.25rem;
     line-height: 2rem;
+  }
+}
+.blog-content h2 {
+  margin-bottom: 1rem;
+  font-family: Sentinel SemiBoldItal, serif;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+@media (min-width: 768px) {
+  .blog-content h2 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 .blog-content h3 {
@@ -1801,21 +1831,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 2rem;
   color: var(--primary-plum-600);
 }
+.blog-content ul {
+  margin-left: 1.75rem;
+  margin-bottom: 2.5rem;
+}
 .blog-content li {
   margin-bottom: 1rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  list-style-type: disc;
+    list-style-type: disc;
 }
-.blog-content a {
-  --tw-text-opacity: 1;
-  color: rgb(20 184 166 / var(--tw-text-opacity));
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
-}
-.blog-content a:hover {
-  --tw-text-opacity: 1;
-  color: rgb(94 234 212 / var(--tw-text-opacity));
+.blog-content [class*="wp-image"] {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 .root,
 :root,

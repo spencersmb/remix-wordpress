@@ -109,7 +109,7 @@ export default function PostSlug() {
           <h1 className='text-primary-600 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-1 mt-4 tablet:mt-8 desktop:mt-12'>
             {post.title}
           </h1>
-          <div className='mt-4 text-primary-400 tablet:mt-8 text-xs tablet:text-base desktop:mt-12'>
+          <div className='mt-4 text-primary-500 tablet:mt-8 text-xs tablet:text-base desktop:mt-12'>
             <BlogDateAuthor date={post.date} author={post.author.name} />
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function PostSlug() {
         {/* FEATURED IMAGE */}
         <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
           <div>
-            <img src={post.featuredImage.sourceUrl} alt={post.featuredImage.altText} />
+            <img src={post.featuredImage.sourceUrl} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
           </div>
         </div>
 
@@ -125,7 +125,7 @@ export default function PostSlug() {
         <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
 
         {/* PINTEREST */}
-        <PinterestBlock url={pinterestImage.sourceUrl} />
+        <PinterestBlock url={pinterestImage.sourceUrl} postTitle={post.title} />
 
         {/* CATEGORIES */}
         {post.categories.length > 0 &&
@@ -153,7 +153,7 @@ export default function PostSlug() {
               {/* COUNT */}
               <div>
                 {post.comments.list.length !== 0
-                  ? <p className='text-primary-400'><span className='font-semibold text-primary-700'>{post.comments.list.length}</span> comments</p>
+                  ? <p className='text-primary-700'><span className='font-semibold'>{post.comments.list.length}</span> comments</p>
                   : <p className='font-sentinel__SemiBoldItal text-neutral-600'>Leave a comment</p>}
               </div>
             </div>

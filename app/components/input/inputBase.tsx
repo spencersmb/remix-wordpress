@@ -1,6 +1,6 @@
 interface IProps {
   type: string
-  id: string
+  id?: string
   name: string
   invalid: boolean
   required?: boolean

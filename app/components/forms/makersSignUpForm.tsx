@@ -68,7 +68,6 @@ function MakersSignUpForm(props: Props) {
           {/* <label className="leading-7 text-sm text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
             type="email"
-            id="email-input"
             name="email"
             placeholder='Enter Email'
             required={true}
