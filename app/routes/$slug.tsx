@@ -118,7 +118,7 @@ export default function PostSlug() {
         {post.featuredImage &&
           <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
             <div>
-              <img src={post.featuredImage.sourceUrl} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
+              <img src={post.featuredImage.sourceUrl} sizes={post.featuredImage.sizes} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
             </div>
           </div>}
 

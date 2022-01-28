@@ -111,7 +111,7 @@ function FooterPrimary() {
                         case 'youtube':
                           return (
                             <li key={key} className='flex'>
-                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                              <a href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
                                 <YoutubeSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
                                 <span className="sr-only">Every Tuesday on Youtube</span>
                               </a>
@@ -120,7 +120,7 @@ function FooterPrimary() {
                         case 'facebook':
                           return (
                             <li key={key} className='flex pl-9'>
-                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                              <a href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
                                 <FacebookSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
                                 <span className="sr-only">Every Tuesday on Facebook</span>
                               </a>
@@ -129,7 +129,7 @@ function FooterPrimary() {
                         case 'instagram':
                           return (
                             <li key={key} className='flex pl-9'>
-                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                              <a href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
                                 <InstagramSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
                                 <span className="sr-only">Every Tuesday on Instagram</span>
                               </a>
@@ -138,7 +138,7 @@ function FooterPrimary() {
                         case 'pinterest':
                           return (
                             <li key={key} className='flex pl-9'>
-                              <a href={metadata.social[key]} target={'_blank'} className='flex max-w-[28px] group'>
+                              <a href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
                                 <PinterestSvg className='transition-all group-hover:svg-[var(--primary-plum-300)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
                                 <span className="sr-only">Every Tuesday on Pinterest</span>
                               </a>
