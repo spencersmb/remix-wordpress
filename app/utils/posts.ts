@@ -82,7 +82,7 @@ export function getMediaSizeUrl(socialNav: ISocialNav, name: string): IMediaDeta
       file: '',
       height: '',
       name: '',
-      sourceUrl: '', // TODO: add a default image
+      sourceUrl: 'https://every-tuesday.com/wp-content/uploads/2021/12/winter-watercolor-floral-borders-procreate-pinterest.jpg', // TODO: add a default image
       width: '',
     }
   }

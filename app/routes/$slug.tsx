@@ -115,17 +115,18 @@ export default function PostSlug() {
         </div>
 
         {/* FEATURED IMAGE */}
-        <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
-          <div>
-            <img src={post.featuredImage.sourceUrl} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
-          </div>
-        </div>
+        {post.featuredImage &&
+          <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
+            <div>
+              <img src={post.featuredImage.sourceUrl} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
+            </div>
+          </div>}
 
         {/* BLOG CONTENT */}
         <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
 
         {/* PINTEREST */}
-        <PinterestBlock url={pinterestImage.sourceUrl} postTitle={post.title} />
+        <PinterestBlock pinterest={pinterestImage} postTitle={post.title} />
 
         {/* CATEGORIES */}
         {post.categories.length > 0 &&

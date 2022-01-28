@@ -3,11 +3,15 @@ import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
 
 interface IProps {
-  url: string
+  pinterest: {
+    sourceUrl?: string
+  }
   postTitle: string
 }
 
 function PinterestBlock(props: IProps) {
+  console.log(props);
+
   return (
     <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
 
@@ -32,7 +36,7 @@ function PinterestBlock(props: IProps) {
 
           {/* IMAGE */}
           <div className="w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            {props?.url && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.url} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
+            {props.pinterest.sourceUrl && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
           </div>
 
         </div>
