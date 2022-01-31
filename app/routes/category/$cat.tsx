@@ -10,6 +10,8 @@ import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
+import PostCardOne from "~/components/cards/postCardOne";
+import { POST_BASIC_FIELDS } from "~/lib/graphql/queries/posts";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -171,57 +173,28 @@ export default function CategoryPage() {
     }
   }, [])
 
-  function RenderPosts() {
-    if (!state.categories[category]) {
-      return (
-        <>
-          {posts.map(post => {
-            return (
-              <div key={post.id}>
-                <Link to={`/${post.slug}`}><h2>{post.title}</h2></Link>
-              </div>
-            )
-          }
-          )}
-          {pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
-        </>
-      )
-    }
-    return (
-      <>
-        {state.categories[category] && state.categories[category].posts.map(post => {
-          return (
-            <div key={post.id}>
-              <Link to={`/${post.slug}`}><h2>{post.title}</h2></Link>
-            </div>
-          )
-        })}
-        {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
-      </>
-    )
-  }
-
   return (
     <Layout>
-      Category
-      <div>
-        {state.categories[category] && state.categories[category].posts.map(post => {
-          return (
-            <div key={post.id}>
-              <Link to={`/${post.slug}`}><h2>{post.title}</h2></Link>
-            </div>
-          )
-        })}
-      </div>
+      <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
+        Category
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
 
-      <div>
-        {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
+          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 desktop:gap-x-8 '>
+
+            {state.categories[category] && state.categories[category].posts.map(relatedPost => <PostCardOne key={relatedPost.slug} post={relatedPost} />)}
+          </div>
+        </div>
+
+        <div>
+          {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
+        </div>
       </div>
     </Layout>
   )
 }
 
 const query = gql`
+  ${POST_BASIC_FIELDS}
   query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
     posts(
       first: $first
@@ -241,10 +214,7 @@ const query = gql`
       }
       edges {
         node {
-          id
-          title
-          date
-          slug
+          ...postBasicFields
         }
       }
     }

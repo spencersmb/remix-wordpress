@@ -10,7 +10,6 @@ interface IProps {
 }
 
 function PinterestBlock(props: IProps) {
-  console.log(props);
 
   return (
     <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
@@ -22,7 +21,7 @@ function PinterestBlock(props: IProps) {
         <div className="bg-white flex flex-col-reverse shadow-xl rounded-lg overflow-hidden z-10 relative tablet:flex-row">
 
           {/* Content */}
-          <div className="flex flex-col justify-center items-center py-7 px-9 ">
+          <div className="flex flex-col justify-center items-center py-7 px-9 pl-11">
             <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
               <div>
                 <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
@@ -35,8 +34,8 @@ function PinterestBlock(props: IProps) {
           </div>
 
           {/* IMAGE */}
-          <div className="w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            {props.pinterest.sourceUrl && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%]" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
+          <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
+            {props.pinterest.sourceUrl && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-lg" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
           </div>
 
         </div>

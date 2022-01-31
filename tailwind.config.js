@@ -99,6 +99,9 @@ module.exports = {
         700: '#B91C1C',
         800: '#991B1B',
         900: '#7F1D1D'
+      },
+      'yellow': {
+        800: ''
       }
     },
     extend:{
@@ -110,7 +113,7 @@ module.exports = {
         'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
         'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
         'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr);',
-        'desktop': 'minmax(0,1fr) repeat(12,minmax(auto, calc((1440px - (11 * 30px)) / 12))) minmax(0,1fr);'
+        'desktop': 'minmax(0,1fr) repeat(12,minmax(auto, calc((1548px - (11 * 30px)) / 12))) minmax(0,1fr);'
       },
       fontSize: {
         'h5': ['1.5rem', '1.75rem'],
@@ -120,6 +123,7 @@ module.exports = {
         'display-2': ['3.375rem', '3.75rem'],
         'heading-3': ['2.063rem', '2.5rem'],
         'xl': ['1.25rem', '2rem'],
+        '4.5xl': ['2.375rem', '2.5rem']
       },
       boxShadow: {
         'et_4': '0px 40px 50px rgba(0, 0, 0, 0.2)',

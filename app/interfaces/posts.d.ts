@@ -61,6 +61,7 @@ interface IPostRaw {
   tags: {
     edges: [{node: Itag}]
   }
+  relatedPosts:IPostRaw[]
   featuredImage: {node: IFeaturedImage}
   title: string
   slug: string
@@ -133,6 +134,7 @@ interface IPost {
     list:IPostComment[]
   }
   etSocialNav: ISocialNav
+  relatedPosts: IPost[]
 }
 
 interface IwpPageInfo {

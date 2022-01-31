@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 
+
 export const QUERY_NEXT_POSTS = gql`
     query NextPosts($after: String) {
         posts(first: 10, after: $after) {
@@ -128,3 +129,47 @@ export const QUERY_POST_BY_ID = `
         }
     }
   `
+export const POST_BASIC_FIELDS = gql`
+  fragment postBasicFields on Post {
+    id
+    content
+    date
+    dateGmt
+    excerpt
+    modified
+    databaseId
+    title
+    slug
+    isSticky
+    categories {
+      edges {
+          node {
+            databaseId
+            id
+            name
+            slug
+          }
+      }
+    }
+    tags{
+      edges{
+          node{
+            name
+            slug
+          }
+      }
+    }
+    relatedPosts {
+      title
+      slug
+      categories {
+        edges {
+          node {
+            slug
+            name
+          }
+        }
+      }
+    }
+  }
+`

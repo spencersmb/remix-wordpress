@@ -13,6 +13,9 @@ import Breadcrumbs from '~/components/blog/breadcrumbs'
 import BlogDateAuthor from '~/components/blog/date'
 import PinterestBlock from '~/components/blog/pinterestBlock'
 import CommentsSvg from '~/components/svgs/commentsSvg'
+import BarChartSvg from '~/components/svgs/barChartSvg'
+import PostCardOne from '~/components/cards/postCardOne'
+import { POST_BASIC_FIELDS } from '~/lib/graphql/queries/posts'
 
 
 //TODO: Check Comment reply - style single comments
@@ -87,6 +90,7 @@ export default function PostSlug() {
       hideComments()
     }
   }, [])
+
   const breadcrumbLinks = [
     {
       url: '/blog',
@@ -115,22 +119,22 @@ export default function PostSlug() {
         </div>
 
         {/* FEATURED IMAGE */}
-        {post.featuredImage &&
+        {/* {post.featuredImage &&
           <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
             <div>
               <img src={post.featuredImage.sourceUrl} sizes={post.featuredImage.sizes} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
             </div>
-          </div>}
+          </div>} */}
 
         {/* BLOG CONTENT */}
-        <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
+        {/* <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} /> */}
 
         {/* PINTEREST */}
-        <PinterestBlock pinterest={pinterestImage} postTitle={post.title} />
+        {/* <PinterestBlock pinterest={pinterestImage} postTitle={post.title} /> */}
 
         {/* CATEGORIES */}
         {post.categories.length > 0 &&
-          <div className='col-start-2 col-span-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8 mt-20'>
+          <div className='col-start-2 col-span-2 mb-8 mt-10 tablet:col-start-3 tablet:col-span-10 desktop:mt-20 desktop:col-start-4 desktop:col-span-8'>
             <ul className='flex flex-row flex-wrap'>
               {post.categories.map(cat =>
                 <li key={cat.id} className='text-neutral-800 flex rounded-2xl overflow-hidden mr-5 mb-5 hover:ring hover:ring-teal-400 ring-offset-neutral-50 focus:ring ring-offset-4 focus:ring-primary-300 duration-200 ease-in-out'>
@@ -143,8 +147,8 @@ export default function PostSlug() {
           </div>}
 
         {/* COMMENTS */}
-        <div className='col-start-2 col-span-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mb-12 desktop:col-start-4 desktop:col-span-8 border-b-neutral-300 border-b-[1px]'>
-          <div className='flex flex-row justify-between'>
+        <div className='col-start-2 col-span-2 mb-8 pb-5 tablet:col-start-3 tablet:col-span-10 tablet:mb-8 desktop:col-start-4 desktop:col-span-8 border-b-neutral-300 border-b-[1px]'>
+          <div className='flex flex-row justify-between items-center'>
             <div onClick={handleCommentsClick} className='flex flex-row hover:cursor-pointer items-center'>
               {/* ICON */}
               <div className='w-7 mr-2'>
@@ -163,41 +167,63 @@ export default function PostSlug() {
             </div>
           </div>
         </div>
-        <MakersPostSignUp />
 
-        <Link to='/'>
-          Home
-        </Link>
+        {/* AUTHOR */}
+        <div className='col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+
+          <div className='flex flex-row flex-wrap items-center'>
+            {/* IMAGE */}
+            <div className='mr-2'>
+              <div className='w-[100px]'>
+                <img className='max-w-none rounded-full' src={post.author.avatar.url} alt="Teela Cunningham Author" />
+              </div>
+            </div>
+
+            {/* AUTHOR INFO */}
+            <div className='flex flex-col justify-center flex-[1]'>
+              <div className='text-sm text-neutral-600 mb-2'>Written By</div>
+              <div className='text-primary-600 font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
+              <div className='text-sm text-primary-600'>Every Tuesday's content creator and founder.</div>
+            </div>
+
+            {/* BUTTON */}
+            <div className='flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2'>
+              <button className='btn btn-primary' type='button'>About Me</button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* <MakersPostSignUp /> */}
+
+        {/* RELATED POST TITLE*/}
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12 mx-[-1px]'>
+          <div className='text-4xl mb-7 mt-14 tablet:text-5xl laptop:text-display-2 font-sentinel__SemiBoldItal flex flex-col laptop:mt-28 laptop:mb-14'>
+            <span className='text-primary-500'>You may also like...</span>
+          </div>
+        </div>
+
+        {/* RELATED POSTS*/}
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+
+          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 desktop:gap-x-8 '>
+
+            {post.relatedPosts.map(relatedPost => <PostCardOne key={relatedPost.slug} post={relatedPost} />)}
+          </div>
+        </div>
+
       </div>
+      {/* END BLOG CONTENT/CONTAINER */}
+
     </Layout>
   );
 }
 
 const query = gql`
+    ${POST_BASIC_FIELDS}
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
-        id
-        categories {
-            edges {
-                node {
-                    databaseId
-                    id
-                    name
-                    slug
-                }
-            }
-        }
-        tags{
-            edges{
-                node{
-                    name
-                }
-            }
-        }
-        content
-        date
-        dateGmt
-        excerpt
+        ...postBasicFields,    
         featuredImage {
             node {
               mediaDetails {
@@ -237,10 +263,6 @@ query postBySlug($slug: String!) {
                 slug
                 uri
             }
-        }
-        relatedPosts {
-          title
-          slug
         }
         etSocialNav{
             pinterestImage{
