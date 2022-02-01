@@ -16,7 +16,14 @@ interface IFeaturedImage {
   sourceUrl: string
   srcSet: string
   mediaDetails: {
-    sizes: {sourceUrl: string}[]
+    sizes: {
+      width: string
+      file: string
+      height: string
+      name: string
+      mimeType: string
+      sourceUrl: string
+    }[]
   }
 }
 
@@ -103,6 +110,25 @@ interface ISocialNav {
   }
 }
 
+interface ITutorialManager {
+  thumbnail?:{
+    sourceUrl: string
+  }
+  colorSwatch: string
+  downloads: {
+    title: string
+    freebie:{
+        downloadLink: string
+    }
+  }[] | null
+  youtube: {
+    embedUrl: string
+  }
+  paidProducts: IProduct[]
+
+
+}
+
 interface IPost {
   databaseId: number //postID in wp
   date: string
@@ -125,7 +151,7 @@ interface IPost {
   slug: string
   id: string
   seo:IPostSeo
-  downloadManager: IDownloadManager
+  tutorialManager: ITutorialManager
   comments:{
     pageInfo: {
       endCursor: string

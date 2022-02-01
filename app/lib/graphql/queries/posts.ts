@@ -129,6 +129,54 @@ export const QUERY_POST_BY_ID = `
         }
     }
   `
+
+export const POST_FEATURED_IMAGE = gql`
+  fragment featuredImageFields on Post {
+    featuredImage {
+      node {
+        mediaDetails {
+          sizes{
+            width
+            file
+            height
+            name
+            sourceUrl
+            mimeType
+          }
+        }
+          altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+        }
+      }
+    }
+`
+export const RELEATED_POSTS_FIELDS = gql`
+  fragment relatedPostsFields on Post {
+    relatedPosts {
+      ...featuredImageFields
+      title
+      slug
+      tutorialManager {
+        thumbnail {
+          sourceUrl
+          altText
+        }
+      }
+      categories {
+        edges {
+          node {
+            slug
+            name
+          }
+        }
+      }
+    }
+  }
+`
 export const POST_BASIC_FIELDS = gql`
   fragment postBasicFields on Post {
     id
@@ -157,18 +205,6 @@ export const POST_BASIC_FIELDS = gql`
             name
             slug
           }
-      }
-    }
-    relatedPosts {
-      title
-      slug
-      categories {
-        edges {
-          node {
-            slug
-            name
-          }
-        }
       }
     }
   }

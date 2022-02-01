@@ -11,7 +11,7 @@ import { flattenAllPosts } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import PostCardOne from "~/components/cards/postCardOne";
-import { POST_BASIC_FIELDS } from "~/lib/graphql/queries/posts";
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -175,18 +175,34 @@ export default function CategoryPage() {
 
   return (
     <Layout>
-      <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
-        Category
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+      <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto py-24'>
+
+        {/* ARCHIVE TITLE */}
+        <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8 pb-16 text-center'>
+          <h2 className="text-display-2 flex flex-col">
+            <span className="text-base text-primary-500 font-normal">Category</span>
+            <span className="font-sentinel__SemiBoldItal capitalize">{category}</span>
+          </h2>
+        </div>
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
 
           <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 desktop:gap-x-8 '>
 
-            {state.categories[category] && state.categories[category].posts.map(relatedPost => <PostCardOne key={relatedPost.slug} post={relatedPost} />)}
+            {state.categories[category] && state.categories[category].posts.map(relatedPost =>
+              <PostCardOne key={relatedPost.slug} post={relatedPost} />
+            )}
           </div>
         </div>
 
-        <div>
-          {state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Load More'}</button>}
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+          {state.categories[category].pageInfo.hasNextPage &&
+            <button
+              className="btn btn-primary mx-auto"
+              aria-disabled={state.loading}
+              disabled={state.loading}
+              onClick={fetchMorePosts}>
+              {state.loading ? 'Loading...' : 'Load More Posts'}
+            </button>}
         </div>
       </div>
     </Layout>
@@ -195,6 +211,7 @@ export default function CategoryPage() {
 
 const query = gql`
   ${POST_BASIC_FIELDS}
+  ${POST_FEATURED_IMAGE}
   query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
     posts(
       first: $first
@@ -215,6 +232,20 @@ const query = gql`
       edges {
         node {
           ...postBasicFields
+          ...featuredImageFields
+          tutorialManager {
+            thumbnail {
+              sourceUrl
+              mediaDetails {
+                sizes {
+                  name
+                  sourceUrl
+                  height
+                  width
+                }
+              }
+            }
+          }
         }
       }
     }

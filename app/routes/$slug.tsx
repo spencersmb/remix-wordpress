@@ -15,7 +15,7 @@ import PinterestBlock from '~/components/blog/pinterestBlock'
 import CommentsSvg from '~/components/svgs/commentsSvg'
 import BarChartSvg from '~/components/svgs/barChartSvg'
 import PostCardOne from '~/components/cards/postCardOne'
-import { POST_BASIC_FIELDS } from '~/lib/graphql/queries/posts'
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, RELEATED_POSTS_FIELDS } from '~/lib/graphql/queries/posts'
 
 
 //TODO: Check Comment reply - style single comments
@@ -101,7 +101,9 @@ export default function PostSlug() {
       text: post.title
     }
   ]
-  const pinterestImage = getMediaSizeUrl(post.etSocialNav, 'medium')
+  const pinterestImage = getMediaSizeUrl(post.etSocialNav.pinterestImage?.mediaDetails.sizes, 'medium')
+  const featuredImage = getMediaSizeUrl(post.featuredImage?.mediaDetails.sizes, 'headless_post_feature_image')
+
 
   return (
     <Layout>
@@ -119,12 +121,12 @@ export default function PostSlug() {
         </div>
 
         {/* FEATURED IMAGE */}
-        {/* {post.featuredImage &&
+        {post.featuredImage &&
           <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
             <div>
-              <img src={post.featuredImage.sourceUrl} sizes={post.featuredImage.sizes} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1920`} height={'928'} />
+              <img src={`${featuredImage.sourceUrl}`} sizes={`(max-width: 700px) 100vw, 700px`} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1440`} height={'810'} />
             </div>
-          </div>} */}
+          </div>}
 
         {/* BLOG CONTENT */}
         {/* <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} /> */}
@@ -220,25 +222,14 @@ export default function PostSlug() {
 }
 
 const query = gql`
-    ${POST_BASIC_FIELDS}
+${POST_BASIC_FIELDS}
+${POST_FEATURED_IMAGE}
+${RELEATED_POSTS_FIELDS}
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
         ...postBasicFields,    
-        featuredImage {
-            node {
-              mediaDetails {
-                sizes{
-                  sourceUrl
-                }
-              }
-                altText
-                caption
-                sourceUrl
-                srcSet
-                sizes
-                id
-            }
-        }
+        ...featuredImageFields,
+        ...relatedPostsFields
         modified
         databaseId
         title

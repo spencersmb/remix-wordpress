@@ -420,7 +420,7 @@ union DownloadFreebie_Tutorialmanager_Downloads = ResourceLibrary
 union DownloadFreebie_Tutorialmanager_PaidProducts = Product
 
 "Deprecated in favor of MenuItemLinkeable Interface"
-union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | Product | ResourceLibrary | Tag
+union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | PostFormat | Product | ResourceLibrary | Tag
 
 union MenuItem_Featured_Courses = Course
 
@@ -1605,6 +1605,7 @@ type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [DownloadFreebie_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    thumbnail: MediaItem
     youtube: DownloadFreebie_Tutorialmanager_Youtube
 }
 
@@ -2873,7 +2874,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
 }
 
 "The postFormat type"
-type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable {
+type PostFormat implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable {
     "Connection between the postFormat type and the ContentNode type"
     contentNodes(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -2889,7 +2890,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     ): PostFormatToContentNodeConnection
     "The number of objects connected to the object"
     count: Int
-    "The unique identifier stored in the database"
+    "The unique resource identifier path"
     databaseId: Int!
     "The description of the object"
     description: String
@@ -3264,6 +3265,7 @@ type Post_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [Post_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    thumbnail: MediaItem
     youtube: Post_Tutorialmanager_Youtube
 }
 
@@ -3587,6 +3589,7 @@ type Product_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [Product_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    thumbnail: MediaItem
     youtube: Product_Tutorialmanager_Youtube
 }
 
@@ -6481,6 +6484,10 @@ enum MediaItemIdType {
 
 "The size of the media item object."
 enum MediaItemSizeEnum {
+    "MediaItem with the headless_ipad size"
+    HEADLESS_IPAD
+    "MediaItem with the headless_post_feature_image size"
+    HEADLESS_POST_FEATURE_IMAGE
     "MediaItem with the large size"
     LARGE
     "MediaItem with the medium size"

@@ -82,26 +82,30 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
   }
 }
 
-export function getMediaSizeUrl(socialNav: ISocialNav, name: string): IMediaDetailSize{
-
-  if(!socialNav.pinterestImage){
-    return {
-      file: '',
-      height: '',
-      name: '',
-      sourceUrl: 'https://every-tuesday.com/wp-content/uploads/2021/12/winter-watercolor-floral-borders-procreate-pinterest.jpg', // TODO: add a default image
-      width: '',
-    }
+interface IMediaDetailSize {
+  width: string
+  file: string
+  height: string
+  name: string
+  sourceUrl: string
+}
+export function getMediaSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name: string): IMediaDetailSize{
+  if(mediaSizes === undefined || mediaSizes?.length < 1) return  {
+    width: '',
+    file: '',
+    height: '',
+    name: '',
+    sourceUrl: ''
   }
+  
+  return mediaSizes.reduce((previousValue: any, currentValue: any) => {
 
-  return socialNav.pinterestImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
-    
     if(currentValue.name === name){
       return currentValue
     }else{ 
       return previousValue
     }
-    
+
   }, {})
 }
 
@@ -203,33 +207,31 @@ export function findSkillLevel(categories: ICategories[]): ICategories | undefin
   let defaultSkill = {
     name: "beginner",
   }
+  let skillFoundStopLooking = false
   const skillFound = categories.reduce((previousValue: any, currentValue: ICategories):any => {
     if(currentValue.slug === "tutorials"){
       tutorialsFound = true
     }
+    if(skillFoundStopLooking){
+      return previousValue
+    }
     switch(currentValue.slug ){
-      case "beginner":
+      
+      case "advanced":
+        skillFoundStopLooking = true
         return currentValue
       case "intermediate":
+        skillFoundStopLooking = true
         return currentValue
-      case "advanced":
+      case "beginner":
+        skillFoundStopLooking = true
         return currentValue
       default:
         return previousValue
     }
-    // if(currentValue.slug === 'advanced'){
-    //   console.log('found', currentValue.slug);
-    //   return currentValue
-    // }else{
-    //   return previousValue
-    // }
-
   }, {})
-  
-  console.log('skillFound', skillFound);
-  
 
-  return !isEmpty(skillFound) 
+    return !isEmpty(skillFound) 
     ? skillFound 
     : isEmpty(skillFound) && tutorialsFound 
       ? defaultSkill
