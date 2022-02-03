@@ -3,7 +3,7 @@ import { fetchAPI } from '../utils/fetch'
 import { getMediaSizeUrl, mapPostData } from '../utils/posts'
 import Layout from "~/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
-import { useEffect } from 'react'
+import { MouseEventHandler, useEffect } from 'react'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
@@ -16,6 +16,14 @@ import CommentsSvg from '~/components/svgs/commentsSvg'
 import BarChartSvg from '~/components/svgs/barChartSvg'
 import PostCardOne from '~/components/cards/postCardOne'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, RELEATED_POSTS_FIELDS } from '~/lib/graphql/queries/posts'
+import YoutubeSvg from '~/components/svgs/social/youtubeSvg'
+import { cssColors } from '~/enums/colors'
+import InstagramSvg from '~/components/svgs/social/instagramSvg'
+import FacebookSvg from '~/components/svgs/social/facebookSvg'
+import LockedSvg from '~/components/svgs/lockedSvg'
+import TutorialDownloads from '~/components/blog/tutorialContent/tutorialDownloads'
+import paidProducts from '~/components/blog/tutorialContent/paidProducts'
+import PaidProducts from '~/components/blog/tutorialContent/paidProducts'
 
 
 //TODO: Check Comment reply - style single comments
@@ -65,7 +73,8 @@ export let meta: MetaFunction = (metaData): any => {
 
 export default function PostSlug() {
   let { post, url } = useLoaderData<{ post: IPost, url: any }>();
-  const { showComments, hideComments, state: { commentsModal } } = useSite();
+  const { resourecLibraryLogin, showComments, hideComments, state: { commentsModal, metadata, } } = useSite();
+
   consoleHelper('post', post)
 
   function handleCommentsClick() {
@@ -83,8 +92,23 @@ export default function PostSlug() {
     })
   }
 
+  function handleFacebookShareClick(event: IClickEvent) {
+    event.preventDefault();
+    // @ts-ignore
+    const href = event.currentTarget.href;
+    return !window.open(href, 'Facebook', 'width=640,height=580')
+  }
+
   useEffect(() => {
     // handleCommentsClick()
+    window.addEventListener('storage', (evt) => {
+      console.log('custom fired', evt);
+
+      if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
+        window.location.reload();
+      }
+
+    });
     return () => {
       // unmount or change route, close modal
       hideComments()
@@ -103,7 +127,12 @@ export default function PostSlug() {
   ]
   const pinterestImage = getMediaSizeUrl(post.etSocialNav.pinterestImage?.mediaDetails.sizes, 'medium')
   const featuredImage = getMediaSizeUrl(post.featuredImage?.mediaDetails.sizes, 'headless_post_feature_image')
+  const socialkeys = Object.keys(metadata.social) //used to build out social links
+  const postUrl = `${metadata.domain}/${post.slug}`
 
+  const moreThanOnePaidProductsCss = 'flex-row-reverse flex-wrap-reverse'
+  const swatchCss = `flex-[1_0_100%]`
+  const swatchCss2 = `mr-8`
 
   return (
     <Layout>
@@ -128,14 +157,51 @@ export default function PostSlug() {
             </div>
           </div>}
 
+        {post.tutorialManager.youtube.embedUrl &&
+          <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop '>
+
+            <div className='col-span-full bg-primary-100 h-[300px] z-0 row-[1/1] self-end'></div>
+
+            {/* YOUTUBE */}
+            <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+              <div className='youtube_container overflow-hidden rounded-2xl relative'>
+                <div className='embed-responsive'>
+                  <div className='embed-responsive-item'>
+                    <iframe
+                      loading='lazy'
+                      frameBorder='0'
+                      src={post.tutorialManager.youtube.embedUrl}
+                      title={`YouTube video: ${post.title}`}
+                      allow="accelerometer; picture-in-picture"
+                      allowFullScreen={true} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>}
+
+        {/* CONTENT */}
+        <div className='bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+
+          {/* TUTORIAL DOWNLOADS */}
+          <TutorialDownloads post={post} />
+          <PaidProducts post={post} />
+
+        </div>
+
         {/* BLOG CONTENT */}
         {/* <div className='blog-content mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} /> */}
 
         {/* PINTEREST */}
-        {/* <PinterestBlock pinterest={pinterestImage} postTitle={post.title} /> */}
+        {/* <PinterestBlock
+          postDescription={post.etSocialNav.pinterestMeta.description}
+          postUrl={postUrl}
+          pinterest={pinterestImage}
+          postTitle={post.title} /> */}
 
         {/* CATEGORIES */}
-        {post.categories.length > 0 &&
+        {/* {post.categories.length > 0 &&
           <div className='col-start-2 col-span-2 mb-8 mt-10 tablet:col-start-3 tablet:col-span-10 desktop:mt-20 desktop:col-start-4 desktop:col-span-8'>
             <ul className='flex flex-row flex-wrap'>
               {post.categories.map(cat =>
@@ -146,7 +212,7 @@ export default function PostSlug() {
                 </li>
               )}
             </ul>
-          </div>}
+          </div>} */}
 
         {/* COMMENTS */}
         <div className='col-start-2 col-span-2 mb-8 pb-5 tablet:col-start-3 tablet:col-span-10 tablet:mb-8 desktop:col-start-4 desktop:col-span-8 border-b-neutral-300 border-b-[1px]'>
@@ -165,7 +231,31 @@ export default function PostSlug() {
               </div>
             </div>
             <div>
-              Social Icons
+              <ul className='flex flex-row justify-center items-center'>
+                <li className='mr-2'>Share on</li>
+                {socialkeys.map(key => {
+                  const socialCss = 'flex bg-primary-600 rounded-full w-[30px] h-[30px] p-[5px] group hover:bg-primary-400 hover:scale-[1.2] transition-all duration-200 ease-in-out'
+                  const svgCsss = 'transition-all group-hover:scale-[1.2]'
+                  switch (key) {
+                    case 'facebook':
+                      return (
+                        <li key={key} className='flex mr-2'>
+                          <a
+                            id="shareBtn"
+                            rel="nofollow" target="_blank"
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
+                            data-link={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
+                            onClick={handleFacebookShareClick}
+                            className={`${socialCss}`}>
+                            <FacebookSvg className={`${svgCsss}`} fill={`var(${cssColors.primaryPlum50})`} />
+                            <span className="sr-only">Every Tuesday on Youtube</span>
+                          </a>
+                        </li>
+                      )
+                  }
+                }
+                )}
+              </ul>
             </div>
           </div>
         </div>
@@ -190,7 +280,7 @@ export default function PostSlug() {
 
             {/* BUTTON */}
             <div className='flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2'>
-              <button className='btn btn-primary' type='button'>About Me</button>
+              <Link to={'/about'} prefetch='intent' className='btn btn-primary' >About Me</Link>
             </div>
           </div>
 
@@ -199,20 +289,17 @@ export default function PostSlug() {
         {/* <MakersPostSignUp /> */}
 
         {/* RELATED POST TITLE*/}
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12 mx-[-1px]'>
-          <div className='text-4xl mb-7 mt-14 tablet:text-5xl laptop:text-display-2 font-sentinel__SemiBoldItal flex flex-col laptop:mt-28 laptop:mb-14'>
-            <span className='text-primary-500'>You may also like...</span>
-          </div>
-        </div>
-
         {/* RELATED POSTS*/}
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+        {/* <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
 
-          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 desktop:gap-x-8 '>
+          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 mx-auto desktop:gap-x-8 desktop:grid-cols-3 desktop:max-w-none'>
+            <div className='text-4xl mb-7 mt-14 col-[1/3] tablet:col-[1/4] tablet:text-5xl laptop:text-display-2 font-sentinel__SemiBoldItal flex flex-col laptop:mt-28 laptop:mb-14 desktop:col-[1/4]'>
+              <span className='text-primary-500'>You may also like...</span>
+            </div>
 
             {post.relatedPosts.map(relatedPost => <PostCardOne key={relatedPost.slug} post={relatedPost} />)}
           </div>
-        </div>
+        </div> */}
 
       </div>
       {/* END BLOG CONTENT/CONTAINER */}
@@ -256,6 +343,9 @@ query postBySlug($slug: String!) {
             }
         }
         etSocialNav{
+            pinterestMeta {
+              description
+            }
             pinterestImage{
                 sourceUrl
                 mediaDetails{

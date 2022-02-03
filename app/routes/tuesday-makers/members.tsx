@@ -100,6 +100,9 @@ const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
   const { state: { user }, resourecLibraryLogin } = useSite()
   const { cart } = useCartMatches()
+  function setStorage() {
+    localStorage.setItem('makers_login', 'login' + Math.random());
+  }
   console.log('match', cart);
 
   // const { cart, addItemToCart } = useCart()
@@ -118,6 +121,8 @@ const ResourceLibraryMembers = () => {
     if (!user.resourceUser) {
       resourecLibraryLogin({ user: data.user })
     }
+
+    setStorage() // Set storage to an arbitrary value so we can log user in on other open tabs.
   }, [])
 
   async function shopifyTestCall() {

@@ -102,6 +102,9 @@ interface IMediaDetailSize {
 }
 
 interface ISocialNav {
+  pinterestMeta:{
+    description: string
+  }
   pinterestImage?:{
     sourceUrl: string
     mediaDetails:{

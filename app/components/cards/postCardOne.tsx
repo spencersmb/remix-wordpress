@@ -12,8 +12,6 @@ function PostCardOne(props: Props) {
   const skill = findSkillLevel(post.categories);
   const featuredImage = getMediaSizeUrl(post.featuredImage?.mediaDetails.sizes, 'headless_ipad')
   const mainImage = post.tutorialManager.thumbnail ? post.tutorialManager.thumbnail.sourceUrl : undefined
-  console.log('mainImage', mainImage)
-
 
   return (
     <div key={post.slug} className='card_conainter flex flex-col mb-16'>
@@ -22,17 +20,17 @@ function PostCardOne(props: Props) {
         <Link className='flex flex-col' to={`../${post.slug}`}>
           {/* CARD IMAGE */}
           <div>
-            {!mainImage && <div className="flex absolute top-[97px] left-[57px] w-full max-w-[348px] h-[260px] transform rotate-[352.5deg] rounded-md overflow-hidden">
+            {!mainImage && <div className="flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
               <img src={featuredImage.sourceUrl} alt={`${post.title}`} />
             </div>}
-            {mainImage ? <img src={mainImage} alt={`${post.title} Main Image`} /> : <img src="/images/pinterest-card.jpg" alt={`${post.title} Main Image`} />}
+            {mainImage && <img src={mainImage} alt={`${post.title} Main Image`} />}
           </div>
 
           {/* CARD TEXT */}
           <div className='flex flex-col flex-1 pt-2 px-3 pb-7 text-center justify-center items-center desktop:px-9'>
-            <div className='text-h3 text-primary-700 font-black uppercase desktop:text-4.5xl tracking-widest'>
+            <div className='text-h3 tablet:text-lg text-primary-700 font-black uppercase desktop:text-4.5xl tracking-widest'>
               <div className='mb-3'>{splitTitle.title}</div>
-              {splitTitle.subTitle && <div className='font-light text-xl mb-3 tracking-wide'>{splitTitle.subTitle}</div>}
+              {splitTitle.subTitle && <div className='font-light text-xl tablet:text-lg desktop:text-xl mb-3 tracking-wide'>{splitTitle.subTitle}</div>}
             </div>
             {skill
               ? <div>

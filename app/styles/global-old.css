@@ -48,12 +48,6 @@ body {
   color: var(--primary-plum-600);
 }
 
-a {
-  color: var(--color-links);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
 h1,
 h2,
 h3,
@@ -75,20 +69,6 @@ hr {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-
-/* input:where([type="text"]),
-input:where([type="search"]) {
-  display: block;
-  border: 1px solid var(--color-border);
-  width: 100%;
-  font: inherit;
-  line-height: 1;
-  height: calc(1ch + 1.5em);
-  padding-right: 0.5em;
-  padding-left: 0.5em;
-  background-color: hsl(0 0% 100% / 20%);
-  color: var(--color-foreground);
-} */
 
 .sr-only {
   position: absolute;

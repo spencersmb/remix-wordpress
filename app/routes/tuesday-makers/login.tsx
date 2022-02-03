@@ -99,6 +99,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
+  // Fetch Subscriber
   const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
   const res = await fetch(url, {
     method: 'GET',
@@ -113,6 +114,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     return { subscriberError: `Sorry, Email invalid.` };
   }
 
+  // Get subscriber Tags and create session
   let userId = result.subscribers[0].id
   const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
 
@@ -149,6 +151,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 const ResourceLibraryLogin = () => {
   let actionData = useActionData<ActionData | undefined>();
   const transition = useTransition()
+
   return (
     <div>
       <h1>Tuesday Makers Login</h1>

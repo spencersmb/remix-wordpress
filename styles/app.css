@@ -20,6 +20,9 @@
   --primary-plum-600: #5f3d3d;
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
+  --neutral-400: #d0c9cd;
+  --neutral-500: #a1929a;
+  --neutral-600: #8f7d87;
   --warning-700: #b45309;
 }
 
@@ -48,9 +51,19 @@
   src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff") format("woff");
   src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
 }
+a {
+  transition: all 0.3s;
+  &:hover {
+  }
+}
+button {
+  &:focus {
+    outline: none;
+  }
+}
 @layer components {
   .btn {
-    @apply text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.98] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500;
+    @apply text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.98] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
   }
 
   .btn-primary {
@@ -117,5 +130,37 @@
 
   .textarea-basic {
     @apply text-neutral-500 bg-neutral-100 outline-none border-0 py-4 px-5 rounded-lg w-full;
+  }
+  .embed-responsive {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    &:before {
+      display: block;
+      content: "";
+      padding-top: 56.25%;
+    }
+  }
+
+  .embed-responsive-item {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+
+    & iframe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   }
 }

@@ -7,6 +7,8 @@ interface IProps {
     sourceUrl?: string
   }
   postTitle: string
+  postUrl: string
+  postDescription: string
 }
 
 function PinterestBlock(props: IProps) {
@@ -21,16 +23,23 @@ function PinterestBlock(props: IProps) {
         <div className="bg-white flex flex-col-reverse shadow-xl rounded-lg overflow-hidden z-10 relative tablet:flex-row">
 
           {/* Content */}
-          <div className="flex flex-col justify-center items-center py-7 px-9 pl-11">
-            <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
-              <div>
-                <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
+          <div className="flex py-7 px-9 pl-11">
+            <a
+              className="flex flex-col justify-center items-center "
+              rel="nofollow"
+              target="_blank"
+              href={`https://pinterest.com/pin/create/button/?url=${props.postUrl}&media=${props.pinterest.sourceUrl}&description=${props.postDescription}`}>
+              <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
+                <div>
+                  <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
+                </div>
               </div>
-            </div>
-            <div className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</div>
-            <p className="text-center mb-8">Create your own personal library of my tutorials you love!</p>
+              <div className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</div>
+              <p className="text-center mb-8">Create your own personal library of my tutorials you love!</p>
 
-            <CircularStrokeBtn />
+              <CircularStrokeBtn />
+            </a>
+
           </div>
 
           {/* IMAGE */}

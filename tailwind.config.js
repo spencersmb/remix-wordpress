@@ -127,6 +127,7 @@ module.exports = {
       },
       boxShadow: {
         'et_4': '0px 40px 50px rgba(0, 0, 0, 0.2)',
+        'xs': '0px 4px 8px rgba(0, 0, 0, 0.1)',
       },
       borderRadius: {
         '2.5xl': '1.25rem'
