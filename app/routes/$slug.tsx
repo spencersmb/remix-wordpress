@@ -22,7 +22,6 @@ import InstagramSvg from '~/components/svgs/social/instagramSvg'
 import FacebookSvg from '~/components/svgs/social/facebookSvg'
 import LockedSvg from '~/components/svgs/lockedSvg'
 import TutorialDownloads from '~/components/blog/tutorialContent/tutorialDownloads'
-import paidProducts from '~/components/blog/tutorialContent/paidProducts'
 import PaidProducts from '~/components/blog/tutorialContent/paidProducts'
 
 

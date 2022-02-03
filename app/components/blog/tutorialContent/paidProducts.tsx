@@ -5,6 +5,7 @@ interface IProps {
 }
 
 function PaidProducts(props: IProps) {
+  const { post } = props
 
   return (
     <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
