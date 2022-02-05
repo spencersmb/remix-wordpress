@@ -5,7 +5,8 @@ import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
 import ShoppingCartSvg from '../svgs/shoppingCartSvg'
 import SvgBorderIconWrapper from '../svgs/svgBorderWrapper'
 import { LicenseEnum } from "~/enums/products"
-import GumroadBuyBtn from '../buttons/gumroadBuyBtn'
+import GumroadBuyBtn from "~/components/buttons/gumroadBuyBtn"
+
 
 interface Props {
   index: number
