@@ -4,7 +4,7 @@ interface Props {
   price: number
 }
 
-function GumroadBuyNowBtn(props: Props) {
+function GumroadBuyBtn(props: Props) {
   const { price } = props
 
   return (
@@ -14,4 +14,4 @@ function GumroadBuyNowBtn(props: Props) {
     </button>
   )
 }
-export default GumroadBuyNowBtn
+export default GumroadBuyBtn

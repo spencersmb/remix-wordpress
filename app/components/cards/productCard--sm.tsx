@@ -5,7 +5,7 @@ import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
 import ShoppingCartSvg from '../svgs/shoppingCartSvg'
 import SvgBorderIconWrapper from '../svgs/svgBorderWrapper'
 import { LicenseEnum } from "~/enums/products"
-import GumroadBuyNowBtn from '../buttons/gumroadBuyNowBtn'
+import GumroadBuyBtn from '../buttons/gumroadBuyBtn'
 
 interface Props {
   index: number
@@ -58,7 +58,7 @@ function ProductCard__sm(props: Props) {
         {/* PRODUCT BUY NOW */}
         <div className="mt-4 flex flex-1 flex-col">
 
-          {product.details.type === 'gumroad' && (<GumroadBuyNowBtn price={selectedLicense.price} />)}
+          {product.details.type === 'gumroad' && <GumroadBuyBtn price={selectedLicense.price} />}
 
           <div onClick={handleViewLicense} className="mt-4 flex flex-row justify-center hover:cursor-pointer">
             <span className="w-[22px] mr-1"><QuestionMarkCircleSvg fill={`#ACA4A9`} /></span>
