@@ -127,7 +127,7 @@ interface ITutorialManager {
   youtube: {
     embedUrl: string
   }
-  paidProducts: IProduct[]
+  paidProducts: IProduct[]| null
 
 
 }

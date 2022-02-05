@@ -8,6 +8,10 @@ interface IProps {
 function PaidProducts(props: IProps) {
   const { post } = props
 
+  if (!post.tutorialManager.paidProducts) {
+    return null
+  }
+
   const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
   const cssContainerPaidProduct = 'flex flex-col-reverse laptop:flex-row'
   const cssContainerMultipleProducts = 'flex flex-col-reverse tablet:flex-row tablet:flex-wrap-reverse'
