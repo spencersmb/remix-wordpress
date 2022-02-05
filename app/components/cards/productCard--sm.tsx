@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getLicense } from '~/utils/posts'
-import GumroadBuyNowBtn from '../buttons/gumroadBuyNowBtn'
+import GumroadBuyNowBtn from '~/components/buttons/gumroadBuyNowBtn'
 import SelectBox from '../forms/selectDropdown'
 import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
 import ShoppingCartSvg from '../svgs/shoppingCartSvg'
