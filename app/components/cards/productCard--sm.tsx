@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { getLicense } from '~/utils/posts'
-import GumroadBuyNowBtn from '~/components/buttons/gumroadBuyNowBtn'
 import SelectBox from '../forms/selectDropdown'
 import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
 import ShoppingCartSvg from '../svgs/shoppingCartSvg'
 import SvgBorderIconWrapper from '../svgs/svgBorderWrapper'
 import { LicenseEnum } from "~/enums/products"
+import GumroadBuyNowBtn from '../buttons/gumroadBuyNowBtn'
 
 interface Props {
   index: number
