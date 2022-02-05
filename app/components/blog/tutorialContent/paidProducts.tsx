@@ -1,3 +1,4 @@
+import ProductCard__sm from "~/components/cards/productCard--sm"
 import ColorSwatches from "./colorSwatches"
 
 interface IProps {
@@ -7,15 +8,27 @@ interface IProps {
 function PaidProducts(props: IProps) {
   const { post } = props
 
+  const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
+  const cssContainerPaidProduct = 'flex flex-col-reverse laptop:flex-row'
+  const cssContainerMultipleProducts = 'flex flex-col-reverse tablet:flex-row tablet:flex-wrap-reverse'
+
   return (
-    <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-      <div className='flex flex-row'>
+    <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8 z-20'>
+      <div className={paidProductsGreaterThanOne ? cssContainerMultipleProducts : cssContainerPaidProduct}>
 
-        <ColorSwatches />
+        <ColorSwatches multipleLayout={paidProductsGreaterThanOne} />
 
-        <div className='bg-teal-200 flex-1'>
-          Paid Product 1
-        </div>
+        {post.tutorialManager.paidProducts.map((product, index) => {
+
+          return (
+            <ProductCard__sm
+              key={index}
+              product={product}
+              multipleProducts={paidProductsGreaterThanOne}
+              index={index} />
+          )
+
+        })}
       </div>
     </div>
   )

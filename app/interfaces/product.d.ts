@@ -12,20 +12,22 @@ interface ILicense {
   url: string
   price: number
 }
+interface IProductDetails{
+  title: string
+  // fonts: IProductFont[]
+  type: string
+  licences: ILicense[]
+  youtube: {
+    url: string
+  }
+}
 interface IProduct {
-  id: string
   title: string
   slug: string
   featuredImage: {
     node: IFeaturedImage
   }
-  details: {
-    // fonts: IProductFont[]
-    licences: ILicense[]
-    youtube: {
-      url: string
-    }
-  }
+  details: IProductDetails
   seo: IPostSeo & {
     schema: {
       raw: string

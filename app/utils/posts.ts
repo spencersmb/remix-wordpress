@@ -5,6 +5,38 @@ export function flattenAllPosts(posts:any): IPost[] | false{
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
 
+export function rearrangeLicenses(licenses: ILicense[]){
+  return licenses.reduce((acc: any, licence) => {
+        // Add it to the beginning of the array
+        if(licence.licenseType === 'standard'){
+          acc.unshift(licence)
+        }
+        console.log('licence.licenseType', licence.licenseType);
+        
+        // if there is only one item in array, add extended as the 2nd
+        if(licence.licenseType === 'extended'){
+          acc.push(licence)
+        }
+
+        // if the ext is the last item to get looped over
+        if(licence.licenseType === 'extended' && acc.length === 2){
+          const standard = acc[0]
+          const server = acc[1]
+          acc = [
+            standard,
+            licence,
+            server
+          ]
+        }
+
+        if(licence.licenseType === 'server'){
+          acc.push(licence)
+        }
+
+        return acc
+      }, [])
+}
+
 export function mapPostData(post:IPostRaw | {} = {}): IPost {
   const data = { ...post };
   let modifiedData: any = {...post}
@@ -45,10 +77,27 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
     })
   }
 
-  if(data.downloadManager?.downloads){
-    modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
-      return download.downloadDetails
+  // if(data.downloadManager?.downloads){
+  //   modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
+  //     return download.downloadDetails
+  //   })
+  // }
+
+  if(data.tutorialManager?.paidProducts){
+    const newPaidProducts = data.tutorialManager?.paidProducts.map(product => {
+      const newProduct = {
+        ...product,
+        details: {
+          ...product.details,
+          licences: product.details.licences ? rearrangeLicenses(product.details.licences) : null,
+        }
+      }
+      return newProduct
     })
+    modifiedData.tutorialManager = {
+      ...data.tutorialManager,
+      paidProducts: newPaidProducts
+    }
   }
 
 
@@ -236,4 +285,20 @@ export function findSkillLevel(categories: ICategories[]): ICategories | undefin
     : isEmpty(skillFound) && tutorialsFound 
       ? defaultSkill
       : undefined
+}
+
+export function getLicense(licenses: ILicense[] | null, type: LicenseEnum) {
+  if (!licenses) {
+    return null
+  }
+  return licenses.reduce((acc, curr) => {
+    if (curr.licenseType === type) {
+      return curr
+    }
+    return acc
+  }, {
+    licenseType: '',
+    price: 0,
+    url: '',
+  })
 }

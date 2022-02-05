@@ -3,7 +3,7 @@ import { fetchAPI } from '../utils/fetch'
 import { getMediaSizeUrl, mapPostData } from '../utils/posts'
 import Layout from "~/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
-import { MouseEventHandler, useEffect } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { consoleHelper } from '~/utils/windowUtils'
@@ -23,6 +23,7 @@ import FacebookSvg from '~/components/svgs/social/facebookSvg'
 import LockedSvg from '~/components/svgs/lockedSvg'
 import TutorialDownloads from '~/components/blog/tutorialContent/tutorialDownloads'
 import PaidProducts from '~/components/blog/tutorialContent/paidProducts'
+import YouTubeCard__Post from '~/components/cards/youTubeCard__post'
 
 
 //TODO: Check Comment reply - style single comments
@@ -73,7 +74,6 @@ export let meta: MetaFunction = (metaData): any => {
 export default function PostSlug() {
   let { post, url } = useLoaderData<{ post: IPost, url: any }>();
   const { resourecLibraryLogin, showComments, hideComments, state: { commentsModal, metadata, } } = useSite();
-
   consoleHelper('post', post)
 
   function handleCommentsClick() {
@@ -100,6 +100,8 @@ export default function PostSlug() {
 
   useEffect(() => {
     // handleCommentsClick()
+
+    // Refresh the window if the user logs in on another page
     window.addEventListener('storage', (evt) => {
       console.log('custom fired', evt);
 
@@ -129,10 +131,6 @@ export default function PostSlug() {
   const socialkeys = Object.keys(metadata.social) //used to build out social links
   const postUrl = `${metadata.domain}/${post.slug}`
 
-  const moreThanOnePaidProductsCss = 'flex-row-reverse flex-wrap-reverse'
-  const swatchCss = `flex-[1_0_100%]`
-  const swatchCss2 = `mr-8`
-
   return (
     <Layout>
       <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
@@ -159,23 +157,11 @@ export default function PostSlug() {
         {post.tutorialManager.youtube.embedUrl &&
           <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop '>
 
-            <div className='col-span-full bg-primary-100 h-[300px] z-0 row-[1/1] self-end'></div>
+            <div className='col-span-full bg-primary-100 h-[100px] tablet:h-[200px] laptop:h-[300px] z-0 row-[1/1] self-end'></div>
 
             {/* YOUTUBE */}
             <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-              <div className='youtube_container overflow-hidden rounded-2xl relative'>
-                <div className='embed-responsive'>
-                  <div className='embed-responsive-item'>
-                    <iframe
-                      loading='lazy'
-                      frameBorder='0'
-                      src={post.tutorialManager.youtube.embedUrl}
-                      title={`YouTube video: ${post.title}`}
-                      allow="accelerometer; picture-in-picture"
-                      allowFullScreen={true} />
-                  </div>
-                </div>
-              </div>
+              <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
             </div>
 
           </div>}
@@ -362,6 +348,15 @@ query postBySlug($slug: String!) {
             paidProducts {
                 ... on Product {
                     title
+                    slug
+                    details {
+                      type
+                      licences {
+                        licenseType
+                        price
+                        url
+                      }
+                    }
                 }
             }
             youtube {

@@ -69,6 +69,9 @@ button {
   .btn-primary {
     @apply bg-primary-500 text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
   }
+  .btn-teal {
+    @apply bg-teal-500 text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
+  }
   .btn-underlined {
     @apply underline underline-offset-4 uppercase;
     font-size: 14px;

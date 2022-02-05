@@ -37,7 +37,7 @@ function PinterestBlock(props: IProps) {
               <div className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</div>
               <p className="text-center mb-8">Create your own personal library of my tutorials you love!</p>
 
-              <CircularStrokeBtn />
+              <CircularStrokeBtn text='Pin It' classes="py-[21px] px-[38px]" />
             </a>
 
           </div>

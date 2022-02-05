@@ -75,7 +75,6 @@ interface IPostRaw {
   date: string
   excerpt: string
   seo: IPostSeo
-  downloadManager: {downloads: {downloadDetails: IDownload}[] | null}
   comments: {
     pageInfo: {
       endCursor: string
@@ -83,6 +82,7 @@ interface IPostRaw {
     }
     edges: {node: IPostCommentRaw}[]
   }
+  tutorialManager: ITutorialManager
 }
 interface IPostSeo {
   fullHead?: string

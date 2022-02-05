@@ -59,7 +59,6 @@ function TutorialDownloads(props: Props) {
             {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
               return (
                 <div className='flex flex-row items-center mb-4' key={index}>
-
                   <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
                     <div className='w-[30px]'>
                       {!resourceUser ? <LockedSvg fill={`var(--neutral-400)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}

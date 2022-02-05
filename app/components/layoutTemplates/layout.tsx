@@ -22,7 +22,7 @@ export default function Layout({ children, alternateNav }: React.PropsWithChildr
 
   return (
     <div className="flex flex-col min-h-fullBot">
-      <header ref={navRef} className="bg-white fixed top-0 left-0 w-full z-20 flex transition-transform duration-600 -translate-y-full inView">
+      <header ref={navRef} className="bg-white fixed top-0 left-0 w-full z-30 flex transition-transform duration-600 -translate-y-full inView">
         <nav aria-label="Main navigation" className="w-full grid my-2 mx-5 items-center grid-cols-navMobile laptop:my-4 laptop:grid-cols-navDesktop">
 
           {/* ET LOGO */}
@@ -92,7 +92,7 @@ export default function Layout({ children, alternateNav }: React.PropsWithChildr
       <div className="pt-[68px] laptop:pt-[89px]">
         <div className="remix-app__main-content">{children}</div>
       </div>
-      <FooterPrimary />
+      {/* <FooterPrimary /> */}
     </div>
   );
 }
