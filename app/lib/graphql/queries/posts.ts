@@ -154,6 +154,30 @@ export const POST_FEATURED_IMAGE = gql`
       }
     }
 `
+export const RESOURCE_FEATURED_IMAGE = gql`
+  fragment featuredImageFields__RL on ResourceLibrary {
+    featuredImage {
+      node {
+        mediaDetails {
+          sizes{
+            width
+            file
+            height
+            name
+            sourceUrl
+            mimeType
+          }
+        }
+          altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+        }
+      }
+    }
+`
 export const RELEATED_POSTS_FIELDS = gql`
   fragment relatedPostsFields on Post {
     relatedPosts {
@@ -161,10 +185,13 @@ export const RELEATED_POSTS_FIELDS = gql`
       title
       slug
       tutorialManager {
-        thumbnail {
+       thumbnail {
+        type
+        image {
           sourceUrl
           altText
         }
+       }
       }
       categories {
         edges {
@@ -205,6 +232,20 @@ export const POST_BASIC_FIELDS = gql`
             name
             slug
           }
+      }
+    }
+  }
+`
+export const PRODUCT_FIELDS = gql`
+  fragment productFields on Product {
+    title 
+    slug
+    details {
+      type
+      licences {
+        licenseType
+        price
+        url
       }
     }
   }

@@ -22,7 +22,7 @@ interface IMapResourceData {
 interface IResourceItem{
   id: string
   date: string
-  featuredImage: IFeaturedImage | null
+  featuredImage: IFeaturedImage
   freebie: IResourceFreebie
   title: string
   tags: IFilterTag[]

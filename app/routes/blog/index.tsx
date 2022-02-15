@@ -3,9 +3,17 @@ import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
-import { flattenAllPosts } from "~/utils/posts";
+import { createThumbnailImage, filterNodeFromTags, findSkillLevel, flattenAllPosts, formatDate, getImageSizeUrl } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
+import BarChartSvg from "~/components/svgs/barChartSvg";
+import ClockSvg from "~/components/svgs/clockSvg";
+import EditSvg from "~/components/svgs/editSvg";
+import BlogFeaturedPost from "~/components/blog/blogFeaturedPost";
+import { IPageInfo } from "~/hooks/useFetchPagination/useFetchPaginationReducer";
+import { getGraphQLString } from "~/utils/graphqlUtils";
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
+import { gql } from "@apollo/client";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -73,7 +81,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
     })
   } catch (e) {
     console.log('error', e)
-
   }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
@@ -83,22 +90,32 @@ export let loader: LoaderFunction = async ({ request, }) => {
     ...data,
     posts,
     pageInfo,
+    categories: filterNodeFromTags(wpAPI?.categories),
     pageUrlParams: page ? parseInt(page, 10) : 1
   }
 };
 
+type IBlogIndexProps = IPageInfo & {
+  pageUrlParams: number; //currentPage
+  categories: ITagCount[];
+}
 function BlogIndex() {
-  let data = useLoaderData<any>();
-  console.log('Blog Index data', data)
-  // const [posts, setPosts] = useState(data.posts)
-  const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
-    posts: data.posts,
+  let { posts, pageInfo, pageUrlParams, categories } = useLoaderData<IBlogIndexProps>();
+  // console.log('Blog Index data', data)
+  const [category, setCategory] = useState('all')
+
+  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate({
+    posts: posts,
     pageInfo: {
-      ...data.pageInfo,
-      page: data.pageUrlParams
+      ...pageInfo,
+      page: pageUrlParams
     }
   })
-  console.log('Blog Index state', state);
+
+
+  consoleHelper('cat posts', posts.length)
+  consoleHelper('cat pageInfo', pageInfo)
+  consoleHelper('cat state', state)
 
   useEffect(() => {
     if (state.pageInfo.page === 1 || !state.pageInfo.page) {
@@ -115,11 +132,66 @@ function BlogIndex() {
 
   useEffect(() => {
     return () => {
-      clearPosts()
+      // clearPosts()
     }
   }, [])
 
-  async function fetchMore() {
+  useEffect(() => {
+    fetchCategory()
+  }, [category])
+  const handleCatClick = (cat: string) => async () => {
+    setCategory(cat)
+    // await fetchMoreCatPosts(cat)
+  }
+
+  async function fetchCategory() {
+    console.log('category selected', category);
+
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      first: 10,
+      after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
+      catName: category
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(catQuery),
+          variables
+        })
+      })
+    const { data } = await body.json()
+
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    let updatedPosts = []
+    if (state.categories[category]) {
+      updatedPosts = [
+        ...state.categories[category].posts,
+        ...filteredPosts
+      ]
+    } else {
+      updatedPosts = [
+        ...filteredPosts
+      ]
+    }
+    addCategoriAction({
+      category,
+      pageInfo: {
+        page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: updatedPosts
+    }
+    )
+  }
+
+  async function fetchMorePosts() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
@@ -133,7 +205,7 @@ function BlogIndex() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query,
+          fetchQuery,
           variables
         })
       })
@@ -152,20 +224,63 @@ function BlogIndex() {
     })
   }
 
-  const featuredPost = data.posts[0]
+  async function fetchMoreCategories() {
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      first: 10,
+      after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
+      catName: category
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(catQuery),
+          variables
+        })
+      })
+    const { data } = await body.json()
+
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    let updatedPosts = []
+    if (state.categories[category]) {
+      updatedPosts = [
+        // ...state.categories[category].posts,
+        ...filteredPosts
+      ]
+    } else {
+      updatedPosts = [
+        ...filteredPosts
+      ]
+    }
+    addCategoriAction({
+      category,
+      pageInfo: {
+        page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: updatedPosts
+    }
+    )
+  }
+
   return (
     <Layout>
-      BLog index
-      <div>
-        Featured
-        <h2 className="text-blue-500">
-          <Link to={`/${featuredPost.slug}`} prefetch="intent">
-            {featuredPost.title}
-          </Link>
-        </h2>
+      <BlogFeaturedPost featuredPost={posts[0]} />
+
+      <div className="container mx-auto px-4 py-8">
+        <ul>
+          {categories.map(cat => (<li onClick={handleCatClick(cat.slug)}>{cat.name}</li>))}
+        </ul>
       </div>
+
       <ul>
-        {state.posts.map((post: any, index) => {
+        {category === 'all' && state.posts.map((post: any, index) => {
           return (
             <li key={post.id} className="remix__page__resource">
               <Link to={`/${post.slug}`} prefetch="intent">
@@ -175,8 +290,13 @@ function BlogIndex() {
           )
         }).slice(1) // Remove first time because its the featured post
         }
+        {category !== 'all' && state.categories[category] && state.categories[category].posts.map(post => (<li>{post.title}</li>)
+
+        )}
       </ul>
-      {state.pageInfo.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
+      {category === 'all' && state.pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
+
+      {category !== 'all' && state.categories[category] && state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMoreCategories}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
     </Layout>
   )
 }
@@ -184,6 +304,85 @@ function BlogIndex() {
 export default BlogIndex
 
 const query = `
+    query GetNextPosts($first: Int, $after: String) {
+      categories(first: 10, where: {orderby: COUNT, order: DESC}) {
+          edges {
+            node {
+              slug
+              count
+              name
+            }
+          }
+        }
+        posts(first: $first, after: $after) {
+            __typename
+            pageInfo {
+                endCursor
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                __typename
+            }
+            edges {
+                __typename
+                node {
+                    id
+                    tutorialManager {
+                      postExcerpt
+                      thumbnail {
+                        type
+                        image {
+                          altText
+                          sourceUrl
+                        }
+                        swatch {
+                          backgroundColor
+                          textColor
+                        }
+                      }
+                    }
+                    categories {
+                        edges {
+                            node {
+                                databaseId
+                                id
+                                name
+                                slug
+                            }
+                        }
+                    }
+                    date
+                    excerpt
+                    featuredImage {
+                      node {
+                        mediaDetails {
+                          sizes{
+                            width
+                            file
+                            height
+                            name
+                            sourceUrl
+                            mimeType
+                          }
+                        }
+                          altText
+                          caption
+                          sourceUrl
+                          srcSet
+                          sizes
+                          id
+                        }
+                      }
+                    modified
+                    title
+                    slug
+                    isSticky
+                }
+            }
+        }
+    }
+`
+const fetchQuery = `
     query GetNextPosts($first: Int, $after: String) {
         posts(first: $first, after: $after) {
             __typename
@@ -198,6 +397,20 @@ const query = `
                 __typename
                 node {
                     id
+                    tutorialManager {
+                      postExcerpt
+                      thumbnail {
+                        type
+                        image {
+                          altText
+                          sourceUrl
+                        }
+                        swatch {
+                          backgroundColor
+                          textColor
+                        }
+                      }
+                    }
                     categories {
                         edges {
                             node {
@@ -211,15 +424,25 @@ const query = `
                     date
                     excerpt
                     featuredImage {
-                        node {
-                            altText
-                            caption
+                      node {
+                        mediaDetails {
+                          sizes{
+                            width
+                            file
+                            height
+                            name
                             sourceUrl
-                            srcSet
-                            sizes
-                            id
+                            mimeType
+                          }
                         }
-                    }
+                          altText
+                          caption
+                          sourceUrl
+                          srcSet
+                          sizes
+                          id
+                        }
+                      }
                     modified
                     title
                     slug
@@ -228,4 +451,42 @@ const query = `
             }
         }
     }
+`
+
+const catQuery = gql`
+  ${POST_BASIC_FIELDS}
+  ${POST_FEATURED_IMAGE}
+  query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
+    posts(
+      first: $first
+      after: $after
+      where: {
+        categoryName: $catName, 
+        orderby: {
+          field: DATE, 
+          order: DESC
+          }
+        }
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          ...postBasicFields
+          ...featuredImageFields
+          tutorialManager {
+            thumbnail {
+              image {
+                altText
+                sourceUrl
+              }            
+            }
+          }
+        }
+      }
+    }
+  }
 `

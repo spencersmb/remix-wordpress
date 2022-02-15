@@ -43,10 +43,13 @@ function PinterestBlock(props: IProps) {
           </div>
 
           {/* IMAGE */}
-          <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            {props.pinterest.sourceUrl && <img className="absolute w-[350px] top-0 left-0 tablet:top-[50%] tablet:left-[50%] tablet:w-[205px] tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-lg" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />}
-          </div>
-
+          {props.pinterest.sourceUrl &&
+            <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
+              <div className="absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-xl overflow-hidden">
+                <img className="w-full max-w-none" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />
+              </div>
+            </div>
+          }
         </div>
 
         {/* STROKE */}

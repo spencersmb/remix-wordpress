@@ -20,9 +20,9 @@ const FreebieFilter = ({ filterTags, selectedFilter = 'all', handleClick }: IPro
   return (
     <div>
       <h4>Filter by category</h4>
-      <ul className='flex flex-row mb-2'>
+      <ul className='flex flex-row mb-2 flex-wrap'>
         {filterTags.length > 0 && <li
-          className={selectedFilter === 'all' ? 'text-red-500 ml-3 mr-3' : 'ml-3 mr-3'}
+          className={selectedFilter === 'all' ? 'text-red-500 mr-3' : 'flex-1 mr-3'}
           onClick={handleClick('all')}>
           <span>
             {/*<svg viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
@@ -33,7 +33,7 @@ const FreebieFilter = ({ filterTags, selectedFilter = 'all', handleClick }: IPro
         </li>}
         {filterTags
           .map(filter => {
-            const classes = `${selectedFilter === filter.slug ? 'text-red-500 ' : ''} ml-3 mr-3`
+            const classes = `${selectedFilter === filter.slug ? 'text-red-500 ' : ''} mr-3 tablet:ml-3`
             return (
               <li
                 key={filter.slug}

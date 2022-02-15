@@ -59,7 +59,7 @@ function ProductCard__sm(props: Props) {
         {/* PRODUCT BUY NOW */}
         <div className="mt-4 flex flex-1 flex-col">
 
-          {product.details.type === 'gumroad' && <GumroadBtn price={selectedLicense.price} />}
+          {product.details.type === 'gumroad' && <GumroadBtn price={selectedLicense.price} url={selectedLicense.url} />}
 
           <div onClick={handleViewLicense} className="mt-4 flex flex-row justify-center hover:cursor-pointer">
             <span className="w-[22px] mr-1"><QuestionMarkCircleSvg fill={`#ACA4A9`} /></span>

@@ -1,3 +1,9 @@
+
+declare enum ShopPlatformEnum {
+  GUMROAD = 'gumroad',
+  SHOPIFY = 'shopify',
+  SENDOWL = 'sendowl',
+}
 interface IMetaTagName {
   name: string
   content: string
@@ -84,22 +90,7 @@ interface ISocialFacebook {
     sourceUrl: string
   }
 }
-type ISocialSettings = {
-  twitter: ISocialTwitter
-  facebook: string
-  pinterest: string
-  instagram: string
-  youtube: string
-}
-interface IMetaData {
-  title: string
-  domain: string
-  siteTitle: string
-  description: string
-  language: string
-  social: ISocialSettings
-  seo?: any
-}
+
 
 
 interface IBreadcrumb {
@@ -188,28 +179,36 @@ interface ISiteMetaDataStarter {
       description: string
       language: string
       title: string
-      shopPlatform: string
+      shopPlatform: ShopPlatformEnum
       author: IAuthor
     },
   seo: {
     social: ISiteSocialStarter
   },
 }
-interface ISiteSocialMapped{
+
+type ISocialSettings = {
   twitter: ISocialTwitter
   facebook: string
   pinterest: string
   instagram: string
   youtube: string
 }
-interface ISiteMetaDataMapped {
+
+
+
+interface IMetaData {
   title: string
   domain: string
   siteTitle: string
   description: string
   language: string
-  social: ISiteSocialMapped
-  shopPlatform: string
+  social: ISocialSettings
+  shopPlatform: ShopPlatformEnum
   author: IAuthor
   seo?: any
 }
+
+type ISiteMetaDataMapped = {
+  author: IAuthor
+} & IMetaData

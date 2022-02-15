@@ -42,3 +42,7 @@ export const getDefaultState = () => {
 
   return defaultState
 }
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
+}

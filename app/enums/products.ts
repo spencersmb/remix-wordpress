@@ -3,3 +3,9 @@ export enum LicenseEnum {
   EXTENDED = 'extended',
   SERVER = 'server'
 }
+
+export enum ShopPlatformEnum {
+  GUMROAD = 'gumroad',
+  SHOPIFY = 'shopify',
+  SENDOWL = 'sendowl',
+}

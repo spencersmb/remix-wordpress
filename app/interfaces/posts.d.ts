@@ -35,6 +35,8 @@ interface Itag {
     slug: string
 }
 
+type ITagCount = Itag & { count: number };
+
 interface IDownload{
   etdmCampaign: string
   etdmDescriptor: string
@@ -114,8 +116,17 @@ interface ISocialNav {
 }
 
 interface ITutorialManager {
-  thumbnail?:{
-    sourceUrl: string
+  status: string
+  thumbnail:{
+    type: string
+    image: {
+      sourceUrl: string
+      altText: string
+    } | null
+    swatch:{
+      backgroundColor: string
+      textColor: string
+    }
   }
   colorSwatch: string
   downloads: {
@@ -128,6 +139,7 @@ interface ITutorialManager {
     embedUrl: string
   }
   paidProducts: IProduct[]| null
+  postExcerpt: string
 
 
 }
@@ -155,17 +167,17 @@ interface IPost {
   id: string
   seo:IPostSeo
   tutorialManager: ITutorialManager
-  comments:{
-    pageInfo: {
-      endCursor: string
-      hasNextPage: boolean
-    }
-    list:IPostComment[]
-  }
+  comments:IComments
   etSocialNav: ISocialNav
   relatedPosts: IPost[]
 }
-
+interface IComments {
+  pageInfo: {
+      endCursor: string
+      hasNextPage: boolean
+    }
+  list:IPostComment[]
+}
 interface IwpPageInfo {
   endCursor: string
   hasNextPage: boolean

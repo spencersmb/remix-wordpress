@@ -20,9 +20,12 @@ function TutorialDownloads(props: Props) {
     }
   }
 
+  if (!post.tutorialManager.downloads || post.tutorialManager.downloads.length === 0) {
+    return null
+  }
+
   return (
     <div className='pt-8 mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-      <h1>RESOURCE USER: {JSON.stringify(resourceUser)}</h1>
       <div className='flex flex-row rounded-2.5xl overflow-hidden shadow-xs' >
         {/* SIGNUP BLOCK */}
         {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 max-w-[410px]'>
@@ -37,7 +40,7 @@ function TutorialDownloads(props: Props) {
               <Link to={`/tuesday-makers?redirect=${post.slug}`} prefetch='intent' className='btn btn-secondary hover:ring-offset-primary-600 active:ring-offset-primary-600'>Subscribe</Link>
             </div>
             <div>
-              <p className='text-primary-300 italic text-sm'>
+              <p className='text-primary-200 italic text-sm'>
                 This kit available only for Unlimited Access subscribers
               </p>
             </div>
@@ -45,7 +48,7 @@ function TutorialDownloads(props: Props) {
 
           <div className='login'>
             <p className='text-white'>
-              Already a member? <Link to='/tuesday-makers/login' prefetch='intent' className='text-warning-300 underline'>Sign In</Link>
+              Already a member? <Link to='/tuesday-makers/login' prefetch='intent' className='text-primary-300 underline underline-offset-4 hover:text-teal-400 font-semibold'>Sign In</Link>
             </p>
           </div>
         </div>}
@@ -56,19 +59,19 @@ function TutorialDownloads(props: Props) {
             Free Downloads in the video
           </div>
           <div className='locked_items_list p-6'>
-            {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
+            {post.tutorialManager.downloads.map((item, index) => {
               return (
                 <div className='flex flex-row items-center mb-4' key={index}>
                   <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
                     <div className='w-[30px]'>
-                      {!resourceUser ? <LockedSvg fill={`var(--neutral-400)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
+                      {!resourceUser ? <LockedSvg fill={`var(--neutral-600)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
                     </div>
                   </div>
                   <div className="locked_item flex flex-col text-left justify-start items-start">
-                    <div className='font-medium text-lg text-primary-800'>
+                    <div className='font-semibold text-lg text-primary-600'>
                       {item.title}
                     </div>
-                    <button className='text-primary-500' onClick={handleDownload(index)}>Download</button>
+                    <button className={!resourceUser ? `text-neutral-500` : `text-primary-500`} onClick={handleDownload(index)}>Download</button>
                   </div>
                 </div>
               )

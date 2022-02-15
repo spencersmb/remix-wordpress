@@ -1,6 +1,7 @@
 import { useContext, createContext, Dispatch, ReactElement, FunctionComponent } from 'react'
 import { ISiteAction, ISiteTypes } from './useSiteReducer'
 import { IModalTemplate } from '../../components/modals/modalTypes'
+import { siteInfo, socialUrls } from '~/lib/wp/site'
 
 export interface ISiteContextState {
   recentPosts?: IPost[]
@@ -34,22 +35,19 @@ export const siteInitialState: ISiteContextState  = {
   recentPosts: [],
   categories:[],
   metadata: {
+    ...siteInfo,
     domain: '',
-    description: '',
-    language: '',
-    siteTitle: '',
     social: {
-      youtube: "http://youtube.com/everytues",
+      youtube: socialUrls.youtube,
       twitter: {
         username: "teelacunningham",
         cardType: "summary",
-        url: ''
+        url: socialUrls.twitter
       },
-      pinterest: "http://pinterest.com/teelac",
-      instagram: "http://instagram.com/everytuesday",
-      facebook: "http://facebook.com/everytues"
+      pinterest: socialUrls.pinterest,
+      instagram: socialUrls.instagram,
+      facebook: socialUrls.facebook,
     },
-    title: '',
   },
   menu:[],
   user: {

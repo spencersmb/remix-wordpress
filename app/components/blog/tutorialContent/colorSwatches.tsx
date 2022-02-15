@@ -22,7 +22,7 @@ function ColorSwatches(props: Props) {
           <CircularStrokeBtn text="Download" classes="py-[21px] px-[24px]" />
         </div>
       </div>
-      <div className={`swatch_img w-full max-w-400px top-[-80px] right-[0px] left-auto absolute z-0 tablet:top-auto tablet:bottom-0 tablet:right-[-350px] ${multipleLayout ? 'tablet:top-[-90%]' : ''}`}>
+      <div className={`swatch_img w-full max-w-400px top-[-80px] right-[0px] left-auto absolute z-0 tablet:top-auto tablet:bottom-0 tablet:right-[-350px] ${multipleLayout ? '' : ''}`}>
         <img src="/images/swatch-color-card.jpg" alt="Every Tuesday Ipad Color Swatches" />
       </div>
     </div>

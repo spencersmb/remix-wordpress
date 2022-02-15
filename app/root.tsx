@@ -40,6 +40,7 @@ import { fetchInitialState } from "./hooks/useFetchPagination";
 import { defaultFeaturedImage } from "./utils/pageUtils";
 import JsonLd from "./components/seo/jsonLd";
 import Layout from "./components/layoutTemplates/layout";
+import { ShopPlatformEnum } from "./enums/products";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -155,7 +156,7 @@ export default function App() {
   const value = {
     ...siteInitialState,
     menu: menus,
-    metadata,
+    metadata, // merge from Server-side Metadata response from WP
     user,
   }
   return (
@@ -186,7 +187,6 @@ export let meta: MetaFunction = () => {
     title: `Home - Every Tuesday`
   }
 }
-
 interface IDocument {
   children: React.ReactNode
   title?: string
@@ -239,6 +239,9 @@ export function Document({ children, title }: IDocument) {
         {process.env.NODE_ENV === "development" && <LiveReload />}
         <BasicModal />
         <CommentModal />
+
+        {/* FOOTER SCRIPTS */}
+        {data.metadata.shopPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.com/js/gumroad.js"></script>}
       </body>
     </html>
   );

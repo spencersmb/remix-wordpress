@@ -102,7 +102,8 @@ module.exports = {
       },
       'yellow': {
         800: ''
-      }
+      },
+      'blue-slate': '#404764'
     },
     extend:{
       minHeight: {

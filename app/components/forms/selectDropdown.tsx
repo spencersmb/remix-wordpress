@@ -5,6 +5,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { isEmpty } from 'lodash'
 import { LicenseEnum } from '~/enums/products'
 import { getLicense } from '~/utils/posts'
+import { classNames } from '~/utils/appUtils'
 
 const people = [
   {
@@ -69,9 +70,6 @@ const people = [
   },
 ]
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
 interface Props {
   handleSelected: any
   selected: LicenseEnum
@@ -105,7 +103,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
                   <span className={`ml-2 block truncate capitalize ${open ? 'text-neutral-400' : 'text-neutral-700'}`}>{selectedLicense.licenseType} License</span>
                 </span>
                 <span className="ml-2 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                  <SelectorIcon className={`h-5 w-5 ${open ? 'text-neutral-400' : 'text-neutral-700'}`} aria-hidden="true" />
+                  <SelectorIcon className={`h-5 w-5 ${open ? 'text-neutral-400' : 'text-neutral-700'}`} type={'string'} aria-hidden="true" />
                 </span>
               </Listbox.Button>
 
@@ -166,7 +164,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
                                     'relative inset-y-0 right-0 flex items-start transition-all'
                                   )}
                                 >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                  <CheckIcon className="h-5 w-5" aria-hidden="true" type={'string'} />
                                 </span>
                               ) : null}
                             </>

@@ -100,6 +100,8 @@ const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
   const { state: { user }, resourecLibraryLogin } = useSite()
   const { cart } = useCartMatches()
+
+  // que other tabs to sync up with logged in user
   function setStorage() {
     localStorage.setItem('makers_login', 'login' + Math.random());
   }
@@ -107,7 +109,6 @@ const ResourceLibraryMembers = () => {
 
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
-
   // console.log('data', data);
 
 
@@ -196,33 +197,69 @@ const ResourceLibraryMembers = () => {
   const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: data.freebies })
 
   return (
-    <div>
-      <h1>Members Area</h1>
-      {/* <button onClick={shopifyTestCall}>Test Shopify Call</button>
-      <a href="https://transactions.sendowl.com/cart?merchant_id=210642" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/view-cart.png" /></a> <script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
-      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/add_to_cart" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/add-to-cart.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
-      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/purchase" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script> */}
-      <button onClick={clearCart}>Empty Cart</button>
-      <div>
-        <button onClick={addItem}>Add Item to Cart</button>
-        <div>Cart items: {cart?.lines.edges.length}</div>
+    <div className='grid-container grid-resource-header'>
+      <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-2 tablet:col-end-[9] desktop:col-start-2 desktop:col-end-[8] flex flex-col'>
+        <div className='mt-16 mb-16'>
+          <h1 style={{ color: '#404764' }} className='font-sentinel__SemiBoldItal text-display-2'>Welcome to the Makers Library</h1>
+        </div>
+        <div className='flex flex-col tablet:flex-row'>
+          <div className='mb-8 tablet:mr-4 tablet:mb-0 flex-1'>
+            <h2 className='text-blue-slate font-semibold text-lg mb-2'>Freebies</h2>
+            <p className='text-blue-slate'>All downloads come with a freebie license that you can use on any type of project.</p>
+          </div>
+          <div className='tablet:ml-4 flex-1'>
+            <h2 className='text-blue-slate font-semibold text-lg mb-2'>Commerical Usage</h2>
+            <p className='text-blue-slate'>A few freeibes are just for personal use and will require an extended license purchase if used commericially.</p>
+          </div>
+        </div>
       </div>
-      {!data.user.tags.includes('Resource Library tag') && <div>Hello Signup </div>}
-      <FreebieFilter
-        filterTags={data.filterTags}
-        selectedFilter={filter}
-        handleClick={handleFilterClick}
-      />
-      <div>
+
+      <div className='hidden z-10 relative col-start-2 col-span-2 row-start-1 row-span-2 tablet:flex tablet:col-start-9 tablet:col-end-[14] desktop:col-start-8 desktop:col-end-[14] flex-col'>
+        <div className='p-3 bg-white rounded-2.5xl shadow-md max-w-[547px] mx-auto'>
+          <img className='rounded-2xl' src="/images/tuesday-makers-welcome-1.jpg" alt="Welcome to the Tuesday Makers Free resource library" />
+        </div>
+      </div>
+
+      {!data.user.tags.includes('Tuesday Makers Extended License') &&
+        <div className='bg-green-500 col-span-full tablet:row-start-2 tablet:row-span-2'>
+          <div className='my-16'>
+            UPGRADE LICENSE AREA
+
+            On purchase - need to refresh the user or something
+          </div>
+        </div>}
+
+      {/* Check tags on user example for paid Resource Library License */}
+      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+        <FreebieFilter
+          filterTags={data.filterTags}
+          selectedFilter={filter}
+          handleClick={handleFilterClick}
+        />
+      </div>
+
+      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
         {posts
           .map(item => (<Freebie key={item.id} {...item} />))}
       </div>
-      <div>
-        <EmptyCartBtn />
-        <AddToCartBtn />
-      </div>
-      <div>
+
+      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
         {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+      </div>
+
+      <div>
+        {/* <EmptyCartBtn />
+        <AddToCartBtn /> */}
+
+        {/* <button onClick={shopifyTestCall}>Test Shopify Call</button>
+      <a href="https://transactions.sendowl.com/cart?merchant_id=210642" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/view-cart.png" /></a> <script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
+      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/add_to_cart" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/add-to-cart.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
+      <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/purchase" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script> */}
+        {/* <button onClick={clearCart}>Empty Cart</button>
+      <div>
+        <button onClick={addItem}>Add Item to Cart</button>
+        <div>Cart items: {cart?.lines.edges.length}</div>
+      </div> */}
       </div>
     </div>
   )

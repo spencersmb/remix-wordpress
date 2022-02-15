@@ -1,3 +1,5 @@
+import { ShopPlatformEnum } from "~/enums/products";
+
 export function getWPMenu(resourceUser: string | null){
 
   return {
@@ -120,18 +122,31 @@ export const siteAuthor = {
     slug: "teelac"
   }
 }
+export const siteInfo = {
+  description: "Graphic Design Tips, Tricks, Tutorials and Freebies",
+  language: "En",
+  title: "Every-Tuesday",
+  shopPlatform: ShopPlatformEnum.GUMROAD,
+  author: siteAuthor.author,
+  siteTitle: "Every-Tuesday",
+}
+export const socialUrls = {
+  youtube: "https://youtube.com/everytues",
+  instagram: "https://instagram.com/everytuesday",
+  twitter: "https://twitter.com/everytuesday",
+  facebook: "https://facebook.com/everytuesday",
+  pinterest: "https://pinterest.com/everytuesday"
+}
+
+// Metadata on the server-side
 export const metadata: ISiteMetaDataStarter = {
   generalSettings: {
-    description: "Graphic Design Tips, Tricks, Tutorials and Freebies",
-    language: "En",
-    title: "Every-Tuesday",
-    shopPlatform: "gumroad",
-    author: siteAuthor.author
+    ...siteInfo
   },
   seo: {
     social: {
       youTube: {
-        url: "http://youtube.com/everytues"
+        url: socialUrls.youtube
       },
       twitter: {
         username: "teelacunningham",
@@ -139,13 +154,13 @@ export const metadata: ISiteMetaDataStarter = {
       },
       pinterest: {
         metaTag: "",
-        url: "http://pinterest.com/teelac"
+        url: socialUrls.pinterest
       },
       instagram: {
-        url: "http://instagram.com/everytuesday"
+        url: socialUrls.instagram
       },
       facebook: {
-        url: "http://facebook.com/everytues",
+        url: socialUrls.facebook,
         defaultImage: {
           altText: "Every-Tuesday Logo Black",
           sourceUrl: "http://etheadless.local/wp-content/uploads/2013/09/et-logo-black.png",
@@ -159,7 +174,7 @@ export const metadata: ISiteMetaDataStarter = {
   },
 }
 
-function mapSocialMetaData(social: ISiteSocialStarter): ISiteSocialMapped{
+function mapSocialMetaData(social: ISiteSocialStarter): ISocialSettings{
 
   return {
     youtube: social.youTube.url,
@@ -174,6 +189,8 @@ function mapSocialMetaData(social: ISiteSocialStarter): ISiteSocialMapped{
   }
 
 }
+
+// simulate a server-side metadata response and merge into default initialState of useSite value for metaData
 export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
   const { generalSettings, seo } = metadata;
 
@@ -189,7 +206,7 @@ export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
     language,
     shopPlatform,
     social,
-    author
+    author,
   }
 }
 

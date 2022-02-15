@@ -1605,8 +1605,25 @@ type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [DownloadFreebie_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
-    thumbnail: MediaItem
+    thumbnail: DownloadFreebie_Tutorialmanager_Thumbnail
     youtube: DownloadFreebie_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Thumbnail implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    image: MediaItem
+    swatch: DownloadFreebie_Tutorialmanager_Thumbnail_Swatch
+    type: String
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
+    backgroundColor: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    textColor: String
 }
 
 "Field Group"
@@ -3265,8 +3282,25 @@ type Post_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [Post_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
-    thumbnail: MediaItem
+    thumbnail: Post_Tutorialmanager_Thumbnail
     youtube: Post_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type Post_Tutorialmanager_Thumbnail implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    image: MediaItem
+    swatch: Post_Tutorialmanager_Thumbnail_Swatch
+    type: String
+}
+
+"Field Group"
+type Post_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
+    backgroundColor: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    textColor: String
 }
 
 "Field Group"
@@ -3589,8 +3623,25 @@ type Product_Tutorialmanager implements AcfFieldGroup {
     paidProducts: [Product_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
-    thumbnail: MediaItem
+    thumbnail: Product_Tutorialmanager_Thumbnail
     youtube: Product_Tutorialmanager_Youtube
+}
+
+"Field Group"
+type Product_Tutorialmanager_Thumbnail implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    image: MediaItem
+    swatch: Product_Tutorialmanager_Thumbnail_Swatch
+    type: String
+}
+
+"Field Group"
+type Product_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
+    backgroundColor: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    textColor: String
 }
 
 "Field Group"

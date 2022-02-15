@@ -235,15 +235,10 @@ const query = gql`
           ...featuredImageFields
           tutorialManager {
             thumbnail {
-              sourceUrl
-              mediaDetails {
-                sizes {
-                  name
-                  sourceUrl
-                  height
-                  width
-                }
-              }
+              image {
+                altText
+                sourceUrl
+              }            
             }
           }
         }

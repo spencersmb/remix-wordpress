@@ -2,6 +2,7 @@ import React from 'react'
 import useSite from '~/hooks/useSite'
 import LicenseAgreementPopUp from '~/components/modals/licenseAgreementPopUp'
 import { consoleHelper } from '~/utils/windowUtils'
+import { getImageSizeUrl } from '~/utils/posts'
 
 
 /**
@@ -16,7 +17,7 @@ import { consoleHelper } from '~/utils/windowUtils'
  */
 
 const Freebie = (item: IResourceItem) => {
-  // consoleHelper('item', item)
+  consoleHelper('item', item)
   const { openModal, closeModal } = useSite()
   function popUpDownload() {
     openModal({
@@ -40,8 +41,13 @@ const Freebie = (item: IResourceItem) => {
     normalDownload()
   }
 
+  const featuredImage = getImageSizeUrl(item.featuredImage.mediaDetails.sizes, 'medium')
+
   return (
     <div>
+      <div>
+        <img src={featuredImage.sourceUrl} alt={item.title} />
+      </div>
       <h3>{item.title}</h3>
       <p>{item.freebie.excerpt}</p>
       <button onClick={handleButtonClick}>Download</button>

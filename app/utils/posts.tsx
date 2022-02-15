@@ -1,49 +1,60 @@
 import { isEmpty } from "lodash";
+import { classNames } from "./appUtils";
 
-export function flattenAllPosts(posts:any): IPost[] | false{
+export function flattenAllPosts(posts: any): IPost[] | false {
   const postsFiltered = posts?.edges?.map(({ node = {} }) => node);
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
 
-export function rearrangeLicenses(licenses: ILicense[]){
-  return licenses.reduce((acc: any, licence) => {
-        // Add it to the beginning of the array
-        if(licence.licenseType === 'standard'){
-          acc.unshift(licence)
-        }
-        console.log('licence.licenseType', licence.licenseType);
-        
-        // if there is only one item in array, add extended as the 2nd
-        if(licence.licenseType === 'extended'){
-          acc.push(licence)
-        }
-
-        // if the ext is the last item to get looped over
-        if(licence.licenseType === 'extended' && acc.length === 2){
-          const standard = acc[0]
-          const server = acc[1]
-          acc = [
-            standard,
-            licence,
-            server
-          ]
-        }
-
-        if(licence.licenseType === 'server'){
-          acc.push(licence)
-        }
-
-        return acc
-      }, [])
+export function filterNodeFromTags(tags: { edges: [{ node: ITagCount }] }): ITagCount[] {
+  return tags.edges.map(({ node }) => {
+    return {
+      name: node.name,
+      slug: node.slug,
+      count: node.count,
+    };
+  });
 }
 
-export function mapPostData(post:IPostRaw | {} = {}): IPost {
+export function rearrangeLicenses(licenses: ILicense[]) {
+  return licenses.reduce((acc: any, licence) => {
+    // Add it to the beginning of the array
+    if (licence.licenseType === 'standard') {
+      acc.unshift(licence)
+    }
+    console.log('licence.licenseType', licence.licenseType);
+
+    // if there is only one item in array, add extended as the 2nd
+    if (licence.licenseType === 'extended') {
+      acc.push(licence)
+    }
+
+    // if the ext is the last item to get looped over
+    if (licence.licenseType === 'extended' && acc.length === 2) {
+      const standard = acc[0]
+      const server = acc[1]
+      acc = [
+        standard,
+        licence,
+        server
+      ]
+    }
+
+    if (licence.licenseType === 'server') {
+      acc.push(licence)
+    }
+
+    return acc
+  }, [])
+}
+
+export function mapPostData(post: IPostRaw | {} = {}): IPost {
   const data = { ...post };
-  let modifiedData: any = {...post}
+  let modifiedData: any = { ...post }
 
   // Clean up the author object to avoid someone having to look an extra
   // level deeper into the node
-  if (data.author)  {
+  if (data.author) {
     modifiedData.author = {
       ...data.author.node,
     }
@@ -71,7 +82,7 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
     });
   }
 
-  if(data.relatedPosts){
+  if (data.relatedPosts) {
     modifiedData.relatedPosts = data.relatedPosts.map((post: IPostRaw) => {
       return mapPostData(post)
     })
@@ -83,7 +94,7 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
   //   })
   // }
 
-  if(data.tutorialManager?.paidProducts){
+  if (data.tutorialManager?.paidProducts) {
     const newPaidProducts = data.tutorialManager?.paidProducts.map(product => {
       const newProduct = {
         ...product,
@@ -101,7 +112,7 @@ export function mapPostData(post:IPostRaw | {} = {}): IPost {
   }
 
 
-  if(data.comments){
+  if (data.comments) {
     modifiedData.comments = {
       pageInfo: data.comments.pageInfo,
       list: data.comments.edges.map(({ node }) => {
@@ -138,31 +149,31 @@ interface IMediaDetailSize {
   name: string
   sourceUrl: string
 }
-export function getMediaSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name: string): IMediaDetailSize{
-  if(mediaSizes === undefined || mediaSizes?.length < 1) return  {
+export function getImageSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name: string): IMediaDetailSize {
+  if (mediaSizes === undefined || mediaSizes?.length < 1) return {
     width: '',
     file: '',
     height: '',
     name: '',
     sourceUrl: ''
   }
-  
+
   return mediaSizes.reduce((previousValue: any, currentValue: any) => {
 
-    if(currentValue.name === name){
+    if (currentValue.name === name) {
       return currentValue
-    }else{ 
+    } else {
       return previousValue
     }
 
   }, {})
 }
 
-export function formatDate(date: string): string{
+export function formatDate(date: string): string {
   const blogDate = new Date(date)
   const monthIndex: number = blogDate.getMonth()
   const day: number = blogDate.getDate()
-  
+
   const months: string[] = [
     'January',
     'February',
@@ -180,7 +191,7 @@ export function formatDate(date: string): string{
   return `${months[monthIndex]} ${day}, ${blogDate.getFullYear()}`
 }
 
-export function splitProgramNameInTitle(title: string):{title: string, subTitle: string | undefined} {
+export function splitProgramNameInTitle(title: string): { title: string, subTitle: string | undefined } {
   let newTitle = title
   switch (Boolean(title)) {
 
@@ -190,49 +201,49 @@ export function splitProgramNameInTitle(title: string):{title: string, subTitle:
         title: newTitle,
         subTitle: "in Procreate",
       }
-      // return (
-      //   <>
-      //     <div className='mb-3'>{newTitle}</div>
-      //     <div className={`${splitCss}`}>in Procreate</div>
-      //   </>
-      // )
+    // return (
+    //   <>
+    //     <div className='mb-3'>{newTitle}</div>
+    //     <div className={`${splitCss}`}>in Procreate</div>
+    //   </>
+    // )
 
     case title.includes("in Illustrator"):
       newTitle = title.replace("in Illustrator", "")
-      return{
+      return {
         title: newTitle,
         subTitle: "in Illustrator",
       }
-      // return (
-      //   <>
-      //     <div className='mb-3'>{newTitle}</div>
-      //     <div className={`${splitCss}`}>in Illustrator</div>
-      //   </>
-      // )
+    // return (
+    //   <>
+    //     <div className='mb-3'>{newTitle}</div>
+    //     <div className={`${splitCss}`}>in Illustrator</div>
+    //   </>
+    // )
     case title.includes("in Adobe Illustrator"):
       newTitle = title.replace("in Adobe Illustrator", "")
       return {
         title: newTitle,
         subTitle: "in Adobe Illustrator",
       }
-      // return (
-      //   <>
-      //     <div className='mb-3'>{newTitle}</div>
-      //     <div className={`${splitCss}`}>in Adobe Illustrator</div>
-      //   </>
-      // )
+    // return (
+    //   <>
+    //     <div className='mb-3'>{newTitle}</div>
+    //     <div className={`${splitCss}`}>in Adobe Illustrator</div>
+    //   </>
+    // )
     case title.includes("in InDesign"):
       newTitle = title.replace("in InDesign", "")
       return {
         title: newTitle,
         subTitle: "in InDesign",
       }
-      // return (
-      //   <>
-      //     <div className='mb-3'>{newTitle}</div>
-      //     <div className={`${splitCss}`}>in InDesign</div>
-      //   </>
-      // )
+    // return (
+    //   <>
+    //     <div className='mb-3'>{newTitle}</div>
+    //     <div className={`${splitCss}`}>in InDesign</div>
+    //   </>
+    // )
     case title.includes("in Photoshop"):
       newTitle = title.replace("in Photoshop", "")
       return {
@@ -257,15 +268,15 @@ export function findSkillLevel(categories: ICategories[]): ICategories | undefin
     name: "beginner",
   }
   let skillFoundStopLooking = false
-  const skillFound = categories.reduce((previousValue: any, currentValue: ICategories):any => {
-    if(currentValue.slug === "tutorials"){
+  const skillFound = categories.reduce((previousValue: any, currentValue: ICategories): any => {
+    if (currentValue.slug === "tutorials") {
       tutorialsFound = true
     }
-    if(skillFoundStopLooking){
+    if (skillFoundStopLooking) {
       return previousValue
     }
-    switch(currentValue.slug ){
-      
+    switch (currentValue.slug) {
+
       case "advanced":
         skillFoundStopLooking = true
         return currentValue
@@ -280,9 +291,9 @@ export function findSkillLevel(categories: ICategories[]): ICategories | undefin
     }
   }, {})
 
-    return !isEmpty(skillFound) 
-    ? skillFound 
-    : isEmpty(skillFound) && tutorialsFound 
+  return !isEmpty(skillFound)
+    ? skillFound
+    : isEmpty(skillFound) && tutorialsFound
       ? defaultSkill
       : undefined
 }
@@ -301,4 +312,55 @@ export function getLicense(licenses: ILicense[] | null, type: LicenseEnum) {
     price: 0,
     url: '',
   })
+}
+
+export function createThumbnailImage(
+  tutorialManager: ITutorialManager,
+  defaultSource: IMediaDetailSize,
+  title: string,
+  featuredPost: boolean = false
+) {
+  const defaultImage = () => (
+    <div className="flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
+      <img src={defaultSource.sourceUrl} alt={title} />
+    </div>
+  )
+  if (!tutorialManager.thumbnail.image) {
+    return defaultImage()
+  }
+
+  switch (tutorialManager.thumbnail.type) {
+    case "make":
+      return (
+        <>
+          <div className={classNames(featuredPost
+            ? `absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg]`
+            : `absolute top-[10px] left-[15px] w-[40%]`, 'z-10')}>
+            <img className="relative z-10" src="/images/make-this.png" alt={`Make this tutorial: ${title}`} />
+            <span className={classNames(featuredPost
+              ? 'top-[45px]'
+              : 'top-[20px] ',
+              'absolute w-[40%] left-[71%] z-[5]')}>
+              <img src="/images/make-this-arrow-1.png" alt={`Make this tutorial: ${title}`} />
+            </span>
+          </div>
+          {!featuredPost && <div className="absolute top-[15px] right-[30px] w-[25%] opacity-70">
+            <img src="/images/video-tutorial-text.png" alt={`Video tutorial: ${title}`} />
+          </div>}
+          <div className="relative">
+            <div className="rounded-2.5xl overflow-hidden">
+              <img src={tutorialManager.thumbnail.image.sourceUrl} alt={`${tutorialManager.thumbnail.image.altText} Main Image`} />
+            </div>
+            {featuredPost && <div style={{ backgroundColor: tutorialManager.thumbnail.swatch.backgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+              <span style={{ color: tutorialManager.thumbnail.swatch.textColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
+                Free Color Swatches
+              </span>
+            </div>}
+          </div>
+
+        </>
+      )
+    default:
+      return defaultImage()
+  }
 }

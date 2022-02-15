@@ -44,7 +44,7 @@ export const PrimaryNav = () => {
       <ul className="laptop:flex laptop:flex-row laptop:justify-center">
         {primaryMenu.map((menuItem) => {
           return (
-            <li key={menuItem.id} className="flex justify-center items-center text-sm m-2 mx-4 text-primary-600 uppercase laptop:font-medium desktop:text-base">
+            <li key={menuItem.id} className="normal-links flex justify-center items-center text-sm m-2 mx-4 text-primary-600 uppercase laptop:font-medium desktop:text-base">
               <Link to={menuItem.path} prefetch="intent">{menuItem.label}</Link>
             </li>
           )

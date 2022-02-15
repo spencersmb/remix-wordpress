@@ -1,8 +1,7 @@
 .blog-content {
   & a {
-    @apply text-blue-500 underline hover:text-teal-300 font-semibold;
+    @apply text-teal-500 underline hover:text-teal-800 font-semibold;
   }
-
   iframe {
     position: absolute;
     top: 0;
@@ -21,7 +20,7 @@
     overflow: hidden;
     @apply pb-4 text-lg;
     &:first-child {
-      @apply text-lg mb-8 tablet:text-xl tablet:mb-10;
+      @apply text-lg tablet:text-xl;
     }
     &:after {
     }
@@ -56,6 +55,11 @@
   }
 }
 
-.et_ck_form_v6 {
+.et_ck_form_v6,
+.eltdf-btn {
   display: none;
+}
+
+[rel*="et_ck_modal"] {
+  display: none !important;
 }

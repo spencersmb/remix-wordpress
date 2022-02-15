@@ -7,6 +7,7 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/variants";
 @import "../app/components/blog/blog.css";
+@import "../app/components/nav/nav.css";
 
 .root,
 :root,
@@ -63,14 +64,14 @@ button {
 }
 @layer components {
   .btn {
-    @apply text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.98] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
+    @apply no-underline text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.98] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
+    @apply bg-primary-500 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
   }
   .btn-teal {
-    @apply bg-teal-500 text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
+    @apply bg-teal-500 text-white hover:text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
   }
   .btn-underlined {
     @apply underline underline-offset-4 uppercase;
@@ -89,6 +90,9 @@ button {
 }
 
 @layer utilities {
+  .rest-link {
+    @apply text-primary-500 hover:text-primary-500;
+  }
   .underlined {
     position: relative;
   }
@@ -114,9 +118,6 @@ button {
     background-color: currentColor;
     transform: scaleX(1);
     display: inline-block;
-  }
-  .inView {
-    @apply translate-y-[0px];
   }
 
   .input-basic {
@@ -165,5 +166,13 @@ button {
       height: 100%;
       border: 0;
     }
+  }
+
+  .grid-container {
+    @apply bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto;
+  }
+
+  .grid-resource-header {
+    grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
   }
 }

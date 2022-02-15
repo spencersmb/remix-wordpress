@@ -1,6 +1,9 @@
 import { gql } from '@apollo/client'
+import { PRODUCT_FIELDS, RESOURCE_FEATURED_IMAGE } from './posts'
 
 export const GetAllFreebiesQuery = gql`
+    ${RESOURCE_FEATURED_IMAGE}
+    ${PRODUCT_FIELDS}
     query GetNextFreebies {
         cptTags(postType: "et_freebie") {
             name
@@ -13,32 +16,13 @@ export const GetAllFreebiesQuery = gql`
                     title
                     date
                     dateGmt
-                    featuredImage {
-                        node {
-                            altText
-                            sourceUrl
-                            srcSet
-                            title
-                            sizes
-                        }
-                    }
+                    ...featuredImageFields__RL
                     freebie{
                         downloadLink
                         excerpt
                         licenseRequired
                         product {
-                            ... on Product {
-                                title
-                                slug
-                                details {
-                                    licences{
-                                        licenseType
-                                        price
-                                        url
-                                    }
-                                    
-                                }
-                            }
+                            ...productFields
                         }
                     }
                     tags {
