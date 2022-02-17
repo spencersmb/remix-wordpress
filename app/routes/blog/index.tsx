@@ -28,101 +28,101 @@ export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaDat
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
-  let variables: {
-    first: number;
-    after: string | null;
-    catName?: string;
-  } = {
-    first: 13,
-    after: null
-  }
-  // check URL for params to fetch the correct amount of items
-  let url = new URL(request.url)
-  let params = url.searchParams
-  let page = params.get('page')
-  let cat = params.get('cat')
+  // let variables: {
+  //   first: number;
+  //   after: string | null;
+  //   catName?: string;
+  // } = {
+  //   first: 13,
+  //   after: null
+  // }
+  // // check URL for params to fetch the correct amount of items
+  // let url = new URL(request.url)
+  // let params = url.searchParams
+  // let page = params.get('page')
+  // let cat = params.get('cat')
 
-  if (page) {
-    variables = {
-      first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
-      after: null,
-    }
-  }
+  // if (page) {
+  //   variables = {
+  //     first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
+  //     after: null,
+  //   }
+  // }
 
-  let data: IndexData = {
-    resources: [
-      {
-        name: "Remix Docs",
-        url: "https://remix.run/docs"
-      },
-      {
-        name: "React Router Docs",
-        url: "https://reactrouter.com/docs"
-      },
-      {
-        name: "Remix Discord",
-        url: "https://discord.gg/VBePs6d"
-      }
-    ],
-    demos: [
-      {
-        to: "demos/actions",
-        name: "Actions"
-      },
-      {
-        to: "demos/about",
-        name: "Nested Routes, CSS loading/unloading"
-      },
-      {
-        to: "demos/params",
-        name: "URL Params and Error Boundaries"
-      }
-    ]
-  };
+  // let data: IndexData = {
+  //   resources: [
+  //     {
+  //       name: "Remix Docs",
+  //       url: "https://remix.run/docs"
+  //     },
+  //     {
+  //       name: "React Router Docs",
+  //       url: "https://reactrouter.com/docs"
+  //     },
+  //     {
+  //       name: "Remix Discord",
+  //       url: "https://discord.gg/VBePs6d"
+  //     }
+  //   ],
+  //   demos: [
+  //     {
+  //       to: "demos/actions",
+  //       name: "Actions"
+  //     },
+  //     {
+  //       to: "demos/about",
+  //       name: "Nested Routes, CSS loading/unloading"
+  //     },
+  //     {
+  //       to: "demos/params",
+  //       name: "URL Params and Error Boundaries"
+  //     }
+  //   ]
+  // };
 
-  let wpAPI
-  let wpCatAPI
+  // let wpAPI
+  // let wpCatAPI
 
-  try {
-    wpAPI = await fetchAPI(getGraphQLString(query), {
-      variables
-    })
+  // try {
+  //   wpAPI = await fetchAPI(getGraphQLString(query), {
+  //     variables
+  //   })
 
-    if (cat && page) {
-      variables.catName = cat
-      variables.first = (parseInt(page, 10) * 12)
-      wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
-        variables
-      })
-    }
+  //   if (cat && page) {
+  //     variables.catName = cat
+  //     variables.first = (parseInt(page, 10) * 12)
+  //     wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
+  //       variables
+  //     })
+  //   }
 
-  } catch (e) {
-    console.log('error', e)
-  }
-  const pageInfo = wpAPI?.posts.pageInfo
-  const posts = flattenAllPosts(wpAPI?.posts) || []
-  let categories = wpCatAPI && cat ? {
-    selectedCategory: cat,
-    category: {
-      [cat]: {
-        posts: flattenAllPosts(wpCatAPI?.posts),
-        pageInfo: {
-          ...wpCatAPI?.posts.pageInfo,
-          page: page ? parseInt(page, 10) : 1,
-        },
+  // } catch (e) {
+  //   console.log('error', e)
+  // }
+  // const pageInfo = wpAPI?.posts.pageInfo
+  // const posts = flattenAllPosts(wpAPI?.posts) || []
+  // let categories = wpCatAPI && cat ? {
+  //   selectedCategory: cat,
+  //   category: {
+  //     [cat]: {
+  //       posts: flattenAllPosts(wpCatAPI?.posts),
+  //       pageInfo: {
+  //         ...wpCatAPI?.posts.pageInfo,
+  //         page: page ? parseInt(page, 10) : 1,
+  //       },
 
-      }
-    }
-  } : null
+  //     }
+  //   }
+  // } : null
 
-  // https://remix.run/api/remix#json
-  return {
-    ...data,
-    posts,
-    pageInfo,
-    categories,
-    pageUrlParams: page ? parseInt(page, 10) : 1
-  }
+  // // https://remix.run/api/remix#json
+  // return {
+  //   ...data,
+  //   posts,
+  //   pageInfo,
+  //   categories,
+  //   pageUrlParams: page ? parseInt(page, 10) : 1
+  // }
 };
 
 type IBlogIndexProps = IPageInfo & {
@@ -143,9 +143,9 @@ type IBlogIndexProps = IPageInfo & {
 }
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
-  let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  console.log('Blog Cat data', categories)
-  const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
+  // let { posts, pageInfo, pageUrlParams, categories } = loaderData;
+  // console.log('Blog Cat data', categories)
+  // const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
   // const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate({
   //   posts: posts,

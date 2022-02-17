@@ -82,7 +82,7 @@ export default function PostSlug() {
 
   return (
     <Layout>
-      <BlogTemplate post={post} />
+      {/* <BlogTemplate post={post} /> */}
     </Layout>
   );
 }
