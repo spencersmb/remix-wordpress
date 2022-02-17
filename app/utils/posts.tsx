@@ -356,11 +356,11 @@ export function createThumbnailImage(
   featuredPost: boolean = false
 ) {
   const defaultImage = () => (
-    <div className="flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
-      <img src={defaultSource.sourceUrl} alt={title} />
+    <div className="default_image flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
+      {defaultSource.sourceUrl.length !== 0 && <img src={defaultSource.sourceUrl} alt={title} />}
     </div>
   )
-  if (!tutorialManager.thumbnail.image) {
+  if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
     return defaultImage()
   }
 

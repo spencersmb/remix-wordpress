@@ -28,327 +28,298 @@ export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaDat
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
-  // let variables: {
-  //   first: number;
-  //   after: string | null;
-  //   catName?: string;
-  // } = {
-  //   first: 13,
-  //   after: null
-  // }
-  // // check URL for params to fetch the correct amount of items
-  // let url = new URL(request.url)
-  // let params = url.searchParams
-  // let page = params.get('page')
-  // let cat = params.get('cat')
+  let variables: {
+    first: number;
+    after: string | null;
+    catName?: string;
+  } = {
+    first: 13,
+    after: null
+  }
+  // check URL for params to fetch the correct amount of items
+  let url = new URL(request.url)
+  let params = url.searchParams
+  let page = params.get('page')
+  let cat = params.get('cat')
 
-  // if (page) {
-  //   variables = {
-  //     first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
-  //     after: null,
-  //   }
-  // }
+  if (page) {
+    variables = {
+      first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
+      after: null,
+    }
+  }
 
-  // let data: IndexData = {
-  //   resources: [
-  //     {
-  //       name: "Remix Docs",
-  //       url: "https://remix.run/docs"
-  //     },
-  //     {
-  //       name: "React Router Docs",
-  //       url: "https://reactrouter.com/docs"
-  //     },
-  //     {
-  //       name: "Remix Discord",
-  //       url: "https://discord.gg/VBePs6d"
-  //     }
-  //   ],
-  //   demos: [
-  //     {
-  //       to: "demos/actions",
-  //       name: "Actions"
-  //     },
-  //     {
-  //       to: "demos/about",
-  //       name: "Nested Routes, CSS loading/unloading"
-  //     },
-  //     {
-  //       to: "demos/params",
-  //       name: "URL Params and Error Boundaries"
-  //     }
-  //   ]
-  // };
+  let data: IndexData = {
+    resources: [
+      {
+        name: "Remix Docs",
+        url: "https://remix.run/docs"
+      },
+      {
+        name: "React Router Docs",
+        url: "https://reactrouter.com/docs"
+      },
+      {
+        name: "Remix Discord",
+        url: "https://discord.gg/VBePs6d"
+      }
+    ],
+    demos: [
+      {
+        to: "demos/actions",
+        name: "Actions"
+      },
+      {
+        to: "demos/about",
+        name: "Nested Routes, CSS loading/unloading"
+      },
+      {
+        to: "demos/params",
+        name: "URL Params and Error Boundaries"
+      }
+    ]
+  };
 
-  // let wpAPI
-  // let wpCatAPI
+  let wpAPI
+  let wpCatAPI
 
-  // try {
-  //   wpAPI = await fetchAPI(getGraphQLString(query), {
-  //     variables
-  //   })
+  try {
+    wpAPI = await fetchAPI(getGraphQLString(postQuery), {
+      variables
+    })
 
-  //   if (cat && page) {
-  //     variables.catName = cat
-  //     variables.first = (parseInt(page, 10) * 12)
-  //     wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
-  //       variables
-  //     })
-  //   }
+    if (cat && page) {
+      variables.catName = cat
+      variables.first = (parseInt(page, 10) * 12)
+      wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
+        variables
+      })
+    }
 
-  // } catch (e) {
-  //   console.log('error', e)
-  // }
-  // const pageInfo = wpAPI?.posts.pageInfo
-  // const posts = flattenAllPosts(wpAPI?.posts) || []
-  // let categories = wpCatAPI && cat ? {
-  //   selectedCategory: cat,
-  //   category: {
-  //     [cat]: {
-  //       posts: flattenAllPosts(wpCatAPI?.posts),
-  //       pageInfo: {
-  //         ...wpCatAPI?.posts.pageInfo,
-  //         page: page ? parseInt(page, 10) : 1,
-  //       },
-
-  //     }
-  //   }
-  // } : null
-
-  // // https://remix.run/api/remix#json
-  // return {
-  //   ...data,
-  //   posts,
-  //   pageInfo,
-  //   categories,
-  //   pageUrlParams: page ? parseInt(page, 10) : 1
-  // }
-};
-
-type IBlogIndexProps = IPageInfo & {
-  pageUrlParams: number; //currentPage
-  categories: {
-    selectedCategory: string;
+  } catch (e) {
+    console.log('error', e)
+  }
+  const pageInfo = wpAPI?.posts.pageInfo
+  const posts = flattenAllPosts(wpAPI?.posts) || []
+  let categories = wpCatAPI && cat ? {
+    selectedCategory: cat,
     category: {
-      [id: string]: {
-        posts: any
+      [cat]: {
+        posts: flattenAllPosts(wpCatAPI?.posts),
         pageInfo: {
-          page: number,
-          endCursor: string,
-          hasNextPage: boolean,
-        }
+          ...wpCatAPI?.posts.pageInfo,
+          page: page ? parseInt(page, 10) : 1,
+        },
+
       }
     }
-  } | null;
+  } : null
+
+  // https://remix.run/api/remix#json
+  return {
+    ...data,
+    posts,
+    pageInfo,
+    categories,
+    pageUrlParams: page ? parseInt(page, 10) : 1
+  }
+};
+interface ICategoryArgs {
+  selectedCategory: string;
+  category: {
+    [id: string]: {
+      posts: any
+      pageInfo: {
+        page: number,
+        endCursor: string,
+        hasNextPage: boolean,
+      }
+    }
+  }
+}
+type IBlogIndexProps = IPageInfo & {
+  pageUrlParams: number; //currentPage
+  categories: ICategoryArgs | null;
+}
+
+function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any, page: number }, categorysArgs: ICategoryArgs | null) {
+  let { posts, pageInfo, page } = postsArgs
+  let initialState = {}
+
+  if (posts.length > 0) {
+    initialState = {
+      posts,
+      pageInfo: {
+        ...pageInfo,
+        page
+      },
+    }
+  }
+
+  if (categorysArgs) {
+    initialState = {
+      ...initialState,
+      categories: categorysArgs,
+    }
+  }
+
+
+  return initialState
 }
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
-  // let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  // console.log('Blog Cat data', categories)
-  // const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
+  let { posts, pageInfo, pageUrlParams, categories } = loaderData;
+  console.log('Blog Cat data', categories)
+  const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
-  // const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate({
-  //   posts: posts,
-  //   pageInfo: {
-  //     ...pageInfo,
-  //     page: pageUrlParams
-  //   },
-  //   category: {
-  //     ...categories?.category
-  //   }
-  // })
+  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(createInitializingFetchState({
+    posts,
+    pageInfo,
+    page: pageUrlParams
+  }, categories))
 
 
-  // // consoleHelper('cat posts', posts.length)
-  // // consoleHelper('cat pageInfo', pageInfo)
-  // consoleHelper('state', state)
+  // consoleHelper('cat posts', posts.length)
+  // consoleHelper('cat pageInfo', pageInfo)
+  consoleHelper('state', state)
 
-  // useEffect(() => {
-  //   if (state.pageInfo.page === 1 || !state.pageInfo.page) {
-  //     return
-  //   }
+  useEffect(() => {
+    if (state.pageInfo.page === 1 || !state.pageInfo.page) {
+      return
+    }
 
-  //   const url = new URL(window.location.href);
+    const url = new URL(window.location.href);
 
-  //   url.searchParams.set('page', state.pageInfo.page.toString())
-  //   window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+    url.searchParams.set('page', state.pageInfo.page.toString())
+    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
-  //   // if page = 4 - means get the first 40 items
-  // }, [state.pageInfo.page])
+    // if page = 4 - means get the first 40 items
+  }, [state.pageInfo.page])
 
-  // useEffect(() => {
-  //   if (category === 'all') {
-  //     return
-  //   }
-  //   if (!state.categories[category]) {
-  //     return
-  //   }
+  useEffect(() => {
+    if (category === 'all') {
+      return
+    }
+    if (!state.categories[category]) {
+      return
+    }
 
-  //   // if its the first page, don't change the url
-  //   if (state.categories[category] && state.categories[category].pageInfo.page === 1) {
-  //     return
-  //   }
+    // if its the first page, don't change the url
 
-  //   const url = new URL(window.location.href);
-  //   url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
-  //   url.searchParams.set('cat', category)
-  //   window.history.replaceState(`Category - ${category} / Page: ${state.categories[category].pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
+    url.searchParams.set('cat', category)
+    window.history.replaceState(`Category - ${category} / Page: ${state.categories[category].pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
-  //   // // if page = 4 - means get the first 40 items
-  // }, [state.categories[category]])
+    // // if page = 4 - means get the first 40 items
+  }, [state.categories[category]])
 
-  // useEffect(() => {
-  //   return () => {
-  //     clearCategory()
-  //     clearPosts()
-  //   }
-  // }, [])
+  useEffect(() => {
+    return () => {
+      clearCategory()
+      clearPosts()
+    }
+  }, [])
 
-  // useEffect(() => {
-  //   if (!state.categories[category]) {
-  //     fetchCategory()
-  //   }
-  // }, [category])
+  useEffect(() => {
+    if (!state.categories[category]) {
+      fetchMoreCategories()
+    }
+  }, [category])
 
-  // const handleCatClick = (cat: string) => async () => {
-  //   if (state.loading) {
-  //     return
-  //   }
-  //   setCategory(cat)
-  // }
+  const handleCatClick = (cat: string) => async () => {
+    if (state.loading) {
+      return
+    }
+    setCategory(cat)
+  }
 
-  // async function fetchCategory() {
-  //   loadingPosts()
-  //   const url = window.ENV.PUBLIC_WP_API_URL as string
-  //   const variables = {
-  //     first: 12,
-  //     after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
-  //     catName: category
-  //   }
-  //   const body = await fetch(url,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         query: getGraphQLString(catQuery),
-  //         variables
-  //       })
-  //     })
-  //   const { data } = await body.json()
+  async function fetchMorePosts() {
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      first: 12,
+      after: state.pageInfo.endCursor
+    }
 
-  //   const filteredPosts = flattenAllPosts(data.posts) || []
-  //   let updatedPosts = []
-  //   if (state.categories[category]) {
-  //     updatedPosts = [
-  //       ...state.categories[category].posts,
-  //       ...filteredPosts
-  //     ]
-  //   } else {
-  //     updatedPosts = [
-  //       ...filteredPosts
-  //     ]
-  //   }
-  //   addCategoriAction({
-  //     category,
-  //     pageInfo: {
-  //       page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
-  //       endCursor: data.posts.pageInfo.endCursor,
-  //       hasNextPage: data.posts.pageInfo.hasNextPage,
-  //     },
-  //     posts: filteredPosts
-  //   }
-  //   )
-  // }
-
-  // async function fetchMorePosts() {
-  //   loadingPosts()
-  //   const url = window.ENV.PUBLIC_WP_API_URL as string
-  //   const variables = {
-  //     first: 12,
-  //     after: state.pageInfo.endCursor
-  //   }
-
-  //   console.log('variables', variables);
-  //   console.log('postQuery', postQuery);
+    console.log('variables', variables);
+    console.log('postQuery', postQuery);
 
 
-  //   const body = await fetch(url,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         query: getGraphQLString(postQuery),
-  //         variables
-  //       })
-  //     })
-  //   const { data } = await body.json()
-  //   const filteredPosts = flattenAllPosts(data.posts) || []
-  //   addPostsAction({
-  //     pageInfo: {
-  //       page: state.pageInfo.page + 1,
-  //       endCursor: data.posts.pageInfo.endCursor,
-  //       hasNextPage: data.posts.pageInfo.hasNextPage,
-  //     },
-  //     posts: [
-  //       ...state.posts,
-  //       ...filteredPosts
-  //     ]
-  //   })
-  // }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(postQuery),
+          variables
+        })
+      })
+    const { data } = await body.json()
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    addPostsAction({
+      pageInfo: {
+        page: state.pageInfo.page + 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: [
+        ...state.posts,
+        ...filteredPosts
+      ]
+    })
+  }
 
-  // async function fetchMoreCategories() {
-  //   loadingPosts()
-  //   const url = window.ENV.PUBLIC_WP_API_URL as string
-  //   const variables = {
-  //     first: 12,
-  //     after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
-  //     catName: category
-  //   }
-  //   const body = await fetch(url,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         query: getGraphQLString(catQuery),
-  //         variables
-  //       })
-  //     })
-  //   const { data } = await body.json()
-
-  //   const filteredPosts = flattenAllPosts(data.posts) || []
-  //   let updatedPosts = []
-  //   if (state.categories[category]) {
-  //     updatedPosts = [
-  //       // ...state.categories[category].posts,
-  //       ...filteredPosts
-  //     ]
-  //   } else {
-  //     updatedPosts = [
-  //       ...filteredPosts
-  //     ]
-  //   }
-  //   addCategoriAction({
-  //     category,
-  //     pageInfo: {
-  //       page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
-  //       endCursor: data.posts.pageInfo.endCursor,
-  //       hasNextPage: data.posts.pageInfo.hasNextPage,
-  //     },
-  //     posts: filteredPosts
-  //   }
-  //   )
-  // }
+  async function fetchMoreCategories() {
+    loadingPosts()
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+    const variables = {
+      first: 12,
+      after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
+      catName: category
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(catQuery),
+          variables
+        })
+      })
+    const { data } = await body.json()
+    const filteredPosts = flattenAllPosts(data.posts) || []
+    let updatedPosts = []
+    if (state.categories[category]) {
+      updatedPosts = [
+        // ...state.categories[category].posts,
+        ...filteredPosts
+      ]
+    } else {
+      updatedPosts = [
+        ...filteredPosts
+      ]
+    }
+    addCategoriAction({
+      category,
+      pageInfo: {
+        page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: filteredPosts
+    }
+    )
+  }
 
   return (
     <Layout>
 
-      {/* <BlogFeaturedPost featuredPost={posts[0]} />
+      <BlogFeaturedPost featuredPost={posts[0]} />
 
       <BlogCategoryTabs catClick={handleCatClick} category={category} />
 
@@ -395,6 +366,12 @@ function BlogIndex() {
 
               {category !== 'all' && state.categories[category] && state.categories[category].posts.map(post => (<PostCardOne key={post.slug} post={post} />)
               )}
+
+              {category !== 'all' && state.categories[category] && state.categories[category].posts.length === 0 &&
+                <motion.div>
+                  <h4>Sorry, There are no posts in Category: {category} yet.</h4>
+                </motion.div>
+              }
             </AnimatePresence>
           </div>
         </div>
@@ -420,79 +397,13 @@ function BlogIndex() {
           }
         </div>
 
-      </div> */}
+      </div>
     </Layout>
   )
 }
 
 export default BlogIndex
 
-const query = gql`
-    query GetNextPosts($first: Int, $after: String) {
-        posts(first: $first, after: $after) {
-            __typename
-            pageInfo {
-                endCursor
-                hasNextPage
-                hasPreviousPage
-                startCursor
-                __typename
-            }
-            edges {
-                __typename
-                node {
-                    id
-                    tutorialManager {
-                      postExcerpt
-                      thumbnail {
-                        type
-                        image {
-                          altText
-                          sourceUrl
-                        }
-                      }
-                    }
-                    categories {
-                        edges {
-                            node {
-                                databaseId
-                                id
-                                name
-                                slug
-                            }
-                        }
-                    }
-                    date
-                    excerpt
-                    featuredImage {
-                      node {
-                        mediaDetails {
-                          sizes{
-                            width
-                            file
-                            height
-                            name
-                            sourceUrl
-                            mimeType
-                          }
-                        }
-                          altText
-                          caption
-                          sourceUrl
-                          srcSet
-                          sizes
-                          id
-                        }
-                      }
-                    modified
-                    title
-                    slug
-                    isSticky
-                }
-            }
-        }
-    }
-`
 const postQuery = gql`
 query GetMorePosts($first: Int, $after: String) {
   posts(first: $first, after: $after) {
