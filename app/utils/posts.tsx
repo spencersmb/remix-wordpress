@@ -161,7 +161,7 @@ interface IMediaDetailSize {
 }
 export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: string): IMediaDetailSize {
 
-  if (!postFeaturedImage) {
+  if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
     return {
       width: '',
       file: '',
@@ -171,17 +171,7 @@ export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: 
     }
   }
 
-
-  if (!postFeaturedImage.mediaDetails
-    || postFeaturedImage.mediaDetails && (postFeaturedImage.mediaDetails.sizes === undefined || postFeaturedImage.mediaDetails.sizes?.length < 1)) return {
-      width: '',
-      file: '',
-      height: '',
-      name: '',
-      sourceUrl: ''
-    }
-
-  const ImageSource = postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+  let ImageSource = postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
 
     if (currentValue.name === name) {
       return currentValue
@@ -192,13 +182,21 @@ export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: 
   }, {})
 
   if (isEmpty(ImageSource)) {
-    return {
+    return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+
+      if (currentValue.name === 'large') {
+        return currentValue
+      } else {
+        return previousValue
+      }
+
+    }, {
       width: '',
       file: '',
       height: '',
       name: '',
-      sourceUrl: postFeaturedImage.sourceUrl || '' //TODO: add POST default image
-    }
+      sourceUrl: ''
+    })
   }
 
   return ImageSource
@@ -355,6 +353,7 @@ export function createThumbnailImage(
   title: string,
   featuredPost: boolean = false
 ) {
+
   const defaultImage = () => (
     <div className="default_image flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
       {defaultSource.sourceUrl.length !== 0 && <img src={defaultSource.sourceUrl} alt={title} />}

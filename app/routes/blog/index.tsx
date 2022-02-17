@@ -159,7 +159,9 @@ function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any
   if (categorysArgs) {
     initialState = {
       ...initialState,
-      categories: categorysArgs,
+      category: {
+        ...categorysArgs.category
+      },
     }
   }
 
@@ -171,12 +173,14 @@ function BlogIndex() {
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
   console.log('Blog Cat data', categories)
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
-
-  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(createInitializingFetchState({
+  const initializePostsFromServer = createInitializingFetchState({
     posts,
     pageInfo,
     page: pageUrlParams
-  }, categories))
+  }, categories)
+  console.log('initializePostsFromServer', initializePostsFromServer);
+
+  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
 
 
   // consoleHelper('cat posts', posts.length)
@@ -204,14 +208,11 @@ function BlogIndex() {
       return
     }
 
-    // if its the first page, don't change the url
-
     const url = new URL(window.location.href);
     url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
     url.searchParams.set('cat', category)
     window.history.replaceState(`Category - ${category} / Page: ${state.categories[category].pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
-    // // if page = 4 - means get the first 40 items
   }, [state.categories[category]])
 
   useEffect(() => {
@@ -223,6 +224,7 @@ function BlogIndex() {
 
   useEffect(() => {
     if (!state.categories[category]) {
+      console.log('fetching new cat in useEffect');
       fetchMoreCategories()
     }
   }, [category])
