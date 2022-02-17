@@ -74,7 +74,6 @@ function BlogTemplate(props: IProps) {
       text: post.title
     }
   ]
-  const pinterestImage = getImageSizeUrl(post.featuredImage, 'large')
   const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
@@ -137,10 +136,9 @@ function BlogTemplate(props: IProps) {
 
       {/* PINTEREST */}
       <PinterestBlock
-        postDescription={post.etSocialNav.pinterestMeta.description}
+        post={post}
         postUrl={postUrl}
-        pinterest={pinterestImage}
-        postTitle={post.title} />
+      />
 
       {/* CATEGORIES */}
       {post.categories.length > 0 &&

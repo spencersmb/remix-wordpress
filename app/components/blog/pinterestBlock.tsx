@@ -1,17 +1,18 @@
+import { getImageSizeUrl } from "~/utils/posts"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
 
 interface IProps {
-  pinterest: {
-    sourceUrl?: string
-  }
-  postTitle: string
+  post: IPost
   postUrl: string
-  postDescription: string
 }
 
 function PinterestBlock(props: IProps) {
+  const { post, postUrl } = props
+  let description = post.etSocialNav.pinterestMeta.description
+  let pinterestImage = post.etSocialNav.pinterestImage ? post.etSocialNav.pinterestImage : getImageSizeUrl(post.featuredImage, 'large')
+
 
   return (
     <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
@@ -28,7 +29,7 @@ function PinterestBlock(props: IProps) {
               className="flex flex-col justify-center items-center "
               rel="nofollow"
               target="_blank"
-              href={`https://pinterest.com/pin/create/button/?url=${props.postUrl}&media=${props.pinterest.sourceUrl}&description=${props.postDescription}`}>
+              href={`https://pinterest.com/pin/create/button/?url=${postUrl}&media=${pinterestImage.sourceUrl}&description=${description}`}>
               <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
                 <div>
                   <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
@@ -43,13 +44,12 @@ function PinterestBlock(props: IProps) {
           </div>
 
           {/* IMAGE */}
-          {props.pinterest.sourceUrl &&
-            <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-              <div className="absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-xl overflow-hidden">
-                <img className="w-full max-w-none" src={props.pinterest.sourceUrl} alt={`Save to Pinterest: ${props.postTitle}`} width={'333'} height={'500'} />
-              </div>
+
+          <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
+            <div className="absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-xl overflow-hidden">
+              <img className="w-full max-w-none" src={pinterestImage.sourceUrl} alt={`Save to Pinterest: ${post.title}`} width={'333'} height={'500'} />
             </div>
-          }
+          </div>
         </div>
 
         {/* STROKE */}

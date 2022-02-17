@@ -172,13 +172,14 @@ export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: 
   }
 
 
-  if (postFeaturedImage.mediaDetails.sizes === undefined || postFeaturedImage.mediaDetails.sizes?.length < 1) return {
-    width: '',
-    file: '',
-    height: '',
-    name: '',
-    sourceUrl: ''
-  }
+  if (!postFeaturedImage.mediaDetails
+    || postFeaturedImage.mediaDetails && (postFeaturedImage.mediaDetails.sizes === undefined || postFeaturedImage.mediaDetails.sizes?.length < 1)) return {
+      width: '',
+      file: '',
+      height: '',
+      name: '',
+      sourceUrl: ''
+    }
 
   const ImageSource = postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
 
