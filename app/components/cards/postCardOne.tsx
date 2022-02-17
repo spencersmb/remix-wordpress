@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Link } from "remix"
 import { createThumbnailImage, findSkillLevel, getImageSizeUrl, splitProgramNameInTitle } from "~/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
@@ -10,10 +11,28 @@ function PostCardOne(props: Props) {
   const { post } = props
   const splitTitle = splitProgramNameInTitle(post.title)
   const skill = findSkillLevel(post.categories);
-  const featuredImage = getImageSizeUrl(post.featuredImage?.mediaDetails.sizes, 'headless_ipad')
+  const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_ipad')
 
   return (
-    <div key={post.slug} className='card_conainter flex flex-col mb-8 col-start-2 col-span-2 tablet:col-start-auto tablet:col-auto z-20 desktop:mb-16'>
+    <motion.div
+      key={post.slug}
+      initial={{
+        opacity: 0,
+
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: .3,
+        }
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          duration: 0
+        }
+      }}
+      className='card_conainter flex flex-col mb-8 col-start-2 col-span-2 tablet:col-start-auto tablet:col-auto z-20 desktop:mb-16'>
 
       <div className='flex rounded-xl overflow-hidden transform transition-all shadow-md duration-500 translate-y-0 laptop:hover:shadow-et_4 laptop:hover:translate-y-[-5px] relative flex-1 bg-white'>
         <Link className='flex flex-col' to={`../${post.slug}`}>
@@ -42,7 +61,7 @@ function PostCardOne(props: Props) {
 
       </div>
 
-    </div>
+    </motion.div>
   )
 }
 

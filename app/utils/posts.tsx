@@ -94,20 +94,30 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
   //   })
   // }
 
-  if (data.tutorialManager?.paidProducts) {
-    const newPaidProducts = data.tutorialManager?.paidProducts.map(product => {
-      const newProduct = {
-        ...product,
-        details: {
-          ...product.details,
-          licences: product.details.licences ? rearrangeLicenses(product.details.licences) : null,
-        }
-      }
-      return newProduct
-    })
+  if (data.tutorialManager) {
     modifiedData.tutorialManager = {
       ...data.tutorialManager,
-      paidProducts: newPaidProducts
+      colorPalette: data.tutorialManager?.colorPalette
+        ? data.tutorialManager.colorPalette.reduce((previousValue: any, currentValue: any, currentIndex: number) => {
+          if (currentIndex === 0) {
+            return currentValue
+          } else {
+            return previousValue
+          }
+        }, {})
+        : data.tutorialManager.colorPalette,
+      paidProducts: data.tutorialManager.paidProducts
+        ? data.tutorialManager?.paidProducts.map(product => {
+          const newProduct = {
+            ...product,
+            details: {
+              ...product.details,
+              licences: product.details.licences ? rearrangeLicenses(product.details.licences) : null,
+            }
+          }
+          return newProduct
+        })
+        : data.tutorialManager.paidProducts
     }
   }
 
@@ -149,8 +159,20 @@ interface IMediaDetailSize {
   name: string
   sourceUrl: string
 }
-export function getImageSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name: string): IMediaDetailSize {
-  if (mediaSizes === undefined || mediaSizes?.length < 1) return {
+export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: string): IMediaDetailSize {
+
+  if (!postFeaturedImage) {
+    return {
+      width: '',
+      file: '',
+      height: '',
+      name: '',
+      sourceUrl: '' //TODO: add POST default image
+    }
+  }
+
+
+  if (postFeaturedImage.mediaDetails.sizes === undefined || postFeaturedImage.mediaDetails.sizes?.length < 1) return {
     width: '',
     file: '',
     height: '',
@@ -158,7 +180,7 @@ export function getImageSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name
     sourceUrl: ''
   }
 
-  return mediaSizes.reduce((previousValue: any, currentValue: any) => {
+  const ImageSource = postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
 
     if (currentValue.name === name) {
       return currentValue
@@ -167,6 +189,18 @@ export function getImageSizeUrl(mediaSizes: IMediaDetailSize[] | undefined, name
     }
 
   }, {})
+
+  if (isEmpty(ImageSource)) {
+    return {
+      width: '',
+      file: '',
+      height: '',
+      name: '',
+      sourceUrl: postFeaturedImage.sourceUrl || '' //TODO: add POST default image
+    }
+  }
+
+  return ImageSource
 }
 
 export function formatDate(date: string): string {
@@ -351,8 +385,8 @@ export function createThumbnailImage(
             <div className="rounded-2.5xl overflow-hidden">
               <img src={tutorialManager.thumbnail.image.sourceUrl} alt={`${tutorialManager.thumbnail.image.altText} Main Image`} />
             </div>
-            {featuredPost && <div style={{ backgroundColor: tutorialManager.thumbnail.swatch.backgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
-              <span style={{ color: tutorialManager.thumbnail.swatch.textColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
+            {tutorialManager.colorPalette && <div style={{ backgroundColor: tutorialManager.colorPalette.iconBackgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+              <span style={{ color: tutorialManager.colorPalette.iconTextColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
                 Free Color Swatches
               </span>
             </div>}

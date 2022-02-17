@@ -2,12 +2,17 @@ import CircularStrokeBtn from "~/components/buttons/circularStrokeBtn"
 
 interface Props {
   multipleLayout: boolean
+  downloadUrl: string
 }
 
 function ColorSwatches(props: Props) {
-  const { multipleLayout } = props
+  const { multipleLayout, downloadUrl } = props
   const cssSingleContainer = 'laptop:mr-8 flex-auto'
   const cssMultipleContainer = `tablet:flex-auto laptop:mr-0`
+
+  const handleDownloadClick = () => {
+    window.open(downloadUrl);
+  }
 
   return (
     <div className={`bg-white text-white relative rounded-2.5xl overflow-hidden px-[45px] py-[30px] shadow-xs flex items-center tablet:py-[50px] laptop:mb-0 ${multipleLayout ? cssMultipleContainer : cssSingleContainer}`}>
@@ -19,7 +24,7 @@ function ColorSwatches(props: Props) {
           Download the free clolor swatches instantly for this tutorial!
         </p>
         <div className="text-primary-600">
-          <CircularStrokeBtn text="Download" classes="py-[21px] px-[24px]" />
+          <CircularStrokeBtn handleClick={handleDownloadClick} text="Download" classes="py-[21px] px-[24px]" />
         </div>
       </div>
       <div className={`swatch_img w-full max-w-400px top-[-80px] right-[0px] left-auto absolute z-0 tablet:top-auto tablet:bottom-0 tablet:right-[-350px] ${multipleLayout ? '' : ''}`}>

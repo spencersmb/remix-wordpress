@@ -58,15 +58,15 @@ const useFetchPaginateContent = (newData?:updateContext) => {
     context.state.posts = newData.posts
     context.state.pageInfo = newData.pageInfo
   }
-  else if(newData?.category && !context.state.categories[Object.keys(newData?.category)[0]]){
+
+  if(newData?.category && !context.state.categories[Object.keys(newData?.category)[0]]){
     // console.log('setCategory State');
-    
     const catName = Object.keys(newData.category)[0]
     context.state.categories[catName] = newData.category[catName]
-  }else{
-    // console.log('skip');
-    context.state.init = true
   }
+
+  // console.log('skip');
+  context.state.init = true
   
   if (!context) {
     throw new Error('usePaginateFetch must be used within a FetchPaginate Provider component')

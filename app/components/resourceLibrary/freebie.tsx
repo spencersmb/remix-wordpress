@@ -41,7 +41,7 @@ const Freebie = (item: IResourceItem) => {
     normalDownload()
   }
 
-  const featuredImage = getImageSizeUrl(item.featuredImage.mediaDetails.sizes, 'medium')
+  const featuredImage = getImageSizeUrl(item.featuredImage, 'medium')
 
   return (
     <div>

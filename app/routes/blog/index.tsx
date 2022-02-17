@@ -6,14 +6,15 @@ import { fetchAPI } from "~/utils/fetch";
 import { createThumbnailImage, filterNodeFromTags, findSkillLevel, flattenAllPosts, formatDate, getImageSizeUrl } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
-import BarChartSvg from "~/components/svgs/barChartSvg";
-import ClockSvg from "~/components/svgs/clockSvg";
-import EditSvg from "~/components/svgs/editSvg";
 import BlogFeaturedPost from "~/components/blog/blogFeaturedPost";
 import { IPageInfo } from "~/hooks/useFetchPagination/useFetchPaginationReducer";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import { gql } from "@apollo/client";
+import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
+import PostCardOne from "~/components/cards/postCardOne";
+import { AnimatePresence, motion } from "framer-motion";
+import OutlinedButton from "~/components/buttons/outlinedButton";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -27,20 +28,24 @@ export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaDat
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
-  let variables = {
-    first: 11,
+  let variables: {
+    first: number;
+    after: string | null;
+    catName?: string;
+  } = {
+    first: 13,
     after: null
   }
   // check URL for params to fetch the correct amount of items
   let url = new URL(request.url)
   let params = url.searchParams
   let page = params.get('page')
-  console.log('params', params);
+  let cat = params.get('cat')
 
   if (page) {
     variables = {
-      first: parseInt(page, 10) * 10,
-      after: null
+      first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
+      after: null,
     }
   }
 
@@ -74,48 +79,89 @@ export let loader: LoaderFunction = async ({ request, }) => {
       }
     ]
   };
+
   let wpAPI
+  let wpCatAPI
+
   try {
-    wpAPI = await fetchAPI(query, {
+    wpAPI = await fetchAPI(getGraphQLString(query), {
       variables
     })
+
+    if (cat && page) {
+      variables.catName = cat
+      variables.first = (parseInt(page, 10) * 12)
+      wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
+        variables
+      })
+    }
+
   } catch (e) {
     console.log('error', e)
   }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
+  let categories = wpCatAPI && cat ? {
+    selectedCategory: cat,
+    category: {
+      [cat]: {
+        posts: flattenAllPosts(wpCatAPI?.posts),
+        pageInfo: {
+          ...wpCatAPI?.posts.pageInfo,
+          page: page ? parseInt(page, 10) : 1,
+        },
+
+      }
+    }
+  } : null
 
   // https://remix.run/api/remix#json
   return {
     ...data,
     posts,
     pageInfo,
-    categories: filterNodeFromTags(wpAPI?.categories),
+    categories,
     pageUrlParams: page ? parseInt(page, 10) : 1
   }
 };
 
 type IBlogIndexProps = IPageInfo & {
   pageUrlParams: number; //currentPage
-  categories: ITagCount[];
+  categories: {
+    selectedCategory: string;
+    category: {
+      [id: string]: {
+        posts: any
+        pageInfo: {
+          page: number,
+          endCursor: string,
+          hasNextPage: boolean,
+        }
+      }
+    }
+  } | null;
 }
 function BlogIndex() {
-  let { posts, pageInfo, pageUrlParams, categories } = useLoaderData<IBlogIndexProps>();
-  // console.log('Blog Index data', data)
-  const [category, setCategory] = useState('all')
+  let loaderData = useLoaderData<IBlogIndexProps>();
+  let { posts, pageInfo, pageUrlParams, categories } = loaderData;
+  console.log('Blog Cat data', categories)
+  const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
   const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate({
     posts: posts,
     pageInfo: {
       ...pageInfo,
       page: pageUrlParams
+    },
+    category: {
+      ...categories?.category
     }
   })
 
 
-  consoleHelper('cat posts', posts.length)
-  consoleHelper('cat pageInfo', pageInfo)
-  consoleHelper('cat state', state)
+  // consoleHelper('cat posts', posts.length)
+  // consoleHelper('cat pageInfo', pageInfo)
+  consoleHelper('state', state)
 
   useEffect(() => {
     if (state.pageInfo.page === 1 || !state.pageInfo.page) {
@@ -131,26 +177,51 @@ function BlogIndex() {
   }, [state.pageInfo.page])
 
   useEffect(() => {
+    if (category === 'all') {
+      return
+    }
+    if (!state.categories[category]) {
+      return
+    }
+
+    // if its the first page, don't change the url
+    if (state.categories[category] && state.categories[category].pageInfo.page === 1) {
+      return
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
+    url.searchParams.set('cat', category)
+    window.history.replaceState(`Category - ${category} / Page: ${state.categories[category].pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+
+    // // if page = 4 - means get the first 40 items
+  }, [state.categories[category]])
+
+  useEffect(() => {
     return () => {
-      // clearPosts()
+      clearCategory()
+      clearPosts()
     }
   }, [])
 
   useEffect(() => {
-    fetchCategory()
+    if (!state.categories[category]) {
+      fetchCategory()
+    }
   }, [category])
+
   const handleCatClick = (cat: string) => async () => {
+    if (state.loading) {
+      return
+    }
     setCategory(cat)
-    // await fetchMoreCatPosts(cat)
   }
 
   async function fetchCategory() {
-    console.log('category selected', category);
-
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      first: 10,
+      first: 12,
       after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
       catName: category
     }
@@ -186,7 +257,7 @@ function BlogIndex() {
         endCursor: data.posts.pageInfo.endCursor,
         hasNextPage: data.posts.pageInfo.hasNextPage,
       },
-      posts: updatedPosts
+      posts: filteredPosts
     }
     )
   }
@@ -195,9 +266,14 @@ function BlogIndex() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      first: 10,
+      first: 12,
       after: state.pageInfo.endCursor
     }
+
+    console.log('variables', variables);
+    console.log('postQuery', postQuery);
+
+
     const body = await fetch(url,
       {
         method: 'POST',
@@ -205,7 +281,7 @@ function BlogIndex() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fetchQuery,
+          query: getGraphQLString(postQuery),
           variables
         })
       })
@@ -228,7 +304,7 @@ function BlogIndex() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
     const variables = {
-      first: 10,
+      first: 12,
       after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
       catName: category
     }
@@ -264,195 +340,226 @@ function BlogIndex() {
         endCursor: data.posts.pageInfo.endCursor,
         hasNextPage: data.posts.pageInfo.hasNextPage,
       },
-      posts: updatedPosts
+      posts: filteredPosts
     }
     )
   }
 
   return (
     <Layout>
+
       <BlogFeaturedPost featuredPost={posts[0]} />
 
-      <div className="container mx-auto px-4 py-8">
-        <ul>
-          {categories.map(cat => (<li onClick={handleCatClick(cat.slug)}>{cat.name}</li>))}
-        </ul>
+      <BlogCategoryTabs catClick={handleCatClick} category={category} />
+
+      <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto py-12'>
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
+
+          <AnimatePresence>
+            {state.loading
+              && category !== 'all'
+              && !state.categories[category]
+              && <motion.div
+                key="catSpinner"
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0
+                }}
+                className='rounded-full mx-auto flex items-center justify-center text-center w-[60px] h-[60px] bg-primary-50 p-1'>
+                <svg
+                  className="motion-reduce:hidden animate-spin text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="#b45309" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="#845c5c" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </motion.div>
+            }
+          </AnimatePresence>
+
+          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
+            <AnimatePresence>
+              {category === 'all' && state.posts.map((post: any, index) => {
+                return (<PostCardOne key={post.slug} post={post} />)
+              }).slice(1) // Remove first time because its the featured post
+              }
+
+              {category !== 'all' && state.categories[category] && state.categories[category].posts.map(post => (<PostCardOne key={post.slug} post={post} />)
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+
+        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+          {category === 'all' && state.pageInfo.hasNextPage &&
+            <OutlinedButton
+              clickHandler={fetchMorePosts}
+              text='View More'
+              loadingText="Loading"
+              loading={state.loading}
+            />
+          }
+
+          {category !== 'all' && state.categories[category] && state.categories[category].pageInfo.hasNextPage &&
+            <OutlinedButton
+              clickHandler={fetchMoreCategories}
+              text='View More'
+              loadingText="Loading"
+              loading={state.loading}
+            />
+          }
+        </div>
+
       </div>
-
-      <ul>
-        {category === 'all' && state.posts.map((post: any, index) => {
-          return (
-            <li key={post.id} className="remix__page__resource">
-              <Link to={`/${post.slug}`} prefetch="intent">
-                {post.title}
-              </Link>
-            </li>
-          )
-        }).slice(1) // Remove first time because its the featured post
-        }
-        {category !== 'all' && state.categories[category] && state.categories[category].posts.map(post => (<li>{post.title}</li>)
-
-        )}
-      </ul>
-      {category === 'all' && state.pageInfo.hasNextPage && <button onClick={fetchMorePosts}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
-
-      {category !== 'all' && state.categories[category] && state.categories[category].pageInfo.hasNextPage && <button onClick={fetchMoreCategories}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
     </Layout>
   )
 }
 
 export default BlogIndex
 
-const query = `
+const query = gql`
     query GetNextPosts($first: Int, $after: String) {
-      categories(first: 10, where: {orderby: COUNT, order: DESC}) {
+        posts(first: $first, after: $after) {
+            __typename
+            pageInfo {
+                endCursor
+                hasNextPage
+                hasPreviousPage
+                startCursor
+                __typename
+            }
+            edges {
+                __typename
+                node {
+                    id
+                    tutorialManager {
+                      postExcerpt
+                      thumbnail {
+                        type
+                        image {
+                          altText
+                          sourceUrl
+                        }
+                      }
+                    }
+                    categories {
+                        edges {
+                            node {
+                                databaseId
+                                id
+                                name
+                                slug
+                            }
+                        }
+                    }
+                    date
+                    excerpt
+                    featuredImage {
+                      node {
+                        mediaDetails {
+                          sizes{
+                            width
+                            file
+                            height
+                            name
+                            sourceUrl
+                            mimeType
+                          }
+                        }
+                          altText
+                          caption
+                          sourceUrl
+                          srcSet
+                          sizes
+                          id
+                        }
+                      }
+                    modified
+                    title
+                    slug
+                    isSticky
+                }
+            }
+        }
+    }
+`
+const postQuery = gql`
+query GetMorePosts($first: Int, $after: String) {
+  posts(first: $first, after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    edges {
+      node {
+        id
+        tutorialManager {
+          postExcerpt
+          thumbnail {
+            type
+            image {
+              altText
+              sourceUrl
+            }
+          }
+          colorPalette {
+            iconBackgroundColor
+            iconTextColor
+          }
+        }
+        categories {
           edges {
-            node {
-              slug
-              count
+                            node {
+              databaseId
+              id
               name
+              slug
             }
           }
         }
-        posts(first: $first, after: $after) {
-            __typename
-            pageInfo {
-                endCursor
-                hasNextPage
-                hasPreviousPage
-                startCursor
-                __typename
-            }
-            edges {
-                __typename
-                node {
-                    id
-                    tutorialManager {
-                      postExcerpt
-                      thumbnail {
-                        type
-                        image {
-                          altText
-                          sourceUrl
-                        }
-                        swatch {
-                          backgroundColor
-                          textColor
-                        }
-                      }
-                    }
-                    categories {
-                        edges {
-                            node {
-                                databaseId
-                                id
-                                name
-                                slug
-                            }
-                        }
-                    }
-                    date
-                    excerpt
+        date
+        excerpt
                     featuredImage {
                       node {
                         mediaDetails {
                           sizes{
-                            width
-                            file
-                            height
-                            name
-                            sourceUrl
-                            mimeType
-                          }
-                        }
-                          altText
-                          caption
-                          sourceUrl
-                          srcSet
-                          sizes
-                          id
-                        }
-                      }
-                    modified
-                    title
-                    slug
-                    isSticky
-                }
+                width
+                file
+                height
+                name
+                sourceUrl
+                mimeType
+              }
             }
+            altText
+            caption
+            sourceUrl
+            srcSet
+            sizes
+            id
+          }
         }
+        modified
+        title
+        slug
+        isSticky
+      }
     }
+  }
+}
 `
-const fetchQuery = `
-    query GetNextPosts($first: Int, $after: String) {
-        posts(first: $first, after: $after) {
-            __typename
-            pageInfo {
-                endCursor
-                hasNextPage
-                hasPreviousPage
-                startCursor
-                __typename
-            }
-            edges {
-                __typename
-                node {
-                    id
-                    tutorialManager {
-                      postExcerpt
-                      thumbnail {
-                        type
-                        image {
-                          altText
-                          sourceUrl
-                        }
-                        swatch {
-                          backgroundColor
-                          textColor
-                        }
-                      }
-                    }
-                    categories {
-                        edges {
-                            node {
-                                databaseId
-                                id
-                                name
-                                slug
-                            }
-                        }
-                    }
-                    date
-                    excerpt
-                    featuredImage {
-                      node {
-                        mediaDetails {
-                          sizes{
-                            width
-                            file
-                            height
-                            name
-                            sourceUrl
-                            mimeType
-                          }
-                        }
-                          altText
-                          caption
-                          sourceUrl
-                          srcSet
-                          sizes
-                          id
-                        }
-                      }
-                    modified
-                    title
-                    slug
-                    isSticky
-                }
-            }
-        }
-    }
-`
-
 const catQuery = gql`
   ${POST_BASIC_FIELDS}
   ${POST_FEATURED_IMAGE}
@@ -490,3 +597,4 @@ const catQuery = gql`
     }
   }
 `
+

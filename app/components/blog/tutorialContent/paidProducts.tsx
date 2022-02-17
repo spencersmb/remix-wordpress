@@ -20,7 +20,10 @@ function PaidProducts(props: IProps) {
     <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8 z-20'>
       <div className={paidProductsGreaterThanOne ? cssContainerMultipleProducts : cssContainerPaidProduct}>
 
-        {post.tutorialManager.colorSwatch && <ColorSwatches multipleLayout={paidProductsGreaterThanOne} />}
+        {post.tutorialManager.colorPalette &&
+          <ColorSwatches
+            downloadUrl={post.tutorialManager.colorPalette.downloadUrl}
+            multipleLayout={paidProductsGreaterThanOne} />}
 
         {post.tutorialManager.paidProducts.map((product, index) => {
 

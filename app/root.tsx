@@ -193,7 +193,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<any>();
-  console.log('ENV', data)
+  // console.log('ENV', data)
 
   return (
     <html lang="en">

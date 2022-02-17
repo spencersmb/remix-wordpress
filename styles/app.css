@@ -17,10 +17,12 @@
   --primary-plum-100: #f0e3dc;
   --primary-plum-200: #f0d6c7;
   --primary-plum-300: #cda7a7;
+  --primary-plum-500: #845c5c;
   --primary-plum-400: #976969;
   --primary-plum-600: #5f3d3d;
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
+  --neutral-50: #fcfafb;
   --neutral-400: #d0c9cd;
   --neutral-500: #a1929a;
   --neutral-600: #8f7d87;
@@ -64,7 +66,7 @@ button {
 }
 @layer components {
   .btn {
-    @apply no-underline text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.98] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
+    @apply no-underline text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
   }
 
   .btn-primary {
@@ -77,6 +79,9 @@ button {
     @apply underline underline-offset-4 uppercase;
     font-size: 14px;
     font-weight: 500;
+  }
+  .btn-outlined {
+    @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
   }
   .container {
     padding: 0 15px;
@@ -118,6 +123,10 @@ button {
     background-color: currentColor;
     transform: scaleX(1);
     display: inline-block;
+  }
+
+  .underlined-md:after {
+    bottom: -4px;
   }
 
   .input-basic {

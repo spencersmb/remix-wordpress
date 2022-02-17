@@ -17,7 +17,7 @@ function BlogFeaturedPost(props: Props) {
   }
 
   const skill = findSkillLevel(featuredPost.categories);
-  const defaultImage = getImageSizeUrl(featuredPost.featuredImage?.mediaDetails.sizes, 'headless_ipad')
+  const defaultImage = getImageSizeUrl(featuredPost.featuredImage, 'headless_ipad')
   return (
     <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
 

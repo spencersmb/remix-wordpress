@@ -21,8 +21,8 @@ function BlogAuthor(props: Props) {
       {/* AUTHOR INFO */}
       <div className='my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left'>
         <div className='text-sm text-neutral-600 mb-2'>Written By</div>
-        <div className='mb-1 text-primary-600 font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
-        <div className='text-sm text-primary-600'>Every Tuesday's content creator and founder.</div>
+        <div className='text-primary-600 font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
+        <div className='text-base text-primary-600'>Every Tuesday's content creator and founder.</div>
       </div>
 
       {/* BUTTON */}

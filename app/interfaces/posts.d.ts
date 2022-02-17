@@ -51,6 +51,35 @@ interface IDownloadManager {
   downloads: IDownload[] | null
 }
 
+interface ITutorialManagerRaw {
+  status: string
+  thumbnail:{
+    type: string
+    image: {
+      sourceUrl: string
+      altText: string
+    } | null
+  }
+  colorPalette: {
+    downloadUrl: string
+    iconBackgroundColor: string
+    iconTextColor: string
+  }[] | null // Coming from the server this is acutally an array or null
+  downloads: {
+    title: string
+    freebie:{
+        downloadLink: string
+    }
+  }[] | null
+  youtube: {
+    embedUrl: string
+  }
+  paidProducts: IProduct[]| null
+  postExcerpt: string
+
+
+}
+
 interface IPostRaw {
   author: {
     node: {
@@ -84,7 +113,7 @@ interface IPostRaw {
     }
     edges: {node: IPostCommentRaw}[]
   }
-  tutorialManager: ITutorialManager
+  tutorialManager: ITutorialManagerRaw
 }
 interface IPostSeo {
   fullHead?: string
@@ -123,12 +152,12 @@ interface ITutorialManager {
       sourceUrl: string
       altText: string
     } | null
-    swatch:{
-      backgroundColor: string
-      textColor: string
-    }
   }
-  colorSwatch: string
+  colorPalette: {
+    downloadUrl: string
+    iconBackgroundColor: string
+    iconTextColor: string
+  } | null // Coming from the server this is acutally an array or null
   downloads: {
     title: string
     freebie:{
@@ -143,6 +172,7 @@ interface ITutorialManager {
 
 
 }
+
 
 interface IPost {
   databaseId: number //postID in wp
@@ -161,7 +191,7 @@ interface IPost {
   content: string
   categories: ICategories[]
   tags:Itag[]
-  featuredImage: IFeaturedImage
+  featuredImage: IFeaturedImage | null
   title: string
   slug: string
   id: string

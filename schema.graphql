@@ -1595,8 +1595,7 @@ type DownloadFreebie_Downloaddetails implements AcfFieldGroup {
 
 "Field Group"
 type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
-    "Link the URL for the color swatch here"
-    colorSwatch: String
+    colorPalette: [DownloadFreebie_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [DownloadFreebie_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
@@ -1614,16 +1613,7 @@ type DownloadFreebie_Tutorialmanager_Thumbnail implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     image: MediaItem
-    swatch: DownloadFreebie_Tutorialmanager_Thumbnail_Swatch
     type: String
-}
-
-"Field Group"
-type DownloadFreebie_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
-    backgroundColor: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    textColor: String
 }
 
 "Field Group"
@@ -1632,6 +1622,15 @@ type DownloadFreebie_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_colorPalette implements AcfFieldGroup {
+    downloadUrl: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    iconBackgroundColor: String
+    iconTextColor: String
 }
 
 "The DownloadGrid type"
@@ -3272,8 +3271,7 @@ type Post_Etsocialnav_PinterestMeta implements AcfFieldGroup {
 
 "Field Group"
 type Post_Tutorialmanager implements AcfFieldGroup {
-    "Link the URL for the color swatch here"
-    colorSwatch: String
+    colorPalette: [Post_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [Post_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
@@ -3291,16 +3289,7 @@ type Post_Tutorialmanager_Thumbnail implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     image: MediaItem
-    swatch: Post_Tutorialmanager_Thumbnail_Swatch
     type: String
-}
-
-"Field Group"
-type Post_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
-    backgroundColor: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    textColor: String
 }
 
 "Field Group"
@@ -3309,6 +3298,15 @@ type Post_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+}
+
+"Field Group"
+type Post_Tutorialmanager_colorPalette implements AcfFieldGroup {
+    downloadUrl: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    iconBackgroundColor: String
+    iconTextColor: String
 }
 
 "PrettyLink Object"
@@ -3613,8 +3611,7 @@ type Product_Details_licences implements AcfFieldGroup {
 
 "Field Group"
 type Product_Tutorialmanager implements AcfFieldGroup {
-    "Link the URL for the color swatch here"
-    colorSwatch: String
+    colorPalette: [Product_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [Product_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
@@ -3632,16 +3629,7 @@ type Product_Tutorialmanager_Thumbnail implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     image: MediaItem
-    swatch: Product_Tutorialmanager_Thumbnail_Swatch
     type: String
-}
-
-"Field Group"
-type Product_Tutorialmanager_Thumbnail_Swatch implements AcfFieldGroup {
-    backgroundColor: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    textColor: String
 }
 
 "Field Group"
@@ -3650,6 +3638,15 @@ type Product_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+}
+
+"Field Group"
+type Product_Tutorialmanager_colorPalette implements AcfFieldGroup {
+    downloadUrl: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    iconBackgroundColor: String
+    iconTextColor: String
 }
 
 "The reading setting type"

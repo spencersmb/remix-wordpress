@@ -74,8 +74,8 @@ function BlogTemplate(props: IProps) {
       text: post.title
     }
   ]
-  const pinterestImage = getImageSizeUrl(post.etSocialNav.pinterestImage?.mediaDetails.sizes, 'medium')
-  const featuredImage = getImageSizeUrl(post.featuredImage?.mediaDetails.sizes, 'headless_post_feature_image')
+  const pinterestImage = getImageSizeUrl(post.featuredImage, 'large')
+  const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
     <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>

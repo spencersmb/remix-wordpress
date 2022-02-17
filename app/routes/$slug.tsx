@@ -146,10 +146,11 @@ query postBySlug($slug: String!) {
                 altText
                 sourceUrl
               }
-              swatch {
-                backgroundColor
-                textColor
-              }
+            }
+            colorPalette {
+              downloadUrl
+              iconBackgroundColor
+              iconTextColor
             }
             paidProducts {
                 ...productFields
@@ -157,7 +158,6 @@ query postBySlug($slug: String!) {
             youtube {
                 embedUrl
             }
-            colorSwatch
             downloads {
                 ... on ResourceLibrary {
                     title

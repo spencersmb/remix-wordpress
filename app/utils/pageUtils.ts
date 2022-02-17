@@ -10,7 +10,7 @@ export const defaultFeaturedImage:IFeaturedImage = {
   altText: 'Every Tuesday. The ultimate resource for Procreate digital brushes and online learning.',
   id: '311',
   sizes:'',
-  srcSet: [],
+  srcSet: '',
   mediaDetails:{
     sizes:[]
   },
