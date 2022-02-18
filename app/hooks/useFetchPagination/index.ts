@@ -38,7 +38,7 @@ interface updateContext {
   }
 }
 const useFetchPaginateContent = (newData?:updateContext) => {
-  console.log('newData', newData);
+  // console.log('newData', newData);
   
   let context
   // console.log('FetchPaginateContext', FetchPaginateContext);

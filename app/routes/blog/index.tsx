@@ -15,6 +15,7 @@ import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
 import PostCardOne from "~/components/cards/postCardOne";
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "~/components/buttons/outlinedButton";
+import usePrevious from "~/hooks/usePrevious";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -168,24 +169,44 @@ function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any
 
   return initialState
 }
+
+function setWindowUrlParams(props: {
+  setParams: { name: string, value: string }[],
+  deleteParams?: string[],
+  pageTitle: string,
+  tabTitle: string
+}) {
+  let { setParams, deleteParams, pageTitle, tabTitle } = props
+  const url = new URL(window.location.href);
+
+  setParams.forEach(({ name, value }) => {
+    url.searchParams.set(name, value)
+  })
+
+  if (deleteParams) {
+    deleteParams.forEach(name => {
+      url.searchParams.delete(name)
+    })
+  }
+
+  window.history.replaceState(pageTitle, tabTitle, url.href);
+}
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  console.log('Blog Cat data', categories)
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
   const initializePostsFromServer = createInitializingFetchState({
     posts,
     pageInfo,
     page: pageUrlParams
   }, categories)
-  console.log('initializePostsFromServer', initializePostsFromServer);
 
   const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
 
-
+  // console.log('Blog Cat data', categories)
   // consoleHelper('cat posts', posts.length)
   // consoleHelper('cat pageInfo', pageInfo)
-  consoleHelper('state', state)
+  // consoleHelper('state', state)
 
   useEffect(() => {
     if (state.pageInfo.page === 1 || !state.pageInfo.page) {
@@ -193,7 +214,6 @@ function BlogIndex() {
     }
 
     const url = new URL(window.location.href);
-
     url.searchParams.set('page', state.pageInfo.page.toString())
     window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
@@ -202,20 +222,39 @@ function BlogIndex() {
 
   useEffect(() => {
     if (category === 'all') {
+      setWindowUrlParams({
+        setParams: [
+          { name: 'page', value: state.pageInfo.page.toString() }
+        ],
+        deleteParams: ['cat'],
+        pageTitle: `Page: ${state.pageInfo.page}`,
+        tabTitle: 'Blog - Every-Tuesday'
+      })
       return
     }
     if (!state.categories[category]) {
       return
     }
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
-    url.searchParams.set('cat', category)
-    window.history.replaceState(`Category - ${category} / Page: ${state.categories[category].pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
-
+    const setParams = [
+      {
+        name: 'page',
+        value: state.categories[category].pageInfo.page.toString()
+      },
+      {
+        name: 'cat',
+        value: category
+      },
+    ]
+    setWindowUrlParams({
+      setParams,
+      pageTitle: `Category - ${category} / Page: ${state.categories[category].pageInfo.page}`,
+      tabTitle: 'Blog - Every-Tuesday'
+    })
   }, [state.categories[category]])
 
   useEffect(() => {
+
     return () => {
       clearCategory()
       clearPosts()

@@ -1,5 +1,5 @@
 import { Link } from 'remix'
-import { createThumbnailImage, findSkillLevel, formatDate, getImageSizeUrl } from '~/utils/posts'
+import { createThumbnailImage, findSkillLevel, formatDate, getImageSizeUrl, ImageSizeEnums, loadImageSrc } from '~/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'
 import BarChartSvg from '../svgs/barChartSvg'
 import ClockSvg from '../svgs/clockSvg'
@@ -17,7 +17,17 @@ function BlogFeaturedPost(props: Props) {
   }
 
   const skill = findSkillLevel(featuredPost.categories);
-  const defaultImage = getImageSizeUrl(featuredPost.featuredImage, 'headless_ipad')
+  const image = loadImageSrc({
+    name: ImageSizeEnums.THUMBNAIL,
+    postFeaturedImage: featuredPost.featuredImage,
+    fallbackSize: ImageSizeEnums.MEDIUM,
+    fallbackImage: {
+      width: '1000',
+      height: '888',
+      name: 'Every Tuesday Fallback Featured Thumbnail',
+      sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg'
+    }
+  })
 
   return (
     <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
@@ -25,7 +35,7 @@ function BlogFeaturedPost(props: Props) {
       {/* FEATURED IMAGE */}
       <div className="featured_image mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-end-8 tablet:row-span-3 tablet:row-start-1 desktop:col-start-2 max-w-[660px] ml-auto mr-0 desktop:mt-24">
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
-          {createThumbnailImage(featuredPost.tutorialManager, defaultImage, featuredPost.title, true)}
+          {createThumbnailImage(featuredPost.tutorialManager, image, featuredPost.title, true)}
         </Link>
       </div>
 
@@ -37,7 +47,7 @@ function BlogFeaturedPost(props: Props) {
             {featuredPost.title}
           </Link>
         </h2>
-        <div className="mb-6 flex flex-row flex-wrap text-primary-600 text-sm items-start tablet:mb-3 laptop:mb-8">
+        <div className="mb-6 flex flex-row flex-wrap text-primary-600 text-base items-start tablet:mb-3 laptop:mb-6">
           {skill && <div className="flex flex-row items-center mr-4 tablet:mr-12 mb-2">
             <span className="mr-1 max-w-[15px]"><BarChartSvg fill={'var(--warning-700)'} /></span>
             <div>
@@ -56,9 +66,9 @@ function BlogFeaturedPost(props: Props) {
 
       {/* DESCRIPTIOM */}
       <div className="featured-content row-start-3 col-span-2 col-start-2 relative z-10 tablet:col-span-6 tablet:col-start-8 tablet:row-start-2 desktop:col-span-5 desktop:col-start-8 tablet:mt-5 tablet:ml-6 laptop:mt-7">
-        <div className='text-base' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />
+        <div className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />
         <div className='mt-8'>
-          <CircularStrokeLink href={`/${featuredPost.slug}`} text='Read More' classes="py-[17px] px-[18px] text-lg text-primary-700" />
+          <CircularStrokeLink href={`/${featuredPost.slug}`} text='Read More' classes="py-[17px] px-[24px] text-base text-primary-700" />
         </div>
       </div>
 

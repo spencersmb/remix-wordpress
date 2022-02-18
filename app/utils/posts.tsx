@@ -154,17 +154,76 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
 
 interface IMediaDetailSize {
   width: string
-  file: string
   height: string
   name: string
   sourceUrl: string
 }
+export enum ImageSizeEnums {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+  FULL = 'full',
+  THUMBNAIL = 'headless_ipad'
+}
+interface ILoadImageSrcArgs { postFeaturedImage: IFeaturedImage | null, name: ImageSizeEnums, fallbackSize?: ImageSizeEnums, fallbackImage?: IMediaDetailSize }
+type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
+const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
+
+  return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+    if (currentValue.name === name) {
+      return currentValue
+    } else {
+      return previousValue
+    }
+
+  }, {})
+}
+
+export const loadImageSrc: IGetImageSize = ({
+  postFeaturedImage,
+  name,
+  fallbackSize = ImageSizeEnums.LARGE,
+  fallbackImage = {
+    width: '1024',
+    height: '495',
+    name: 'Every Tuesday Fallback Featured Image',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024'
+  }
+}) => {
+
+  if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
+    return fallbackImage
+  }
+
+  const image = getImageSize(postFeaturedImage, name)
+
+  if (isEmpty(image)) {
+    return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+
+      if (currentValue.name === fallbackSize) {
+        return currentValue
+      } else {
+        return previousValue
+      }
+
+    }, {
+      width: '',
+      file: '',
+      height: '',
+      name: '',
+      sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024'
+    })
+  }
+
+
+  return image
+}
+
 export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: string): IMediaDetailSize {
 
   if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
     return {
       width: '',
-      file: '',
       height: '',
       name: '',
       sourceUrl: '' //TODO: add POST default image
@@ -195,7 +254,7 @@ export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: 
       file: '',
       height: '',
       name: '',
-      sourceUrl: ''
+      sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024'
     })
   }
 
@@ -355,8 +414,11 @@ export function createThumbnailImage(
 ) {
 
   const defaultImage = () => (
-    <div className="default_image flex relative w-full transform overflow-hidden mb-6 max-h-[304px]">
-      {defaultSource.sourceUrl.length !== 0 && <img src={defaultSource.sourceUrl} alt={title} />}
+    <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8  h-[250px]', "default_image relative overflow-hidden")}>
+      {defaultSource.sourceUrl.length !== 0 &&
+        <img
+          className={classNames(featuredPost ? '' : 'absolute max-w-none top-[50%] w-full translate-y-[-50%]', "")}
+          src={defaultSource.sourceUrl} alt={title} />}
     </div>
   )
   if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {

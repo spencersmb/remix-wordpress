@@ -42,8 +42,8 @@ const MakersPopUp = () => {
 function MakersSignUpForm(props: Props) {
   const { Form, data, state, type } = props
   const { openModal } = useSite()
-  console.log('state', state)
-  console.log('type', type)
+  // console.log('state', state)
+  // console.log('type', type)
 
   const ref = useRef<any>();
   useEffect(() => {
