@@ -193,3 +193,16 @@ button {
     height: auto !important;
   }
 }
+
+.lazy-load-wrapper-block {
+  & span {
+    display: block !important;
+  }
+}
+
+.lazy-load-image-full {
+  & img {
+    width: 100%;
+    max-width: none;
+  }
+}

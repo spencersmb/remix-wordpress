@@ -77,8 +77,8 @@ function BlogTemplate(props: IProps) {
   ]
   // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const featuredImage = loadImageSrc({
-    name: ImageSizeEnums.FEATURE, // image name to try and get
-    postFeaturedImage: post.featuredImage, // the featured image object
+    imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+    imageObject: post.featuredImage, // the featured image object
     fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
@@ -101,7 +101,7 @@ function BlogTemplate(props: IProps) {
       {/* FEATURED IMAGE */}
       {post.featuredImage &&
         <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
-          <div>
+          <div className='lazy-load-wrapper lazy-load-image-full'>
             <LazyLoadImage
               height={`${featuredImage.height}px`}
               width={`${featuredImage.width}px`}

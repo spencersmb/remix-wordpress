@@ -1,5 +1,5 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
+import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
@@ -15,12 +15,13 @@ function PinterestBlock(props: IProps) {
   let description = post.etSocialNav.pinterestMeta.description
 
   let pinterestImage = loadImageSrc({
-    name: ImageSizeEnums.MEDIUM, //rename to imageSizeName
-    postFeaturedImage: post.etSocialNav.pinterestImage, // rename to Image Object
+    imageSizeName: ImageSizeEnums.THUMBNAIL, //rename to imageSizeName
+    imageObject: post.etSocialNav.pinterestImage, // rename to Image Object
     fallbackSize: ImageSizeEnums.THUMBNAIL, // rename to imageSizeName
+    fallbackImage: {
+      ...defaultImages.pinterest,
+    }
   })
-  console.log('pinterestImage', pinterestImage);
-
 
   return (
     <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">

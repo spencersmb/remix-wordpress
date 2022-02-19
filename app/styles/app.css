@@ -843,6 +843,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-ml-1 {
   margin-left: -0.25rem;
 }
+.mb-0 {
+  margin-bottom: 0px;
+}
 .block {
   display: block;
 }
@@ -1201,6 +1204,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-md {
   border-radius: 0.375rem;
 }
+.rounded-t-2\.5xl {
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
 .border {
   border-width: 1px;
 }
@@ -1457,8 +1464,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pl-11 {
   padding-left: 2.75rem;
 }
-.pb-\[80\%\] {
-  padding-bottom: 80%;
+.pb-\[64\%\] {
+  padding-bottom: 64%;
 }
 .pt-2 {
   padding-top: 0.5rem;
@@ -1525,6 +1532,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pb-\[55\%\] {
+  padding-bottom: 55%;
+}
+.pb-\[48\.25\%\] {
+  padding-bottom: 48.25%;
 }
 .text-left {
   text-align: left;
@@ -2959,4 +2972,11 @@ button:focus {
 .lazy-load-wrapper span {
     width: 100% !important;
     height: auto !important;
+  }
+.lazy-load-wrapper-block span {
+    display: block !important;
+  }
+.lazy-load-image-full img {
+    width: 100%;
+    max-width: none;
   }

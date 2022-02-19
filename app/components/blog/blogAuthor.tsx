@@ -1,4 +1,5 @@
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link } from 'remix'
 
 interface Props {
@@ -14,7 +15,17 @@ function BlogAuthor(props: Props) {
       {/* IMAGE */}
       <div className='tablet:mr-2'>
         <div className='w-[100px]'>
-          <img className='max-w-none rounded-full' src={post.author.avatar.url} alt="Teela Cunningham Author" />
+          <div className='max-w-none rounded-full overflow-hidden lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>
+            <LazyLoadImage
+              height={`96px`}
+              width={`96px`}
+              alt="Teela Cunningham Author"
+              effect="blur"
+              src={post.author.avatar.url} // use normal <img> attributes as props
+            />
+          </div>
+
+          {/* <img className='max-w-none rounded-full' src={post.author.avatar.url} alt="Teela Cunningham Author" /> */}
         </div>
       </div>
 

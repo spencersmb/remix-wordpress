@@ -16,8 +16,17 @@ export const defaultImages = {
     altTitle: 'Every Tuesday Fallback Featured Image',
     srcSet: '',
     sizes: '',
-    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024&h=495&fit=crop&crop=faces&auto=compress&q=80',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
+  },
+  pinterest:{
+    width: '300',
+    height: '450',
+    altTitle: 'Every Tuesday Fallback Pinterest Image',
+    srcSet: '',
+    sizes: '',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-pinterest.jpg?auto=compress&q=80',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-pinterest.jpg?w=20&h=60&fit=crop&crop=faces&auto=compress&q=80'
   }
 }
 export enum ImageSizeEnums {
@@ -31,7 +40,11 @@ export enum ImageSizeEnums {
 }
 
 
-interface ILoadImageSrcArgs { postFeaturedImage: IFeaturedImage | null, name: ImageSizeEnums, fallbackSize?: ImageSizeEnums, fallbackImage?: IMediaDetailSize }
+interface ILoadImageSrcArgs { 
+  imageSizeName: ImageSizeEnums, 
+  imageObject: IFeaturedImage | null, 
+  fallbackSize?: ImageSizeEnums, 
+  fallbackImage?: IMediaDetailSize }
 type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
 
@@ -46,8 +59,8 @@ const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
 }
 
 export const loadImageSrc: IGetImageSize = ({
-  postFeaturedImage,
-  name,
+  imageObject,
+  imageSizeName,
   fallbackSize = ImageSizeEnums.LARGE,
   fallbackImage = {
     width: '1024',
@@ -60,15 +73,15 @@ export const loadImageSrc: IGetImageSize = ({
   }
 }): IMediaDetailSize => {
 
-  if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
+  if (!imageObject || !imageObject.mediaDetails) {
     return fallbackImage
   }
 
-  const image = getImageSize(postFeaturedImage, name)
-  const placeholder = getImageSize(postFeaturedImage, ImageSizeEnums.PLACEHOLDER)
+  const image = getImageSize(imageObject, imageSizeName)
+  const placeholder = getImageSize(imageObject, ImageSizeEnums.PLACEHOLDER)
 
   if (isEmpty(image)) {
-    return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
+    return imageObject.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
 
       if (currentValue.name === fallbackSize) {
         return currentValue
@@ -81,9 +94,9 @@ export const loadImageSrc: IGetImageSize = ({
 
   return {
     ...image,
-    srcSet: postFeaturedImage.srcSet,
-    altTitle: postFeaturedImage.altText,
-    sizes: postFeaturedImage.sizes,
+    srcSet: imageObject.srcSet,
+    altTitle: imageObject.altText,
+    sizes: imageObject.sizes,
     placeholder: !isEmpty(placeholder) ? placeholder.sourceUrl : fallbackImage.placeholder
   }
 }

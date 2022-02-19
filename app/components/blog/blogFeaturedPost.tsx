@@ -19,12 +19,14 @@ function BlogFeaturedPost(props: Props) {
 
   const skill = findSkillLevel(featuredPost.categories);
   const image = loadImageSrc({
-    name: ImageSizeEnums.THUMBNAIL,
-    postFeaturedImage: featuredPost.featuredImage,
+    imageSizeName: ImageSizeEnums.THUMBNAIL,
+    imageObject: featuredPost.featuredImage,
     fallbackSize: ImageSizeEnums.MEDIUM,
     fallbackImage: defaultImages.thumbnail
   })
   let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
+
+  // RENAME LOADIMAGESRC OBJECT NAMES
 
   return (
     <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
@@ -34,9 +36,25 @@ function BlogFeaturedPost(props: Props) {
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
           {/* {createThumbnailImage(featuredPost.tutorialManager, image, featuredPost.title, true)} */}
           <div className={`absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg] z-10`}>
-            <img width={'162px'} height={'373px'} className="relative z-10" src="/images/make-this.png" alt={`Make this tutorial: ${featuredPost.title}`} />
+            <div className='lazy-load-wrapper lazy-load-image-full relative z-10'>
+              <LazyLoadImage
+                height={'373px'}
+                width={'162px'}
+                alt={`Make this tutorial: ${featuredPost.title}`}
+                effect="blur"
+                src="/images/make-this.png" // use normal <img> attributes as props
+              />
+            </div>
             <span className={`top-[45px] absolute w-[40%] left-[71%] z-[5]`}>
-              <img src="/images/make-this-arrow-1.png" width={'272px'} height={'340px'} alt={`Make this tutorial: ${featuredPost.title}`} />
+              <div className='lazy-load-wrapper lazy-load-image-full'>
+                <LazyLoadImage
+                  width={'272px'}
+                  height={'340px'}
+                  alt={`Make this tutorial: ${featuredPost.title}`}
+                  effect="blur"
+                  src="/images/make-this-arrow-1.png"
+                />
+              </div>
             </span>
           </div>
           <div className="relative pb-[92%]">
@@ -46,6 +64,8 @@ function BlogFeaturedPost(props: Props) {
                 width={`${postImage.width}px`}
                 alt={postImage.altTitle}
                 effect="blur"
+                srcSet={postImage.srcSet}
+                sizes={postImage.sizes}
                 src={postImage.sourceUrl} // use normal <img> attributes as props
                 placeholderSrc={postImage.placeholder}
               />

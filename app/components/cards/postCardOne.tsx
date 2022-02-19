@@ -5,6 +5,7 @@ import { checkTitleForBrackets, createThumbnailImage, findSkillLevel, parseStrin
 import BarChartSvg from "../svgs/barChartSvg";
 
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "~/utils/imageHelpers";
+import { classNames } from "~/utils/appUtils";
 
 interface Props {
   post: IPost
@@ -16,15 +17,20 @@ function PostCardOne(props: Props) {
   const splitTitle = splitProgramNameInTitle(post.title)
   const skill = findSkillLevel(post.categories);
   const image = loadImageSrc({
-    name: ImageSizeEnums.THUMBNAIL, // image name to try and get
-    postFeaturedImage: post.featuredImage, // the featured image object
+    imageSizeName: ImageSizeEnums.THUMBNAIL, // image name to try and get
+    imageObject: post.featuredImage, // the featured image object
     fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
-    fallbackImage: defaultImages.thumbnail
+    fallbackImage: defaultImages.featured
   })
 
   let postTitle = checkTitleForBrackets(splitTitle.title)
   let postImage = loadThumbnailSrc(post.tutorialManager, image)
-  const paddingBottom = post.tutorialManager && post.tutorialManager.thumbnail.image ? "pb-[92%]" : "pb-[80%]"
+  const paddingBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
+    ? "pb-[92%]"
+    : "pb-[48.25%]"
+  const marginBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
+    ? "mb-0"
+    : "mb-4"
 
   return (
     <motion.div
@@ -51,15 +57,42 @@ function PostCardOne(props: Props) {
         <Link className='flex flex-col justify-start' to={`../${post.slug}`} prefetch={'intent'}>
 
           <div className="wrapper">
+            {/* Make This */}
+            {post.tutorialManager.thumbnail.image && post.tutorialManager.thumbnail.type === 'make' && (
+              <div className={'absolute top-[10px] left-[15px] w-[40%] z-10'}>
+                <div className='lazy-load-wrapper lazy-load-image-full relative z-10'>
+                  <LazyLoadImage
+                    height={'373px'}
+                    width={'162px'}
+                    alt={`Make this tutorial: ${post.title}`}
+                    effect="blur"
+                    src="/images/make-this.png" // use normal <img> attributes as props
+                  />
+                </div>
+                <div className={'absolute w-[40%] left-[71%] z-[5] top-[20px]'}>
+                  <div className='lazy-load-wrapper lazy-load-image-full'>
+                    <LazyLoadImage
+                      width={'272px'}
+                      height={'340px'}
+                      alt={`Make this tutorial: ${post.title}`}
+                      effect="blur"
+                      src="/images/make-this-arrow-1.png"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* CARD IMAGE */}
-            <div className={`relative ${paddingBottom}`}>
-              <div className="rounded-2.5xl overflow-hidden flex absolute h-full top-0 w-full lazy-load-wrapper">
+            <div className={`relative ${paddingBottom} ${marginBottom}`}>
+              <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full lazy-load-wrapper">
                 {/* {createThumbnailImage(post.tutorialManager, image, post.title, false)} */}
                 <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}
                   effect="blur"
-
+                  srcSet={postImage.srcSet}
+                  sizes={postImage.sizes}
                   placeholderSrc={postImage.placeholder}
                   // Make sure to pass down the scrollPosition,
                   // this will be used by the component to know

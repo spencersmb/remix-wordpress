@@ -16,11 +16,6 @@ function PostsGrid(props: IProps) {
     <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
 
       <div className={cssGrid}>
-
-        {/* <div className='font-sentinel__SemiBoldItal flex flex-col text-4xl mb-7 mt-14 col-start-2 col-span-2 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
-          <span className='text-primary-500'>You may also like...</span>
-        </div> */}
-
         {posts.map(post => <PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)}
       </div>
     </div>
