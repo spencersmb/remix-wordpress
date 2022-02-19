@@ -2,7 +2,6 @@ import React from 'react'
 import useSite from '~/hooks/useSite'
 import LicenseAgreementPopUp from '~/components/modals/licenseAgreementPopUp'
 import { consoleHelper } from '~/utils/windowUtils'
-import { getImageSizeUrl } from '~/utils/posts'
 
 
 /**
@@ -41,12 +40,12 @@ const Freebie = (item: IResourceItem) => {
     normalDownload()
   }
 
-  const featuredImage = getImageSizeUrl(item.featuredImage, 'medium')
+  // const featuredImage = getImageSizeUrl(item.featuredImage, 'medium')
 
   return (
     <div>
       <div>
-        <img src={featuredImage.sourceUrl} alt={item.title} />
+        {/* <img src={featuredImage.sourceUrl} alt={item.title} /> */}
       </div>
       <h3>{item.title}</h3>
       <p>{item.freebie.excerpt}</p>

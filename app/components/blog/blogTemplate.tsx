@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useSite from '~/hooks/useSite';
 import { classNames } from '~/utils/appUtils';
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers';
 import { addClass } from '~/utils/pageUtils';
-import { getImageSizeUrl } from '~/utils/posts';
 import { consoleHelper } from '~/utils/windowUtils';
-import PostCardOne from '../cards/postCardOne';
 import YouTubeCard__Post from '../cards/youTubeCard__post';
 import BlogAuthor from './blogAuthor';
 import BlogCategories from './blogCategories';
@@ -75,7 +75,14 @@ function BlogTemplate(props: IProps) {
       text: post.title
     }
   ]
-  const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
+  // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
+  const featuredImage = loadImageSrc({
+    name: ImageSizeEnums.FEATURE, // image name to try and get
+    postFeaturedImage: post.featuredImage, // the featured image object
+    fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+    fallbackImage: defaultImages.featured
+  })
+
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
     <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
@@ -95,7 +102,16 @@ function BlogTemplate(props: IProps) {
       {post.featuredImage &&
         <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
           <div>
-            <img src={`${featuredImage.sourceUrl}`} sizes={`(max-width: 700px) 100vw, 700px`} alt={post.featuredImage.altText} srcSet={post.featuredImage.srcSet || undefined} width={`1440`} height={'810'} />
+            <LazyLoadImage
+              height={`${featuredImage.height}px`}
+              width={`${featuredImage.width}px`}
+              alt={featuredImage.altTitle}
+              effect="blur"
+              sizes={featuredImage.sizes}
+              srcSet={featuredImage.srcSet}
+              src={featuredImage.sourceUrl} // use normal <img> attributes as props
+              placeholderSrc={featuredImage.placeholder}
+            />
           </div>
         </div>}
 
@@ -159,6 +175,7 @@ function BlogTemplate(props: IProps) {
 
       </div>
 
+      {/* RELATED POSTS TITLE */}
       <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
         <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
           <div className='font-sentinel__SemiBoldItal flex flex-col text-4xl mb-7 mt-14 col-start-2 col-span-2 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>

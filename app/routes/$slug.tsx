@@ -104,16 +104,22 @@ query postBySlug($slug: String!) {
               description
             }
             pinterestImage{
-                sourceUrl
-                mediaDetails{
-                    sizes{
-                        name
-                        width
-                        height
-                        file
-                        sourceUrl
-                    }
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
+              id
+              mediaDetails{
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
                 }
+              }
             }
         }
         tutorialManager {
@@ -121,7 +127,21 @@ query postBySlug($slug: String!) {
             thumbnail {
               image {
                 altText
+                caption
                 sourceUrl
+                srcSet
+                sizes
+                id
+                mediaDetails{
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
               }
             }
             colorPalette {

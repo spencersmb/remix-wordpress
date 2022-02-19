@@ -3,7 +3,7 @@ import { HeadersFunction, Link, LoaderFunction, MetaFunction, useLoaderData } fr
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
-import { createThumbnailImage, filterNodeFromTags, findSkillLevel, flattenAllPosts, formatDate, getImageSizeUrl } from "~/utils/posts";
+import { createThumbnailImage, filterNodeFromTags, findSkillLevel, flattenAllPosts, formatDate } from "~/utils/posts";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import BlogFeaturedPost from "~/components/blog/blogFeaturedPost";

@@ -130,28 +130,22 @@ interface IMediaDetailSize {
   altTitle: string
   sourceUrl: string
   placeholder: string
+  srcSet: string
+  sizes: string
 }
 
 interface ISocialNav {
   pinterestMeta:{
     description: string
   }
-  pinterestImage?:{
-    sourceUrl: string
-    mediaDetails:{
-      sizes: IMediaDetailSize[]
-    }
-  }
+  pinterestImage: IFeaturedImage | null
 }
 
 interface ITutorialManager {
   status: string
   thumbnail:{
     type: string
-    image: {
-      sourceUrl: string
-      altText: string
-    } | null
+    image: IFeaturedImage | null
   }
   colorPalette: {
     downloadUrl: string
@@ -172,7 +166,6 @@ interface ITutorialManager {
 
 
 }
-
 
 interface IPost {
   databaseId: number //postID in wp

@@ -188,8 +188,22 @@ export const RELEATED_POSTS_FIELDS = gql`
        thumbnail {
         type
         image {
-          sourceUrl
           altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+          mediaDetails{
+            sizes{
+              width
+              file
+              height
+              name
+              sourceUrl
+              mimeType
+            }
+          }
         }
        }
       }

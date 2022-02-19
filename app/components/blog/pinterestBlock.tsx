@@ -1,4 +1,5 @@
-import { getImageSizeUrl } from "~/utils/posts"
+import { LazyLoadImage } from "react-lazy-load-image-component"
+import { ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
@@ -10,8 +11,15 @@ interface IProps {
 
 function PinterestBlock(props: IProps) {
   const { post, postUrl } = props
+
   let description = post.etSocialNav.pinterestMeta.description
-  let pinterestImage = post.etSocialNav.pinterestImage ? post.etSocialNav.pinterestImage : getImageSizeUrl(post.featuredImage, 'large')
+
+  let pinterestImage = loadImageSrc({
+    name: ImageSizeEnums.MEDIUM, //rename to imageSizeName
+    postFeaturedImage: post.etSocialNav.pinterestImage, // rename to Image Object
+    fallbackSize: ImageSizeEnums.THUMBNAIL, // rename to imageSizeName
+  })
+  console.log('pinterestImage', pinterestImage);
 
 
   return (
@@ -47,7 +55,20 @@ function PinterestBlock(props: IProps) {
 
           <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
             <div className="absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-xl overflow-hidden">
-              <img className="w-full max-w-none" src={pinterestImage.sourceUrl} alt={`Save to Pinterest: ${post.title}`} width={'333'} height={'500'} />
+              <div className="lazy-load-wrapper">
+                <LazyLoadImage
+                  height={`${pinterestImage.height}px`}
+                  width={`${pinterestImage.width}px`}
+                  alt={`Save to Pinterest: ${post.title}`}
+                  effect="blur"
+                  className="w-full max-w-none"
+                  sizes={pinterestImage.sizes}
+                  srcSet={pinterestImage.srcSet}
+                  src={pinterestImage.sourceUrl} // use normal <img> attributes as props
+                  placeholderSrc={pinterestImage.placeholder}
+                />
+              </div>
+
             </div>
           </div>
         </div>
