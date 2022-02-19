@@ -50,7 +50,7 @@ const SimpleTabsHeader = ({ children, className }: IProps) => {
 
 
   return (
-    <ul className={className}>
+    <ul className={className} role='tablist'>
       {children}
     </ul>
   )

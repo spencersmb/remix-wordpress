@@ -160,6 +160,7 @@ export enum ImageSizeEnums {
   PLACEHOLDER = 'placeholder',
   THUMBNAIL = 'headless_ipad'
 }
+
 interface ILoadImageSrcArgs { postFeaturedImage: IFeaturedImage | null, name: ImageSizeEnums, fallbackSize?: ImageSizeEnums, fallbackImage?: IMediaDetailSize }
 type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
@@ -181,11 +182,11 @@ export const loadImageSrc: IGetImageSize = ({
   fallbackImage = {
     width: '1024',
     height: '495',
-    name: 'Every Tuesday Fallback Featured Image',
+    altTitle: 'Every Tuesday Fallback Featured Image',
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   }
-}) => {
+}): IMediaDetailSize => {
 
   if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
     return fallbackImage
@@ -206,9 +207,9 @@ export const loadImageSrc: IGetImageSize = ({
     }, fallbackImage)
   }
 
-
   return {
     ...image,
+    altTitle: postFeaturedImage.altText,
     placeholder: !isEmpty(placeholder) ? placeholder.sourceUrl : fallbackImage.placeholder
   }
 }

@@ -30,6 +30,7 @@ function TabLabel(props: Props) {
 
   return (
     <div
+      role="tab"
       className={classNames(state.selectedTab === id
         ? 'text-primary-500 underlined-active'
         : 'text-neutral-400',

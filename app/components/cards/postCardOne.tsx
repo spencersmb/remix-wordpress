@@ -59,6 +59,7 @@ function PostCardOne(props: Props) {
                   key={post.id}
                   alt={postImage.altTitle}
                   effect="blur"
+
                   placeholderSrc={postImage.placeholder}
                   // Make sure to pass down the scrollPosition,
                   // this will be used by the component to know

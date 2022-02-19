@@ -12,6 +12,7 @@ import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import PostCardOne from "~/components/cards/postCardOne";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
+import PostsGrid from "~/components/blog/postsGrid";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -185,13 +186,14 @@ export default function CategoryPage() {
           </h2>
         </div>
 
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
+        {/* <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
           <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
-            {/* {state.categories[category] && state.categories[category].posts.map(relatedPost =>
+            {state.categories[category] && state.categories[category].posts.map(relatedPost =>
               <PostCardOne key={relatedPost.slug} post={relatedPost} />
-            )} */}
+            )}
           </div>
-        </div>
+        </div> */}
+        {state.categories[category] && <PostsGrid posts={state.categories[category].posts} />}
 
         <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
           {state.categories[category].pageInfo.hasNextPage &&
