@@ -15,6 +15,7 @@ import SearchSvg from "../svgs/searchSvg";
 
 interface ILayoutProps {
   alternateNav?: ReactNode
+  loadEcommerce?: boolean
 }
 
 export default function Layout({ children, alternateNav }: React.PropsWithChildren<{}> & ILayoutProps) {

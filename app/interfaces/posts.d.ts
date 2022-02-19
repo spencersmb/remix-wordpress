@@ -125,11 +125,11 @@ interface IPostSeo {
 }
 
 interface IMediaDetailSize {
-  name: string
   width: string
   height: string
-  file: string
+  altTitle: string
   sourceUrl: string
+  placeholder: string
 }
 
 interface ISocialNav {

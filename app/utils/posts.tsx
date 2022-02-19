@@ -152,17 +152,12 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
   }
 }
 
-interface IMediaDetailSize {
-  width: string
-  height: string
-  name: string
-  sourceUrl: string
-}
 export enum ImageSizeEnums {
   SMALL = 'small',
   MEDIUM = 'medium',
   LARGE = 'large',
   FULL = 'full',
+  PLACEHOLDER = 'placeholder',
   THUMBNAIL = 'headless_ipad'
 }
 interface ILoadImageSrcArgs { postFeaturedImage: IFeaturedImage | null, name: ImageSizeEnums, fallbackSize?: ImageSizeEnums, fallbackImage?: IMediaDetailSize }
@@ -187,7 +182,8 @@ export const loadImageSrc: IGetImageSize = ({
     width: '1024',
     height: '495',
     name: 'Every Tuesday Fallback Featured Image',
-    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024'
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   }
 }) => {
 
@@ -196,6 +192,7 @@ export const loadImageSrc: IGetImageSize = ({
   }
 
   const image = getImageSize(postFeaturedImage, name)
+  const placeholder = getImageSize(postFeaturedImage, ImageSizeEnums.PLACEHOLDER)
 
   if (isEmpty(image)) {
     return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
@@ -206,27 +203,45 @@ export const loadImageSrc: IGetImageSize = ({
         return previousValue
       }
 
-    }, {
-      width: '',
-      file: '',
-      height: '',
-      name: '',
-      sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024'
-    })
+    }, fallbackImage)
   }
 
 
-  return image
+  return {
+    ...image,
+    placeholder: !isEmpty(placeholder) ? placeholder.sourceUrl : fallbackImage.placeholder
+  }
 }
 
+export function loadThumbnailSrc(tutorialManager: ITutorialManager,
+  defaultImage: IMediaDetailSize): IMediaDetailSize {
+
+  if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
+    return {
+      ...defaultImage,
+    }
+  }
+  let imageName = tutorialManager.thumbnail.image.sourceUrl.replace('.jpg', '')
+  return {
+    ...tutorialManager.thumbnail.image,
+    width: '1000',
+    height: '888',
+    altTitle: tutorialManager.thumbnail.image.altText,
+    placeholder: `${imageName}-20x20.jpg`,
+  }
+
+}
+
+// DEPRECATED getImageSizeUrl
 export function getImageSizeUrl(postFeaturedImage: IFeaturedImage | null, name: string): IMediaDetailSize {
 
   if (!postFeaturedImage || !postFeaturedImage.mediaDetails) {
     return {
       width: '',
       height: '',
-      name: '',
-      sourceUrl: '' //TODO: add POST default image
+      altTitle: '',
+      sourceUrl: '', //TODO: add POST default image
+      placeholder: ''
     }
   }
 
@@ -283,6 +298,44 @@ export function formatDate(date: string): string {
   return `${months[monthIndex]} ${day}, ${blogDate.getFullYear()}`
 }
 
+export function parseStringForSpecialCharacters(string: string): string {
+  return string.replace(/&/g, '').replace(/</g, '').replace(/>/g, '').replace(/"/g, '').replace(/'/g, '').replace(/\+/g, '')
+  // return string.replace(/\+/g, '');
+}
+
+export function checkTitleForBrackets(title: string): { title: string, subTitle: string | undefined } {
+  let sqaureBrackets = title.substring(
+    title.indexOf("[") + 1,
+    title.lastIndexOf("]")
+  );
+
+  let roundBrackets = title.substring(
+    title.indexOf("(") + 1,
+    title.lastIndexOf(")")
+  );
+
+  if (sqaureBrackets.length > 0) {
+    let newtTitle = title.replace(`[${sqaureBrackets}]`, '')
+    return {
+      title: newtTitle,
+      subTitle: parseStringForSpecialCharacters(sqaureBrackets)
+    }
+  }
+
+  if (roundBrackets.length > 0) {
+    let newtTitle = title.replace(`(${roundBrackets})`, '')
+    return {
+      title: newtTitle,
+      subTitle: parseStringForSpecialCharacters(roundBrackets)
+    }
+  }
+
+  return {
+    title: title,
+    subTitle: undefined
+  }
+}
+
 export function splitProgramNameInTitle(title: string): { title: string, subTitle: string | undefined } {
   let newTitle = title
   switch (Boolean(title)) {
@@ -293,12 +346,6 @@ export function splitProgramNameInTitle(title: string): { title: string, subTitl
         title: newTitle,
         subTitle: "in Procreate",
       }
-    // return (
-    //   <>
-    //     <div className='mb-3'>{newTitle}</div>
-    //     <div className={`${splitCss}`}>in Procreate</div>
-    //   </>
-    // )
 
     case title.includes("in Illustrator"):
       newTitle = title.replace("in Illustrator", "")
@@ -306,36 +353,18 @@ export function splitProgramNameInTitle(title: string): { title: string, subTitl
         title: newTitle,
         subTitle: "in Illustrator",
       }
-    // return (
-    //   <>
-    //     <div className='mb-3'>{newTitle}</div>
-    //     <div className={`${splitCss}`}>in Illustrator</div>
-    //   </>
-    // )
     case title.includes("in Adobe Illustrator"):
       newTitle = title.replace("in Adobe Illustrator", "")
       return {
         title: newTitle,
         subTitle: "in Adobe Illustrator",
       }
-    // return (
-    //   <>
-    //     <div className='mb-3'>{newTitle}</div>
-    //     <div className={`${splitCss}`}>in Adobe Illustrator</div>
-    //   </>
-    // )
     case title.includes("in InDesign"):
       newTitle = title.replace("in InDesign", "")
       return {
         title: newTitle,
         subTitle: "in InDesign",
       }
-    // return (
-    //   <>
-    //     <div className='mb-3'>{newTitle}</div>
-    //     <div className={`${splitCss}`}>in InDesign</div>
-    //   </>
-    // )
     case title.includes("in Photoshop"):
       newTitle = title.replace("in Photoshop", "")
       return {
@@ -414,10 +443,11 @@ export function createThumbnailImage(
 ) {
 
   const defaultImage = () => (
-    <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8  h-[250px]', "default_image relative overflow-hidden")}>
+    // <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8 h-[250px]', "default_image relative overflow-hidden")}>
+    <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8', "default_image relative overflow-hidden")}>
       {defaultSource.sourceUrl.length !== 0 &&
-        <img
-          className={classNames(featuredPost ? '' : 'absolute max-w-none top-[50%] w-full translate-y-[-50%]', "")}
+        // <img className={classNames(featuredPost ? '' : 'absolute max-w-none top-[50%] w-full translate-y-[-50%]', "")}
+        <img className={classNames(featuredPost ? '' : '', "")}
           src={defaultSource.sourceUrl} alt={title} />}
     </div>
   )

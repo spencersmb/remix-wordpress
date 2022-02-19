@@ -241,7 +241,7 @@ export function Document({ children, title }: IDocument) {
         <CommentModal />
 
         {/* FOOTER SCRIPTS */}
-        {data.metadata.shopPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.com/js/gumroad.js"></script>}
+        {/* {data.metadata.shopPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.com/js/gumroad.js"></script>} */}
       </body>
     </html>
   );

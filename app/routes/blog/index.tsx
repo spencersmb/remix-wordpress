@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import { HeadersFunction, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
@@ -12,15 +12,21 @@ import { getGraphQLString } from "~/utils/graphqlUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import { gql } from "@apollo/client";
 import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
-import PostCardOne from "~/components/cards/postCardOne";
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "~/components/buttons/outlinedButton";
-import usePrevious from "~/hooks/usePrevious";
+import BlogPostGrid from "~/components/blog/blogPostGrid";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
   demos: Array<{ name: string; to: string }>;
 };
+
+// headers for the entire DOC when someone refreshes the page or types in the url directly
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+  }
+}
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Blog - Every-Tuesday`,
@@ -398,23 +404,8 @@ function BlogIndex() {
             }
           </AnimatePresence>
 
-          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
-            <AnimatePresence>
-              {category === 'all' && state.posts.map((post: any, index) => {
-                return (<PostCardOne key={post.slug} post={post} />)
-              }).slice(1) // Remove first time because its the featured post
-              }
+          <BlogPostGrid posts={state.posts} category={category} categories={state.categories} />
 
-              {category !== 'all' && state.categories[category] && state.categories[category].posts.map(post => (<PostCardOne key={post.slug} post={post} />)
-              )}
-
-              {category !== 'all' && state.categories[category] && state.categories[category].posts.length === 0 &&
-                <motion.div>
-                  <h4>Sorry, There are no posts in Category: {category} yet.</h4>
-                </motion.div>
-              }
-            </AnimatePresence>
-          </div>
         </div>
 
 

@@ -12,6 +12,7 @@ import BlogComments from './blogComments';
 import Breadcrumbs from './breadcrumbs';
 import BlogDateAuthor from './date';
 import PinterestBlock from './pinterestBlock';
+import RelatedPostsGrid from './relatedPostsGrid';
 import PaidProducts from './tutorialContent/paidProducts';
 import TutorialDownloads from './tutorialContent/tutorialDownloads';
 interface IProps {
@@ -159,20 +160,7 @@ function BlogTemplate(props: IProps) {
       </div>
 
       {/* <MakersPostSignUp /> */}
-
-      {/* RELATED POSTS*/}
-      <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
-
-        {/* <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-3 tablet:gap-x-5 mx-auto desktop:gap-x-8 desktop:grid-cols-3 desktop:max-w-none'> */}
-        <div className='pb-12 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
-
-          <div className='font-sentinel__SemiBoldItal flex flex-col text-4xl mb-7 mt-14 col-start-2 col-span-2 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
-            <span className='text-primary-500'>You may also like...</span>
-          </div>
-
-          {post.relatedPosts.map(relatedPost => <PostCardOne key={relatedPost.slug} post={relatedPost} />)}
-        </div>
-      </div>
+      <RelatedPostsGrid post={post} />
 
     </div>
   )

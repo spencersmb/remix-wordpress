@@ -8,6 +8,7 @@
 @import "tailwindcss/variants";
 @import "../app/components/blog/blog.css";
 @import "../app/components/nav/nav.css";
+@import "react-lazy-load-image-component/src/effects/blur.css";
 
 .root,
 :root,
@@ -183,5 +184,12 @@ button {
 
   .grid-resource-header {
     grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
+  }
+}
+
+.lazy-load-wrapper {
+  & span {
+    width: 100% !important;
+    height: auto !important;
   }
 }

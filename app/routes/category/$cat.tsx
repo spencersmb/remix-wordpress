@@ -184,13 +184,12 @@ export default function CategoryPage() {
             <span className="font-sentinel__SemiBoldItal capitalize">{category}</span>
           </h2>
         </div>
+
         <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
-
-          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3  desktop:gap-x-8 '>
-
-            {state.categories[category] && state.categories[category].posts.map(relatedPost =>
+          <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
+            {/* {state.categories[category] && state.categories[category].posts.map(relatedPost =>
               <PostCardOne key={relatedPost.slug} post={relatedPost} />
-            )}
+            )} */}
           </div>
         </div>
 
