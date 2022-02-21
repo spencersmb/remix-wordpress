@@ -420,7 +420,7 @@ union DownloadFreebie_Tutorialmanager_Downloads = ResourceLibrary
 union DownloadFreebie_Tutorialmanager_PaidProducts = Product
 
 "Deprecated in favor of MenuItemLinkeable Interface"
-union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | PostFormat | Product | ResourceLibrary | Tag
+union MenuItemObjectUnion = Category | Course | DownloadGrid | Page | Post | PostFormat | Product | ResourceLibrary | SubCategory | Tag
 
 union MenuItem_Featured_Courses = Course
 
@@ -600,6 +600,19 @@ type Category implements DatabaseIdentifier & HierarchicalTermNode & MenuItemLin
         "Arguments for filtering the connection"
         where: CategoryToProductConnectionWhereArgs
     ): CategoryToProductConnection
+    "Connection between the category type and the ResourceLibrary type"
+    resourceLibraries(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: CategoryToResourceLibraryConnectionWhereArgs
+    ): CategoryToResourceLibraryConnection
     "The Yoast SEO data of the Categories taxonomy."
     seo: TaxonomySEO
     "An alphanumeric identifier for the object unique to its type."
@@ -728,6 +741,24 @@ type CategoryToProductConnectionEdge {
     cursor: String
     "The item at the end of the edge"
     node: Product
+}
+
+"Connection between the category type and the ResourceLibrary type"
+type CategoryToResourceLibraryConnection {
+    "Edges for the CategoryToResourceLibraryConnection connection"
+    edges: [CategoryToResourceLibraryConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [ResourceLibrary]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type CategoryToResourceLibraryConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The item at the end of the edge"
+    node: ResourceLibrary
 }
 
 "Connection between the category type and the Taxonomy type"
@@ -1324,6 +1355,14 @@ type CreateResourceLibraryPayload {
     resourceLibrary: ResourceLibrary
 }
 
+"The payload for the createSubCategory mutation"
+type CreateSubCategoryPayload {
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The created subcategory"
+    subCategory: SubCategory
+}
+
 "The payload for the createTag mutation"
 type CreateTagPayload {
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
@@ -1454,6 +1493,16 @@ type DeleteResourceLibraryPayload {
     deletedId: ID
     "The object before it was deleted"
     resourceLibrary: ResourceLibrary
+}
+
+"The payload for the deleteSubCategory mutation"
+type DeleteSubCategoryPayload {
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The ID of the deleted object"
+    deletedId: ID
+    "The deteted term object"
+    subCategory: SubCategory
 }
 
 "The payload for the deleteTag mutation"
@@ -3695,6 +3744,19 @@ type ResetUserPasswordPayload {
 
 "The ResourceLibrary type"
 type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
+    "Connection between the ResourceLibrary type and the category type"
+    categories(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: ResourceLibraryToCategoryConnectionWhereArgs
+    ): ResourceLibraryToCategoryConnection
     "Connection between the ContentNode type and the ContentType type"
     contentType: ContentNodeToContentTypeConnectionEdge
     "The name of the Content Type the node belongs to"
@@ -3775,6 +3837,19 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     slug: String
     "The current status of the object"
     status: String
+    "Connection between the ResourceLibrary type and the subCategory type"
+    subCategories(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: ResourceLibraryToSubCategoryConnectionWhereArgs
+    ): ResourceLibraryToSubCategoryConnection
     "Connection between the ResourceLibrary type and the tag type"
     tags(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -3812,10 +3887,50 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     uri: String
 }
 
+"Connection between the ResourceLibrary type and the category type"
+type ResourceLibraryToCategoryConnection {
+    "Edges for the ResourceLibraryToCategoryConnection connection"
+    edges: [ResourceLibraryToCategoryConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [Category]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type ResourceLibraryToCategoryConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The Yoast SEO Primary category"
+    isPrimary: Boolean
+    "The item at the end of the edge"
+    node: Category
+}
+
 "Connection between the ResourceLibrary type and the ResourceLibrary type"
 type ResourceLibraryToPreviewConnectionEdge {
     "The node of the connection, without the edges"
     node: ResourceLibrary
+}
+
+"Connection between the ResourceLibrary type and the subCategory type"
+type ResourceLibraryToSubCategoryConnection {
+    "Edges for the ResourceLibraryToSubCategoryConnection connection"
+    edges: [ResourceLibraryToSubCategoryConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [SubCategory]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type ResourceLibraryToSubCategoryConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The Yoast SEO Primary subcategory"
+    isPrimary: Boolean
+    "The item at the end of the edge"
+    node: SubCategory
 }
 
 "Connection between the ResourceLibrary type and the tag type"
@@ -3939,6 +4054,11 @@ type RootMutation {
         "Input for the createResourceLibrary mutation"
         input: CreateResourceLibraryInput!
     ): CreateResourceLibraryPayload
+    "The payload for the createSubCategory mutation"
+    createSubCategory(
+        "Input for the createSubCategory mutation"
+        input: CreateSubCategoryInput!
+    ): CreateSubCategoryPayload
     "The payload for the createTag mutation"
     createTag(
         "Input for the createTag mutation"
@@ -4004,6 +4124,11 @@ type RootMutation {
         "Input for the deleteResourceLibrary mutation"
         input: DeleteResourceLibraryInput!
     ): DeleteResourceLibraryPayload
+    "The payload for the deleteSubCategory mutation"
+    deleteSubCategory(
+        "Input for the deleteSubCategory mutation"
+        input: DeleteSubCategoryInput!
+    ): DeleteSubCategoryPayload
     "The payload for the deleteTag mutation"
     deleteTag(
         "Input for the deleteTag mutation"
@@ -4129,6 +4254,11 @@ type RootMutation {
         "Input for the updateSettings mutation"
         input: UpdateSettingsInput!
     ): UpdateSettingsPayload
+    "The payload for the UpdateSubCategory mutation"
+    updateSubCategory(
+        "Input for the UpdateSubCategory mutation"
+        input: UpdateSubCategoryInput!
+    ): UpdateSubCategoryPayload
     "The payload for the UpdateTag mutation"
     updateTag(
         "Input for the UpdateTag mutation"
@@ -4628,6 +4758,26 @@ type RootQuery {
     seo: SEOConfig
     "Shipping Zones"
     shippingInfo: ShippingInfo
+    "Connection between the RootQuery type and the subCategory type"
+    subCategories(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: RootQueryToSubCategoryConnectionWhereArgs
+    ): RootQueryToSubCategoryConnection
+    "A 0bject"
+    subCategory(
+        "The globally unique identifier of the object."
+        id: ID!,
+        "Type of unique identifier to fetch by. Default is Global ID"
+        idType: SubCategoryIdType
+    ): SubCategory
     "A 0bject"
     tag(
         "The globally unique identifier of the object."
@@ -5092,6 +5242,24 @@ type RootQueryToResourceLibraryConnectionEdge {
     node: ResourceLibrary
 }
 
+"Connection between the RootQuery type and the subCategory type"
+type RootQueryToSubCategoryConnection {
+    "Edges for the RootQueryToSubCategoryConnection connection"
+    edges: [RootQueryToSubCategoryConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [SubCategory]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type RootQueryToSubCategoryConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The item at the end of the edge"
+    node: SubCategory
+}
+
 "Connection between the RootQuery type and the tag type"
 type RootQueryToTagConnection {
     "Edges for the RootQueryToTagConnection connection"
@@ -5475,6 +5643,134 @@ type Settings {
 type ShippingInfo {
     shippingZones: String
     storePostCode: Int
+}
+
+"The subCategory type"
+type SubCategory implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable {
+    "Connection between the subCategory type and the ContentNode type"
+    contentNodes(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: SubCategoryToContentNodeConnectionWhereArgs
+    ): SubCategoryToContentNodeConnection
+    "The number of objects connected to the object"
+    count: Int
+    "The unique resource identifier path"
+    databaseId: Int!
+    "The description of the object"
+    description: String
+    "Connection between the TermNode type and the EnqueuedScript type"
+    enqueuedScripts(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int
+    ): TermNodeToEnqueuedScriptConnection
+    "Connection between the TermNode type and the EnqueuedStylesheet type"
+    enqueuedStylesheets(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int
+    ): TermNodeToEnqueuedStylesheetConnection
+    "The unique resource identifier path"
+    id: ID!
+    "Whether the node is a Content Node"
+    isContentNode: Boolean!
+    "Whether the object is restricted from the current viewer"
+    isRestricted: Boolean
+    "Whether the node is a Term"
+    isTermNode: Boolean!
+    "The link to the term"
+    link: String
+    "The human friendly name of the object."
+    name: String
+    "Connection between the subCategory type and the ResourceLibrary type"
+    resourceLibraries(
+        "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
+        after: String,
+        "Cursor used along with the \"last\" argument to reference where in the dataset to get data"
+        before: String,
+        "The number of items to return after the referenced \"after\" cursor"
+        first: Int,
+        "The number of items to return before the referenced \"before\" cursor"
+        last: Int,
+        "Arguments for filtering the connection"
+        where: SubCategoryToResourceLibraryConnectionWhereArgs
+    ): SubCategoryToResourceLibraryConnection
+    "The Yoast SEO data of the Sub-Categories taxonomy."
+    seo: TaxonomySEO
+    "An alphanumeric identifier for the object unique to its type."
+    slug: String
+    "The id field matches the WP_Post-&gt;ID field."
+    subCategoryId: Int @deprecated(reason: "Deprecated in favor of databaseId")
+    "Connection between the subCategory type and the Taxonomy type"
+    taxonomy: SubCategoryToTaxonomyConnectionEdge
+    "The name of the taxonomy that the object is associated with"
+    taxonomyName: String
+    "The ID of the term group that this term object belongs to"
+    termGroupId: Int
+    "The taxonomy ID that the object is associated with"
+    termTaxonomyId: Int
+    "The unique resource identifier path"
+    uri: String
+}
+
+"Connection between the subCategory type and the ContentNode type"
+type SubCategoryToContentNodeConnection {
+    "Edges for the SubCategoryToContentNodeConnection connection"
+    edges: [SubCategoryToContentNodeConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [ContentNode]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type SubCategoryToContentNodeConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The item at the end of the edge"
+    node: ContentNode
+}
+
+"Connection between the subCategory type and the ResourceLibrary type"
+type SubCategoryToResourceLibraryConnection {
+    "Edges for the SubCategoryToResourceLibraryConnection connection"
+    edges: [SubCategoryToResourceLibraryConnectionEdge]
+    "The nodes of the connection, without the edges"
+    nodes: [ResourceLibrary]
+    "Information about pagination in a connection."
+    pageInfo: WPPageInfo
+}
+
+"An edge in a connection"
+type SubCategoryToResourceLibraryConnectionEdge {
+    "A cursor for use in pagination"
+    cursor: String
+    "The item at the end of the edge"
+    node: ResourceLibrary
+}
+
+"Connection between the subCategory type and the Taxonomy type"
+type SubCategoryToTaxonomyConnectionEdge {
+    "The node of the connection, without the edges"
+    node: Taxonomy
 }
 
 "The tag type"
@@ -5962,6 +6258,14 @@ type UpdateSettingsPayload {
     readingSettings: ReadingSettings
     "Update the writing setting."
     writingSettings: WritingSettings
+}
+
+"The payload for the UpdateSubCategory mutation"
+type UpdateSubCategoryPayload {
+    "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The created subcategory"
+    subCategory: SubCategory
 }
 
 "The payload for the UpdateTag mutation"
@@ -6455,6 +6759,8 @@ enum ContentTypesOfCategoryEnum {
     "The Type of Content object"
     COURSES
     "The Type of Content object"
+    ET_FREEBIE
+    "The Type of Content object"
     POST
     "The Type of Content object"
     PRODUCT
@@ -6466,6 +6772,12 @@ enum ContentTypesOfPostFormatEnum {
     POST
     "The Type of Content object"
     PRODUCT
+}
+
+"Allowed Content Types of the SubCategory taxonomy."
+enum ContentTypesOfSubCategoryEnum {
+    "The Type of Content object"
+    ET_FREEBIE
 }
 
 "Allowed Content Types of the Tag taxonomy."
@@ -6536,12 +6848,16 @@ enum MediaItemSizeEnum {
     HEADLESS_IPAD
     "MediaItem with the headless_post_feature_image size"
     HEADLESS_POST_FEATURE_IMAGE
+    "MediaItem with the headless_resource_image size"
+    HEADLESS_RESOURCE_IMAGE
     "MediaItem with the large size"
     LARGE
     "MediaItem with the medium size"
     MEDIUM
     "MediaItem with the medium_large size"
     MEDIUM_LARGE
+    "MediaItem with the placeholder size"
+    PLACEHOLDER
     "MediaItem with the post-thumbnail size"
     POST_THUMBNAIL
     "MediaItem with the thumbnail size"
@@ -6933,6 +7249,20 @@ enum SEOCardType {
 }
 
 "The Type of Identifier used to fetch a single resource. Default is ID."
+enum SubCategoryIdType {
+    "The Database ID for the node"
+    DATABASE_ID
+    "The hashed Global ID"
+    ID
+    "The name of the node"
+    NAME
+    "Url friendly name of the node"
+    SLUG
+    "The URI for the node"
+    URI
+}
+
+"The Type of Identifier used to fetch a single resource. Default is ID."
 enum TagIdType {
     "The Database ID for the node"
     DATABASE_ID
@@ -6952,6 +7282,8 @@ enum TaxonomyEnum {
     CATEGORY
     "Taxonomy enum post_format"
     POSTFORMAT
+    "Taxonomy enum subcategory"
+    SUBCATEGORY
     "Taxonomy enum post_tag"
     TAG
 }
@@ -7322,6 +7654,64 @@ input CategoryToProductConnectionWhereArgs {
     stati: [PostStatusEnum]
     "Show posts with a specific status."
     status: PostStatusEnum
+    "Title of the object"
+    title: String
+}
+
+"Arguments for filtering the CategoryToResourceLibraryConnection connection"
+input CategoryToResourceLibraryConnectionWhereArgs {
+    "Category ID"
+    categoryId: Int
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryIn: [ID]
+    "Use Category Slug"
+    categoryName: String
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryNotIn: [ID]
+    "Filter the connection based on dates"
+    dateQuery: DateQueryInput
+    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
+    hasPassword: Boolean
+    "Specific ID of the object"
+    id: Int
+    "Array of IDs for the objects to retrieve"
+    in: [ID]
+    "Get objects with a specific mimeType property"
+    mimeType: MimeTypeEnum
+    "Slug / post_name of the object"
+    name: String
+    "Specify objects to retrieve. Use slugs"
+    nameIn: [String]
+    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
+    notIn: [ID]
+    "What paramater to use to order the objects by."
+    orderby: [PostObjectsConnectionOrderbyInput]
+    "Use ID to return only children. Use 0 to return only top-level items"
+    parent: ID
+    "Specify objects whose parent is in an array"
+    parentIn: [ID]
+    "Specify posts whose parent is not in an array"
+    parentNotIn: [ID]
+    "Show posts with a specific password."
+    password: String
+    "Show Posts based on a keyword search"
+    search: String
+    "Retrieve posts where post status is in an array."
+    stati: [PostStatusEnum]
+    "Show posts with a specific status."
+    status: PostStatusEnum
+    "Tag Slug"
+    tag: String
+    "Use Tag ID"
+    tagId: String
+    "Array of tag IDs, used to display objects from one tag OR another"
+    tagIn: [ID]
+    "Array of tag IDs, used to display objects from one tag OR another"
+    tagNotIn: [ID]
+    "Array of tag slugs, used to display objects from one tag OR another"
+    tagSlugAnd: [String]
+    "Array of tag slugs, used to exclude objects in specified tags"
+    tagSlugIn: [String]
     "Title of the object"
     title: String
 }
@@ -7902,6 +8292,8 @@ input CreateProductInput {
 
 "Input for the createResourceLibrary mutation"
 input CreateResourceLibraryInput {
+    "Set connections between the ResourceLibrary and categories"
+    categories: ResourceLibraryCategoriesInput
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
     clientMutationId: String
     "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
@@ -7914,10 +8306,26 @@ input CreateResourceLibraryInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
+    "Set connections between the ResourceLibrary and subCategories"
+    subCategories: ResourceLibrarySubCategoriesInput
     "Set connections between the ResourceLibrary and tags"
     tags: ResourceLibraryTagsInput
     "The title of the object"
     title: String
+}
+
+"Input for the createSubCategory mutation"
+input CreateSubCategoryInput {
+    "The slug that the subcategory will be an alias of"
+    aliasOf: String
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The description of the subcategory object"
+    description: String
+    "The name of the subcategory object to mutate"
+    name: String!
+    "If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name."
+    slug: String
 }
 
 "Input for the createTag mutation"
@@ -8121,6 +8529,14 @@ input DeleteResourceLibraryInput {
     "Whether the object should be force deleted instead of being moved to the trash"
     forceDelete: Boolean
     "The ID of the ResourceLibrary to delete"
+    id: ID!
+}
+
+"Input for the deleteSubCategory mutation"
+input DeleteSubCategoryInput {
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The ID of the subCategory to delete"
     id: ID!
 }
 
@@ -9324,6 +9740,46 @@ input ResetUserPasswordInput {
     password: String
 }
 
+"Set relationships between the ResourceLibrary to categories"
+input ResourceLibraryCategoriesInput {
+    "If true, this will append the category to existing related categories. If false, this will replace existing relationships. Default true."
+    append: Boolean
+    "The input list of items to set."
+    nodes: [ResourceLibraryCategoriesNodeInput]
+}
+
+"List of categories to connect the ResourceLibrary to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists."
+input ResourceLibraryCategoriesNodeInput {
+    "The description of the category. This field is used to set a description of the category if a new one is created during the mutation."
+    description: String
+    "The ID of the category. If present, this will be used to connect to the ResourceLibrary. If no existing category exists with this ID, no connection will be made."
+    id: ID
+    "The name of the category. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field."
+    name: String
+    "The slug of the category. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
+    slug: String
+}
+
+"Set relationships between the ResourceLibrary to subCategories"
+input ResourceLibrarySubCategoriesInput {
+    "If true, this will append the subCategory to existing related subCategories. If false, this will replace existing relationships. Default true."
+    append: Boolean
+    "The input list of items to set."
+    nodes: [ResourceLibrarySubCategoriesNodeInput]
+}
+
+"List of subCategories to connect the ResourceLibrary to. If an ID is set, it will be used to create the connection. If not, it will look for a slug. If neither are valid existing terms, and the site is configured to allow terms to be created during post mutations, a term will be created using the Name if it exists in the input, then fallback to the slug if it exists."
+input ResourceLibrarySubCategoriesNodeInput {
+    "The description of the subCategory. This field is used to set a description of the subCategory if a new one is created during the mutation."
+    description: String
+    "The ID of the subCategory. If present, this will be used to connect to the ResourceLibrary. If no existing subCategory exists with this ID, no connection will be made."
+    id: ID
+    "The name of the subCategory. This field is used to create a new term, if term creation is enabled in nested mutations, and if one does not already exist with the provided slug or ID or if a slug or ID is not provided. If no name is included and a term is created, the creation will fallback to the slug field."
+    name: String
+    "The slug of the subCategory. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
+    slug: String
+}
+
 "Set relationships between the ResourceLibrary to tags"
 input ResourceLibraryTagsInput {
     "If true, this will append the tag to existing related tags. If false, this will replace existing relationships. Default true."
@@ -9342,6 +9798,94 @@ input ResourceLibraryTagsNodeInput {
     name: String
     "The slug of the tag. If no ID is present, this field will be used to make a connection. If no existing term exists with this slug, this field will be used as a fallback to the Name field when creating a new term to connect to, if term creation is enabled as a nested mutation."
     slug: String
+}
+
+"Arguments for filtering the ResourceLibraryToCategoryConnection connection"
+input ResourceLibraryToCategoryConnectionWhereArgs {
+    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
+    cacheDomain: String
+    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
+    childOf: Int
+    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
+    childless: Boolean
+    "Retrieve terms where the description is LIKE the input value. Default empty."
+    descriptionLike: String
+    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
+    exclude: [ID]
+    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
+    excludeTree: [ID]
+    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
+    hideEmpty: Boolean
+    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
+    hierarchical: Boolean
+    "Array of term ids to include. Default empty array."
+    include: [ID]
+    "Array of names to return term(s) for. Default empty."
+    name: [String]
+    "Retrieve terms where the name is LIKE the input value. Default empty."
+    nameLike: String
+    "Array of object IDs. Results will be limited to terms associated with these objects."
+    objectIds: [ID]
+    "Direction the connection should be ordered in"
+    order: OrderEnum
+    "Field(s) to order terms by. Defaults to 'name'."
+    orderby: TermObjectsConnectionOrderbyEnum
+    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
+    padCounts: Boolean
+    "Parent term ID to retrieve direct-child terms of. Default empty."
+    parent: Int
+    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
+    search: String
+    "Array of slugs to return term(s) for. Default empty."
+    slug: [String]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomId: [ID]
+    "Whether to prime meta caches for matched terms. Default true."
+    updateTermMetaCache: Boolean
+}
+
+"Arguments for filtering the ResourceLibraryToSubCategoryConnection connection"
+input ResourceLibraryToSubCategoryConnectionWhereArgs {
+    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
+    cacheDomain: String
+    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
+    childOf: Int
+    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
+    childless: Boolean
+    "Retrieve terms where the description is LIKE the input value. Default empty."
+    descriptionLike: String
+    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
+    exclude: [ID]
+    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
+    excludeTree: [ID]
+    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
+    hideEmpty: Boolean
+    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
+    hierarchical: Boolean
+    "Array of term ids to include. Default empty array."
+    include: [ID]
+    "Array of names to return term(s) for. Default empty."
+    name: [String]
+    "Retrieve terms where the name is LIKE the input value. Default empty."
+    nameLike: String
+    "Array of object IDs. Results will be limited to terms associated with these objects."
+    objectIds: [ID]
+    "Direction the connection should be ordered in"
+    order: OrderEnum
+    "Field(s) to order terms by. Defaults to 'name'."
+    orderby: TermObjectsConnectionOrderbyEnum
+    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
+    padCounts: Boolean
+    "Parent term ID to retrieve direct-child terms of. Default empty."
+    parent: Int
+    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
+    search: String
+    "Array of slugs to return term(s) for. Default empty."
+    slug: [String]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomId: [ID]
+    "Whether to prime meta caches for matched terms. Default true."
+    updateTermMetaCache: Boolean
 }
 
 "Arguments for filtering the ResourceLibraryToTagConnection connection"
@@ -10048,6 +10592,14 @@ input RootQueryToProductConnectionWhereArgs {
 
 "Arguments for filtering the RootQueryToResourceLibraryConnection connection"
 input RootQueryToResourceLibraryConnectionWhereArgs {
+    "Category ID"
+    categoryId: Int
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryIn: [ID]
+    "Use Category Slug"
+    categoryName: String
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryNotIn: [ID]
     "Filter the connection based on dates"
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
@@ -10094,6 +10646,50 @@ input RootQueryToResourceLibraryConnectionWhereArgs {
     tagSlugIn: [String]
     "Title of the object"
     title: String
+}
+
+"Arguments for filtering the RootQueryToSubCategoryConnection connection"
+input RootQueryToSubCategoryConnectionWhereArgs {
+    "Unique cache key to be produced when this query is stored in an object cache. Default is 'core'."
+    cacheDomain: String
+    "Term ID to retrieve child terms of. If multiple taxonomies are passed, $child_of is ignored. Default 0."
+    childOf: Int
+    "True to limit results to terms that have no children. This parameter has no effect on non-hierarchical taxonomies. Default false."
+    childless: Boolean
+    "Retrieve terms where the description is LIKE the input value. Default empty."
+    descriptionLike: String
+    "Array of term ids to exclude. If $include is non-empty, $exclude is ignored. Default empty array."
+    exclude: [ID]
+    "Array of term ids to exclude along with all of their descendant terms. If $include is non-empty, $exclude_tree is ignored. Default empty array."
+    excludeTree: [ID]
+    "Whether to hide terms not assigned to any posts. Accepts true or false. Default false"
+    hideEmpty: Boolean
+    "Whether to include terms that have non-empty descendants (even if $hide_empty is set to true). Default true."
+    hierarchical: Boolean
+    "Array of term ids to include. Default empty array."
+    include: [ID]
+    "Array of names to return term(s) for. Default empty."
+    name: [String]
+    "Retrieve terms where the name is LIKE the input value. Default empty."
+    nameLike: String
+    "Array of object IDs. Results will be limited to terms associated with these objects."
+    objectIds: [ID]
+    "Direction the connection should be ordered in"
+    order: OrderEnum
+    "Field(s) to order terms by. Defaults to 'name'."
+    orderby: TermObjectsConnectionOrderbyEnum
+    "Whether to pad the quantity of a term's children in the quantity of each term's \"count\" object variable. Default false."
+    padCounts: Boolean
+    "Parent term ID to retrieve direct-child terms of. Default empty."
+    parent: Int
+    "Search criteria to match terms. Will be SQL-formatted with wildcards before and after. Default empty."
+    search: String
+    "Array of slugs to return term(s) for. Default empty."
+    slug: [String]
+    "Array of term taxonomy IDs, to match when querying terms."
+    termTaxonomId: [ID]
+    "Whether to prime meta caches for matched terms. Default true."
+    updateTermMetaCache: Boolean
 }
 
 "Arguments for filtering the RootQueryToTagConnection connection"
@@ -10242,6 +10838,104 @@ input SendPasswordResetEmailInput {
     clientMutationId: String
     "A string that contains the user's username or email address."
     username: String!
+}
+
+"Arguments for filtering the SubCategoryToContentNodeConnection connection"
+input SubCategoryToContentNodeConnectionWhereArgs {
+    "The Types of content to filter"
+    contentTypes: [ContentTypesOfSubCategoryEnum]
+    "Filter the connection based on dates"
+    dateQuery: DateQueryInput
+    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
+    hasPassword: Boolean
+    "Specific ID of the object"
+    id: Int
+    "Array of IDs for the objects to retrieve"
+    in: [ID]
+    "Get objects with a specific mimeType property"
+    mimeType: MimeTypeEnum
+    "Slug / post_name of the object"
+    name: String
+    "Specify objects to retrieve. Use slugs"
+    nameIn: [String]
+    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
+    notIn: [ID]
+    "What paramater to use to order the objects by."
+    orderby: [PostObjectsConnectionOrderbyInput]
+    "Use ID to return only children. Use 0 to return only top-level items"
+    parent: ID
+    "Specify objects whose parent is in an array"
+    parentIn: [ID]
+    "Specify posts whose parent is not in an array"
+    parentNotIn: [ID]
+    "Show posts with a specific password."
+    password: String
+    "Show Posts based on a keyword search"
+    search: String
+    "Retrieve posts where post status is in an array."
+    stati: [PostStatusEnum]
+    "Show posts with a specific status."
+    status: PostStatusEnum
+    "Title of the object"
+    title: String
+}
+
+"Arguments for filtering the SubCategoryToResourceLibraryConnection connection"
+input SubCategoryToResourceLibraryConnectionWhereArgs {
+    "Category ID"
+    categoryId: Int
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryIn: [ID]
+    "Use Category Slug"
+    categoryName: String
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryNotIn: [ID]
+    "Filter the connection based on dates"
+    dateQuery: DateQueryInput
+    "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
+    hasPassword: Boolean
+    "Specific ID of the object"
+    id: Int
+    "Array of IDs for the objects to retrieve"
+    in: [ID]
+    "Get objects with a specific mimeType property"
+    mimeType: MimeTypeEnum
+    "Slug / post_name of the object"
+    name: String
+    "Specify objects to retrieve. Use slugs"
+    nameIn: [String]
+    "Specify IDs NOT to retrieve. If this is used in the same query as \"in\", it will be ignored"
+    notIn: [ID]
+    "What paramater to use to order the objects by."
+    orderby: [PostObjectsConnectionOrderbyInput]
+    "Use ID to return only children. Use 0 to return only top-level items"
+    parent: ID
+    "Specify objects whose parent is in an array"
+    parentIn: [ID]
+    "Specify posts whose parent is not in an array"
+    parentNotIn: [ID]
+    "Show posts with a specific password."
+    password: String
+    "Show Posts based on a keyword search"
+    search: String
+    "Retrieve posts where post status is in an array."
+    stati: [PostStatusEnum]
+    "Show posts with a specific status."
+    status: PostStatusEnum
+    "Tag Slug"
+    tag: String
+    "Use Tag ID"
+    tagId: String
+    "Array of tag IDs, used to display objects from one tag OR another"
+    tagIn: [ID]
+    "Array of tag IDs, used to display objects from one tag OR another"
+    tagNotIn: [ID]
+    "Array of tag slugs, used to display objects from one tag OR another"
+    tagSlugAnd: [String]
+    "Array of tag slugs, used to exclude objects in specified tags"
+    tagSlugIn: [String]
+    "Title of the object"
+    title: String
 }
 
 "Arguments for filtering the TagToContentNodeConnection connection"
@@ -10460,6 +11154,14 @@ input TagToPostConnectionWhereArgs {
 
 "Arguments for filtering the TagToResourceLibraryConnection connection"
 input TagToResourceLibraryConnectionWhereArgs {
+    "Category ID"
+    categoryId: Int
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryIn: [ID]
+    "Use Category Slug"
+    categoryName: String
+    "Array of category IDs, used to display objects from one category OR another"
+    categoryNotIn: [ID]
     "Filter the connection based on dates"
     dateQuery: DateQueryInput
     "True for objects with passwords; False for objects without passwords; null for all objects with or without passwords"
@@ -10766,6 +11468,8 @@ input UpdateProductInput {
 
 "Input for the updateResourceLibrary mutation"
 input UpdateResourceLibraryInput {
+    "Set connections between the ResourceLibrary and categories"
+    categories: ResourceLibraryCategoriesInput
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
     clientMutationId: String
     "The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
@@ -10780,6 +11484,8 @@ input UpdateResourceLibraryInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
+    "Set connections between the ResourceLibrary and subCategories"
+    subCategories: ResourceLibrarySubCategoriesInput
     "Set connections between the ResourceLibrary and tags"
     tags: ResourceLibraryTagsInput
     "The title of the object"
@@ -10820,6 +11526,22 @@ input UpdateSettingsInput {
     writingSettingsDefaultPostFormat: String
     "Convert emoticons like :-) and :-P to graphics on display."
     writingSettingsUseSmilies: Boolean
+}
+
+"Input for the UpdateSubCategory mutation"
+input UpdateSubCategoryInput {
+    "The slug that the subcategory will be an alias of"
+    aliasOf: String
+    "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
+    clientMutationId: String
+    "The description of the subcategory object"
+    description: String
+    "The ID of the subCategory object to update"
+    id: ID!
+    "The name of the subcategory object to mutate"
+    name: String
+    "If this argument exists then the slug will be checked to see if it is not an existing valid term. If that check succeeds (it is not a valid term), then it is added and the term id is given. If it fails, then a check is made to whether the taxonomy is hierarchical and the parent argument is not empty. If the second check succeeds, the term will be inserted and the term id will be given. If the slug argument is empty, then it will be calculated from the term name."
+    slug: String
 }
 
 "Input for the UpdateTag mutation"

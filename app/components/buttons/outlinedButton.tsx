@@ -3,7 +3,7 @@ import { classNames } from '~/utils/appUtils'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 
 interface Props {
-  clickHandler: () => Promise<void>
+  clickHandler: () => Promise<void> | void
   loading: boolean
   text: string
   loadingText: string

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getLicense } from '~/utils/posts'
-import SelectBox from '../forms/selectDropdown'
+import SelectBox from '../forms/licenseSelectDropdown'
 import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
 import ShoppingCartSvg from '../svgs/shoppingCartSvg'
 import SvgBorderIconWrapper from '../svgs/svgBorderWrapper'

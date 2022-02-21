@@ -1,9 +1,11 @@
-import { Link, Links } from "remix"
+import { Link, Links, useNavigate } from "remix"
 import useSite from "~/hooks/useSite"
 import { getPrimaryMenu } from "~/lib/wp/nav"
 
 const ResourceLibraryNavButton = () => {
   const { state: { menu, user } } = useSite()
+  let navigate = useNavigate();
+
 
   const tuesdayMakersClick = (e: any) => {
 
@@ -17,17 +19,18 @@ const ResourceLibraryNavButton = () => {
 
   const login = () => {
     console.log('login');
+    navigate("/tuesday-makers/", { replace: true });
 
   }
 
   return (
     <li className="flex justify-center items-center flex-row ml-3">
-      <div onClick={tuesdayMakersClick} className={`flex items-center bg-primary-200 rounded-full h-[52px] ${user?.resourceUser ? 'pl-6 py-2 pr-2.5' : 'pl-6 py-2 pr-6'}`}>
+      <div onClick={tuesdayMakersClick} className={`flex items-center bg-primary-200 rounded-full h-[52px] ${!user?.resourceUser ? 'pl-6 py-2 pr-2.5' : 'pl-6 py-2 pr-6'}`}>
         <span className={`leading-none text-primary-600 font-sentinel__SemiBoldItal text-xl ${user?.resourceUser ? 'mr-4' : ''}`}>
           Tuesday Makers
         </span>
-        {user?.resourceUser &&
-          <div id='makers-login-btn' onClick={login} className="bg-primary-400 rounded-full px-5 py-2 text-white text-sm">
+        {!user?.resourceUser &&
+          <div id='makers-login-btn' onClick={login} className="ml-3 bg-primary-400 rounded-full px-5 py-2 text-white text-sm">
             Login
           </div>
         }

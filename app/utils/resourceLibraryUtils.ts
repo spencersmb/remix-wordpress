@@ -1,10 +1,13 @@
 
 const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
   return {
-    id: resourceItemRaw.id,
-    date: resourceItemRaw.date,
-    freebie: resourceItemRaw.freebie,
-    title: resourceItemRaw.title,
+    ...resourceItemRaw,
+    // id: resourceItemRaw.id,
+    // date: resourceItemRaw.date,
+    // freebie: resourceItemRaw.freebie,
+    // title: resourceItemRaw.title,
+    categories: resourceItemRaw.categories.edges.map(({ node }) => node),
+    subCategories: resourceItemRaw.subCategories.edges.map(({ node }) => node),
     tags: resourceItemRaw.tags.edges.map(tag => tag.node),
     featuredImage: resourceItemRaw.featuredImage ? resourceItemRaw.featuredImage.node : null
   }

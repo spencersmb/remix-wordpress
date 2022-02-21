@@ -71,10 +71,15 @@ button {
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
+    @apply bg-primary-300 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
   }
+
   .btn-teal {
     @apply bg-teal-500 text-white hover:text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
+  }
+
+  .btn-teal-300 {
+    @apply bg-success-300 text-success-800 hover:text-success-800 hover:bg-success-300 hover:ring-success-300 active:ring-success-500 active:ring active:bg-success-500 active:text-success-900;
   }
   .btn-underlined {
     @apply underline underline-offset-4 uppercase;
@@ -204,5 +209,17 @@ button {
   & img {
     width: 100%;
     max-width: none;
+  }
+}
+.width-test {
+  &:after {
+    content: attr(title);
+    display: block;
+    font-weight: bold;
+    color: transparent;
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    font-weight: 700;
   }
 }

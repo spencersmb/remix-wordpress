@@ -14,6 +14,8 @@ interface IResourceDataRaw {
   featuredImage: {node: IFeaturedImage} | null
   freebie:IResourceFreebie
   tags: {edges: {node: IFilterTag}[]}
+  categories: {edges:ICategoryRaw[]}
+  subCategories: {edges:ICategoryRaw[]}
   title: string
 }
 interface IMapResourceData {
@@ -22,10 +24,12 @@ interface IMapResourceData {
 interface IResourceItem{
   id: string
   date: string
-  featuredImage: IFeaturedImage
+  featuredImage: IFeaturedImage | null
   freebie: IResourceFreebie
   title: string
   tags: IFilterTag[]
+  categories: ICategories[]
+  subCategories: ICategories[]
 }
 
 interface IGridItem{

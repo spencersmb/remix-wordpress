@@ -35,8 +35,10 @@ export enum ImageSizeEnums {
   LARGE = 'large',
   FULL = 'full',
   PLACEHOLDER = 'placeholder',
-  THUMBNAIL = 'headless_ipad',
-  FEATURE = 'headless_post_feature_image'
+  THUMBNAIL = 'headless_post_thumbnail',
+  FEATURE = 'headless_post_feature_image',
+  RESOURCE = 'headless_resource_image',
+  WPRP = 'wp_rp_thumbnail',
 }
 
 

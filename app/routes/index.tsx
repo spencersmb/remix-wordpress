@@ -322,90 +322,81 @@ export default function Index() {
 const query = `
     query GetNextPosts($after: String) {
         posts(first: 10, after: $after) {
-            pageInfo {
-                endCursor
-                hasNextPage
-                hasPreviousPage
-                startCursor
-                __typename
-            }
-            edges {
-                __typename
-                node {
-                  comments(first: 10) {
-      edges {
-        node {
-          databaseId
-          approved
-          parent {
-            node {
-              databaseId
-            }
-          }
-          id
-          author {
-            node {
-              name
-              email
-            }
-          }
-          date
-          commentedOn {
-            node {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    edges {
+      node {
+        id
+        tutorialManager {
+          postExcerpt
+          thumbnail {
+            type
+            image {
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
               id
-              status
-            }
-          }
-          content
-          replies {
-            edges {
-              node {
-                id
-                databaseId
-                content
-                date
-                author {
-                  node {
-                    id
-                    name
-                    email
-                  }
+              mediaDetails{
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
                 }
               }
             }
           }
+          colorPalette {
+            iconBackgroundColor
+            iconTextColor
+          }
         }
+        categories {
+          edges {
+                            node {
+              databaseId
+              id
+              name
+              slug
+            }
+          }
+        }
+        date
+        excerpt
+        featuredImage {
+          node {
+            mediaDetails {
+              sizes{
+                width
+                file
+                height
+                name
+                sourceUrl
+                mimeType
+              }
+            }
+            altText
+            caption
+            sourceUrl
+            srcSet
+            sizes
+            id
+          }
+        }
+        modified
+        title
+        slug
+        isSticky
       }
     }
-                    id
-                    categories {
-                        edges {
-                            node {
-                                databaseId
-                                id
-                                name
-                                slug
-                            }
-                        }
-                    }
-                    date
-                    excerpt
-                    featuredImage {
-                        node {
-                            altText
-                            caption
-                            sourceUrl
-                            srcSet
-                            sizes
-                            id
-                        }
-                    }
-                    modified
-                    title
-                    slug
-                    isSticky
-                }
-            }
-        }
+  }
     }
 `

@@ -5,11 +5,13 @@ export const GetAllFreebiesQuery = gql`
     ${RESOURCE_FEATURED_IMAGE}
     ${PRODUCT_FIELDS}
     query GetNextFreebies {
-        cptTags(postType: "et_freebie") {
-            name
-            slug
-        }
-        resourceLibraries(first: 1000) {
+        resourceLibraries(first: 1000, where: {
+          orderby: {
+            field:MENU_ORDER
+            order: ASC
+          }
+       }
+  ) {
             edges {
                 node {
                     id
@@ -24,6 +26,22 @@ export const GetAllFreebiesQuery = gql`
                         product {
                             ...productFields
                         }
+                    }
+                    categories {
+                      edges {
+                        node {
+                          name
+                          slug
+                        }
+                      }
+                    }
+                    subCategories {
+                      edges {
+                        node {
+                          name
+                          slug
+                        }
+                      }
                     }
                     tags {
                         edges {

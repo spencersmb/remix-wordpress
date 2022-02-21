@@ -6,7 +6,6 @@ import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
 import useFreebies from '../../hooks/useFreebies'
-import Freebie from '../../components/resourceLibrary/freebie'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import useSite from '~/hooks/useSite'
 import { useEffect } from 'react'
@@ -14,6 +13,9 @@ import { addItemToShopifyCart, createCart } from '~/utils/cartUtils'
 import useCart from '~/hooks/useCart'
 import { ADD_ITEM_TO_CART, GET_CART } from '~/lib/graphql/mutations/cart'
 import { ISelectedMatch } from '~/interfaces/remix'
+import FreebieGrid from '~/components/resourceLibrary/freebieGrid'
+import OutlinedButton from '~/components/buttons/outlinedButton'
+import { consoleHelper } from '~/utils/windowUtils'
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -73,7 +75,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
 
     return json({
       freebies: flattenResourceData(data.resourceLibraries),
-      filterTags: data.cptTags,
+      // filterTags: data.cptTags,
       user
     })
   } catch (e) {
@@ -95,17 +97,121 @@ function useCartMatches() {
   }
 
 }
+// TODO: UPDATE GRAPHQL SCHEMA on GRAPHQL API
+// TODO: Update plugin on ET and API 
+// 
+const filterTags = [
+  {
+    name: 'All',
+    slug: 'all',
+  },
+  {
+    name: 'Procreate Brushes',
+    slug: "procreate-brushes",
+  },
+  {
+    name: 'Color Palettes',
+    slug: "color-palettes",
+  },
+  {
+    name: 'Procreate',
+    slug: "procreate",
+  },
+  {
+    name: 'Fonts',
+    slug: "fonts",
+  },
+  {
+    name: 'Patterns',
+    slug: "patterns",
+  },
+  {
+    name: 'Psd\'s',
+    slug: "psds",
+  },
+  {
+    name: 'Style Studies',
+    slug: "style-studies",
+  },
+  {
+    name: 'Textures',
+    slug: "textures",
+  },
+
+]
+const ordered = ['lettering-brushes', 'stamp-brushes', 'pattern-brushes', 'scatter-brushes'];
+
+function shuffleResourcePosts(posts: IResourceItem[]): IResourceItem[] | [] {
+  // First step organize the posts by category
+  // Second step organize the posts by subcategory
+  let brushes: IResourceItem[] = []
+  let palettes: IResourceItem[] = []
+  let styleStudie: IResourceItem[] = []
+  let misc: IResourceItem[] = []
+
+
+  posts.forEach(post => {
+    let match = false
+    post.categories.forEach(cat => {
+      if (cat.slug === 'procreate-brushes') {
+        match = true
+        brushes.push(post)
+      }
+      if (cat.slug === 'color-palette') {
+        match = true
+        palettes.push(post)
+      }
+      if (cat.slug === 'style-studies') {
+        match = true
+        styleStudie.push(post)
+      }
+
+    })
+    if (!match) {
+      misc.push(post)
+    }
+
+  })
+
+  reshuffleBrushes(brushes)
+
+  return [
+    ...brushes,
+    ...palettes,
+    ...styleStudie,
+    ...misc
+  ]
+}
+
+function reshuffleBrushes(posts: IResourceItem[]) {
+  const sorter = (a: IResourceItem, b: IResourceItem) => {
+    const aSubCat = a.subCategories[0]?.slug || 'test'
+    const bSubCat = b.subCategories[0]?.slug || 'test'
+
+    if (ordered.indexOf(aSubCat) === -1) {
+      return 99
+    }
+    if (ordered.indexOf(bSubCat) === -1) {
+      return 98
+    }
+
+    return ordered.indexOf(aSubCat) - ordered.indexOf(bSubCat)
+  };
+  return posts.sort(sorter);
+}
 
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
-  const { state: { user }, resourecLibraryLogin } = useSite()
-  const { cart } = useCartMatches()
+  console.log('data', data);
 
+  const { state: { user }, resourecLibraryLogin } = useSite()
+  // const { cart } = useCartMatches()
   // que other tabs to sync up with logged in user
   function setStorage() {
     localStorage.setItem('makers_login', 'login' + Math.random());
   }
-  console.log('match', cart);
+  // console.log('match', cart);
+  console.log('test', -1 > 1);
 
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
@@ -194,10 +300,17 @@ const ResourceLibraryMembers = () => {
     // empty cart
   }
 
-  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: data.freebies })
+
+  const reshuffledPosts = shuffleResourcePosts(data.freebies)
+  console.log('reshuffledPosts', reshuffledPosts);
+
+  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: reshuffledPosts, itemsPerPage: 12 })
+
+
+
 
   return (
-    <div className='grid-container grid-resource-header'>
+    <div className='bg-neutral-50 grid-container grid-resource-header'>
       <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-2 tablet:col-end-[9] desktop:col-start-2 desktop:col-end-[8] flex flex-col'>
         <div className='mt-16 mb-16'>
           <h1 style={{ color: '#404764' }} className='font-sentinel__SemiBoldItal text-display-2'>Welcome to the Makers Library</h1>
@@ -231,20 +344,28 @@ const ResourceLibraryMembers = () => {
 
       {/* Check tags on user example for paid Resource Library License */}
       <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+
         <FreebieFilter
-          filterTags={data.filterTags}
+          filterTags={filterTags}
           selectedFilter={filter}
           handleClick={handleFilterClick}
         />
+
       </div>
 
-      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+      {/* <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+        {posts.length === 0 && <div className='text-center text-blue-slate'>No results found</div>}
         {posts
           .map(item => (<Freebie key={item.id} {...item} />))}
-      </div>
+      </div> */}
+      <FreebieGrid freebies={posts} />
 
       <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
-        {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+        {pagination.hasNextPage &&
+          <>
+            <OutlinedButton clickHandler={handlePageClick} text={'Show More'} loading={false} loadingText={'Loading...'} />
+          </>
+        }
       </div>
 
       <div>

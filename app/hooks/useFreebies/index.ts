@@ -43,7 +43,7 @@ function createPaginatedList (items: any, postsPerPage: number, currentPage: num
   }
 
   return {
-    posts: filteredPages.filter((item: any,index: number) => (index < page * 10)),
+    posts: filteredPages.filter((item: any,index: number) => (index < page * postsPerPage)),
     pagination: {
       currentPage: page,
       pagesCount,
@@ -80,7 +80,8 @@ function useFreebies<TData = any> ({
     }
   } {
 
-
+    console.log('itemsPerPage', itemsPerPage);
+    
   const [filter, setFilter] = useState(defaultFilter)
   const [page, setPage] = useState(1)
   const handleFilterClick: IhandleFilterClick = (filterTag) => () => {

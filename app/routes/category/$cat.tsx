@@ -1,16 +1,14 @@
 import { gql } from "@apollo/client";
 import { capitalize } from "lodash";
-import { useEffect, useRef } from "react";
-import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import useFetchPaginate, { IFetchPaginationState } from "~/hooks/useFetchPagination";
+import { useEffect } from "react";
+import { HeadersFunction, json, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
-import { getStaticPageMeta } from "~/utils/pageUtils";
 import { flattenAllPosts } from "~/utils/posts";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
+import { getBasicPageMetaTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
-import PostCardOne from "~/components/cards/postCardOne";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import PostsGrid from "~/components/blog/postsGrid";
 
@@ -231,7 +229,21 @@ const query = gql`
             thumbnail {
               image {
                 altText
+                caption
                 sourceUrl
+                srcSet
+                sizes
+                id
+                mediaDetails{
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
               }            
             }
           }

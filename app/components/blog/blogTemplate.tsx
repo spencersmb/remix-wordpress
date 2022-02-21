@@ -6,6 +6,7 @@ import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelper
 import { addClass } from '~/utils/pageUtils';
 import { consoleHelper } from '~/utils/windowUtils';
 import YouTubeCard__Post from '../cards/youTubeCard__post';
+import LazyImageBase from '../images/lazyImage-base';
 import BlogAuthor from './blogAuthor';
 import BlogCategories from './blogCategories';
 import BlogComments from './blogComments';
@@ -101,7 +102,7 @@ function BlogTemplate(props: IProps) {
       {/* FEATURED IMAGE */}
       {post.featuredImage &&
         <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
-          <div className='lazy-load-wrapper lazy-load-image-full'>
+          {/* <div className='lazy-load-wrapper lazy-load-image-full'>
             <LazyLoadImage
               height={`${featuredImage.height}px`}
               width={`${featuredImage.width}px`}
@@ -112,7 +113,8 @@ function BlogTemplate(props: IProps) {
               src={featuredImage.sourceUrl} // use normal <img> attributes as props
               placeholderSrc={featuredImage.placeholder}
             />
-          </div>
+          </div> */}
+          <LazyImageBase image={featuredImage} id={post.id} />
         </div>}
 
       {/* EXCERPT */}

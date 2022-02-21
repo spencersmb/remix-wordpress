@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
 import { Link } from "remix"
-import { checkTitleForBrackets, createThumbnailImage, findSkillLevel, parseStringForSpecialCharacters, splitProgramNameInTitle } from "~/utils/posts";
+import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "~/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
-
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "~/utils/imageHelpers";
-import { classNames } from "~/utils/appUtils";
 
 interface Props {
   post: IPost
@@ -58,7 +56,7 @@ function PostCardOne(props: Props) {
 
           <div className="wrapper">
             {/* Make This */}
-            {post.tutorialManager.thumbnail.image && post.tutorialManager.thumbnail.type === 'make' && (
+            {post.tutorialManager && post.tutorialManager.thumbnail.image && post.tutorialManager.thumbnail.type === 'make' && (
               <div className={'absolute top-[10px] left-[15px] w-[40%] z-10'}>
                 <div className='lazy-load-wrapper lazy-load-image-full relative z-10'>
                   <LazyLoadImage
@@ -86,7 +84,6 @@ function PostCardOne(props: Props) {
             {/* CARD IMAGE */}
             <div className={`relative ${paddingBottom} ${marginBottom}`}>
               <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full lazy-load-wrapper">
-                {/* {createThumbnailImage(post.tutorialManager, image, post.title, false)} */}
                 <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}

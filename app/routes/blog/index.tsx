@@ -230,7 +230,7 @@ function BlogIndex() {
     if (category === 'all') {
       setWindowUrlParams({
         setParams: [
-          { name: 'page', value: state.pageInfo.page.toString() }
+          { name: 'page', value: state.pageInfo && state.pageInfo.page ? state.pageInfo.page.toString() : '1' },
         ],
         deleteParams: ['cat'],
         pageTitle: `Page: ${state.pageInfo.page}`,
@@ -454,7 +454,21 @@ query GetMorePosts($first: Int, $after: String) {
             type
             image {
               altText
+              caption
               sourceUrl
+              srcSet
+              sizes
+              id
+              mediaDetails{
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
+                }
+              }
             }
           }
           colorPalette {
@@ -474,10 +488,10 @@ query GetMorePosts($first: Int, $after: String) {
         }
         date
         excerpt
-                    featuredImage {
-                      node {
-                        mediaDetails {
-                          sizes{
+        featuredImage {
+          node {
+            mediaDetails {
+              sizes{
                 width
                 file
                 height
@@ -531,7 +545,21 @@ const catQuery = gql`
             thumbnail {
               image {
                 altText
+                caption
                 sourceUrl
+                srcSet
+                sizes
+                id
+                mediaDetails{
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
               }            
             }
           }
