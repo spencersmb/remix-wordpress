@@ -1,6 +1,6 @@
 import { useState } from 'react'
 interface IProps {
-  defaultFilter? : string
+  defaultFilter? : {name: string, slug: string}
   itemsPerPage? : number
 }
 
@@ -19,11 +19,11 @@ interface IProps {
  * @param {number} currentPage // current page user is on
  * @param {string} filterTag // the filter that is being applied
  */
-function createPaginatedList (items: any, postsPerPage: number, currentPage: number, filterTag: string){
+function createPaginatedList (items: any, postsPerPage: number, currentPage: number, filterTag: {name: string, slug: string}): IUseFreebiesPostReturn<any> {
 
   const filteredPages = items.filter((item: any) => {
 
-    if(filterTag === 'all'){
+    if(filterTag.slug === 'all'){
       return item
     }
 
@@ -31,7 +31,7 @@ function createPaginatedList (items: any, postsPerPage: number, currentPage: num
     const tags = item.tags.map((tag: any) => tag.slug)
     console.log('tags', tags);
     
-    const hasTag = tags.indexOf(filterTag)
+    const hasTag = tags.indexOf(filterTag.slug)
 
     return hasTag !== -1
   })
@@ -53,13 +53,21 @@ function createPaginatedList (items: any, postsPerPage: number, currentPage: num
 }
 
 type IhandlePageClick = () => void
-type IhandleFilterClick = (filter: string) => void
+type IhandleFilterClick = (filter: {name: string, slug: string}) => void
 interface IUseFreebiesReturn {
-  filter: string,
+  setFilter: (filter: {name: string, slug: string}) => void
+  filter: {name: string, slug: string},
   handleFilterClick: IhandleFilterClick
   handlePageClick: IhandlePageClick
 }
-
+interface IUseFreebiesPostReturn<T> {
+  posts: T,
+  pagination: {
+    currentPage: number,
+    pagesCount: number,
+    hasNextPage: boolean
+}
+} 
 /**
  * @Function useFreebies
  *
@@ -68,21 +76,12 @@ interface IUseFreebiesReturn {
  *
  */
 function useFreebies<TData = any> ({
-  defaultFilter = 'all',
+  defaultFilter = {name: 'All', slug: 'all'},
   itemsPerPage = 10,
   items
-  }: IProps & {items: TData}): IUseFreebiesReturn & {
-    posts: TData,
-    pagination: {
-      currentPage: number,
-      pagesCount: number,
-      hasNextPage: boolean
-    }
-  } {
+  }: IProps & {items: TData}): IUseFreebiesReturn & IUseFreebiesPostReturn<TData> {
 
-    console.log('itemsPerPage', itemsPerPage);
-    
-  const [filter, setFilter] = useState(defaultFilter)
+  const [filter, setFilter] = useState<{name: string, slug: string}>(defaultFilter)
   const [page, setPage] = useState(1)
   const handleFilterClick: IhandleFilterClick = (filterTag) => () => {
     setFilter(filterTag)
@@ -94,6 +93,7 @@ function useFreebies<TData = any> ({
   return {
     ...createPaginatedList(items, itemsPerPage, page, filter),
     filter,
+    setFilter,
     handleFilterClick,
     handlePageClick
   }

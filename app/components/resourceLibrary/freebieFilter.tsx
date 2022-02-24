@@ -13,27 +13,23 @@ import SelectDropdown from '../forms/selectDropdown'
 
 interface IProps {
   filterTags: IFilterTag[]
-  selectedFilter: string
-  handleClick: (filter: string) => any
+  selectedFilter: { name: string, slug: string }
+  setFilter: (filter: { name: string, slug: string }) => void
+  handleClick: (filter: { name: string, slug: string }) => any
 }
 
-
-
-
-// Library Order: Brushes, Color palettes, Style Studies, Misc, 
-
-const FreebieFilter = ({ filterTags, selectedFilter = 'all', handleClick }: IProps) => {
-  const selectedCss = 'bg-neutral-300 py-2 px-3 rounded-lg font-bold'
-  const defaultCss = 'py-2 px-3 width-test inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
+const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all' }, handleClick, setFilter }: IProps) => {
+  const selectedCss = 'bg-neutral-300 py-2 px-3 rounded-lg font-BlogDateAuthor'
+  const defaultCss = 'py-2 px-3 bold-hover-fix inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
   return (
-    <div>
-      <div className='flex flex-row justify-center items-center'>
-        <h4 className='text-sm uppercase text-neutral-700 leading-none mr-3 laptop:mr-0 laptop:mb-4 laptop: ml-2 text-center'>
+    <div className='col-start-2 col-span-2 mt-8 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
+      <div className='flex flex-col tablet:flex-row justify-center items-center'>
+        <h4 className='text-sm uppercase text-neutral-700 leading-none mr-3 mb-3 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop: ml-2 text-center'>
           Filter by category
         </h4>
         <div className='relative z-10 laptop:hidden'>
           <SelectDropdown
-            handleOnChange={handleClick}
+            setFilter={setFilter}
             selected={selectedFilter}
             items={filterTags} />
         </div>
@@ -46,14 +42,12 @@ const FreebieFilter = ({ filterTags, selectedFilter = 'all', handleClick }: IPro
                 <li
                   key={filter.slug}
                   className='inline-block'
-                  onClick={handleClick(filter.slug)}>
-                  {/*<span>*/}
-                  {/*  <svg viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
-                  {/*    <path d="M5.27751 9.26631L1.37852 5.39971L0 6.76655L5.27751 12L16 1.36685L14.6214 0L5.27751 9.26631Z"/>*/}
-                  {/*  </svg>*/}
-                  {/*</span>*/}
-
-                  <span title={filter.name} className={classNames(selectedFilter === filter.slug ? selectedCss : '', defaultCss)}>{filter.name}</span>
+                  onClick={handleClick(filter)}>
+                  <span
+                    title={filter.name}
+                    className={classNames(selectedFilter.slug === filter.slug ? selectedCss : '', defaultCss)}>
+                    {filter.name}
+                  </span>
                 </li>
               )
             })}

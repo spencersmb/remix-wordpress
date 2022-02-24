@@ -130,6 +130,7 @@ module.exports = {
         'et_1' : '0px 3px 4px rgba(161, 161, 161, 0.4);',
         'et_4': '0px 40px 50px rgba(0, 0, 0, 0.2)',
         'xs': '0px 4px 8px rgba(0, 0, 0, 0.1)',
+        'xxl-teal': '27px 28px 43px 13px rgba(131, 176, 171, 0.24)',
         'xxl-red': '27px 28px 43px 13px rgba(176, 131, 131, 0.24)',
       },
       borderRadius: {

@@ -1,6 +1,7 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
+import LazyImageBase from "../images/lazyImage-base"
 import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
 
@@ -22,6 +23,9 @@ function PinterestBlock(props: IProps) {
       ...defaultImages.pinterest,
     }
   })
+
+  console.log('pinterestImage', pinterestImage);
+
 
   return (
     <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
@@ -54,22 +58,9 @@ function PinterestBlock(props: IProps) {
 
           {/* IMAGE */}
 
-          <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto">
-            <div className="absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] desktop:rounded-xl overflow-hidden">
-              <div className="lazy-load-wrapper">
-                <LazyLoadImage
-                  height={`${pinterestImage.height}px`}
-                  width={`${pinterestImage.width}px`}
-                  alt={`Save to Pinterest: ${post.title}`}
-                  effect="blur"
-                  className="w-full max-w-none"
-                  sizes={pinterestImage.sizes}
-                  srcSet={pinterestImage.srcSet}
-                  src={pinterestImage.sourceUrl} // use normal <img> attributes as props
-                  placeholderSrc={pinterestImage.placeholder}
-                />
-              </div>
-
+          <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto flex">
+            <div className="flex absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] h-full overflow-hidden">
+              <LazyImageBase image={pinterestImage} id={post.id} reverse />
             </div>
           </div>
         </div>

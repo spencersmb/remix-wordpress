@@ -3,6 +3,7 @@ import { Link } from 'remix'
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from '~/utils/imageHelpers'
 import { createThumbnailImage, findSkillLevel, formatDate } from '~/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'
+import LazyImageBase from '../images/lazyImage-base'
 import BarChartSvg from '../svgs/barChartSvg'
 import ClockSvg from '../svgs/clockSvg'
 import EditSvg from '../svgs/editSvg'
@@ -26,7 +27,24 @@ function BlogFeaturedPost(props: Props) {
   })
   let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
 
-  // RENAME LOADIMAGESRC OBJECT NAMES
+  const makeThisImage: IMediaDetailSize = {
+    altTitle: `Make this tutorial: ${featuredPost.title}`,
+    height: '373px',
+    width: '162px',
+    sourceUrl: "/images/make-this.png",
+    srcSet: '',
+    sizes: '',
+    placeholder: '/images/make-this.png',
+  }
+  const makeThisArrow: IMediaDetailSize = {
+    altTitle: `Make this tutorial: ${featuredPost.title}`,
+    height: '340px',
+    width: '272px',
+    sourceUrl: "/images/make-this-arrow-1.png",
+    srcSet: '',
+    sizes: '',
+    placeholder: '/images/make-this-arrow-1.png',
+  }
 
   return (
     <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
@@ -36,39 +54,16 @@ function BlogFeaturedPost(props: Props) {
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
           {/* {createThumbnailImage(featuredPost.tutorialManager, image, featuredPost.title, true)} */}
           <div className={`absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg] z-10`}>
-            <div className='lazy-load-wrapper lazy-load-image-full relative z-10'>
-              <LazyLoadImage
-                height={'373px'}
-                width={'162px'}
-                alt={`Make this tutorial: ${featuredPost.title}`}
-                effect="blur"
-                src="/images/make-this.png" // use normal <img> attributes as props
-              />
+            <div className='relative z-10 lazy-load-image-full'>
+              <LazyImageBase id={featuredPost.id} image={makeThisImage} reverse />
             </div>
             <span className={`top-[45px] absolute w-[40%] left-[71%] z-[5]`}>
-              <div className='lazy-load-wrapper lazy-load-image-full'>
-                <LazyLoadImage
-                  width={'272px'}
-                  height={'340px'}
-                  alt={`Make this tutorial: ${featuredPost.title}`}
-                  effect="blur"
-                  src="/images/make-this-arrow-1.png"
-                />
-              </div>
+              <LazyImageBase id={featuredPost.id} image={makeThisArrow} />
             </span>
           </div>
           <div className="relative pb-[92%]">
-            <div className="rounded-2.5xl overflow-hidden flex absolute h-full top-0 w-full lazy-load-wrapper">
-              <LazyLoadImage
-                height={`${postImage.height}px`}
-                width={`${postImage.width}px`}
-                alt={postImage.altTitle}
-                effect="blur"
-                srcSet={postImage.srcSet}
-                sizes={postImage.sizes}
-                src={postImage.sourceUrl} // use normal <img> attributes as props
-                placeholderSrc={postImage.placeholder}
-              />
+            <div className="rounded-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
+              <LazyImageBase id={featuredPost.id} image={postImage} />
             </div>
             {featuredPost.tutorialManager.colorPalette && <div style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
               <span style={{ color: featuredPost.tutorialManager.colorPalette.iconTextColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">

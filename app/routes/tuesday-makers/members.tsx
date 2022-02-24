@@ -16,6 +16,11 @@ import { ISelectedMatch } from '~/interfaces/remix'
 import FreebieGrid from '~/components/resourceLibrary/freebieGrid'
 import OutlinedButton from '~/components/buttons/outlinedButton'
 import { consoleHelper } from '~/utils/windowUtils'
+import ExtendedLicenseUpsell from '~/components/resourceLibrary/extendedLicenseUpsell'
+import LazyImageBase from '~/components/images/lazyImage-base'
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
+import CardDownload from '~/components/cards/cardDownload'
+import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -69,6 +74,23 @@ export let meta: MetaFunction = (rootData): any => {
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   const user = await requireResourceLibraryUser(request, '/tuesday-makers')
+  console.log('R ', user);
+
+  const userId = user.id
+  // get latest tags
+  const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
+
+  const resTag = await fetch(urlTags, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  const tagResults = await resTag.json()
+  const newUser = {
+    id: userId,
+    tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+  }
 
   try {
     let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
@@ -76,7 +98,10 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     return json({
       freebies: flattenResourceData(data.resourceLibraries),
       // filterTags: data.cptTags,
-      user
+      user: {
+        ...user,
+        tags: newUser.tags
+      },
     })
   } catch (e) {
     console.error(`e in /tuesday-makers`, e)
@@ -211,8 +236,6 @@ const ResourceLibraryMembers = () => {
     localStorage.setItem('makers_login', 'login' + Math.random());
   }
   // console.log('match', cart);
-  console.log('test', -1 > 1);
-
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
   // console.log('data', data);
@@ -300,70 +323,67 @@ const ResourceLibraryMembers = () => {
     // empty cart
   }
 
-
   const reshuffledPosts = shuffleResourcePosts(data.freebies)
-  console.log('reshuffledPosts', reshuffledPosts);
+  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IResourceItem[]>({ items: reshuffledPosts, itemsPerPage: 12 })
 
-  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IResourceItem[]>({ items: reshuffledPosts, itemsPerPage: 12 })
-
-
+  const featuredDownload = reshuffledPosts[0]
 
 
   return (
-    <div className='bg-neutral-50 grid-container grid-resource-header'>
-      <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-2 tablet:col-end-[9] desktop:col-start-2 desktop:col-end-[8] flex flex-col'>
-        <div className='mt-16 mb-16'>
-          <h1 style={{ color: '#404764' }} className='font-sentinel__SemiBoldItal text-display-2'>Welcome to the Makers Library</h1>
+    <div className='bg-neutral-50 grid-container grid-resource-header py-16 laptop:pb-16 laptop:pt-0'>
+
+      <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-16 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
+        <div className='mt-0 mb-16 tablet:mb-20 laptop:mt-0 laptop:mb-24'>
+          <h1 style={{ color: '#404764' }} className=' relative font-sentinel__SemiBoldItal text-5xl laptop:text-6xl  desktop:text-7xl'>
+            <span className='relative z-10'>
+              Welcome to the Makers Library
+            </span>
+            <span className='absolute bottom-[-50px] w-full max-w-[481px] left-0 laptop:bottom-[-70px] '>
+              <StrokeOneSvg fill="#FECACA" opacity={'1'} />
+            </span>
+          </h1>
         </div>
-        <div className='flex flex-col tablet:flex-row'>
-          <div className='mb-8 tablet:mr-4 tablet:mb-0 flex-1'>
+        <div className='flex flex-col laptop:flex-row'>
+          <div className='mb-8 tablet:mr-4 laptop:mb-0 flex-1'>
             <h2 className='text-blue-slate font-semibold text-lg mb-2'>Freebies</h2>
             <p className='text-blue-slate'>All downloads come with a freebie license that you can use on any type of project.</p>
           </div>
-          <div className='tablet:ml-4 flex-1'>
+          <div className='laptop:ml-4 flex-1'>
             <h2 className='text-blue-slate font-semibold text-lg mb-2'>Commerical Usage</h2>
             <p className='text-blue-slate'>A few freeibes are just for personal use and will require an extended license purchase if used commericially.</p>
           </div>
         </div>
       </div>
 
-      <div className='hidden z-10 relative col-start-2 col-span-2 row-start-1 row-span-2 tablet:flex tablet:col-start-9 tablet:col-end-[14] desktop:col-start-8 desktop:col-end-[14] flex-col'>
-        <div className='p-3 bg-white rounded-2.5xl shadow-md max-w-[547px] mx-auto'>
-          <img className='rounded-2xl' src="/images/tuesday-makers-welcome-1.jpg" alt="Welcome to the Tuesday Makers Free resource library" />
-        </div>
+      <div className='z-10 mb-16 relative col-start-2 col-span-2 row-start-2 tablet:flex tablet:col-start-4 tablet:col-end-[12]  laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:mx-0 flex-col'>
+        <CardDownload
+          title={featuredDownload.title}
+          buttonText='Download'
+          freebie={featuredDownload.freebie}
+          featuredImage={featuredDownload.featuredImage} />
       </div>
-
-      {!data.user.tags.includes('Tuesday Makers Extended License') &&
-        <div className='bg-green-500 col-span-full tablet:row-start-2 tablet:row-span-2'>
-          <div className='my-16'>
-            UPGRADE LICENSE AREA
-
-            On purchase - need to refresh the user or something
-          </div>
-        </div>}
 
       {/* Check tags on user example for paid Resource Library License */}
-      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+      <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
 
-        <FreebieFilter
-          filterTags={filterTags}
-          selectedFilter={filter}
-          handleClick={handleFilterClick}
-        />
+      <FreebieFilter
+        setFilter={setFilter}
+        filterTags={filterTags}
+        selectedFilter={filter}
+        handleClick={handleFilterClick}
+      />
 
-      </div>
-
-      {/* <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
-        {posts.length === 0 && <div className='text-center text-blue-slate'>No results found</div>}
-        {posts
-          .map(item => (<Freebie key={item.id} {...item} />))}
-      </div> */}
       <FreebieGrid freebies={posts} />
 
-      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+      <div className='col-start-2 col-span-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
         {pagination.hasNextPage &&
           <>
-            <OutlinedButton clickHandler={handlePageClick} text={'Show More'} loading={false} loadingText={'Loading...'} />
+            <OutlinedButton
+              className='btn btn-teal-600 btn-outlined-teal-600 mx-auto'
+              clickHandler={handlePageClick}
+              text={'Show More'} loading={false}
+              loadingText={'Loading...'}
+            />
           </>
         }
       </div>

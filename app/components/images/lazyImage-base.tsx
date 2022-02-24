@@ -5,17 +5,20 @@ interface Props {
   image: IMediaDetailSize
   id: string | number
   scrollPosition?: ScrollPosition
+  alt?: string
+  reverse?: boolean
 }
 
 function LazyImageBase(props: Props) {
-  const { image, id, scrollPosition } = props
-  const imagePadding = parseInt(image.height, 10) / parseInt(image.width, 10)
+  const { image, id, scrollPosition, alt, reverse } = props
+
+  const imagePadding = reverse ? parseInt(image.width, 10) / parseInt(image.height, 10) : parseInt(image.height, 10) / parseInt(image.width, 10)
   return (
-    <div style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative`}>
-      <div className='absolute w-full lazy-load-wrapper lazy-load-wrapper-block'>
+    <div style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative flex-1`}>
+      <div className='absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>
         <LazyLoadImage
           key={id}
-          alt={image.altTitle}
+          alt={alt ? alt : image.altTitle}
           effect="blur"
           srcSet={image.srcSet}
           sizes={image.sizes}

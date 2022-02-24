@@ -102,18 +102,6 @@ function BlogTemplate(props: IProps) {
       {/* FEATURED IMAGE */}
       {post.featuredImage &&
         <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
-          {/* <div className='lazy-load-wrapper lazy-load-image-full'>
-            <LazyLoadImage
-              height={`${featuredImage.height}px`}
-              width={`${featuredImage.width}px`}
-              alt={featuredImage.altTitle}
-              effect="blur"
-              sizes={featuredImage.sizes}
-              srcSet={featuredImage.srcSet}
-              src={featuredImage.sourceUrl} // use normal <img> attributes as props
-              placeholderSrc={featuredImage.placeholder}
-            />
-          </div> */}
           <LazyImageBase image={featuredImage} id={post.id} />
         </div>}
 

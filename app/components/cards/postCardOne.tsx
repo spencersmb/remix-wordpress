@@ -4,6 +4,7 @@ import { Link } from "remix"
 import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "~/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "~/utils/imageHelpers";
+import LazyImageBase from "../images/lazyImage-base";
 
 interface Props {
   post: IPost
@@ -29,6 +30,25 @@ function PostCardOne(props: Props) {
   const marginBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
     ? "mb-0"
     : "mb-4"
+
+  const makeThisImage: IMediaDetailSize = {
+    altTitle: `Make this tutorial: ${post.title}`,
+    height: '373px',
+    width: '162px',
+    sourceUrl: "/images/make-this.png",
+    srcSet: '',
+    sizes: '',
+    placeholder: '/images/make-this.png',
+  }
+  const makeThisArrow: IMediaDetailSize = {
+    altTitle: `Make this tutorial: ${post.title}`,
+    height: '340px',
+    width: '272px',
+    sourceUrl: "/images/make-this-arrow-1.png",
+    srcSet: '',
+    sizes: '',
+    placeholder: '/images/make-this-arrow-1.png',
+  }
 
   return (
     <motion.div
@@ -58,33 +78,29 @@ function PostCardOne(props: Props) {
             {/* Make This */}
             {post.tutorialManager && post.tutorialManager.thumbnail.image && post.tutorialManager.thumbnail.type === 'make' && (
               <div className={'absolute top-[10px] left-[15px] w-[40%] z-10'}>
-                <div className='lazy-load-wrapper lazy-load-image-full relative z-10'>
-                  <LazyLoadImage
-                    height={'373px'}
-                    width={'162px'}
-                    alt={`Make this tutorial: ${post.title}`}
-                    effect="blur"
-                    src="/images/make-this.png" // use normal <img> attributes as props
+                <div className='relative z-10'>
+                  <LazyImageBase
+                    image={makeThisImage}
+                    id={post.id}
+                    scrollPosition={scrollPosition}
+                    reverse={true}
                   />
                 </div>
                 <div className={'absolute w-[40%] left-[71%] z-[5] top-[20px]'}>
-                  <div className='lazy-load-wrapper lazy-load-image-full'>
-                    <LazyLoadImage
-                      width={'272px'}
-                      height={'340px'}
-                      alt={`Make this tutorial: ${post.title}`}
-                      effect="blur"
-                      src="/images/make-this-arrow-1.png"
-                    />
-                  </div>
+                  <LazyImageBase
+                    image={makeThisArrow}
+                    id={post.id}
+                    scrollPosition={scrollPosition}
+                  />
                 </div>
               </div>
             )}
 
             {/* CARD IMAGE */}
             <div className={`relative ${paddingBottom} ${marginBottom}`}>
-              <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full lazy-load-wrapper">
-                <LazyLoadImage
+              <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
+                <LazyImageBase image={postImage} id={post.id} scrollPosition={scrollPosition} />
+                {/* <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}
                   effect="blur"
@@ -98,7 +114,7 @@ function PostCardOne(props: Props) {
                   src={postImage.sourceUrl}
                   height={`${postImage.height}px`}
                   width={`${postImage.width}px`}
-                />
+                /> */}
               </div>
             </div>
 

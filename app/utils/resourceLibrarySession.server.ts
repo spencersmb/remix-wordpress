@@ -39,7 +39,7 @@ export async function getResourceUserToken(request: Request) {
 export async function requireResourceLibraryUser(
   request: Request,
   redirectTo: string
-): Promise<IAuthToken> {
+): Promise<IResourceUser> {
   let session = await getResourceUserSession(request);
   let userSession = session.get("user");
 

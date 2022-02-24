@@ -23,7 +23,6 @@ function CardSmall(props: Props) {
     buttonText,
     handleButtonClick
   } = props
-  const imagePadding = parseInt(image.height, 10) / parseInt(image.width, 10)
   return (
     <div className='mb-12 flex flex-col bg-white rounded-2.5xl p-4 shadow-et_1 transition-shadow will-change-auto hover:shadow-xxl-red'>
       <div className={`cardWrapper relative overflow-hidden rounded-2xl`}>
@@ -31,7 +30,7 @@ function CardSmall(props: Props) {
       </div>
       <h3 className='text-2xl font-sentinel__SemiBoldItal text-primary-900 my-2 mt-4'>{title}</h3>
       <p className='mb-8 flex-1'>{excerpt}</p>
-      <button className=' btn rounded-[13px] btn-teal-300 text-lg font-normal  flex flex-row flex-none justify-center items-center' onClick={handleButtonClick}>
+      <button className=' btn rounded-[13px] btn-teal-400 text-lg font-medium  flex flex-row flex-none justify-center items-center' onClick={handleButtonClick}>
         <span className='max-w-[24px] mr-3'><UploadSvg stroke={'currentColor'} /></span>
         <span>{buttonText}</span>
       </button>

@@ -81,6 +81,12 @@ button {
   .btn-teal-300 {
     @apply bg-success-300 text-success-800 hover:text-success-800 hover:bg-success-300 hover:ring-success-300 active:ring-success-500 active:ring active:bg-success-500 active:text-success-900;
   }
+  .btn-teal-400 {
+    @apply bg-success-400 text-white hover:text-white hover:bg-success-400 hover:ring-success-400 active:ring-success-600 active:ring active:bg-success-600;
+  }
+  .btn-teal-600 {
+    @apply bg-success-600 text-white hover:text-white hover:bg-success-600 hover:ring-success-600 active:ring-success-700 active:ring active:bg-success-700;
+  }
   .btn-underlined {
     @apply underline underline-offset-4 uppercase;
     font-size: 14px;
@@ -88,6 +94,9 @@ button {
   }
   .btn-outlined {
     @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
+  }
+  .btn-outlined-teal-600 {
+    @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50;
   }
   .container {
     padding: 0 15px;
@@ -184,7 +193,7 @@ button {
   }
 
   .grid-container {
-    @apply bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto;
+    @apply grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto;
   }
 
   .grid-resource-header {
@@ -211,7 +220,7 @@ button {
     max-width: none;
   }
 }
-.width-test {
+.bold-hover-fix {
   &:after {
     content: attr(title);
     display: block;
