@@ -67,11 +67,11 @@ button {
 }
 @layer components {
   .btn {
-    @apply no-underline text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
+    @apply no-underline text-primary-600 font-semibold px-6 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97] disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform;
   }
 
   .btn-primary {
-    @apply bg-primary-300 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
+    @apply bg-primary-400 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
   }
 
   .btn-teal {

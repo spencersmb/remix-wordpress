@@ -15,7 +15,7 @@ function FormInputBasic(props: Props) {
       id={id}
       type={type}
       placeholder={placeholder}
-      className="mb-4 w-full bg-neutral-200 rounded-lg border border-neutral-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out"
+      className="w-full px-4 py-3 text-base leading-8 text-gray-700 transition duration-200 ease-in-out border rounded-lg outline-none bg-neutral-200 focus:ring focus:ring-teal-400 focus:ring-offset-4"
       name="email"
       aria-invalid={actionDataError}
       aria-describedby={

@@ -1,4 +1,4 @@
-import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from 'remix'
+import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from 'remix'
 import { getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import * as React from 'react'
 import { useEffect } from 'react'
@@ -11,6 +11,15 @@ import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
 import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
 import FormInputBasic from '~/components/forms/formInput--base'
+import SubmitBtn from '~/components/buttons/submitBtn'
+import OutlinedButton from '~/components/buttons/outlinedButton'
+import ProcreateTitleCard from '~/components/cards/tuesdayMakers/procreateTitleCard'
+import ProcreateMenu1 from '~/components/cards/tuesdayMakers/procreateMenu1'
+import ProcreateMenu2 from '~/components/svgs/procreateMenu/procreateMenuTwoSvg'
+import ProcreateMenu3 from '~/components/cards/tuesdayMakers/procreateMenu3'
+import ProcreateMenu4Svg from '~/components/svgs/procreateMenu/procreateMenuFourSvg'
+import LazyImageBase from '~/components/images/lazyImage-base'
+import ProcreateMenuLayout from '~/components/cards/tuesdayMakers/procreateMenuLayout'
 
 
 export let meta: MetaFunction = (rootData): any => {
@@ -111,7 +120,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   if (
     typeof email !== "string"
   ) {
-    return { formError: `Form not submitted correctly.` };
+    return { formError: `Please enter an email address.` };
   }
 
   let fields = { email };
@@ -139,7 +148,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     //   }),
     // })
 
-    return json({ form: 'success' })
+    return json({ form: 'success', email })
   } catch (e) {
     return json({ form: 'fail' })
   }
@@ -172,80 +181,74 @@ const ResourceLibraryHome = () => {
     }
   }, [transition])
   consoleHelper('data.form !==', data.form)
-  return (
-    <div className='bg-neutral-50 grid-container grid-resource-header py-16 laptop:pb-16 laptop:pt-0'>
 
-      <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-16 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
-        <div className='mt-0 mb-16 tablet:mb-20 laptop:mt-0 laptop:mb-24 flex flex-col'>
-          <h1 style={{ color: '#404764' }} className='mb-6 relative font-sentinel__SemiBoldItal text-5xl laptop:text-6xl  desktop:text-7xl'>
+  return (
+    <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
+
+      <div className='col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mx-4 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[7] laptop:justify-center flex flex-col'>
+        <div className='flex flex-col mt-0 mb-8'>
+          <h1 style={{ color: '#404764' }} className='relative mb-6 text-5xl font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
             <span className='relative z-10'>
               Join Tuesday Makers
             </span>
-            <span className='absolute bottom-[5px] w-full max-w-[481px] left-0 laptop:bottom-[-70px] '>
+            <span className='absolute bottom-[5px] w-full max-w-[481px] left-0 '>
               <StrokeOneSvg fill="#FECACA" opacity={'1'} />
             </span>
           </h1>
-          <p>
+          <p className='relative z-10'>
             When you’re part of Tuesday Makers, you’re the first to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!
           </p>
         </div>
         <div className='flex flex-col'>
 
+          {/* FORM */}
           <div className="login-form">
-            {/*{! isEmpty( errorMessage ) && (*/}
-            {/*  <div*/}
-            {/*    className="text-red-600"*/}
-            {/*    dangerouslySetInnerHTML={{ __html: sanitize( errorMessage ) }}*/}
-            {/*  />*/}
-            {/*)}*/}
+            {actionData?.formError && typeof actionData.formError === 'string' && (
+              <div className="mb-4 text-red-600">
+                {actionData.formError}
+              </div>
+            )}
             {actionData?.form !== 'success' && <Form ref={formRef} method='post' className="mb-4" aria-describedby={
               actionData?.formError
                 ? "form-error-message"
                 : undefined
             }>
-              <FormInputBasic
-                id='email-input'
-                type='email'
-                placeholder='Enter Email'
-                actionDataError={Boolean(
-                  actionData?.fieldErrors?.email
-                ) || undefined}
-              />
-              {/* <input
-                id="email-input"
-                type="email"
-                placeholder='Enter Email'
-                className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out"
-                name="email"
-                aria-invalid={
-                  Boolean(
-                    actionData?.fieldErrors?.email
-                  ) || undefined
-                }
-                aria-describedby={
-                  actionData?.fieldErrors?.email
-                    ? "email-error"
-                    : undefined
-                }
-              /> */}
-              {actionData?.fieldErrors?.email ? (
-                <p
-                  className="form-validation-error"
-                  role="alert"
-                  id="email-error"
-                >
-                  {actionData?.fieldErrors.email}
-                </p>
-              ) : null}
+              <div className='flex flex-col'>
+                <div className='flex flex-col laptop:flex-row'>
+                  <div className='flex-1 mb-4 laptop:mb-0 laptop:mr-3'>
+                    <FormInputBasic
+                      id='email-input'
+                      type='email'
+                      placeholder='Enter Email'
+                      actionDataError={Boolean(
+                        actionData?.fieldErrors?.email
+                      ) || undefined}
+                    />
+                  </div>
 
-              <button
-                disabled={transition.state !== 'idle'}
-                aria-disabled={transition.state !== 'idle'}
-                type='submit'
-                className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
-              </button>
-              {/*{loading ? <p>Loading...</p> : null  }*/}
+                  {actionData?.fieldErrors?.email ? (
+                    <p
+                      className="form-validation-error"
+                      role="alert"
+                      id="email-error"
+                    >
+                      {actionData?.fieldErrors.email}
+                    </p>
+                  ) : null}
+                  <SubmitBtn
+                    className='flex-none btn btn-primary'
+                    state={transition.state}
+                    btnText={'Sign Up'}
+                    key={'form-submit-btn'}
+                  />
+                </div>
+                <div className='flex flex-row justify-center mt-6 laptop:justify-start'>
+                  <div className='mr-3'>Already a member?</div>
+                  <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outlined p-0 text-xs uppercase px-2 rounded-md flex-none border-[1px] ring-2 ring-offset-1 leading-none'} >
+                    Login
+                  </Link>
+                </div>
+              </div>
             </Form>}
 
             {actionData?.form === 'success' && <div>
@@ -257,8 +260,8 @@ const ResourceLibraryHome = () => {
         </div>
       </div>
 
-      <div className='z-10 mb-16 relative col-start-2 col-span-2 row-start-2 tablet:flex tablet:col-start-4 tablet:col-end-[12]  laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:mx-0 flex-col'>
-        cards
+      <div className='hidden z-10 relative col-start-2 col-span-2 row-start-2 tablet:mt-20 tablet:flex tablet:col-start-4 tablet:col-end-[12] tablet:w-full tablet:max-w-[490px] tablet:mx-auto laptop:max-w-[350px] laptop:ml-[120px] laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:ml-[150px] flex-col'>
+        <ProcreateMenuLayout />
       </div>
 
 
