@@ -23,7 +23,7 @@ function ProcreateTitleCard(props: Props) {
         <div className='w-[32px]'><UploadSvg stroke={'#DED9DC'} /></div>
         <div className='w-[32px]'><PlusIcon fill={'#DED9DC'} /></div>
       </div>
-      <div className='col-span-1 col-start-1 row-span-3 row-start-1 stroke_image'>
+      <div className='col-span-1 col-start-1 row-span-3 row-start-1 opacity-50 stroke_image tablet:opacity-100'>
         <LazyImageBase
           id={'TuesdayMakersStroke'}
           alt={'Every Tuesday Free Brushes'}

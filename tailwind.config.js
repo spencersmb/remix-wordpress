@@ -45,7 +45,7 @@ module.exports = {
         100: '#F0E3DC',
         200: '#F0D6C7',
         300: '#CDA7A7',
-        400: '#976969',
+        400: '#9f6262',
         500: '#8d5c5c',
         600: "var(--primary-plum-600)",
         700: "var(--primary-plum-700)",

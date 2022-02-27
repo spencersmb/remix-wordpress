@@ -20,6 +20,10 @@ import ProcreateMenu3 from '~/components/cards/tuesdayMakers/procreateMenu3'
 import ProcreateMenu4Svg from '~/components/svgs/procreateMenu/procreateMenuFourSvg'
 import LazyImageBase from '~/components/images/lazyImage-base'
 import ProcreateMenuLayout from '~/components/cards/tuesdayMakers/procreateMenuLayout'
+import SpecialDeals from '~/components/layout/specialDeals'
+import CardTall from '~/components/cards/cardTall'
+import BulletLayoutOne from '~/components/layout/bulletLayoutOne'
+import TuesdayMakersBulletCards from '~/components/layout/tuesdayMakersBulletCards'
 
 
 export let meta: MetaFunction = (rootData): any => {
@@ -182,24 +186,29 @@ const ResourceLibraryHome = () => {
   }, [transition])
   consoleHelper('data.form !==', data.form)
 
-  return (
-    <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
 
-      <div className='col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mx-4 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[7] laptop:justify-center flex flex-col'>
-        <div className='flex flex-col mt-0 mb-8'>
-          <h1 style={{ color: '#404764' }} className='relative mb-6 text-5xl font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
+  return (
+    <div className='pt-5 bg-neutral-50 grid-container grid-resource-header tablet:pt-8 laptop:pt-0'>
+
+      <div className='col-start-2 col-span-2 mt-[50px] tablet:col-start-2 tablet:col-end-[14] tablet:mt-24 tablet:px-5 laptop:px-0 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[7] laptop:justify-center flex flex-col'>
+
+        {/* HEADER TITLE */}
+        <div className='flex flex-col mt-0 mb-5 tablet:mb-12 tablet:flex-row laptop:flex-col'>
+          <h1 style={{ color: '#404764' }} className='relative mb-3 text-4xl tablet:text-5xl font-sentinel__SemiBoldItal tablet:mr-4 tablet:flex-1 laptop:text-6xl desktop:text-7xl'>
             <span className='relative z-10'>
               Join Tuesday Makers
             </span>
-            <span className='absolute bottom-[5px] w-full max-w-[481px] left-0 '>
+            <span className='hidden absolute bottom-[5px] w-full max-w-[481px] left-0 '>
               <StrokeOneSvg fill="#FECACA" opacity={'1'} />
             </span>
           </h1>
-          <p className='relative z-10'>
+          <p className='relative z-10 tablet:flex-1 tablet:ml-4 laptop:ml-0'>
             When you’re part of Tuesday Makers, you’re the first to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!
           </p>
         </div>
-        <div className='flex flex-col'>
+
+        {/* SIGNUP FORM */}
+        <div className='flex flex-col max-w-[500px] w-full mx-auto laptop:max-w-none'>
 
           {/* FORM */}
           <div className="login-form">
@@ -214,8 +223,8 @@ const ResourceLibraryHome = () => {
                 : undefined
             }>
               <div className='flex flex-col'>
-                <div className='flex flex-col laptop:flex-row'>
-                  <div className='flex-1 mb-4 laptop:mb-0 laptop:mr-3'>
+                <div className='flex flex-col tablet:flex-row'>
+                  <div className='flex-1 mb-4 tablet:mb-0 tablet:mr-3'>
                     <FormInputBasic
                       id='email-input'
                       type='email'
@@ -260,11 +269,16 @@ const ResourceLibraryHome = () => {
         </div>
       </div>
 
-      <div className='hidden z-10 relative col-start-2 col-span-2 row-start-2 tablet:mt-20 tablet:flex tablet:col-start-4 tablet:col-end-[12] tablet:w-full tablet:max-w-[490px] tablet:mx-auto laptop:max-w-[350px] laptop:ml-[120px] laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:ml-[150px] flex-col'>
+      <div className='max-w-[220px] mx-auto z-10 relative col-start-2 col-span-2 row-start-1 tablet:flex tablet:col-start-4 tablet:col-end-[12] tablet:w-full tablet:max-w-[415px] tablet:mx-auto laptop:max-w-[350px] laptop:ml-[120px] laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:ml-[150px] flex-col'>
         <ProcreateMenuLayout />
       </div>
 
 
+      <div className='col-start-1 col-span-4 tablet:col-start-2 tablet:col-end-[14]'>
+        <SpecialDeals />
+      </div>
+
+      <TuesdayMakersBulletCards />
 
     </div>
   )
