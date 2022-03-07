@@ -2,7 +2,7 @@ import React from 'react'
 import useSite from '~/hooks/useSite'
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
 import LazyImageBase from '../images/lazyImage-base'
-import LicenseAgreementPopUp from '../modals/licenseAgreementPopUp'
+import LicenseAgreementPopUp from '../modals/paidProductPopUp'
 import UploadSvg from '../svgs/uploadSvg'
 
 interface Props {

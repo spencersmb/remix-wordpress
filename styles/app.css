@@ -81,6 +81,9 @@ button {
   .btn-teal-300 {
     @apply bg-success-300 text-success-800 hover:text-success-800 hover:bg-success-300 hover:ring-success-300 active:ring-success-500 active:ring active:bg-success-500 active:text-success-900;
   }
+  .btn-primary-300 {
+    @apply bg-primary-300 text-primary-800 hover:text-primary-800 hover:bg-primary-300 hover:ring-primary-300 active:ring-primary-500 active:ring active:bg-primary-500 active:text-primary-900;
+  }
   .btn-teal-400 {
     @apply bg-success-400 text-white hover:text-white hover:bg-success-400 hover:ring-success-400 active:ring-success-600 active:ring active:bg-success-600;
   }

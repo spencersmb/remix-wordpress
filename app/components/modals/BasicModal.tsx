@@ -1,5 +1,5 @@
 import React from 'react'
-import {AnimatePresence, motion} from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import useSite from '../../hooks/useSite'
 
 /**
@@ -12,7 +12,7 @@ import useSite from '../../hooks/useSite'
  *
  */
 const BasicModal = () => {
-  const {state:{modal}, closeModal} = useSite()
+  const { state: { modal }, closeModal } = useSite()
 
   return (
     <AnimatePresence>
@@ -20,7 +20,7 @@ const BasicModal = () => {
         ? <>
           <motion.div
             key='modalContainer'
-            className='bg-white fixed block top-1/2 right-auto left-1/2 z-[1100] opacity-0 translate-x-[-50%] translate-y-[-50%] rounded-md'
+            className='fixed block top-1/2 right-auto left-1/2 z-[1100] opacity-0 translate-x-[-50%] translate-y-[-50%] rounded-md'
             initial={containerMotion.closed}
             animate={containerMotion.open}
             exit={containerMotion.closed}
@@ -59,7 +59,7 @@ const containerMotion = {
       duration: .2
     }
   },
-  open:{
+  open: {
     y: '-50%',
     x: '-50%',
     opacity: 1,
@@ -76,13 +76,13 @@ const variants = {
     width: '100%',
     height: '100%',
     display: 'block',
-    transition:{
+    transition: {
       type: "spring",
       stiffness: 260,
       damping: 30,
     }
   },
-  exit:{
+  exit: {
     opacity: 0,
     width: '100%',
     height: '100%',
@@ -93,12 +93,12 @@ const variants = {
       }
     }
   },
-  enter:{
+  enter: {
     width: '100%',
     height: '100%',
     display: 'block',
     opacity: .5,
-    transition:{
+    transition: {
       type: "spring",
       stiffness: 260,
       damping: 30,

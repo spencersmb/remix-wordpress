@@ -56,17 +56,17 @@ const footerLinks = [
 ]
 
 function FooterPrimary() {
-  const { state: { metadata } } = useSite()
+  const { state: { metadata, user: { resourceUser } } } = useSite()
 
   return (
 
     <footer className='bg-primary-800 relative pt-[100px] pb-[35px] laptop:pt-[80px] desktop:pt-[120px] laptop:pb-[50px]'>
       <div className='container'>
 
-        <MakersFooterSignUp />
+        {!resourceUser && <MakersFooterSignUp />}
 
         {/* FOOTER LINKS */}
-        <div className='flex flex-col pb-12 justify-between laptop:flex-row '>
+        <div className='flex flex-col justify-between pb-12 laptop:flex-row '>
 
           {/* LOGO / TAGLINE */}
           <div className='pb-12 laptop:pb-0'>
@@ -76,21 +76,21 @@ function FooterPrimary() {
                 <span className="sr-only">Every Tuesday Home Page</span>
               </Link>
             </div>
-            <p className='text-primary-50 font-sentinel__SemiBoldItal text-h5 pt-2'>
+            <p className='pt-2 text-primary-50 font-sentinel__SemiBoldItal text-h5'>
               Digital Art + Lettering
             </p>
           </div>
 
           {/* LINKS */}
-          <div className='flex flex-col text-primary-50 font-light tablet:flex-row'>
+          <div className='flex flex-col font-light text-primary-50 tablet:flex-row'>
             {footerLinks.map((block, index) => {
               if (index !== 2) {
                 return (
                   <div key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
-                    <h5 className='font-sentinel__SemiBoldItal text-h5 pb-6'>{block.heading}</h5>
+                    <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
                     <ul>
                       {block.links.map(link => (
-                        <li key={link.url} className='text-primary-300 text-lg btn-spencer pb-3'>
+                        <li key={link.url} className='pb-3 text-lg text-primary-300 btn-spencer'>
                           <Link className='hover:text-primary-400 underlined' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                         </li>
                       ))}
@@ -104,7 +104,7 @@ function FooterPrimary() {
 
               return (
                 <div key={index}>
-                  <h5 className='font-sentinel__SemiBoldItal text-h5 pb-6'>{block.heading}</h5>
+                  <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
                   <ul className='flex flex-row'>
                     {socialkeys.map(key => {
                       switch (key) {

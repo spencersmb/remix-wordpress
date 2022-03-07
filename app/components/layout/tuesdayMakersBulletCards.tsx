@@ -105,7 +105,7 @@ function TuesdayMakersBulletCards(props: Props) {
               <div className='flex flex-col tablet:flex-1 laptop:flex-col laptop:items-center'>
 
                 <div className='flex flex-col tablet:justify-center tablet:flex-row desktop:flex-col'>
-                  {card_3_categories.map((category, index) => (<BulletLayoutOne {...category} />))}
+                  {card_3_categories.map((category, index) => (<BulletLayoutOne key={index} {...category} />))}
                 </div>
 
                 <div className='bg-primary-300 rounded-2.5xl text-center p-4 flex-1 flex flex-col justify-center tablet:items-center'>

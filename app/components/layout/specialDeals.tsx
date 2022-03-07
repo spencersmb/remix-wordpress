@@ -14,7 +14,7 @@ function SpecialDeals(props: Props) {
     srcSet: '',
   }
   return (
-    <div className="bg-primary-400 relative flex flex-col-reverse tablet:rounded-2.5xl tablet:mt-80 laptop:flex-row px-5 py-16 mt-16 tablet:p-16 tablet:my-20 laptop:py-20 laptop:px-20 laptop:mt-8 laptop:mb-20 desktop:px-24 desktop:py-28 desktop:mt-24 desktop:mb-40">
+    <div className="bg-primary-400 relative flex flex-col-reverse tablet:rounded-2.5xl tablet:mt-80 laptop:flex-row px-5 py-16 mt-16 tablet:p-16 tablet:my-20 laptop:py-20 laptop:px-20 laptop:mt-8 laptop:mb-20 desktop:px-24 desktop:py-28 desktop:mt-12 desktop:mb-40">
 
       <div className="relative z-10 flex flex-col mt-6 text-neutral-50 tablet:text-center tablet:mt-60 tablet:mx-20 laptop:mx-0 laptop:text-left laptop:flex-[1_1_50%] laptop:max-w-[50%] laptop:mt-0 desktop:max-w-[36%]">
         <h3 className="mb-5 text-4xl tablet:text-5xl font-sentinel__SemiBoldItal">

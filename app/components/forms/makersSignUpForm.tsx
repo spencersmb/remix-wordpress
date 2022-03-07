@@ -65,7 +65,7 @@ function MakersSignUpForm(props: Props) {
         action="/convertkit/tuesday-makers"
       >
         <div className='flex-1 mb-5 tablet:mr-6 tablet:mb-0'>
-          {/* <label className="leading-7 text-sm text-gray-600" htmlFor="email-input">Email</label> */}
+          {/* <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
             type="email"
             name="email"
@@ -88,6 +88,7 @@ function MakersSignUpForm(props: Props) {
         </div>
         <div className='flex'>
           <SubmitBtn
+            className='btn ring-offset-primary-600'
             state={state}
             btnText='Send the Goods!'
           />

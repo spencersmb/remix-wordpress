@@ -1,6 +1,6 @@
 import { json, LoaderFunction, MetaFunction, redirect, useFetcher, useLoaderData, useMatches } from 'remix'
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
-import { getHtmlMetadataTags } from '../../utils/seo'
+import { getBasicPageMetaTags, getHtmlMetadataTags } from '../../utils/seo'
 import { fetchAPI } from '../../utils/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
@@ -15,19 +15,16 @@ import { ADD_ITEM_TO_CART, GET_CART } from '~/lib/graphql/mutations/cart'
 import { ISelectedMatch } from '~/interfaces/remix'
 import FreebieGrid from '~/components/resourceLibrary/freebieGrid'
 import OutlinedButton from '~/components/buttons/outlinedButton'
-import { consoleHelper } from '~/utils/windowUtils'
 import ExtendedLicenseUpsell from '~/components/resourceLibrary/extendedLicenseUpsell'
-import LazyImageBase from '~/components/images/lazyImage-base'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
 import CardDownload from '~/components/cards/cardDownload'
 import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
 
-export let meta: MetaFunction = (rootData): any => {
+export let meta: MetaFunction = (metaData): any => {
 
   /*
-  rootData gets passed in from the root metadata function
+  metaData gets passed in from the root metadata function
    */
-  const { data, location, parentsData } = rootData
+  const { data, location, parentsData } = metaData
   if (!data || !parentsData || !location) {
     return {
       title: '404',
@@ -35,46 +32,18 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
-  // TODO: ADD PAGE COMPONENT
-  const page: IPage = {
-    id: '24',
-    title: 'Resource Library: Members',
-    author: {
-      id: '22',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'resource-library-members'
-    },
-    slug: 'resource-library-members',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Resource Library: Members - Every Tuesday',
-      metaDesc: 'Resource Library members only access with over 200+ assets for free!',
-      fullHead: '',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: '3min'
-    }
-  }
-
   /*
   Build Metadata tags for the page
    */
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    page,
-    location
+  return getBasicPageMetaTags(metaData, {
+    title: `Tuesday Makers: Members`,
+    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+    slug: `tuesday-makers/members`
   })
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   const user = await requireResourceLibraryUser(request, '/tuesday-makers')
-  console.log('R ', user);
 
   const userId = user.id
   // get latest tags
@@ -108,6 +77,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     return redirect('/tuesday-makers')
   }
 }
+
 interface ILoaderData {
   freebies: IResourceItem[]
   filterTags: IFilterTag[],
@@ -122,6 +92,7 @@ function useCartMatches() {
   }
 
 }
+
 // TODO: UPDATE GRAPHQL SCHEMA on GRAPHQL API
 // TODO: Update plugin on ET and API 
 // 
@@ -330,11 +301,11 @@ const ResourceLibraryMembers = () => {
 
 
   return (
-    <div className='bg-neutral-50 grid-container grid-resource-header py-16 laptop:pb-16 laptop:pt-0'>
+    <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
 
       <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-16 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
         <div className='mt-0 mb-16 tablet:mb-20 laptop:mt-0 laptop:mb-24'>
-          <h1 style={{ color: '#404764' }} className=' relative font-sentinel__SemiBoldItal text-5xl laptop:text-6xl  desktop:text-7xl'>
+          <h1 style={{ color: '#404764' }} className='relative text-5xl  font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
             <span className='relative z-10'>
               Welcome to the Makers Library
             </span>
@@ -344,12 +315,12 @@ const ResourceLibraryMembers = () => {
           </h1>
         </div>
         <div className='flex flex-col laptop:flex-row'>
-          <div className='mb-8 tablet:mr-4 laptop:mb-0 flex-1'>
-            <h2 className='text-blue-slate font-semibold text-lg mb-2'>Freebies</h2>
+          <div className='flex-1 mb-8 tablet:mr-4 laptop:mb-0'>
+            <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Freebies</h2>
             <p className='text-blue-slate'>All downloads come with a freebie license that you can use on any type of project.</p>
           </div>
-          <div className='laptop:ml-4 flex-1'>
-            <h2 className='text-blue-slate font-semibold text-lg mb-2'>Commerical Usage</h2>
+          <div className='flex-1 laptop:ml-4'>
+            <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Commerical Usage</h2>
             <p className='text-blue-slate'>A few freeibes are just for personal use and will require an extended license purchase if used commericially.</p>
           </div>
         </div>
@@ -375,11 +346,11 @@ const ResourceLibraryMembers = () => {
 
       <FreebieGrid freebies={posts} />
 
-      <div className='col-start-2 col-span-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+      <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
         {pagination.hasNextPage &&
           <>
             <OutlinedButton
-              className='btn btn-teal-600 btn-outlined-teal-600 mx-auto'
+              className='mx-auto btn btn-teal-600 btn-outlined-teal-600'
               clickHandler={handlePageClick}
               text={'Show More'} loading={false}
               loadingText={'Loading...'}
@@ -433,7 +404,7 @@ const EmptyCartBtn = () => {
         disabled={shopifyForm.state === "submitting"}
         aria-disabled={shopifyForm.state === "submitting"}
         type='submit'
-        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
         {shopifyForm.state === "loading" ? '...loading' : 'Empty Cart'}
       </button>}
     </shopifyForm.Form>
@@ -464,7 +435,7 @@ const AddToCartBtn = () => {
         disabled={shopifyForm.state === "submitting"}
         aria-disabled={shopifyForm.state === "submitting"}
         type='submit'
-        className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
         {shopifyForm.state === "loading" ? '...loading' : 'Add Item'}
       </button>
     </shopifyForm.Form>

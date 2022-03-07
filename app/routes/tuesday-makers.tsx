@@ -1,4 +1,5 @@
 import { Link, Outlet } from "remix";
+import FooterPrimary from "~/components/footer/FooterPrimary";
 import ResourceLibraryNav from "~/components/resourceLibrary/resourceNav";
 
 const TuesdayMakers = () => {
@@ -13,6 +14,7 @@ const TuesdayMakers = () => {
         </div>
       </header>
       <Outlet />
+      <FooterPrimary />
     </>
   )
 }

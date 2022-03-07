@@ -1,14 +1,14 @@
 import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, redirect, useActionData, useMatches, useTransition } from "remix";
 import { createResourceUserSession } from "~/utils/resourceLibrarySession.server";
-import { getHtmlMetadataTags } from "~/utils/seo";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { validateEmail } from "~/utils/validation";
 
-export let meta: MetaFunction = (rootData): any => {
+export let meta: MetaFunction = (metaData): any => {
 
   /*
-  rootData gets passed in from the root metadata function
+  metaData gets passed in from the root metadata function
    */
-  const { data, location, parentsData } = rootData
+  const { data, location, parentsData } = metaData
   if (!data || !parentsData || !location) {
     return {
       title: '404',
@@ -16,53 +16,26 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
-  // TODO: REPLACE WITH PAGE Component
-  const page: IPage = {
-    id: '24',
-    title: 'Tuesday Makers: Login',
-    author: {
-      id: '22',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'resource-library-login'
-    },
-    slug: 'resource-library-login',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Tuesday Makers: Login - Every Tuesday',
-      metaDesc: 'Tuesday Makers members only access with over 200+ assets for free!',
-      fullHead: '',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: '3min'
-    }
-  }
-
   /*
   Build Metadata tags for the page
    */
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    page,
-    location
+  return getBasicPageMetaTags(metaData, {
+    title: `Tuesday Makers: SignUp`,
+    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+    slug: `tuesday-makers`
   })
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
 
   const page = {
-    title: 'Resource Library Login',
-    slug: 'resource-library-login',
-    description: 'A jam packed resource library of design + lettering files',
+    title: 'Tuesday Makers: Login',
+    slug: 'tuesday-makers/login',
+    description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
     seo: {
-      title: 'Resource Library Login- Every Tuesday',
+      title: 'Tuesday Makers Login - Every Tuesday',
       opengraphModifiedTime: '',
-      metaDesc: 'When you join the Tuesday Tribe, you’ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more.'
+      metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
   }
   return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
@@ -160,12 +133,12 @@ const ResourceLibraryLogin = () => {
           ? "form-error-message"
           : undefined
       }>
-        <label htmlFor="email-input" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="email-input" className="text-sm leading-7 text-gray-600">
           email:
           <input
             id="email-input"
             type="email"
-            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             name="email"
             aria-invalid={
               Boolean(
@@ -193,10 +166,11 @@ const ResourceLibraryLogin = () => {
           disabled={transition.state !== 'idle'}
           aria-disabled={transition.state !== 'idle'}
           type='submit'
-          className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+          className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
           {transition.state === 'idle' ? 'Login' : '...Loading'}
         </button>
       </Form>
+
       {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Tuesday Makers Library <Link to={`/tuesday-makers`}>here</Link></p></div>}
     </div>
   )

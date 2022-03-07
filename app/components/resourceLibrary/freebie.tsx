@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useSite from '~/hooks/useSite'
-import LicenseAgreementPopUp from '~/components/modals/licenseAgreementPopUp'
+import PaidProductPopUp from '~/components/modals/paidProductPopUp'
 import { consoleHelper } from '~/utils/windowUtils'
 import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component'
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
@@ -23,6 +23,12 @@ type Props = {
 }
 const Freebie = (props: Props) => {
   const { resource, scrollPosition } = props
+
+  useEffect(() => {
+    if (resource.title === 'Brush Test 1') {
+      popUpDownload()
+    }
+  }, [])
   // consoleHelper('resource', resource)
   const image = loadImageSrc({
     imageSizeName: ImageSizeEnums.MEDIUM, // image name to try and get
@@ -33,7 +39,7 @@ const Freebie = (props: Props) => {
   const { openModal, closeModal } = useSite()
   function popUpDownload() {
     openModal({
-      template: <LicenseAgreementPopUp
+      template: <PaidProductPopUp
         closeModal={closeModal}
         download_link={resource.freebie.downloadLink}
         product={resource.freebie.product} />
@@ -46,6 +52,7 @@ const Freebie = (props: Props) => {
 
   function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    // this actually means is there a paid product link, havnt changed it cus its a lot of work in the backend
     if (resource.freebie.licenseRequired) {
       popUpDownload()
       return

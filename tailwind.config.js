@@ -114,7 +114,7 @@ module.exports = {
         'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
         'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
         'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr);',
-        'desktop': 'minmax(0,1fr) repeat(12,minmax(auto, calc((1548px - (11 * 30px)) / 12))) minmax(0,1fr);'
+        'desktop': 'minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr);'
       },
       fontSize: {
         'h5': ['1.5rem', '1.75rem'],

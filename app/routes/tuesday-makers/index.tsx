@@ -6,32 +6,24 @@ import { fetchAPIClientSide } from '../../utils/fetch'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'
-import { getHtmlMetadataTags } from '~/utils/seo'
+import { getBasicPageMetaTags, getHtmlMetadataTags } from '~/utils/seo'
 import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
-import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
 import FormInputBasic from '~/components/forms/formInput--base'
 import SubmitBtn from '~/components/buttons/submitBtn'
-import OutlinedButton from '~/components/buttons/outlinedButton'
-import ProcreateTitleCard from '~/components/cards/tuesdayMakers/procreateTitleCard'
-import ProcreateMenu1 from '~/components/cards/tuesdayMakers/procreateMenu1'
-import ProcreateMenu2 from '~/components/svgs/procreateMenu/procreateMenuTwoSvg'
-import ProcreateMenu3 from '~/components/cards/tuesdayMakers/procreateMenu3'
-import ProcreateMenu4Svg from '~/components/svgs/procreateMenu/procreateMenuFourSvg'
-import LazyImageBase from '~/components/images/lazyImage-base'
 import ProcreateMenuLayout from '~/components/cards/tuesdayMakers/procreateMenuLayout'
 import SpecialDeals from '~/components/layout/specialDeals'
-import CardTall from '~/components/cards/cardTall'
-import BulletLayoutOne from '~/components/layout/bulletLayoutOne'
 import TuesdayMakersBulletCards from '~/components/layout/tuesdayMakersBulletCards'
+import useSite from '~/hooks/useSite'
+import SignUpInstructionsPopUp from '~/components/modals/signUpInstructionsPopUp'
 
 
-export let meta: MetaFunction = (rootData): any => {
+export let meta: MetaFunction = (metaData): any => {
 
   /*
   rootData gets passed in from the root metadata function
    */
-  const { data, location, parentsData } = rootData
+  const { data, location, parentsData } = metaData
   if (!data || !parentsData || !location) {
     return {
       title: '404',
@@ -39,40 +31,13 @@ export let meta: MetaFunction = (rootData): any => {
     }
   }
 
-  // TODO: Replace with Page component
-  const page: IPage = {
-    id: '24',
-    title: 'Resource Library',
-    author: {
-      id: '22',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'resource-library'
-    },
-    slug: 'resource-library',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Resource Library - Every Tuesday',
-      metaDesc: 'Resource Library members only access with over 200+ assets for free!',
-      fullHead: '',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: '3min'
-    }
-  }
-
   /*
   Build Metadata tags for the page
    */
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    page,
-    location
+  return getBasicPageMetaTags(metaData, {
+    title: `Tuesday Makers: SignUp`,
+    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+    slug: `tuesday-makers`
   })
 };
 
@@ -89,15 +54,14 @@ export let loader: LoaderFunction = async ({ request }) => {
     return redirect('/tuesday-makers/members')
   }
 
-  // TODO: ADD THIS TO ALL PAGES FOR JSLONLD CONTENT EXAMPLE BELOW
   const page = {
-    title: 'Resource Library',
-    slug: 'resource-library',
-    description: 'A jam packed resource library of design + lettering files',
+    title: 'Tuesday Makers',
+    slug: 'tuesday-makers',
+    description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
     seo: {
-      title: 'Resource Library - Every Tuesday',
+      title: 'Tuesday Makers - Every Tuesday',
       opengraphModifiedTime: '',
-      metaDesc: 'When you join the Tuesday Tribe, you’ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more.'
+      metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
   }
   return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
@@ -165,7 +129,6 @@ const ResourceLibraryHome = () => {
   let actionData = useActionData<ActionData | undefined>();
   console.log('actionData', actionData);
 
-
   /*
   ON page load prefetch data query to speed things up
    */
@@ -186,20 +149,29 @@ const ResourceLibraryHome = () => {
   }, [transition])
   consoleHelper('data.form !==', data.form)
 
+  React.useEffect(() => {
+    if (actionData?.form === 'success') {
+      openModal({
+        template: <SignUpInstructionsPopUp
+          closeModal={closeModal}
+        />
+      })
+    }
+  }, [actionData])
+
+  const { openModal, closeModal } = useSite()
+
 
   return (
     <div className='pt-5 bg-neutral-50 grid-container grid-resource-header tablet:pt-8 laptop:pt-0'>
 
-      <div className='col-start-2 col-span-2 mt-[50px] tablet:col-start-2 tablet:col-end-[14] tablet:mt-24 tablet:px-5 laptop:px-0 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[7] laptop:justify-center flex flex-col'>
+      <div className='col-start-2 col-span-2 mt-[50px] tablet:col-start-2 tablet:col-end-[14] tablet:mt-24 tablet:px-5 laptop:px-0 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-span-5 laptop:justify-center flex flex-col'>
 
         {/* HEADER TITLE */}
         <div className='flex flex-col mt-0 mb-5 tablet:mb-12 tablet:flex-row laptop:flex-col'>
-          <h1 style={{ color: '#404764' }} className='relative mb-3 text-4xl tablet:text-5xl font-sentinel__SemiBoldItal tablet:mr-4 tablet:flex-1 laptop:text-6xl desktop:text-7xl'>
+          <h1 style={{ color: '#404764' }} className='relative flex mb-3 text-4xl tablet:text-5xl font-sentinel__SemiBoldItal tablet:mr-4 tablet:flex-1 tablet:text-right laptop:text-left laptop:justify-end laptop:text-6xl desktop:text-7xl'>
             <span className='relative z-10'>
               Join Tuesday Makers
-            </span>
-            <span className='hidden absolute bottom-[5px] w-full max-w-[481px] left-0 '>
-              <StrokeOneSvg fill="#FECACA" opacity={'1'} />
             </span>
           </h1>
           <p className='relative z-10 tablet:flex-1 tablet:ml-4 laptop:ml-0'>
@@ -208,7 +180,8 @@ const ResourceLibraryHome = () => {
         </div>
 
         {/* SIGNUP FORM */}
-        <div className='flex flex-col max-w-[500px] w-full mx-auto laptop:max-w-none'>
+        {/* <div className='flex flex-col max-w-[500px] w-full mx-auto laptop:mx- laptop:w-auto laptop:max-w-none'> */}
+        <div className=''>
 
           {/* FORM */}
           <div className="login-form">
@@ -217,14 +190,14 @@ const ResourceLibraryHome = () => {
                 {actionData.formError}
               </div>
             )}
-            {actionData?.form !== 'success' && <Form ref={formRef} method='post' className="mb-4" aria-describedby={
+            <Form ref={formRef} method='post' className="mb-4" aria-describedby={
               actionData?.formError
                 ? "form-error-message"
                 : undefined
             }>
-              <div className='flex flex-col'>
-                <div className='flex flex-col tablet:flex-row'>
-                  <div className='flex-1 mb-4 tablet:mb-0 tablet:mr-3'>
+              <div className='flex flex-col form_inner'>
+                <div className='flex flex-col input_wrapper'>
+                  <div className='flex-1 mb-4 '>
                     <FormInputBasic
                       id='email-input'
                       type='email'
@@ -251,28 +224,27 @@ const ResourceLibraryHome = () => {
                     key={'form-submit-btn'}
                   />
                 </div>
-                <div className='flex flex-row justify-center mt-6 laptop:justify-start'>
+                <div className='flex flex-row justify-center mt-6 signup_wrapper laptop:justify-start'>
                   <div className='mr-3'>Already a member?</div>
                   <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outlined p-0 text-xs uppercase px-2 rounded-md flex-none border-[1px] ring-2 ring-offset-1 leading-none'} >
                     Login
                   </Link>
                 </div>
               </div>
-            </Form>}
+            </Form>
 
-            {actionData?.form === 'success' && <div>
+            {/* {actionData?.form === 'success' && <div>
               <h2>Sucess</h2>
               <h3>Instructions</h3>
               <p>Accept email </p>
-            </div>}
+            </div>} */}
           </div>
         </div>
       </div>
 
-      <div className='max-w-[220px] mx-auto z-10 relative col-start-2 col-span-2 row-start-1 tablet:flex tablet:col-start-4 tablet:col-end-[12] tablet:w-full tablet:max-w-[415px] tablet:mx-auto laptop:max-w-[350px] laptop:ml-[120px] laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:ml-[150px] flex-col'>
+      <div className='max-w-[220px] mx-auto z-10 relative col-start-2 col-span-2 row-start-1 tablet:flex tablet:col-start-4 tablet:col-end-[12] tablet:w-full tablet:max-w-[415px] tablet:mx-auto laptop:max-w-[350px] laptop:ml-[120px] laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-9 desktop:col-end-[14] desktop:ml-[0] flex-col'>
         <ProcreateMenuLayout />
       </div>
-
 
       <div className='col-start-1 col-span-4 tablet:col-start-2 tablet:col-end-[14]'>
         <SpecialDeals />
