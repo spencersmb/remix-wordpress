@@ -5,6 +5,7 @@ import InputBase from '../input/inputBase'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import YellowSubmitBtn from '../buttons/submitBtn'
 import SubmitBtn from '../buttons/submitBtn'
+import { Transition } from '@remix-run/react/transition'
 type FetcherData = {
   fieldErrors?: {
     email: string
@@ -29,7 +30,8 @@ type FetcherTypes =
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
   data: FetcherData | undefined
-  state: FetcherState
+  // state: FetcherState
+  transition: Transition
   type: FetcherTypes
 }
 const MakersPopUp = () => {
@@ -40,7 +42,7 @@ const MakersPopUp = () => {
   )
 }
 function MakersSignUpForm(props: Props) {
-  const { Form, data, state, type } = props
+  const { Form, data, transition, type } = props
   const { openModal } = useSite()
   // console.log('state', state)
   // console.log('type', type)
@@ -89,7 +91,7 @@ function MakersSignUpForm(props: Props) {
         <div className='flex'>
           <SubmitBtn
             className='btn ring-offset-primary-600'
-            state={state}
+            transition={transition}
             btnText='Send the Goods!'
           />
         </div>

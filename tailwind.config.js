@@ -103,7 +103,11 @@ module.exports = {
       'yellow': {
         800: ''
       },
-      'blue-slate': '#404764'
+      'blue-slate': '#404764',
+      'charcoal':{
+        100: '#F7F8FA',
+        900: '#1E1E21'
+      }
     },
     extend:{
       minHeight: {

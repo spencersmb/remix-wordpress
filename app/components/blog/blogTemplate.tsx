@@ -86,34 +86,34 @@ function BlogTemplate(props: IProps) {
 
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
-    <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto'>
+    <div className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       {/* BREADCURMBS */}
-      <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
+      <div className='col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
         <Breadcrumbs links={breadcrumbLinks} />
-        <h1 className='text-primary-600 font-sentinel__SemiBoldItal text-5xl tablet:text-display-1 mt-4 tablet:mt-8 desktop:mt-12'>
+        <h1 className='mt-4 text-5xl text-primary-600 font-sentinel__SemiBoldItal tablet:text-display-1 tablet:mt-8 desktop:mt-12'>
           {post.title}
         </h1>
-        <div className='mt-4 text-primary-500 tablet:mt-8 text-xs tablet:text-base desktop:mt-12'>
+        <div className='mt-4 text-xs text-primary-500 tablet:mt-8 tablet:text-base desktop:mt-12'>
           <BlogDateAuthor date={post.date} author={post.author.name} />
         </div>
       </div>
 
       {/* FEATURED IMAGE */}
       {post.featuredImage &&
-        <div className='col-start-2 col-span-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
+        <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 '>
           <LazyImageBase image={featuredImage} id={post.id} />
         </div>}
 
       {/* EXCERPT */}
-      {post.tutorialManager.postExcerpt && <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+      {post.tutorialManager.postExcerpt && <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
         <div className='blog-content mt-4 tablet:mb-16 col-start-2 col-span-2 row-[1/1] tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
           <div className='text-lg tablet:text-xl' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
         </div>
       </div>}
 
       {post.tutorialManager.youtube.embedUrl &&
-        <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+        <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
           <div className='col-span-full bg-primary-100 h-[100px] tablet:h-[200px] laptop:h-[300px] z-0 row-[1/1] self-end'></div>
 
@@ -126,20 +126,20 @@ function BlogTemplate(props: IProps) {
 
       {/* CONTENT */}
 
+      {/* TUTORIAL DOWNLOADS */}
       <div className={classNames(
         post.tutorialManager.downloads || post.tutorialManager.paidProducts
           ? 'pb-12'
           : '',
         'bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop')}>
 
-        {/* TUTORIAL DOWNLOADS */}
         <TutorialDownloads post={post} />
         <PaidProducts post={post} />
 
       </div>
 
       {/* BLOG CONTENT */}
-      <div className='blog-content mt-16 mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
+      <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
 
       {/* PINTEREST */}
       <PinterestBlock
@@ -149,7 +149,7 @@ function BlogTemplate(props: IProps) {
 
       {/* CATEGORIES */}
       {post.categories.length > 0 &&
-        <div className='col-start-2 col-span-2 mb-8 mt-10 tablet:col-start-3 tablet:col-span-10 desktop:mt-20 desktop:col-start-4 desktop:col-span-8'>
+        <div className='col-span-2 col-start-2 mt-10 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:mt-20 desktop:col-start-4 desktop:col-span-8'>
           <BlogCategories categories={post.categories} />
         </div>}
 
@@ -159,16 +159,16 @@ function BlogTemplate(props: IProps) {
       </div>
 
       {/* AUTHOR */}
-      <div className='col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+      <div className='col-span-2 col-start-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
 
         <BlogAuthor post={post} />
 
       </div>
 
       {/* RELATED POSTS TITLE */}
-      <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
-        <div className='col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
-          <div className='font-sentinel__SemiBoldItal flex flex-col text-4xl mb-7 mt-14 col-start-2 col-span-2 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
+      <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
+        <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
+          <div className='flex flex-col col-span-2 col-start-2 text-4xl font-sentinel__SemiBoldItal mb-7 mt-14 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
             <span className='text-primary-500'>You may also like...</span>
           </div>
         </div>

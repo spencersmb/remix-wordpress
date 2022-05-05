@@ -1,9 +1,10 @@
-import { useFetcher } from "remix";
+import { useFetcher, useTransition } from "remix";
 import MakersSignUpForm from "../forms/makersSignUpForm";
 import IPad from '../../../public/images/makers-ipad.png'
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();
+  const transition = useTransition()
 
   return (
     <div className="bg-primary-600 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto py-9 px-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
@@ -25,7 +26,7 @@ const MakersFooterSignUp = () => {
           <MakersSignUpForm
             Form={tuesdayMakersSignUp.Form}
             type={tuesdayMakersSignUp.type}
-            state={tuesdayMakersSignUp.state}
+            transition={transition}
             data={tuesdayMakersSignUp.data}
           />
         </div>

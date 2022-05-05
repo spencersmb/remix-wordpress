@@ -1,15 +1,16 @@
 import React from 'react'
 import MakersSignUpForm from '~/components/forms/makersSignUpForm'
-import { useFetcher } from '@remix-run/react'
+import { useFetcher, useTransition } from '@remix-run/react'
 
-function MakersPostSignUp () {
+function MakersPostSignUp() {
   const tuesdayMakers = useFetcher();
+  const transition = useTransition()
   return (
     <div>
       <MakersSignUpForm
         Form={tuesdayMakers.Form}
         type={tuesdayMakers.type}
-        state={tuesdayMakers.state}
+        transition={transition}
         data={tuesdayMakers.data}
       />
     </div>
