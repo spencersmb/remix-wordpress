@@ -204,11 +204,31 @@ interface IMetaData {
   description: string
   language: string
   social: ISocialSettings
-  shopPlatform: ShopPlatformEnum
+  // shopPlatform: ShopPlatformEnum
   author: IAuthor
   seo?: any
 }
 
+interface IDynamicMetaData {
+  serverSettings:{
+    productPlatform: ShopPlatformEnum
+  }
+  courseLaunchBanners: {
+    basicBanner: {
+      showBanner: boolean
+      color: string
+      endDate: string
+      title: string
+      url: string
+    }
+    lfmBanner: {
+      showBanner: boolean
+      endDate: string
+    }
+  }
+}
+
 type ISiteMetaDataMapped = {
   author: IAuthor
-} & IMetaData
+} & IMetaData & IDynamicMetaData
+

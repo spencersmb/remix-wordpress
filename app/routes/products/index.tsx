@@ -6,6 +6,8 @@ import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "~/utils/seo";
+import FeaturedProduct from "~/components/products/featureProduct";
+import GumroadProductCard from "~/components/products/gumroadProductCard";
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -42,23 +44,37 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   console.log('data', data);
-  const { fontLoadingState } = useFonts('cornerbakery')
-  console.log('fontLoadingState', fontLoadingState);
+  const { fontLoadingState, setFont } = useFonts()
+
+  function previewFont(event: IClickEvent) {
+    event.preventDefault();
+    // @ts-ignore
+    const fontName = event.currentTarget.dataset.fontfamily;
+
+    if (fontName) setFont(fontName);
+  }
 
   return (
     <Layout>
-      PRODUCTS PAGE
-      {
+      <FeaturedProduct product={data.products[0]} />
+      {/* {
         fontLoadingState.status === 'completed' && fontLoadingState.font?.files.map(font => {
           return (
             <h1 key={font.family} style={{ fontFamily: font.family }}>Products</h1>
           )
         })
-      }
+      } */}
       <ul>
-        {data.products.map((product: IProduct) => (<li key={product.slug}>
+        {/* {data.products.map((product: IProduct) => (<li key={product.slug}>
           <Link prefetch="intent" to={`/products/${product.slug}`} >{product.title}</Link>
-        </li>))}
+        </li>))} */}
+        {data.products.map((product: IProduct) => {
+
+          return (
+            <GumroadProductCard key={product.slug} product={product} setFont={setFont} previewFont={previewFont} />
+          )
+        }).slice(1) // Remove first time because its the featured product
+        }
       </ul>
     </Layout>
   )
@@ -79,11 +95,8 @@ const query = gql`
               url
             }
             type
-            fonts {
+            font{
               name
-              styles {
-                name
-              }
             }
             licences {
               licenseType

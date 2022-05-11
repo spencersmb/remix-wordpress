@@ -1,4 +1,7 @@
 import { ShopPlatformEnum } from "~/enums/products";
+import { fetchAPI } from "~/utils/fetch";
+import { getGraphQLString } from "~/utils/graphqlUtils";
+import { SiteMetaDataQuery } from "../graphql/queries/siteMetaData";
 
 export function getWPMenu(resourceUser: string | null){
 
@@ -191,12 +194,14 @@ function mapSocialMetaData(social: ISiteSocialStarter): ISocialSettings{
 }
 
 // simulate a server-side metadata response and merge into default initialState of useSite value for metaData
-export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
+export async function createSiteMetaData(domain: string): Promise<ISiteMetaDataMapped> {
   const { generalSettings, seo } = metadata;
 
-  let { title, description, language, shopPlatform, author} = generalSettings;
+  let { title, description, language, author} = generalSettings;
 
   let social = mapSocialMetaData(seo.social)
+
+  const dynamicData = await getDynamicSiteMetadata()
 
   return {
     title: decodeHtmlEntities(title),
@@ -204,9 +209,9 @@ export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
     description,
     domain,
     language,
-    shopPlatform,
     social,
     author,
+    ...dynamicData
   }
 }
 
@@ -228,4 +233,19 @@ export function decodeHtmlEntities(text: string | number) {
   };
 
   return decoded.replace(/&amp;|&quot;|&#039;/g, (char) => entities[char]);
+}
+
+
+export async function getDynamicSiteMetadata(): Promise<IDynamicMetaData> {
+  try {
+    const {themeOptions} = await fetchAPI(getGraphQLString(SiteMetaDataQuery),
+      {}
+    )
+    // const products = data.products?.edges?.map(({ node = {} }) => node);
+
+    return themeOptions
+  } catch (e) {
+    console.log('error', e)
+    throw Error('Site connection error');
+  }
 }

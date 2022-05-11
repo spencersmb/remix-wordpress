@@ -7,7 +7,7 @@ interface IProps {
 }
 function SubmitBtn(props: IProps) {
   const { className, transition, btnText = 'My Button' } = props
-  console.log('transition', transition);
+  // console.log('transition', transition);
   if (!transition) {
     return null;
   }

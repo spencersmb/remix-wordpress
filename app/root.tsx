@@ -16,7 +16,7 @@ import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
 import useSite, { SiteContext, siteInitialState } from './hooks/useSite'
-import { createSiteMetaData, getWPMenu } from './lib/wp/site'
+import { createSiteMetaData, getDynamicSiteMetadata, getWPMenu } from './lib/wp/site'
 import { getPrimaryMenu } from './lib/wp/nav'
 import { store } from './lib/redux/store'
 import { Provider } from 'react-redux'
@@ -94,7 +94,8 @@ export let loader: LoaderFunction = async ({ request }) => {
   } : null
 
   // pass in the APP URL to see the correct urls on metaData
-  let metadata = createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
+  let metadata = await createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
+
 
   // Variables to expose to the front end
   let ENV = {
@@ -136,6 +137,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function App() {
   let { menus, metadata, user, message, cart } = useLoaderData<any>();
   consoleHelper('user', user)
+  consoleHelper('metadata', metadata)
 
   let defaultCart: IShopifyCart = {
     ...cart,

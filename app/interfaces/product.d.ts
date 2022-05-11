@@ -15,7 +15,10 @@ interface ILicense {
 interface IProductDetails{
   title: string
   // fonts: IProductFont[]
-  type: string
+  font: {
+    name: string | null
+  }
+  type: string  
   licences: ILicense[]
   youtube: {
     url: string

@@ -370,8 +370,8 @@ function BlogIndex() {
 
       <BlogCategoryTabs catClick={handleCatClick} category={category} />
 
-      <div className='grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto py-12'>
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
+      <div className='grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+        <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
           <AnimatePresence>
             {state.loading
@@ -393,7 +393,7 @@ function BlogIndex() {
                 }}
                 className='rounded-full mx-auto flex items-center justify-center text-center w-[60px] h-[60px] bg-primary-50 p-1'>
                 <svg
-                  className="motion-reduce:hidden animate-spin text-white"
+                  className="text-white motion-reduce:hidden animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24">
@@ -409,7 +409,7 @@ function BlogIndex() {
         </div>
 
 
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {category === 'all' && state.pageInfo.hasNextPage &&
             <OutlinedButton
               clickHandler={fetchMorePosts}

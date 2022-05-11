@@ -3600,6 +3600,7 @@ type Product_Details implements AcfFieldGroup {
     extendedPrice: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    font: Product_Details_Font
     "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
     fontName: String
     fontStyles: [Product_Details_fontStyles]
@@ -3617,6 +3618,13 @@ type Product_Details implements AcfFieldGroup {
     youtube: Product_Details_Youtube
     "Add Youtube link here"
     youtubeLink: String
+}
+
+"Field Group"
+type Product_Details_Font implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
 }
 
 "Field Group"
@@ -3977,7 +3985,7 @@ type ResourceLibrary_Freebie implements AcfFieldGroup {
     excerpt: String
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Does this freebie requires a license to use for creating / selling products"
+    "Has a paid product version?"
     licenseRequired: Boolean
     product: ResourceLibrary_Freebie_Product
 }
@@ -4843,6 +4851,8 @@ type RootQuery {
         "The globally unique identifier of the theme."
         id: ID!
     ): Theme
+    "Dashboard options."
+    themeOptions: ThemeOptions
     "Connection between the RootQuery type and the Theme type"
     themes(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -5473,6 +5483,7 @@ type SEOSchema {
     companyLogo: MediaItem
     companyName: String
     companyOrPerson: String
+    homeUrl: String
     inLanguage: String
     logo: MediaItem
     personLogo: MediaItem
@@ -6152,6 +6163,57 @@ type Theme implements Node {
     themeUri: String
     "The current version of the theme. This field is equivalent to WP_Theme-&gt;get( &quot;Version&quot; )."
     version: String
+}
+
+"Dashboard options."
+type ThemeOptions {
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Course Launch Banners&quot; was set to Show in GraphQL."
+    courseLaunchBanners: ThemeOptions_Courselaunchbanners
+    pageSlug: String
+    pageTitle: String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Environment Setup&quot; was set to Show in GraphQL."
+    serverSettings: ThemeOptions_Serversettings
+}
+
+"Field Group"
+type ThemeOptions_Courselaunchbanners implements AcfFieldGroup {
+    basicBanner: ThemeOptions_Courselaunchbanners_BasicBanner
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    lfmBannner: ThemeOptions_Courselaunchbanners_LfmBannner
+}
+
+"Field Group"
+type ThemeOptions_Courselaunchbanners_BasicBanner implements AcfFieldGroup {
+    color: String
+    "Choose the launch end date and time"
+    endDate: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Display Banner?"
+    showBanner: String
+    title: String
+    url: String
+}
+
+"Field Group"
+type ThemeOptions_Courselaunchbanners_LfmBannner implements AcfFieldGroup {
+    "Choose the launch end date and time"
+    endDate: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Display Banner?"
+    showBanner: String
+}
+
+"Field Group"
+type ThemeOptions_Serversettings implements AcfFieldGroup {
+    "Select the server the theme is currently using"
+    etwpHeadlessServer: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Select the e-commerce platform for product delivery"
+    productPlatform: String
 }
 
 "The payload for the UpdateCategory mutation"
@@ -6844,10 +6906,10 @@ enum MediaItemIdType {
 
 "The size of the media item object."
 enum MediaItemSizeEnum {
-    "MediaItem with the headless_ipad size"
-    HEADLESS_IPAD
     "MediaItem with the headless_post_feature_image size"
     HEADLESS_POST_FEATURE_IMAGE
+    "MediaItem with the headless_post_thumbnail size"
+    HEADLESS_POST_THUMBNAIL
     "MediaItem with the headless_resource_image size"
     HEADLESS_RESOURCE_IMAGE
     "MediaItem with the large size"
@@ -6862,8 +6924,6 @@ enum MediaItemSizeEnum {
     POST_THUMBNAIL
     "MediaItem with the thumbnail size"
     THUMBNAIL
-    "MediaItem with the yarpp-thumbnail size"
-    YARPP_THUMBNAIL
     "MediaItem with the 1536x1536 size"
     _1536X1536
     "MediaItem with the 2048x2048 size"

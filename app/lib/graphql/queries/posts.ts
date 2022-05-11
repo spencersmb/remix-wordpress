@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
-
-
+ 
 export const QUERY_NEXT_POSTS = gql`
     query NextPosts($after: String) {
         posts(first: 10, after: $after) {

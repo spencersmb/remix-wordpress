@@ -23,7 +23,7 @@ export default function Layout({ children, alternateNav }: React.PropsWithChildr
   return (
     <div className="flex flex-col min-h-fullBot">
       <Header alternateNav={alternateNav} />
-      <div className="pt-[68px] laptop:pt-[89px]">
+      <div className="pt-[68px] laptop:pt-[104px]">
         <div className="remix-app__main-content">{children}</div>
       </div>
       <FooterPrimary />

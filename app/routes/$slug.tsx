@@ -7,7 +7,7 @@ import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '~/lib/graphql/queries/posts'
 import BlogTemplate from '~/components/blog/blogTemplate'
-
+// @ts-nocheck
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
@@ -65,14 +65,14 @@ export default function PostSlug() {
 }
 
 const query = gql`
-${POST_BASIC_FIELDS}
-${POST_FEATURED_IMAGE}
-${RELEATED_POSTS_FIELDS}
-${PRODUCT_FIELDS}
+  ${POST_BASIC_FIELDS}
+  ${POST_FEATURED_IMAGE}
+  ${RELEATED_POSTS_FIELDS}
+  ${PRODUCT_FIELDS} 
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
-        ...postBasicFields,
-        ...featuredImageFields,
+        ...postBasicFields
+        ...featuredImageFields
         ...relatedPostsFields
         modified
         databaseId

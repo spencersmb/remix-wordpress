@@ -4,28 +4,44 @@ import { fetchFontPreviewFile } from "~/utils/fetch";
 interface FontState {
   status: string
   font: null | IFontFamily
+  fontName: null | string
 }
-export function useFonts(fontSlug: string){
+export function useFonts(){
   const [state, setState] = useState<FontState>({
     status: 'idle',
-    font: null
+    font: null,
+    fontName: null
   })
 
-  function checkFonts(){
-    const check = document.fonts.check(`12px ${fontSlug}`)
-    return check
+  // function checkFonts(){
+  //   const check = document.fonts.check(`12px ${fontSlug}`)
+  //   return check
+  // }
+
+  function loadFont(fontSlug: string){
+    setState({
+      ...state,
+      fontName: fontSlug,
+    })
   }
 
   useEffect(() => {
+    if(!state.fontName) return 
+    
     console.log('Start')
     let myFonts: FontFace[] = []
       async function loadFonts() {
         try {
           setState({
+            ...state,
             status: 'loading',
             font: null
           })
-          const data: { font: IFontFamily } = await fetchFontPreviewFile(fontSlug)
+
+          if(!state.fontName){
+            return
+          }
+          const data: { font: IFontFamily } = await fetchFontPreviewFile(state.fontName)
           
           data.font.files.map((file) => {
             const fontUrl = `.${file.url}`
@@ -46,12 +62,14 @@ export function useFonts(fontSlug: string){
             }
           })
           setState({
+            ...state,
             status: 'completed',
             font: data.font
           })
           
         } catch (e) {
           setState({
+            ...state,
             status: 'idle',
             font: null
           })
@@ -67,8 +85,9 @@ export function useFonts(fontSlug: string){
           document.fonts.delete(font)
         })
       }
-  }, [])
+  }, [state.fontName])
   return {
+    setFont: loadFont,
     fontLoadingState:state
   }
 }

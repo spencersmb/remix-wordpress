@@ -11,7 +11,15 @@ import espressoCaps from '../../../server/fonts/espresso-roast/EspressoRoast-Cap
 import espressoSymbols from '../../../server/fonts/espresso-roast/EspressoRoast-Symbols.woff'
 import cornerBakery from '../../../server/fonts/cornerbakery/CornerBakery-Regular.woff'
 
-import { FontPreviewName } from "~/enums/fonts";
+enum FontPreviewName {
+  TUESDAY = 'tuesday',
+  SKINNYJEANS = 'skinny',
+  MISSMAGNOLIA = 'magnolia',
+  HONEYMOON = 'honeymoon',
+  HAWTHORNE = 'hawthorne',
+  ESPRESSOROAST = 'espresso',
+  CORNERBAKERY = 'cornerbakery',
+}
 
 export let loader: LoaderFunction = async({request, params}) => {
   const url = new URL(request.url)
