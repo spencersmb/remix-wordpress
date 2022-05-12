@@ -1,17 +1,18 @@
+import { ISetFontFunction } from "~/hooks/useFonts";
 
 interface IProps {
   product: IProduct
-  setFont: any
-  previewFont: any
+  previewFontHanlder: ISetFontFunction
 }
 
-const GumroadProductCard = ({ product, previewFont }: IProps) => {
+const GumroadProductCard = ({ product, previewFontHanlder }: IProps) => {
   const hasFont = Boolean(product.details.font.name)
 
   return (
     <li key={product.slug}>
       {product.title}
-      {hasFont && <button onClick={previewFont} data-fontfamily={product.details.font.name}>Preview Font</button>}
+
+      {hasFont && <button onClick={previewFontHanlder(product.details.font.name)}>Preview Font</button>}
     </li>
   )
 }

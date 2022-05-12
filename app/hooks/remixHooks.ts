@@ -7,7 +7,7 @@ interface IProps {
   }
   menus: IMenu[]
   message: null | string
-  metadata: IMetaData
+  metadata: ISiteMetaDataMapped
   user: {
     wpAdmin: boolean, 
     resourceUser: null | IResourceUser
@@ -19,5 +19,17 @@ export const userStateMatches = () => {
   const state = selectedMatchUser?.data as IProps | undefined
   return {
     state
+  }
+}
+
+export const metaDataMatches = ():{metadata: ISiteMetaDataMapped} => {
+  const matches = useMatches()
+  let selectedMatchMetaData: undefined | ISelectedMatch = matches.find(match => match.data?.metadata)
+  if(!selectedMatchMetaData){
+    throw new Error('no metadata found')
+  }
+  const {metadata} = selectedMatchMetaData?.data as IProps
+  return {
+    metadata
   }
 }

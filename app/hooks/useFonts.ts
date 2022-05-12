@@ -6,6 +6,7 @@ interface FontState {
   font: null | IFontFamily
   fontName: null | string
 }
+export type ISetFontFunction = (fontSlug: string | null) => (event: IClickEvent) => void;
 export function useFonts(){
   const [state, setState] = useState<FontState>({
     status: 'idle',
@@ -19,10 +20,18 @@ export function useFonts(){
   // }
 
   function loadFont(fontSlug: string){
-    setState({
-      ...state,
+    setState((localState) =>{
+      return {
+      ...localState,
       fontName: fontSlug,
+      }
     })
+  }
+
+  const setFontClickHandler: ISetFontFunction = (fontName) => (event) => {
+    event.preventDefault();
+
+    if (fontName) loadFont(fontName);
   }
 
   useEffect(() => {
@@ -86,8 +95,9 @@ export function useFonts(){
         })
       }
   }, [state.fontName])
+
   return {
-    setFont: loadFont,
-    fontLoadingState:state
+    setFontClickHandler,
+    fontLoadingState: state
   }
 }

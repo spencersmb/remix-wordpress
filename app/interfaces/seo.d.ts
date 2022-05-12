@@ -196,7 +196,6 @@ type ISocialSettings = {
 }
 
 
-
 interface IMetaData {
   title: string
   domain: string
@@ -204,7 +203,6 @@ interface IMetaData {
   description: string
   language: string
   social: ISocialSettings
-  // shopPlatform: ShopPlatformEnum
   author: IAuthor
   seo?: any
 }

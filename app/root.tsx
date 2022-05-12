@@ -41,6 +41,7 @@ import { defaultFeaturedImage } from "./utils/pageUtils";
 import JsonLd from "./components/seo/jsonLd";
 import Layout from "./components/layoutTemplates/layout";
 import { ShopPlatformEnum } from "./enums/products";
+import { IRootData } from "./interfaces/global";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -94,6 +95,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   } : null
 
   // pass in the APP URL to see the correct urls on metaData
+  // async function that also returns dynamic metaData from WP
   let metadata = await createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
 
 
@@ -135,9 +137,9 @@ export let loader: LoaderFunction = async ({ request }) => {
  * component for your app.
  */
 export default function App() {
-  let { menus, metadata, user, message, cart } = useLoaderData<any>();
+  let { menus, metadata, user, message, cart } = useLoaderData<IRootData>();
   consoleHelper('user', user)
-  consoleHelper('metadata', metadata)
+  // consoleHelper('metadata', metadata)
 
   let defaultCart: IShopifyCart = {
     ...cart,
@@ -194,7 +196,7 @@ interface IDocument {
   title?: string
 }
 export function Document({ children, title }: IDocument) {
-  let data = useLoaderData<any>();
+  let data = useLoaderData<IRootData>();
   // console.log('ENV', data)
 
   return (
@@ -243,7 +245,8 @@ export function Document({ children, title }: IDocument) {
         <CommentModal />
 
         {/* FOOTER SCRIPTS */}
-        {/* {data.metadata.shopPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.com/js/gumroad.js"></script>} */}
+        {data.metadata.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.com/js/gumroad.js"></script>}
+
       </body>
     </html>
   );

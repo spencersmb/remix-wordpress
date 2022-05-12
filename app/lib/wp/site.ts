@@ -3,7 +3,38 @@ import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { SiteMetaDataQuery } from "../graphql/queries/siteMetaData";
 
-export function getWPMenu(resourceUser: string | null){
+interface IWpMenuFeaturedCourse {
+  id: string;
+  details: {
+    url: string | null;
+  }
+}
+interface IWpMenuItem {
+  childItems: {
+    edges: any[]
+  },
+  id: string,
+  title: null | string,
+  cssClasses: string[],
+  parentId: null | string,
+  label: string,
+  path: string,
+  target: null | string,
+  featured: {
+    courses: IWpMenuFeaturedCourse[] | null
+  }
+}
+export interface IWPMenu {
+  name: string,
+  slug: string,
+  locations: string[],
+  menuItems: IWpMenuItem[]
+
+}
+export interface IWpMenus {
+  menus: IWPMenu[]
+}
+export function getWPMenu(resourceUser: string | null): IWpMenus{
 
   return {
     menus: [
@@ -201,6 +232,7 @@ export async function createSiteMetaData(domain: string): Promise<ISiteMetaDataM
 
   let social = mapSocialMetaData(seo.social)
 
+  // Grab Data from actaul WP backend
   const dynamicData = await getDynamicSiteMetadata()
 
   return {

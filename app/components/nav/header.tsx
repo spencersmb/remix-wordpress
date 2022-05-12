@@ -17,14 +17,15 @@ interface Props {
 
 function Header(props: Props) {
   const { alternateNav } = props
-  const { state: { metadata: { shopPlatform } } } = useSite()
+  const { state: { metadata: { serverSettings } } } = useSite()
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()
   const { navRef } = useTopNav() // Nav slide in and out
+
   return (
-    <header ref={navRef} className="bg-white fixed top-0 left-0 w-full z-30 flex transition-transform duration-600 -translate-y-full inView">
-      <nav aria-label="Main navigation" className="w-full grid my-2 mx-5 items-center grid-cols-navMobile laptop:my-4 laptop:grid-cols-navDesktop">
+    <header ref={navRef} className="fixed top-0 left-0 z-30 flex w-full transition-transform -translate-y-full bg-white duration-600 inView">
+      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-4 laptop:grid-cols-navDesktop">
 
         {/* ET LOGO */}
         <div data-testid="logo" className="max-w-[144px] desktop:max-w-[220px]">
@@ -40,7 +41,7 @@ function Header(props: Props) {
           </div>
         </div>
         <div data-testid="hamburger"
-          className={classNames(shopPlatform === ShopPlatformEnum.GUMROAD
+          className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD
             ? 'mr-12'
             : '',
             'flex justify-center px-2 py-4 laptop:hidden')}>
@@ -54,14 +55,14 @@ function Header(props: Props) {
 
         {/* DESKTOP SEARCH AND COURSE LOGIN */}
         <div data-testid="desktop-col-3"
-          className={classNames(shopPlatform === ShopPlatformEnum.GUMROAD
+          className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD
             ? 'mr-12'
             : '',
             'hidden items-center justify-end laptop:flex')}>
           <div className="">
             <a className={'normal-link text-primary-600 mr-4 underlined underlined-active hover:text-primary-300'} href="https://teachable.com">Course Login</a>
           </div>
-          <div className="relative inline-flex flex-none items-center justify-center p-1 w-14 h-14 group">
+          <div className="relative inline-flex items-center justify-center flex-none p-1 w-14 h-14 group">
             <div className="absolute text-gray-200 dark:text-gray-600">
               <svg width="56" height="56" >
                 <motion.circle
@@ -87,7 +88,7 @@ function Header(props: Props) {
                 />
               </svg>
             </div>
-            <div className="bg-primary-700 borde rounded-full group-hover:bg-primary-500 transition-colors">
+            <div className="transition-colors rounded-full bg-primary-700 borde group-hover:bg-primary-500">
               <div className="w-[20px] h-[20px] m-3">
                 <SearchSvg fill={'#ffffff'} />
               </div>

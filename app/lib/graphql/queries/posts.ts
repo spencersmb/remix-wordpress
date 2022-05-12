@@ -254,7 +254,6 @@ export const PRODUCT_FIELDS = gql`
     title 
     slug
     details {
-      type
       licences {
         licenseType
         price

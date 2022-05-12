@@ -142,7 +142,7 @@ const JsonLd = () => {
             `${product.featuredImage?.sourceUrl}` // need default image
           ],
           product,
-          shopPlatform: metadata.shopPlatform
+          shopPlatform: metadata.serverSettings.productPlatform
         })
       }} />}
 

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { useEffect } from "react";
-import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData, useMatches } from "remix";
 import { useFonts } from "~/hooks/useFonts";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch";
@@ -8,6 +8,8 @@ import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "~/utils/seo";
 import FeaturedProduct from "~/components/products/featureProduct";
 import GumroadProductCard from "~/components/products/gumroadProductCard";
+import { metaDataMatches } from "~/hooks/remixHooks";
+import { ShopPlatformEnum } from "~/enums/products";
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -44,19 +46,16 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   console.log('data', data);
-  const { fontLoadingState, setFont } = useFonts()
+  const { fontLoadingState, setFontClickHandler } = useFonts()
+  const { metadata } = metaDataMatches()
 
-  function previewFont(event: IClickEvent) {
-    event.preventDefault();
-    // @ts-ignore
-    const fontName = event.currentTarget.dataset.fontfamily;
-
-    if (fontName) setFont(fontName);
-  }
 
   return (
     <Layout>
-      <FeaturedProduct product={data.products[0]} />
+      <FeaturedProduct
+        product={data.products[0]}
+        previewFontHanlder={setFontClickHandler}
+      />
       {/* {
         fontLoadingState.status === 'completed' && fontLoadingState.font?.files.map(font => {
           return (
@@ -70,12 +69,22 @@ function ProductsIndex() {
         </li>))} */}
         {data.products.map((product: IProduct) => {
 
-          return (
-            <GumroadProductCard key={product.slug} product={product} setFont={setFont} previewFont={previewFont} />
-          )
+          if (metadata.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD) {
+            return (
+              <GumroadProductCard
+                key={product.slug}
+                product={product}
+                previewFontHanlder={setFontClickHandler}
+              />
+            )
+          }
+
         }).slice(1) // Remove first time because its the featured product
         }
       </ul>
+      <div>
+        Preview Page
+      </div>
     </Layout>
   )
 }
@@ -94,7 +103,6 @@ const query = gql`
             youtube {
               url
             }
-            type
             font{
               name
             }

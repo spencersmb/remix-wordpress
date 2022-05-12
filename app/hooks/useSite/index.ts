@@ -1,13 +1,14 @@
 import { useContext, createContext, Dispatch, ReactElement, FunctionComponent } from 'react'
 import { ISiteAction, ISiteTypes } from './useSiteReducer'
 import { IModalTemplate } from '../../components/modals/modalTypes'
-import { siteInfo, socialUrls } from '~/lib/wp/site'
+import { IWPMenu, siteInfo, socialUrls } from '~/lib/wp/site'
+import { ShopPlatformEnum } from "../../enums/products";
 
 export interface ISiteContextState {
   recentPosts?: IPost[]
   categories?: any[]
-  metadata: IMetaData
-  menu: IMenu[],
+  metadata: ISiteMetaDataMapped
+  menu: IWPMenu[],
   user: {
     wpAdmin: boolean
     resourceUser: IResourceUser | null
@@ -48,6 +49,22 @@ export const siteInitialState: ISiteContextState  = {
       instagram: socialUrls.instagram,
       facebook: socialUrls.facebook,
     },
+    serverSettings:{
+      productPlatform: ShopPlatformEnum.GUMROAD,
+    },
+    courseLaunchBanners:{
+      basicBanner:{
+        showBanner: false,
+        color: 'null',
+        endDate: 'null',
+        title: 'null',
+        url: 'null'
+      },
+      lfmBanner:{
+        showBanner: false,
+        endDate: 'null'
+      }
+    }
   },
   menu:[],
   user: {

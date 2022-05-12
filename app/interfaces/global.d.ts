@@ -1,3 +1,5 @@
+import { IWPMenu, IWpMenus } from "~/lib/wp/site"
+
 interface IEnv {
   PUBLIC_WP_API_URL: string
   APP_ROOT_URL: string
@@ -8,5 +10,18 @@ declare interface Window {
   ENV: IEnv
 }
 
-declare module "text2png"
+interface IRootData {
+  message: null | string,
+  menus: IWPMenu[],
+  user: {
+    wpAdmin: boolean,
+    resourceUser: IResourceUser | null
+  },
+  cart: any
+  ENV: IEnv,
+  metadata: ISiteMetaDataMapped
+}
+
+// declare module "text2png"
+
 
