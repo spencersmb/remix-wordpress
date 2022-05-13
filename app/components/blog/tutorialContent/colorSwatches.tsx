@@ -15,12 +15,12 @@ function ColorSwatches(props: Props) {
   }
 
   return (
-    <div className={`bg-white text-white relative rounded-2.5xl overflow-hidden px-[45px] py-[30px] shadow-xs flex items-center tablet:py-[50px] laptop:mb-0 ${multipleLayout ? cssMultipleContainer : cssSingleContainer}`}>
+    <div className={`bg-white text-white relative rounded-2.5xl overflow-hidden px-[45px] py-[30px] shadow-xs flex items-center tablet:py-[52px] laptop:mb-0 ${multipleLayout ? cssMultipleContainer : cssSingleContainer}`}>
       <div className={`swatch_content relative max-w-[300px] flex flex-col z-10 tablet:mt-0 tablet:mr-44 ${multipleLayout ? 'mt-52 tablet:mr-44' : 'mt-52 laptop:mr-4'}`}>
-        <div className="text-primary-600 font-sentinel__SemiBoldItal text-h4 mb-2">
+        <div className="mb-2 text-primary-600 font-sentinel__SemiBoldItal text-h4">
           Free Color Swatches
         </div>
-        <p className="text-primary-500 text-lg mb-5">
+        <p className="mb-5 text-lg text-primary-500">
           Download the free clolor swatches instantly for this tutorial!
         </p>
         <div className="text-primary-600">

@@ -17,7 +17,7 @@ function PaidProducts(props: IProps) {
   const cssContainerMultipleProducts = 'flex flex-col-reverse tablet:flex-row tablet:flex-wrap-reverse'
 
   return (
-    <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8 z-20'>
+    <div className='mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8 z-20 mx-[-1rem]'>
       <div className={paidProductsGreaterThanOne ? cssContainerMultipleProducts : cssContainerPaidProduct}>
 
         {post.tutorialManager.colorPalette &&

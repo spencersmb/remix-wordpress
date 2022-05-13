@@ -3604,7 +3604,6 @@ type Product_Details implements AcfFieldGroup {
     "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
     fontName: String
     fontStyles: [Product_Details_fontStyles]
-    fonts: [Product_Details_fonts]
     "Add Gumroad Url"
     gumroadLink: String
     hasExtendedPrice: Boolean
@@ -3613,7 +3612,6 @@ type Product_Details implements AcfFieldGroup {
     licences: [Product_Details_licences]
     "Add Product Price"
     price: String
-    type: String
     "Add Youtube link here"
     youtube: Product_Details_Youtube
     "Add Youtube link here"
@@ -3639,22 +3637,6 @@ type Product_Details_fontStyles implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     style: String
-}
-
-"Field Group"
-type Product_Details_fonts implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
-    name: String
-    styles: [Product_Details_fonts_styles]
-}
-
-"Field Group"
-type Product_Details_fonts_styles implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    name: String
 }
 
 "Field Group"

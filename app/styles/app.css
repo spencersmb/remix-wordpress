@@ -874,6 +874,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.mx-\[-1rem\] {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+.mx-\[-16px\] {
+  margin-left: -16px;
+  margin-right: -16px;
+}
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -1221,6 +1229,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-\[32px\] {
   width: 32px;
+}
+.w-\[125px\] {
+  width: 125px;
 }
 .min-w-\[320px\] {
   min-width: 320px;
@@ -3028,6 +3039,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-left: auto;
     margin-right: auto;
   }
+  .tablet\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
   .tablet\:mr-2 {
     margin-right: 0.5rem;
   }
@@ -3286,6 +3301,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   .tablet\:py-\[50px\] {
     padding-top: 50px;
     padding-bottom: 50px;
+  }
+  .tablet\:py-\[52px\] {
+    padding-top: 52px;
+    padding-bottom: 52px;
   }
   .tablet\:pt-0 {
     padding-top: 0px;

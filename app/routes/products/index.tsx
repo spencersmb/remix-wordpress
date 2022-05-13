@@ -12,6 +12,8 @@ import { metaDataMatches } from "~/hooks/remixHooks";
 import { LicenseEnum, ShopPlatformEnum } from "~/enums/products";
 import useSite from "~/hooks/useSite";
 import { rearrangeLicenses } from "~/utils/posts";
+import UseFontPreviewProvider from "~/hooks/useFontPreivew/useFontPreviewProvider";
+import ProductLayout from "~/components/products/productLayout";
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -57,48 +59,17 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
 function ProductsIndex() {
   const data = useLoaderData()
-  // console.log('data', data);
-  const { fontLoadingState, setFontClickHandler } = useFonts()
   const { metadata } = metaDataMatches()
+  // console.log('data', data);
+  // const { fontLoadingState, setFontClickHandler } = useFonts()
   // const { state } = useSite()
 
   return (
-    <Layout>
-      <FeaturedProduct
-        product={data.products[0]}
-        previewFontHanlder={setFontClickHandler}
-      />
-      {/* {
-        fontLoadingState.status === 'completed' && fontLoadingState.font?.files.map(font => {
-          return (
-            <h1 key={font.family} style={{ fontFamily: font.family }}>Products</h1>
-          )
-        })
-      } */}
-      <ul>
-        {/* {data.products.map((product: IProduct) => (<li key={product.slug}>
-          <Link prefetch="intent" to={`/products/${product.slug}`} >{product.title}</Link>
-        </li>))} */}
-        {data.products.map((product: IProduct) => {
-
-          if (metadata.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD) {
-
-            return (
-              <GumroadProductCard
-                key={product.slug}
-                product={product}
-                previewFontHanlder={setFontClickHandler}
-              />
-            )
-          }
-
-        }).slice(1) // Remove first time because its the featured product
-        }
-      </ul>
-      <div>
-        Preview Page
-      </div>
-    </Layout>
+    <UseFontPreviewProvider>
+      <Layout>
+        <ProductLayout products={data.products} metadata={metadata} />
+      </Layout>
+    </UseFontPreviewProvider>
   )
 }
 

@@ -55,7 +55,8 @@ const SelectRadio = ({ checked, index, name, license, handleSelected }: IRadioPr
     <div className="form-check">
       <input className="float-left w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-blue-600 checked:border-blue-600 focus:outline-none" type="radio" name={`radio-${name}`} id={name} onChange={onChange} checked={checked} />
       <label className="inline-block text-gray-800 first-letter:uppercase form-check-label" htmlFor={`box1-${name}`}>
-        {license.licenseType} License
+        <span>{license.licenseType} License</span>
+        <span>${license.price}</span>
       </label>
     </div>
   )

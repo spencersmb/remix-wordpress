@@ -43,13 +43,13 @@ const PaidProductPopUp = ({ download_link, product, closeModal }: IProps) => {
       <p className="mb-8 text-neutral-50">This item is part of a full set that can be purchased if you want to take full advantage of all it’s elements.</p>
       <div className="flex flex-row">
         <button className="mr-4 btn btn-primary-300 ring-offset-primary-800" onClick={download}>Free Download</button>
-        {(product.details.type === 'gumroad' && extendedLicense) &&
+        {/* {(product.details.type === 'gumroad' && extendedLicense) &&
           <GumroadBtn
             className="font-semibold btn ring-offset-primary-800"
             price={extendedLicense.price}
             url={extendedLicense.url}
             text='Quick View'
-          />}
+          />} */}
       </div>
     </div>
   )

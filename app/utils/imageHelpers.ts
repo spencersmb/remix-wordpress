@@ -39,6 +39,7 @@ export enum ImageSizeEnums {
   FEATURE = 'headless_post_feature_image',
   RESOURCE = 'headless_resource_image',
   WPRP = 'wp_rp_thumbnail',
+  SOURCE = 'source',
 }
 
 
@@ -49,6 +50,17 @@ interface ILoadImageSrcArgs {
   fallbackImage?: IMediaDetailSize }
 type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
+
+  if(name = ImageSizeEnums.SOURCE){
+    return {
+      file: postFeaturedImage.sourceUrl,
+      height: postFeaturedImage.mediaDetails.height,
+      width: postFeaturedImage.mediaDetails.width,
+      mimeType: postFeaturedImage.mimeType,
+      name: "source_url",
+      sourceUrl: postFeaturedImage.sourceUrl,
+    }
+  }
 
   return postFeaturedImage.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
     if (currentValue.name === name) {

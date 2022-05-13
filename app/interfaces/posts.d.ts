@@ -15,7 +15,10 @@ interface IFeaturedImage {
   sizes: string
   sourceUrl: string
   srcSet: string
+  mimeType: string
   mediaDetails: {
+    height: string
+    width: string
     sizes: {
       width: string
       file: string

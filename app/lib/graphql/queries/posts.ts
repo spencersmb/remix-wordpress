@@ -253,6 +253,29 @@ export const PRODUCT_FIELDS = gql`
   fragment productFields on Product {
     title 
     slug
+    featuredImage {
+      node {
+        mimeType
+        mediaDetails {
+          height
+          width
+          sizes{
+            width
+            file
+            height
+            name
+            sourceUrl
+            mimeType
+          }
+        }
+          altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+      }
+    }
     details {
       licences {
         licenseType

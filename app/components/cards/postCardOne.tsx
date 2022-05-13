@@ -69,32 +69,35 @@ function PostCardOne(props: Props) {
           duration: 0
         }
       }}
-      className='card_conainter flex flex-col mb-8 col-start-2 col-span-2 tablet:col-start-auto tablet:col-auto z-20 desktop:mb-16'>
+      className='z-20 flex flex-col col-span-2 col-start-2 mb-8 card_conainter tablet:col-start-auto tablet:col-auto desktop:mb-16'>
 
       <div className='flex rounded-xl overflow-hidden transform transition-all shadow-md duration-500 translate-y-0 laptop:hover:shadow-et_4 laptop:hover:translate-y-[-5px] relative flex-1 bg-white'>
         <Link className='flex flex-col justify-start' to={`../${post.slug}`} prefetch={'intent'}>
 
           <div className="wrapper">
             {/* Make This */}
-            {post.tutorialManager && post.tutorialManager.thumbnail.image && post.tutorialManager.thumbnail.type === 'make' && (
-              <div className={'absolute top-[10px] left-[15px] w-[40%] z-10'}>
-                <div className='relative z-10'>
-                  <LazyImageBase
-                    image={makeThisImage}
-                    id={post.id}
-                    scrollPosition={scrollPosition}
-                    reverse={true}
-                  />
+            {post.tutorialManager
+              && post.tutorialManager.thumbnail.image
+              && post.tutorialManager.thumbnail.type === 'make'
+              && (
+                <div className={'absolute top-[10px] left-[15px] w-[40%] z-10'}>
+                  <div className='relative z-10'>
+                    <LazyImageBase
+                      image={makeThisImage}
+                      id={post.id}
+                      scrollPosition={scrollPosition}
+                      reverse={true}
+                    />
+                  </div>
+                  <div className={'absolute w-[40%] left-[71%] z-[5] top-[20px]'}>
+                    <LazyImageBase
+                      image={makeThisArrow}
+                      id={post.id}
+                      scrollPosition={scrollPosition}
+                    />
+                  </div>
                 </div>
-                <div className={'absolute w-[40%] left-[71%] z-[5] top-[20px]'}>
-                  <LazyImageBase
-                    image={makeThisArrow}
-                    id={post.id}
-                    scrollPosition={scrollPosition}
-                  />
-                </div>
-              </div>
-            )}
+              )}
 
             {/* CARD IMAGE */}
             <div className={`relative ${paddingBottom} ${marginBottom}`}>
@@ -119,17 +122,17 @@ function PostCardOne(props: Props) {
             </div>
 
             {/* CARD TEXT */}
-            <div className='flex flex-col flex-1 pt-2 px-3 pb-7 text-center justify-center items-center desktop:px-9'>
-              <div className='text-h3 text-primary-700 font-black  desktop:text-h3 tracking-widest'>
+            <div className='flex flex-col items-center justify-center flex-1 px-3 pt-2 text-center pb-7 desktop:px-9'>
+              <div className='font-black tracking-widest text-h3 text-primary-700 desktop:text-h3'>
                 <div className='mb-2'>
-                  {postTitle.subTitle && <div style={{ textTransform: 'inherit' }} className='text-h5 font-medium tracking-normal mb-3 block font-sentinel__SemiBoldItal lowercase'>{postTitle.subTitle}</div>}
+                  {postTitle.subTitle && <div style={{ textTransform: 'inherit' }} className='block mb-3 font-medium tracking-normal lowercase text-h5 font-sentinel__SemiBoldItal'>{postTitle.subTitle}</div>}
                   <span className="uppercase">{postTitle.title}</span>
                 </div>
-                {splitTitle.subTitle && <div className='font-light text-xl tablet:text-lg desktop:text-xl mb-3 tracking-wide'>{splitTitle.subTitle}</div>}
+                {splitTitle.subTitle && <div className='mb-3 text-xl font-light tracking-wide tablet:text-lg desktop:text-xl'>{splitTitle.subTitle}</div>}
               </div>
               {skill
                 ?
-                <div className='flex flex-row justify-center items-center text-warning-700 my-3'>
+                <div className='flex flex-row items-center justify-center my-3 text-warning-700'>
                   <div className='w-[24px] mr-1'><BarChartSvg fill={'var(--warning-700)'} /></div>
                   <div className='mr-1'>Skill Level:</div>
                   <div className='font-semibold capitalize'>{skill.name}</div>
