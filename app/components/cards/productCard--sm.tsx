@@ -13,6 +13,9 @@ interface Props {
   product: IProduct
   multipleProducts: boolean
 }
+/*
+  * @Component ProductCard__sm -- ProductCard for BLOG article purchases
+*/
 
 function ProductCard__sm(props: Props) {
   const { index, product, multipleProducts } = props
@@ -42,7 +45,7 @@ function ProductCard__sm(props: Props) {
       <div className={`wrapper bg-white flex-1 rounded-2.5xl shadow-xs p-6 pb-4 laptop:mb-0 ${multipleProducts ? cssMargin : ''}`}>
 
         {/* PRODUCT HEADER */}
-        <div className="product_header flex flex-row items-center mb-6">
+        <div className="flex flex-row items-center mb-6 product_header">
           <SvgBorderIconWrapper classes={`mr-3 laptop:mr-6 ${multipleProducts ? 'tablet:hidden laptop:block' : ''}`}>
             <ShoppingCartSvg stroke={`#976969`} />
           </SvgBorderIconWrapper>
@@ -57,11 +60,11 @@ function ProductCard__sm(props: Props) {
         </div>
 
         {/* PRODUCT BUY NOW */}
-        <div className="mt-4 flex flex-1 flex-col">
+        <div className="flex flex-col flex-1 mt-4">
 
-          {product.details.type === 'gumroad' && <GumroadBtn price={selectedLicense.price} url={selectedLicense.url} />}
+          {/* {product.details.type === 'gumroad' && <GumroadBtn price={selectedLicense.price} url={selectedLicense.url} />} */}
 
-          <div onClick={handleViewLicense} className="mt-4 flex flex-row justify-center hover:cursor-pointer">
+          <div onClick={handleViewLicense} className="flex flex-row justify-center mt-4 hover:cursor-pointer">
             <span className="w-[22px] mr-1"><QuestionMarkCircleSvg fill={`#ACA4A9`} /></span>
             <p className="flex-1">View License Details</p>
           </div>

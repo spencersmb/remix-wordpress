@@ -18,31 +18,33 @@ export function filterNodeFromTags(tags: { edges: [{ node: ITagCount }] }): ITag
 }
 
 export function rearrangeLicenses(licenses: ILicense[]) {
-  return licenses.reduce((acc: any, licence) => {
+
+  return licenses.reduce((acc: any, license) => {
+
     // Add it to the beginning of the array
-    if (licence.licenseType === 'standard') {
-      acc.unshift(licence)
+    if (license.licenseType === 'standard') {
+      acc.unshift(license)
     }
-    console.log('licence.licenseType', licence.licenseType);
+    // console.log('license.licenseType', license.licenseType);
 
     // if there is only one item in array, add extended as the 2nd
-    if (licence.licenseType === 'extended') {
-      acc.push(licence)
+    if (license.licenseType === 'extended') {
+      acc.push(license)
     }
 
     // if the ext is the last item to get looped over
-    if (licence.licenseType === 'extended' && acc.length === 2) {
+    if (license.licenseType === 'extended' && licenses.length === 3) {
       const standard = acc[0]
       const server = acc[1]
       acc = [
         standard,
-        licence,
+        license,
         server
       ]
     }
 
-    if (licence.licenseType === 'server') {
-      acc.push(licence)
+    if (license.licenseType === 'server') {
+      acc.push(license)
     }
 
     return acc
@@ -300,6 +302,8 @@ export function getLicense(licenses: ILicense[] | null, type: LicenseEnum) {
   if (!licenses) {
     return null
   }
+  console.log('run');
+
   return licenses.reduce((acc, curr) => {
     if (curr.licenseType === type) {
       return curr

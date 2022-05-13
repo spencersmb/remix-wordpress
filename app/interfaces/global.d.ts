@@ -10,6 +10,10 @@ declare interface Window {
   ENV: IEnv
 }
 
+declare global {
+    interface Window { ENV: IEnv }
+}
+
 interface IRootData {
   message: null | string,
   menus: IWPMenu[],

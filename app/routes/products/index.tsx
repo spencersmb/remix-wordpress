@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HeadersFunction, json, Link, LoaderFunction, MetaFunction, useLoaderData, useMatches } from "remix";
 import { useFonts } from "~/hooks/useFonts";
 import Layout from "~/components/layoutTemplates/layout";
@@ -9,7 +9,9 @@ import { getBasicPageMetaTags } from "~/utils/seo";
 import FeaturedProduct from "~/components/products/featureProduct";
 import GumroadProductCard from "~/components/products/gumroadProductCard";
 import { metaDataMatches } from "~/hooks/remixHooks";
-import { ShopPlatformEnum } from "~/enums/products";
+import { LicenseEnum, ShopPlatformEnum } from "~/enums/products";
+import useSite from "~/hooks/useSite";
+import { rearrangeLicenses } from "~/utils/posts";
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -25,14 +27,24 @@ export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaDat
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
-    first: 11,
+    first: 50,
     after: null
   }
   try {
-    const data = await fetchAPI(getGraphQLString(query),
-      variables
+    const data = await fetchAPI(getGraphQLString(getProducts),
+      { variables }
     )
-    const products = data.products?.edges?.map(({ node = {} }) => node);
+
+    const products = data.products?.edges?.map(({ node }: { node: IProduct }) => {
+      const product = {
+        ...node,
+        details: {
+          ...node.details,
+          licences: node.details.licences ? rearrangeLicenses(node.details.licences) : null,
+        }
+      }
+      return product
+    });
 
     return json({
       products,
@@ -45,10 +57,10 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
 function ProductsIndex() {
   const data = useLoaderData()
-  console.log('data', data);
+  // console.log('data', data);
   const { fontLoadingState, setFontClickHandler } = useFonts()
   const { metadata } = metaDataMatches()
-
+  // const { state } = useSite()
 
   return (
     <Layout>
@@ -70,6 +82,7 @@ function ProductsIndex() {
         {data.products.map((product: IProduct) => {
 
           if (metadata.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD) {
+
             return (
               <GumroadProductCard
                 key={product.slug}
@@ -91,9 +104,9 @@ function ProductsIndex() {
 
 export default ProductsIndex
 
-const query = gql`
-  query GetProducts {
-    products(first: 10) {
+const getProducts = gql`
+  query GetProducts($first: Int, $after: String) {
+    products(first: $first, after: $after) {
       edges {
         node {
           title

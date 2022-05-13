@@ -37,6 +37,9 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
+
+  console.log('variable', variables);
+  
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
@@ -49,7 +52,6 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
       variables,
     }),
   })
-
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)

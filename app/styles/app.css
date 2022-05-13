@@ -824,6 +824,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .row-start-3 {
   grid-row-start: 3;
 }
+.float-left {
+  float: left;
+}
 .m-auto {
   margin: auto;
 }
@@ -1054,6 +1057,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-\[24px\] {
   height: 24px;
 }
+.h-4 {
+  height: 1rem;
+}
 .h-5 {
   height: 1.25rem;
 }
@@ -1152,6 +1158,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-\[54px\] {
   width: 54px;
+}
+.w-4 {
+  width: 1rem;
 }
 .w-5 {
   width: 1.25rem;
@@ -1409,6 +1418,11 @@ Ensure the default browser behavior of the `hidden` attribute.
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 .grid-flow-row {
   grid-auto-flow: row;
@@ -1676,6 +1690,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-primary-50 {
   background-color: var(--primary-plum-50);
 }
+.bg-contain {
+  background-size: contain;
+}
+.bg-center {
+  background-position: center;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
 .stroke-warning-400 {
   stroke: #F3CB48;
 }
@@ -1937,6 +1960,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-center {
   text-align: center;
 }
+.align-top {
+  vertical-align: top;
+}
 .font-sentinel__SemiBoldItal {
   font-family: Sentinel SemiBoldItal, serif;
 }
@@ -2145,6 +2171,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-primary-300 {
   --tw-text-opacity: 1;
   color: rgb(205 167 167 / var(--tw-text-opacity));
+}
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 .text-neutral-400 {
   --tw-text-opacity: 1;
@@ -2546,6 +2576,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .grid-resource-header {
     grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
   }
+.first-letter\:uppercase::first-letter {
+  text-transform: uppercase;
+}
 .selection\:bg-teal-300 *::-moz-selection {
   --tw-bg-opacity: 1;
   background-color: rgb(94 234 212 / var(--tw-bg-opacity));
@@ -2584,6 +2617,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .last\:mr-0:last-child {
   margin-right: 0px;
+}
+.checked\:border-blue-600:checked {
+  --tw-border-opacity: 1;
+  border-color: rgb(37 99 235 / var(--tw-border-opacity));
+}
+.checked\:bg-blue-600:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 .hover\:scale-\[1\.2\]:hover {
   --tw-scale-x: 1.2;
@@ -4090,3 +4131,6 @@ button:focus {
     height: 0;
     font-weight: 700;
   }
+.form-check-input:checked[type="radio"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-4 -4 8 8%22%3E%3Ccircle r=%222%22 fill=%22%23fff%22/%3E%3C/svg%3E");
+}
