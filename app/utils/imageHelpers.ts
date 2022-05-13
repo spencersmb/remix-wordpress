@@ -50,8 +50,8 @@ interface ILoadImageSrcArgs {
   fallbackImage?: IMediaDetailSize }
 type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
-
-  if(name = ImageSizeEnums.SOURCE){
+  
+  if(name === ImageSizeEnums.SOURCE){
     return {
       file: postFeaturedImage.sourceUrl,
       height: postFeaturedImage.mediaDetails.height,
