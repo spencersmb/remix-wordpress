@@ -118,7 +118,7 @@ function BlogTemplate(props: IProps) {
           <div className='col-span-full bg-primary-100 h-[100px] tablet:h-[200px] laptop:h-[300px] z-0 row-[1/1] self-end'></div>
 
           {/* YOUTUBE */}
-          <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+          <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-4 desktop:col-span-8'>
             <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
           </div>
 

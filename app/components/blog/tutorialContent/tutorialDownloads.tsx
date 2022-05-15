@@ -25,22 +25,22 @@ function TutorialDownloads(props: Props) {
   }
 
   return (
-    <div className='pt-8 mb-8 col-start-2 col-span-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+    <div className='col-span-2 col-start-2 pt-8 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-4 desktop:col-span-8'>
       <div className='flex flex-row rounded-2.5xl overflow-hidden shadow-xs' >
         {/* SIGNUP BLOCK */}
         {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 max-w-[410px]'>
-          <div className='font-sentinel__SemiBoldItal text-5xl mb-4'>
+          <div className='mb-4 text-5xl font-sentinel__SemiBoldItal'>
             Tutorial Downloads
           </div>
           <p className='mb-4'>
             Gain access to all tutorial assets for free by joining Tuesday Makers.
           </p>
-          <div className='button_container flex flex-row mt-3 items-center mb-6'>
+          <div className='flex flex-row items-center mt-3 mb-6 button_container'>
             <div className='mr-4'>
               <Link to={`/tuesday-makers?redirect=${post.slug}`} prefetch='intent' className='btn btn-secondary hover:ring-offset-primary-600 active:ring-offset-primary-600'>Subscribe</Link>
             </div>
             <div>
-              <p className='text-primary-200 italic text-sm'>
+              <p className='text-sm italic text-primary-200'>
                 This kit available only for Unlimited Access subscribers
               </p>
             </div>
@@ -48,17 +48,17 @@ function TutorialDownloads(props: Props) {
 
           <div className='login'>
             <p className='text-white'>
-              Already a member? <Link to='/tuesday-makers/login' prefetch='intent' className='text-primary-300 underline underline-offset-4 hover:text-teal-400 font-semibold'>Sign In</Link>
+              Already a member? <Link to='/tuesday-makers/login' prefetch='intent' className='font-semibold underline text-primary-300 underline-offset-4 hover:text-teal-400'>Sign In</Link>
             </p>
           </div>
         </div>}
 
         {/* LOCKED CONTENT */}
         <div className='flex-1 bg-white'>
-          <div className='font-sentinel__SemiBoldItal text-h5 p-7 border-b border-neutral-300'>
+          <div className='border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300'>
             Free Downloads in the video
           </div>
-          <div className='locked_items_list p-6'>
+          <div className='p-6 locked_items_list'>
             {post.tutorialManager.downloads.map((item, index) => {
               return (
                 <div className='flex flex-row items-center mb-4' key={index}>
@@ -67,8 +67,8 @@ function TutorialDownloads(props: Props) {
                       {!resourceUser ? <LockedSvg fill={`var(--neutral-600)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
                     </div>
                   </div>
-                  <div className="locked_item flex flex-col text-left justify-start items-start">
-                    <div className='font-semibold text-lg text-primary-600'>
+                  <div className="flex flex-col items-start justify-start text-left locked_item">
+                    <div className='text-lg font-semibold text-primary-600'>
                       {item.title}
                     </div>
                     <button className={!resourceUser ? `text-neutral-500` : `text-primary-500`} onClick={handleDownload(index)}>Download</button>

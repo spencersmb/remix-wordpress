@@ -30,23 +30,21 @@ function ProductCard__sm(props: Props) {
     fallbackImage: defaultImages.featured
   })
 
-  // if multiple products, we need to set extra CSS Styles
-  const odd = index % 2 === 0
-  const cssMargin = odd ? 'tablet:mr-4' : 'tablet:ml-4'
-
   return (
-    <div className={`mb-8 flex flex-[0_1_50%]`}>
-      <div className={`wrapper bg-white flex-1 rounded-2.5xl shadow-xs p-6 pb-4 tablet:mx-4 laptop:mb-0`}>
+    <div className={`mb-8 px-4 flex tablet:flex-[0_1_50%] tablet:px-0`}>
+      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 tablet:mx-4 laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
-        <LazyImageBase
-          image={featuredImage}
-          id={product.slug} />
+        <div className='mb-4 overflow-hidden rounded-lg'>
+          <LazyImageBase
+            image={featuredImage}
+            id={product.slug} />
+        </div>
 
         {/* PRODUCT title */}
-        <div className="items-center mb-6 text-center product_header">
+        <div className="items-center mb-8 text-center product_header">
 
-          <h5 className={`text-2xl font-sentinel__SemiBoldItal laptop:text-h5 `}>
+          <h5 className={`text-2xl font-sentinel__SemiBoldItal laptop:text-h5 max-w-[250px] mx-auto`}>
             {product.title}
           </h5>
         </div>

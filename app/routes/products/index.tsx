@@ -98,13 +98,25 @@ const getProducts = gql`
           }
           featuredImage {
             node {
-              altText
-              sizes
+              mimeType
               mediaDetails {
-                sizes {
+                height
+                width
+                sizes{
+                  width
+                  file
+                  height
+                  name
                   sourceUrl
+                  mimeType
                 }
               }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
             }
           }
         }

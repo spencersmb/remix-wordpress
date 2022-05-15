@@ -76,6 +76,9 @@ module.exports = {
         800: '#273939',
         900: '#1A2626'
       },
+      'sage':{
+        200: '#D0D8D9'
+      },
       'warning': {
         50: '#FFFBEB',
         100: '#FEF3C7',

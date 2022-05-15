@@ -51,6 +51,7 @@ interface ILoadImageSrcArgs {
 type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
   
+  // opt out to just return the sourceURL image
   if(name === ImageSizeEnums.SOURCE){
     return {
       file: postFeaturedImage.sourceUrl,
