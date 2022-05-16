@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Sticky, StickyContainer } from 'react-sticky';
+import { ClientOnly } from 'remix-utils';
 import useSite from '~/hooks/useSite';
+import useWindowResize from '~/hooks/useWindowResize';
 import { classNames } from '~/utils/appUtils';
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers';
 import { addClass } from '~/utils/pageUtils';
@@ -16,13 +19,16 @@ import PinterestBlock from './pinterestBlock';
 import PostsGrid from './postsGrid';
 import PaidProducts from './tutorialContent/paidProducts';
 import TutorialDownloads from './tutorialContent/tutorialDownloads';
+
 interface IProps {
   post: IPost
 }
 function BlogTemplate(props: IProps) {
   const { post } = props
   const { resourecLibraryLogin, hideComments, state: { metadata } } = useSite();
-  consoleHelper('post', post)
+  // consoleHelper('post', post)
+
+  useWindowResize()
 
   useEffect(() => {
     // handleCommentsClick()
@@ -86,6 +92,7 @@ function BlogTemplate(props: IProps) {
 
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
+
     <div className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       {/* BREADCURMBS */}
@@ -112,31 +119,76 @@ function BlogTemplate(props: IProps) {
         </div>
       </div>}
 
-      {post.tutorialManager.youtube.embedUrl &&
-        <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
-
-          <div className='col-span-full bg-primary-100 h-[100px] tablet:h-[200px] laptop:h-[300px] z-0 row-[1/1] self-end'></div>
-
-          {/* YOUTUBE */}
-          <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-            <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
-          </div>
-
-        </div>}
-
-      {/* CONTENT */}
 
       {/* TUTORIAL DOWNLOADS */}
-      <div className={classNames(
+      <div className='col-span-full'>
+        <StickyContainer>
+
+          <div className={classNames(
+            post.tutorialManager.downloads || post.tutorialManager.paidProducts
+              ? 'pb-12'
+              : '',
+            'bg-primary-100 relative flex items-start max-w-[1450px] mx-auto')}>
+            <div className='relative flex-1 bg-slate-400'>
+              <Sticky topOffset={-104} bottomOffset={104}>
+                {({
+                  style,
+
+                  // the following are also available but unused in this example
+                  isSticky,
+                  wasSticky,
+                  distanceFromTop,
+                  distanceFromBottom,
+                  calculatedHeight
+                }) => {
+                  console.log('style', style);
+
+                  return (
+                    <div style={{
+                      ...style,
+                      // @ts-ignore
+                      top: style && style.top ? style.top + 104 : 104,
+                    }}>
+                      <TutorialDownloads post={post} />
+                    </div>
+                  )
+                }}
+              </Sticky>
+            </div>
+            <div className='flex-initial bg-sage-200 h-[1000px] w-[60%]'>
+              <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+            </div>
+          </div>
+        </StickyContainer>
+      </div>
+
+
+
+
+
+      {/* TUTORIAL DOWNLOADS */}
+      {/* <div className={classNames(
         post.tutorialManager.downloads || post.tutorialManager.paidProducts
           ? 'pb-12'
           : '',
-        'bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop')}>
+        'bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop relative')}>
 
-        <TutorialDownloads post={post} />
-        <PaidProducts post={post} />
+        <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-6 desktop:col-span-8'>
+          <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+        </div>
 
-      </div>
+        <div className='relative col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-4'>
+
+          <TutorialDownloads post={post} />
+
+        </div>
+
+
+        <div className='mb-8 col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-6 desktop:col-span-8 z-20 mx-[-1rem]'>
+          <PaidProducts post={post} />
+        </div>
+
+      </div> */}
 
       {/* BLOG CONTENT */}
       <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -165,6 +217,7 @@ function BlogTemplate(props: IProps) {
 
       </div>
 
+
       {/* RELATED POSTS TITLE */}
       <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
         <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
@@ -176,6 +229,8 @@ function BlogTemplate(props: IProps) {
 
       {/* <MakersPostSignUp /> */}
       <PostsGrid posts={post.relatedPosts} tabletGrid3x={true} />
+
+
 
     </div>
   )

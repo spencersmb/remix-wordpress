@@ -408,7 +408,6 @@ function BlogIndex() {
 
         </div>
 
-
         <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {category === 'all' && state.pageInfo.hasNextPage &&
             <OutlinedButton

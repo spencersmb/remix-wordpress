@@ -24,22 +24,22 @@ function PinterestBlock(props: IProps) {
     }
   })
 
-  console.log('pinterestImage', pinterestImage);
+  // console.log('pinterestImage', pinterestImage);
 
 
   return (
-    <div className="col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
+    <div className="col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
 
       {/* UI CARD */}
       <div className="relative max-w-[350px] tablet:max-w-[500px] mx-auto">
 
         {/* CARD CONTAINER */}
-        <div className="bg-white flex flex-col-reverse shadow-xl rounded-lg overflow-hidden z-10 relative tablet:flex-row">
+        <div className="relative z-10 flex flex-col-reverse overflow-hidden bg-white rounded-lg shadow-xl tablet:flex-row">
 
           {/* Content */}
           <div className="flex py-7 px-9 pl-11">
             <a
-              className="flex flex-col justify-center items-center "
+              className="flex flex-col items-center justify-center "
               rel="nofollow"
               target="_blank"
               href={`https://pinterest.com/pin/create/button/?url=${postUrl}&media=${pinterestImage.sourceUrl}&description=${description}`}>
@@ -48,8 +48,8 @@ function PinterestBlock(props: IProps) {
                   <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
                 </div>
               </div>
-              <div className="font-sentinel__SemiBoldItal text-primary-500 text-h4 mb-2">Save for later</div>
-              <p className="text-center mb-8">Create your own personal library of my tutorials you love!</p>
+              <div className="mb-2 font-sentinel__SemiBoldItal text-primary-500 text-h4">Save for later</div>
+              <p className="mb-8 text-center">Create your own personal library of my tutorials you love!</p>
 
               <CircularStrokeBtn text='Pin It' classes="py-[21px] px-[38px]" />
             </a>
