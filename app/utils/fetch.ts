@@ -46,7 +46,6 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
     agent,
     headers: {
       'Content-Type': 'application/json',
-      'gcdn-debug': '1'
     },
     body: JSON.stringify({
       query,
