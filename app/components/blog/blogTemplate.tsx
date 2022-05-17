@@ -3,7 +3,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Sticky, StickyContainer } from 'react-sticky';
 import { ClientOnly } from 'remix-utils';
 import useSite from '~/hooks/useSite';
-import useWindowResize from '~/hooks/useWindowResize';
+import useWindowResize, { BreakpointEnums } from '~/hooks/useWindowResize';
 import { classNames } from '~/utils/appUtils';
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers';
 import { addClass } from '~/utils/pageUtils';
@@ -25,10 +25,8 @@ interface IProps {
 }
 function BlogTemplate(props: IProps) {
   const { post } = props
-  const { resourecLibraryLogin, hideComments, state: { metadata } } = useSite();
+  const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   // consoleHelper('post', post)
-
-  useWindowResize()
 
   useEffect(() => {
     // handleCommentsClick()
@@ -90,9 +88,6 @@ function BlogTemplate(props: IProps) {
     fallbackImage: defaultImages.featured
   })
 
-  console.log('featuredImage', featuredImage);
-
-
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
 
@@ -131,9 +126,9 @@ function BlogTemplate(props: IProps) {
             post.tutorialManager.downloads || post.tutorialManager.paidProducts
               ? 'pb-12'
               : '',
-            'bg-primary-100 relative flex items-start max-w-[1450px] mx-auto')}>
+            'bg-primary-100 relative flex flex-col-reverse laptop:flex-row items-start max-w-[1450px] mx-auto')}>
             <div className='relative flex-1 bg-slate-400'>
-              <Sticky topOffset={-104} bottomOffset={104}>
+              {breakpoint === BreakpointEnums.desktopXL && <Sticky topOffset={-104} bottomOffset={104}>
                 {({
                   style,
 
@@ -144,8 +139,6 @@ function BlogTemplate(props: IProps) {
                   distanceFromBottom,
                   calculatedHeight
                 }) => {
-                  console.log('style', style);
-
                   return (
                     <div style={{
                       ...style,
@@ -157,9 +150,14 @@ function BlogTemplate(props: IProps) {
                   )
                 }}
               </Sticky>
+              }
+
             </div>
-            <div className='flex-initial bg-sage-200 h-[1000px] w-[60%]'>
+            <div className='flex-initial bg-sage-200 w-[70%] pl-8'>
               <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+              {breakpoint !== BreakpointEnums.desktopXL && <TutorialDownloads post={post} />}
+
+              <PaidProducts post={post} />
             </div>
           </div>
         </StickyContainer>

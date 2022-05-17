@@ -42,6 +42,7 @@ import JsonLd from "./components/seo/jsonLd";
 import Layout from "./components/layoutTemplates/layout";
 import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
+import useWindowResize from "./hooks/useWindowResize";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -197,6 +198,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
+  useWindowResize()
   // console.log('ENV', data)
 
   return (

@@ -1,6 +1,8 @@
 import { useSiteReducer } from './useSiteReducer'
-import { ReactElement, useReducer } from 'react'
-import { ISiteContextState, SiteContext } from './index'
+import type { ReactElement } from 'react';
+import { useReducer } from 'react'
+import type { ISiteContextState } from './index';
+import { SiteContext } from './index'
 
 /**
  * @Component UseSiteProvider
@@ -12,9 +14,9 @@ interface IProps {
   children?: ReactElement,
   defaultState: ISiteContextState
 }
-const UseSiteProvider = ({children, defaultState}: IProps) => {
+const UseSiteProvider = ({ children, defaultState }: IProps) => {
   const [state, dispatch] = useReducer(useSiteReducer, defaultState)
-  const value = {state, dispatch}
+  const value = { state, dispatch }
   return <SiteContext.Provider value={value}>
     {children}
   </SiteContext.Provider>

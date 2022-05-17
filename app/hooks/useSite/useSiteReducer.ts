@@ -1,6 +1,7 @@
-import { ISiteContextState } from './index'
+import type { ISiteContextState } from './index'
 import { consoleHelper } from '../../utils/windowUtils'
-import { IModalTemplate } from '../../components/modals/modalTypes'
+import type { IModalTemplate } from '../../components/modals/modalTypes'
+import type { BreakpointEnums } from '../useWindowResize'
 
 export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',
@@ -11,6 +12,7 @@ export enum ISiteTypes {
   ADD_COMMENT = 'ADD_COMMENT',
   ADD_COMMENT_REPLY = 'ADD_COMMENT_REPLY',
   FETCH_MORE_COMMENTS = 'FETCH_MORE_COMMENTS',
+  UPDATE_BREAKPOINT = 'UPDATE_BREAKPOINT',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -63,6 +65,13 @@ interface ILoginResourceUser{
   }
 }
 
+interface IUpdateBreakpoint{
+  type: ISiteTypes.UPDATE_BREAKPOINT,
+  payload: {
+    breakpoint: BreakpointEnums
+  }
+}
+
 export type ISiteAction =
 | IOpenModal
 | {type: ISiteTypes.MODAL_CLOSE}
@@ -72,6 +81,7 @@ export type ISiteAction =
 | IAddCommentReply
 | {type: ISiteTypes.HIDE_COMMENTS}
 | IFetchMoreComments
+| IUpdateBreakpoint
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
@@ -187,6 +197,13 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
           pageInfo: action.payload.pageInfo,
           comments
         }
+      }
+    }
+
+    case ISiteTypes.UPDATE_BREAKPOINT:{
+      return{
+        ...state,
+        breakpoint: action.payload.breakpoint
       }
     }
     default: {

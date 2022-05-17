@@ -1,8 +1,12 @@
-import { useContext, createContext, Dispatch, ReactElement, FunctionComponent } from 'react'
-import { ISiteAction, ISiteTypes } from './useSiteReducer'
-import { IModalTemplate } from '../../components/modals/modalTypes'
-import { IWPMenu, siteInfo, socialUrls } from '~/lib/wp/site'
+import type { Dispatch, ReactElement, FunctionComponent } from 'react';
+import { useContext, createContext } from 'react'
+import type { ISiteAction} from './useSiteReducer';
+import { ISiteTypes } from './useSiteReducer'
+import type { IModalTemplate } from '../../components/modals/modalTypes'
+import type { IWPMenu} from '~/lib/wp/site';
+import { siteInfo, socialUrls } from '~/lib/wp/site'
 import { ShopPlatformEnum } from "../../enums/products";
+import { BreakpointEnums } from '../useWindowResize';
 
 export interface ISiteContextState {
   recentPosts?: IPost[]
@@ -25,7 +29,8 @@ export interface ISiteContextState {
       hasNextPage: boolean
       endCursor: string
     }
-  }
+  },
+  breakpoint: BreakpointEnums
 }
 interface ISiteContextType {
   state: ISiteContextState,
@@ -83,7 +88,8 @@ export const siteInitialState: ISiteContextState  = {
       hasNextPage: false,
       endCursor: ''
     }
-  }
+  },
+  breakpoint: BreakpointEnums.mobile
 }
 export const SiteContext = createContext<ISiteContextType>({
   state: siteInitialState,
@@ -178,6 +184,15 @@ const useSite = () => {
     })
   }
 
+  const updateBreakpoint = (breakpoint: BreakpointEnums) => {
+     dispatch({
+      type: ISiteTypes.UPDATE_BREAKPOINT,
+      payload: {
+        breakpoint
+      }
+    })
+  }
+
   return {
     openModal,
     closeModal,
@@ -187,6 +202,7 @@ const useSite = () => {
     addComment,
     addCommentReply,
     fetchMoreComments,
+    updateBreakpoint,
     state,
     dispatch
   }

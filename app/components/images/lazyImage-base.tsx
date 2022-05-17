@@ -1,5 +1,6 @@
 import React from 'react'
-import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component'
+import type { ScrollPosition } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
   image: IMediaDetailSize
@@ -11,7 +12,6 @@ interface Props {
 
 function LazyImageBase(props: Props) {
   const { image, id, scrollPosition, alt, reverse } = props
-  console.log('image', image);
 
   const imagePadding = reverse ? parseInt(image.width, 10) / parseInt(image.height, 10) : parseInt(image.height, 10) / parseInt(image.width, 10)
   return (

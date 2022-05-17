@@ -28,9 +28,9 @@ function TutorialDownloads(props: Props) {
   }
 
   return (
-    <div className='flex flex-col tablet:flex-row desktop:flex-col rounded-2.5xl overflow-hidden shadow-xs' >
+    <div className='flex flex-col laptop:flex-col desktop:flex-col rounded-2.5xl overflow-hidden shadow-xs' >
       {/* SIGNUP BLOCK */}
-      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 laptop:max-w-[410px] desktop:max-w-none'>
+      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 tablet:max-w-none desktop:max-w-none'>
         <div className='mb-4 text-5xl font-sentinel__SemiBoldItal'>
           Tutorial Downloads
         </div>

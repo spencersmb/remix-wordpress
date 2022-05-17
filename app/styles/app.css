@@ -1238,6 +1238,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-\[32px\] {
   width: 32px;
 }
+.w-\[70\%\] {
+  width: 70%;
+}
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -1985,6 +1988,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pb-16 {
   padding-bottom: 4rem;
+}
+.pl-4 {
+  padding-left: 1rem;
 }
 .text-left {
   text-align: left;
