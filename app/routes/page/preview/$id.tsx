@@ -1,4 +1,5 @@
-import { LoaderFunction, useLoaderData } from 'remix'
+import { LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import Layout from '~/components/layoutTemplates/layout'
 import { previewLoaderRouteHandler } from '../../../utils/loaderHelpers'
 

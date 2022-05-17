@@ -1,5 +1,6 @@
+import { ActionFunction, json, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { Form, Link, useActionData, useTransition } from '@remix-run/react';
 import React from 'react'
-import { ActionFunction, Form, json, Link, LoaderFunction, MetaFunction, useActionData, useTransition } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server';
 import { ckFormIds } from '~/lib/convertKit/formIds';
 import { getStaticPageMeta } from '~/utils/pageUtils';
@@ -107,12 +108,12 @@ function LfmMiniCourseSignUp() {
           ? "form-error-message"
           : undefined
       }>
-        <label htmlFor="email-input" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="email-input" className="text-sm leading-7 text-gray-600">
           email:
           <input
             id="email-input"
             type="email"
-            className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             name="email"
             aria-invalid={
               Boolean(
@@ -140,7 +141,7 @@ function LfmMiniCourseSignUp() {
           disabled={transition.state !== 'idle'}
           aria-disabled={transition.state !== 'idle'}
           type='submit'
-          className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+          className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
           {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
         </button>
       </Form>

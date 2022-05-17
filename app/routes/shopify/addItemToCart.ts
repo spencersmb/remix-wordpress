@@ -1,5 +1,5 @@
+import { ActionFunction, json } from "@remix-run/node";
 import { isEmpty } from "lodash";
-import { ActionFunction, json } from "remix";
 import { shopifyCartCookie } from "~/cookies.server";
 import { addItemToCartRequest, createCart } from "~/utils/cartUtils";
 import { findCookie } from "~/utils/loaderHelpers";

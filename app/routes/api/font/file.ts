@@ -1,4 +1,3 @@
-import { json, LoaderFunction } from "remix";
 import skinnyJeansScript from '../../../server/fonts/skinny-jeans/SkinnyJeans-Script.woff'
 import skinnyJeansCaps from '../../../server/fonts/skinny-jeans/SkinnyJeans-Caps.woff'
 import skinnyJeansSymbols from '../../../server/fonts/skinny-jeans/SkinnyJeans-Symbols.woff'
@@ -10,6 +9,7 @@ import espresso from '../../../server/fonts/espresso-roast/EspressoRoast-Script.
 import espressoCaps from '../../../server/fonts/espresso-roast/EspressoRoast-Caps.woff'
 import espressoSymbols from '../../../server/fonts/espresso-roast/EspressoRoast-Symbols.woff'
 import cornerBakery from '../../../server/fonts/cornerbakery/CornerBakery-Regular.woff'
+import { json, LoaderFunction } from '@remix-run/node'
 
 enum FontPreviewName {
   TUESDAY = 'tuesday',

@@ -1,4 +1,4 @@
-import { Link, Links, useNavigate } from "remix"
+import { Link, useNavigate } from "@remix-run/react"
 import useSite from "~/hooks/useSite"
 import { getPrimaryMenu } from "~/lib/wp/nav"
 import TuesdayMakersPopOver from "./tuesdayMakersPopOver"

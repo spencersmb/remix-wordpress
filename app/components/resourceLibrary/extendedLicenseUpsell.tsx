@@ -21,7 +21,7 @@ const sellingPoints = [
 ]
 function ExtendedLicenseUpsell(props: Props) {
   const { visible } = props
-  const { state: { metadata: { shopPlatform } } } = useSite()
+  const { state: { metadata: { serverSettings } } } = useSite()
 
 
   if (!visible) {
@@ -36,13 +36,13 @@ function ExtendedLicenseUpsell(props: Props) {
 
             {/* SELL TEXT */}
             <div className="col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] laptop:col-start-2 laptop:col-end-[8] laptop:px-6 desktop:col-start-3 desktop:col-end-[8] flex flex-col relative z-10 justify-center">
-              <h3 className="flex flex-col items-center text-center mb-6 tablet:mb-9 tablet:flex-row tablet:justify-center laptop:text-left laptop:justify-start" >
+              <h3 className="flex flex-col items-center mb-6 text-center tablet:mb-9 tablet:flex-row tablet:justify-center laptop:text-left laptop:justify-start" >
                 <span className="mb-2 bg-success-600 w-[54px] h-[54px] rounded-full flex justify-center items-center p-[12px] mr-3 tablet:mb-2 laptop:mb-0">
                   <StarSvg stroke={'#fff'} />
                 </span>
                 <span className="text-5xl font-sentinel__SemiBoldItal text-success-600 tablet:leading-0">Upgrade License</span>
               </h3>
-              <p className="text-lg text-success-900 mb-6 tablet:mb-9">
+              <p className="mb-6 text-lg text-success-900 tablet:mb-9">
                 When you join Tuesday Makers, you’ll receive instant access to the Resource Library, filled with textures, fonts, vectors, stationery, graphics, cheat sheets and more.
               </p>
             </div>
@@ -56,7 +56,7 @@ function ExtendedLicenseUpsell(props: Props) {
 
               <div className="wrapper relaitve bg-white p-[35px] rounded-2.5xl z-10 shadow-xxl-teal desktop:p-[45px]">
                 <div className="flex flex-col desktop:items-center">
-                  <div className="flex-1 text-success-600 mb-8 text-center">
+                  <div className="flex-1 mb-8 text-center text-success-600">
                     <div className="text-success-500">Resource Library</div>
                     <div className="text-heading-3 font-sentinel__SemiBoldItal">Commercial License</div>
                   </div>
@@ -71,14 +71,14 @@ function ExtendedLicenseUpsell(props: Props) {
                     </ul>
                   </div>
                   <div>
-                    {shopPlatform === ShopPlatformEnum.GUMROAD &&
+                    {serverSettings.productPlatform === ShopPlatformEnum.GUMROAD &&
                       <>
                         <script src="https://gumroad.com/js/gumroad.js"></script>
-                        <a href="https://everytuesday.gumroad.com/l/freebie-license" className="btn rounded-2xl btn-teal-600 text-lg font-medium flex flex-row flex-none justify-center items-center">
-                          <span className=" mr-9 flex-1">
+                        <a href="https://everytuesday.gumroad.com/l/freebie-license" className="flex flex-row items-center justify-center flex-none text-lg font-medium btn rounded-2xl btn-teal-600">
+                          <span className="flex-1  mr-9">
                             Buy Now!
                           </span>
-                          <span className="font-sentinel__SemiBoldItal text-2xl">$30</span>
+                          <span className="text-2xl font-sentinel__SemiBoldItal">$30</span>
                         </a>
                       </>
                     }

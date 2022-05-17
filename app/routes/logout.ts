@@ -1,5 +1,4 @@
-import type { ActionFunction, LoaderFunction } from "remix";
-import { redirect } from "remix";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { logout } from "~/utils/session.server";
 
 /*

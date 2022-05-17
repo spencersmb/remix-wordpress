@@ -1,11 +1,12 @@
 import Layout from "~/components/layoutTemplates/layout"
-import { ActionFunction, Form, json, LoaderFunction, MetaFunction, redirect, useActionData, useLoaderData, useTransition } from "remix"
 import { findCookie } from "~/utils/loaderHelpers"
 import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";
 import { createLockedPageCookie } from "~/server/lockedPages.server";
 import { gql } from "@apollo/client";
 import { fetchAPI } from "~/utils/fetch";
 import { getGraphQLString } from "~/utils/graphqlUtils";
+import { ActionFunction, json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { Form, useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData))
 
@@ -103,12 +104,12 @@ const LockePageLogin = () => {
             ? "form-error-message"
             : undefined
         }>
-          <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
+          <label htmlFor="password-input" className="text-sm leading-7 text-gray-600">
             Password:
             <input
               id="password-input"
               type="password"
-              className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               name="password"
               aria-invalid={
                 Boolean(
@@ -134,7 +135,7 @@ const LockePageLogin = () => {
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
-            type='submit' className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            type='submit' className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
             {transition.state === "idle" ? 'Login' : '...loading'}
           </button>
         </Form>

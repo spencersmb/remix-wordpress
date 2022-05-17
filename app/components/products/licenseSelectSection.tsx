@@ -1,5 +1,5 @@
+import { Link } from '@remix-run/react'
 import React from 'react'
-import { Link } from 'remix'
 import useFontPreview, { IAddFontFunction } from '~/hooks/useFontPreivew'
 import { useProductLicense } from '~/hooks/useProductLicense'
 import GumroadBtn from '../buttons/gumroadBtn'

@@ -1,7 +1,7 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { Link } from '@remix-run/react'
 import { Fragment } from 'react'
-import { Link } from 'remix'
 
 const solutions = [
   {

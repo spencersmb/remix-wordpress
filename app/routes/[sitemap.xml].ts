@@ -1,9 +1,9 @@
 import prettier from 'prettier';
 import { fetchAPI } from '../utils/fetch'
-import { LoaderFunction } from 'remix'
 import { gql } from '@apollo/client'
 import { getGraphQLString } from '../utils/graphqlUtils'
 import { sitemapPages } from '../components/sitemap/sitemap-pages'
+import { LoaderFunction } from '@remix-run/node';
 
 async function getSitemapData(){
   return fetchAPI(getGraphQLString(QUERY_SITEMAP), {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { HeadersFunction, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
@@ -15,6 +14,8 @@ import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "~/components/buttons/outlinedButton";
 import BlogPostGrid from "~/components/blog/blogPostGrid";
+import { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;

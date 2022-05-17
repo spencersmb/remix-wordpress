@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, useMotionValue, Variant } from 'framer-motion'
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { Link } from "remix";
+import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cssColors } from "~/enums/colors";
 import { ShopPlatformEnum } from '~/enums/products';
 import useSite from '~/hooks/useSite';

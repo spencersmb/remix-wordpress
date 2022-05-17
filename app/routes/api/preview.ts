@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect } from 'remix'
+import { LoaderFunction, redirect } from '@remix-run/node';
 import { getLoginRedirectUrl, getPreviewRedirectUrl } from '../../utils/loaderHelpers'
 import { requireAdminUserToken } from '../../utils/session.server'
 

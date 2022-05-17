@@ -1,6 +1,6 @@
-import { useFetcher, useTransition } from "remix";
 import MakersSignUpForm from "../forms/makersSignUpForm";
 import IPad from '../../../public/images/makers-ipad.png'
+import { useFetcher, useTransition } from "@remix-run/react";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();
@@ -16,7 +16,7 @@ const MakersFooterSignUp = () => {
         <div className="absolute w-full top-[-250px] left-[0px] max-w-[600px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[530px] laptop:top-[-20px] laptop:left-[-530px] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
           <img src={`/images/makers-ipad.png`} alt="EveryTuesday Makers Ipad Sign Up" width={`1000`} height={`733`} />
         </div>
-        <h4 className="font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2 pb-4">
+        <h4 className="pb-4 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2">
           Grab 50+ Design and Lettering Files!
         </h4>
         <p className="text-lg pb-11">

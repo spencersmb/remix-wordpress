@@ -1,4 +1,4 @@
-import { Link, Outlet } from "remix";
+import { Link, Outlet } from "@remix-run/react";
 import FooterPrimary from "~/components/footer/FooterPrimary";
 import ResourceLibraryNav from "~/components/resourceLibrary/resourceNav";
 

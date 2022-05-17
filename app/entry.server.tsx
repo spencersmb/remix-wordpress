@@ -1,9 +1,10 @@
-import { renderToString } from "react-dom/server";
-import { redirect, RemixServer } from 'remix'
-import type { EntryContext } from "remix";
 // import {manualRedirectLinks} from "./re"
 import * as fs from 'fs'
 import { manualRedirectLinks } from "../redirects/redirect";
+import { redirect } from "@remix-run/node";
+import type { EntryContext } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
+import { renderToString } from "react-dom/server";
 
 
 interface IPrettyLink {

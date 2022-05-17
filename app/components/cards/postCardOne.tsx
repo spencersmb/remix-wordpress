@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
-import { Link } from "remix"
 import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "~/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "~/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
+import { Link } from "@remix-run/react";
 
 interface Props {
   post: IPost

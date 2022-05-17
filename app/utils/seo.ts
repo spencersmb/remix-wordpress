@@ -1,10 +1,10 @@
 import { Location } from 'history'
 import { defaultFeaturedImage, getStaticPageMeta } from './pageUtils'
-import { AppData } from 'remix'
 import { RouteData } from '@remix-run/react/routeData'
 import { Params } from 'react-router'
 import { getProductStdPrice, getStandardLicense } from './productPageUtils'
 import { formatePrice } from './priceUtils'
+import { AppData } from '@remix-run/react/data'
 
 function createOgImages(image: IOgImageType) {
   return {
@@ -116,7 +116,7 @@ export function getHtmlMetadataTags({
   }
 
   if(product){
-    const price = getProductStdPrice(product, metadata.shopPlatform)
+    const price = getProductStdPrice(product, metadata.serverSettings.productPlatform)
     metadataTags = {
       ...metadataTags,
       title: product.seo.title,

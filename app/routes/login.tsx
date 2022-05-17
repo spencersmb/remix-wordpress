@@ -1,13 +1,4 @@
-import {
-  ActionFunction,
-  Form,
-  LoaderFunction, MetaFunction,
-  redirect,
-  useActionData,
-  useLoaderData,
-  useTransition
-} from 'remix'
-import * as React from 'react'
+
 import {
   getPreviewRedirectUrlFromParams,
   getPreviewUrlParams,
@@ -16,6 +7,8 @@ import { logUserInJWT } from '../utils/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import Layout from '~/components/layoutTemplates/layout'
+import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
+import { Form, useActionData, useLoaderData, useTransition } from '@remix-run/react'
 
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData
@@ -170,8 +163,8 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
-        <h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Login</h4>
+      <div className="w-5/12 p-8 m-auto mt-10 bg-gray-100 rounded-lg login-form md:ml-auto md:mt-12">
+        <h4 className="block mb-5 text-lg font-medium text-gray-900 title-font">Login</h4>
         {actionData?.formError && (
           <div
             className="text-red-600"
@@ -188,9 +181,9 @@ const Login = () => {
               : undefined
           }>
           <div>
-            <label className="leading-7 text-sm text-gray-600" htmlFor="username-input">Username</label>
+            <label className="text-sm leading-7 text-gray-600" htmlFor="username-input">Username</label>
             <input
-              className="mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full px-3 py-1 mb-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               type="text"
               id="username-input"
               name="username"
@@ -206,7 +199,7 @@ const Login = () => {
             />
             {actionData?.fieldErrors?.username ? (
               <p
-                className="form-validation-error text-red-500"
+                className="text-red-500 form-validation-error"
                 role="alert"
                 id="username-error"
               >
@@ -215,13 +208,13 @@ const Login = () => {
             ) : null}
           </div>
           <div>
-            <label htmlFor="password-input" className="leading-7 text-sm text-gray-600">
+            <label htmlFor="password-input" className="text-sm leading-7 text-gray-600">
               Password:
             </label>
             <input
               id="password-input"
               type="password"
-              className="mb-8 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               name="password"
               aria-invalid={
                 Boolean(
@@ -236,7 +229,7 @@ const Login = () => {
             />
             {actionData?.fieldErrors?.password ? (
               <p
-                className="form-validation-error text-red-500"
+                className="text-red-500 form-validation-error"
                 role="alert"
                 id="password-error"
               >
@@ -248,7 +241,7 @@ const Login = () => {
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
             type='submit'
-            className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
             {transition.state === 'idle' ? 'Login' : '...Loading'}
           </button>
         </Form>

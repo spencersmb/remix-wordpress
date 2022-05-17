@@ -1,4 +1,4 @@
-import { ActionFunction, json } from "remix";
+import { ActionFunction, json } from "@remix-run/node";
 import { shopifyCartCookie } from "~/cookies.server";
 import { createCart } from "~/utils/cartUtils";
 

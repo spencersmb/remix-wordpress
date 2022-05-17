@@ -1,5 +1,6 @@
+import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
+import { useLoaderData, useOutletContext } from '@remix-run/react';
 import React from 'react'
-import { json, LoaderFunction, MetaFunction, redirect, useLoaderData, useOutletContext } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server';
 import { findCookie } from '~/utils/loaderHelpers';
 import { getStaticPageMeta } from '~/utils/pageUtils';

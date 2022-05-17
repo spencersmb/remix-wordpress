@@ -1,10 +1,10 @@
 import { RouteData } from "@remix-run/react/routeData";
 import { Params } from "react-router";
-import { AppData, MetaFunction } from "remix";
 import { lockedPageEnumSlugs } from "~/enums/lockedPages";
 import { getStaticPageMeta } from "./pageUtils";
 import { getHtmlMetadataTags } from "./seo";
 import type { Location } from "history";
+import { AppData } from "@remix-run/react/data";
 
 interface ILockedPage {
   [id: string]: {

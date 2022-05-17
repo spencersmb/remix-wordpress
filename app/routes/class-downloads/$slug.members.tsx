@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client"
-import { json, LoaderFunction, MetaFunction, redirect, useLoaderData } from "remix"
 import { fetchAPI } from "~/utils/fetch"
 import { getGraphQLString } from "~/utils/graphqlUtils"
 import { checkForCookieLogin } from "~/utils/loaderHelpers"
@@ -9,6 +8,8 @@ import GridItem from "~/components/gridDownloads/gridItem"
 import { getlockedPageMetaTags, getLockedPageRedirectLogoutPath } from "~/utils/lockedPagesUtils"
 import { createLockedPageCookie } from "~/server/lockedPages.server"
 import Layout from "~/components/layoutTemplates/layout"
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
@@ -60,6 +61,7 @@ const LockedMembersPage = () => {
     <Layout>
       <div>Logged In: {data.title}</div>
       <FreebieFilter
+        setFilter={handleFilterClick}
         filterTags={data.filterTags}
         selectedFilter={filter}
         handleClick={handleFilterClick}

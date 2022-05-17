@@ -1,4 +1,4 @@
-import { Link } from "remix"
+import { Link } from "@remix-run/react"
 
 interface IBreadCrumb {
   url: string
@@ -9,7 +9,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
   const lastElement = links?.pop()
   return (
     <div className="mt-8">
-      <ul className="text-primary-500 flex flex-row text-xs tablet:text-base">
+      <ul className="flex flex-row text-xs text-primary-500 tablet:text-base">
         <li><Link to={'/'} className='font-semibold'>Home </Link> <span className="mr-1">/</span></li>
         {links && links.map((link, index) => {
           const linkText = `${link.text}`

@@ -11,7 +11,10 @@ export const defaultFeaturedImage:IFeaturedImage = {
   id: '311',
   sizes:'',
   srcSet: '',
+  mimeType: 'image/jpeg',
   mediaDetails:{
+    height: '',
+    width: '',
     sizes:[]
   },
   sourceUrl: 'https://res.cloudinary.com/every-tuesday/images/v1633831046/peeling-sticker-lettering-effect-procreate/peeling-sticker-lettering-effect-procreate-jpg?_i=AA'

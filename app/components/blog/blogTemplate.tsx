@@ -90,6 +90,9 @@ function BlogTemplate(props: IProps) {
     fallbackImage: defaultImages.featured
   })
 
+  console.log('featuredImage', featuredImage);
+
+
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
 

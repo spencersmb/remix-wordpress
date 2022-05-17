@@ -1,12 +1,13 @@
-import { ActionFunction, Form, json, useActionData, useTransition } from 'remix'
 import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
 import { fetchConvertKitSignUp } from '~/utils/fetch'
 import React from 'react'
 import { commitSession, getSession } from '~/sessions.server'
+import { ActionFunction, json } from '@remix-run/node'
+import { Form, useActionData, useTransition } from '@remix-run/react'
 
-function getFormId(type: string | null): string{
-  switch (type){
+function getFormId(type: string | null): string {
+  switch (type) {
     case 'footer':
       return ckFormIds.resourceLibrary.footer
     default:
@@ -14,7 +15,7 @@ function getFormId(type: string | null): string{
   }
 }
 
-export let action: ActionFunction = async ({request, params}) => {
+export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();
   let email = form.get('email')
   let formType = form.get('type') as string
@@ -37,8 +38,8 @@ export let action: ActionFunction = async ({request, params}) => {
       pass: false
     }
 
-  try{
-    const fetch = await fetchConvertKitSignUp({email, id: ckId})
+  try {
+    const fetch = await fetchConvertKitSignUp({ email, id: ckId })
 
     const session = await getSession(
       request.headers.get('Cookie')
@@ -57,7 +58,7 @@ export let action: ActionFunction = async ({request, params}) => {
         "Set-Cookie": await commitSession(session)
       },
     })
-  }catch (e){
+  } catch (e) {
     return { formError: `Form not submitted correctly. ${e}` };
   }
 
@@ -92,9 +93,9 @@ const TuesdayMakersFormNoJS = () => {
         action="/convertkit/tuesday-makers"
       >
         <div>
-          <label className="leading-7 text-sm text-gray-600" htmlFor="email-input">Email</label>
+          <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label>
           <input
-            className="mb-2 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            className="w-full px-3 py-1 mb-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             type="email"
             id="email-input"
             name="email"
@@ -126,7 +127,7 @@ const TuesdayMakersFormNoJS = () => {
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
             type='submit'
-            className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
             {transition.state === 'idle' ? 'Subscribe' : '...Loading'}
           </button>
         </div>

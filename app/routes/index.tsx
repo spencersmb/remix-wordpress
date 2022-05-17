@@ -1,5 +1,4 @@
-import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
-import { useLoaderData, Link, ActionFunction } from 'remix'
+
 import { flattenAllPosts } from '../utils/posts'
 import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch'
 import { getHtmlMetadataTags } from '../utils/seo'
@@ -14,7 +13,8 @@ import { createCanvas, Image, registerFont } from "canvas";
 import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
 // import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils";
 import Layout from "~/components/layoutTemplates/layout";
-// headers for the entire DOC when someone refreshes the page or types in the url directly
+import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { Link, useLoaderData } from '@remix-run/react'
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"

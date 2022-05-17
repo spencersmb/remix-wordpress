@@ -11,6 +11,7 @@ interface Props {
 
 function LazyImageBase(props: Props) {
   const { image, id, scrollPosition, alt, reverse } = props
+  console.log('image', image);
 
   const imagePadding = reverse ? parseInt(image.width, 10) / parseInt(image.height, 10) : parseInt(image.height, 10) / parseInt(image.width, 10)
   return (

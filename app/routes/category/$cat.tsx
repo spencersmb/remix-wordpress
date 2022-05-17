@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 import { capitalize } from "lodash";
 import { useEffect } from "react";
-import { HeadersFunction, json, LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
 import { fetchAPI } from "~/utils/fetch";
@@ -11,6 +10,8 @@ import { getBasicPageMetaTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import PostsGrid from "~/components/blog/postsGrid";
+import { HeadersFunction, json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -174,22 +175,22 @@ export default function CategoryPage() {
 
   return (
     <Layout>
-      <div className='bg-neutral-50 grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto py-24'>
+      <div className='grid grid-flow-row row-auto py-24 bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
         {/* ARCHIVE TITLE */}
-        <div className='col-start-2 col-span-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8 pb-16 text-center'>
-          <h2 className="text-display-2 flex flex-col">
-            <span className="text-base text-primary-500 font-normal">Category</span>
-            <span className="font-sentinel__SemiBoldItal capitalize">{category}</span>
+        <div className='col-span-2 col-start-2 pb-16 mt-2 mb-8 text-center tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
+          <h2 className="flex flex-col text-display-2">
+            <span className="text-base font-normal text-primary-500">Category</span>
+            <span className="capitalize font-sentinel__SemiBoldItal">{category}</span>
           </h2>
         </div>
 
         {state.categories[category] && <PostsGrid posts={state.categories[category].posts} />}
 
-        <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 mb-12'>
+        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {state.categories[category].pageInfo.hasNextPage &&
             <button
-              className="btn btn-primary mx-auto"
+              className="mx-auto btn btn-primary"
               aria-disabled={state.loading}
               disabled={state.loading}
               onClick={fetchMorePosts}>

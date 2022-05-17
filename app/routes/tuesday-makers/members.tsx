@@ -1,4 +1,3 @@
-import { json, LoaderFunction, MetaFunction, redirect, useFetcher, useLoaderData, useMatches } from 'remix'
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
 import { getBasicPageMetaTags, getHtmlMetadataTags } from '../../utils/seo'
 import { fetchAPI } from '../../utils/fetch'
@@ -18,6 +17,8 @@ import OutlinedButton from '~/components/buttons/outlinedButton'
 import ExtendedLicenseUpsell from '~/components/resourceLibrary/extendedLicenseUpsell'
 import CardDownload from '~/components/cards/cardDownload'
 import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
+import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
+import { useFetcher, useLoaderData, useMatches } from '@remix-run/react'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -305,7 +306,7 @@ const ResourceLibraryMembers = () => {
 
       <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-16 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
         <div className='mt-0 mb-16 tablet:mb-20 laptop:mt-0 laptop:mb-24'>
-          <h1 style={{ color: '#404764' }} className='relative text-5xl  font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
+          <h1 style={{ color: '#404764' }} className='relative text-5xl font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
             <span className='relative z-10'>
               Welcome to the Makers Library
             </span>

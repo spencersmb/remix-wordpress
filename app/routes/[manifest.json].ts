@@ -1,4 +1,4 @@
-import { LoaderFunction } from 'remix'
+import { LoaderFunction } from "@remix-run/node";
 
 // TODO: Fill out
 const manifest = {

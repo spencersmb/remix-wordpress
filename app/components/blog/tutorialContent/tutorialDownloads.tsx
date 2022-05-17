@@ -1,6 +1,6 @@
+import { Link } from '@remix-run/react'
 import React from 'react'
 import { Sticky, StickyContainer } from 'react-sticky'
-import { Link } from 'remix'
 import LockedSvg from '~/components/svgs/lockedSvg'
 import SquiggleSvg from '~/components/svgs/squiggleSvg'
 import useSite from '~/hooks/useSite'

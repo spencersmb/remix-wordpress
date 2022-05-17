@@ -1,6 +1,6 @@
+import { Link } from '@remix-run/react'
 import { motion, useReducedMotion } from 'framer-motion'
 import React from 'react'
-import { Link } from 'remix'
 import { cssColors } from '~/enums/colors'
 import { ShopPlatformEnum } from '~/enums/products'
 import useSite from '~/hooks/useSite'

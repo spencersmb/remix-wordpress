@@ -1,4 +1,4 @@
-import { useMatches } from "remix"
+import { useMatches } from "@remix-run/react"
 import { ISelectedMatch } from "~/interfaces/remix"
 
 interface IProps {

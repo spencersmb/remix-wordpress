@@ -87,7 +87,7 @@ export function jsonldProduct (props: IJsonldProduct): string{
   {
   "@context": "http://schema.org/",
   "@type": "Product",
-  "@id": "${product.id}",
+  "@id": "${product.slug}",
   "url": "${url}",
   "name": "${product.title}",
   "image": "${product.featuredImage.node.sourceUrl}",

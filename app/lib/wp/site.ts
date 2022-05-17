@@ -9,7 +9,7 @@ interface IWpMenuFeaturedCourse {
     url: string | null;
   }
 }
-interface IWpMenuItem {
+export interface IWpMenuItem {
   childItems: {
     edges: any[]
   },

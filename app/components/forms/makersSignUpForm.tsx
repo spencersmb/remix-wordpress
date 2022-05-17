@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react'
-import { FormProps } from '@remix-run/react/components'
 import useSite from '~/hooks/useSite'
 import InputBase from '../input/inputBase'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import YellowSubmitBtn from '../buttons/submitBtn'
 import SubmitBtn from '../buttons/submitBtn'
 import { Transition } from '@remix-run/react/transition'
+import { FormProps } from '@remix-run/react'
 type FetcherData = {
   fieldErrors?: {
     email: string
@@ -26,6 +26,7 @@ type FetcherTypes =
   | "loaderSubmission"
   | "actionSubmission"
   | "init"
+  | "actionRedirect"
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>

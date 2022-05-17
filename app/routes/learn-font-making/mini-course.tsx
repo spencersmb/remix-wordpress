@@ -1,5 +1,6 @@
+import { json, LoaderFunction } from '@remix-run/node'
+import { Link, Outlet, useLoaderData } from '@remix-run/react'
 import React from 'react'
-import { json, Link, LoaderFunction, Outlet, useLoaderData } from 'remix'
 import { lfmMiniCourseCookie } from '~/cookies.server'
 import { findCookie } from '~/utils/loaderHelpers'
 
