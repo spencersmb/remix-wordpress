@@ -5,11 +5,11 @@ interface Props {
   title: string
 }
 
-function YouTubeCard__Post(props: Props) {
+function YouTubeVideo(props: Props) {
   const { url, title } = props
 
   return (
-    <div className='youtube_container overflow-hidden rounded-2xl relative'>
+    <div className='relative mb-8 overflow-hidden youtube_container rounded-2xl'>
       <div className='embed-responsive'>
         <div className='embed-responsive-item'>
           <iframe
@@ -25,4 +25,4 @@ function YouTubeCard__Post(props: Props) {
   )
 }
 
-export default YouTubeCard__Post
+export default YouTubeVideo

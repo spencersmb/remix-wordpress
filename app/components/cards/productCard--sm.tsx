@@ -1,15 +1,6 @@
-import { useState } from 'react'
-import { getLicense } from '~/utils/posts'
-import SelectBox from '../forms/licenseSelectDropdown'
-import QuestionMarkCircleSvg from '../svgs/questionMarkCircleSvg'
-import ShoppingCartSvg from '../svgs/shoppingCartSvg'
-import SvgBorderIconWrapper from '../svgs/svgBorderWrapper'
-import { LicenseEnum } from "~/enums/products"
-import GumroadBtn from '~/components/buttons/gumroadBtn'
 import LicenseSelectSection from '../products/licenseSelectSection'
 import LazyImageBase from '../images/lazyImage-base'
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
-
 
 interface Props {
   index: number
@@ -21,7 +12,7 @@ interface Props {
 */
 
 function ProductCard__sm(props: Props) {
-  const { index, product, multipleProducts } = props
+  const { product, index } = props
   // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
@@ -29,10 +20,12 @@ function ProductCard__sm(props: Props) {
     fallbackSize: ImageSizeEnums.FULL, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
+  console.log('(index + 1) === 1', (index + 1) === 1);
+
 
   return (
-    <div className={`mb-8 px-4 flex tablet:flex-[0_1_50%] tablet:px-0`}>
-      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 tablet:mx-4 laptop:mb-0`}>
+    <div className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
+      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${index === 0 ? 'tablet:mr-4' : 'tablet:ml-4'} laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
         <div className='mb-4 overflow-hidden rounded-lg'>
@@ -53,21 +46,7 @@ function ProductCard__sm(props: Props) {
         <LicenseSelectSection
           product={product}
         />
-        {/* <div>
-          <SelectBox handleSelected={handleSelect} selected={selectedLicenseType} data={product.details} />
-        </div> */}
 
-        {/* PRODUCT BUY NOW */}
-        {/* <div className="flex flex-col flex-1 mt-4">
-
-          {product.details.type === 'gumroad' && <GumroadBtn price={selectedLicense.price} url={selectedLicense.url} />}
-
-          <div onClick={handleViewLicense} className="flex flex-row justify-center mt-4 hover:cursor-pointer">
-            <span className="w-[22px] mr-1"><QuestionMarkCircleSvg fill={`#ACA4A9`} /></span>
-            <p className="flex-1">View License Details</p>
-          </div>
-
-        </div> */}
       </div>
     </div>
   )

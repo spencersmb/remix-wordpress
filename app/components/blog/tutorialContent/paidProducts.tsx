@@ -15,7 +15,7 @@ function PaidProducts(props: IProps) {
 
   const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
   const cssContainerPaidProduct = 'flex flex-col-reverse laptop:flex-row'
-  const cssContainerMultipleProducts = 'flex flex-col-reverse tablet:flex-row tablet:flex-wrap'
+  const cssContainerMultipleProducts = 'flex flex-col tablet:flex-row tablet:flex-wrap'
 
   return (
 

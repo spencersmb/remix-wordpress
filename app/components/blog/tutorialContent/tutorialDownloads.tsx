@@ -1,5 +1,6 @@
 import { Link } from '@remix-run/react'
-import React from 'react'
+import { isEmpty } from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { Sticky, StickyContainer } from 'react-sticky'
 import LockedSvg from '~/components/svgs/lockedSvg'
 import SquiggleSvg from '~/components/svgs/squiggleSvg'
@@ -8,12 +9,28 @@ import useSite from '~/hooks/useSite'
 interface Props {
   post: IPost
   style?: any
+  isMobile?: boolean
 }
 
 function TutorialDownloads(props: Props) {
 
-  const { post, style } = props
+  const { post, style, isMobile } = props
   const { state: { user: { resourceUser } } } = useSite()
+  const [loaded, setLoaded] = useState(false);
+  console.log('style', style);
+
+  useEffect(() => {
+    // first time
+    if (!loaded && (!isEmpty(style) || style?.position)) {
+      setLoaded(true);
+      return
+    }
+
+    if (isMobile) {
+      setLoaded(true);
+      return
+    }
+  }, [style, loaded, isMobile])
 
   function handleDownload(index: number) {
     return () => {
@@ -28,10 +45,10 @@ function TutorialDownloads(props: Props) {
   }
 
   return (
-    <div className='flex flex-col laptop:flex-col desktop:flex-col rounded-2.5xl overflow-hidden shadow-xs' >
+    <div className={`transition-opacity flex flex-col mb-8 laptop:flex-row desktop:mb-0 desktop:flex-col rounded-2.5xl overflow-hidden shadow-xs ${loaded ? 'opacity-100' : 'opacity-0'}`} >
       {/* SIGNUP BLOCK */}
-      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 tablet:max-w-none desktop:max-w-none'>
-        <div className='mb-4 text-5xl font-sentinel__SemiBoldItal'>
+      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 laptop:max-w-[375px] desktop:max-w-none'>
+        <div className='mb-4 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
           Tutorial Downloads
         </div>
         <p className='mb-4'>
@@ -64,11 +81,11 @@ function TutorialDownloads(props: Props) {
           {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
             return (
               <div className='flex flex-row items-center mb-4' key={index}>
-                <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
+                {/* <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
                   <div className='w-[30px]'>
                     {!resourceUser ? <LockedSvg fill={`var(--neutral-600)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
                   </div>
-                </div>
+                </div> */}
                 <div className="flex flex-col items-start justify-start text-left locked_item">
                   <div className='text-lg font-semibold text-primary-600'>
                     {item.title}

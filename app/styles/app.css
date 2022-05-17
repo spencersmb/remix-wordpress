@@ -637,9 +637,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .\!visible {
   visibility: visible !important;
 }
-.static {
-  position: static;
-}
 .fixed {
   position: fixed;
 }
@@ -881,6 +878,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.my-20 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -1022,6 +1023,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-ml-1 {
   margin-left: -0.25rem;
 }
+.mt-\[50\%\] {
+  margin-top: 50%;
+}
+.mt-\[60\%\] {
+  margin-top: 60%;
+}
+.mt-\[75\%\] {
+  margin-top: 75%;
+}
 .block {
   display: block;
 }
@@ -1051,9 +1061,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-full {
   height: 100%;
-}
-.h-\[1000px\] {
-  height: 1000px;
 }
 .h-\[42px\] {
   height: 42px;
@@ -1145,8 +1152,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-\[30px\] {
   width: 30px;
 }
-.w-\[60\%\] {
-  width: 60%;
+.w-\[70\%\] {
+  width: 70%;
 }
 .w-\[42px\] {
   width: 42px;
@@ -1237,9 +1244,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-\[32px\] {
   width: 32px;
-}
-.w-\[70\%\] {
-  width: 70%;
 }
 .min-w-\[320px\] {
   min-width: 320px;
@@ -1334,6 +1338,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .max-w-\[347px\] {
   max-width: 347px;
 }
+.max-w-\[1475px\] {
+  max-width: 1475px;
+}
 .flex-\[1\] {
   flex: 1;
 }
@@ -1346,14 +1353,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .flex-\[0_1_100\%\] {
   flex: 0 1 100%;
 }
-.flex-1 {
-  flex: 1 1 0%;
+.flex-none {
+  flex: none;
 }
 .flex-initial {
   flex: 0 1 auto;
 }
-.flex-none {
-  flex: none;
+.flex-1 {
+  flex: 1 1 0%;
 }
 .flex-shrink-0 {
   flex-shrink: 0;
@@ -1905,6 +1912,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pb-12 {
   padding-bottom: 3rem;
 }
+.pl-8 {
+  padding-left: 2rem;
+}
 .pb-5 {
   padding-bottom: 1.25rem;
 }
@@ -1925,9 +1935,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pb-7 {
   padding-bottom: 1.75rem;
-}
-.pl-8 {
-  padding-left: 2rem;
 }
 .pb-4 {
   padding-bottom: 1rem;
@@ -1989,8 +1996,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pb-16 {
   padding-bottom: 4rem;
 }
-.pl-4 {
-  padding-left: 1rem;
+.pb-8 {
+  padding-bottom: 2rem;
+}
+.pt-16 {
+  padding-top: 4rem;
 }
 .text-left {
   text-align: left;
@@ -2460,6 +2470,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-opacity {
+  transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -3220,6 +3235,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   .tablet\:max-w-\[120px\] {
     max-width: 120px;
   }
+  .tablet\:max-w-\[400px\] {
+    max-width: 400px;
+  }
+  .tablet\:max-w-\[350px\] {
+    max-width: 350px;
+  }
+  .tablet\:max-w-\[300px\] {
+    max-width: 300px;
+  }
   .tablet\:flex-\[0_1_auto\] {
     flex: 0 1 auto;
   }
@@ -3234,6 +3258,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .tablet\:flex-auto {
     flex: 1 1 auto;
+  }
+  .tablet\:flex-\[0_1_45\%\] {
+    flex: 0 1 45%;
   }
   .tablet\:translate-x-\[-50\%\] {
     --tw-translate-x: -50%;
@@ -3336,6 +3363,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-top: 52px;
     padding-bottom: 52px;
   }
+  .tablet\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
   .tablet\:pt-0 {
     padding-top: 0px;
   }
@@ -3409,6 +3440,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .tablet\:first\:pr-7:first-child {
     padding-right: 1.75rem;
+  }
+  .tablet\:odd\:ml-4:nth-child(odd) {
+    margin-left: 1rem;
+  }
+  .tablet\:odd\:mr-4:nth-child(odd) {
+    margin-right: 1rem;
+  }
+  .tablet\:even\:mr-4:nth-child(even) {
+    margin-right: 1rem;
   }
 }
 @media (min-width: 1024px) {
@@ -3493,6 +3533,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-left: 40px;
     margin-right: 40px;
   }
+  .laptop\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .laptop\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .laptop\:mb-8 {
     margin-bottom: 2rem;
   }
@@ -3565,6 +3613,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   .laptop\:w-auto {
     width: auto;
   }
+  .laptop\:w-\[70\%\] {
+    width: 70%;
+  }
+  .laptop\:w-\[90\%\] {
+    width: 90%;
+  }
   .laptop\:min-w-\[1009px\] {
     min-width: 1009px;
   }
@@ -3597,6 +3651,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .laptop\:max-w-\[410px\] {
     max-width: 410px;
+  }
+  .laptop\:max-w-\[400px\] {
+    max-width: 400px;
+  }
+  .laptop\:max-w-\[375px\] {
+    max-width: 375px;
+  }
+  .laptop\:flex-1 {
+    flex: 1 1 0%;
   }
   .laptop\:flex-\[1_1_50\%\] {
     flex: 1 1 50%;
@@ -3659,6 +3722,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+  .laptop\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .laptop\:py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
   .laptop\:pb-7 {
     padding-bottom: 1.75rem;
   }
@@ -3688,6 +3759,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .laptop\:pb-16 {
     padding-bottom: 4rem;
+  }
+  .laptop\:pl-8 {
+    padding-left: 2rem;
+  }
+  .laptop\:pb-12 {
+    padding-bottom: 3rem;
   }
   .laptop\:text-left {
     text-align: left;
@@ -3793,6 +3870,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   .desktop\:col-span-12 {
     grid-column: span 12 / span 12;
   }
+  .desktop\:col-span-full {
+    grid-column: 1 / -1;
+  }
   .desktop\:col-start-2 {
     grid-column-start: 2;
   }
@@ -3829,6 +3909,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   .desktop\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
+  }
+  .desktop\:my-20 {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
   }
   .desktop\:mt-24 {
     margin-top: 6rem;
@@ -3869,6 +3953,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   .desktop\:mt-32 {
     margin-top: 8rem;
   }
+  .desktop\:mt-16 {
+    margin-top: 4rem;
+  }
   .desktop\:flex {
     display: flex;
   }
@@ -3883,6 +3970,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .desktop\:w-\[760px\] {
     width: 760px;
+  }
+  .desktop\:w-\[70\%\] {
+    width: 70%;
   }
   .desktop\:min-w-\[1265px\] {
     min-width: 1265px;
@@ -3901,6 +3991,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .desktop\:max-w-\[220px\] {
     max-width: 220px;
+  }
+  .desktop\:flex-1 {
+    flex: 1 1 0%;
   }
   .desktop\:grid-cols-desktop {
     grid-template-columns: minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr);;
@@ -3958,6 +4051,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-left: 3rem;
     padding-right: 3rem;
   }
+  .desktop\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .desktop\:py-0 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
   .desktop\:pr-0 {
     padding-right: 0px;
   }
@@ -3966,6 +4067,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .desktop\:pr-24 {
     padding-right: 6rem;
+  }
+  .desktop\:pl-8 {
+    padding-left: 2rem;
+  }
+  .desktop\:pb-12 {
+    padding-bottom: 3rem;
+  }
+  .desktop\:pt-0 {
+    padding-top: 0px;
+  }
+  .desktop\:pt-8 {
+    padding-top: 2rem;
+  }
+  .desktop\:pl-12 {
+    padding-left: 3rem;
+  }
+  .desktop\:pt-12 {
+    padding-top: 3rem;
   }
   .desktop\:text-center {
     text-align: center;

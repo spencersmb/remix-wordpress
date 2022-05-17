@@ -11,31 +11,36 @@ export enum BreakpointEnums {
 const useWindowResize = () => {
     const ResizeRef = useRef<any>(null)
     const previousBreakpoint = useRef<any>(null)
-    const {state} = useSite()
     const {updateBreakpoint} = useSite()
-
-
 
     useEffect(() => {
 
       function checkBreakPoint(windowWidth: number) {
-        const w = windowWidth
+        const hasScrollbar = window.scrollbars.visible
+        const w = windowWidth + (hasScrollbar ? 15 : 0) // 15px buffer for scrollbar
         console.log('w', w);
         
-        const bp:BreakpointEnums = w < 640 
-          ? BreakpointEnums.mobile 
-          : w < 768 
-          ? BreakpointEnums.tablet
-          : w < 1024 
-          ? BreakpointEnums.laptop 
-          : w < 1280 
-          ? BreakpointEnums.desktop 
-          : BreakpointEnums.desktopXL
-          
-          if (bp !== previousBreakpoint.current) {
-            previousBreakpoint.current = bp
-            updateBreakpoint(bp)
-          }
+        let bp = BreakpointEnums.mobile
+        if (w >= 0) {
+          bp = BreakpointEnums.mobile
+        }
+        if(w >= 768) {
+          bp = BreakpointEnums.tablet
+        }
+        if(w >= 1024) {
+          bp = BreakpointEnums.laptop
+        }
+        if(w >= 1280) {
+          bp = BreakpointEnums.desktop
+        }
+        if(w >= 1536) {
+          bp = BreakpointEnums.desktop
+        }
+
+        if (bp !== previousBreakpoint.current) {
+          previousBreakpoint.current = bp
+          updateBreakpoint(bp)
+        }
       }
 
       ResizeRef.current = new ResizeObserver((obj) => {

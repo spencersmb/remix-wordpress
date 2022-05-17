@@ -8,7 +8,7 @@ import { classNames } from '~/utils/appUtils';
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers';
 import { addClass } from '~/utils/pageUtils';
 import { consoleHelper } from '~/utils/windowUtils';
-import YouTubeCard__Post from '../cards/youTubeCard__post';
+import YouTubeVideo from '../cards/youTubeCard__post';
 import LazyImageBase from '../images/lazyImage-base';
 import BlogAuthor from './blogAuthor';
 import BlogCategories from './blogCategories';
@@ -27,7 +27,6 @@ function BlogTemplate(props: IProps) {
   const { post } = props
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   // consoleHelper('post', post)
-
   useEffect(() => {
     // handleCommentsClick()
 
@@ -119,53 +118,55 @@ function BlogTemplate(props: IProps) {
 
 
       {/* TUTORIAL DOWNLOADS */}
-      <div className='col-span-full'>
-        <StickyContainer>
+      <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
+        <div className='col-span-2 col-start-2 tablet:col-span-full laptop:col-start-3 laptop:col-span-10 desktop:col-span-full'>
+          <StickyContainer>
 
-          <div className={classNames(
-            post.tutorialManager.downloads || post.tutorialManager.paidProducts
-              ? 'pb-12'
-              : '',
-            'bg-primary-100 relative flex flex-col-reverse laptop:flex-row items-start max-w-[1450px] mx-auto')}>
-            <div className='relative flex-1 bg-slate-400'>
-              {breakpoint === BreakpointEnums.desktopXL && <Sticky topOffset={-104} bottomOffset={104}>
-                {({
-                  style,
+            <div className={classNames(
+              post.tutorialManager.downloads || post.tutorialManager.paidProducts
+                ? 'desktop:px-8'
+                : '',
+              'relative flex pt-16 pb-8 tablet:py-16 laptop:flex-row items-start max-w-[1475px] mx-auto desktop:py-0')}>
 
-                  // the following are also available but unused in this example
-                  isSticky,
-                  wasSticky,
-                  distanceFromTop,
-                  distanceFromBottom,
-                  calculatedHeight
-                }) => {
-                  return (
-                    <div style={{
-                      ...style,
-                      // @ts-ignore
-                      top: style && style.top ? style.top + 104 : 104,
-                    }}>
-                      <TutorialDownloads post={post} />
-                    </div>
-                  )
-                }}
-              </Sticky>
-              }
+              <div className='relative flex-none my-20 desktop:flex-1'>
+                {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <Sticky topOffset={-20} bottomOffset={184}>
+                  {({
+                    style,
 
+                    // the following are also available but unused in this example
+                    isSticky,
+                    wasSticky,
+                    distanceFromTop,
+                    distanceFromBottom,
+                    calculatedHeight
+                  }) => {
+
+                    // topOffset = 104(size of the nav minus size of margin)
+                    let top = 104 // size of nav
+                    return (
+                      <div style={{
+                        ...style,
+                        // @ts-ignore
+                        top: style && style.top ? style.top + top : top,
+                      }}>
+                        <TutorialDownloads post={post} style={style} />
+                      </div>
+                    )
+                  }}
+                </Sticky>
+                }
+
+              </div>
+              <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
+                <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+                {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+
+                <PaidProducts post={post} />
+              </div>
             </div>
-            <div className='flex-initial bg-sage-200 w-[70%] pl-8'>
-              <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
-              {breakpoint !== BreakpointEnums.desktopXL && <TutorialDownloads post={post} />}
-
-              <PaidProducts post={post} />
-            </div>
-          </div>
-        </StickyContainer>
+          </StickyContainer>
+        </div>
       </div>
-
-
-
-
 
       {/* TUTORIAL DOWNLOADS */}
       {/* <div className={classNames(
@@ -175,7 +176,7 @@ function BlogTemplate(props: IProps) {
         'bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop relative')}>
 
         <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-6 desktop:col-span-8'>
-          <YouTubeCard__Post title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+          <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
         </div>
 
         <div className='relative col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-4'>
