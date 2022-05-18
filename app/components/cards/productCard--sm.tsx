@@ -12,7 +12,7 @@ interface Props {
 */
 
 function ProductCard__sm(props: Props) {
-  const { product, index } = props
+  const { product, index, multipleProducts } = props
   // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
@@ -25,7 +25,7 @@ function ProductCard__sm(props: Props) {
 
   return (
     <div className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
-      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${index === 0 ? 'tablet:mr-4' : 'tablet:ml-4'} laptop:mb-0`}>
+      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${multipleProducts ? index === 0 ? 'tablet:mr-4' : 'tablet:ml-4' : 'tablet:ml-4'} laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
         <div className='mb-4 overflow-hidden rounded-lg'>

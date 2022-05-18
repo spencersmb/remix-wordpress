@@ -11,13 +11,14 @@ import { useEffect } from 'react'
 import { addItemToShopifyCart, createCart } from '~/utils/cartUtils'
 import useCart from '~/hooks/useCart'
 import { ADD_ITEM_TO_CART, GET_CART } from '~/lib/graphql/mutations/cart'
-import { ISelectedMatch } from '~/interfaces/remix'
+import type { ISelectedMatch } from '~/interfaces/remix'
 import FreebieGrid from '~/components/resourceLibrary/freebieGrid'
 import OutlinedButton from '~/components/buttons/outlinedButton'
 import ExtendedLicenseUpsell from '~/components/resourceLibrary/extendedLicenseUpsell'
 import CardDownload from '~/components/cards/cardDownload'
 import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
-import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node'
 import { useFetcher, useLoaderData, useMatches } from '@remix-run/react'
 
 export let meta: MetaFunction = (metaData): any => {

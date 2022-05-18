@@ -1,42 +1,32 @@
-import React, { useEffect, useRef } from 'react'
-import useSite from '~/hooks/useSite'
-import InputBase from '../input/inputBase'
-import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
-import YellowSubmitBtn from '../buttons/submitBtn'
-import SubmitBtn from '../buttons/submitBtn'
-import type { Transition } from '@remix-run/react/transition'
 import type { FormProps } from '@remix-run/react'
+import type { Transition } from '@remix-run/react/transition'
+import { useEffect, useRef } from 'react'
+import SubmitBtn from '../buttons/submitBtn'
+import SubmitFetcherBtn from '../buttons/submitFetchBtn'
+import InputBase from '../input/inputBase'
 
-interface Props {
+interface IProps {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
   data: FetcherData | undefined
-  // state: FetcherState
-  transition: Transition
+  state: FetcherState
   type: FetcherTypes
+  btnText?: string
 }
-const MakersPopUp = () => {
-  return (
-    <div>
-      Success
-    </div>
-  )
-}
-function MakersSignUpForm(props: Props) {
-  const { Form, data, transition, type } = props
-  const { openModal } = useSite()
-  // console.log('state', state)
-  // console.log('type', type)
+const MakersSignUpFetcherForm = (props: IProps) => {
+  const { Form, data, state, type, btnText } = props
+  console.log('data', data)
+  console.log('type', type)
+  console.log('transition', state);
 
   const ref = useRef<any>();
+
   useEffect(() => {
     if (type === "done" && data?.pass) {
-      openModal({
-        template: <MakersPopUp />
-      })
+
       //@ts-ignore
       ref.current.reset();
     }
-  }, [type]);
+  }, [type, data]);
 
   return (
     <div>
@@ -66,13 +56,13 @@ function MakersSignUpForm(props: Props) {
           ) : null}
         </div>
         <div className='hidden'>
-          <input type="text" name='type' value='footer' readOnly className='hidden' />
+          <input type="text" name='type' value='landing-page' readOnly className='hidden' />
         </div>
         <div className='flex'>
-          <SubmitBtn
+          <SubmitFetcherBtn
             className='btn ring-offset-primary-600'
-            transition={transition}
-            btnText='Send the Goods!'
+            state={state}
+            btnText={`${btnText || 'Send the Goods!'}`}
           />
         </div>
 
@@ -81,4 +71,4 @@ function MakersSignUpForm(props: Props) {
   )
 }
 
-export default MakersSignUpForm
+export default MakersSignUpFetcherForm

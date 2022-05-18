@@ -7,7 +7,8 @@ import { logUserInJWT } from '../utils/fetch'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import Layout from '~/components/layoutTemplates/layout'
-import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
+import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node'
 import { Form, useActionData, useLoaderData, useTransition } from '@remix-run/react'
 
 export let meta: MetaFunction = (metaData): any => {

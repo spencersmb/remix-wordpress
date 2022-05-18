@@ -9,7 +9,7 @@ function YouTubeVideo(props: Props) {
   const { url, title } = props
 
   return (
-    <div className='relative mb-8 overflow-hidden youtube_container rounded-2xl'>
+    <div className='relative mb-8 overflow-hidden shadow-xs youtube_container rounded-2xl'>
       <div className='embed-responsive'>
         <div className='embed-responsive-item'>
           <iframe

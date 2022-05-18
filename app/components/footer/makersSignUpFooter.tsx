@@ -1,5 +1,4 @@
 import MakersSignUpForm from "../forms/makersSignUpForm";
-import IPad from '../../../public/images/makers-ipad.png'
 import { useFetcher, useTransition } from "@remix-run/react";
 
 const MakersFooterSignUp = () => {

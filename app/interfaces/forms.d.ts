@@ -7,3 +7,24 @@ type PasswordActionData = {
     password: string;
   };
 };
+type FetcherData = {
+  fieldErrors?: {
+    email: string
+  }
+  formError?: string
+  pass: boolean
+}
+
+type FetcherState =
+  | "idle"
+  | "submitting"
+  | "loading"
+
+type FetcherTypes =
+  | "done"
+  | "normalLoad"
+  | "actionReload"
+  | "loaderSubmission"
+  | "actionSubmission"
+  | "init"
+  | "actionRedirect"

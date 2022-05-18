@@ -1,26 +1,19 @@
-import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
-import { fetchConvertKitSignUp } from '~/utils/fetch'
 import React from 'react'
 import { commitSession, getSession } from '~/sessions.server'
 import type { ActionFunction } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
-
-function getFormId(type: string | null): string {
-  switch (type) {
-    case 'footer':
-      return ckFormIds.resourceLibrary.footer
-    default:
-      return ckFormIds.resourceLibrary.landingPage
-  }
-}
+import { createResourceUserSession } from '~/utils/resourceLibrarySession.server'
 
 export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();
   let email = form.get('email')
-  let formType = form.get('type') as string
-  const ckId = getFormId(formType)
+  let redirectPage: string | null = form.get('url') as string
+  const session = await getSession(
+    request.headers.get('Cookie')
+  )
 
   if (
     typeof email !== "string"
@@ -34,35 +27,68 @@ export let action: ActionFunction = async ({ request, params }) => {
   };
 
   if (Object.values(fieldErrors).some(Boolean))
-    return {
-      fieldErrors, fields,
-      pass: false
-    }
+    return { fieldErrors, fields };
 
   try {
-    const fetch = await fetchConvertKitSignUp({ email, id: ckId })
+    // Fetch Subscriber
+    const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
 
-    const session = await getSession(
-      request.headers.get('Cookie')
-    )
+    const result = await res.json()
+
+    if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
+      return { subscriberError: `Sorry, Email invalid.` };
+    }
+
+    // Get subscriber Tags and create session
+    let userId = result.subscribers[0].id
+    const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
+
+    const resTag = await fetch(urlTags, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    const tagResults = await resTag.json()
+    const user = {
+      id: userId,
+      tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+    }
+
+    let sessionStorage = createResourceUserSession(user)
+    const customHeaders = new Headers()
+    customHeaders.append('Set-Cookie', await sessionStorage)
+    customHeaders.append('Set-Cookie', await commitSession(session))
 
     session.flash(
       "globalMessage",
       `Project successfully archived`
     );
 
+    if (redirectPage && redirectPage.length > 0) {
+      return redirect(redirectPage, {
+        headers: customHeaders,
+      })
+    }
+
     return json({
       pass: true,
-      fetch,
+      user,
     }, {
-      headers: {
-        "Set-Cookie": await commitSession(session)
-      },
+      headers: customHeaders,
     })
-  } catch (e) {
-    return { formError: `Form not submitted correctly. ${e}` };
-  }
 
+
+  } catch (err) {
+    console.error(err)
+    return { formError: `Form Async error. ${err}` };
+  }
 }
 type ActionData = {
   formError?: string;
@@ -75,7 +101,7 @@ type ActionData = {
   pass?: boolean
 };
 
-const TuesdayMakersFormNoJS = () => {
+const TuesdayMakersLoginFormNoJS = () => {
   const actionData = useActionData<ActionData>()
   const transition = useTransition()
   const formRef: any = React.useRef()
@@ -91,7 +117,7 @@ const TuesdayMakersFormNoJS = () => {
       <Form
         method="post"
         className="mb-4"
-        action="/convertkit/tuesday-makers"
+        action="/convertkit/tuesday-makers-login"
       >
         <div>
           <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label>
@@ -132,16 +158,9 @@ const TuesdayMakersFormNoJS = () => {
             {transition.state === 'idle' ? 'Subscribe' : '...Loading'}
           </button>
         </div>
-        {(
-          actionData?.pass ? (
-            <p>Thanks for subscribing!</p>
-          ) : actionData?.formError ? (
-            <p data-error>{actionData?.formError}</p>
-          ) : null
-        )}
       </Form>
     </div>
   )
 }
 
-export default TuesdayMakersFormNoJS
+export default TuesdayMakersLoginFormNoJS

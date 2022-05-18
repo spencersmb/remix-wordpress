@@ -1,5 +1,6 @@
 
-import { ActionFunction, json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 import { createResourceUserSession } from "~/utils/resourceLibrarySession.server";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
@@ -138,7 +139,7 @@ const ResourceLibraryLogin = () => {
         <label htmlFor="email-input" className="text-sm leading-7 text-gray-600">
           email:
           <input
-            id="email-input"
+
             type="email"
             className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
             name="email"

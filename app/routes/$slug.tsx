@@ -6,7 +6,8 @@ import { gql } from '@apollo/client'
 import { getGraphQLString } from '~/utils/graphqlUtils'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '~/lib/graphql/queries/posts'
 import BlogTemplate from '~/components/blog/blogTemplate'
-import { HeadersFunction, json, LoaderFunction, MetaFunction } from '@remix-run/node'
+import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 // @ts-nocheck
 

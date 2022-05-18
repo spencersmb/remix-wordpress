@@ -1,6 +1,7 @@
 import { Link } from '@remix-run/react'
 import React from 'react'
-import useFontPreview, { IAddFontFunction } from '~/hooks/useFontPreivew'
+import type { IAddFontFunction } from '~/hooks/useFontPreivew';
+import useFontPreview from '~/hooks/useFontPreivew'
 import { useProductLicense } from '~/hooks/useProductLicense'
 import GumroadBtn from '../buttons/gumroadBtn'
 import LicenseRadioSelect from '../forms/licenseRadioSelect'
@@ -23,7 +24,7 @@ function LicenseSelectSection(props: Props) {
         <div className='flex flex-row mb-3 ml-2'>
           <div>License Type</div>
           <div className='ml-2 text-sm italic font-semibold text-success-500'>
-            <Link className='underlined underlined-active' to={'/'}>View Licenses</Link>
+            <Link className='underlined underlined-active' to={'/'}>What are these?</Link>
           </div>
         </div>
 

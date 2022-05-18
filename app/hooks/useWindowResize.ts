@@ -18,7 +18,7 @@ const useWindowResize = () => {
       function checkBreakPoint(windowWidth: number) {
         const hasScrollbar = window.scrollbars.visible
         const w = windowWidth + (hasScrollbar ? 15 : 0) // 15px buffer for scrollbar
-        console.log('w', w);
+        // console.log('w', w);
         
         let bp = BreakpointEnums.mobile
         if (w >= 0) {

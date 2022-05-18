@@ -13,8 +13,9 @@ function PaidProducts(props: IProps) {
     return null
   }
 
-  const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
-  const cssContainerPaidProduct = 'flex flex-col-reverse laptop:flex-row'
+  // const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
+  const paidProductsGreaterThanOne = false
+  const cssContainerPaidProduct = 'flex flex-col-reverse tablet:flex-row laptop:flex-row'
   const cssContainerMultipleProducts = 'flex flex-col tablet:flex-row tablet:flex-wrap'
 
   return (
@@ -32,6 +33,9 @@ function PaidProducts(props: IProps) {
       }
 
       {post.tutorialManager.paidProducts.map((product, index) => {
+        if (index === 1) {
+          return null
+        }
         return (
           <ProductCard__sm
             key={index}
