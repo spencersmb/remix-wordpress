@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useFonts } from "~/hooks/useFonts";
 import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch";
+import { fetchAPI, fetchFontPreviewFile } from "~/utils/fetch.server";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "~/utils/seo";
 import FeaturedProduct from "~/components/products/featureProduct";
@@ -13,7 +13,8 @@ import useSite from "~/hooks/useSite";
 import { rearrangeLicenses } from "~/utils/posts";
 import UseFontPreviewProvider from "~/hooks/useFontPreivew/useFontPreviewProvider";
 import ProductLayout from "~/components/products/productLayout";
-import { HeadersFunction, json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 

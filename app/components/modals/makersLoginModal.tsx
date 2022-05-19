@@ -11,7 +11,6 @@ const TuesdayMakersLoginModal = (props: IProps) => {
   const { resourecLibraryLogin } = useSite()
 
   function formOnComplete(data: FetcherData | undefined) {
-    console.log('data completed', data);
     if (data && data.user) {
       resourecLibraryLogin({ user: data.user })
     }

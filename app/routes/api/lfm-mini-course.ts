@@ -1,4 +1,5 @@
-import { LoaderFunction, redirect } from "@remix-run/node"
+import type { LoaderFunction} from "@remix-run/node";
+import { redirect } from "@remix-run/node"
 import { lfmMiniCourseCookie } from "~/cookies.server"
 
 export let loader: LoaderFunction = async ({request}) => {

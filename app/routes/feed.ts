@@ -1,8 +1,8 @@
 import RSS from 'rss'
-import { fetchAPI } from '../utils/fetch'
+import { fetchAPI } from '../utils/fetch.server'
 import { getGraphQLString } from '../utils/graphqlUtils'
 import { gql } from '@apollo/client'
-import { LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node'
 
 async function getFeedData(){
   return fetchAPI(getGraphQLString(query), {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFontPreviewFile } from "~/utils/fetch";
+import { fetchFontPreviewFile } from "~/utils/fetch.server";
 
 interface FontState {
   status: string

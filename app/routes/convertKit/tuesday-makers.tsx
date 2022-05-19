@@ -1,11 +1,18 @@
 import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
-import { fetchConvertKitSignUp } from '~/utils/fetch'
+import { fetchConvertKitSignUp } from '~/utils/fetch.server'
 import React from 'react'
 import { commitSession, getSession } from '~/sessions.server'
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
+import { ckSignUpCookie } from '~/cookies.server'
+
+/**
+ * 
+ * CONVERITK FORM SIGNUP API END POINT 
+ * 
+ */
 
 function getFormId(type: string | null): string {
   switch (type) {
@@ -17,6 +24,7 @@ function getFormId(type: string | null): string {
 }
 
 export let action: ActionFunction = async ({ request, params }) => {
+  const customHeaders = new Headers()
   let form = await request.formData();
   let email = form.get('email')
   let formType = form.get('type') as string
@@ -41,23 +49,31 @@ export let action: ActionFunction = async ({ request, params }) => {
 
   try {
     const fetch = await fetchConvertKitSignUp({ email, id: ckId })
+    customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
+      userID: fetch.subscription.subscriber.id,
+      email,
+    }))
 
-    const session = await getSession(
-      request.headers.get('Cookie')
-    )
-
-    session.flash(
-      "globalMessage",
-      `Project successfully archived`
-    );
+    /**
+     * 
+     * Session Flash message setup
+     */
+    // const session = await getSession(
+    //   request.headers.get('Cookie')
+    // )
+    // session.flash(
+    //   "globalMessage",
+    //   `Project successfully archived`
+    // );
 
     return json({
       pass: true,
       fetch,
     }, {
-      headers: {
-        "Set-Cookie": await commitSession(session)
-      },
+      headers: customHeaders
+      // headers: {
+      //   "Set-Cookie": await commitSession(session)
+      // },
     })
   } catch (e) {
     return { formError: `Form not submitted correctly. ${e}` };

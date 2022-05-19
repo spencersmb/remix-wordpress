@@ -1,7 +1,5 @@
 import type { FormProps } from '@remix-run/react'
-import type { Transition } from '@remix-run/react/transition'
 import { useEffect, useRef } from 'react'
-import SubmitBtn from '../buttons/submitBtn'
 import SubmitFetcherBtn from '../buttons/submitFetchBtn'
 import InputBase from '../input/inputBase'
 
@@ -14,9 +12,8 @@ interface IProps {
 }
 const MakersSignUpFetcherForm = (props: IProps) => {
   const { Form, data, state, type, btnText } = props
-  console.log('data', data)
-  console.log('type', type)
-  console.log('transition', state);
+  console.log('data', data);
+
 
   const ref = useRef<any>();
 

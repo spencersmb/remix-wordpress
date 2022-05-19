@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI } from "~/utils/fetch";
+import { fetchAPI } from "~/utils/fetch.server";
 import { flattenAllPosts } from "~/utils/posts";
 import { getBasicPageMetaTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import BlogFeaturedPost from "~/components/blog/blogFeaturedPost";
-import { IPageInfo } from "~/hooks/useFetchPagination/useFetchPaginationReducer";
+import type { IPageInfo } from "~/hooks/useFetchPagination/useFetchPaginationReducer";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import { gql } from "@apollo/client";
@@ -14,7 +14,7 @@ import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "~/components/buttons/outlinedButton";
 import BlogPostGrid from "~/components/blog/blogPostGrid";
-import { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 type IndexData = {

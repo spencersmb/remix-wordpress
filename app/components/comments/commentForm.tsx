@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { FormEvent, useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
 import useSite from "~/hooks/useSite";
-import { fetchSubmitComment } from "~/utils/fetch";
+import { fetchSubmitComment } from "~/utils/fetch.cleint";
 import { parseComment } from "~/utils/posts";
 import { validateEmail } from "~/utils/validation";
 import InputBase from "../input/inputBase";
@@ -228,7 +229,7 @@ const CommentForm = (props: IProps) => {
             <form className={`${props.subForm ? 'px-2 py-6' : 'px-6 py-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmit}>
 
               {/* INPUTS */}
-              <div className="flex flex-col tablet:flex-row  tablet:flex-wrap">
+              <div className="flex flex-col tablet:flex-row tablet:flex-wrap">
                 {/* NAME */}
                 <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
                   <InputBase
@@ -308,7 +309,7 @@ const CommentForm = (props: IProps) => {
                 <div>
                   <AnimatePresence>
                     {/* SERVER ERROR */}
-                    {commentError && <div className="form-validation-error text-error-500 italic text-sm overflow-hidden">
+                    {commentError && <div className="overflow-hidden text-sm italic form-validation-error text-error-500">
                       <p className="pb-4 pr-2" dangerouslySetInnerHTML={{ __html: commentError }}></p>
                     </div>}
 
@@ -324,7 +325,7 @@ const CommentForm = (props: IProps) => {
                         initial="initial"
                         animate="visible"
                         exit="initial"
-                        className="form-validation-error text-error-500 italic text-sm overflow-hidden"
+                        className="overflow-hidden text-sm italic form-validation-error text-error-500"
                         role="alert"
                         id="name-error"
                         transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}

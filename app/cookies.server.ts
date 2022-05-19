@@ -37,3 +37,14 @@ export const shopifyCartCookie = createCookie(shopifyCartCookieName, {
   secrets: [sessionSecret],
   secure: true  
 });
+
+const signUpCookieID = "etck-signup"
+export const ckSignUpCookie = createCookie(signUpCookieID, {
+  maxAge: 60 * 60, // one week
+  path: '/',
+  expires: new Date(Date.now() + 60 * 60),
+  httpOnly: true,
+  sameSite: "lax",
+  secrets: [sessionSecret],
+  secure: true
+});

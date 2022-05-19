@@ -1,12 +1,11 @@
-import { Link } from '@remix-run/react'
 import { isEmpty } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { Sticky, StickyContainer } from 'react-sticky'
 import TuesdayMakersLoginModal from '~/components/modals/makersLoginModal'
 import TuesdayMakersSignUpModal from '~/components/modals/popUpTuesdayMakersSignUp'
 import LockedSvg from '~/components/svgs/lockedSvg'
 import SquiggleSvg from '~/components/svgs/squiggleSvg'
 import useSite from '~/hooks/useSite'
+import { classNames } from '~/utils/appUtils'
 
 interface Props {
   post: IPost
@@ -64,8 +63,8 @@ function TutorialDownloads(props: Props) {
   return (
     <div className={`transition-opacity flex flex-col mb-8 laptop:flex-row desktop:mb-0 desktop:flex-col rounded-2.5xl overflow-hidden shadow-2xl ${loaded ? 'opacity-100' : 'opacity-0'}`} >
       {/* SIGNUP BLOCK */}
-      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 laptop:max-w-[375px] desktop:max-w-none'>
-        <div className='mb-4 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
+      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
+        <div className='mb-3 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
           Tutorial Downloads
         </div>
         <p className='mb-4'>
@@ -105,10 +104,10 @@ function TutorialDownloads(props: Props) {
           {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
             return (
               <div key={index} className="flex flex-row items-center justify-between mb-4 text-left justify- locked_item">
-                <div className={`flex-1 text-lg font-semibold ${!resourceUser ? 'text-sage-400' : 'text-primary-600'}`}>
+                <div className={`flex-1 text-lg font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-primary-600'}`}>
                   {item.title}
                 </div>
-                <button disabled={!resourceUser} className={!resourceUser ? `btn btn-small btn-sage-200 btn-disabled-sage-200` : `text-primary-500`} onClick={handleDownload(index)}>
+                <button disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `text-primary-500`, 'btn btn-small')} onClick={handleDownload(index)}>
                   Download
                 </button>
               </div>

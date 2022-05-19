@@ -1,6 +1,6 @@
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
 import { getBasicPageMetaTags, getHtmlMetadataTags } from '../../utils/seo'
-import { fetchAPI } from '../../utils/fetch'
+import { fetchAPI } from '../../utils/fetch.server'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'

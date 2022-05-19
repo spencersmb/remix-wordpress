@@ -3,14 +3,15 @@ import { capitalize } from "lodash";
 import { useEffect } from "react";
 import useFetchPaginate from "~/hooks/useFetchPagination";
 import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI } from "~/utils/fetch";
+import { fetchAPI } from "~/utils/fetch.server";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { flattenAllPosts } from "~/utils/posts";
 import { getBasicPageMetaTags } from "~/utils/seo";
 import { consoleHelper } from "~/utils/windowUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import PostsGrid from "~/components/blog/postsGrid";
-import { HeadersFunction, json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly

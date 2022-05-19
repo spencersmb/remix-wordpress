@@ -30,15 +30,15 @@ function BlogTemplate(props: IProps) {
   useEffect(() => {
     // handleCommentsClick()
 
-    // Refresh the window if the user logs in on another page
-    window.addEventListener('storage', (evt) => {
-      console.log('custom fired', evt);
+    // // Refresh the window if the user logs in on another page
+    // window.addEventListener('storage', (evt) => {
+    //   console.log('custom fired', evt);
 
-      if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
-        window.location.reload();
-      }
+    //   if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
+    //     window.location.reload();
+    //   }
 
-    });
+    // });
 
     checkOldIframes()
     return () => {

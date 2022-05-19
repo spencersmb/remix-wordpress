@@ -2,7 +2,7 @@ import { isEmpty } from "lodash";
 import { error } from "xstate/lib/actions";
 import { shopifyCartCookie } from "~/cookies.server";
 import { ADD_ITEM_TO_CART, CREATE_CART, GET_CART } from "~/lib/graphql/mutations/cart";
-import { fetchShopifyStoreFrontRequest } from "./fetch";
+import { fetchShopifyStoreFrontRequest } from "./fetch.server";
 import { findCookie } from "./loaderHelpers";
 
 

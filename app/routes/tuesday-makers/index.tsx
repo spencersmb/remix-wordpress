@@ -2,7 +2,7 @@
 import { getResourceUserToken } from '../../utils/resourceLibrarySession.server'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { fetchAPIClientSide } from '../../utils/fetch'
+import { fetchAPIClientSide } from '../../utils/fetch.cleint'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'

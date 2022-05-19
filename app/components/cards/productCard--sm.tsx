@@ -13,15 +13,12 @@ interface Props {
 
 function ProductCard__sm(props: Props) {
   const { product, index, multipleProducts } = props
-  // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
     imageObject: product.featuredImage.node, // the featured image object
     fallbackSize: ImageSizeEnums.FULL, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
-  console.log('(index + 1) === 1', (index + 1) === 1);
-
 
   return (
     <div className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>

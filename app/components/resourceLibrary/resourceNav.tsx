@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react'
+import { Link, useFetcher, useNavigate } from '@remix-run/react'
 import * as React from 'react'
 import { userStateMatches } from '~/hooks/remixHooks'
 import useSite from '~/hooks/useSite'
@@ -16,6 +16,22 @@ import { ISelectedMatch } from '~/interfaces/remix'
 const ResourceLibraryNav = () => {
   // Pass user directly using useMatches instead of waiting for context
   const { state } = userStateMatches()
+  let navigate = useNavigate();
+  const fetcher = useFetcher();
+  const logout = () => {
+    console.log('logout');
+    localStorage.removeItem('makers_login')
+    fetcher.submit(
+      { redirectTo: '/tuesday-makers/login' },
+      { method: "post", action: "/tuesday-makers/logout" }
+    );
+  }
+  // const logout = React.useCallback(() => {
+  //   fetcher.submit(
+  //     // { redirectTo: '/tuesday-makers/login' },
+  //     { method: "post", action: "/tuesday-makers/logout" }
+  //   );
+  // }, [fetcher]);
 
   return (
     <nav>
@@ -33,11 +49,14 @@ const ResourceLibraryNav = () => {
           </>
         }
         {state?.user.resourceUser && <li>
-          <form action="/tuesday-makers/logout" method="post">
+          <button type="button" onClick={logout} className="button">
+            Logout
+          </button>
+          {/* <form action="/tuesday-makers/logout" method="post">
             <button type="submit" className="button">
               Logout
             </button>
-          </form>
+          </form> */}
         </li>}
       </ul>
     </nav>

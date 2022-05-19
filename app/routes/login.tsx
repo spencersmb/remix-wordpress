@@ -3,7 +3,7 @@ import {
   getPreviewRedirectUrlFromParams,
   getPreviewUrlParams,
 } from '../utils/loaderHelpers'
-import { logUserInJWT } from '../utils/fetch'
+import { logUserInJWT } from '../utils/fetch.server'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import Layout from '~/components/layoutTemplates/layout'

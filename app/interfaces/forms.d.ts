@@ -13,6 +13,7 @@ type FetcherData = {
   }
   formError?: string
   pass: boolean
+  user?: IResourceUser
 }
 
 type FetcherState =

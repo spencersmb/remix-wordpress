@@ -1,5 +1,5 @@
 import { ShopPlatformEnum } from "~/enums/products";
-import { fetchAPI } from "~/utils/fetch";
+import { fetchAPI } from "~/utils/fetch.server";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { SiteMetaDataQuery } from "../graphql/queries/siteMetaData";
 

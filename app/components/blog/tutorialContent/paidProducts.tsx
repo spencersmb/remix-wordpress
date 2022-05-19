@@ -1,4 +1,4 @@
-import ProductCard__sm from "~/components/cards/productCard--sm"
+import ProductCardBlog from "~/components/cards/productCard--sm"
 import ColorSwatches from "./colorSwatches"
 import ColorSwatchesVerticalLayout from "./colorSwatchVerticalLayout"
 
@@ -13,8 +13,7 @@ function PaidProducts(props: IProps) {
     return null
   }
 
-  // const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
-  const paidProductsGreaterThanOne = false
+  const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
   const cssContainerPaidProduct = 'flex flex-col-reverse tablet:flex-row laptop:flex-row'
   const cssContainerMultipleProducts = 'flex flex-col tablet:flex-row tablet:flex-wrap'
 
@@ -33,11 +32,9 @@ function PaidProducts(props: IProps) {
       }
 
       {post.tutorialManager.paidProducts.map((product, index) => {
-        if (index === 1) {
-          return null
-        }
+
         return (
-          <ProductCard__sm
+          <ProductCardBlog
             key={index}
             product={product}
             multipleProducts={paidProductsGreaterThanOne}

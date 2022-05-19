@@ -1,8 +1,9 @@
 import { gql } from "@apollo/client";
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI } from "~/utils/fetch";
+import { fetchAPI } from "~/utils/fetch.server";
 import { getGraphQLString } from "~/utils/graphqlUtils";
 import { getHtmlMetadataTags } from "~/utils/seo";
 

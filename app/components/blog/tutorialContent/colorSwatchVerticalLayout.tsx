@@ -7,7 +7,6 @@ interface Props {
 function ColorSwatchesVerticalLayout(props: Props) {
   const { downloadUrl } = props
   const cssSingleContainer = 'laptop:mr-4 flex-auto'
-  const cssMultipleContainer = `tablet:flex-auto laptop:mr-0`
 
   const handleDownloadClick = () => {
     window.open(downloadUrl);

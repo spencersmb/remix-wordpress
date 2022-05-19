@@ -15,8 +15,6 @@ interface Props {
 const MakersLoginFetchForm = (props: Props) => {
 
   const { Form, data, state, type, redirectUrl, onComplete } = props
-  console.log('data', data)
-  console.log('type', type)
   const ref = useRef<any>();
 
   useEffect(() => {

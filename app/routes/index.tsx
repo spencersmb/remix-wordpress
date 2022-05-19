@@ -1,6 +1,6 @@
 
 import { flattenAllPosts } from '../utils/posts'
-import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch'
+import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
@@ -157,7 +157,7 @@ function TestModal() {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   let data = useLoaderData<any>();
-  console.log('data', data);
+  console.log('index data', data);
 
 
   const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({

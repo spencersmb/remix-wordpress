@@ -3,9 +3,10 @@ import { findCookie } from "~/utils/loaderHelpers"
 import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";
 import { createLockedPageCookie } from "~/server/lockedPages.server";
 import { gql } from "@apollo/client";
-import { fetchAPI } from "~/utils/fetch";
+import { fetchAPI } from "~/utils/fetch.server";
 import { getGraphQLString } from "~/utils/graphqlUtils";
-import { ActionFunction, json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useLoaderData, useTransition } from "@remix-run/react";
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData))

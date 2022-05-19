@@ -1,26 +1,22 @@
 import * as React from "react";
 import {
-
-  Link,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch, useLoaderData,
-  useLocation, useMatches, useTransition
+  useCatch,
+  useLoaderData,
+  useTransition
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import deleteMeRemixStyles from "~/styles/demos/remix.css";
 import globalStylesUrl from "~/styles/global-old.css";
 import darkStylesUrl from "~/styles/dark.css";
-import useSite, { SiteContext, siteInitialState } from './hooks/useSite'
-import { createSiteMetaData, getDynamicSiteMetadata, getWPMenu } from './lib/wp/site'
-import { getPrimaryMenu } from './lib/wp/nav'
-import { store } from './lib/redux/store'
-import { Provider } from 'react-redux'
+import { siteInitialState } from './hooks/useSite'
+import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import styles from "./styles/app.css";
@@ -32,14 +28,10 @@ import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
 import { commitSession, getSession } from '~/sessions.server'
 import CommentModal from "./components/modals/commentModal";
-import { getDefaultState } from "./utils/appUtils";
-import UseCartProvider from "./hooks/useCart/useCartProvider";
 import { createCart, getUserCart } from "./utils/cartUtils";
 import { shopifyCartCookie } from "./cookies.server";
 import { fetchInitialState } from "./hooks/useFetchPagination";
-import { defaultFeaturedImage } from "./utils/pageUtils";
 import JsonLd from "./components/seo/jsonLd";
-import Layout from "./components/layoutTemplates/layout";
 import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
 import useWindowResize from "./hooks/useWindowResize";
@@ -138,14 +130,14 @@ export let loader: LoaderFunction = async ({ request }) => {
  * component for your app.
  */
 export default function App() {
-  let { menus, metadata, user, message, cart } = useLoaderData<IRootData>();
+  let { menus, user, metadata, message, cart } = useLoaderData<IRootData>();
   consoleHelper('user', user)
   // consoleHelper('metadata', metadata)
 
-  let defaultCart: IShopifyCart = {
-    ...cart,
-    isOpen: false,
-  }
+  // let defaultCart: IShopifyCart = {
+  //   ...cart,
+  //   isOpen: false,
+  // }
 
   let defaultState = fetchInitialState
 
@@ -158,6 +150,24 @@ export default function App() {
     // waiting for the loaders of the next location so we start it
     else NProgress.start();
   }, [transition.state]);
+
+  React.useEffect(() => {
+    console.log('add window Storage listener');
+
+    // Refresh the window if the user logs in on another page
+    window.addEventListener('storage', (evt) => {
+      console.log('custom fired', evt);
+
+      /**
+       * Right now only using Makers_login add or remove storage to trigger logins or logouts
+       */
+      if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
+        window.location.reload();
+      }
+
+    });
+  }, [])
+
   const value = {
     ...siteInitialState,
     menu: menus,
@@ -198,6 +208,8 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
+  // console.log('document data', data);
+
   useWindowResize()
   // console.log('ENV', data)
 
@@ -232,9 +244,10 @@ export function Document({ children, title }: IDocument) {
           />
         </noscript>
         {children}
-        <RouteChangeAnnouncement />
-        <ScrollRestoration nonce="ACA4A9" />
-        <Scripts nonce="b45309" />
+        {/* <RouteChangeAnnouncement /> */}
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
@@ -247,125 +260,106 @@ export function Document({ children, title }: IDocument) {
             )}`
           }}
         />}
-        {process.env.NODE_ENV === "development" && <LiveReload nonce="nonce-cjzkqzfj" />}
+        {/* {process.env.NODE_ENV === "development" && <LiveReload nonce="nonce-cjzkqzfj" />} */}
         <BasicModal />
         <CommentModal />
 
         {/* FOOTER SCRIPTS */}
-        {data.metadata.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.every-tuesday.com/js/gumroad.js"></script>}
+        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.every-tuesday.com/js/gumroad.js"></script>}
 
       </body>
     </html>
   );
 }
-
 export function CatchBoundary() {
-  let caught = useCatch();
-
-  let message;
-  switch (caught.status) {
-    case 401:
-      message = (
-        <p>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </p>
-      );
-      break;
-    case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      );
-      break;
-
-    default:
-      throw new Error(caught.data || caught.statusText);
-  }
-
+  const caught = useCatch();
   return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
-      <Layout>
+    <html>
+      <head>
+        <title>Oops!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
         <h1>
-          {caught.status}: {caught.statusText}
+          {caught.status} {caught.statusText}
         </h1>
-        {message}
-      </Layout>
-    </Document>
+        <Scripts />
+      </body>
+    </html>
   );
 }
-
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary({ error }: any) {
   console.error(error);
   return (
-    <Document title="Error!">
-      <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
-        </div>
-      </Layout>
-    </Document>
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {/* add the UI you want your users to see */}
+        You found an error!
+        <Scripts />
+      </body>
+    </html>
   );
 }
 
 /**
  * Provides an alert for screen reader users when the route changes.
  */
-const RouteChangeAnnouncement = React.memo(() => {
-  let [hydrated, setHydrated] = React.useState(false);
-  let [innerHtml, setInnerHtml] = React.useState("");
-  let location = useLocation();
+// const RouteChangeAnnouncement = React.memo(() => {
+//   let [hydrated, setHydrated] = React.useState(false);
+//   let [innerHtml, setInnerHtml] = React.useState("");
+//   let location = useLocation();
 
-  React.useEffect(() => {
-    setHydrated(true);
-  }, []);
+//   React.useEffect(() => {
+//     setHydrated(true);
+//   }, []);
 
-  let firstRenderRef = React.useRef(true);
-  React.useEffect(() => {
-    // Skip the first render because we don't want an announcement on the
-    // initial page load.
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      return;
-    }
+//   let firstRenderRef = React.useRef(true);
+//   React.useEffect(() => {
+//     // Skip the first render because we don't want an announcement on the
+//     // initial page load.
+//     if (firstRenderRef.current) {
+//       firstRenderRef.current = false;
+//       return;
+//     }
 
-    let pageTitle = location.pathname === "/" ? "Home page" : document.title;
-    setInnerHtml(`Navigated to ${pageTitle}`);
-  }, [location.pathname]);
+//     let pageTitle = location.pathname === "/" ? "Home page" : document.title;
+//     setInnerHtml(`Navigated to ${pageTitle}`);
+//   }, [location.pathname]);
 
-  // Render nothing on the server. The live region provides no value unless
-  // scripts are loaded and the browser takes over normal routing.
-  if (!hydrated) {
-    return null;
-  }
+//   // Render nothing on the server. The live region provides no value unless
+//   // scripts are loaded and the browser takes over normal routing.
+//   if (!hydrated) {
+//     return null;
+//   }
 
-  return (
-    <div
-      aria-live="assertive"
-      aria-atomic
-      id="route-change-region"
-      style={{
-        border: "0",
-        clipPath: "inset(100%)",
-        clip: "rect(0 0 0 0)",
-        height: "1px",
-        margin: "-1px",
-        overflow: "hidden",
-        padding: "0",
-        position: "absolute",
-        width: "1px",
-        whiteSpace: "nowrap",
-        wordWrap: "normal"
-      }}
-    >
-      {innerHtml}
-    </div>
-  );
-});
+//   return (
+//     <div
+//       aria-live="assertive"
+//       aria-atomic
+//       id="route-change-region"
+//       style={{
+//         border: "0",
+//         clipPath: "inset(100%)",
+//         clip: "rect(0 0 0 0)",
+//         height: "1px",
+//         margin: "-1px",
+//         overflow: "hidden",
+//         padding: "0",
+//         position: "absolute",
+//         width: "1px",
+//         whiteSpace: "nowrap",
+//         wordWrap: "normal"
+//       }}
+//     >
+//       {innerHtml}
+//     </div>
+//   );
+// });
 
 

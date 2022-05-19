@@ -1,4 +1,4 @@
-import { fetchAPI } from '../utils/fetch'
+import { fetchAPI } from '../utils/fetch.server'
 import { mapPostData } from '../utils/posts'
 import Layout from "~/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
@@ -70,7 +70,6 @@ const query = gql`
   ${POST_BASIC_FIELDS}
   ${POST_FEATURED_IMAGE}
   ${RELEATED_POSTS_FIELDS}
-  ${PRODUCT_FIELDS} 
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
         ...postBasicFields
@@ -152,7 +151,40 @@ query postBySlug($slug: String!) {
               iconTextColor
             }
             paidProducts {
-                ...productFields
+              ... on Product{
+                title 
+                slug
+                featuredImage {
+                  node {
+                    mimeType
+                    mediaDetails {
+                      height
+                      width
+                      sizes{
+                        width
+                        file
+                        height
+                        name
+                        sourceUrl
+                        mimeType
+                      }
+                    }
+                      altText
+                      caption
+                      sourceUrl
+                      srcSet
+                      sizes
+                      id
+                  }
+                }
+                details {
+                  licences {
+                    licenseType
+                    price
+                    url
+                  }
+                }
+              }
             }
             youtube {
                 embedUrl
