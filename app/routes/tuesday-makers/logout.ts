@@ -1,4 +1,5 @@
-import { ActionFunction, LoaderFunction, redirect } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction} from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { logoutResourceLibrary } from '../../utils/resourceLibrarySession.server'
 
 /**
@@ -13,5 +14,5 @@ export let action: ActionFunction = async ({ request }) => {
 };
 
 export let loader: LoaderFunction = async () => {
-  return redirect("/");
+  return redirect("/tuesday-makers/login");
 };

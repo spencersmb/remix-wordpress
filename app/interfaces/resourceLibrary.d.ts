@@ -44,6 +44,6 @@ interface IGridItem{
 }
 
 interface IResourceUser {
-  id: string
+  id: number
   tags: string[]
 }

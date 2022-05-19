@@ -1,10 +1,11 @@
-import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node'
 import { useLoaderData, useOutletContext } from '@remix-run/react'
 import { lfmMiniCourseCookie } from '~/cookies.server'
 import { findCookie } from '~/utils/loaderHelpers'
 import { getStaticPageMeta } from '~/utils/pageUtils'
 import { getHtmlMetadataTags } from '~/utils/seo'
-import { IlfmMiniCourseCookie } from '../mini-course'
+import type { IlfmMiniCourseCookie } from '../mini-course'
 
 export let meta: MetaFunction = (rootData): any => {
 

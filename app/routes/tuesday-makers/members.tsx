@@ -20,6 +20,7 @@ import StrokeOneSvg from '~/components/svgs/strokes/stroke-1'
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 import { useFetcher, useLoaderData, useMatches } from '@remix-run/react'
+import useTuesdayMakersClientSideLogin from '~/hooks/useTuesdayMakersClientSideLogin'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -202,12 +203,7 @@ const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
   console.log('data', data);
 
-  const { state: { user }, resourecLibraryLogin } = useSite()
   // const { cart } = useCartMatches()
-  // que other tabs to sync up with logged in user
-  function setStorage() {
-    localStorage.setItem('makers_login', 'login' + Math.random());
-  }
   // console.log('match', cart);
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
@@ -218,15 +214,8 @@ const ResourceLibraryMembers = () => {
   * Check for user when coming directly from the login page to make sure the user is passed to the global context.
   * Right now user comes from the server side on page refreush and is set in the State, but when you come from a route, it isn't set because the redirect after a form submission happens on the server before the client takes over again. So we must pass the data down to an action manually.
   */
-  useEffect(() => {
-    // console.log('check for user', user);
+  useTuesdayMakersClientSideLogin(data.user, 200)
 
-    if (!user.resourceUser) {
-      resourecLibraryLogin({ user: data.user })
-    }
-
-    setStorage() // Set storage to an arbitrary value so we can log user in on other open tabs.
-  }, [])
 
   async function shopifyTestCall() {
     const url = `https://everytuesday.myshopify.com/api/2022-01/graphql.json`

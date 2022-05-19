@@ -16,15 +16,17 @@ import { ISelectedMatch } from '~/interfaces/remix'
 const ResourceLibraryNav = () => {
   // Pass user directly using useMatches instead of waiting for context
   const { state } = userStateMatches()
-  let navigate = useNavigate();
   const fetcher = useFetcher();
-  const logout = () => {
-    console.log('logout');
-    localStorage.removeItem('makers_login')
+  const logout = async () => {
+
     fetcher.submit(
       { redirectTo: '/tuesday-makers/login' },
       { method: "post", action: "/tuesday-makers/logout" }
     );
+    setTimeout(() => {
+      localStorage.setItem('makers_login', 'false')
+    }, 300)
+
   }
   // const logout = React.useCallback(() => {
   //   fetcher.submit(

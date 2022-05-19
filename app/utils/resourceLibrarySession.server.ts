@@ -59,3 +59,70 @@ export async function logoutResourceLibrary(request: Request) {
     }
   });
 }
+
+export interface IGetConvertKitUserByID{
+  id: number,
+  email_address: string,
+  state: 'inactive' | 'active' | 'unsubscribed' | 'bounced' | 'soft-bounced' | 'pending' | 'unconfirmed' | 'deleted'
+}
+export async function getConvertKitUserByID(id: number): Promise<IGetConvertKitUserByID | null> {
+  // Fetch Subscriber
+  const url = `https://api.convertkit.com/v3/subscribers/${id}?api_secret=${process.env.CK_SECRET}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+
+  const result = await res.json()
+  console.log('result', result);
+  
+  if (result.error) {
+    return null
+  }
+  return result.subscriber
+
+}
+interface IGetConvertKitUserByEmail {
+  email: string
+}
+export async function getConvertKitUserIdByEmail(email: string): Promise<number | null> {
+  // Fetch Subscriber
+  const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+
+  const result = await res.json()
+  console.log('result', result);
+
+  if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
+    return null;
+  }
+
+  return result.subscribers[0].id
+
+}
+
+export async function getConvertKitUserTags(userID: number): Promise<string[]> {
+  const url = `https://api.convertkit.com/v3/subscribers/${userID}/tags?api_secret=${process.env.CK_SECRET}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+
+  const result = await res.json()
+  console.log('tags result', result);
+
+  if(result.error) {
+    return []
+  }
+  
+  return result.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+}
