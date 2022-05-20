@@ -7,6 +7,7 @@ export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',
   MODAL_CLOSE = 'MODAL_CLOSE',
   LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
+  LOGOUT_RESOURCE_USER = 'LOGOUT_RESOURCE_USER',
   SHOW_COMMENTS = 'SHOW_COMMENTS',
   HIDE_COMMENTS = 'HIDE_COMMENTS',
   ADD_COMMENT = 'ADD_COMMENT',
@@ -65,6 +66,10 @@ interface ILoginResourceUser{
   }
 }
 
+interface ILogoutResourceUser{
+  type: ISiteTypes.LOGOUT_RESOURCE_USER,
+}
+
 interface IUpdateBreakpoint{
   type: ISiteTypes.UPDATE_BREAKPOINT,
   payload: {
@@ -82,6 +87,7 @@ export type ISiteAction =
 | {type: ISiteTypes.HIDE_COMMENTS}
 | IFetchMoreComments
 | IUpdateBreakpoint
+| ILogoutResourceUser
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action)
@@ -112,6 +118,15 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         user:{
           ...state.user,
           resourceUser: action.payload.user
+        }
+      }
+
+    case ISiteTypes.LOGOUT_RESOURCE_USER : 
+      return {
+        ...state,
+        user:{
+          ...state.user,
+          resourceUser: null
         }
       }
     

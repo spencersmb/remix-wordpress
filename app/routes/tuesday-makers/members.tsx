@@ -46,10 +46,14 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
-  const user = await requireResourceLibraryUser(request, '/tuesday-makers')
+  // get user, if no user redirect to login
+  const user = await requireResourceLibraryUser(request, '/tuesday-makers/login')
 
   const userId = user.id
-  // get latest tags
+  /**
+   * Get latest tags
+   * Don't want to cache them so we can show and hide other data on page dynamically
+   */
   const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
 
   const resTag = await fetch(urlTags, {
@@ -96,9 +100,6 @@ function useCartMatches() {
 
 }
 
-// TODO: UPDATE GRAPHQL SCHEMA on GRAPHQL API
-// TODO: Update plugin on ET and API 
-// 
 const filterTags = [
   {
     name: 'All',
@@ -201,7 +202,7 @@ function reshuffleBrushes(posts: IResourceItem[]) {
 
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
-  console.log('data', data);
+  // console.log('data', data);
 
   // const { cart } = useCartMatches()
   // console.log('match', cart);

@@ -138,6 +138,12 @@ const useSite = () => {
     })
   }
 
+   const resourecLibraryLogout = () => {
+    dispatch({
+      type: ISiteTypes.LOGOUT_RESOURCE_USER,
+    })
+  }
+
   const showComments = (data: {
     commentOn: number
     comments: IPostComment[]
@@ -197,6 +203,7 @@ const useSite = () => {
     openModal,
     closeModal,
     resourecLibraryLogin,
+    resourecLibraryLogout,
     showComments,
     hideComments,
     addComment,

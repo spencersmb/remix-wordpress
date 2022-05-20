@@ -151,6 +151,7 @@ export default function App() {
     else NProgress.start();
   }, [transition.state]);
 
+  // Window localStorage listener to refresh tabs if User Logs In/Out
   React.useEffect(() => {
     console.log('add window Storage listener');
 
@@ -164,7 +165,6 @@ export default function App() {
       if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
         window.location.reload();
       }
-
     });
   }, [])
 

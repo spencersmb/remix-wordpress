@@ -16,24 +16,23 @@ import { ISelectedMatch } from '~/interfaces/remix'
 const ResourceLibraryNav = () => {
   // Pass user directly using useMatches instead of waiting for context
   const { state } = userStateMatches()
+  const { resourecLibraryLogout } = useSite()
   const fetcher = useFetcher();
   const logout = async () => {
+
+    resourecLibraryLogout()
 
     fetcher.submit(
       { redirectTo: '/tuesday-makers/login' },
       { method: "post", action: "/tuesday-makers/logout" }
     );
+
+    // SetTimeout to make sure the localStorage is able to complete and send events to other open tabs
     setTimeout(() => {
       localStorage.setItem('makers_login', 'false')
     }, 300)
 
   }
-  // const logout = React.useCallback(() => {
-  //   fetcher.submit(
-  //     // { redirectTo: '/tuesday-makers/login' },
-  //     { method: "post", action: "/tuesday-makers/logout" }
-  //   );
-  // }, [fetcher]);
 
   return (
     <nav>

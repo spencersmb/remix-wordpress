@@ -8,10 +8,6 @@ interface IProps {
 
 const TuesdayMakersSignUpModal = (props: IProps) => {
   const tuesdayMakersSignUp = useFetcher();
-  const tuesdayMakerLogin = useFetcher();
-  const tuesdayMakerTransition = useTransition();
-  const transition = useTransition()
-  const [confirm, setConfirm] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
@@ -25,25 +21,11 @@ const TuesdayMakersSignUpModal = (props: IProps) => {
     }
   }, [tuesdayMakersSignUp.type, tuesdayMakersSignUp.data, props]);
 
-  useEffect(() => {
-    // if they've confirmed, then sign them in.
-    if (confirm) {
-      // log user in wi
-      // closeModal
-    }
-  }, [confirm])
-
-  function handleConfirm() {
-    // Log them in
-    // close modal
-    // 
-  }
 
   return (
     <div className="bg-white">
       {showConfirmation && <div>
         <p>Check your email and confirm, once your done, come back here and click ok.</p>
-        <button onClick={handleConfirm}>I've confirmed my email</button>
       </div>}
       {!showConfirmation && <MakersSignUpFetcherForm
         Form={tuesdayMakersSignUp.Form}

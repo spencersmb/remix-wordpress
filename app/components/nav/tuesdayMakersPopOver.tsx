@@ -2,6 +2,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link } from '@remix-run/react'
 import { Fragment } from 'react'
+import useSite from '~/hooks/useSite'
 
 const solutions = [
   {
@@ -28,6 +29,7 @@ const solutions = [
 ]
 
 export default function TuesdayMakersPopOver() {
+  const { state: { user } } = useSite()
   return (
     <div className="m-2 mx-4 text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
       <Popover className="relative">
@@ -78,19 +80,26 @@ export default function TuesdayMakersPopOver() {
                       </Link>
                     ))}
                   </div>
-                  <div className="grid grid-flow-row grid-cols-2 gap-4 p-5 bg-gray-50">
-                    <Link
-                      to="/tuesday-makers"
-                      className="transition duration-300 ease-in-out btn btn-teal-400 ring-offset-0 ring-0 hover:ring-0 hover-ring-offset-0 hover-ring-0 hover:bg-success-500 "
+                  <div className={`grid grid-flow-row ${user.resourceUser ? 'grid-cols-1' : 'grid-cols-2'} gap-4 p-5 bg-gray-50`}>
+                    {user.resourceUser && <Link
+                      to="/tuesday-makers/members"
+                      className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-2"
                     >
-                      Sign Up
-                    </Link>
-                    <Link
-                      to="/tuesday-makers/login"
-                      className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-4"
-                    >
-                      Login
-                    </Link>
+                      Makers Dashboard
+                    </Link>}
+                    {!user.resourceUser && <>
+                      <Link
+                        to="/tuesday-makers"
+                        className="transition duration-300 ease-in-out btn btn-teal-400 ring-offset-0 ring-0 hover:ring-0 hover-ring-offset-0 hover-ring-0 hover:bg-success-500">
+                        Sign Up
+                      </Link>
+                      <Link
+                        to="/tuesday-makers/login"
+                        className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-4"
+                      >
+                        Login
+                      </Link>
+                    </>}
                   </div>
                 </div>
               </Popover.Panel>

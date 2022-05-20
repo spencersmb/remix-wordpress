@@ -1,3 +1,4 @@
+import { ckFormIds } from "~/lib/convertKit/formIds";
 
 const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
   return {
@@ -16,4 +17,13 @@ const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
 export const flattenResourceData = (resourceData: IMapResourceData): IResourceItem[] | boolean => {
   const dataFiltered = resourceData?.edges?.map(({ node}) => node);
   return Array.isArray(dataFiltered) && dataFiltered.map(mapResourceData)
+}
+
+export function getCKFormId(type: string | null): string {
+  switch (type) {
+    case 'footer':
+      return ckFormIds.resourceLibrary.footer
+    default:
+      return ckFormIds.resourceLibrary.landingPage
+  }
 }

@@ -19,6 +19,9 @@ import SignUpInstructionsPopUp from '~/components/modals/signUpInstructionsPopUp
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 import { Form, Link, useActionData, useLoaderData, useTransition } from '@remix-run/react'
+import { fetchConvertKitSignUp } from '~/utils/fetch.server'
+import { ckSignUpCookie } from '~/cookies.server'
+import { getCKFormId } from '~/utils/resourceLibraryUtils'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -44,9 +47,7 @@ export let meta: MetaFunction = (metaData): any => {
   })
 };
 
-//TODO make api call to convertkit to check for email_subscriber
-// IF valid subscriber then log them in
-
+// REDO LOADER WITH NEW HELPERS
 export let loader: LoaderFunction = async ({ request }) => {
 
   // Check for Resource User Cookie
@@ -62,7 +63,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     slug: 'tuesday-makers',
     description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
     seo: {
-      title: 'Tuesday Makers - Every Tuesday',
+      title: 'Tuesday Makers',
       opengraphModifiedTime: '',
       metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
@@ -83,9 +84,11 @@ type ActionData = {
 
 
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
-
+  const customHeaders = new Headers()
   let form = await request.formData();
   let email = form.get('email')
+  let formType = form.get('type') as string
+  const ckId = getCKFormId(formType)
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
@@ -108,6 +111,12 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
   try {
     // Sign user up
+
+    const fetch = await fetchConvertKitSignUp({ email, id: ckId })
+    customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
+      userID: fetch.subscription.subscriber.id,
+      email,
+    }))
     // const res = await fetch(url, {
     //   method: 'POST',
     //   headers: {
@@ -222,6 +231,11 @@ const ResourceLibraryHome = () => {
                         {actionData?.fieldErrors.email}
                       </p>
                     ) : null}
+
+                    <div>
+                      <input type="text" name='type' value='landing-page' readOnly className='hidden' />
+                    </div>
+
                     <SubmitBtn
                       className='flex-none btn btn-primary'
                       transition={transition}

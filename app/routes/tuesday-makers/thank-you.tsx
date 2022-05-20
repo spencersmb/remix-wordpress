@@ -1,20 +1,55 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { json } from '@remix-run/node'
 import { ckSignUpCookie } from "~/cookies.server";
 import { findCookie } from "~/utils/loaderHelpers";
 import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "~/utils/resourceLibrarySession.server";
-import useSite from "~/hooks/useSite";
 import useTuesdayMakersClientSideLogin from "~/hooks/useTuesdayMakersClientSideLogin";
+import { getBasicPageMetaTags } from "~/utils/seo";
+
+export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  rootData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title: `Tuesday Makers: Thank You Page`,
+    desc: `Thank you for signing up for Tuesday Makers!`,
+    slug: `tuesday-makers/thank-you`
+  })
+};
 
 export let loader: LoaderFunction = async ({ request }) => {
   const customHeaders = new Headers()
+
+  const page = {
+    title: 'Tuesday Makers: Thank You for Signing Up',
+    slug: 'tuesday-makers/thank-you',
+    description: 'Thank you for signing up for Tuesday Makers!',
+    seo: {
+      title: 'Tuesday Makers: Thank You for Signing Up',
+      opengraphModifiedTime: '',
+      metaDesc: 'Thank you for signing up for Tuesday Makers!'
+    }
+  }
 
   // check for Signup Cookie
   //If not found return error {msg: , status}
   const { hasCookie, data, expired } = await findCookie<{ userID: number, email: string }>(request, ckSignUpCookie)
   if (!hasCookie) {
     return json({
+      page,
       status: 400,
       message: "No Signup Cookie Found"
     })
@@ -25,6 +60,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   if (expired) {
     return json({
+      page,
       status: 400,
       message: "Cookie Expired, please signup again"
     })
@@ -41,18 +77,22 @@ export let loader: LoaderFunction = async ({ request }) => {
 
     // try again
     setTimeout(async () => {
+      console.log('-----------------');
       console.log('attempt 2');
+      console.log('-----------------');
 
       subscriberID = await getConvertKitUserIdByEmail(email)
     }, 600)
 
     if (subscriberID === null) {
       return json({
+        page,
         status: 400,
         message: "No ConvertKit User Found or is inactive"
       })
     }
     return json({
+      page,
       status: 400,
       message: "No ConvertKit User Found or is inactive"
     })
@@ -79,6 +119,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({
     status: 200,
     message: "Loggin Successful",
+    page,
     user
   }, {
     headers: customHeaders

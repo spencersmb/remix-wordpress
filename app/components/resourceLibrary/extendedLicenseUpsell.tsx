@@ -73,9 +73,8 @@ function ExtendedLicenseUpsell(props: Props) {
                   <div>
                     {serverSettings.productPlatform === ShopPlatformEnum.GUMROAD &&
                       <>
-                        <script src="https://gumroad.com/js/gumroad.js"></script>
                         <a href="https://everytuesday.gumroad.com/l/freebie-license" className="flex flex-row items-center justify-center flex-none text-lg font-medium btn rounded-2xl btn-teal-600">
-                          <span className="flex-1  mr-9">
+                          <span className="flex-1 mr-9">
                             Buy Now!
                           </span>
                           <span className="text-2xl font-sentinel__SemiBoldItal">$30</span>

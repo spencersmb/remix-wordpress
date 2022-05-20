@@ -61,53 +61,64 @@ function TutorialDownloads(props: Props) {
   }
 
   return (
-    <div className={`transition-opacity flex flex-col mb-8 laptop:flex-row desktop:mb-0 desktop:flex-col rounded-2.5xl overflow-hidden shadow-2xl ${loaded ? 'opacity-100' : 'opacity-0'}`} >
+    <div className={`transition-opacity flex flex-col mb-8 shadow-xs rounded-2.5xl overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
       {/* SIGNUP BLOCK */}
-      {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
-        <div className='mb-3 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
-          Tutorial Downloads
-        </div>
-        <p className='mb-4'>
-          Gain access to all tutorial assets for free by joining Tuesday Makers.
-        </p>
-        <div className='flex flex-row items-center mt-3 mb-6 button_container'>
-          <div className='mr-4'>
-            <button onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-primary-600 active:ring-offset-primary-600'>Subscribe</button>
+      <div className='flex flex-col bg-sage-700 text-sage-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
+
+        {resourceUser &&
+          <div className='mb-0 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
+            Tutorial Downloads
           </div>
-          <div>
-            <p className='text-sm italic text-primary-200'>
-              This kit available only for Unlimited Access subscribers
+        }
+
+        {!resourceUser && <>
+          <div className='mb-3 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
+            Tutorial Downloads
+          </div>
+          <p className='mb-4'>
+            Gain access to all tutorial assets for free by joining Tuesday Makers.
+          </p>
+          <div className='flex flex-row items-center mt-3 mb-6 button_container'>
+            <div className='mr-4'>
+              <button onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
+            </div>
+            <div>
+              <p className='text-sm italic'>
+                This kit available only for Unlimited Access subscribers
+              </p>
+            </div>
+          </div>
+
+          <div className='login'>
+            <p className='text-sage-50'>
+              Already a member? <button onClick={handleLoginClick} className='italic font-semibold underline text-secondary-400 underline-offset-4'>Sign In</button>
             </p>
           </div>
-        </div>
-
-        <div className='login'>
-          <p className='text-white'>
-            Already a member? <button onClick={handleLoginClick} className='font-semibold underline text-primary-300 underline-offset-4 hover:text-teal-400'>Sign In</button>
-          </p>
-        </div>
-      </div>}
+        </>}
+      </div>
 
       {/* LOCKED CONTENT */}
       <div className='flex-1 bg-white'>
-        <div className='flex flex-row items-center justify-center border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300'>
-          <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
+
+        {!resourceUser && <div className='flex flex-row items-center border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300 text-sage-700'>
+          <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-sage-200 rounded-lg p-2.5 mr-4">
             <div className='w-[30px]'>
-              {!resourceUser ? <LockedSvg fill={`var(--neutral-600)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
+              <LockedSvg fill={`var(--sage-700)`} />
             </div>
           </div>
           <div>
             Free Downloads in the video
           </div>
-        </div>
-        <div className='p-6 locked_items_list'>
+        </div>}
+
+        <div className='py-6 locked_items_list'>
           {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
             return (
-              <div key={index} className="flex flex-row items-center justify-between mb-4 text-left justify- locked_item">
-                <div className={`flex-1 text-lg font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-primary-600'}`}>
+              <div key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
+                <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `text-primary-500`, 'btn btn-small')} onClick={handleDownload(index)}>
+                <button disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
                   Download
                 </button>
               </div>

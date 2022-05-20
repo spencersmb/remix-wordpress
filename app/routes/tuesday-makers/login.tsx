@@ -2,7 +2,7 @@
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
-import { createResourceUserSession } from "~/utils/resourceLibrarySession.server";
+import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
 import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
 import { validateEmail } from "~/utils/validation";
 
@@ -30,6 +30,11 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
+  const user = await getResourceUserToken(request)
+
+  if (user) {
+    return redirect('/tuesday-makers/members')
+  }
 
   const page = {
     title: 'Tuesday Makers: Login',

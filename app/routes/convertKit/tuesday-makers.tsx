@@ -2,33 +2,23 @@ import { ckFormIds } from '~/lib/convertKit/formIds'
 import { validateEmail } from '~/utils/validation'
 import { fetchConvertKitSignUp } from '~/utils/fetch.server'
 import React from 'react'
-import { commitSession, getSession } from '~/sessions.server'
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
 import { ckSignUpCookie } from '~/cookies.server'
+import { getCKFormId } from '~/utils/resourceLibraryUtils';
 
 /**
- * 
- * CONVERITK FORM SIGNUP API END POINT 
+ * API END POINT 
+ * CONVERITK SIGNUP AND SET SIGNUP COOKIE
  * 
  */
-
-function getFormId(type: string | null): string {
-  switch (type) {
-    case 'footer':
-      return ckFormIds.resourceLibrary.footer
-    default:
-      return ckFormIds.resourceLibrary.landingPage
-  }
-}
-
 export let action: ActionFunction = async ({ request, params }) => {
   const customHeaders = new Headers()
   let form = await request.formData();
   let email = form.get('email')
   let formType = form.get('type') as string
-  const ckId = getFormId(formType)
+  const ckId = getCKFormId(formType)
 
   if (
     typeof email !== "string"
@@ -48,7 +38,11 @@ export let action: ActionFunction = async ({ request, params }) => {
     }
 
   try {
+
+    // Sign user up to ConvertKit with Form ID - to determin which form to use
     const fetch = await fetchConvertKitSignUp({ email, id: ckId })
+
+    // Add temporary cookie to browser to process on thankyou page
     customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
       userID: fetch.subscription.subscriber.id,
       email,

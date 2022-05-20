@@ -23,6 +23,7 @@
   --primary-plum-600: #5f3d3d;
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
+  --sage-700: #475658;
   --neutral-50: #fcfafb;
   --neutral-400: #d0c9cd;
   --neutral-500: #a1929a;
@@ -83,7 +84,11 @@ button {
   }
 
   .btn-sage-200 {
-    @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-teal-600 active:ring active:bg-teal-600;
+    @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-sage-600 active:ring active:bg-sage-600;
+  }
+
+  .btn-sage-300 {
+    @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
   }
 
   .btn-disabled-sage-200 {
