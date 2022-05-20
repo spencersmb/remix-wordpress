@@ -12,8 +12,6 @@ interface IProps {
 }
 const MakersSignUpFetcherForm = (props: IProps) => {
   const { Form, data, state, type, btnText } = props
-  console.log('data', data);
-
 
   const ref = useRef<any>();
 
@@ -24,18 +22,19 @@ const MakersSignUpFetcherForm = (props: IProps) => {
       ref.current.reset();
     }
   }, [type, data]);
-
+  const inputCss = "bg-sage-100 transform text-sage-700 w-full px-5 py-4 rounded-lg hover:ring hover:ring-sage-300 ring-offset-white focus:ring ring-offset-4 focus:ring-sage-500 text-base outline-none duration-200 ease-in-out autofill:"
   return (
     <div>
       <Form
         ref={ref}
         method="post"
-        className="flex flex-col tablet:flex-row"
+        className="flex flex-col"
         action="/convertkit/tuesday-makers"
       >
-        <div className='flex-1 mb-5 tablet:mr-6 tablet:mb-0'>
+        <div className='flex-1 mb-5'>
           {/* <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
+            className={inputCss}
             type="email"
             name="email"
             placeholder='Enter Email'
@@ -57,7 +56,7 @@ const MakersSignUpFetcherForm = (props: IProps) => {
         </div>
         <div className='flex'>
           <SubmitFetcherBtn
-            className='btn ring-offset-primary-600'
+            className='btn ring-offset-white'
             state={state}
             btnText={`${btnText || 'Send the Goods!'}`}
           />

@@ -65,7 +65,8 @@ function BlogComments(props: Props) {
                   <li key={key} className='flex mr-2'>
                     <a
                       id="shareBtn"
-                      rel="nofollow" target="_blank"
+                      rel="nofollow noreferrer"
+                      target="_blank"
                       href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
                       data-link={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
                       onClick={handleFacebookShareClick}

@@ -39,6 +39,14 @@ function TutorialDownloads(props: Props) {
       }
     }
   }
+  useEffect(() => {
+    openModal({
+      template: <TuesdayMakersLoginModal
+        closeModal={closeModal}
+        openSignUpModal={handleSignupClick}
+      />
+    })
+  }, [])
 
   function handleSignupClick() {
     openModal({
@@ -52,6 +60,7 @@ function TutorialDownloads(props: Props) {
     openModal({
       template: <TuesdayMakersLoginModal
         closeModal={closeModal}
+        openSignUpModal={handleSignupClick}
       />
     })
   }

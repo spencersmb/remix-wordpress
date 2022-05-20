@@ -42,7 +42,12 @@ export let action: ActionFunction = async ({ request, params }) => {
     const result = await res.json()
 
     if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
-      return { subscriberError: `Sorry, Email invalid.` };
+      // return { subscriberError: `Sorry, Email invalid.` };
+      return json({
+        pass: false,
+        user: null,
+      })
+
     }
 
     // Get subscriber Tags and create session

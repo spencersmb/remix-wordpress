@@ -1,7 +1,6 @@
 const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
 module.exports = {
-  // mode: 'jit',
   content: ["./app/**/*.{ts,tsx}"],
   // darkMode: 'media', // or 'media' or 'class'
   theme: {
@@ -78,11 +77,20 @@ module.exports = {
       },
       'sage':{
         50: '#F3F5F6',
+        100: '#EDF0F1',
         200: '#D0D8D9',
         300: '#B3C0C1',
         400: '#95A7AA',
+        500: '#788F92',
         600: '#596C6E',
         700: '#475658',
+      },
+      'navy':{
+        50: '#F7F8FA',
+        100: '#EEF1F6',
+        500: '#879ABD',
+        700: '#4D648D',
+        900: '#1E2737'
       },
       'warning': {
         50: '#FFFBEB',
@@ -144,6 +152,7 @@ module.exports = {
         'xs': '0px 4px 8px rgba(0, 0, 0, 0.1)',
         'xxl-teal': '27px 28px 43px 13px rgba(131, 176, 171, 0.24)',
         'xxl-red': '27px 28px 43px 13px rgba(176, 131, 131, 0.24)',
+        'xxl-grey': '27px 28px 43px 13px rgba(19, 15, 15, 0.34)'
       },
       borderRadius: {
         '2.5xl': '1.25rem'

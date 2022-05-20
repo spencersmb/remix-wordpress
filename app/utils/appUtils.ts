@@ -1,9 +1,10 @@
-import { useMatches } from "@remix-run/react"
-import { RouteData } from "@remix-run/react/routeData"
-import { IFetchPaginationState, fetchInitialState } from "~/hooks/useFetchPagination"
-import { ISelectedMatch } from "~/interfaces/remix"
+import { useMatches } from "@remix-run/react";
+import type { IFetchPaginationState} from "~/hooks/useFetchPagination";
+import { fetchInitialState } from "~/hooks/useFetchPagination"
+import type { ISelectedMatch } from "~/interfaces/remix"
 
 export const getDefaultState = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   let matches = useMatches()
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.pageInfo)
   const posts: IPost[] | null = selectedMatch ? selectedMatch?.data?.posts : null
