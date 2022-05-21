@@ -14,6 +14,11 @@ interface ILicense {
 }
 interface IProductDetails{
   title: string
+  productContent:{
+    subtitle: string | null
+    description: string | null
+    productfeatureimage: null | IFeaturedImage
+  }
   // fonts: IProductFont[]
   font: {
     name: string | null

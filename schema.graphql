@@ -3612,6 +3612,7 @@ type Product_Details implements AcfFieldGroup {
     licences: [Product_Details_licences]
     "Add Product Price"
     price: String
+    productContent: Product_Details_ProductContent
     "Add Youtube link here"
     youtube: Product_Details_Youtube
     "Add Youtube link here"
@@ -3623,6 +3624,16 @@ type Product_Details_Font implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     name: String
+}
+
+"Field Group"
+type Product_Details_ProductContent implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Image size must be 1400x1049"
+    productfeatureimage: MediaItem
+    subtitle: String
 }
 
 "Field Group"

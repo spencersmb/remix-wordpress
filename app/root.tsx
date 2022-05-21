@@ -153,12 +153,10 @@ export default function App() {
 
   // Window localStorage listener to refresh tabs if User Logs In/Out
   React.useEffect(() => {
-    console.log('add window Storage listener');
 
     // Refresh the window if the user logs in on another page
     window.addEventListener('storage', (evt) => {
-      console.log('custom fired', evt);
-
+      consoleHelper('custom fired', evt);
       /**
        * Right now only using Makers_login add or remove storage to trigger logins or logouts
        */

@@ -168,30 +168,6 @@ function BlogTemplate(props: IProps) {
         </div>
       </div>
 
-      {/* TUTORIAL DOWNLOADS */}
-      {/* <div className={classNames(
-        post.tutorialManager.downloads || post.tutorialManager.paidProducts
-          ? 'pb-12'
-          : '',
-        'bg-primary-100 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop relative')}>
-
-        <div className='z-10 col-start-2 col-span-2 row-[1/1] tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-6 desktop:col-span-8'>
-          <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
-        </div>
-
-        <div className='relative col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-4'>
-
-          <TutorialDownloads post={post} />
-
-        </div>
-
-
-        <div className='mb-8 col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-6 desktop:col-span-8 z-20 mx-[-1rem]'>
-          <PaidProducts post={post} />
-        </div>
-
-      </div> */}
-
       {/* BLOG CONTENT */}
       <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
 
@@ -214,9 +190,7 @@ function BlogTemplate(props: IProps) {
 
       {/* AUTHOR */}
       <div className='col-span-2 col-start-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-
         <BlogAuthor post={post} />
-
       </div>
 
 

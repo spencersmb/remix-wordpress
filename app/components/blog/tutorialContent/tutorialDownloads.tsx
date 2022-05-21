@@ -39,14 +39,6 @@ function TutorialDownloads(props: Props) {
       }
     }
   }
-  useEffect(() => {
-    openModal({
-      template: <TuesdayMakersLoginModal
-        closeModal={closeModal}
-        openSignUpModal={handleSignupClick}
-      />
-    })
-  }, [])
 
   function handleSignupClick() {
     openModal({

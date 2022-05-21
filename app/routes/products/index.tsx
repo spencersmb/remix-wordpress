@@ -97,6 +97,31 @@ const getProducts = gql`
               price
               url
             }
+            productContent{
+              subtitle
+              description
+              productfeatureimage{
+                mimeType
+                mediaDetails {
+                  height
+                  width
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+              }
+            }
           }
           featuredImage {
             node {
