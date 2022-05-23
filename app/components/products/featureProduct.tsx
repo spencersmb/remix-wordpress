@@ -21,8 +21,6 @@ const FeaturedProduct = ({ product }: IProps) => {
     fallbackSize: ImageSizeEnums.FULL, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
-  const blackPinSrc = 'https://et-website.imgix.net/et-website/images/black-pin-min.png'
-  const blackPinPlaceholder = 'https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip'
 
   return (
     <div className='grid grid-flow-row row-auto bg-sage-200 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop pt-[80px]'>
@@ -70,11 +68,11 @@ const FeaturedProduct = ({ product }: IProps) => {
                   //   (min-width: 768px) 400px,
                   //   (min-width: 328px) 200px,
                   //   100vw"
-                  placeholderSrc={blackPinPlaceholder}
+                  placeholderSrc={staticImages.assets.pins.black_1.placeholder}
                   // Make sure to pass down the scrollPosition,
                   // this will be used by the component to know
                   // whether it must track the scroll position or not
-                  src={blackPinSrc}
+                  src={staticImages.assets.pins.black_1.src}
                 />
               </div>}
 

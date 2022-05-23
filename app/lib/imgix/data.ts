@@ -21,8 +21,8 @@ export const staticImages = {
   },
   textures:{
     greenLarge: {
-      src: 'https://et-website.imgix.net/et-website/textures/green-texture.png',
-      placeholder: 'https://et-website.imgix.net/et-website/textures/green-texture.png?w=20&fit=clip'
+      src: 'https://et-website.imgix.net/et-website/textures/green-texture-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip'
     }
   }
 }
