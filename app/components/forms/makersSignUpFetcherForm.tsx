@@ -22,7 +22,7 @@ const MakersSignUpFetcherForm = (props: IProps) => {
       ref.current.reset();
     }
   }, [type, data]);
-  const inputCss = "bg-sage-100 transform text-sage-700 w-full px-5 py-4 rounded-lg hover:ring hover:ring-sage-300 ring-offset-white focus:ring ring-offset-4 focus:ring-sage-500 text-base outline-none duration-200 ease-in-out autofill:"
+  const inputCss = "bg-sage-100 text-sage-700 hover:ring-sage-300 ring-offset-white ring-offset-4 focus:ring-sage-500"
   return (
     <div>
       <Form

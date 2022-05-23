@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { staticImages } from "~/lib/imgix/data";
 import { classNames } from "~/utils/appUtils";
 import CloseSvg from "../svgs/closeSvg";
 interface IProps {
@@ -14,7 +16,13 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
       className="relative">
       {/* BLACK PIN */}
       <div className="w-[100px] absolute top-[-4%] left-[47%] translate-x-[-50%] z-[1]">
-        <img src="/images/black-pin.png" alt="Every-Tuesday Black Pin" />
+        <LazyLoadImage
+          key={'blackPin'}
+          alt={'Every Tuesday Hand Made Black Pin'}
+          effect="blur"
+          placeholderSrc={staticImages.assets.pins.black_1.placeholder}
+          src={staticImages.assets.pins.black_1.src}
+        />
       </div>
 
       <div className={classNames(

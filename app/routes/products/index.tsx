@@ -56,7 +56,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
   } catch (e) {
     console.log('error', e)
   }
-
 };
 
 function ProductsIndex() {

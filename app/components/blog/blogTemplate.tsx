@@ -206,8 +206,6 @@ function BlogTemplate(props: IProps) {
       {/* <MakersPostSignUp /> */}
       <PostsGrid posts={post.relatedPosts} tabletGrid3x={true} />
 
-
-
     </div>
   )
 }

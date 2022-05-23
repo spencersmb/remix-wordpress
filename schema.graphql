@@ -1092,6 +1092,8 @@ type Course implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Courses&quot; was set to Show in GraphQL."
+    details: Course_Details
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
     "The RSS enclosure for the object"
@@ -1255,6 +1257,24 @@ type CourseToTermNodeConnectionEdge {
     cursor: String
     "The item at the end of the edge"
     node: TermNode
+}
+
+"Field Group"
+type Course_Details implements AcfFieldGroup {
+    "Add tags here"
+    courseTags: [Course_Details_courseTags]
+    "Add Course URL"
+    courseUrl: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+}
+
+"Field Group"
+type Course_Details_courseTags implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Add Item for each tag"
+    tag: String
 }
 
 "CPT Tag Object"
@@ -3423,7 +3443,7 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
-    "Added to the GraphQL Schema because the ACF Field Group &quot;Product&quot; was set to Show in GraphQL."
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Courses&quot; was set to Show in GraphQL."
     details: Product_Details
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
@@ -3596,67 +3616,20 @@ type ProductToTermNodeConnectionEdge {
 
 "Field Group"
 type Product_Details implements AcfFieldGroup {
-    extendedLicenseUrl: String
-    extendedPrice: String
+    "Add tags here"
+    courseTags: [Product_Details_courseTags]
+    "Add Course URL"
+    courseUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
-    font: Product_Details_Font
-    "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
-    fontName: String
-    fontStyles: [Product_Details_fontStyles]
-    "Add Gumroad Url"
-    gumroadLink: String
-    hasExtendedPrice: Boolean
-    hasFontPreview: Boolean
-    "Add Licenses here"
-    licences: [Product_Details_licences]
-    "Add Product Price"
-    price: String
-    productContent: Product_Details_ProductContent
-    "Add Youtube link here"
-    youtube: Product_Details_Youtube
-    "Add Youtube link here"
-    youtubeLink: String
 }
 
 "Field Group"
-type Product_Details_Font implements AcfFieldGroup {
+type Product_Details_courseTags implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
-    name: String
-}
-
-"Field Group"
-type Product_Details_ProductContent implements AcfFieldGroup {
-    description: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    "Image size must be 1400x1049"
-    productfeatureimage: MediaItem
-    subtitle: String
-}
-
-"Field Group"
-type Product_Details_Youtube implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    url: String
-}
-
-"Field Group"
-type Product_Details_fontStyles implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    style: String
-}
-
-"Field Group"
-type Product_Details_licences implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    licenseType: String
-    price: Float
-    url: String
+    "Add Item for each tag"
+    tag: String
 }
 
 "Field Group"

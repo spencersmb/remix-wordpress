@@ -371,3 +371,25 @@ export function createThumbnailImage(
       return defaultImage()
   }
 }
+
+export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
+  const data = { ...course };
+  let modifiedData: any = { ...course }
+
+  if (data.featuredImage) {
+    modifiedData.featuredImage = data.featuredImage.node;
+  }
+
+  if (data.details?.courseTags && data.details.courseTags.length > 0) {
+    modifiedData.details.courseTags = data.details.courseTags.map(item => {
+      return item.tag
+    })
+  }
+
+  return modifiedData
+}
+
+export function flattenAllCourses(courses: ICoursesRaw): ICourse[] | false {
+  const coursesFiltered = courses?.edges?.map(({ node = {} }) => node);
+  return Array.isArray(coursesFiltered) && coursesFiltered.map(mapCourseData)
+}

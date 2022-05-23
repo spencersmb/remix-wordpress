@@ -35,6 +35,8 @@ import JsonLd from "./components/seo/jsonLd";
 import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
 import useWindowResize from "./hooks/useWindowResize";
+import 'lazysizes';
+// import a plugin
 
 /**
  * The `links` export is a function that returns an array of objects that map to

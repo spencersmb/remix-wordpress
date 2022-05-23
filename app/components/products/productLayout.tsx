@@ -49,6 +49,7 @@ const ProductLayout = ({ products, metadata }: IProps) => {
       {fontPreviewState.previewerOpen && <div>
         Preview Page
       </div>}
+
     </div>
   );
 }

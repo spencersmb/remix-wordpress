@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import useSite from '~/hooks/useSite'
 import InputBase from '../input/inputBase'
-import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
-import YellowSubmitBtn from '../buttons/submitBtn'
 import SubmitBtn from '../buttons/submitBtn'
 import type { Transition } from '@remix-run/react/transition'
 import type { FormProps } from '@remix-run/react'
@@ -21,6 +19,12 @@ const MakersPopUp = () => {
     </div>
   )
 }
+/**
+ * Currently Used in the Footer
+ * @param props 
+ * 
+ * @returns 
+ */
 function MakersSignUpForm(props: Props) {
   const { Form, data, transition, type } = props
   const { openModal } = useSite()
@@ -51,6 +55,7 @@ function MakersSignUpForm(props: Props) {
           <InputBase
             type="email"
             name="email"
+            className='hover:ring-sage-400 ring-offset-sage-600 focus:ring-sage-200'
             placeholder='Enter Email'
             required={true}
             invalid={Boolean(data?.fieldErrors?.email)}
@@ -70,7 +75,7 @@ function MakersSignUpForm(props: Props) {
         </div>
         <div className='flex'>
           <SubmitBtn
-            className='btn ring-offset-primary-600'
+            className='btn ring-offset-sage-600'
             transition={transition}
             btnText='Send the Goods!'
           />
