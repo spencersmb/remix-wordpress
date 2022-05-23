@@ -1,10 +1,10 @@
-import { Location } from 'history'
+import type { Location } from 'history'
 import { defaultFeaturedImage, getStaticPageMeta } from './pageUtils'
-import { RouteData } from '@remix-run/react/routeData'
-import { Params } from 'react-router'
+import type { RouteData } from '@remix-run/react/routeData'
+import type { Params } from 'react-router'
 import { getProductStdPrice, getStandardLicense } from './productPageUtils'
-import { formatePrice } from './priceUtils'
-import { AppData } from '@remix-run/react/data'
+import { formatePrice } from './priceUtils.server'
+import type { AppData } from '@remix-run/react/data'
 
 function createOgImages(image: IOgImageType) {
   return {

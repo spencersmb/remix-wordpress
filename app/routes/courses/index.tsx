@@ -40,7 +40,7 @@ const Courses = () => {
 
   return (
     <Layout>
-      {/* <CourseHeader /> */}
+      <CourseHeader />
     </Layout>
   )
 }

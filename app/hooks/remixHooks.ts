@@ -1,5 +1,5 @@
 import { useMatches } from "@remix-run/react"
-import { ISelectedMatch } from "~/interfaces/remix"
+import type { ISelectedMatch } from "~/interfaces/remix"
 
 interface IProps {
   ENV: {
@@ -14,6 +14,7 @@ interface IProps {
   }
 }
 export const userStateMatches = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const matches = useMatches()
   let selectedMatchUser: undefined | ISelectedMatch = matches.find(match => match.data?.user)
   const state = selectedMatchUser?.data as IProps | undefined
@@ -23,6 +24,7 @@ export const userStateMatches = () => {
 }
 
 export const metaDataMatches = ():{metadata: ISiteMetaDataMapped} => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const matches = useMatches()
   let selectedMatchMetaData: undefined | ISelectedMatch = matches.find(match => match.data?.metadata)
   if(!selectedMatchMetaData){

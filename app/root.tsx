@@ -35,7 +35,7 @@ import JsonLd from "./components/seo/jsonLd";
 import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
 import useWindowResize from "./hooks/useWindowResize";
-// import 'lazysizes';
+import 'lazysizes';
 // import a plugin
 
 /**
@@ -208,10 +208,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
-  // console.log('document data', data);
-
   useWindowResize()
-  // console.log('ENV', data)
 
   return (
     <html lang="en">
