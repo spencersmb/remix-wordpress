@@ -24,7 +24,7 @@ function Header(props: Props) {
   const { navRef } = useTopNav() // Nav slide in and out
 
   return (
-    <header ref={navRef} className="fixed top-0 left-0 z-30 flex w-full transition-transform -translate-y-full bg-white duration-600 inView">
+    <header ref={navRef} className="fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView">
       <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-4 laptop:grid-cols-navDesktop">
 
         {/* ET LOGO */}

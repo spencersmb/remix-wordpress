@@ -14,7 +14,7 @@ interface IProps {
 
 const FeaturedProduct = ({ product }: IProps) => {
   const { state: { breakpoint } } = useSite();
-  const heroImage = product.details.productContent.productfeatureimage
+  const heroImage = product.productDetails.productContent.productfeatureimage
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
     imageObject: heroImage ? heroImage : product.featuredImage.node, // the featured image object
@@ -86,13 +86,13 @@ const FeaturedProduct = ({ product }: IProps) => {
               <h1 className={`max-w-[275px] text-gray-900 text-3xl mb-2 font-sentinel__SemiBoldItal tablet:max-w-[260px] desktop:text-4xl laptop:max-w-[355px]`}>
                 {product.title}
               </h1>
-              {product.details.productContent.subtitle &&
+              {product.productDetails.productContent.subtitle &&
                 <h2 className="mb-2 text-xl laptop:pr-4">
-                  {product.details.productContent.subtitle}
+                  {product.productDetails.productContent.subtitle}
                 </h2>}
-              {product.details.productContent.description &&
+              {product.productDetails.productContent.description &&
                 <p className="text-grey-500">
-                  {product.details.productContent.description}
+                  {product.productDetails.productContent.description}
                 </p>}
             </div>
 

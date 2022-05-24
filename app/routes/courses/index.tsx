@@ -3,6 +3,7 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react";
 import CourseHeader from "~/components/courses/courseHeader";
+import CourseHighQuality from "~/components/courses/courseHighQuality";
 import Layout from "~/components/layoutTemplates/layout"
 import { POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
 import { fetchAPI } from "~/utils/fetch.server";
@@ -41,6 +42,7 @@ const Courses = () => {
   return (
     <Layout>
       <CourseHeader />
+      <CourseHighQuality />
     </Layout>
   )
 }

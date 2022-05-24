@@ -4,6 +4,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import LazyImageBase from "../images/lazyImage-base";
 import Imgix, { Picture, Source } from "react-imgix";
 import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers";
+import { staticImages } from "~/lib/imgix/data";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();
@@ -80,16 +81,6 @@ interface IFeatureProps {
   id: string
 }
 const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
-  const scribbleSrc = 'https://et-website.imgix.net/et-website/images/scribble-3-min.png'
-  const scribblePlaceholder = 'https://et-website.imgix.net/et-website/images/scribble-3-min.png?w=20&fit=clip'
-  const applePencilSrc = 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png'
-  const applePencilPlaceholder = 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png?w=20&fit=clip'
-
-  const iPadSrc = 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png'
-  const iPadPlaceholder = 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png?w=20&fit=clip'
-
-  const swatchSrc = 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png'
-  const swatchPlaceholder = 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png?w=20&fit=clip'
 
   return (
     <div className="relative max-w-[1000px] z-20">
@@ -100,8 +91,8 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
           key={'applePencil'}
           alt={'Every Tuesday Apple 2 Pencil'}
           effect="blur"
-          placeholderSrc={applePencilPlaceholder}
-          src={applePencilSrc}
+          placeholderSrc={staticImages.assets.applePencil.flat.placeholder}
+          src={staticImages.assets.applePencil.flat.src}
         />
       </div>
 
@@ -116,8 +107,8 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
           key={'iPadFeature'}
           alt={alt}
           effect="blur"
-          placeholderSrc={iPadPlaceholder}
-          src={iPadSrc}
+          placeholderSrc={staticImages.assets.ipad.flat.placeholder}
+          src={staticImages.assets.ipad.flat.src}
         />
       </div>
 
@@ -127,8 +118,8 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
           key={'iPadFeature'}
           alt={alt}
           effect="blur"
-          placeholderSrc={swatchPlaceholder}
-          src={swatchSrc}
+          placeholderSrc={staticImages.assets.swatchPalette.circles.placeholder}
+          src={staticImages.assets.swatchPalette.circles.src}
         />
       </div>
 
@@ -141,7 +132,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
               srcSet: 'data-srcset',
               sizes: 'data-sizes'
             }}
-            src={scribbleSrc}
+            src={staticImages.scribbles.scribble_3.src}
             width={650}
             htmlAttributes={{ media: "(min-width: 1280px)" }}
           />
@@ -151,7 +142,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
               srcSet: 'data-srcset',
               sizes: 'data-sizes'
             }}
-            src={scribbleSrc}
+            src={staticImages.scribbles.scribble_3.src}
             width={550}
             htmlAttributes={{ media: "(min-width: 1024px)" }}
           />
@@ -161,7 +152,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
               srcSet: 'data-srcset',
               sizes: 'data-sizes'
             }}
-            src={scribbleSrc}
+            src={staticImages.scribbles.scribble_3.src}
             width={500}
             htmlAttributes={{ media: "(min-width: 768px)" }}
           />
@@ -171,13 +162,13 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
               srcSet: 'data-srcset',
               sizes: 'data-sizes'
             }}
-            src={scribbleSrc}
+            src={staticImages.scribbles.scribble_3.src}
             width={301}
             htmlAttributes={{ media: "(min-width: 320px)" }}
           />
           <Imgix
             className="lazyload"
-            src={scribbleSrc}
+            src={staticImages.scribbles.scribble_3.src}
             attributeConfig={{
               src: 'data-src',
               srcSet: 'data-srcset',
@@ -185,7 +176,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
             }}
             imgixParams={{ w: 100 }}
             htmlAttributes={{
-              src: scribblePlaceholder, // low quality image here
+              src: staticImages.scribbles.scribble_3.placeholder, // low quality image here
             }} />
         </Picture>
       </div>

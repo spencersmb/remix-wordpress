@@ -34,7 +34,7 @@ interface IProduct {
   featuredImage: {
     node: IFeaturedImage
   }
-  details: IProductDetails
+  productDetails: IProductDetails
   seo: IPostSeo & {
     schema: {
       raw: string

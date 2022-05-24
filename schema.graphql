@@ -3443,8 +3443,6 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     dateGmt: String
     "The desired slug of the post"
     desiredSlug: String
-    "Added to the GraphQL Schema because the ACF Field Group &quot;Courses&quot; was set to Show in GraphQL."
-    details: Product_Details
     "If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds"
     editingLockedBy: ContentNodeToEditLockConnectionEdge
     "The RSS enclosure for the object"
@@ -3516,6 +3514,8 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Product&quot; was set to Show in GraphQL."
+    productDetails: Product_Productdetails
     "The id field matches the WP_Post-&gt;ID field."
     productId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
     "The Yoast SEO data of the Product"
@@ -3615,21 +3615,68 @@ type ProductToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type Product_Details implements AcfFieldGroup {
-    "Add tags here"
-    courseTags: [Product_Details_courseTags]
-    "Add Course URL"
-    courseUrl: String
+type Product_Productdetails implements AcfFieldGroup {
+    extendedLicenseUrl: String
+    extendedPrice: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    font: Product_Productdetails_Font
+    "This is the name of the css file. Example: tuesday.css - the name would be tuesday."
+    fontName: String
+    fontStyles: [Product_Productdetails_fontStyles]
+    "Add Gumroad Url"
+    gumroadLink: String
+    hasExtendedPrice: Boolean
+    hasFontPreview: Boolean
+    "Add Licenses here"
+    licences: [Product_Productdetails_licences]
+    "Add Product Price"
+    price: String
+    productContent: Product_Productdetails_ProductContent
+    "Add Youtube link here"
+    youtube: Product_Productdetails_Youtube
+    "Add Youtube link here"
+    youtubeLink: String
 }
 
 "Field Group"
-type Product_Details_courseTags implements AcfFieldGroup {
+type Product_Productdetails_Font implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Add Item for each tag"
-    tag: String
+    name: String
+}
+
+"Field Group"
+type Product_Productdetails_ProductContent implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "Image size must be 1400x1049"
+    productfeatureimage: MediaItem
+    subtitle: String
+}
+
+"Field Group"
+type Product_Productdetails_Youtube implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    url: String
+}
+
+"Field Group"
+type Product_Productdetails_fontStyles implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    style: String
+}
+
+"Field Group"
+type Product_Productdetails_licences implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    licenseType: String
+    price: Float
+    url: String
 }
 
 "Field Group"

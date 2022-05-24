@@ -43,8 +43,8 @@ export let loader: LoaderFunction = async ({ request, }) => {
       const product = {
         ...node,
         details: {
-          ...node.details,
-          licences: node.details.licences ? rearrangeLicenses(node.details.licences) : null,
+          ...node.productDetails,
+          licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
         }
       }
       return product
@@ -55,13 +55,14 @@ export let loader: LoaderFunction = async ({ request, }) => {
     })
   } catch (e) {
     console.log('error', e)
+    return null
   }
 };
 
 function ProductsIndex() {
   const data = useLoaderData()
   const { metadata } = metaDataMatches()
-  // console.log('data', data);
+  console.log('data', data);
   // const { fontLoadingState, setFontClickHandler } = useFonts()
   // const { state } = useSite()
 
@@ -84,7 +85,7 @@ const getProducts = gql`
           title
           id
           slug
-          details {
+          productDetails {
             youtube {
               url
             }
