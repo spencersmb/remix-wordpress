@@ -6,7 +6,7 @@ interface IProps {
 }
 const LicenseRadioSelect = ({ state, product, handleSelected }: IProps) => {
 
-  if (!product.details.licences) {
+  if (!product.productDetails.licences) {
     return (
       <div>
         No Licenses Available
@@ -16,7 +16,7 @@ const LicenseRadioSelect = ({ state, product, handleSelected }: IProps) => {
 
   return (
     <div className="flex flex-col rounded-xl border-[1px] border-sage-200 p-4">
-      {product.details.licences.map((license, index) => {
+      {product.productDetails.licences.map((license, index) => {
         return (
           <SelectRadio
             key={index}

@@ -177,7 +177,7 @@ query postBySlug($slug: String!) {
                       id
                   }
                 }
-                details {
+                productDetails {
                   licences {
                     licenseType
                     price

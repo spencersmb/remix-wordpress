@@ -13,7 +13,7 @@ interface Props {
 
 function LicenseSelectSection(props: Props) {
   const { product, addFontToPreview } = props
-  const { licenseState, handleSelect } = useProductLicense(product.details.licences)
+  const { licenseState, handleSelect } = useProductLicense(product.productDetails.licences)
   return (
     <div className='flex flex-col flex-1 LicenseSelectSection__wrapper'>
 
@@ -41,7 +41,7 @@ function LicenseSelectSection(props: Props) {
       <div className='flex items-end button_container'>
         {/* FONT PREVIEW  */}
         <div>
-          {addFontToPreview && <button onClick={addFontToPreview(product.details.font.name)}>Preview Font</button>}
+          {addFontToPreview && <button onClick={addFontToPreview(product.productDetails.font.name)}>Preview Font</button>}
         </div>
 
         {/* PRODUCT BUY NOW */}

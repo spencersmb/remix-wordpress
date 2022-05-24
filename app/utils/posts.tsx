@@ -113,9 +113,9 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
         ? data.tutorialManager?.paidProducts.map(product => {
           const newProduct = {
             ...product,
-            details: {
-              ...product.details,
-              licences: product.details.licences ? rearrangeLicenses(product.details.licences) : null,
+            productDetails: {
+              ...product.productDetails,
+              licences: product.productDetails.licences ? rearrangeLicenses(product.productDetails.licences) : null,
             }
           }
           return newProduct

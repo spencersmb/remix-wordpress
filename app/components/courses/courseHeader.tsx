@@ -8,7 +8,6 @@ interface Props {
 
 }
 
-// rcfc
 
 function CourseHeader(props: Props) {
 
@@ -41,7 +40,7 @@ function CourseHeader(props: Props) {
       {/* PROFILE IMAGE */}
       <div className='relative flex justify-center row-span-4 row-start-2 my-10 col-span-full tablet:row-start-1 tablet:col-start-8 tablet:col-span-6 laptop:row-start-2 laptop:row-span-4 laptop:m-0 desktopXl:col-span-5 desktopXl:col-start-8'>
 
-        <div className='relative rotate-[8deg] w-full max-w-[202px] m-auto border-[10px] border-white shadow-md z-10 laptop:max-w-[300px] desktop:max-w-[390px] desktop:border-[20px]'>
+        <div className='relative bg-white rotate-[8deg] w-full max-w-[202px] m-auto border-[10px] border-white shadow-md z-10 laptop:max-w-[300px] desktop:max-w-[390px] desktop:border-[20px]'>
 
           {/* TEELA NAME + ARROW */}
           <div className='absolute top-[13%] left-[-100px] w-[175px] z-20 tablet:left-[-120px] laptop:w-[250px] desktop:w-[300px] laptop:top-[5%]'>

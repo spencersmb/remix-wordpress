@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react";
+import CourseCard from "~/components/cards/courseCard";
 import CourseHeader from "~/components/courses/courseHeader";
 import CourseHighQuality from "~/components/courses/courseHighQuality";
 import Layout from "~/components/layoutTemplates/layout"
@@ -34,15 +35,29 @@ export let loader: LoaderFunction = async ({ request, }) => {
     console.log('error', e)
   }
 };
-
+interface ILoaderData {
+  courses: ICourse[]
+}
 const Courses = () => {
-  const data = useLoaderData()
+
+  // TODO: SPECIFY loadER dATa tYpES
+  const data = useLoaderData<ILoaderData>()
   console.log('data', data);
 
   return (
     <Layout>
       <CourseHeader />
       <CourseHighQuality />
+
+      {/* COURSES LIST */}
+
+      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto">
+
+        {data.courses.map((course: ICourse, index: number) => {
+          return <CourseCard key={index} course={course} />
+        })}
+
+      </div>
     </Layout>
   )
 }
