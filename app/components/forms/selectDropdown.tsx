@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import useFreebies from '~/hooks/useFreebies'
+import useFreebies from '@App/hooks/useFreebies'
 
 
 interface IProps {

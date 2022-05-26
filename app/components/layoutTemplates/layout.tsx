@@ -1,11 +1,11 @@
 import { motion, useReducedMotion, useMotionValue, Variant } from 'framer-motion'
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { cssColors } from "~/enums/colors";
-import { ShopPlatformEnum } from '~/enums/products';
-import useSite from '~/hooks/useSite';
-import useTopNav from '~/hooks/useTopNav';
-import { classNames } from '~/utils/appUtils';
+import { cssColors } from "@App/enums/colors";
+import { ShopPlatformEnum } from '@App/enums/products';
+import useSite from '@App/hooks/useSite';
+import useTopNav from '@App/hooks/useTopNav';
+import { classNames } from '@App/utils/appUtils';
 import FooterPrimary from "../footer/FooterPrimary";
 import Header from '../nav/header';
 import { PrimaryNav } from "../nav/primaryNav";

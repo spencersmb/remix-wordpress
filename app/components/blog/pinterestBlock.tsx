@@ -1,5 +1,5 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
+import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import LazyImageBase from "../images/lazyImage-base"
 import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"

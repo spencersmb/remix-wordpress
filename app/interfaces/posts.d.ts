@@ -17,8 +17,8 @@ interface IFeaturedImage {
   srcSet: string
   mimeType: string
   mediaDetails: {
-    height: string
-    width: string
+    height: number
+    width: number
     sizes: {
       width: string
       file: string
@@ -124,7 +124,7 @@ interface IPostSeo {
   opengraphPublishedTime: string
   opengraphModifiedTime: string
   metaDesc: string
-  readingTime: string
+  readingTime: number
 }
 
 interface IMediaDetailSize {
@@ -166,8 +166,6 @@ interface ITutorialManager {
   }
   paidProducts: IProduct[]| null
   postExcerpt: string
-
-
 }
 
 interface IPost {

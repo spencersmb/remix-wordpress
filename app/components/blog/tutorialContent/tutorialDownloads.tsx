@@ -1,15 +1,15 @@
 import { isEmpty } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import TuesdayMakersLoginModal from '~/components/modals/makersLoginModal'
-import TuesdayMakersSignUpModal from '~/components/modals/popUpTuesdayMakersSignUp'
-import LockedSvg from '~/components/svgs/lockedSvg'
-import SquiggleSvg from '~/components/svgs/squiggleSvg'
-import useSite from '~/hooks/useSite'
-import { classNames } from '~/utils/appUtils'
+import TuesdayMakersLoginModal from '@App/components/modals/makersLoginModal'
+import TuesdayMakersSignUpModal from '@App/components/modals/popUpTuesdayMakersSignUp'
+import LockedSvg from '@App/components/svgs/lockedSvg'
+import SquiggleSvg from '@App/components/svgs/squiggleSvg'
+import useSite from '@App/hooks/useSite'
+import { classNames } from '@App/utils/appUtils'
 
 interface Props {
   post: IPost
-  style?: any
+  style?: any // an Object from the scrollWatcher that sets the top style to match on scroll locking
   isMobile?: boolean
 }
 
@@ -62,7 +62,9 @@ function TutorialDownloads(props: Props) {
   }
 
   return (
-    <div className={`transition-opacity flex flex-col mb-8 shadow-xs rounded-2.5xl overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
+    <div
+      data-testid="test-tutorialDownloads"
+      className={`transition-opacity flex flex-col mb-8 shadow-xs rounded-2.5xl overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
       {/* SIGNUP BLOCK */}
       <div className='flex flex-col bg-sage-700 text-sage-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
 
@@ -81,7 +83,7 @@ function TutorialDownloads(props: Props) {
           </p>
           <div className='flex flex-row items-center mt-3 mb-6 button_container'>
             <div className='mr-4'>
-              <button onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
+              <button data-testid="subscribe-btn" onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
             </div>
             <div>
               <p className='text-sm italic'>
@@ -115,11 +117,11 @@ function TutorialDownloads(props: Props) {
         <div className='py-6 locked_items_list'>
           {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
             return (
-              <div key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
+              <div data-testid='test-downloadItem' key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
                 <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
+                <button data-testid='download-btn' disabled={!resourceUser ? true : false} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
                   Download
                 </button>
               </div>

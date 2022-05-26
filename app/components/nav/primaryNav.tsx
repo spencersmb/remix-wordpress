@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "@remix-run/react"
-import useSite from "~/hooks/useSite"
-import { getPrimaryMenu } from "~/lib/wp/nav"
+import useSite from "@App/hooks/useSite"
+import { getPrimaryMenu } from "@App/lib/wp/nav"
 import TuesdayMakersPopOver from "./tuesdayMakersPopOver"
 
 const ResourceLibraryNavButton = () => {

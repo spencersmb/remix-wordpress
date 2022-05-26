@@ -1,11 +1,15 @@
-import ProductCardBlog from "~/components/cards/productCard--sm"
+import ProductCardBlog from "@App/components/cards/productCard--sm"
 import ColorSwatches from "./colorSwatches"
-import ColorSwatchesVerticalLayout from "./colorSwatchVerticalLayout"
 
 interface IProps {
   post: IPost
 }
 
+/**
+ * PaidProducts Component
+ * @tested - 5/25/2022
+ * @param props 
+ */
 function PaidProducts(props: IProps) {
   const { post } = props
 
@@ -14,25 +18,27 @@ function PaidProducts(props: IProps) {
   }
 
   const paidProductsGreaterThanOne = post.tutorialManager.paidProducts.length > 1
-  const cssContainerPaidProduct = 'flex flex-col-reverse tablet:flex-row laptop:flex-row'
-  const cssContainerMultipleProducts = 'flex flex-col tablet:flex-row tablet:flex-wrap'
+  const cssContainerPaidProduct = 'single_product flex flex-col-reverse tablet:flex-row laptop:flex-row'
+  const cssContainerMultipleProducts = 'multiple_products flex flex-col tablet:flex-row tablet:flex-wrap'
 
   return (
 
-    <div className={paidProductsGreaterThanOne ? cssContainerMultipleProducts : cssContainerPaidProduct}>
+    <div
+      data-testid="test-paidProduct"
+      className={paidProductsGreaterThanOne ? cssContainerMultipleProducts : cssContainerPaidProduct}>
 
       {post.tutorialManager.colorPalette
         ? paidProductsGreaterThanOne
           ? <ColorSwatches
             downloadUrl={post.tutorialManager.colorPalette.downloadUrl}
-            multipleLayout={paidProductsGreaterThanOne} />
-          : <ColorSwatchesVerticalLayout
-            downloadUrl={post.tutorialManager.colorPalette.downloadUrl} />
+            multipleLayout={true} />
+          : <ColorSwatches
+            downloadUrl={post.tutorialManager.colorPalette.downloadUrl}
+            multipleLayout={false} />
         : null
       }
 
       {post.tutorialManager.paidProducts.map((product, index) => {
-
         return (
           <ProductCardBlog
             key={index}
@@ -40,7 +46,6 @@ function PaidProducts(props: IProps) {
             multipleProducts={paidProductsGreaterThanOne}
             index={index} />
         )
-
       })}
     </div>
   )

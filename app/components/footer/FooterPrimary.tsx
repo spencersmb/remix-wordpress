@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
-import { cssColors } from '~/enums/colors';
-import useSite from '~/hooks/useSite';
+import { cssColors } from '@App/enums/colors';
+import useSite from '@App/hooks/useSite';
 import EveryTuesdayLogo from '../svgs/everyTuesdayLogo';
 import FacebookSvg from '../svgs/social/facebookSvg';
 import InstagramSvg from '../svgs/social/instagramSvg';

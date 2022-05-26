@@ -1,8 +1,8 @@
-import { validateEmail } from '~/utils/validation'
-import { consoleHelper } from '~/utils/windowUtils'
-import { ckFormIds } from '~/lib/convertKit/formIds'
+import { validateEmail } from '@App/utils/validation'
+import { consoleHelper } from '@App/utils/windowUtils'
+import { ckFormIds } from '@App/lib/convertKit/formIds'
 import { redirectBack } from 'remix-utils'
-import { commitSession, getSession } from '~/sessions.server'
+import { commitSession, getSession } from '@App/sessions.server'
 import { ActionFunction } from '@remix-run/node'
 //
 // export let loader: LoaderFunction = async({request}) => {

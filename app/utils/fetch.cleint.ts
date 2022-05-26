@@ -1,4 +1,4 @@
-import { CREATE_COMMENT } from "~/lib/graphql/mutations/comments"
+import { CREATE_COMMENT } from "@App/lib/graphql/mutations/comments"
 import { getGraphQLString } from "./graphqlUtils"
 
 

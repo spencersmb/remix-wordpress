@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useState } from 'react'
-import { ITabsState, SimpleTabsContext, simpleTabsDefaultState } from './simpleTabsContext'
+import React, { useState } from 'react'
+import type { ITabsState } from './simpleTabsContext';
+import { SimpleTabsContext, simpleTabsDefaultState } from './simpleTabsContext'
 
 /**
  * @Component SimpleTabs
@@ -9,8 +10,8 @@ import { ITabsState, SimpleTabsContext, simpleTabsDefaultState } from './simpleT
  *
  * @param {React.Children} children
  */
-const SimpleTabs: FunctionComponent = ({ children }) => {
-  const [state, setState] = useState<ITabsState>(simpleTabsDefaultState)
+const SimpleTabs = ({ children, customState = null }: { children: any, customState?: ITabsState | null }) => {
+  const [state, setState] = useState<ITabsState>(customState ? customState : simpleTabsDefaultState)
 
   const handleTabSelect = (e: any) => {
     const tabId = e.currentTarget.getAttribute('data-name')
@@ -21,7 +22,6 @@ const SimpleTabs: FunctionComponent = ({ children }) => {
       }
     })
   }
-
   const value = {
     state,
     setState,

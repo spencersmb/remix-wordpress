@@ -1,10 +1,10 @@
-import Layout from "~/components/layoutTemplates/layout"
-import { findCookie } from "~/utils/loaderHelpers"
-import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "~/utils/lockedPagesUtils";
-import { createLockedPageCookie } from "~/server/lockedPages.server";
+import Layout from "@App/components/layoutTemplates/layout"
+import { findCookie } from "@App/utils/loaderHelpers"
+import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "@App/utils/lockedPagesUtils";
+import { createLockedPageCookie } from "@App/server/lockedPages.server";
 import { gql } from "@apollo/client";
-import { fetchAPI } from "~/utils/fetch.server";
-import { getGraphQLString } from "~/utils/graphqlUtils";
+import { fetchAPI } from "@App/utils/fetch.server";
+import { getGraphQLString } from "@App/utils/graphqlUtils";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData, useLoaderData, useTransition } from "@remix-run/react";

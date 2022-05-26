@@ -1,8 +1,8 @@
 import { ActionFunction, json } from "@remix-run/node";
 import { isEmpty } from "lodash";
-import { shopifyCartCookie } from "~/cookies.server";
-import { addItemToCartRequest, createCart } from "~/utils/cartUtils";
-import { findCookie } from "~/utils/loaderHelpers";
+import { shopifyCartCookie } from "@App/cookies.server";
+import { addItemToCartRequest, createCart } from "@App/utils/cartUtils";
+import { findCookie } from "@App/utils/loaderHelpers";
 interface ICartCookie{
   cartId: string
 }

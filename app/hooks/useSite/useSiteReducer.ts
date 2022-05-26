@@ -1,7 +1,7 @@
 import type { ISiteContextState } from './index'
 import { consoleHelper } from '../../utils/windowUtils'
 import type { IModalTemplate } from '../../components/modals/modalTypes'
-import type { BreakpointEnums } from '../useWindowResize'
+import type { BreakpointEnums } from '@App/enums/breakpointEnums'
 
 export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',

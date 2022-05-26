@@ -1,12 +1,12 @@
 import { ActionFunction, json, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { Form, Link, useActionData, useTransition } from '@remix-run/react';
 import React from 'react'
-import { lfmMiniCourseCookie } from '~/cookies.server';
-import { ckFormIds } from '~/lib/convertKit/formIds';
-import { getStaticPageMeta } from '~/utils/pageUtils';
-import { getHtmlMetadataTags } from '~/utils/seo';
-import { validateEmail } from '~/utils/validation';
-import { consoleHelper } from '~/utils/windowUtils';
+import { lfmMiniCourseCookie } from '@App/cookies.server';
+import { ckFormIds } from '@App/lib/convertKit/formIds';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { getHtmlMetadataTags } from '@App/utils/seo';
+import { validateEmail } from '@App/utils/validation';
+import { consoleHelper } from '@App/utils/windowUtils';
 
 export let meta: MetaFunction = (rootData): any => {
 

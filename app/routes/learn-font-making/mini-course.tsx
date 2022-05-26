@@ -1,8 +1,8 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { Link, Outlet, useLoaderData } from '@remix-run/react'
 import React from 'react'
-import { lfmMiniCourseCookie } from '~/cookies.server'
-import { findCookie } from '~/utils/loaderHelpers'
+import { lfmMiniCourseCookie } from '@App/cookies.server'
+import { findCookie } from '@App/utils/loaderHelpers'
 
 export interface IlfmMiniCourseCookie {
   video1: boolean

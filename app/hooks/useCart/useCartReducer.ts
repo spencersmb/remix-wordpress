@@ -1,6 +1,6 @@
 import { consoleHelper } from '../../utils/windowUtils'
 import { IModalTemplate } from '../../components/modals/modalTypes'
-import { defaultEmptyCartState } from '~/utils/cartUtils'
+import { defaultEmptyCartState } from '@App/utils/cartUtils'
 
 export enum IShoppingCartTypes {
   ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART',

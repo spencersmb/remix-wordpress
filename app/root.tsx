@@ -12,9 +12,9 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import deleteMeRemixStyles from "~/styles/demos/remix.css";
-import globalStylesUrl from "~/styles/global-old.css";
-import darkStylesUrl from "~/styles/dark.css";
+import deleteMeRemixStyles from "@App/styles/demos/remix.css";
+import globalStylesUrl from "@App/styles/global-old.css";
+import darkStylesUrl from "@App/styles/dark.css";
 import { siteInitialState } from './hooks/useSite'
 import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
@@ -26,7 +26,7 @@ import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginat
 import { getResourceUserToken } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
-import { commitSession, getSession } from '~/sessions.server'
+import { commitSession, getSession } from '@App/sessions.server'
 import CommentModal from "./components/modals/commentModal";
 import { createCart, getUserCart } from "./utils/cartUtils";
 import { shopifyCartCookie } from "./cookies.server";
@@ -34,8 +34,8 @@ import { fetchInitialState } from "./hooks/useFetchPagination";
 import JsonLd from "./components/seo/jsonLd";
 import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
-import useWindowResize from "./hooks/useWindowResize";
 import 'lazysizes';
+import useWindowResize from "./hooks/useWindowResize";
 // import a plugin
 
 /**

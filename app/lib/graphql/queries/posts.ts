@@ -276,7 +276,7 @@ export const PRODUCT_FIELDS = gql`
           id
       }
     }
-    details {
+    productDetails{
       licences {
         licenseType
         price

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { staticImages } from "~/lib/imgix/data";
-import { classNames } from "~/utils/appUtils";
+import { staticImages } from "@App/lib/imgix/data";
+import { classNames } from "@App/utils/appUtils";
 import CloseSvg from "../svgs/closeSvg";
 interface IProps {
   className: string

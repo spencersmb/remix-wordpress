@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { formatDate } from "~/utils/posts"
+import { formatDate } from "@App/utils/posts"
 import CommentForm from "./commentForm"
 
 interface ICommentProps {

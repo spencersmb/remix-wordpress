@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef } from "react";
-import { toggleClass } from "~/utils/pageUtils";
+import { toggleClass } from "@App/utils/pageUtils";
 
 function useTopNav(){
   const navRef = useRef<null | HTMLDivElement>(null)

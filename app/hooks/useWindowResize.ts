@@ -1,13 +1,8 @@
+import { BreakpointEnums } from "@App/enums/breakpointEnums"
 import { defaultTo } from "lodash"
 import { useEffect, useLayoutEffect, useRef } from "react"
 import useSite from "./useSite"
-export enum BreakpointEnums {
-  mobile = "mobile",
-  tablet = "tablet",
-  laptop = "laptop",
-  desktop = "desktop",
-  desktopXL = "desktopXL"
-}
+
 const useWindowResize = () => {
     const ResizeRef = useRef<any>(null)
     const previousBreakpoint = useRef<any>(null)

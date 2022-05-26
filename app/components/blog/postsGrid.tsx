@@ -1,5 +1,6 @@
 import PostCardOne from '../cards/postCardOne'
-import { LazyComponentProps, trackWindowScroll }
+import type { LazyComponentProps } from 'react-lazy-load-image-component';
+import { trackWindowScroll }
   from 'react-lazy-load-image-component';
 interface Props {
   posts: IPost[]
@@ -13,7 +14,7 @@ function PostsGrid(props: IProps) {
   const cssGrid = tabletGrid3x ? 'pb-12 col-span-full grid grid-flow-row row-auto grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5' : 'grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8'
 
   return (
-    <div className='col-start-2 col-span-2 tablet:col-start-2 tablet:col-span-12'>
+    <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
       <div className={cssGrid}>
         {posts.map(post => <PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)}

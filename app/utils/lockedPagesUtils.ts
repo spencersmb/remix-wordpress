@@ -1,6 +1,6 @@
 import { RouteData } from "@remix-run/react/routeData";
 import { Params } from "react-router";
-import { lockedPageEnumSlugs } from "~/enums/lockedPages";
+import { lockedPageEnumSlugs } from "@App/enums/lockedPages";
 import { getStaticPageMeta } from "./pageUtils";
 import { getHtmlMetadataTags } from "./seo";
 import type { Location } from "history";

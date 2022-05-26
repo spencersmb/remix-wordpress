@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link } from '@remix-run/react'
 import { Fragment } from 'react'
-import useSite from '~/hooks/useSite'
+import useSite from '@App/hooks/useSite'
 
 const solutions = [
   {

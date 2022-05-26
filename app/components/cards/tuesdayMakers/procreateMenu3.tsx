@@ -1,4 +1,4 @@
-import StrokeOneSvg from "~/components/svgs/strokes/stroke-1"
+import StrokeOneSvg from "@App/components/svgs/strokes/stroke-1"
 
 interface Props { }
 

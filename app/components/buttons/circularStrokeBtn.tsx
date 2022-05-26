@@ -9,7 +9,7 @@ function CircularStrokeBtn(props: Props) {
   const { text, classes, handleClick } = props
   return (
     <>
-      <button onClick={handleClick} type='button' className={`font-semibold relative ${classes}`}>
+      <button data-testid="test-CircularStrokeBtn" onClick={handleClick} type='button' className={`font-semibold relative ${classes}`}>
         <div className="absolute w-[125px] top-0 left-0 ">
           <svg width="125" height="68" viewBox="0 0 125 68" fill="none" xmlns="http://www.w3.org/2000/svg">
             <motion.path

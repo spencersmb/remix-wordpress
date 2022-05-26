@@ -1,5 +1,5 @@
-import { classNames } from '~/utils/appUtils'
-import { formatePrice } from '~/utils/priceUtils.server'
+import { classNames } from '@App/utils/appUtils'
+import { formatePrice } from '@App/utils/priceUtils.server'
 
 interface Props {
   url: string

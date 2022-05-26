@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { classNames } from '~/utils/appUtils'
+import { classNames } from '@App/utils/appUtils'
 import CheckmarkSvg from '../svgs/checkmarkSvg'
 
 
@@ -16,6 +16,7 @@ const PillBase = (props: IPillProps) => {
       ? 'bg-teal-400 text-neutral-50 ring ring-teal-400 hover:ring-teal-400'
       : 'text-neutral-800 bg-neutral-200 hover:ring-neutral-400 active:bg-neutral-400',
       'cursor-pointer font-medium flex flex-row items-center px-5 py-2.5 justify-center rounded-2xl mr-5 mb-5 last:mr-0 hover:ring  ring-offset-neutral-50 focus:ring ring-offset-4 focus:ring-primary-300 duration-200 ease-in-out active:scale-[.97]')} onClick={clickHandler}>
+      {/* @ts-ignore */}
       <AnimatePresence>
         {selected &&
           <motion.span

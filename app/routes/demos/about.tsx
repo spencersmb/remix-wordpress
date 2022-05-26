@@ -2,7 +2,7 @@
 
 import { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
-import stylesUrl from "~/styles/demos/about.css";
+import stylesUrl from "@App/styles/demos/about.css";
 
 export let meta: MetaFunction = () => {
   return {

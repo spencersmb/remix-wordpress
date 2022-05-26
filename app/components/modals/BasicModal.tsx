@@ -15,6 +15,7 @@ const BasicModal = () => {
   const { state: { modal }, closeModal } = useSite()
 
   return (
+    // @ts-ignore
     <AnimatePresence>
       {modal.open
         ? <>

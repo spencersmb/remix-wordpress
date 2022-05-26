@@ -2,9 +2,9 @@
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
-import { createResourceUserSession, getResourceUserToken } from "~/utils/resourceLibrarySession.server";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "~/utils/seo";
-import { validateEmail } from "~/utils/validation";
+import { createResourceUserSession, getResourceUserToken } from "@App/utils/resourceLibrarySession.server";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
+import { validateEmail } from "@App/utils/validation";
 
 export let meta: MetaFunction = (metaData): any => {
 

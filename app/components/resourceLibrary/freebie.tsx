@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import useSite from '~/hooks/useSite'
-import PaidProductPopUp from '~/components/modals/paidProductPopUp'
-import { consoleHelper } from '~/utils/windowUtils'
+import useSite from '@App/hooks/useSite'
+import PaidProductPopUp from '@App/components/modals/paidProductPopUp'
+import { consoleHelper } from '@App/utils/windowUtils'
 import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
 import CardSmall from '../cards/cardSmall'
 
 

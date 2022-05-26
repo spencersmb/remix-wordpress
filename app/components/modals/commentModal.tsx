@@ -1,4 +1,4 @@
-import useSite from '~/hooks/useSite'
+import useSite from '@App/hooks/useSite'
 import CommentForm from '../comments/commentForm'
 import Comment from '../comments/comment'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -6,8 +6,8 @@ import CloseSvg from '../svgs/closeSvg'
 import { useState } from 'react'
 import { gql } from '@apollo/client'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
-import { getGraphQLString } from '~/utils/graphqlUtils'
-import { parseComment } from '~/utils/posts'
+import { getGraphQLString } from '@App/utils/graphqlUtils'
+import { parseComment } from '@App/utils/posts'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment

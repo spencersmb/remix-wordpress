@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/solid'
 import React from 'react'
-import LazyImageBase from '~/components/images/lazyImage-base'
-import UploadSvg from '~/components/svgs/uploadSvg'
+import LazyImageBase from '@App/components/images/lazyImage-base'
+import UploadSvg from '@App/components/svgs/uploadSvg'
 
 interface Props { }
 

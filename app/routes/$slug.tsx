@@ -1,11 +1,11 @@
 import { fetchAPI } from '../utils/fetch.server'
 import { mapPostData } from '../utils/posts'
-import Layout from "~/components/layoutTemplates/layout"
+import Layout from "@App/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
 import { gql } from '@apollo/client'
-import { getGraphQLString } from '~/utils/graphqlUtils'
-import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '~/lib/graphql/queries/posts'
-import BlogTemplate from '~/components/blog/blogTemplate'
+import { getGraphQLString } from '@App/utils/graphqlUtils'
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
+import BlogTemplate from '@App/components/blog/blogTemplate'
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'

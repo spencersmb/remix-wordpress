@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { classNames } from '~/utils/appUtils'
+import { classNames } from '@App/utils/appUtils'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 
 interface Props {
@@ -19,6 +19,7 @@ function OutlinedButton(props: Props) {
       aria-disabled={loading}
       disabled={loading}
       onClick={clickHandler}>
+      {/* @ts-ignore */}
       <AnimatePresence>
         {loading &&
           <motion.span

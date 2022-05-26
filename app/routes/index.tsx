@@ -5,14 +5,14 @@ import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
 import useSite from '../hooks/useSite'
-import { validateEmail } from '~/utils/validation'
-import { consoleHelper } from '~/utils/windowUtils'
-import { ckFormIds } from '~/lib/convertKit/formIds'
-import { getSession } from '~/sessions.server'
+import { validateEmail } from '@App/utils/validation'
+import { consoleHelper } from '@App/utils/windowUtils'
+import { ckFormIds } from '@App/lib/convertKit/formIds'
+import { getSession } from '@App/sessions.server'
 import { createCanvas, Image, registerFont } from "canvas";
 import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-// import { createAlphabetImages } from "~/server/fonts/fontPreviewUtils";
-import Layout from "~/components/layoutTemplates/layout";
+// import { createAlphabetImages } from "@App/server/fonts/fontPreviewUtils";
+import Layout from "@App/components/layoutTemplates/layout";
 import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 export const headers: HeadersFunction = ({ loaderHeaders }) => {

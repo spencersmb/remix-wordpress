@@ -1,5 +1,5 @@
 import { previewLoaderRouteHandler } from '../../../utils/loaderHelpers'
-import Layout from "~/components/layoutTemplates/layout"
+import Layout from "@App/components/layoutTemplates/layout"
 import { consoleHelper } from '../../../utils/windowUtils'
 import { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'

@@ -6,7 +6,7 @@ import {
 import { logUserInJWT } from '../utils/fetch.server'
 import { createUserSession, setFutureDate } from '../utils/session.server'
 import { getHtmlMetadataTags } from '../utils/seo'
-import Layout from '~/components/layoutTemplates/layout'
+import Layout from '@App/components/layoutTemplates/layout'
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node'
 import { Form, useActionData, useLoaderData, useTransition } from '@remix-run/react'

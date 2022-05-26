@@ -1,4 +1,4 @@
-import { BreakpointEnums } from "~/hooks/useWindowResize";
+import { BPPX, BreakpointEnums } from "@App/enums/breakpointEnums";
 
 export const consoleHelper = (data: string, obj: any = null) => {
   if (process.env.NODE_ENV === 'production') return;
@@ -8,13 +8,6 @@ export const consoleHelper = (data: string, obj: any = null) => {
     : console.log(data)
 }
 
-export enum BPPX {
-  MOBILE = 320,
-  TABLET = 768,
-  LAPTOP = 1024,
-  DESKTOP = 1280,
-  DESKTOPXL = 1536,
-}
 export const breakpointConvertPX = (breakpoint: BreakpointEnums):BPPX => {
   switch (breakpoint) {
     case BreakpointEnums.mobile:

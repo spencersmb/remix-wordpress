@@ -1,4 +1,4 @@
-import { formatDate } from "~/utils/posts"
+import { formatDate } from "@App/utils/posts"
 
 const BlogDateAuthor = (props: { date: string, author: string }) => {
   const { date, author } = props

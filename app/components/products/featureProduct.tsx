@@ -1,12 +1,13 @@
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers";
+import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
 import LicenseSelectSection from "./licenseSelectSection";
 import Imgix, { Picture, Source } from "react-imgix";
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import useSite from "~/hooks/useSite";
-import { BPPX, breakpointConvertPX } from "~/utils/windowUtils";
-import { staticImages } from "~/lib/imgix/data";
+import useSite from "@App/hooks/useSite";
+import { breakpointConvertPX } from "@App/utils/windowUtils";
+import { staticImages } from "@App/lib/imgix/data";
+import { BPPX } from "@App/enums/breakpointEnums";
 
 interface IProps {
   product: IProduct

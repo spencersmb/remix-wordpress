@@ -2,15 +2,15 @@ import { gql } from "@apollo/client";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react";
-import CourseCard from "~/components/cards/courseCard";
-import CourseHeader from "~/components/courses/courseHeader";
-import CourseHighQuality from "~/components/courses/courseHighQuality";
-import Layout from "~/components/layoutTemplates/layout"
-import { POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
-import { fetchAPI } from "~/utils/fetch.server";
-import { getGraphQLString } from "~/utils/graphqlUtils";
-import { flattenAllCourses, rearrangeLicenses } from "~/utils/posts";
-import { getBasicPageMetaTags } from "~/utils/seo"
+import CourseCard from "@App/components/cards/courseCard";
+import CourseHeader from "@App/components/courses/courseHeader";
+import CourseHighQuality from "@App/components/courses/courseHighQuality";
+import Layout from "@App/components/layoutTemplates/layout"
+import { POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
+import { fetchAPI } from "@App/utils/fetch.server";
+import { getGraphQLString } from "@App/utils/graphqlUtils";
+import { flattenAllCourses, rearrangeLicenses } from "@App/utils/posts";
+import { getBasicPageMetaTags } from "@App/utils/seo"
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses - Every-Tuesday`,

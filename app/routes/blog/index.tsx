@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import useFetchPaginate from "~/hooks/useFetchPagination";
-import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI } from "~/utils/fetch.server";
-import { flattenAllPosts } from "~/utils/posts";
-import { getBasicPageMetaTags } from "~/utils/seo";
-import { consoleHelper } from "~/utils/windowUtils";
-import BlogFeaturedPost from "~/components/blog/blogFeaturedPost";
-import type { IPageInfo } from "~/hooks/useFetchPagination/useFetchPaginationReducer";
-import { getGraphQLString } from "~/utils/graphqlUtils";
-import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "~/lib/graphql/queries/posts";
+import useFetchPaginate from "@App/hooks/useFetchPagination";
+import Layout from "@App/components/layoutTemplates/layout";
+import { fetchAPI } from "@App/utils/fetch.server";
+import { flattenAllPosts } from "@App/utils/posts";
+import { getBasicPageMetaTags } from "@App/utils/seo";
+import { consoleHelper } from "@App/utils/windowUtils";
+import BlogFeaturedPost from "@App/components/blog/blogFeaturedPost";
+import type { IPageInfo } from "@App/hooks/useFetchPagination/useFetchPaginationReducer";
+import { getGraphQLString } from "@App/utils/graphqlUtils";
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
 import { gql } from "@apollo/client";
-import BlogCategoryTabs from "~/components/blog/blogHomeTabs/blogCategoryTabs";
+import BlogCategoryTabs from "@App/components/blog/blogHomeTabs/blogCategoryTabs";
 import { AnimatePresence, motion } from "framer-motion";
-import OutlinedButton from "~/components/buttons/outlinedButton";
-import BlogPostGrid from "~/components/blog/blogPostGrid";
+import OutlinedButton from "@App/components/buttons/outlinedButton";
+import BlogPostGrid from "@App/components/blog/blogPostGrid";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -374,6 +374,7 @@ function BlogIndex() {
       <div className='grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
         <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
+          {/* @ts-ignore */}
           <AnimatePresence>
             {state.loading
               && category !== 'all'
@@ -519,7 +520,6 @@ query GetMorePosts($first: Int, $after: String) {
 `
 const catQuery = gql`
   ${POST_BASIC_FIELDS}
-  ${POST_FEATURED_IMAGE}
   query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
     posts(
       first: $first
@@ -539,8 +539,54 @@ const catQuery = gql`
       }
       edges {
         node {
-          ...postBasicFields
-          ...featuredImageFields
+          id
+          content
+          date
+          dateGmt
+          excerpt
+          modified
+          databaseId
+          title
+          slug
+          isSticky
+          categories {
+            edges {
+                node {
+                  databaseId
+                  id
+                  name
+                  slug
+                }
+            }
+          }
+          tags{
+            edges{
+                node{
+                  name
+                  slug
+                }
+            }
+          }
+          featuredImage {
+            node {
+              mediaDetails {
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
+                }
+              }
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
+              id
+            }
+          }
           tutorialManager {
             thumbnail {
               image {

@@ -3,8 +3,8 @@ import { useFetcher, useTransition } from "@remix-run/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LazyImageBase from "../images/lazyImage-base";
 import Imgix, { Picture, Source } from "react-imgix";
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers";
-import { staticImages } from "~/lib/imgix/data";
+import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers";
+import { staticImages } from "@App/lib/imgix/data";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();

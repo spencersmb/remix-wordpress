@@ -1,4 +1,4 @@
-import { ckFormIds } from "~/lib/convertKit/formIds";
+import { ckFormIds } from "@App/lib/convertKit/formIds";
 
 const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
   return {

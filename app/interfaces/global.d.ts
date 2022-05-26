@@ -1,4 +1,4 @@
-import { IWPMenu, IWpMenus } from "~/lib/wp/site"
+import { IWPMenu, IWpMenus } from "@App/lib/wp/site"
 
 interface IEnv {
   PUBLIC_WP_API_URL: string

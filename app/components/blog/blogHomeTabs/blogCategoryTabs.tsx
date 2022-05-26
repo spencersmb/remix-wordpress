@@ -1,11 +1,11 @@
-import SimpleTabsProvider from "~/components/tabs/SimpleTabs/simpleTabs"
-import PillBase from '~/components/buttons/pillBase'
-import BarChartSvg from '~/components/svgs/barChartSvg'
-import GridSvg from '~/components/svgs/gridSvg'
-import SimpleTabsHeader from '~/components/tabs/SimpleTabs/simpleTabsHeader'
-import TabContent from '~/components/tabs/SimpleTabs/tabContent'
+import SimpleTabsProvider from "@App/components/tabs/SimpleTabs/simpleTabs"
+import PillBase from '@App/components/buttons/pillBase'
+import BarChartSvg from '@App/components/svgs/barChartSvg'
+import GridSvg from '@App/components/svgs/gridSvg'
+import SimpleTabsHeader from '@App/components/tabs/SimpleTabs/simpleTabsHeader'
+import TabContent from '@App/components/tabs/SimpleTabs/tabContent'
 import TabLabel from './tabLabel'
-import Tab from "~/components/tabs/SimpleTabs/tab"
+import Tab from "@App/components/tabs/SimpleTabs/tab"
 
 interface Props {
   catClick: (cat: string) => () => Promise<void>
@@ -73,16 +73,20 @@ const skillLevels = [
     name: 'Advanced',
   },
 ]
-
+/**
+ * Component not used in JEST tests
+ * @param props 
+ * @returns 
+ */
 function BlogCategoryTabs(props: Props) {
   const { catClick, category } = props
 
   return (
-    <div className='grid grid-cols-mobile gap-x-5 mt-20 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32  desktop:grid-cols-desktop grid-flow-row row-auto'>
+    <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
 
       <SimpleTabsProvider>
 
-        <SimpleTabsHeader className="col-start-2 col-span-2 flex flex-row text-primary-400 mb-10 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
+        <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-10 text-primary-400 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
           <Tab name={'topics'} className="flex-1 tablet:first:pr-7 tablet:flex-none">
             <TabLabel
               Svg={GridSvg}
@@ -90,7 +94,7 @@ function BlogCategoryTabs(props: Props) {
               id="topics"
               text="Search blog by category" />
           </Tab>
-          <Tab name={'difficulty'} className="flex-1  tablet:flex-none">
+          <Tab name={'difficulty'} className="flex-1 tablet:flex-none">
             <TabLabel
               Svg={BarChartSvg}
               id="difficulty"
@@ -99,7 +103,7 @@ function BlogCategoryTabs(props: Props) {
         </SimpleTabsHeader>
 
 
-        <div className="col-start-2 col-span-2 flex flex-row text-primary-400 mb-5 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
+        <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
           <TabContent id={'topics'}>
             <div className="flex flex-row flex-wrap">
               {categories.map(cat => (

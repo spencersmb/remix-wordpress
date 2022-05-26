@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Sticky, StickyContainer } from 'react-sticky';
 import { ClientOnly } from 'remix-utils';
-import useSite from '~/hooks/useSite';
-import useWindowResize, { BreakpointEnums } from '~/hooks/useWindowResize';
-import { classNames } from '~/utils/appUtils';
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers';
-import { addClass } from '~/utils/pageUtils';
-import { consoleHelper } from '~/utils/windowUtils';
+import useSite from '@App/hooks/useSite';
+import useWindowResize from '@App/hooks/useWindowResize';
+import { classNames } from '@App/utils/appUtils';
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers';
+import { addClass } from '@App/utils/pageUtils';
+import { consoleHelper } from '@App/utils/windowUtils';
 import YouTubeVideo from '../cards/youTubeCard__post';
 import LazyImageBase from '../images/lazyImage-base';
 import BlogAuthor from './blogAuthor';
@@ -19,6 +19,7 @@ import PinterestBlock from './pinterestBlock';
 import PostsGrid from './postsGrid';
 import PaidProducts from './tutorialContent/paidProducts';
 import TutorialDownloads from './tutorialContent/tutorialDownloads';
+import { BreakpointEnums } from '@App/enums/breakpointEnums';
 
 interface IProps {
   post: IPost

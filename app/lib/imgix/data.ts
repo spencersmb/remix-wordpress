@@ -6,7 +6,7 @@ export const staticImages = {
         placeholder: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip'
       }
     },
-    applePencil:{
+    applePencil:{ 
       flat: {
         src: 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png',
         placeholder: 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png?w=20&fit=clip'
@@ -22,6 +22,10 @@ export const staticImages = {
       circles:{
         src: 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png',
         placeholder: 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png?w=20&fit=clip'
+      },
+      freebie:{
+        src: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg',
+        placeholder: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?w=20&fit=clip'
       }
     }
   },

@@ -2,10 +2,10 @@ import { gql } from "@apollo/client";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import Layout from "~/components/layoutTemplates/layout";
-import { fetchAPI } from "~/utils/fetch.server";
-import { getGraphQLString } from "~/utils/graphqlUtils";
-import { getHtmlMetadataTags } from "~/utils/seo";
+import Layout from "@App/components/layoutTemplates/layout";
+import { fetchAPI } from "@App/utils/fetch.server";
+import { getGraphQLString } from "@App/utils/graphqlUtils";
+import { getHtmlMetadataTags } from "@App/utils/seo";
 
 export let meta: MetaFunction = (metaData): any => {
   const { data, location, parentsData } = metaData

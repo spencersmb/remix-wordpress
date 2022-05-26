@@ -1,5 +1,7 @@
-import { createContext, Dispatch, useContext } from 'react'
-import { IFetchPaginateAction, IFetchPaginateTypes, IPageInfo, IPageInfoOld } from './useFetchPaginationReducer'
+import type { Dispatch} from 'react';
+import { createContext, useContext } from 'react'
+import type { IFetchPaginateAction, IPageInfo} from './useFetchPaginationReducer';
+import { IFetchPaginateTypes, IPageInfoOld } from './useFetchPaginationReducer'
 
 export const fetchInitialState:IFetchPaginationState = {
   loading: false,

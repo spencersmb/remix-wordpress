@@ -1,6 +1,6 @@
-import { ShopPlatformEnum } from "~/enums/products";
-import { fetchAPI } from "~/utils/fetch.server";
-import { getGraphQLString } from "~/utils/graphqlUtils";
+import { ShopPlatformEnum } from "@App/enums/products";
+import { fetchAPI } from "@App/utils/fetch.server";
+import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { SiteMetaDataQuery } from "../graphql/queries/siteMetaData";
 
 interface IWpMenuFeaturedCourse {
@@ -144,7 +144,7 @@ export function getWPMenu(resourceUser: string | null): IWpMenus{
     ],
   }
 }
-export const siteAuthor = {
+export const siteAuthor: {author: IAuthor} = {
   author: {
     avatar: {
       height: 96,
@@ -153,7 +153,8 @@ export const siteAuthor = {
     },
     id: "dXNlcjox",
     name: "Teela",
-    slug: "teelac"
+    slug: "teelac",
+    uri: 'author/teelac'
   }
 }
 export const siteInfo = {

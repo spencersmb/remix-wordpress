@@ -1,5 +1,6 @@
 import { consoleHelper } from '../../utils/windowUtils'
-import { fetchInitialState, IFetchPaginationState } from './index'
+import type { IFetchPaginationState } from './index';
+import { fetchInitialState } from './index'
 
 export enum IFetchPaginateTypes {
   ADD_POSTS = 'ADD_POSTS',

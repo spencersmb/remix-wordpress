@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
-import useSite from "~/hooks/useSite";
-import { fetchSubmitComment } from "~/utils/fetch.cleint";
-import { parseComment } from "~/utils/posts";
-import { validateEmail } from "~/utils/validation";
+import useSite from "@App/hooks/useSite";
+import { fetchSubmitComment } from "@App/utils/fetch.cleint";
+import { parseComment } from "@App/utils/posts";
+import { validateEmail } from "@App/utils/validation";
 import InputBase from "../input/inputBase";
 import CommentsSvg from "../svgs/commentsSvg";
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne";

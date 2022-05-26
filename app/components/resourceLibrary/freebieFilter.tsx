@@ -1,4 +1,4 @@
-import { classNames } from '~/utils/appUtils'
+import { classNames } from '@App/utils/appUtils'
 import { consoleHelper } from '../../utils/windowUtils'
 import SelectDropdown from '../forms/selectDropdown'
 

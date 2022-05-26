@@ -1,5 +1,5 @@
-import { ShopPlatformEnum } from "~/enums/products";
-import useFontPreview from "~/hooks/useFontPreivew";
+import { ShopPlatformEnum } from "@App/enums/products";
+import useFontPreview from "@App/hooks/useFontPreivew";
 import FeaturedProduct from "./featureProduct";
 import GumroadProductCard from "./gumroadProductCard";
 interface IProps {

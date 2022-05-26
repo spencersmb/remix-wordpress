@@ -1,4 +1,4 @@
-import Layout from "~/components/layoutTemplates/layout"
+import Layout from "@App/components/layoutTemplates/layout"
 
 //TODO: DESIGN TEMPLATE FOR LFM VIDEOS
 function VectorizeYourLettering() {

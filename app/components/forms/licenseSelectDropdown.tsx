@@ -2,9 +2,9 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { LicenseEnum } from '~/enums/products'
-import { getLicense } from '~/utils/posts'
-import { classNames } from '~/utils/appUtils'
+import { LicenseEnum } from '@App/enums/products'
+import { getLicense } from '@App/utils/posts'
+import { classNames } from '@App/utils/appUtils'
 
 interface Props {
   handleSelected: any

@@ -22,6 +22,7 @@ interface IAuthor {
   id: string
   name: string,
   slug: string
+  uri: string
 }
 interface ISiteAuthor {
   author: IAuthor

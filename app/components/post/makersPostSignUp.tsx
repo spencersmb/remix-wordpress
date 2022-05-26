@@ -1,5 +1,5 @@
 import React from 'react'
-import MakersSignUpForm from '~/components/forms/makersSignUpForm'
+import MakersSignUpForm from '@App/components/forms/makersSignUpForm'
 import { useFetcher, useTransition } from '@remix-run/react'
 
 function MakersPostSignUp() {

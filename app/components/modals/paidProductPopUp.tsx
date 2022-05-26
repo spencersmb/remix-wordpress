@@ -1,6 +1,6 @@
 import { Link } from "remix";
-import { LicenseEnum } from "~/enums/products";
-import { getLicense } from "~/utils/posts";
+import { LicenseEnum } from "@App/enums/products";
+import { getLicense } from "@App/utils/posts";
 import GumroadBtn from "../buttons/gumroadBtn";
 import CloseSvg from "../svgs/closeSvg";
 

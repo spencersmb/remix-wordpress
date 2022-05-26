@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LicenseEnum } from "~/enums/products";
+import { LicenseEnum } from "@App/enums/products";
 
 interface IState {
   price: number

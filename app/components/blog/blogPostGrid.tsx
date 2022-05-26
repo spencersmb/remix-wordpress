@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import PostCardOne from '../cards/postCardOne'
-import { LazyComponentProps, trackWindowScroll }
+import type { LazyComponentProps } from 'react-lazy-load-image-component';
+import { trackWindowScroll }
   from 'react-lazy-load-image-component';
 interface Props {
   posts: IPost[]
@@ -23,6 +24,7 @@ function BlogPostGrid(props: IProps) {
 
   return (
     <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
+      {/* @ts-ignore */}
       <AnimatePresence>
         {category === 'all' && posts.map((post: any, index) => {
           return (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)

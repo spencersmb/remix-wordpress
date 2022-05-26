@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react"
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "~/utils/imageHelpers"
+import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
 import LazyImageBase from "../images/lazyImage-base"
 
 interface Props {

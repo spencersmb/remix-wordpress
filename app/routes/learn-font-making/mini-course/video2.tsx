@@ -1,10 +1,10 @@
 import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
 import { useLoaderData, useOutletContext } from '@remix-run/react';
 import React from 'react'
-import { lfmMiniCourseCookie } from '~/cookies.server';
-import { findCookie } from '~/utils/loaderHelpers';
-import { getStaticPageMeta } from '~/utils/pageUtils';
-import { getHtmlMetadataTags } from '~/utils/seo';
+import { lfmMiniCourseCookie } from '@App/cookies.server';
+import { findCookie } from '@App/utils/loaderHelpers';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { getHtmlMetadataTags } from '@App/utils/seo';
 import { IlfmMiniCourseCookie } from '../mini-course';
 
 export let meta: MetaFunction = (rootData): any => {

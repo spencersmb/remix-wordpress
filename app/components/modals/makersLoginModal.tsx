@@ -1,8 +1,8 @@
 import { useFetcher } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import useSite from "~/hooks/useSite";
-import useTuesdayMakersClientSideLogin from "~/hooks/useTuesdayMakersClientSideLogin";
+import useSite from "@App/hooks/useSite";
+import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
 import MakersLoginFetcherForm from "../forms/makersLoginFetcherForm";
 import ModalLayoutWrapperWhite from "./modalWrapper-white";
 

@@ -5,9 +5,7 @@ import { consoleHelper } from './windowUtils'
 import { QUERY_POST_BY_ID } from '../lib/graphql/queries/posts'
 import { QUERY_PAGE_BY_ID } from '../lib/graphql/queries/pages'
 import { getGraphQLString } from './graphqlUtils';
-import { CREATE_COMMENT } from '~/lib/graphql/mutations/comments';
-
-
+import { CREATE_COMMENT } from '@App/lib/graphql/mutations/comments';
 
 const api_url = process.env.PUBLIC_WP_API_URL as string
 const root_url =process.env.APP_ROOT_URL as string
@@ -64,7 +62,6 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   }
   return json.data
 }
-
 
 
 export async function getPreviewPostPageServer({previewType, id, userToken}: {previewType: string, id: string, userToken: IAuthToken}){

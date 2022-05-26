@@ -1,6 +1,6 @@
 import { ActionFunction, json } from "@remix-run/node";
-import { shopifyCartCookie } from "~/cookies.server";
-import { createCart } from "~/utils/cartUtils";
+import { shopifyCartCookie } from "@App/cookies.server";
+import { createCart } from "@App/utils/cartUtils";
 
 export let action: ActionFunction = async ({request, params}) => {
   const cart = await createCart()

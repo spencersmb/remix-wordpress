@@ -1,12 +1,12 @@
-import { ckFormIds } from '~/lib/convertKit/formIds'
-import { validateEmail } from '~/utils/validation'
-import { fetchConvertKitSignUp } from '~/utils/fetch.server'
+import { ckFormIds } from '@App/lib/convertKit/formIds'
+import { validateEmail } from '@App/utils/validation'
+import { fetchConvertKitSignUp } from '@App/utils/fetch.server'
 import React from 'react'
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
-import { ckSignUpCookie } from '~/cookies.server'
-import { getCKFormId } from '~/utils/resourceLibraryUtils';
+import { ckSignUpCookie } from '@App/cookies.server'
+import { getCKFormId } from '@App/utils/resourceLibraryUtils';
 
 /**
  * API END POINT 

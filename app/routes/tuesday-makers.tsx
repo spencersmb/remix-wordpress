@@ -1,6 +1,6 @@
 import { Link, Outlet } from "@remix-run/react";
-import FooterPrimary from "~/components/footer/FooterPrimary";
-import ResourceLibraryNav from "~/components/resourceLibrary/resourceNav";
+import FooterPrimary from "@App/components/footer/FooterPrimary";
+import ResourceLibraryNav from "@App/components/resourceLibrary/resourceNav";
 
 const TuesdayMakers = () => {
   return (

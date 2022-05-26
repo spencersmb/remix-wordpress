@@ -1,5 +1,5 @@
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import { logout } from "~/utils/session.server";
+import { logout } from "@App/utils/session.server";
 
 /*
  * Logout Route - calls logout action then loader redirects

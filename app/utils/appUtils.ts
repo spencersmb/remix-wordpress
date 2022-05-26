@@ -1,7 +1,7 @@
 import { useMatches } from "@remix-run/react";
-import type { IFetchPaginationState} from "~/hooks/useFetchPagination";
-import { fetchInitialState } from "~/hooks/useFetchPagination"
-import type { ISelectedMatch } from "~/interfaces/remix"
+import type { IFetchPaginationState} from "@App/hooks/useFetchPagination";
+import { fetchInitialState } from "@App/hooks/useFetchPagination"
+import type { ISelectedMatch } from "@App/interfaces/remix"
 
 export const getDefaultState = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks

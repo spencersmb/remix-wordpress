@@ -3,12 +3,12 @@ import { useContext, createContext } from 'react'
 import type { ISiteAction} from './useSiteReducer';
 import { ISiteTypes } from './useSiteReducer'
 import type { IModalTemplate } from '../../components/modals/modalTypes'
-import type { IWPMenu} from '~/lib/wp/site';
-import { siteInfo, socialUrls } from '~/lib/wp/site'
+import type { IWPMenu} from '@App/lib/wp/site';
+import { siteInfo, socialUrls } from '@App/lib/wp/site'
 import { ShopPlatformEnum } from "../../enums/products";
-import { BreakpointEnums } from '../useWindowResize';
+import { BreakpointEnums } from '@App/enums/breakpointEnums';
 
-export interface ISiteContextState {
+  export interface ISiteContextState {
   recentPosts?: IPost[]
   categories?: any[]
   metadata: ISiteMetaDataMapped

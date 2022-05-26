@@ -1,7 +1,6 @@
-import React, { Component, ComponentType, ReactComponentElement, ReactElement, ReactNode, ReactSVG, ReactSVGElement } from 'react'
-import BarChartSvg from '~/components/svgs/barChartSvg'
-import { useSimpleTabs } from '~/components/tabs/SimpleTabs/simpleTabsContext'
-import { classNames } from '~/utils/appUtils'
+import type { ComponentType } from 'react';
+import { useSimpleTabs } from '@App/components/tabs/SimpleTabs/simpleTabsContext'
+import { classNames } from '@App/utils/appUtils'
 
 interface Props {
   id: string
@@ -9,7 +8,12 @@ interface Props {
   Svg: ComponentType<any>
   iconFillType?: string
 }
-// CONVER TO GENERIC COMPONET And PASS IN THE SVG COMPONENT ETC
+
+/**
+ * TabLabel component
+ * @tested - 5/25/2022
+ * @param props 
+ */
 function TabLabel(props: Props) {
   const { id, text, Svg, iconFillType = 'fill' } = props
   const { state } = useSimpleTabs()

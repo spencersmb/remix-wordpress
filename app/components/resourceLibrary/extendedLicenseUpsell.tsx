@@ -1,5 +1,5 @@
-import { ShopPlatformEnum } from "~/enums/products"
-import useSite from "~/hooks/useSite"
+import { ShopPlatformEnum } from "@App/enums/products"
+import useSite from "@App/hooks/useSite"
 import CheckCircleSvg from "../svgs/checkCircle"
 import StarSvg from "../svgs/starSvg"
 import StrokeOneSvg from "../svgs/strokes/stroke-1"

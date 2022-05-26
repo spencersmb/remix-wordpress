@@ -1,11 +1,11 @@
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { json } from '@remix-run/node'
-import { ckSignUpCookie } from "~/cookies.server";
-import { findCookie } from "~/utils/loaderHelpers";
-import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "~/utils/resourceLibrarySession.server";
-import useTuesdayMakersClientSideLogin from "~/hooks/useTuesdayMakersClientSideLogin";
-import { getBasicPageMetaTags } from "~/utils/seo";
+import { ckSignUpCookie } from "@App/cookies.server";
+import { findCookie } from "@App/utils/loaderHelpers";
+import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
+import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
+import { getBasicPageMetaTags } from "@App/utils/seo";
 
 export let meta: MetaFunction = (metaData): any => {
 

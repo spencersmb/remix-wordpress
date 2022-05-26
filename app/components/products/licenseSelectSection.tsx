@@ -1,8 +1,8 @@
 import { Link } from '@remix-run/react'
 import React from 'react'
-import type { IAddFontFunction } from '~/hooks/useFontPreivew';
-import useFontPreview from '~/hooks/useFontPreivew'
-import { useProductLicense } from '~/hooks/useProductLicense'
+import type { IAddFontFunction } from '@App/hooks/useFontPreivew';
+import useFontPreview from '@App/hooks/useFontPreivew'
+import { useProductLicense } from '@App/hooks/useProductLicense'
 import GumroadBtn from '../buttons/gumroadBtn'
 import LicenseRadioSelect from '../forms/licenseRadioSelect'
 

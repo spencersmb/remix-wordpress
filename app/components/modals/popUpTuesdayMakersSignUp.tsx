@@ -29,6 +29,7 @@ const TuesdayMakersSignUpModal = ({ closeModal }: IProps) => {
 
   return (
     <ModalLayoutWrapperWhite
+      data-testid="test-tuesdayMakersSignUpModal"
       className="bg-white">
       {showConfirmation &&
         <motion.div

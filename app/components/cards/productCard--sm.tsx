@@ -1,6 +1,6 @@
 import LicenseSelectSection from '../products/licenseSelectSection'
 import LazyImageBase from '../images/lazyImage-base'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
 
 interface Props {
   index: number
@@ -21,7 +21,7 @@ function ProductCard__sm(props: Props) {
   })
 
   return (
-    <div className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
+    <div data-testid="ProductCard__sm" className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
       <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${multipleProducts ? index === 0 ? 'tablet:mr-4' : 'tablet:ml-4' : 'tablet:ml-4'} laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
@@ -40,9 +40,9 @@ function ProductCard__sm(props: Props) {
         </div>
 
         {/* PRODUCT SELECT */}
-        <LicenseSelectSection
+        {product.productDetails.licences.length > 0 && <LicenseSelectSection
           product={product}
-        />
+        />}
 
       </div>
     </div>

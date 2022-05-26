@@ -1,11 +1,11 @@
-import { validateEmail } from '~/utils/validation'
+import { validateEmail } from '@App/utils/validation'
 import React from 'react'
-import { commitSession, getSession } from '~/sessions.server'
+import { commitSession, getSession } from '@App/sessions.server'
 import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
-import { createResourceUserSession } from '~/utils/resourceLibrarySession.server'
+import { createResourceUserSession } from '@App/utils/resourceLibrarySession.server'
 
 export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();

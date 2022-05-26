@@ -1,4 +1,4 @@
-import { consoleHelper } from "~/utils/windowUtils"
+import { consoleHelper } from "@App/utils/windowUtils"
 import { IFpState } from "."
 
 export enum IFontPreviewEnums {

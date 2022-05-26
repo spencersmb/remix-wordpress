@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
-import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "~/utils/posts";
+import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "@App/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
-import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "~/utils/imageHelpers";
+import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
 import { Link } from "@remix-run/react";
 

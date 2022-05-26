@@ -1,8 +1,8 @@
 import { Link, useFetcher, useNavigate } from '@remix-run/react'
 import * as React from 'react'
-import { userStateMatches } from '~/hooks/remixHooks'
-import useSite from '~/hooks/useSite'
-import { ISelectedMatch } from '~/interfaces/remix'
+import { userStateMatches } from '@App/hooks/remixHooks'
+import useSite from '@App/hooks/useSite'
+import { ISelectedMatch } from '@App/interfaces/remix'
 
 /**
  * @Component ResourceLibraryNav

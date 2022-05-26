@@ -1,6 +1,6 @@
 import React from 'react'
-import useSite from '~/hooks/useSite'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '~/utils/imageHelpers'
+import useSite from '@App/hooks/useSite'
+import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
 import LazyImageBase from '../images/lazyImage-base'
 import LicenseAgreementPopUp from '../modals/paidProductPopUp'
 import UploadSvg from '../svgs/uploadSvg'

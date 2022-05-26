@@ -1,15 +1,14 @@
 import Imgix, { Picture, Source } from 'react-imgix'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { staticImages } from '~/lib/imgix/data'
+import { staticImages } from '@App/lib/imgix/data'
 import LazyImageBase from '../images/lazyImage-base'
 import HeyTeela from '../svgs/heyTeela'
 
-interface Props {
-
-}
-
-
-function CourseHeader(props: Props) {
+/**
+ * CourseHeader Component
+ * @tested - 5/25/2022
+ */
+function CourseHeader() {
 
   return (
     <div className='grid grid-flow-row grid-rows-[auto_auto_1fr_1fr_1fr] bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(60px,auto)_1fr_1fr_minmax(60px,auto)_minmax(60px,auto)] desktop:grid-cols-desktop'>
