@@ -39,6 +39,7 @@
     "canvas": "^2.8.0",
     "cross-env": "^7.0.3",
     "deepmerge": "^4.2.2",
+    "dotenv": "^10.0.0",
     "framer-motion": "^5.4.5",
     "graphql": "^16.0.1",
     "lazysizes": "^5.3.2",
