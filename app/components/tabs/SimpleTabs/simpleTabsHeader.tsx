@@ -1,11 +1,12 @@
-import React, { ReactChildren, ReactNode, useEffect } from 'react'
-import { ITabsState, useSimpleTabs } from './simpleTabsContext'
+import React, { useEffect } from 'react'
+import type { ITabsState } from './simpleTabsContext';
+import { useSimpleTabs } from './simpleTabsContext'
 
 /**
  * @Component SimpleTabsHeader
  *
  * The tabs that user will click to navigate
- *
+ * @tested - 5/27/2022
  * @param {React.Children} children
  * @param {string} classNames
  */

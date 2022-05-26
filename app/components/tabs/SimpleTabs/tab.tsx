@@ -1,4 +1,5 @@
-import React, { ReactChild } from 'react'
+import type { ReactChild } from 'react';
+import React from 'react'
 import { useSimpleTabs } from './simpleTabsContext'
 
 /**
@@ -8,6 +9,7 @@ import { useSimpleTabs } from './simpleTabsContext'
  * Click handler on this element is assigned via getTabsProps
  * and is defined in useSimpleTabs Provider
  *
+*  @tested - 5/27/2022
  * @param {React.Children} children
  * @param {string} name: unique prop on the tab to connect with the content
  *

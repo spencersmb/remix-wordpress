@@ -14,23 +14,26 @@ export const simpleTabsDefaultState: ITabsState = {
   tabs: [],
   selectedTab: '',
 }
-
-export const SimpleTabsContext = React.createContext<ISimpleTabsContext>({
-  state: simpleTabsDefaultState,
-  setState: () => null,
-  handleTabSelect: () => null
-})
+// @ts-ignore
+export const SimpleTabsContext = React.createContext<ISimpleTabsContext | undefined>()
 
 SimpleTabsContext.displayName = 'SimpleTabsContext'
 
 export const useSimpleTabsContext = () => {
   const context = useContext(SimpleTabsContext)
   if (context === undefined) {
-    throw new Error('useSimpleTabs must be used within a <SimpleToggle />')
+    throw new Error('useSimpleTabs must be used within a <SimpleTabsProvider />')
   }
   return context
 }
 
+
+/**
+ * @Component useSimpleTabs
+ * @tested - 5/27/2022
+ *
+ * @param {React.Children} children
+ */
 export const useSimpleTabs = () => {
 
   // FROM KCD - pass args to an onClick handler

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import TuesdayMakersLoginModal from '@App/components/modals/makersLoginModal'
 import TuesdayMakersSignUpModal from '@App/components/modals/popUpTuesdayMakersSignUp'
 import LockedSvg from '@App/components/svgs/lockedSvg'
-import SquiggleSvg from '@App/components/svgs/squiggleSvg'
 import useSite from '@App/hooks/useSite'
 import { classNames } from '@App/utils/appUtils'
 
@@ -83,7 +82,7 @@ function TutorialDownloads(props: Props) {
           </p>
           <div className='flex flex-row items-center mt-3 mb-6 button_container'>
             <div className='mr-4'>
-              <button data-testid="subscribe-btn" onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
+              <button data-testid="subscribe-btn" type='button' onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
             </div>
             <div>
               <p className='text-sm italic'>
@@ -98,6 +97,7 @@ function TutorialDownloads(props: Props) {
             </p>
           </div>
         </>}
+
       </div>
 
       {/* LOCKED CONTENT */}
@@ -121,7 +121,7 @@ function TutorialDownloads(props: Props) {
                 <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button data-testid='download-btn' disabled={!resourceUser ? true : false} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
+                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
                   Download
                 </button>
               </div>
@@ -137,62 +137,3 @@ function TutorialDownloads(props: Props) {
 }
 
 export default TutorialDownloads
-
-
-// const TutorialContent = () => {
-//   return (
-//     // <div className='flex flex-col tablet:flex-row desktop:flex-col rounded-2.5xl overflow-hidden shadow-xs' >
-//     //   {/* SIGNUP BLOCK */}
-//     //   {!resourceUser && <div className='flex flex-col bg-primary-600 text-primary-50 p-9 laptop:max-w-[410px] desktop:max-w-none'>
-//     //     <div className='mb-4 text-5xl font-sentinel__SemiBoldItal'>
-//     //       Tutorial Downloads
-//     //     </div>
-//     //     <p className='mb-4'>
-//     //       Gain access to all tutorial assets for free by joining Tuesday Makers.
-//     //     </p>
-//     //     <div className='flex flex-row items-center mt-3 mb-6 button_container'>
-//     //       <div className='mr-4'>
-//     //         <Link to={`/tuesday-makers?redirect=${post.slug}`} prefetch='intent' className='btn btn-secondary hover:ring-offset-primary-600 active:ring-offset-primary-600'>Subscribe</Link>
-//     //       </div>
-//     //       <div>
-//     //         <p className='text-sm italic text-primary-200'>
-//     //           This kit available only for Unlimited Access subscribers
-//     //         </p>
-//     //       </div>
-//     //     </div>
-
-//     //     <div className='login'>
-//     //       <p className='text-white'>
-//     //         Already a member? <Link to='/tuesday-makers/login' prefetch='intent' className='font-semibold underline text-primary-300 underline-offset-4 hover:text-teal-400'>Sign In</Link>
-//     //       </p>
-//     //     </div>
-//     //   </div>}
-
-//     //   {/* LOCKED CONTENT */}
-//     //   <div className='flex-1 bg-white'>
-//     //     <div className='border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300'>
-//     //       Free Downloads in the video
-//     //     </div>
-//     //     <div className='p-6 locked_items_list'>
-//     //       {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
-//     //         return (
-//     //           <div className='flex flex-row items-center mb-4' key={index}>
-//     //             <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-neutral-400 rounded-lg p-2.5 mr-4">
-//     //               <div className='w-[30px]'>
-//     //                 {!resourceUser ? <LockedSvg fill={`var(--neutral-600)`} /> : <SquiggleSvg fill={`var(--primary-plum-400)`} />}
-//     //               </div>
-//     //             </div>
-//     //             <div className="flex flex-col items-start justify-start text-left locked_item">
-//     //               <div className='text-lg font-semibold text-primary-600'>
-//     //                 {item.title}
-//     //               </div>
-//     //               <button className={!resourceUser ? `text-neutral-500` : `text-primary-500`} onClick={handleDownload(index)}>Download</button>
-//     //             </div>
-//     //           </div>
-//     //         )
-//     //       })}
-//     //     </div>
-//     //   </div>
-//     // </div>
-//   )
-// }

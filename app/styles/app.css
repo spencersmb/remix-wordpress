@@ -2049,9 +2049,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .p-0 {
   padding: 0px;
 }
-.p-9 {
-  padding: 2.25rem;
-}
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -2607,14 +2604,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(243 245 246 / var(--tw-text-opacity));
 }
-.text-primary-200 {
-  --tw-text-opacity: 1;
-  color: rgb(240 214 199 / var(--tw-text-opacity));
-}
-.text-primary-300 {
-  --tw-text-opacity: 1;
-  color: rgb(205 167 167 / var(--tw-text-opacity));
-}
 .text-opacity-90 {
   --tw-text-opacity: 0.9;
 }
@@ -3084,10 +3073,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(79 113 113 / var(--tw-text-opacity));
 }
-.hover\:text-teal-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(45 212 191 / var(--tw-text-opacity));
-}
 .hover\:text-opacity-100:hover {
   --tw-text-opacity: 1;
 }
@@ -3139,9 +3124,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .hover\:ring-offset-sage-700:hover {
   --tw-ring-offset-color: #475658;
-}
-.hover\:ring-offset-primary-600:hover {
-  --tw-ring-offset-color: var(--primary-plum-600);
 }
 .focus\:border-0:focus {
   border-width: 0px;
@@ -4126,9 +4108,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
   .laptop\:max-w-\[375px\] {
     max-width: 375px;
-  }
-  .laptop\:max-w-\[410px\] {
-    max-width: 410px;
   }
   .laptop\:flex-\[1_1_50\%\] {
     flex: 1 1 50%;

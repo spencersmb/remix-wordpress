@@ -34,8 +34,9 @@ module.exports = {
   collectCoverageFrom: [
       "<rootDir>/app/**/*.{ts,tsx}",
 
-      '!<rootDir>/app/components/buttons/**',
       // '!<rootDir>/app/components/blog/**',
+
+      '!<rootDir>/app/components/buttons/**',
       '!<rootDir>/app/components/cards/**',
       '!<rootDir>/app/components/comments/**',
       '!<rootDir>/app/components/footer/**',
@@ -52,7 +53,7 @@ module.exports = {
       '!<rootDir>/app/components/seo/**',
       '!<rootDir>/app/components/sitemap/**',
       '!<rootDir>/app/components/svgs/**',
-      '!<rootDir>/app/components/tabs/**',
+      // '!<rootDir>/app/components/tabs/**',
       '!<rootDir>/app/hooks/**',
       '!<rootDir>/app/lib/**',
       '!<rootDir>/app/utils/**',

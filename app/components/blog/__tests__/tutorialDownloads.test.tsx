@@ -1,14 +1,13 @@
-import BasicModal from "@App/components/modals/BasicModal"
 import type { ISiteContextState } from "@App/hooks/useSite"
 import { fireEvent, screen } from "@testing-library/react"
 import { mockPostData, mockTutorialManagerDownloads } from "@TestUtils/mock-data/posts"
-import { mockPaidProduct } from "@TestUtils/mock-data/products"
 import { mockUseSiteData_default } from "@TestUtils/mock-data/useSiteMock"
 import { UseSiteProviderRender } from "@TestUtils/providerUtils"
 import TutorialDownloads from "../tutorialContent/tutorialDownloads"
 
 
 describe('Tutorial Downloads Component', () => {
+
   it('Should render no component', () => {
 
     const stateProps: ISiteContextState = {
@@ -96,18 +95,13 @@ describe('Tutorial Downloads Component', () => {
       , { props: stateProps })
 
 
-    // Locked Button Checks
-    const buttons = screen.getAllByTestId('download-btn')
-    expect(screen.getByTestId('test-tutorialDownloads')).toHaveTextContent('Sign In')
-    expect(buttons[0]).toBeDisabled()
-
     // locked content title
     const downloadItems = screen.getAllByTestId('test-downloadItem')
     expect(downloadItems[0]).toHaveTextContent(mockTutorialManagerDownloads[0].title)
 
   })
 
-  it('Should render Subscribe Button and handleClick', () => {
+  it('Should render Subscribe/Login Buttons', () => {
 
     const stateProps: ISiteContextState = {
       ...mockUseSiteData_default
@@ -130,20 +124,121 @@ describe('Tutorial Downloads Component', () => {
       isMobile: true
 
     }
-    // const spy = jest.spyOn(TutorialDownloads.prototype, 'handleSignupClick');
+
+    UseSiteProviderRender(
+      <TutorialDownloads {...tutorialProps} />
+      , { props: stateProps })
+
+
+    // Locked Button Checks
+    const buttons = screen.getAllByTestId('download-btn')
+    expect(screen.getByTestId('test-tutorialDownloads')).toHaveTextContent('Sign In')
+    expect(buttons[0]).toBeDisabled()
+
+    // Subscribe Button Checks
+    const subscribeButton = screen.getByTestId('subscribe-btn')
+    expect(subscribeButton).toHaveTextContent('Subscribe')
+  })
+
+  // USER LOGGED IN
+  // CHECKS
+  it('Should render Unlocked View', () => {
+
+    const stateProps: ISiteContextState = {
+      ...mockUseSiteData_default,
+      user: {
+        ...mockUseSiteData_default.user,
+        resourceUser: {
+          id: 1,
+          tags: [],
+        },
+      }
+    }
+    const tutorialProps: {
+      post: IPost
+      style?: any
+      isMobile?: boolean
+    } = {
+      post: {
+        ...mockPostData,
+        tutorialManager: {
+          ...mockPostData.tutorialManager,
+          downloads: mockTutorialManagerDownloads
+        }
+      },
+      style: {
+        top: 0
+      },
+      isMobile: true
+
+    }
+
     UseSiteProviderRender(
       <TutorialDownloads {...tutorialProps} />
       , { props: stateProps })
 
 
     // Button Checks
-    const subscribeButton = screen.getByTestId('subscribe-btn')
-    expect(subscribeButton).toHaveTextContent('Subscribe')
-    fireEvent.click(subscribeButton)
+    const header = screen.getByTestId('test-tutorialDownloads')
 
-    // expect(spy).toHaveBeenCalled();
-    // expect(screen.getByTestId('test-tuesdayMakersSignUpModal')).toBeVisible()
+    // Has Correct Header Test
+    expect(header).toHaveTextContent('Tutorial Downloads')
+
+    // Shouldnt find Subscribe Button Text
+    expect(header).not.toHaveTextContent('Subscribe')
+
+    // CHeck Download buttons are enabled
+    const downloadItems = screen.getAllByTestId('test-downloadItem')
+    expect(downloadItems[0]).toBeEnabled()
+
   })
 
+  it('Should allow user to download item', () => {
+
+    const stateProps: ISiteContextState = {
+      ...mockUseSiteData_default,
+      user: {
+        ...mockUseSiteData_default.user,
+        resourceUser: {
+          id: 1,
+          tags: [],
+        },
+      }
+    }
+    const tutorialProps: {
+      post: IPost
+      style?: any
+      isMobile?: boolean
+    } = {
+      post: {
+        ...mockPostData,
+        tutorialManager: {
+          ...mockPostData.tutorialManager,
+          downloads: mockTutorialManagerDownloads
+        }
+      },
+      style: {
+        top: 0
+      },
+      isMobile: true
+
+    }
+
+    UseSiteProviderRender(
+      <TutorialDownloads {...tutorialProps} />
+      , { props: stateProps })
+
+
+    window.open = jest.fn()
+
+    const downloadItems = screen.getAllByTestId('download-btn')
+    const button = downloadItems[0]
+    fireEvent.click(button)
+    expect(window.open)
+      .toHaveBeenCalledWith(mockTutorialManagerDownloads[0].freebie.downloadLink, '_blank')
+
+    expect(window.open).toHaveBeenCalledTimes(1)
+
+  })
 
 })

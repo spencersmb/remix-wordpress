@@ -4,7 +4,7 @@ import { SimpleTabsContext, simpleTabsDefaultState } from './simpleTabsContext'
 
 /**
  * @Component SimpleTabs
- *
+ * @tested - 5/27/2022
  * A generic Tab Component with a shareable state so that other content can
  * react to the selected tab.
  *

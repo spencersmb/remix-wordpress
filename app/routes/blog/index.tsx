@@ -201,6 +201,8 @@ function setWindowUrlParams(props: {
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
+  console.log('categories from useLoader', categories);
+
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
   const initializePostsFromServer = createInitializingFetchState({
     posts,
@@ -269,6 +271,7 @@ function BlogIndex() {
   }, [])
 
   useEffect(() => {
+
     if (!state.categories[category]) {
       console.log('fetching new cat in useEffect');
       fetchMoreCategories()
@@ -323,6 +326,7 @@ function BlogIndex() {
   async function fetchMoreCategories() {
     loadingPosts()
     const url = window.ENV.PUBLIC_WP_API_URL as string
+
     const variables = {
       first: 12,
       after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
@@ -339,8 +343,10 @@ function BlogIndex() {
           variables
         })
       })
-    const { data } = await body.json()
-    const filteredPosts = flattenAllPosts(data.posts) || []
+    const response = await body.json()
+    const { data } = response
+
+    const filteredPosts = flattenAllPosts(response.data.posts) || []
     let updatedPosts = []
     if (state.categories[category]) {
       updatedPosts = [
@@ -519,7 +525,6 @@ query GetMorePosts($first: Int, $after: String) {
 }
 `
 const catQuery = gql`
-  ${POST_BASIC_FIELDS}
   query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
     posts(
       first: $first

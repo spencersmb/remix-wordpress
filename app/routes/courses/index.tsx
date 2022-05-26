@@ -11,6 +11,7 @@ import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses, rearrangeLicenses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
+import { useSimpleTabs } from "@App/components/tabs/SimpleTabs/simpleTabsContext";
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses - Every-Tuesday`,
@@ -42,7 +43,9 @@ const Courses = () => {
 
   // TODO: SPECIFY loadER dATa tYpES
   const data = useLoaderData<ILoaderData>()
+  // const test = useSimpleTabs()
   console.log('data', data);
+  // console.log('test', test);
 
   return (
     <Layout>

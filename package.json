@@ -9,7 +9,7 @@
     "deploy": "npm run build && flyctl deploy --verbose",
     "deploy:no-cache": "npm run build && flyctl deploy --no-cache",
     "deploy:staging": "npm run build && flyctl deploy -c fly-staging.toml",
-    "startold": "node -r dotenv/config node_modules/.bin/remix-serve build",
+    "startLocal": "node -r dotenv/config node_modules/.bin/remix-serve build",
     "start": "remix-serve build",
     "build": "npm run buildPlugins && npm run build:css && remix build",
     "build:css2": "tailwindcss -o app/styles/tailwind.css",
