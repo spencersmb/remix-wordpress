@@ -36,7 +36,6 @@ describe('BlogFeature Post Component', () => {
         }} />
       </MemoryRouter>
     )
-    screen.debug()
     const links: HTMLAnchorElement[] = screen.getAllByRole("link")
     links.forEach(link => {
       expect(link.href).toContain(`/${mockPostDataComplete.slug}`)
@@ -51,7 +50,6 @@ describe('BlogFeature Post Component', () => {
         }} />
       </MemoryRouter>
     )
-    screen.debug()
     const image = screen.getByTestId("make-this-image")
     const arrow = screen.getByTestId("make-this-arrow")
     expect(arrow).toBeVisible()
