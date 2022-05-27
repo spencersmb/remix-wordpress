@@ -64,8 +64,8 @@ function CourseHeader() {
               key={'Online Course Author'}
               image={
                 {
-                  width: '800',
-                  height: '1367',
+                  width: '800px',
+                  height: '1367px',
                   altTitle: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
                   sourceUrl: headerData.profileImage.src,
                   placeholder: headerData.profileImage.placeholder,

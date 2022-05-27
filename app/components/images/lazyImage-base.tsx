@@ -8,16 +8,27 @@ interface Props {
   scrollPosition?: ScrollPosition
   alt?: string
   reverse?: boolean
+  testId?: string
 }
+const checkForPx = (value: string | number) => {
+  let convertedValue = typeof value === 'number' ? value.toString() : value
 
+  if (convertedValue.indexOf('px') !== -1) {
+    return value
+  } else {
+    return `${value}px`
+  }
+}
 function LazyImageBase(props: Props) {
-  const { image, id, scrollPosition, alt, reverse } = props
+  const { image, id, scrollPosition, alt, reverse, testId } = props
+
 
   const imagePadding = reverse ? parseInt(image.width, 10) / parseInt(image.height, 10) : parseInt(image.height, 10) / parseInt(image.width, 10)
   return (
     <div style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative flex-1`}>
       <div className='absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>
         <LazyLoadImage
+          data-testid={testId ? testId : `lazy-load-image-${id}`}
           key={id}
           alt={alt ? alt : image.altTitle}
           effect="blur"
@@ -29,8 +40,8 @@ function LazyImageBase(props: Props) {
           // whether it must track the scroll position or not
           scrollPosition={scrollPosition}
           src={image.sourceUrl}
-          height={`${image.height}px`}
-          width={`${image.width}px`}
+          height={`${checkForPx(image.height)}`}
+          width={`${checkForPx(image.width)}`}
         />
       </div>
     </div>
