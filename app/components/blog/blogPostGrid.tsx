@@ -3,6 +3,7 @@ import PostCardOne from '../cards/postCardOne'
 import type { LazyComponentProps } from 'react-lazy-load-image-component';
 import { trackWindowScroll }
   from 'react-lazy-load-image-component';
+
 interface Props {
   posts: IPost[]
   category: string
@@ -23,7 +24,7 @@ function BlogPostGrid(props: IProps) {
   const { posts, category, categories, scrollPosition } = props
 
   return (
-    <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
+    <div data-testid="post-grid" className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
       {/* @ts-ignore */}
       <AnimatePresence>
         {category === 'all' && posts.map((post: any, index) => {
@@ -34,10 +35,12 @@ function BlogPostGrid(props: IProps) {
         {category !== 'all' && categories[category] && categories[category].posts.map(post => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
         )}
 
-        {category !== 'all' && categories[category] && categories[category].posts.length === 0 &&
+        {posts.length === 0 || (categories[category] && categories[category].posts.length === 0)
+          ?
           <motion.div>
             <h4>Sorry, There are no posts in Category: {category} yet.</h4>
           </motion.div>
+          : null
         }
       </AnimatePresence>
     </div>

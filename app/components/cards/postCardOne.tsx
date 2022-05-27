@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { LazyLoadImage, ScrollPosition } from "react-lazy-load-image-component";
+import type { ScrollPosition } from "react-lazy-load-image-component";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "@App/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers";
@@ -52,6 +53,7 @@ function PostCardOne(props: Props) {
 
   return (
     <motion.div
+      data-testid="post-card-one"
       key={post.slug}
       initial={{
         opacity: 0,
