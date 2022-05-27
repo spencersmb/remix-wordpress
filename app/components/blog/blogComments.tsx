@@ -39,10 +39,12 @@ function BlogComments(props: Props) {
   }
 
   return (
-    <div className='flex flex-row justify-between items-center'>
-      <div onClick={handleCommentsClick} className='flex flex-row hover:cursor-pointer items-center'>
+    <div className='flex flex-row items-center justify-between'>
+
+      <div onClick={handleCommentsClick} className='flex flex-row items-center hover:cursor-pointer'>
+
         {/* ICON */}
-        <div className='w-7 mr-2'>
+        <div className='mr-2 w-7'>
           <CommentsSvg stroke={'var(--primary-plum-600)'} />
         </div>
 
@@ -53,8 +55,9 @@ function BlogComments(props: Props) {
             : <p className='font-sentinel__SemiBoldItal text-neutral-600'>Leave a comment</p>}
         </div>
       </div>
+
       <div>
-        <ul className='flex flex-row justify-center items-center'>
+        <ul className='flex flex-row items-center justify-center'>
           <li className='mr-2'>Share on</li>
           {socialkeys.map(key => {
             const socialCss = 'flex bg-primary-600 rounded-full w-[30px] h-[30px] p-[5px] group hover:bg-primary-400 hover:scale-[1.2] transition-all duration-200 ease-in-out'
@@ -81,6 +84,7 @@ function BlogComments(props: Props) {
           )}
         </ul>
       </div>
+
     </div>
   )
 }

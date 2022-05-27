@@ -11,7 +11,7 @@ function BlogAuthor(props: Props) {
   const { post } = props
 
   return (
-    <div className='flex flex-col flex-wrap items-center tablet:flex-row'>
+    <div data-testid="blogAuthor-test" className='flex flex-col flex-wrap items-center tablet:flex-row'>
 
       {/* IMAGE */}
       <div className='tablet:mr-2'>

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Blog Author Tests Should render Blog Author Component  1`] = `
+<div
+  className="flex flex-col flex-wrap items-center tablet:flex-row"
+  data-testid="blogAuthor-test"
+>
+  <div
+    className="tablet:mr-2"
+  >
+    <div
+      className="w-[100px]"
+    >
+      <div
+        className="overflow-hidden rounded-full max-w-none lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+      >
+        <span
+          className=" lazy-load-image-background blur"
+          style={
+            Object {
+              "backgroundImage": "",
+              "backgroundSize": "",
+              "color": "transparent",
+              "display": "inline-block",
+              "height": "96px",
+              "width": "96px",
+            }
+          }
+        >
+          <span
+            className=""
+            style={
+              Object {
+                "display": "inline-block",
+                "height": "96px",
+                "width": "96px",
+              }
+            }
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left"
+  >
+    <div
+      className="mb-2 text-sm text-neutral-600"
+    >
+      Written By
+    </div>
+    <div
+      className="text-primary-600 font-sentinel__SemiBoldItal text-h3"
+    >
+      Teela Cunningham
+    </div>
+    <div
+      className="text-base text-primary-600"
+    >
+      Every Tuesday's content creator and founder.
+    </div>
+  </div>
+  <div
+    className="mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0"
+  >
+    <a
+      className="btn btn-primary"
+      href="/about"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      About Me
+    </a>
+  </div>
+</div>
+`;
