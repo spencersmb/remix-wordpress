@@ -1,23 +1,49 @@
 import { Link } from "@remix-run/react"
 
-interface IBreadCrumb {
-  url: string
-  text: string
+
+/**
+ * Breadcrumbs component
+ *  home page has link already by default
+ *  first item in the array is the 2nd link in the breadcrumb
+ *  manually set it here because of testing
+ * @tested - 5/27/2020
+ * @param {IBreadCrumb[]} array
+ */
+function removeLastItemFromArray(array: any[] | undefined) {
+  if (!array) {
+    return { lastElement: null, modifiedArray: null }
+  }
+  const newArray = [...array]
+  const lastElement = newArray.pop()
+  return {
+    modifiedArray: newArray,
+    lastElement
+  }
+
 }
 function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
   const { links } = props
-  const lastElement = links?.pop()
+  const { modifiedArray, lastElement } = removeLastItemFromArray(links)
+
   return (
     <div className="mt-8">
       <ul className="flex flex-row text-xs text-primary-500 tablet:text-base">
-        <li><Link to={'/'} className='font-semibold'>Home </Link> <span className="mr-1">/</span></li>
-        {links && links.map((link, index) => {
+        <li>
+          <Link to={'/'} className='font-semibold'>Home </Link>
+          <span className="mr-1">/</span></li>
+        {modifiedArray && modifiedArray.map((link, index) => {
           const linkText = `${link.text}`
           return (
-            <li key={index} ><Link className='font-semibold' to={link.url}>{linkText}</Link></li>
+            <li key={index}>
+              <Link className='font-semibold' to={link.url}>{linkText}</Link>
+            </li>
           )
         })}
-        {lastElement && <li className=""><span className="mx-1">/</span>{lastElement.text}</li>}
+        {lastElement &&
+          <li data-testid="last-element" className="">
+            <span className="mx-1">/</span>
+            {lastElement.text}
+          </li>}
       </ul>
     </div>
   )

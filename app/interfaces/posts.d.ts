@@ -8,6 +8,10 @@ interface ICategories {
 interface ICategoryRaw {
   node: ICategories
 }
+interface IBreadCrumb {
+  url: string
+  text: string
+}
 
 interface IFeaturedImage {
   altText: string

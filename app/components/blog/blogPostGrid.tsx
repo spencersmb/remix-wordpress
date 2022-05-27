@@ -20,6 +20,12 @@ interface Props {
 }
 type IProps = LazyComponentProps & Props
 
+/**
+ * BlogPostGrid
+ * @tested - 5/27/2022
+ * 
+ * @returns 
+ */
 function BlogPostGrid(props: IProps) {
   const { posts, category, categories, scrollPosition } = props
 

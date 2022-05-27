@@ -11,6 +11,12 @@ interface Props {
   featuredPost: IPost | undefined
 }
 
+/**
+ * BlogFeaturedPost
+ * @tested - 5/27/2022
+ * 
+ * @returns 
+ */
 function BlogFeaturedPost(props: Props) {
   const { featuredPost } = props
 

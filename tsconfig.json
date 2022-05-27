@@ -18,6 +18,7 @@
       "ES2019"
     ],
     "isolatedModules": true,
+    "module": "esnext",
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
