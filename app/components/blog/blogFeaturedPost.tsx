@@ -52,7 +52,7 @@ function BlogFeaturedPost(props: Props) {
       {/* FEATURED IMAGE */}
       <div className="featured_image mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-end-8 tablet:row-span-3 tablet:row-start-1 desktop:col-start-2 max-w-[660px] ml-auto mr-0 desktop:mt-24 w-full">
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
-          {/* {createThumbnailImage(featuredPost.tutorialManager, image, featuredPost.title, true)} */}
+
           <div className={`absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg] z-10`}>
             <div className='relative z-10 lazy-load-image-full'>
               <LazyImageBase id={featuredPost.id} image={makeThisImage} reverse />
@@ -61,6 +61,7 @@ function BlogFeaturedPost(props: Props) {
               <LazyImageBase id={featuredPost.id} image={makeThisArrow} />
             </span>
           </div>
+
           <div className="relative pb-[92%]">
             <div className="rounded-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
               <LazyImageBase id={featuredPost.id} image={postImage} />
@@ -76,13 +77,17 @@ function BlogFeaturedPost(props: Props) {
 
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:col-span-6 tablet:col-start-8 tablet:row-start-1 tablet:mt-12 tablet:ml-6 desktop:ml-12 desktop:col-span-5 desktop:col-start-8 desktop:mt-24 ">
+
         <span className="py-4 text-sm leading-none text-primary-400 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span>
+
         <h2 className="mb-6 font-sentinel__SemiBoldItal text-heading-3 text-primary-600 laptop:text-5xl laptop:mb-8">
           <Link to={`/${featuredPost.slug}`} prefetch="intent">
             {featuredPost.title}
           </Link>
         </h2>
+
         <div className="flex flex-row flex-wrap items-start mb-6 text-base text-primary-600 tablet:mb-3 laptop:mb-6">
+
           {skill && <div className="flex flex-row items-center mb-2 mr-4 tablet:mr-12">
             <span className="mr-1 max-w-[15px]"><BarChartSvg fill={'var(--warning-700)'} /></span>
             <div>
@@ -90,12 +95,15 @@ function BlogFeaturedPost(props: Props) {
               <span className='font-semibold'>{skill.name}</span>
             </div>
           </div>}
+
           <div className="flex flex-row items-center flex-auto mb-2">
             <span className="mr-2 max-w-[12px]"><ClockSvg fill={'var(--warning-700)'} /></span>
             {formatDate(featuredPost.date)}</div>
+
           <div className="mb-2 flex flex-row flex-[0_1_100%] items-center">
             <span className="mr-2 max-w-[12px]"><EditSvg fill={'var(--warning-700)'} /></span>
             by Teela Cunningham</div>
+
         </div>
       </div>
 
@@ -103,7 +111,9 @@ function BlogFeaturedPost(props: Props) {
       <div className="relative z-10 col-span-2 col-start-2 row-start-3 featured-content tablet:col-span-6 tablet:col-start-8 tablet:row-start-2 desktop:col-span-5 desktop:col-start-8 tablet:mt-5 tablet:ml-6 laptop:mt-7 desktop:ml-12">
         <div className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />
         <div className='mt-8'>
+
           <CircularStrokeLink href={`/${featuredPost.slug}`} text='Read More' classes="py-[17px] px-[24px] text-base text-primary-700" />
+
         </div>
       </div>
 

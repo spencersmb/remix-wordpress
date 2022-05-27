@@ -262,12 +262,16 @@ export function findString(str: string, arr: string[]) {
   return arr.find(item => item.includes(str))
 }
 
+/**
+ * This function takes the blog catgegories and looks for skill level. Will reutrn the skill level if found from highest to lowest incase there are multiple skill levels.
+ */
 export function findSkillLevel(categories: ICategories[]): ICategories | undefined {
   let tutorialsFound = false
   let defaultSkill = {
     name: "beginner",
   }
   let skillFoundStopLooking = false
+
   const skillFound = categories.reduce((previousValue: any, currentValue: ICategories): any => {
     if (currentValue.slug === "tutorials") {
       tutorialsFound = true

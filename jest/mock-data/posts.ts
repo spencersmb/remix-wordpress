@@ -633,6 +633,131 @@ export const mockPostData: IPost = {
     title: '',
   }
 }
+
+export const mockComments: IComments = {
+    pageInfo: {
+    endCursor: "YXJyYXljb25uZWN0aW9uOjIxODQyNA==",
+    hasNextPage: true
+  },
+  list: [
+    {
+      databaseId: 218427,
+      // approved: true,
+      parent: null,
+      id: "Y29tbWVudDoyMTg0Mjc=",
+      author: {
+        id: "YWRtaW5pc3RyYXRvcjox",
+        databaseId: "1",
+        name: "Spencer Bigum",
+        gravatar: {
+          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+        }
+      },
+      date: "2022-01-27 21:08:02",
+      // commentedOn: {
+      //   node: {
+      //     id: "cG9zdDo1NDM0",
+      //     status: "publish"
+      //   }
+      // },
+      content: "<p>4</p>\n",
+      replies: []
+      },
+    {
+      databaseId: 218426,
+      // approved: true,
+      parent: null,
+      id: "Y29tbWVudDoyMTg0MjY=",
+      author: {
+        databaseId: "1",
+        id: "YWRtaW5pc3RyYXRvcjox",
+        name: "Spencer Bigum",
+        gravatar: {
+          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+        }
+      },
+      date: "2022-01-27 21:07:22",
+      // commentedOn: {
+      //   node: {
+      //     id: "cG9zdDo1NDM0",
+      //     status: "publish"
+      //   }
+      // },
+      content: "<p>3</p>\n",
+      replies: [
+          {
+            id: "Y29tbWVudDoyMTg0MzM=",
+            databaseId: 218433,
+            content: "<p>two test</p>\n",
+            date: "2022-01-28 01:31:37",
+            parent: 218426,
+            author: {
+              databaseId: "2",
+              id: "YWRtaW5pc3RyYXRvcjoxMg==",
+              name: "twotest",
+              gravatar: {
+                url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+              }
+            }
+          },
+          {
+            id: "Y29tbWVudDoyMTg0MzI=",
+            databaseId: 218432,
+            content: "<p>test</p>\n",
+            date: "2022-01-28 01:26:12",
+            parent: 218426,
+            author: {
+              databaseId: "1",
+              id: "YWRtaW5pc3RyYXRvcjox",
+              name: "Spencer M Bigum",
+              gravatar: {
+              url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+              }
+            }
+            },
+          {
+            id: "Y29tbWVudDoyMTg0Mjg=",
+            databaseId: 218428,
+            content: "<p>tes</p>\n",
+            date: "2022-01-27 21:08:26",
+            parent: 218426,
+            author: {
+              databaseId: "3",
+              id: "YWRtaW5pc3RyYXRvcjoxMw==",
+              name: "Teela Bigum",
+              gravatar: {
+                url: "https://secure.gravatar.com/avatar/aac786a8b226660a1064233ededdda6b?s=96&d=mm&r=g"
+              }
+            }
+          }
+        ]
+      },
+    {
+      databaseId: 218424,
+      // approved: true,
+      parent: null,
+      id: "Y29tbWVudDoyMTg0MjQ=",
+      author: {
+        databaseId: "1",
+        id: "YWRtaW5pc3RyYXRvcjox",
+        name: "Spencer",
+        gravatar: {
+          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+        }
+      },
+      date: "2022-01-27 21:05:42",
+      // commentedOn: {
+      //   node: {
+      //     id: "cG9zdDo1NDM0",
+      //     status: "publish"
+      //   }
+      // },
+      content: "<p>test</p>\n",
+      replies: []
+      }
+  ]
+}
+
 export const mockPostDataComplete: IPost = {
   id: "cG9zdDoxMDA4Mw==",
     content: "\n<h5>Here&#8217;s a written overview of how to candy cane lettering in Procreate :</h5>\n\n\n\n<ul><li>Set your background color and write out your typography with the <a href=\"https://etheadless.local/beautiful-lettering-brushes\" target=\"_blank\" rel=\"noreferrer noopener\">pencil pro brush</a> at 25%. Fill up a large amount of the canvas with your lettering since it will be the focus. </li><li>Create your candies by creating a new layer and draw in little triangles in the letter o&#8217;s. Switch colors and fill in the gaps. Choose liquify and choose twirl left or right and tap and hold right in the center of the candy and push down. Complete the candy by giving it a background circle. Apply a clipping mask to the swirl to lock it into the shape. </li><li>Erase the o&#8217;s from the lettering layer. Add a wrapper to the candy. Duplicate the candy layer and move it down into jolly, and reflect it so that it does not look the exact same. </li><li>Create a new layer above your lettering layer and draw in lines on all of your letters. Once the lines are done, apply a clipping mask to lock in the stripes. </li><li>Add in a shadow by creating a copy of your lettering layer, choose motion blur and drag it down and to the right. </li><li>To make it pop even more, add in a highlight. Draw a line on the letters on the left side. Apply a gaussian blur and change the blend mode to overlay. </li><li>Draw in some wintery swirls to fill the canvas, draw in some dots that vary in size to mimic snow. Finally, add in some asterisks so they look like little stars. </li><li>Done!</li></ul>\n\n\n\n<p></p>\n",

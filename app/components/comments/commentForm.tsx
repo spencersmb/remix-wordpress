@@ -68,7 +68,6 @@ const defaultFormState: IFormState = {
 }
 const CommentForm = (props: IProps) => {
   const { addComment, addCommentReply } = useSite()
-
   const [formState, setFormState] = useState<IFormState>(defaultFormState);
 
   // used on the Reply to Comment flow, to still notify user their pending comment
@@ -144,7 +143,6 @@ const CommentForm = (props: IProps) => {
     event.preventDefault();
 
     let parent = props.replyToComment
-
       ? props.replyToComment.parent   // if replyToComment.parent is defined, then we are replying to a comment
         ? props.replyToComment.parent
         : props.replyToComment.databaseId
@@ -211,6 +209,7 @@ const CommentForm = (props: IProps) => {
 
   return (
     <div className="mb-4">
+      {/* @ts-ignore */}
       <AnimatePresence>
         {!hideForm ?
           <motion.div
@@ -307,6 +306,7 @@ const CommentForm = (props: IProps) => {
 
                 {/* Error MESSAGE */}
                 <div>
+                  {/* @ts-ignore */}
                   <AnimatePresence>
                     {/* SERVER ERROR */}
                     {commentError && <div className="overflow-hidden text-sm italic form-validation-error text-error-500">

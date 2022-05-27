@@ -7,6 +7,15 @@ interface Props {
   post: IPost
 }
 
+/**
+ * Blog Post Author
+ * 
+ * @tested - 5/26/2022
+ * 
+ * 
+ * @param props 
+ * @returns 
+ */
 function BlogAuthor(props: Props) {
   const { post } = props
 

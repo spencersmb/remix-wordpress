@@ -7,14 +7,19 @@ import FacebookSvg from '../svgs/social/facebookSvg'
 interface Props {
   post: IPost
 }
-
+/**
+ * BlogComments Component
+ * @tested - 5/26/2022
+ * 
+ * Shows a button to open the comments modal and a Facebook share button
+ * 
+ * @param props 
+ */
 function BlogComments(props: Props) {
   const { post } = props
   const { showComments, hideComments, state: { commentsModal, metadata, } } = useSite();
   const socialkeys = Object.keys(metadata.social) //used to build out social links
   const postUrl = `${metadata.domain}/${post.slug}`
-
-
 
   function handleCommentsClick() {
     console.log('click comments');
@@ -49,7 +54,7 @@ function BlogComments(props: Props) {
         </div>
 
         {/* COUNT */}
-        <div>
+        <div data-testid="comments-count">
           {post.comments.list.length !== 0
             ? <p className='text-primary-700'><span className='font-semibold'>{post.comments.list.length}</span> comments</p>
             : <p className='font-sentinel__SemiBoldItal text-neutral-600'>Leave a comment</p>}
@@ -68,6 +73,7 @@ function BlogComments(props: Props) {
                   <li key={key} className='flex mr-2'>
                     <a
                       id="shareBtn"
+                      data-testid="facebook-share-btn"
                       rel="nofollow noreferrer"
                       target="_blank"
                       href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
@@ -75,10 +81,12 @@ function BlogComments(props: Props) {
                       onClick={handleFacebookShareClick}
                       className={`${socialCss}`}>
                       <FacebookSvg className={`${svgCsss}`} fill={`var(${cssColors.primaryPlum50})`} />
-                      <span className="sr-only">Every Tuesday on Youtube</span>
+                      <span className="sr-only">Every Tuesday on Facebook</span>
                     </a>
                   </li>
                 )
+              default:
+                return null
             }
           }
           )}

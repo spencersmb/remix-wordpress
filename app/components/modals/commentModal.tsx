@@ -25,6 +25,7 @@ import { parseComment } from '@App/utils/posts'
 const CommentModal = () => {
   const { state: { commentsModal }, addComment, hideComments, fetchMoreComments } = useSite()
   const [loading, setLoading] = useState(false)
+
   async function fetchMore() {
     setLoading(true)
     const url = window.ENV.PUBLIC_WP_API_URL as string
@@ -69,6 +70,7 @@ const CommentModal = () => {
   }
 
   return (
+    // @ts-ignore
     <AnimatePresence>
       {commentsModal.show
         ? <>
@@ -82,8 +84,8 @@ const CommentModal = () => {
             <div className='flex flex-col'>
 
               {/* COMMENT HEADER */}
-              <div className="comments_header flex flex-row justify-between pt-6 px-6 tablet:px-12 laptop:pr-10">
-                <div className='flex flex-row font-sentinel__SemiBoldItal text-h3 text-primary-700 items-end'>
+              <div className="flex flex-row justify-between px-6 pt-6 comments_header tablet:px-12 laptop:pr-10">
+                <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-primary-700'>
                   Comments <span className='text-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
                 </div>
                 <div className='w-[40px] hover:cursor-pointer' onClick={hideComments}>
