@@ -4,7 +4,7 @@ import LazyImageBase from '../images/lazyImage-base'
 import UploadSvg from '../svgs/uploadSvg'
 
 interface Props {
-  image: IMediaDetailSize
+  image: ImageLookupReturn
   title: string,
   excerpt: string
   id: string | number

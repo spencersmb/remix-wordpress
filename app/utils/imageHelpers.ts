@@ -48,7 +48,7 @@ interface ILoadImageSrcArgs {
   imageObject: IFeaturedImage | null, 
   fallbackSize?: ImageSizeEnums, 
   fallbackImage?: IMediaDetailSize }
-type IGetImageSize = (props: ILoadImageSrcArgs) => IMediaDetailSize
+type IGetImageSize = (props: ILoadImageSrcArgs) => ImageLookupReturn
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
   
   // opt out to just return the sourceURL image
@@ -83,10 +83,10 @@ export const loadImageSrc: IGetImageSize = ({
     altTitle: 'Every Tuesday Fallback Featured Image',
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024',
     srcSet: '',
-    sizes: [],
+    sizes: '',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   }
-}): IMediaDetailSize => {
+}) => {
 
   if (!imageObject || !imageObject.mediaDetails) {
     return fallbackImage
@@ -117,7 +117,7 @@ export const loadImageSrc: IGetImageSize = ({
 }
 
 export function loadThumbnailSrc(tutorialManager: ITutorialManager,
-  defaultImage: IMediaDetailSize): IMediaDetailSize {
+  defaultImage: ImageLookupReturn): ImageLookupReturn {
 
   if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
     return {
@@ -132,7 +132,7 @@ export function loadThumbnailSrc(tutorialManager: ITutorialManager,
     srcSet: '',
     altTitle: tutorialManager.thumbnail.image.altText,
     placeholder: `${imageName}-20x20.jpg`,
-    sizes: [],
+    sizes: '',
   }
 
 }

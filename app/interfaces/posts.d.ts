@@ -20,7 +20,7 @@ interface IFeaturedImage {
   sourceUrl: string
   srcSet: string
   mimeType: string
-  mediaDetails: IMediaDetailSize
+  mediaDetails: IMediaDetails
 }
 
 interface IFeaturedImageNode {
@@ -120,6 +120,14 @@ interface IPostSeo {
   readingTime: number
 }
 
+interface IMediaDetailsSize {
+  width: string,
+  file: string
+  height: string
+  name: string
+  sourceUrl: string
+  mimeType: string
+}
 interface IMediaDetailSize {
   width: number
   height: number
@@ -127,7 +135,23 @@ interface IMediaDetailSize {
   sourceUrl: string
   placeholder: string
   srcSet: string
-  sizes: string[]
+  sizes: IMediaDetailsSize[]
+}
+
+interface IMediaDetails {
+  width: number
+  height: number
+  sizes: IMediaDetailsSize[]
+}
+
+interface ImageLookupReturn {
+  width: number
+  height: number
+  altTitle: string
+  sourceUrl: string
+  placeholder: string
+  srcSet: string
+  sizes: string
 }
 
 interface ISocialNav {

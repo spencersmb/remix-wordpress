@@ -3,7 +3,7 @@ import type { ScrollPosition } from 'react-lazy-load-image-component';
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface Props {
-  image: IMediaDetailSize
+  image: ImageLookupReturn
   id: string | number
   scrollPosition?: ScrollPosition
   alt?: string

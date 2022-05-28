@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import type { ScrollPosition } from "react-lazy-load-image-component";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "@App/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
 import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
 import { Link } from "@remix-run/react";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface Props {
   post: IPost
@@ -32,22 +32,22 @@ function PostCardOne(props: Props) {
     ? "mb-0"
     : "mb-4"
 
-  const makeThisImage: IMediaDetailSize = {
+  const makeThisImage: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${post.title}`,
     height: 373,
     width: 162,
     sourceUrl: "/images/make-this.png",
     srcSet: '',
-    sizes: [],
+    sizes: '',
     placeholder: '/images/make-this.png',
   }
-  const makeThisArrow: IMediaDetailSize = {
+  const makeThisArrow: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${post.title}`,
     height: 340,
     width: 272,
     sourceUrl: "/images/make-this-arrow-1.png",
     srcSet: '',
-    sizes: [],
+    sizes: '',
     placeholder: '/images/make-this-arrow-1.png',
   }
 
@@ -76,7 +76,7 @@ function PostCardOne(props: Props) {
       <div className='flex rounded-xl overflow-hidden transform transition-all shadow-md duration-500 translate-y-0 laptop:hover:shadow-et_4 laptop:hover:translate-y-[-5px] relative flex-1 bg-white'>
         <Link className='flex flex-col justify-start' to={`../${post.slug}`} prefetch={'intent'}>
 
-          <div className="wrapper">
+          <div data-testid="post-card-one-image-wrapper" className="wrapper">
             {/* Make This */}
             {post.tutorialManager
               && post.tutorialManager.thumbnail.image
@@ -104,7 +104,7 @@ function PostCardOne(props: Props) {
             {/* CARD IMAGE */}
             <div className={`relative ${paddingBottom} ${marginBottom}`}>
               <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
-                <LazyImageBase image={postImage} id={post.id} scrollPosition={scrollPosition} />
+                <LazyImageBase testId="post-card-one-feature-image" image={postImage} id={post.id} scrollPosition={scrollPosition} />
                 {/* <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}
@@ -127,14 +127,14 @@ function PostCardOne(props: Props) {
             <div className='flex flex-col items-center justify-center flex-1 px-3 pt-2 text-center pb-7 desktop:px-9'>
               <div className='font-black tracking-widest text-h3 text-primary-700 desktop:text-h3'>
                 <div className='mb-2'>
-                  {postTitle.subTitle && <div style={{ textTransform: 'inherit' }} className='block mb-3 font-medium tracking-normal lowercase text-h5 font-sentinel__SemiBoldItal'>{postTitle.subTitle}</div>}
-                  <span className="uppercase">{postTitle.title}</span>
+                  {postTitle.subTitle && <div aria-label="subTitle" style={{ textTransform: 'inherit' }} className='block mb-3 font-medium tracking-normal lowercase text-h5 font-sentinel__SemiBoldItal'>{postTitle.subTitle}</div>}
+                  <span data-testid="post-card-one-title" className="uppercase">{postTitle.title}</span>
                 </div>
-                {splitTitle.subTitle && <div className='mb-3 text-xl font-light tracking-wide tablet:text-lg desktop:text-xl'>{splitTitle.subTitle}</div>}
+                {splitTitle.subTitle && <div aria-label="split-title" className='mb-3 text-xl font-light tracking-wide tablet:text-lg desktop:text-xl'>{splitTitle.subTitle}</div>}
               </div>
               {skill
                 ?
-                <div className='flex flex-row items-center justify-center my-3 text-warning-700'>
+                <div aria-label="post-card-skill-level" className='flex flex-row items-center justify-center my-3 text-warning-700'>
                   <div className='w-[24px] mr-1'><BarChartSvg fill={'var(--warning-700)'} /></div>
                   <div className='mr-1'>Skill Level:</div>
                   <div className='font-semibold capitalize'>{skill.name}</div>

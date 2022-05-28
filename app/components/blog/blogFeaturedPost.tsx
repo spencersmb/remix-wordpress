@@ -33,19 +33,19 @@ function BlogFeaturedPost(props: Props) {
   })
   let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
 
-  const makeThisImage: IMediaDetailSize = {
+  const makeThisImage: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${featuredPost.title}`,
-    height: '373px',
-    width: '162px',
+    height: 373,
+    width: 162,
     sourceUrl: "/images/make-this.png",
     srcSet: '',
     sizes: '',
     placeholder: '/images/make-this.png',
   }
-  const makeThisArrow: IMediaDetailSize = {
+  const makeThisArrow: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${featuredPost.title}`,
-    height: '340px',
-    width: '272px',
+    height: 340,
+    width: 272,
     sourceUrl: "/images/make-this-arrow-1.png",
     srcSet: '',
     sizes: '',

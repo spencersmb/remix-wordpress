@@ -1097,19 +1097,7 @@ export const mockPostData: IPost = {
     status: 'PUBLISHED',
     thumbnail: {
       type: '',
-      image: {
-        altText: '',
-        sourceUrl: '',
-        mediaDetails: {
-          sizes: [],
-          height: 0,
-          width: 0,
-        },
-        id: '',
-        mimeType: '',
-        sizes: '',
-        srcSet: '',
-      }
+      image: mockFeaturedImage,
     },
     youtube: {
       embedUrl: ''
@@ -1416,14 +1404,13 @@ export const mockPostDataComplete: IPost = {
             mimeType: "image/jpeg"
           }
         ]
-        },
-      
-        mimeType: "image/jpeg",
-        altText: "Create Candy Cane Lettering in Procreate",
-        sourceUrl: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg",
-        srcSet: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-500x281.jpg 500w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1440x810.jpg 1440w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1024x576.jpg 1024w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1536x864.jpg 1536w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-100x56.jpg 100w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1200x675.jpg 1200w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg 1920w",
-        sizes: "(max-width: 500px) 100vw, 500px",
-        id: "cG9zdDoxMDA4NQ=="
+      },
+      mimeType: "image/jpeg",
+      altText: "Create Candy Cane Lettering in Procreate",
+      sourceUrl: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg",
+      srcSet: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-500x281.jpg 500w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1440x810.jpg 1440w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1024x576.jpg 1024w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1536x864.jpg 1536w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-100x56.jpg 100w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1200x675.jpg 1200w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg 1920w",
+      sizes: "(max-width: 500px) 100vw, 500px",
+      id: "cG9zdDoxMDA4NQ=="
     },
     categories: [
         {

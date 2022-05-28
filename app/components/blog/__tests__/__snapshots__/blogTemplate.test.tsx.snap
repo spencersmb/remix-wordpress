@@ -1132,6 +1132,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
           >
             <div
               className="wrapper"
+              data-testid="post-card-one-image-wrapper"
             >
               <div
                 className="absolute top-[10px] left-[15px] w-[40%] z-10"
@@ -1275,17 +1276,20 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                   >
                     <span
                       className="uppercase"
+                      data-testid="post-card-one-title"
                     >
                       Create Easy Floral Wreaths 
                     </span>
                   </div>
                   <div
+                    aria-label="split-title"
                     className="mb-3 text-xl font-light tracking-wide tablet:text-lg desktop:text-xl"
                   >
                     in Procreate
                   </div>
                 </div>
                 <div
+                  aria-label="post-card-skill-level"
                   className="flex flex-row items-center justify-center my-3 text-warning-700"
                 >
                   <div
@@ -1353,6 +1357,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
           >
             <div
               className="wrapper"
+              data-testid="post-card-one-image-wrapper"
             >
               <div
                 className="absolute top-[10px] left-[15px] w-[40%] z-10"
@@ -1496,12 +1501,14 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                   >
                     <span
                       className="uppercase"
+                      data-testid="post-card-one-title"
                     >
                       Paint Messy Watercolors
                     </span>
                   </div>
                 </div>
                 <div
+                  aria-label="post-card-skill-level"
                   className="flex flex-row items-center justify-center my-3 text-warning-700"
                 >
                   <div
@@ -1569,6 +1576,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
           >
             <div
               className="wrapper"
+              data-testid="post-card-one-image-wrapper"
             >
               <div
                 className="absolute top-[10px] left-[15px] w-[40%] z-10"
@@ -1712,17 +1720,20 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                   >
                     <span
                       className="uppercase"
+                      data-testid="post-card-one-title"
                     >
                       Paint a Floral Love Letter 
                     </span>
                   </div>
                   <div
+                    aria-label="split-title"
                     className="mb-3 text-xl font-light tracking-wide tablet:text-lg desktop:text-xl"
                   >
                     in Procreate
                   </div>
                 </div>
                 <div
+                  aria-label="post-card-skill-level"
                   className="flex flex-row items-center justify-center my-3 text-warning-700"
                 >
                   <div

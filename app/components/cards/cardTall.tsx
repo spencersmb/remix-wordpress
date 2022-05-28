@@ -5,7 +5,7 @@ interface Props {
   children?: React.ReactNode
   title: string
   description?: string
-  image?: IMediaDetailSize
+  image?: ImageLookupReturn
 }
 
 /**
