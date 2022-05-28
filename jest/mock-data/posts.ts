@@ -558,6 +558,500 @@ const mockRelatedPost = {
   ],
 } 
 
+const mockRelatedPost_2 = {
+    seo: {
+      ...mockSeo
+    },
+    databaseId: 5,
+    content:'',
+    id: '5',
+    date: '2020-11-20T00:00:00',
+    etSocialNav: {
+      ...mockEtSocialNav
+    },
+    tags: mockTags,
+    comments: {
+      pageInfo: {
+        endCursor: 'null',
+        hasNextPage: false
+      },
+      list: []
+    },
+    relatedPosts: [],
+    author: {
+      ...mockAuthorData
+    },
+    featuredImage: {
+        mimeType: "image/jpeg",
+        mediaDetails: {
+          height: 0,
+          width:0,
+          sizes: [
+            {
+              width: "1000",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              height: "749",
+              name: "headless_post_thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "600",
+              file: "create-quick-floral-wreaths-in-procreate-hero-600x360.jpg",
+              height: "360",
+              name: "headless_resource_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-600x360.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "20",
+              file: "create-quick-floral-wreaths-in-procreate-hero-20x20.jpg",
+              height: "20",
+              name: "placeholder",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-20x20.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1000",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              height: "749",
+              name: "headless_ipad",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1440",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg",
+              height: "696",
+              name: "headless_post_feature_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "150",
+              file: "create-quick-floral-wreaths-in-procreate-hero-150x150.jpg",
+              height: "150",
+              name: "thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-150x150.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "500",
+              file: "create-quick-floral-wreaths-in-procreate-hero-500x242.jpg",
+              height: "242",
+              name: "medium",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-500x242.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1024",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg",
+              height: "495",
+              name: "large",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "550",
+              file: "create-quick-floral-wreaths-in-procreate-hero-550x550.jpg",
+              height: "550",
+              name: "readanddigest_square",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-550x550.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "800",
+              file: "create-quick-floral-wreaths-in-procreate-hero-800x600.jpg",
+              height: "600",
+              name: "readanddigest_landscape",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-800x600.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "600",
+              file: "create-quick-floral-wreaths-in-procreate-hero-600x800.jpg",
+              height: "800",
+              name: "readanddigest_portrait",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-600x800.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1200",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              height: "580",
+              name: "readanddigest_post_feature_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "128",
+              file: "create-quick-floral-wreaths-in-procreate-hero-128x86.jpg",
+              height: "86",
+              name: "readanddigest_thumb",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-128x86.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1200",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              height: "580",
+              name: "readanddigest_single_post_title",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1100",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1100x550.jpg",
+              height: "550",
+              name: "readanddigest_large_width",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1100x550.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "550",
+              file: "create-quick-floral-wreaths-in-procreate-hero-550x928.jpg",
+              height: "928",
+              name: "readanddigest_large_height",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-550x928.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "421",
+              file: "create-quick-floral-wreaths-in-procreate-hero-421x203.jpg",
+              height: "203",
+              name: "wp_rp_thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-421x203.jpg",
+              mimeType: "image/jpeg"
+            }
+          ]
+        },
+        altText: "create easy floral wreaths in procreate",
+        sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero.jpg",
+        srcSet: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-500x242.jpg 500w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg 1440w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg 1024w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg 1200w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-421x203.jpg 421w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero.jpg 1920w",
+        sizes: "(max-width: 500px) 100vw, 500px",
+        id: "cG9zdDo4MTY4"
+    },
+    title: "Paint Messy Watercolors",
+    slug: "paint-messy-watercolor-lettering-procreate/",
+    tutorialManager: {
+      ...mockTutorailManager__withPaidProducts,
+      thumbnail:{
+        image: mockFeaturedImage,
+        type: "make"
+      }
+    },
+          categories: [
+    {
+        databaseId: 657,
+        id: "dGVybTo2NTc=",
+        name: "Color",
+        slug: "color"
+    },
+    {
+        databaseId: 5,
+        id: "dGVybTo1",
+        name: "Freebies",
+        slug: "freebies"
+    },
+    {
+      
+        databaseId: 816,
+        id: "dGVybTo4MTY=",
+        name: "Hand Drawn",
+        slug: "hand-drawn"
+    },
+    {
+      
+        databaseId: 559,
+        id: "dGVybTo1NTk=",
+        name: "Hand Lettering",
+        slug: "hand-lettering-2"
+    },
+    {
+      
+        databaseId: 69,
+        id: "dGVybTo2OQ==",
+        name: "Holiday",
+        slug: "holiday"
+    },
+    {
+      
+        databaseId: 1182,
+        id: "dGVybToxMTgy",
+        name: "Illustration",
+        slug: "illustration"
+    },
+    {
+      
+        databaseId: 2447,
+        id: "dGVybToyNDQ3",
+        name: "Intermediate",
+        slug: "intermediate"
+    },
+    {
+      
+        databaseId: 2047,
+        id: "dGVybToyMDQ3",
+        name: "Procreate",
+        slug: "procreate"
+    },
+    {
+      
+        databaseId: 9,
+        id: "dGVybTo5",
+        name: "Tutorials",
+        slug: "tutorials"
+    }
+  ],
+} 
+
+const mockRelatedPost_3 = {
+    seo: {
+      ...mockSeo
+    },
+    databaseId: 5,
+    content:'',
+    id: '5',
+    date: '2020-11-20T00:00:00',
+    etSocialNav: {
+      ...mockEtSocialNav
+    },
+    tags: mockTags,
+    comments: {
+      pageInfo: {
+        endCursor: 'null',
+        hasNextPage: false
+      },
+      list: []
+    },
+    relatedPosts: [],
+    author: {
+      ...mockAuthorData
+    },
+    featuredImage: {
+        mimeType: "image/jpeg",
+        mediaDetails: {
+          height: 0,
+          width:0,
+          sizes: [
+            {
+              width: "1000",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              height: "749",
+              name: "headless_post_thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "600",
+              file: "create-quick-floral-wreaths-in-procreate-hero-600x360.jpg",
+              height: "360",
+              name: "headless_resource_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-600x360.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "20",
+              file: "create-quick-floral-wreaths-in-procreate-hero-20x20.jpg",
+              height: "20",
+              name: "placeholder",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-20x20.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1000",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              height: "749",
+              name: "headless_ipad",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1000x749.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1440",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg",
+              height: "696",
+              name: "headless_post_feature_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "150",
+              file: "create-quick-floral-wreaths-in-procreate-hero-150x150.jpg",
+              height: "150",
+              name: "thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-150x150.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "500",
+              file: "create-quick-floral-wreaths-in-procreate-hero-500x242.jpg",
+              height: "242",
+              name: "medium",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-500x242.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1024",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg",
+              height: "495",
+              name: "large",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "550",
+              file: "create-quick-floral-wreaths-in-procreate-hero-550x550.jpg",
+              height: "550",
+              name: "readanddigest_square",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-550x550.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "800",
+              file: "create-quick-floral-wreaths-in-procreate-hero-800x600.jpg",
+              height: "600",
+              name: "readanddigest_landscape",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-800x600.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "600",
+              file: "create-quick-floral-wreaths-in-procreate-hero-600x800.jpg",
+              height: "800",
+              name: "readanddigest_portrait",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-600x800.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1200",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              height: "580",
+              name: "readanddigest_post_feature_image",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "128",
+              file: "create-quick-floral-wreaths-in-procreate-hero-128x86.jpg",
+              height: "86",
+              name: "readanddigest_thumb",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-128x86.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1200",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              height: "580",
+              name: "readanddigest_single_post_title",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "1100",
+              file: "create-quick-floral-wreaths-in-procreate-hero-1100x550.jpg",
+              height: "550",
+              name: "readanddigest_large_width",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1100x550.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "550",
+              file: "create-quick-floral-wreaths-in-procreate-hero-550x928.jpg",
+              height: "928",
+              name: "readanddigest_large_height",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-550x928.jpg",
+              mimeType: "image/jpeg"
+            },
+            {
+              width: "421",
+              file: "create-quick-floral-wreaths-in-procreate-hero-421x203.jpg",
+              height: "203",
+              name: "wp_rp_thumbnail",
+              sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-421x203.jpg",
+              mimeType: "image/jpeg"
+            }
+          ]
+        },
+        altText: "create easy floral wreaths in procreate",
+        sourceUrl: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero.jpg",
+        srcSet: "https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-500x242.jpg 500w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1440x696.jpg 1440w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1024x495.jpg 1024w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-1200x580.jpg 1200w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero-421x203.jpg 421w, https://etheadless.local/wp-content/uploads/2018/04/create-quick-floral-wreaths-in-procreate-hero.jpg 1920w",
+        sizes: "(max-width: 500px) 100vw, 500px",
+        id: "cG9zdDo4MTY4"
+    },
+    title: "Paint a Floral Love Letter in Procreate",
+    slug: "floral-love-letter-procreate",
+    tutorialManager: {
+      ...mockTutorailManager__withPaidProducts,
+      thumbnail:{
+        image: mockFeaturedImage,
+        type: "make"
+      }
+    },
+          categories: [
+    {
+        databaseId: 657,
+        id: "dGVybTo2NTc=",
+        name: "Color",
+        slug: "color"
+    },
+    {
+        databaseId: 5,
+        id: "dGVybTo1",
+        name: "Freebies",
+        slug: "freebies"
+    },
+    {
+      
+        databaseId: 816,
+        id: "dGVybTo4MTY=",
+        name: "Hand Drawn",
+        slug: "hand-drawn"
+    },
+    {
+      
+        databaseId: 559,
+        id: "dGVybTo1NTk=",
+        name: "Hand Lettering",
+        slug: "hand-lettering-2"
+    },
+    {
+      
+        databaseId: 69,
+        id: "dGVybTo2OQ==",
+        name: "Holiday",
+        slug: "holiday"
+    },
+    {
+      
+        databaseId: 1182,
+        id: "dGVybToxMTgy",
+        name: "Illustration",
+        slug: "illustration"
+    },
+    {
+      
+        databaseId: 2447,
+        id: "dGVybToyNDQ3",
+        name: "Intermediate",
+        slug: "intermediate"
+    },
+    {
+      
+        databaseId: 2047,
+        id: "dGVybToyMDQ3",
+        name: "Procreate",
+        slug: "procreate"
+    },
+    {
+      
+        databaseId: 9,
+        id: "dGVybTo5",
+        name: "Tutorials",
+        slug: "tutorials"
+    }
+  ],
+} 
+
 export const mockTutorialManagerDownloads = [
         {
           title: "Floral Postage Stamps Tutorial colors",
@@ -572,7 +1066,6 @@ export const mockTutorialManagerDownloads = [
           }
         }
       ]
-
 
 export const mockPostData: IPost = {
   title: "test-title",
@@ -1214,8 +1707,8 @@ export const mockPostDataComplete: IPost = {
     },
     relatedPosts: [
       mockRelatedPost,
-      mockRelatedPost,
-      mockRelatedPost
+      mockRelatedPost_2,
+      mockRelatedPost_3
     ],
     tutorialManager: {
       status: "success",
@@ -2428,4 +2921,6 @@ export const mockPostDataComplete_3: IPost = {
       list: []
     }
 }
+
+
 

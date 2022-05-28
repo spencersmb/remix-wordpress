@@ -13,8 +13,8 @@ export const defaultFeaturedImage:IFeaturedImage = {
   srcSet: '',
   mimeType: 'image/jpeg',
   mediaDetails:{
-    height: '',
-    width: '',
+    height: 0,
+    width: 0,
     sizes:[]
   },
   sourceUrl: 'https://res.cloudinary.com/every-tuesday/images/v1633831046/peeling-sticker-lettering-effect-procreate/peeling-sticker-lettering-effect-procreate-jpg?_i=AA'
@@ -41,7 +41,7 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
       metaDesc: desc,
       opengraphModifiedTime: date,
       opengraphPublishedTime: date,
-      readingTime: '3min',
+      readingTime: 3,
       title,
     },
     featuredImage: defaultFeaturedImage
