@@ -31,7 +31,9 @@ export function CircularStrokeLink(props: Props & { href: string }) {
   const { href } = props
   return (
     <>
-      <Link to={href} className={`relative ${props.classes}`}>
+      <Link
+        data-testid="test-CircularStrokeBtn"
+        to={href} className={`relative ${props.classes}`}>
         <div className="absolute w-[121px] top-0 left-0 ">
           <svg
             width="125"
