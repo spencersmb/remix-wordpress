@@ -1,7 +1,10 @@
+
 function TwSpinnerOne(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
-      className="motion-reduce:hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+      name="TwSpinnerOne"
+      aria-label="TwSpinnerOne"
+      className="w-5 h-5 mr-3 -ml-1 text-white motion-reduce:hidden animate-spin"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       {...props}

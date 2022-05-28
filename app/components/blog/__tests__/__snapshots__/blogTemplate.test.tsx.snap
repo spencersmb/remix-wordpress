@@ -581,6 +581,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                       <div />
                       <a
                         className="py-[13px] font-normal text-center btn flex text-lg px-5"
+                        data-testid="test-GumroadBtn"
                         href="https://gum.co/beautiful-lettering-extended"
                       >
                         <span>

@@ -15,6 +15,7 @@ function OutlinedButton(props: Props) {
 
   return (
     <button
+      data-testid="button"
       className={classNames(className ? className : 'btn btn-primary btn-outlined mx-auto', '')}
       aria-disabled={loading}
       disabled={loading}
@@ -23,6 +24,7 @@ function OutlinedButton(props: Props) {
       <AnimatePresence>
         {loading &&
           <motion.span
+            data-testid="spinner-container"
             key="filterIcon"
             initial={{
               opacity: 0,
