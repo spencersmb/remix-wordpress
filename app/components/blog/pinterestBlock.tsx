@@ -2,14 +2,21 @@ import { LazyLoadImage } from "react-lazy-load-image-component"
 import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import LazyImageBase from "../images/lazyImage-base"
-import PinterestP_Svg from "../svgs/social/Pinterest-P-Svg"
+import PinterestSvg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
 
 interface IProps {
   post: IPost
   postUrl: string
 }
-
+/**
+ * PinterestBlock
+ * 
+ * @tested - 5/27/2022
+ * 
+ * @param props 
+ * @returns 
+ */
 function PinterestBlock(props: IProps) {
   const { post, postUrl } = props
 
@@ -24,9 +31,6 @@ function PinterestBlock(props: IProps) {
     }
   })
 
-  // console.log('pinterestImage', pinterestImage);
-
-
   return (
     <div className="col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8">
 
@@ -39,13 +43,14 @@ function PinterestBlock(props: IProps) {
           {/* Content */}
           <div className="flex py-7 px-9 pl-11">
             <a
+              data-testid="pinterest-link"
               className="flex flex-col items-center justify-center "
-              rel="nofollow"
+              rel="nofollow noreferrer"
               target="_blank"
               href={`https://pinterest.com/pin/create/button/?url=${postUrl}&media=${pinterestImage.sourceUrl}&description=${description}`}>
               <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
                 <div>
-                  <PinterestP_Svg fill={'#fff'} width={'24px'} height={'24px'} />
+                  <PinterestSvg fill={'#fff'} width={'24px'} height={'24px'} />
                 </div>
               </div>
               <div className="mb-2 font-sentinel__SemiBoldItal text-primary-500 text-h4">Save for later</div>
@@ -60,7 +65,12 @@ function PinterestBlock(props: IProps) {
 
           <div className="w-[100%] max-w-[350px] mx-auto my-0 relative h-[200px] overflow-hidden tablet:h-auto flex">
             <div className="flex absolute top-0 left-0 tablet:top-[50%] tablet:left-[50%] w-full tablet:max-w-none transform tablet:translate-x-[-50%] tablet:translate-y-[-50%] h-full overflow-hidden">
-              <LazyImageBase image={pinterestImage} id={post.id} reverse />
+              <LazyImageBase
+                alt={`Pinterest: ${post.title}`}
+                testId="pinterest-image"
+                image={pinterestImage}
+                id={post.id}
+                reverse />
             </div>
           </div>
         </div>
