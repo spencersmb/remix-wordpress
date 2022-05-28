@@ -1,4 +1,4 @@
-import { Transition } from "@remix-run/react/transition"
+import type { Transition } from "@remix-run/react/transition"
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne"
 interface IProps {
   transition: Transition
@@ -29,6 +29,7 @@ function SubmitBtn(props: IProps) {
 
   return (
     <button
+      data-testid="submit-button"
       disabled={transition.state === "submitting" || transition.state === "loading"}
       aria-disabled={transition.state === "submitting" || transition.state === "loading"}
       type='submit'
