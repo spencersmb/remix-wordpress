@@ -2,8 +2,6 @@ import { LicenseEnum } from "@App/enums/products"
 import { mockFeaturedImage } from "./images"
 import { mockGenericProduct, mockPaidProduct } from "./products"
 
-
-  
 export const mockTutorailManager__default: ITutorialManager = {
   paidProducts: [],
   colorPalette: {

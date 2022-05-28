@@ -70,7 +70,7 @@ function CourseHeader() {
                   sourceUrl: headerData.profileImage.src,
                   placeholder: headerData.profileImage.placeholder,
                   srcSet: '',
-                  sizes: []
+                  sizes: ''
                 }
               }
             />

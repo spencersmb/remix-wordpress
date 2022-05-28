@@ -82,7 +82,7 @@ describe('Post Card One Component', () => {
 
   })
   it('Should show no skill level', () => {
-    const { card } = setup({
+    setup({
       post: {
         ...mockPostDataComplete,
         categories: [],

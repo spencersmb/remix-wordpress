@@ -40,6 +40,7 @@ function LazyImageBase(props: Props) {
     <div style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative flex-1`}>
       <div className='absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>
         <LazyLoadImage
+          aria-label='Product Image'
           data-testid={testId ? testId : `lazy-load-image-${id}`}
           key={id}
           alt={alt ? alt : image.altTitle}

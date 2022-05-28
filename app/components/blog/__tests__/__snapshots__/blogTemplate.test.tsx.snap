@@ -176,6 +176,7 @@ exports[`BlogTemplate Component Should render snapshot 1`] = `
                   <iframe
                     allow="accelerometer; picture-in-picture"
                     allowFullScreen={true}
+                    data-testid="youtube_video"
                     frameBorder="0"
                     loading="lazy"
                     src="https://www.youtube.com/embed/tZce1wvLzDE"
@@ -428,10 +429,10 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
               </div>
               <div
                 className="mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0"
-                data-testid="ProductCard__sm"
               >
                 <div
                   className="wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 tablet:ml-4 laptop:mb-0"
+                  data-testid="ProductCard__sm"
                 >
                   <div
                     className="mb-4 overflow-hidden rounded-lg"
@@ -528,6 +529,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                             type="radio"
                           />
                           <label
+                            aria-label="license-radio"
                             className="flex flex-row justify-between flex-1 text-lg text-gray-800 first-letter:uppercase form-check-label"
                             htmlFor="box1-license-beautiful-lettering-brush-set-extended"
                           >
@@ -557,6 +559,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                             type="radio"
                           />
                           <label
+                            aria-label="license-radio"
                             className="flex flex-row justify-between flex-1 text-lg text-gray-800 first-letter:uppercase form-check-label"
                             htmlFor="box1-license-beautiful-lettering-brush-set-standard"
                           >

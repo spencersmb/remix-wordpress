@@ -13,6 +13,7 @@ function YouTubeVideo(props: Props) {
       <div className='embed-responsive'>
         <div className='embed-responsive-item'>
           <iframe
+            data-testid='youtube_video'
             loading='lazy'
             frameBorder='0'
             src={url}

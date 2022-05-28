@@ -21,8 +21,8 @@ function ProductCard__sm(props: Props) {
   })
 
   return (
-    <div data-testid="ProductCard__sm" className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
-      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${multipleProducts ? index === 0 ? 'tablet:mr-4' : 'tablet:ml-4' : 'tablet:ml-4'} laptop:mb-0`}>
+    <div className={`mb-8 flex tablet:mb-0 tablet:flex-[0_1_50%] tablet:px-0`}>
+      <div data-testid="ProductCard__sm" className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 ${multipleProducts ? index === 0 ? 'tablet:mr-4' : 'tablet:ml-4' : 'tablet:ml-4'} laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
         <div className='mb-4 overflow-hidden rounded-lg'>
