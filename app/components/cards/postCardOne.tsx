@@ -34,20 +34,20 @@ function PostCardOne(props: Props) {
 
   const makeThisImage: IMediaDetailSize = {
     altTitle: `Make this tutorial: ${post.title}`,
-    height: '373px',
-    width: '162px',
+    height: 373,
+    width: 162,
     sourceUrl: "/images/make-this.png",
     srcSet: '',
-    sizes: '',
+    sizes: [],
     placeholder: '/images/make-this.png',
   }
   const makeThisArrow: IMediaDetailSize = {
     altTitle: `Make this tutorial: ${post.title}`,
-    height: '340px',
-    width: '272px',
+    height: 340,
+    width: 272,
     sourceUrl: "/images/make-this-arrow-1.png",
     srcSet: '',
-    sizes: '',
+    sizes: [],
     placeholder: '/images/make-this-arrow-1.png',
   }
 

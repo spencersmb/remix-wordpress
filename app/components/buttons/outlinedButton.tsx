@@ -10,6 +10,12 @@ interface Props {
   className?: string
 }
 
+/**
+ * Basic Outlined Button
+ * 
+ * @tested - 5/27/2022 
+ *
+ */
 function OutlinedButton(props: Props) {
   const { clickHandler, loading, text, loadingText = 'loading', className } = props
 

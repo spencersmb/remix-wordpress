@@ -8,7 +8,12 @@ interface IPillProps {
   clickHandler: () => Promise<void>
   children?: any
 }
-
+/**
+ * Pill Button with SVG Checkmark
+ * 
+ * @tested - 5/27/2022 
+ *
+ */
 const PillBase = (props: IPillProps) => {
   const { children, clickHandler, selected } = props
   return (

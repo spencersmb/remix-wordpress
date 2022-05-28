@@ -6,7 +6,7 @@ interface ICourse{
     courseTags: string[]
     courseUrl: string
   }
-  featuredImage: IFeaturedImage
+  featuredImage: IFeaturedImage | null
 }
 interface ICourseRaw {
   id: number;

@@ -5,6 +5,13 @@ interface IProps {
   btnText?: string
   className?: string
 }
+
+/**
+ * Submit Button with a spinner
+ * 
+ * @tested - 5/27/2022 
+ *
+ */
 function SubmitBtn(props: IProps) {
   const { className, transition, btnText = 'My Button' } = props
   // console.log('transition', transition);

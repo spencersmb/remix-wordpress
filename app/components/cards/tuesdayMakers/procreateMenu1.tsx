@@ -1,9 +1,4 @@
-import React from 'react'
-
-interface Props { }
-
-function ProcreateMenu1(props: Props) {
-  const { } = props
+function ProcreateMenu1() {
   const className = 'py-4 flex justify-center border-b-[1px] border-neutral-300'
   return (
     <div className='card1_wrapper w-[150px] bg-white rounded-xl shadow-xxl-red'>

@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react"
 import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
 import LazyImageBase from "../images/lazyImage-base"
 
@@ -6,6 +5,12 @@ interface Props {
   course: ICourse
 }
 
+/**
+ * Course Card
+ * 
+ * @tested - 5/28/2022
+ * @returns 
+ */
 function CourseCard(props: Props) {
   const { course } = props
   const featuredImage = loadImageSrc({
@@ -15,7 +20,7 @@ function CourseCard(props: Props) {
     fallbackImage: defaultImages.featured
   })
   return (
-    <div className="col-span-2 col-start-2 tablet:col-auto">
+    <div data-testid="course-card" className="col-span-2 col-start-2 tablet:col-auto">
       <div className="bg-white rounded-[10px] shadow-md overflow-hidden mb-8 hover:shadow-2xl laptop:transition-all hover:-translate-y-3 laptop:ease-in-out laptop:duration-200">
         <a href={course.details.courseUrl} target='_blank' rel="noreferrer" >
 

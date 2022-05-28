@@ -12,6 +12,10 @@ interface Props {
   featuredImage: IFeaturedImage | null
 }
 
+/**
+ * Card Download Component
+ * @tested - 5/28/2022
+ */
 function CardDownload(props: Props) {
   const { featuredImage, title, buttonText, freebie } = props
   const image = loadImageSrc({
@@ -45,28 +49,31 @@ function CardDownload(props: Props) {
   }
 
   return (
-    <div className='p-5 bg-white rounded-2.5xl shadow-md w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
-      <div className='rounded-xl overflow-hidden'>
-        <LazyImageBase id={'tuesdayMakersFeaturedImage'} image={image} />
+    <div
+      data-testid="card-download"
+      className='p-5 bg-white rounded-2.5xl shadow-md w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
+      <div className='overflow-hidden rounded-xl'>
+        <LazyImageBase testId='download-image' id={'tuesdayMakersFeaturedImage'} image={image} />
       </div>
       <div className='pt-5 pr-[12%] laptop:pr-[20%] desktop:pr-0 desktop:flex desktop:flex-row desktop:justify-between desktop:items-center'>
         <div>
-          <div className='text-sm text-success-700 mb-1'>
+          <div className='mb-1 text-sm text-success-700'>
             Latest Download
           </div>
-          <div className='font-medium text-xl text-success-700 leading-7'>
+          <div className='text-xl font-medium leading-7 text-success-700'>
             {title}
           </div>
         </div>
         <div className='desktop:hidden'>
           <button
+            data-testid="download-btn-mobile"
             className='rounded-[13px] font-medium flex flex-row flex-none justify-center items-center mt-4'
             onClick={handleButtonClick}>
-            <span className='uppercase text-success-500 font-bold'>{buttonText}</span>
+            <span className='font-bold uppercase text-success-500'>{buttonText}</span>
           </button>
         </div>
         <div className='hidden desktop:flex'>
-          <button onClick={handleButtonClick} className='bg-success-50 text-success-500 rounded-xl flex justify-center items-center p-3 scale-100 duration-200 ease-in-out active:bg-success-200 active:text-success-600 active:scale-[.8] transform transition-all'>
+          <button data-testid="download-btn-desktop" onClick={handleButtonClick} className='bg-success-50 text-success-500 rounded-xl flex justify-center items-center p-3 scale-100 duration-200 ease-in-out active:bg-success-200 active:text-success-600 active:scale-[.8] transform transition-all'>
             <span className='w-[35px]'>
               <UploadSvg stroke={'currentColor'} />
             </span>

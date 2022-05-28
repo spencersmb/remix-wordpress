@@ -2,29 +2,29 @@ import { isEmpty } from "lodash"
 
 export const defaultImages = {
   thumbnail:{
-    width: '1000',
-    height: '888',
+    width: 1000,
+    height: 888,
     altTitle: 'Every Tuesday Fallback Featured Thumbnail',
     srcSet: '',
-    sizes: '',
+    sizes: [],
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   },
   featured:{
-    width: '1024',
-    height: '495',
+    width: 1024,
+    height: 495,
     altTitle: 'Every Tuesday Fallback Featured Image',
     srcSet: '',
-    sizes: '',
+    sizes: [],
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024&h=495&fit=crop&crop=faces&auto=compress&q=80',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   },
   pinterest:{
-    width: '300',
-    height: '450',
+    width: 300,
+    height: 450,
     altTitle: 'Every Tuesday Fallback Pinterest Image',
     srcSet: '',
-    sizes: '',
+    sizes: [],
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-pinterest.jpg?auto=compress&q=80',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-pinterest.jpg?w=20&h=60&fit=crop&crop=faces&auto=compress&q=80'
   }
@@ -78,12 +78,12 @@ export const loadImageSrc: IGetImageSize = ({
   imageSizeName,
   fallbackSize = ImageSizeEnums.LARGE,
   fallbackImage = {
-    width: '1024',
-    height: '495',
+    width: 1024,
+    height: 495,
     altTitle: 'Every Tuesday Fallback Featured Image',
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024',
     srcSet: '',
-    sizes: '',
+    sizes: [],
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   }
 }): IMediaDetailSize => {
@@ -127,11 +127,12 @@ export function loadThumbnailSrc(tutorialManager: ITutorialManager,
   let imageName = tutorialManager.thumbnail.image.sourceUrl.replace('.jpg', '')
   return {
     ...tutorialManager.thumbnail.image,
-    width: '1000',
-    height: '888',
+    width: 1000,
+    height: 888,
     srcSet: '',
     altTitle: tutorialManager.thumbnail.image.altText,
     placeholder: `${imageName}-20x20.jpg`,
+    sizes: [],
   }
 
 }

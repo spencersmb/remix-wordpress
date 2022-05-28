@@ -4,6 +4,13 @@ interface IProps {
   className?: string
   state: FetcherState
 }
+
+/**
+ * Submit Fetcher Form Button with a spinner
+ * 
+ * @tested - 5/27/2022 
+ *
+ */
 function SubmitFetcherBtn(props: IProps) {
   const { className, state, btnText = 'My Button' } = props
   // console.log('transition', transition);

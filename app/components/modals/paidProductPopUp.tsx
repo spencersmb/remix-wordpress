@@ -22,7 +22,7 @@ const PaidProductPopUp = ({ download_link, product, closeModal }: IProps) => {
     </div>
   }
 
-  const extendedLicense = getLicense(product.details.licences, LicenseEnum.EXTENDED)
+  const extendedLicense = getLicense(product.productDetails.licences, LicenseEnum.EXTENDED)
 
   return (
     <div className="bg-primary-800 shadow-et_4 rounded-2.5xl p-10 max-w-[500px]">

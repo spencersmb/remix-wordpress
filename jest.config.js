@@ -33,10 +33,11 @@ module.exports = {
   collectCoverage: false,
   collectCoverageFrom: [
       "<rootDir>/app/**/*.{ts,tsx}",
+      '!<rootDir>/app/components/cards/tuesdayMakers/**',
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
-      '!<rootDir>/app/components/cards/**',
+      // '!<rootDir>/app/components/cards/**',
       '!<rootDir>/app/components/comments/**',
       '!<rootDir>/app/components/footer/**',
       '!<rootDir>/app/components/forms/**',

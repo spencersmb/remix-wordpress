@@ -7,7 +7,12 @@ interface Props {
   price?: number
   text?: string
 }
-
+/**
+ * Gumroad Button
+ * 
+ * @tested - 5/27/2022 
+ *
+ */
 function GumroadBtn(props: Props) {
   const { price, url, className, text } = props
 
