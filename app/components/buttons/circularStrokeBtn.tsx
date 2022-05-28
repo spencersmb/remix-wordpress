@@ -5,6 +5,15 @@ interface Props {
   classes?: string
   handleClick?: () => void
 }
+
+/**
+ * Stroke Buttons
+ * 
+ * @tested - 5/27/2022
+ * 
+ * @param props 
+ * @returns 
+ */
 function CircularStrokeBtn(props: Props) {
   const { text, classes, handleClick } = props
   return (

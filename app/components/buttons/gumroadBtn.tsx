@@ -14,11 +14,14 @@ function GumroadBtn(props: Props) {
   return (
     <>
       <a
+        data-testid='test-GumroadBtn'
         className={classNames(className ? className : 'btn btn-teal font-normal justify-between', 'flex text-lg px-5')}
         href={url}>
         <span>{text ? text : 'Buy Now'}</span>
         {price &&
-          <span className="text-2xl font-sentinel__SemiBoldItal">{formatePrice(price, true)}</span>}
+          <span
+            data-testid="price"
+            className="text-2xl font-sentinel__SemiBoldItal">{formatePrice(price, true)}</span>}
       </a>
     </>
 

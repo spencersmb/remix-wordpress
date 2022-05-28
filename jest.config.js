@@ -35,7 +35,7 @@ module.exports = {
       "<rootDir>/app/**/*.{ts,tsx}",
 
       // '!<rootDir>/app/components/blog/**',
-      '!<rootDir>/app/components/buttons/**',
+      // '!<rootDir>/app/components/buttons/**',
       '!<rootDir>/app/components/cards/**',
       '!<rootDir>/app/components/comments/**',
       '!<rootDir>/app/components/footer/**',
