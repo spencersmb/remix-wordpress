@@ -1,18 +1,19 @@
-import ReactDOM from "react-dom"
-import InputBase from "../inputBase"
-import { createRoot } from 'react-dom/client';
-import { root } from "postcss";
+import { queries, getQueriesForElement } from "@testing-library/dom";
 import { fireEvent, render, screen } from "@testing-library/react";
+import InputBase from "../input/inputBase";
 
 /**
  * @jest-environment jsdom
  */
 
 const setup = (props: any) => {
-  render(<InputBase {...props} />)
-  const input = screen.getByTestId('test-id')
+  render(<div data-testid="parent">
+    <InputBase {...props} />
+  </div>)
+  const input = screen.getByTestId(props.id)
   return {
-    input
+    input,
+    parent: screen.getByTestId('parent')
   }
 }
 
@@ -30,7 +31,26 @@ const disabledProps = {
   ...props,
   disabled: true
 }
+
+const labelProps = {
+  ...props,
+  id: 'favorite-number',
+  type: 'number',
+  label: 'Favorite Numbers'
+
+}
 describe('InputBase Component', () => {
+
+  test('renders an input with label "Favorite Numbers', () => {
+    const { parent } = setup(labelProps)
+    // const label = parent.querySelector('label')
+    // const input = queries.getByLabelText(parent, /favorite Numbers/i)
+    const { getByLabelText } = getQueriesForElement(parent)
+    const input = getByLabelText(/favorite Numbers/i)
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveAttribute('type', 'number')
+  })
+
   test('Should have the correct props', () => {
 
     const { input } = setup(props)

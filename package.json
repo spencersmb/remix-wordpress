@@ -24,7 +24,8 @@
     "css": "postcss styles --base styles --dir app/styles -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "test:clean": "npm run test -- --clearCache"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",

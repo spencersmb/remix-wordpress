@@ -43,7 +43,7 @@ module.exports = {
       // '!<rootDir>/app/components/cards/**',
       // '!<rootDir>/app/components/comments/**',
       // '!<rootDir>/app/components/footer/**',
-      '!<rootDir>/app/components/forms/**',
+      // '!<rootDir>/app/components/forms/**',
       '!<rootDir>/app/components/gridDownloads/**',
       '!<rootDir>/app/components/images/**',
       '!<rootDir>/app/components/layout/**',
