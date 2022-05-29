@@ -1,3 +1,5 @@
+import { siteInitialState } from "@App/hooks/useSite"
+import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { mockComments, mockPostData } from "@TestUtils/mock-data/posts"
 import BlogComments from "../blogComments"
@@ -5,7 +7,9 @@ import BlogComments from "../blogComments"
 describe('Blog Comments', () => {
   const setup = (props: { post: IPost }) => {
     render(
-      <BlogComments {...props} />
+      <UseSiteProvider defaultState={siteInitialState}>
+        <BlogComments {...props} />
+      </UseSiteProvider>
     )
     const commentsCount = screen.getByTestId('comments-count')
     return {

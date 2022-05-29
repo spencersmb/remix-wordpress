@@ -225,70 +225,76 @@ const CommentForm = (props: IProps) => {
             className="overflow-hidden"
           >
 
-            <form className={`${props.subForm ? 'px-2 py-6' : 'px-6 py-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmit}>
+            <form
+              aria-label="Comment Form"
+              className={`${props.subForm ? 'px-2 py-6' : 'px-6 py-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmit}>
 
               {/* INPUTS */}
-              <div className="flex flex-col tablet:flex-row tablet:flex-wrap">
-                {/* NAME */}
-                <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
-                  <InputBase
-                    placeholder="Name"
-                    className={`input-basic ${formState.name.isValid && formState.name.touched
-                      ? 'input-success'
-                      : formState.name.isValid === false && formState.name.touched ? 'input-error' : ''}`}
-                    id="name-input"
-                    type="text"
-                    name='name'
-                    onChange={handleNameChange}
-                    value={formState.name.value}
-                    invalid={formState.name.isValid === false || formState.name.value.length < 4}
-                    disabled={submitting}
-                  />
-                </div>
+              <fieldset>
+                <legend>Create Comment</legend>
+                <div className="flex flex-col tablet:flex-row tablet:flex-wrap">
+                  {/* NAME */}
+                  <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
+                    <InputBase
+                      placeholder="Enter Name"
+                      className={`input-basic ${formState.name.isValid && formState.name.touched
+                        ? 'input-success'
+                        : formState.name.isValid === false && formState.name.touched ? 'input-error' : ''}`}
+                      id="name-input"
+                      type="text"
+                      name='name'
+                      onChange={handleNameChange}
+                      value={formState.name.value}
+                      invalid={formState.name.isValid === false || formState.name.value.length < 4}
+                      disabled={submitting}
+                    />
+                  </div>
 
-                {/* EMAIL */}
-                <div className="flex-auto tablet:flex-[0_1_50%]">
-                  <InputBase
-                    placeholder="Email"
-                    className={`input-basic ${formState.email.isValid && formState.email.touched
-                      ? 'input-success'
-                      : formState.email.isValid === false && formState.email.touched ? 'input-error' : ''}`}
-                    id="email-input"
-                    type="email"
-                    name='email'
-                    onChange={handleEmailChange}
-                    value={formState.email.value}
-                    required
-                    invalid={formState.email.isValid === false}
-                    disabled={submitting}
-                  />
-                </div>
+                  {/* EMAIL */}
+                  <div className="flex-auto tablet:flex-[0_1_50%]">
+                    <InputBase
+                      placeholder="email@gmail.com"
+                      className={`input-basic ${formState.email.isValid && formState.email.touched
+                        ? 'input-success'
+                        : formState.email.isValid === false && formState.email.touched ? 'input-error' : ''}`}
+                      id="email-input"
+                      type="email"
+                      name='email'
+                      onChange={handleEmailChange}
+                      value={formState.email.value}
+                      required
+                      invalid={formState.email.isValid === false}
+                      disabled={submitting}
+                    />
+                  </div>
 
-                {/* TEXTAREA */}
-                <div className=" flex-[0_1_100%] mb-2.5">
-                  <textarea
-                    id="comment-input"
-                    className="textarea-basic"
-                    name="comment"
-                    placeholder="Leave comment here..."
-                    onChange={handleCommentChange}
-                    rows={4}
-                    disabled={submitting}
-                    value={formState.comment.value}
-                    // TODO: Fix Invalid status on all inputs
-                    aria-invalid={
-                      Boolean(
+                  {/* TEXTAREA */}
+                  <div className=" flex-[0_1_100%] mb-2.5">
+                    <textarea
+                      id="comment-input"
+                      className="textarea-basic"
+                      name="comment"
+                      placeholder="Leave comment here..."
+                      onChange={handleCommentChange}
+                      rows={4}
+                      disabled={submitting}
+                      value={formState.comment.value}
+                      // TODO: Fix Invalid status on all inputs
+                      aria-invalid={
+                        Boolean(
+                          formState.comment.isValid
+                        ) || undefined
+                      }
+                      aria-describedby={
                         formState.comment.isValid
-                      ) || undefined
-                    }
-                    aria-describedby={
-                      formState.comment.isValid
-                        ? "comment-error"
-                        : undefined
-                    }
-                  />
+                          ? "comment-error"
+                          : undefined
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
+              </fieldset>
+
               {/* END INPUTS */}
 
               {/* SUBMIT BUTTON */}

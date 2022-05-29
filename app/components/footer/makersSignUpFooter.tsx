@@ -17,8 +17,8 @@ const MakersFooterSignUp = () => {
     sourceUrl: '/images/feature-image.jpg',
     srcSet: "",
     mediaDetails: {
-      height: "1049",
-      width: "1400",
+      height: 1049,
+      width: 1400,
       sizes: [
         {
           name: ImageSizeEnums.PLACEHOLDER,
@@ -76,7 +76,7 @@ const MakersFooterSignUp = () => {
 export default MakersFooterSignUp
 
 interface IFeatureProps {
-  featuredImage: IMediaDetailSize
+  featuredImage: ImageLookupReturn
   alt: string
   id: string
 }

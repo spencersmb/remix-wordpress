@@ -8,7 +8,7 @@ import { siteInfo, socialUrls } from '@App/lib/wp/site'
 import { ShopPlatformEnum } from "../../enums/products";
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
 
-  export interface ISiteContextState {
+export interface ISiteContextState {
   recentPosts?: IPost[]
   categories?: any[]
   metadata: ISiteMetaDataMapped
@@ -91,16 +91,18 @@ export const siteInitialState: ISiteContextState  = {
   },
   breakpoint: BreakpointEnums.mobile
 }
-export const SiteContext = createContext<ISiteContextType>({
-  state: siteInitialState,
-  dispatch: () => null
-})
+// export const SiteContext = createContext<ISiteContextType>({
+//   state: siteInitialState,
+//   dispatch: () => null
+// })
+// @ts-ignore
+export const SiteContext = createContext<ISiteContextType | undefined>()
 SiteContext.displayName = 'SiteContext'
 
 const useSiteContext = () => {
   const context = useContext(SiteContext)
   if (!context) {
-    throw new Error('useEssGridAuthContext must be used within a Auth Provider app')
+    throw new Error('useSiteContext must be used within a SiteContext Provider')
   }
   return context
 }

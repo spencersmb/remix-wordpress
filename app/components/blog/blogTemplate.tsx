@@ -27,7 +27,7 @@ interface IProps {
 function BlogTemplate(props: IProps) {
   const { post } = props
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
-  // consoleHelper('post', post)
+  consoleHelper('post', post)
   useEffect(() => {
     // handleCommentsClick()
 

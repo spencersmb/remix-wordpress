@@ -14,6 +14,7 @@ export const simpleTabsDefaultState: ITabsState = {
   tabs: [],
   selectedTab: '',
 }
+
 // @ts-ignore
 export const SimpleTabsContext = React.createContext<ISimpleTabsContext | undefined>()
 

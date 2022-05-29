@@ -1,5 +1,6 @@
+import { siteInitialState } from "@App/hooks/useSite"
+import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { fireEvent, render, screen } from "@testing-library/react"
-import { mockFeaturedImage } from "@TestUtils/mock-data/images"
 import { mockPostDataComplete } from "@TestUtils/mock-data/posts"
 import CardDownload from "../cardDownload"
 
@@ -22,7 +23,12 @@ describe('Card Download Component', () => {
     featuredImage: null
   }
   const setup = (props: any) => {
-    render(<CardDownload {...props} />)
+    render(
+      <UseSiteProvider defaultState={siteInitialState}>
+        <CardDownload {...props} />
+      </UseSiteProvider>
+    )
+
   }
   it('Should display fallback image', () => {
     setup(defaultProps)

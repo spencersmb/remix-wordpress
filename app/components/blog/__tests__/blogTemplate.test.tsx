@@ -1,3 +1,5 @@
+import { siteInitialState } from '@App/hooks/useSite';
+import UseSiteProvider from '@App/hooks/useSite/useSiteProvider';
 import { mockPostDataComplete } from '@TestUtils/mock-data/posts';
 import { MemoryRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
@@ -8,7 +10,9 @@ describe('BlogTemplate Component', () => {
     const tree = renderer
       .create(
         <MemoryRouter>
-          <BlogTemplate post={mockPostDataComplete} />
+          <UseSiteProvider defaultState={siteInitialState}>
+            <BlogTemplate post={mockPostDataComplete} />
+          </UseSiteProvider>
         </MemoryRouter>
       )
       .toJSON();

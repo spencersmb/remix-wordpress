@@ -1,4 +1,3 @@
-import { LicenseEnum } from "@App/enums/products"
 import { mockFeaturedImage } from "./images"
 import { mockGenericProduct, mockPaidProduct } from "./products"
 
@@ -1112,7 +1111,23 @@ export const mockPostData: IPost = {
     title: '',
   }
 }
-
+export const mockComment: IPostComment = {
+  databaseId: 218427,
+  // approved: true,
+  parent: null,
+  id: "Y29tbWVudDoyMTg0Mjc=",
+  author: {
+    id: "YWRtaW5pc3RyYXRvcjox",
+    databaseId: "1",
+    name: "Spencer Bigum",
+    gravatar: {
+      url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
+    }
+  },
+  date: "2022-01-27 21:08:02",
+  content: "<p>Comment Body</p>\n",
+  replies: []
+}
 export const mockComments: IComments = {
     pageInfo: {
     endCursor: "YXJyYXljb25uZWN0aW9uOjIxODQyNA==",

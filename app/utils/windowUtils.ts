@@ -1,7 +1,7 @@
 import { BPPX, BreakpointEnums } from "@App/enums/breakpointEnums";
 
 export const consoleHelper = (data: string, obj: any = null) => {
-  if (process.env.NODE_ENV === 'production') return;
+  if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') return;
 
   obj
     ? console.log(data, obj)

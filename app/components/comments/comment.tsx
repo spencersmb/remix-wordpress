@@ -5,14 +5,15 @@ import CommentForm from "./commentForm"
 interface ICommentProps {
   comment: IPostComment
   postId: number
+  isReply?: boolean
 }
 const Comment = (props: ICommentProps) => {
-  const { comment, postId } = props
+  const { comment, postId, isReply = false } = props
 
   const [showReplyForm, setShowReplyForm] = useState(false)
 
   function handleReplyClick() {
-    console.log('comment', comment);
+    // console.log('comment', comment);
 
     setShowReplyForm(!showReplyForm)
   }
@@ -34,33 +35,38 @@ const Comment = (props: ICommentProps) => {
     return comment.author.gravatar.url
 
   }
-
+  const testID = `comment${isReply ? '-reply' : ""}`
   return (
-    <div key={comment.id} className={`mb-12 ${showReplyForm ? '' : ''}`}>
+    <div data-testid={testID} key={comment.id} className={`mb-12`}>
 
       {/* IMAGE, NAME, DATE */}
-      <div className="comment_header flex flex-row justify-between mb-3">
-        <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row justify-between mb-3 comment_header">
+        <div className="flex flex-row items-center justify-center">
           {/* IMAGE */}
           <div className="w-[54px] h-[54px] rounded-full overflow-hidden mr-3">
-            <img className="w-full" src={getAvatarUrl(comment)} alt={`${comment.author.name}'s Profile Image`} />
+
+            {/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
+            <img role={'img'} className="w-full" src={getAvatarUrl(comment)}
+              alt={`${comment.author.name}'s Profile `} />
           </div>
 
           {/* NAME/DATE */}
           <div className="flex flex-col">
             <div className="comment_authorName font-sentinel__SemiBoldItal text-primary-500 text-h5">{comment.author.name}</div>
-            <div className="comment_date text-neutral-500 text-sm">{formatDate(comment.date)}</div>
+            <div className="text-sm comment_date text-neutral-500">{formatDate(comment.date)}</div>
           </div>
         </div>
 
         {/* REPLY BUTTON */}
-        {<div className="hover:cursor-pointer text-sm">
-          <button className="underlined underline-offset-4 text-primary-600 outline-none focus:border-0" onClick={handleReplyClick}>Reply</button>
+        {<div className="text-sm hover:cursor-pointer">
+          <button
+            data-testid="comment-reply-button"
+            className="outline-none underlined underline-offset-4 text-primary-600 focus:border-0" onClick={handleReplyClick}>Reply</button>
         </div>}
       </div>
 
       {/* COMMENT */}
-      <div className="comment_body text-neutral-700" dangerouslySetInnerHTML={{ __html: comment.content }} />
+      <div data-testid="comment-body" className="comment_body text-neutral-700" dangerouslySetInnerHTML={{ __html: comment.content }} />
 
       {/* REPLY FORM */}
       {showReplyForm &&
@@ -74,8 +80,8 @@ const Comment = (props: ICommentProps) => {
         </div>}
 
       {/* COMMENT REPLIES */}
-      <div className="border-l-4 border-neutral-300 pl-8 mt-8">
-        {comment.replies?.map((reply) => <Comment key={reply.id} comment={reply} postId={postId} />).reverse()}
+      <div aria-label="comment-replies" className="pl-8 mt-8 border-l-4 border-neutral-300">
+        {comment.replies?.map((reply) => <Comment isReply={true} key={reply.id} comment={reply} postId={postId} />).reverse()}
       </div>
 
 

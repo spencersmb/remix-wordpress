@@ -2232,6 +2232,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pb-\[35px\] {
   padding-bottom: 35px;
 }
+.pt-12 {
+  padding-top: 3rem;
+}
 .pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -2240,9 +2243,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .pl-9 {
   padding-left: 2.25rem;
-}
-.pt-12 {
-  padding-top: 3rem;
 }
 .pb-11 {
   padding-bottom: 2.75rem;
@@ -2513,16 +2513,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(89 108 110 / var(--tw-text-opacity));
 }
+.text-sage-400 {
+  --tw-text-opacity: 1;
+  color: rgb(149 167 170 / var(--tw-text-opacity));
+}
 .text-primary-50 {
   color: var(--primary-plum-50);
 }
 .text-sage-100 {
   --tw-text-opacity: 1;
   color: rgb(237 240 241 / var(--tw-text-opacity));
-}
-.text-sage-400 {
-  --tw-text-opacity: 1;
-  color: rgb(149 167 170 / var(--tw-text-opacity));
 }
 .text-gray-800 {
   --tw-text-opacity: 1;
@@ -3772,11 +3772,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .tablet\:pr-8 {
     padding-right: 2rem;
   }
-  .tablet\:pr-16 {
-    padding-right: 4rem;
-  }
   .tablet\:pb-0 {
     padding-bottom: 0px;
+  }
+  .tablet\:pr-16 {
+    padding-right: 4rem;
   }
   .tablet\:pb-14 {
     padding-bottom: 3.5rem;
