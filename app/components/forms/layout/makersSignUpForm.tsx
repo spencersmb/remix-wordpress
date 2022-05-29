@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import useSite from '@App/hooks/useSite'
-import InputBase from '../input/inputBase'
-import SubmitBtn from '../buttons/submitBtn'
 import type { Transition } from '@remix-run/react/transition'
 import type { FormProps } from '@remix-run/react'
+import InputBase from '../input/inputBase'
+import SubmitBtn from '@App/components/buttons/submitBtn'
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>

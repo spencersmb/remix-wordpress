@@ -9,7 +9,6 @@ import { getGraphQLString } from '../../utils/graphqlUtils'
 import { getBasicPageMetaTags, getHtmlMetadataTags } from '@App/utils/seo'
 import { ckFormIds } from '@App/lib/convertKit/formIds'
 import { validateEmail } from '@App/utils/validation'
-import FormInputBasic from '@App/components/forms/formInput--base'
 import SubmitBtn from '@App/components/buttons/submitBtn'
 import ProcreateMenuLayout from '@App/components/cards/tuesdayMakers/procreateMenuLayout'
 import SpecialDeals from '@App/components/layout/specialDeals'
@@ -22,6 +21,7 @@ import { Form, Link, useActionData, useLoaderData, useTransition } from '@remix-
 import { fetchConvertKitSignUp } from '@App/utils/fetch.server'
 import { ckSignUpCookie } from '@App/cookies.server'
 import { getCKFormId } from '@App/utils/resourceLibraryUtils'
+import InputBase from '@App/components/forms/input/inputBase'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -211,12 +211,13 @@ const ResourceLibraryHome = () => {
                 <div className='flex flex-col form_inner'>
                   <div className='flex flex-col input_wrapper'>
                     <div className='flex-1 mb-4 '>
-                      <FormInputBasic
+                      <InputBase
                         id='email-input'
+                        name='email'
                         type='email'
                         required={true}
-                        placeholder='Enter Email'
-                        actionDataError={Boolean(
+                        placeholder='email@gmail.com'
+                        invalid={Boolean(
                           actionData?.fieldErrors?.email
                         ) || undefined}
                       />

@@ -35,6 +35,8 @@ module.exports = {
       "<rootDir>/app/**/*.{ts,tsx}",
       '!<rootDir>/app/components/cards/tuesdayMakers/**',
       '!<rootDir>/app/components/footer/FooterPrimary.tsx',
+      '!<rootDir>/app/components/footer/makersSignUpFooter.tsx',
+      '!<rootDir>/app/components/comments/commentForm.tsx',
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',

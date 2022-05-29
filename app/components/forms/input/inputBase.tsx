@@ -5,7 +5,7 @@ interface IProps {
   label?: string
   id?: string
   name: string
-  invalid: boolean
+  invalid: boolean | undefined
   required?: boolean
   placeholder?: string
   onChange?: any

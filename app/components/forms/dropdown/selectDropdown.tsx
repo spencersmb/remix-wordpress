@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import useFreebies from '@App/hooks/useFreebies'
 
 
 interface IProps {
@@ -22,7 +21,7 @@ function SelectDropdown(props: IProps) {
 
 
   return (
-    <div className="w-72 relative">
+    <div className="relative w-72">
       <Listbox value={selected} onChange={onChangeFilter}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg border-[1px] cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">

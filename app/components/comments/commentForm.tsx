@@ -5,7 +5,7 @@ import useSite from "@App/hooks/useSite";
 import { fetchSubmitComment } from "@App/utils/fetch.cleint";
 import { parseComment } from "@App/utils/posts";
 import { validateEmail } from "@App/utils/validation";
-import InputBase from "../input/inputBase";
+import InputBase from "../forms/input/inputBase";
 import CommentsSvg from "../svgs/commentsSvg";
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne";
 

@@ -1,7 +1,7 @@
 import { useFetcher, useTransition } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import MakersSignUpFetcherForm from "../forms/makersSignUpFetcherForm";
+import MakersSignUpFetcherForm from "../forms/layout/makersSignUpFetcherForm";
 import ModalLayoutWrapperWhite from "./modalWrapper-white";
 
 interface IProps {

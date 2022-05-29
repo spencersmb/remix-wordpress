@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import useSite from "@App/hooks/useSite";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
-import MakersLoginFetcherForm from "../forms/makersLoginFetcherForm";
+import MakersLoginFetcherForm from "../forms/layout/makersLoginFetcherForm";
 import ModalLayoutWrapperWhite from "./modalWrapper-white";
 
 interface IProps {

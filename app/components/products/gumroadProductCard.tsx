@@ -1,12 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { LicenseEnum } from "@App/enums/products";
-import useFontPreview from "@App/hooks/useFontPreivew";
-import { ISetFontFunction } from "@App/hooks/useFonts";
-import { useProductLicense } from "@App/hooks/useProductLicense";
 import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers";
-import { getLicense } from "@App/utils/posts";
-import LicenseRadioSelect from "../forms/licenseRadioSelect";
-import SelectBox from "../forms/licenseSelectDropdown";
 import LazyImageBase from "../images/lazyImage-base";
 import LicenseSelectSection from "./licenseSelectSection";
 

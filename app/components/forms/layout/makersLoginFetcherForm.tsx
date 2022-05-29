@@ -1,6 +1,6 @@
 import type { FormProps } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
-import SubmitFetcherBtn from '../buttons/submitFetchBtn'
+import SubmitFetcherBtn from '../../buttons/submitFetchBtn'
 import InputBase from '../input/inputBase'
 
 interface Props {

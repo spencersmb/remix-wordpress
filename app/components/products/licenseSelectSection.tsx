@@ -4,7 +4,7 @@ import type { IAddFontFunction } from '@App/hooks/useFontPreivew';
 import useFontPreview from '@App/hooks/useFontPreivew'
 import { useProductLicense } from '@App/hooks/useProductLicense'
 import GumroadBtn from '../buttons/gumroadBtn'
-import LicenseRadioSelect from '../forms/licenseRadioSelect'
+import LicenseRadioSelect from '../forms/radio/licenseRadioSelect'
 
 interface Props {
   product: IProduct
