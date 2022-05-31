@@ -9,20 +9,28 @@ interface IProps {
   setFilter: (filter: { name: string, slug: string }) => void
   // handleOnChange: (value: { name: string, slug: string }) => any
 }
+
+/**
+ * SelectDropdown Component
+ * Used only on mobile / tablet as the filter dropdown for Members in Tuesday Tribe
+ * 
+ * @param props 
+ * @returns 
+ */
 function SelectDropdown(props: IProps) {
 
   const { items, selected, setFilter } = props
-  console.log('items', items);
-  console.log('selected', selected);
+  // console.log('items', items);
+  // console.log('selected', selected);
   function onChangeFilter(item: { name: string, slug: string }) {
-    console.log('click', item);
+    // console.log('click', item);
     setFilter(item)
   }
 
 
   return (
     <div className="relative w-72">
-      <Listbox value={selected} onChange={onChangeFilter}>
+      <Listbox data-testid='filterClick' value={selected} onChange={onChangeFilter}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg border-[1px] cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
             <span className="block truncate">{selected.name}</span>

@@ -37,6 +37,8 @@ module.exports = {
       '!<rootDir>/app/components/footer/FooterPrimary.tsx',
       '!<rootDir>/app/components/footer/makersSignUpFooter.tsx',
       '!<rootDir>/app/components/comments/commentForm.tsx',
+      '!<rootDir>/app/components/forms/layout/**',
+      '!<rootDir>/app/components/forms/dropdown/**',
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',

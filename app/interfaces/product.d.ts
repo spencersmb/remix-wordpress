@@ -47,4 +47,10 @@ interface IProduct {
   }
 }
 
+interface useProductLicenseState {
+  price: number
+  licenseType: LicenseEnum
+  url: string
+}
+
 

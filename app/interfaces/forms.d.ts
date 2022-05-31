@@ -29,3 +29,19 @@ type FetcherTypes =
   | "actionSubmission"
   | "init"
   | "actionRedirect"
+
+interface InputBaseProps {
+  type: string
+  label?: string
+  id?: string
+  name: string
+  invalid: boolean | undefined
+  required?: boolean
+  placeholder?: string
+  onChange?: any
+  value?: any
+  disabled?: boolean
+  className?: string
+  minLength?: number
+  min?: number
+}

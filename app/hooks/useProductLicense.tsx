@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import { LicenseEnum } from "@App/enums/products";
+import type { LicenseEnum } from "@App/enums/products";
 
-interface IState {
-  price: number
-  licenseType: LicenseEnum
-  url: string
-}
 export function useProductLicense(productLicences: ILicense[] | null) {
 
   const firstLicense = productLicences ? {
@@ -14,7 +9,7 @@ export function useProductLicense(productLicences: ILicense[] | null) {
     url: productLicences[0].url
   } : null
 
-  const [state, setState] = useState<IState | null>(firstLicense)
+  const [state, setState] = useState<useProductLicenseState | null>(firstLicense)
 
   // onLoad Select first license
   // useEffect(() => {

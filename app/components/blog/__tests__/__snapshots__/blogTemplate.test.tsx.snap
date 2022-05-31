@@ -521,15 +521,16 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                           onClick={[Function]}
                         >
                           <input
+                            aria-label="extended $30"
                             checked={true}
                             className="float-left w-4 h-4 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border-2 border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-success-500 checked:border-success-500 focus:outline-none"
-                            id="license-beautiful-lettering-brush-set-extended"
+                            id="box1-license-beautiful-lettering-brush-set-extended"
                             name="radio-license-beautiful-lettering-brush-set-extended"
                             readOnly={true}
+                            role="button"
                             type="radio"
                           />
                           <label
-                            aria-label="license-radio"
                             className="flex flex-row justify-between flex-1 text-lg text-gray-800 first-letter:uppercase form-check-label"
                             htmlFor="box1-license-beautiful-lettering-brush-set-extended"
                           >
@@ -537,6 +538,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                               className="first-letter:uppercase"
                             >
                               extended
+                               
                             </span>
                             <span
                               className="text-[22px] font-sentinel__SemiBoldItal text-slate-800"
@@ -551,15 +553,16 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                           onClick={[Function]}
                         >
                           <input
+                            aria-label="standard $15"
                             checked={false}
                             className="float-left w-4 h-4 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border-2 border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-success-500 checked:border-success-500 focus:outline-none"
-                            id="license-beautiful-lettering-brush-set-standard"
+                            id="box1-license-beautiful-lettering-brush-set-standard"
                             name="radio-license-beautiful-lettering-brush-set-standard"
                             readOnly={true}
+                            role="button"
                             type="radio"
                           />
                           <label
-                            aria-label="license-radio"
                             className="flex flex-row justify-between flex-1 text-lg text-gray-800 first-letter:uppercase form-check-label"
                             htmlFor="box1-license-beautiful-lettering-brush-set-standard"
                           >
@@ -567,6 +570,7 @@ https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?auto=format&
                               className="first-letter:uppercase"
                             >
                               standard
+                               
                             </span>
                             <span
                               className="text-[22px] font-sentinel__SemiBoldItal text-slate-800"

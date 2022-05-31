@@ -11,6 +11,14 @@ interface Props {
   selected: LicenseEnum
   data: IProductDetails
 }
+
+/**
+ * CURRENTLY NOT USED - so not tested
+ * 
+ * @param param0 
+ * 
+ * @returns 
+ */
 export default function SelectBox({ handleSelected, selected, data }: Props) {
   const { licences } = data
   // console.log('selectbox selected', data);
@@ -26,6 +34,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
 
   return (
     <Listbox value={selectedLicense} onChange={handleSelected}>
+      {/* @ts-ignore */}
       {({ open }) => {
         if (selectedLicense.licenseType === '') {
           return null
@@ -38,7 +47,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
                 <span className="flex items-center">
                   <span className={`ml-2 block truncate capitalize ${open ? 'text-neutral-400' : 'text-neutral-700'}`}>{selectedLicense.licenseType} License</span>
                 </span>
-                <span className="ml-2 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-2 pointer-events-none">
                   <SelectorIcon className={`h-5 w-5 ${open ? 'text-neutral-400' : 'text-neutral-700'}`} type={'string'} aria-hidden="true" />
                 </span>
               </Listbox.Button>
@@ -50,7 +59,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute z-10 w-full mt-2 bg-white shadow-2xl text-lg ring-4 ring-black ring-opacity-5 overflow-auto focus:outline-none rounded-md">
+                <Listbox.Options className="absolute z-10 w-full mt-2 overflow-auto text-lg bg-white rounded-md shadow-2xl ring-4 ring-black ring-opacity-5 focus:outline-none">
                   {licences.map((license: ILicense, index) => {
                     const isSelected = license.licenseType === selectedLicense.licenseType;
                     return (
@@ -100,7 +109,7 @@ export default function SelectBox({ handleSelected, selected, data }: Props) {
                                     'relative inset-y-0 right-0 flex items-start transition-all'
                                   )}
                                 >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" type={'string'} />
+                                  <CheckIcon className="w-5 h-5" aria-hidden="true" type={'string'} />
                                 </span>
                               ) : null}
                             </>
