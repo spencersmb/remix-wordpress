@@ -4,7 +4,10 @@ interface Props {
   url: string
   title: string
 }
-
+/**
+* @Component YouTubeVideo - USed on BLOG article
+* @teststed - 5/28/2022
+*/
 function YouTubeVideo(props: Props) {
   const { url, title } = props
 

@@ -52,6 +52,12 @@ const footerLinks = [
     links: []
   },
 ]
+
+/**
+ * 
+ * @component FooterLinks
+ * @tested - 5/30/2022
+ */
 const FooterLinks = () => {
   const { state: { metadata } } = useSite()
   return (

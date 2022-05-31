@@ -1,15 +1,15 @@
 import React from 'react'
 
+/**
+ * @component - GridItem
+ * @tested - 5/30/2022
+ */
 function GridItem(props: IGridItem) {
   const { title, downloadLink, excerpt, tags, image } = props
 
-  function normalDownload() {
-    window.open(downloadLink);
-  }
-
   function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    normalDownload()
+    window.open(downloadLink);
   }
 
   return (

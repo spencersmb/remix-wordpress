@@ -12,19 +12,8 @@ interface IProps {
 }
 
 const TuesdayMakersLoginModal = (props: IProps) => {
-  const tuesdayMakersLogin = useFetcher();
-  const { resourecLibraryLogin } = useSite()
 
-  function formOnComplete(data: FetcherData | undefined) {
 
-    if (data && data.user) {
-      localStorage.setItem('makers_login', 'login' + Math.random());
-      resourecLibraryLogin({ user: data.user })
-    }
-    if (data?.pass) {
-      props.closeModal()
-    }
-  }
 
   function createAccount() {
     setTimeout(() => {
@@ -35,6 +24,7 @@ const TuesdayMakersLoginModal = (props: IProps) => {
 
   return (
     <ModalLayoutWrapperWhite
+      data-testid="test-tuesdayMakersLoginModal"
       className="bg-white">
 
       <div className="relative flex flex-col items-center px-3 mt-12">
@@ -50,6 +40,39 @@ const TuesdayMakersLoginModal = (props: IProps) => {
         </div>
       </div>
 
+      {process.env.NODE_ENV !== 'test' && <MakersLoginForm closeModal={props.closeModal} />}
+
+      <div className="mt-4 text-center text-navy-900">
+        Not a subscriber? <button className="font-semibold underline text-navy-700 underline-offset-4" type='button' onClick={createAccount}>Create an account!</button>
+      </div>
+    </ModalLayoutWrapperWhite>
+  )
+}
+
+export default TuesdayMakersLoginModal
+
+function resourecLibraryLogin(arg0: { user: any; }) {
+  throw new Error("Function not implemented.");
+}
+
+const MakersLoginForm = (props: any) => {
+  const { resourecLibraryLogin } = useSite()
+
+  const tuesdayMakersLogin = useFetcher();
+
+  function formOnComplete(data: FetcherData | undefined) {
+
+    if (data && data.user) {
+      localStorage.setItem('makers_login', 'login' + Math.random());
+      resourecLibraryLogin({ user: data.user })
+    }
+    if (data?.pass) {
+      props.closeModal()
+    }
+  }
+
+  return (
+    <>
       {tuesdayMakersLogin.type === "done"
         && tuesdayMakersLogin.data
         && !tuesdayMakersLogin.data.pass &&
@@ -63,6 +86,7 @@ const TuesdayMakersLoginModal = (props: IProps) => {
           </p>
         </motion.div>
       }
+
       <MakersLoginFetcherForm
         Form={tuesdayMakersLogin.Form}
         type={tuesdayMakersLogin.type}
@@ -70,16 +94,6 @@ const TuesdayMakersLoginModal = (props: IProps) => {
         data={tuesdayMakersLogin.data}
         onComplete={formOnComplete}
       />
-
-      <div className="mt-4 text-center text-navy-900">
-        Not a subscriber? <button className="font-semibold underline text-navy-700 underline-offset-4" type='button' onClick={createAccount}>Create an account!</button>
-      </div>
-    </ModalLayoutWrapperWhite>
+    </>
   )
-}
-
-export default TuesdayMakersLoginModal
-
-function resourecLibraryLogin(arg0: { user: any; }) {
-  throw new Error("Function not implemented.");
 }

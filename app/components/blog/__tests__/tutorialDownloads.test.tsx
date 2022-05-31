@@ -1,5 +1,6 @@
+import BasicModal from "@App/components/modals/BasicModal"
 import type { ISiteContextState } from "@App/hooks/useSite"
-import { fireEvent, screen } from "@testing-library/react"
+import { fireEvent, screen, waitFor } from "@testing-library/react"
 import { mockPostData, mockTutorialManagerDownloads } from "@TestUtils/mock-data/posts"
 import { mockUseSiteData_default } from "@TestUtils/mock-data/useSiteMock"
 import { UseSiteProviderRender } from "@TestUtils/providerUtils"
@@ -138,6 +139,84 @@ describe('Tutorial Downloads Component', () => {
     // Subscribe Button Checks
     const subscribeButton = screen.getByTestId('subscribe-btn')
     expect(subscribeButton).toHaveTextContent('Subscribe')
+  })
+
+  it('Should open & show signin modal onClick', () => {
+
+    const stateProps: ISiteContextState = {
+      ...mockUseSiteData_default
+    }
+    const tutorialProps: {
+      post: IPost
+      style?: any
+      isMobile?: boolean
+    } = {
+      post: {
+        ...mockPostData,
+        tutorialManager: {
+          ...mockPostData.tutorialManager,
+          downloads: mockTutorialManagerDownloads
+        }
+      },
+      style: {
+        top: 0
+      },
+      isMobile: true
+
+    }
+
+    UseSiteProviderRender(
+      <div>
+        <TutorialDownloads {...tutorialProps} />
+        <BasicModal />
+      </div>
+      , { props: stateProps })
+
+
+    // Locked Button Checks
+    const button = screen.getByTestId('test-tutorialDownloads')
+    fireEvent.click(button)
+    waitFor(() => expect(screen.queryByTestId('test-tuesdayMakersSignUpModal')).toBeVisible())
+
+  })
+
+  it('Should open & show signUp modal onClick', () => {
+
+    const stateProps: ISiteContextState = {
+      ...mockUseSiteData_default
+    }
+    const tutorialProps: {
+      post: IPost
+      style?: any
+      isMobile?: boolean
+    } = {
+      post: {
+        ...mockPostData,
+        tutorialManager: {
+          ...mockPostData.tutorialManager,
+          downloads: mockTutorialManagerDownloads
+        }
+      },
+      style: {
+        top: 0
+      },
+      isMobile: true
+
+    }
+
+    UseSiteProviderRender(
+      <div>
+        <TutorialDownloads {...tutorialProps} />
+        <BasicModal />
+      </div>
+      , { props: stateProps })
+
+
+    // Locked Button Checks
+    const button = screen.getByTestId('login-btn')
+    fireEvent.click(button)
+    waitFor(() => expect(screen.queryByTestId('test-tuesdayMakersLoginModal')).toBeVisible())
+
   })
 
   // USER LOGGED IN

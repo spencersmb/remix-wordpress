@@ -14,12 +14,14 @@ import useSite from '../../hooks/useSite'
 const BasicModal = () => {
   const { state: { modal }, closeModal } = useSite()
 
+
   return (
     // @ts-ignore
     <AnimatePresence>
       {modal.open
         ? <>
           <motion.div
+            data-testid='modalWrapper'
             key='modalContainer'
             className='fixed block top-1/2 right-auto left-1/2 z-[1100] opacity-0 translate-x-[-50%] translate-y-[-50%] rounded-md'
             initial={containerMotion.closed}
@@ -33,6 +35,7 @@ const BasicModal = () => {
               : null}
           </motion.div>
           <motion.div
+            data-testid='modalOverlay'
             id="modalOverlay"
             className={`fixed top-0 right-0 w-0 h-0 bg-slate-900 z-[1050]`}
             key="loginOverlay"

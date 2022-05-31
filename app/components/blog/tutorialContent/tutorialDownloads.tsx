@@ -93,7 +93,7 @@ function TutorialDownloads(props: Props) {
 
           <div className='login'>
             <p className='text-sage-50'>
-              Already a member? <button onClick={handleLoginClick} className='italic font-semibold underline text-secondary-400 underline-offset-4'>Sign In</button>
+              Already a member? <button data-testid="login-btn" onClick={handleLoginClick} className='italic font-semibold underline text-secondary-400 underline-offset-4'>Sign In</button>
             </p>
           </div>
         </>}

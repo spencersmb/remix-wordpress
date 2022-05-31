@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course High Quality component renders correctly 1`] = `
+<div
+  className="grid grid-flow-row py-8 bg-sage-50 grid-cols-mobile gap-x-5 tablet:py-24 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop"
+>
+  <div
+    className="col-span-2 col-start-2 mb-8 text-center text-sage-700 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 laptop:mb-16"
+  >
+    <h3
+      className="mb-8 text-5xl font-sentinel__SemiBoldItal desktop:text-6xl desktop:max-w-[500px] desktop:mx-auto"
+    >
+      High quality video & class assets
+    </h3>
+    <p
+      className="tablet:text-lg laptop:text-xl desktop:text-2xl"
+    >
+      We want to provide the best environment for you to learn with high quality videos that show every step with every tool Teela uses during the course so you can follow along perfectly.
+    </p>
+  </div>
+  <div
+    className="grid grid-cols-1 col-span-2 col-start-2 tablet:grid-cols-3 tablet:col-start-2 tablet:col-span-12 laptop:px-[2%] desktop:max-w-[1000px] desktop:mx-auto"
+  >
+    <div
+      className="flex items-center p-4 mb-4 bg-white rounded-lg shadow-xs tablet:mx-4"
+    >
+      <div
+        className="bg-sage-200 rounded-lg p-2 w-[53px] laptop:p-4 laptop:w-[73px]"
+      >
+        <svg
+          fill="none"
+          stroke="#000000"
+          viewBox="0 0 41 41"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M39.2916 11.9583L27.3333 20.5L39.2916 29.0417V11.9583Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M23.9166 8.54166H5.12498C3.23801 8.54166 1.70831 10.0714 1.70831 11.9583V29.0417C1.70831 30.9286 3.23801 32.4583 5.12498 32.4583H23.9166C25.8036 32.4583 27.3333 30.9286 27.3333 29.0417V11.9583C27.3333 10.0714 25.8036 8.54166 23.9166 8.54166Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+      <div
+        className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
+      >
+        <h4>
+          Pre-recorded videos
+        </h4>
+      </div>
+    </div>
+    <div
+      className="flex items-center p-4 mb-4 bg-white rounded-lg shadow-xs tablet:mx-4"
+    >
+      <div
+        className="bg-secondary-200 rounded-lg p-2 w-[53px] laptop:p-4 laptop:w-[73px]"
+      >
+        <svg
+          fill="none"
+          stroke="#000000"
+          viewBox="0 0 41 41"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.6667 30.75H35.875"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M5.125 30.75H5.14208"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M13.6667 20.5H35.875"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M5.125 20.5H5.14208"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M13.6667 10.25H35.875"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M5.125 10.25H5.14208"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+      <div
+        className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
+      >
+        <h4>
+          Step-by-step instructions
+        </h4>
+      </div>
+    </div>
+    <div
+      className="flex items-center p-4 mb-4 bg-white rounded-lg shadow-xs tablet:mx-4"
+    >
+      <div
+        className="bg-primary-200 rounded-lg p-2 w-[53px] laptop:p-4 laptop:w-[73px]"
+      >
+        <svg
+          fill="none"
+          stroke="#000000"
+          viewBox="0 0 41 41"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M32.4583 5.125H8.54167C6.65469 5.125 5.125 6.65469 5.125 8.54167V32.4583C5.125 34.3453 6.65469 35.875 8.54167 35.875H32.4583C34.3453 35.875 35.875 34.3453 35.875 32.4583V8.54167C35.875 6.65469 34.3453 5.125 32.4583 5.125Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M35.875 25.625L27.3333 17.0833L8.54163 35.875"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+          <path
+            d="M14.5209 17.0833C15.9361 17.0833 17.0834 15.9361 17.0834 14.5208C17.0834 13.1056 15.9361 11.9583 14.5209 11.9583C13.1056 11.9583 11.9584 13.1056 11.9584 14.5208C11.9584 15.9361 13.1056 17.0833 14.5209 17.0833Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
+      <div
+        className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
+      >
+        <h4>
+          Project Based Tutorials
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+`;

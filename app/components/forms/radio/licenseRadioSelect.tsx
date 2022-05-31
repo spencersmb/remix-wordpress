@@ -5,6 +5,12 @@ interface IProps {
   handleSelected: (item: { index: number, license: ILicense }) => void
   state: useProductLicenseState
 }
+
+/**
+ * 
+ * @component LicenseRadioSelect
+ * @tested - 5/30/2022
+ */
 const LicenseRadioSelect = ({ state, product, handleSelected }: IProps) => {
 
   if (!product.productDetails.licences) {

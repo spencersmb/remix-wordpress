@@ -1,5 +1,10 @@
 import { Link } from "@remix-run/react"
 
+/**
+ * 
+ * @component FooterCopyright
+ * @tested - 5/30/2022
+ */
 const FooterCopyright = () => {
   return (
     <div

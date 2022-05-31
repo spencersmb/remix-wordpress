@@ -4,72 +4,83 @@ import BulletLayoutOne from './bulletLayoutOne'
 
 interface Props { }
 
+/**
+ * 
+ * Old design for the Tuesday Makers Page
+ * 
+ */
+
 function TuesdayMakersBulletCards(props: Props) {
   const { } = props
 
 
-  const card_1_image: IMediaDetailSize = {
+  const card_1_image: ImageLookupReturn = {
     altTitle: 'Free Procreate Brushes',
-    height: '790',
-    width: '791',
+    height: 790,
+    width: 791,
     placeholder: '/images/tm-card-1.jpg',
     sizes: '',
     srcSet: '',
     sourceUrl: '/images/tm-card-1.jpg'
   }
-  const card_2_image: IMediaDetailSize = {
+  const card_2_image: ImageLookupReturn = {
     altTitle: '100+ Procreate Color Swatches',
-    height: '790',
-    width: '791',
+    height: 790,
+    width: 791,
     placeholder: '/images/tm-card-2.jpg',
     sizes: '',
     srcSet: '',
     sourceUrl: '/images/tm-card-2.jpg'
   }
-  const card_3_categories = [
-    {
-      title: 'Corner Bakery',
-      image: {
-        altTitle: '100+ Procreate Color Swatches',
-        height: '790',
-        width: '791',
-        placeholder: '/images/tm-card-2.jpg',
-        sizes: '',
-        srcSet: '',
-        sourceUrl: '/images/tm-card-2.jpg'
+  const card_3_categories: {
+    title: string,
+    image: ImageLookupReturn,
+    type: string,
+    category: string
+  }[] = [
+      {
+        title: 'Corner Bakery',
+        image: {
+          altTitle: '100+ Procreate Color Swatches',
+          height: 790,
+          width: 791,
+          placeholder: '/images/tm-card-2.jpg',
+          sizes: '',
+          srcSet: '',
+          sourceUrl: '/images/tm-card-2.jpg'
+        },
+        type: 'Free Font',
+        category: 'Fonts',
       },
-      type: 'Free Font',
-      category: 'Fonts',
-    },
-    {
-      title: 'Lettering Guides',
-      image: {
-        altTitle: 'Lettering Guides',
-        height: '790',
-        width: '791',
-        placeholder: '/images/tm-card-2.jpg',
-        sizes: '',
-        srcSet: '',
-        sourceUrl: '/images/tm-card-2.jpg'
+      {
+        title: 'Lettering Guides',
+        image: {
+          altTitle: 'Lettering Guides',
+          height: 790,
+          width: 791,
+          placeholder: '/images/tm-card-2.jpg',
+          sizes: '',
+          srcSet: '',
+          sourceUrl: '/images/tm-card-2.jpg'
+        },
+        type: 'Practice Sheets',
+        category: 'Hand Lettering',
       },
-      type: 'Practice Sheets',
-      category: 'Hand Lettering',
-    },
-    {
-      title: 'Digital or Printable',
-      image: {
-        altTitle: 'Digital or Printable',
-        height: '790',
-        width: '791',
-        placeholder: '/images/tm-card-2.jpg',
-        sizes: '',
-        srcSet: '',
-        sourceUrl: '/images/tm-card-2.jpg'
-      },
-      type: 'Practice Sheets',
-      category: 'Hand Lettering',
-    }
-  ]
+      {
+        title: 'Digital or Printable',
+        image: {
+          altTitle: 'Digital or Printable',
+          height: 790,
+          width: 791,
+          placeholder: '/images/tm-card-2.jpg',
+          sizes: '',
+          srcSet: '',
+          sourceUrl: '/images/tm-card-2.jpg'
+        },
+        type: 'Practice Sheets',
+        category: 'Hand Lettering',
+      }
+    ]
 
   return (
     <div style={{ background: '#F5D6CD' }} className='col-span-full'>
@@ -105,7 +116,9 @@ function TuesdayMakersBulletCards(props: Props) {
               <div className='flex flex-col tablet:flex-1 laptop:flex-col laptop:items-center'>
 
                 <div className='flex flex-col tablet:justify-center tablet:flex-row desktop:flex-col'>
-                  {card_3_categories.map((category, index) => (<BulletLayoutOne key={index} {...category} />))}
+                  {card_3_categories.map((category, index) => (
+                    <BulletLayoutOne key={index} {...category} />
+                  ))}
                 </div>
 
                 <div className='bg-primary-300 rounded-2.5xl text-center p-4 flex-1 flex flex-col justify-center tablet:items-center'>

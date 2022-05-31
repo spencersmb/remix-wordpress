@@ -2,7 +2,7 @@ import React from 'react'
 import LazyImageBase from '../images/lazyImage-base'
 
 interface Props {
-  image: IMediaDetailSize
+  image: ImageLookupReturn
   title: string
   type: string
   category: string
@@ -16,6 +16,12 @@ function getCatColorClass(cat: string) {
       return '#F3CB48'
   }
 }
+
+/**
+ * 
+ * Old design for the Tuesday Makers Page
+ * 
+ */
 function BulletLayoutOne(props: Props) {
   const { title, image, type, category } = props
 

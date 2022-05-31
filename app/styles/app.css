@@ -2129,13 +2129,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
 }
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
 .py-16 {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .py-12 {
   padding-top: 3rem;
@@ -2419,6 +2419,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tracking-wide {
   letter-spacing: 0.025em;
 }
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -2434,10 +2438,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-.text-red-500 {
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -3158,10 +3158,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(242 192 102 / var(--tw-ring-opacity));
 }
-.focus\:ring-teal-400:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(45 212 191 / var(--tw-ring-opacity));
-}
 .focus\:ring-sage-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(120 143 146 / var(--tw-ring-opacity));
@@ -3169,9 +3165,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:ring-sage-200:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(208 216 217 / var(--tw-ring-opacity));
-}
-.focus\:ring-offset-4:focus {
-  --tw-ring-offset-width: 4px;
 }
 .focus\:ring-offset-primary-300:focus {
   --tw-ring-offset-color: #CDA7A7;

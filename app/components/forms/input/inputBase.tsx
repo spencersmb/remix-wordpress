@@ -3,7 +3,7 @@ import { classNames } from "@App/utils/appUtils"
 
 /**
  * InputBase Component
- * @tested - 5/25/2022
+ * @tested - 5/30/2022
  * @param props 
  */
 function InputBase(props: InputBaseProps) {

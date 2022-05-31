@@ -15,7 +15,10 @@ interface ICommentResponse {
     comment: IPostCommentRaw | null
   } // null means they havn't been approved yet
 }
-
+/**
+* @Component CommentForm - USed on BLOG article
+* @teststed - Not tested yet 
+*/
 interface IProps {
   postId: number
   replyToComment?: IPostComment

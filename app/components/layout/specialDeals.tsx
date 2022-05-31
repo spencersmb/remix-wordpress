@@ -2,11 +2,17 @@ import LazyImageBase from "../images/lazyImage-base"
 
 interface Props { }
 
+
+/**
+ * 
+ * Old design for the Tuesday Makers Page
+ * 
+ */
 function SpecialDeals(props: Props) {
   const { } = props
-  const iPadImg: IMediaDetailSize = {
-    width: '1000',
-    height: '733',
+  const iPadImg: ImageLookupReturn = {
+    width: 1000,
+    height: 733,
     altTitle: 'Nab special deals on Every-Tuesday Courses + Products',
     placeholder: '/images/makers-ipad.png',
     sizes: '',

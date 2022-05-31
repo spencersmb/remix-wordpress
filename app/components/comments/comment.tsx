@@ -7,6 +7,11 @@ interface ICommentProps {
   postId: number
   isReply?: boolean
 }
+
+/**
+* @Component Comment - Ued on BLOG article
+* @teststed - 5/28/2022
+*/
 const Comment = (props: ICommentProps) => {
   const { comment, postId, isReply = false } = props
 

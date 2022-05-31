@@ -11,10 +11,10 @@ interface IProps {
 }
 
 /**
- * SelectDropdown Component
+ * @component SelectDropdown
  * Used only on mobile / tablet as the filter dropdown for Members in Tuesday Tribe
  * 
- * @param props 
+ * @tested - 5/30/2022
  * @returns 
  */
 function SelectDropdown(props: IProps) {

@@ -16,6 +16,10 @@ function getBgColors(position: number): string {
       return 'bg-sage-200'
   }
 }
+/**
+* @Component CourseHighQuality
+* @teststed -  5/30/2022
+*/
 function CourseHighQuality(props: Props) {
 
   return (

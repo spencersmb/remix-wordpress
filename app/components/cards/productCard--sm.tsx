@@ -7,8 +7,9 @@ interface Props {
   product: IProduct
   multipleProducts: boolean
 }
-/*
-  * @Component ProductCard__sm -- ProductCard for BLOG article purchases
+/**
+* @Component ProductCard__sm -- ProductCard for BLOG article purchases
+* @teststed - 5/28/2022
 */
 
 function ProductCard__sm(props: Props) {

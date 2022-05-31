@@ -105,6 +105,7 @@ exports[`CourseHeader component renders correctly 1`] = `
       >
         <div
           className="relative flex-1"
+          data-testid="padding-bot"
           style={
             Object {
               "paddingBottom": "170.875%",

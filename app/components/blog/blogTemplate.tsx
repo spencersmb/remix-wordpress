@@ -91,7 +91,7 @@ function BlogTemplate(props: IProps) {
   const postUrl = `${metadata.domain}/${post.slug}`
   return (
 
-    <div className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+    <article className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       {/* BREADCURMBS */}
       <div className='col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
@@ -207,7 +207,7 @@ function BlogTemplate(props: IProps) {
       {/* <MakersPostSignUp /> */}
       <PostsGrid posts={post.relatedPosts} tabletGrid3x={true} />
 
-    </div>
+    </article>
   )
 }
 

@@ -11,7 +11,10 @@ interface Props {
   post: IPost
   scrollPosition: ScrollPosition
 }
-
+/**
+ * PostCardOne Component
+ * @tested - 5/28/2022
+ */
 function PostCardOne(props: Props) {
   const { post, scrollPosition } = props
   const splitTitle = splitProgramNameInTitle(post.title)

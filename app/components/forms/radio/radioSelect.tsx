@@ -5,8 +5,12 @@ interface IRadioProps {
   checked: boolean
   handleSelected: (item: { index: number, license: ILicense }) => void
 }
+
 /**
+ * 
+ * @component SelectRadio
  * Radio Select option for License Select Radio Group
+ * @tested - 5/30/2022
  */
 const SelectRadio = ({ checked, index, name, license, handleSelected }: IRadioProps) => {
   const onChange = () => {

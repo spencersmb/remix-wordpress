@@ -5,7 +5,7 @@ import LazyImageBase from '../images/lazyImage-base'
 import HeyTeela from '../svgs/heyTeela'
 
 /**
- * CourseHeader Component
+ * @component CourseHeader
  * @tested - 5/25/2022
  */
 function CourseHeader() {
