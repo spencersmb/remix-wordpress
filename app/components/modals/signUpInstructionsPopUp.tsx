@@ -6,7 +6,7 @@ interface Props {
 
 /**
  * @Component TuesdayMakersSignUpModal
- * @tested - Need to enable in jest.config.js
+ * @not-tested - Need to enable in jest.config.js
  * 
  * Tuesday Makers sign up modal with confirmation using CK form and useFetcher
  *

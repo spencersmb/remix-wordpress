@@ -43,7 +43,7 @@ module.exports = {
       '!<rootDir>/app/components/layoutTemplates/**',
       '!<rootDir>/app/components/modals/modalTypes.ts',
       '!<rootDir>/app/components/modals/signUpInstructionsPopUp.tsx',
-
+      '!<rootDir>/app/components/nav/nav.css',
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
@@ -54,7 +54,7 @@ module.exports = {
       // '!<rootDir>/app/components/gridDownloads/**',
       // '!<rootDir>/app/components/images/**',
       // '!<rootDir>/app/components/modals/**',
-      '!<rootDir>/app/components/nav/**',
+      // '!<rootDir>/app/components/nav/**',
       '!<rootDir>/app/components/post/**',
       '!<rootDir>/app/components/products/**',
       '!<rootDir>/app/components/resourceLibrary/**',

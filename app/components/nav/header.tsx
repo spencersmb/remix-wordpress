@@ -29,8 +29,8 @@ function Header(props: Props) {
 
         {/* ET LOGO */}
         <div data-testid="logo" className="max-w-[144px] desktop:max-w-[220px]">
-          <Link to="/" title="EveryTuesday" prefetch="intent" className="">
-            <EveryTuesdayLogo fill={`var(${cssColors.primaryPlum700})`} />
+          <Link to="/" title="Every Tuesday" prefetch="intent" className="">
+            <EveryTuesdayLogo fill={`var(${cssColors.primaryPlum700})`} aria-label='Every Tuesday Logo' />
           </Link>
         </div>
 
@@ -40,6 +40,7 @@ function Header(props: Props) {
             <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
           </div>
         </div>
+
         <div data-testid="hamburger"
           className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD
             ? 'mr-12'
@@ -54,15 +55,20 @@ function Header(props: Props) {
         {alternateNav ? alternateNav : <PrimaryNav />}
 
         {/* DESKTOP SEARCH AND COURSE LOGIN */}
-        <div data-testid="desktop-col-3"
+        <div
+          data-testid="desktop-col-3"
           className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD
             ? 'mr-12'
             : '',
             'hidden items-center justify-end laptop:flex')}>
+
+          {/* COURSE LOGIN */}
           <div className="">
             <a className={'normal-link text-primary-600 mr-4 underlined underlined-active hover:text-primary-300'} href="https://teachable.com">Course Login</a>
           </div>
-          <div className="relative inline-flex items-center justify-center flex-none p-1 w-14 h-14 group">
+
+          {/* DESKTOP SEARCH ICON */}
+          <div data-testid="search-icon-desktop" className="relative inline-flex items-center justify-center flex-none p-1 w-14 h-14 group">
             <div className="absolute text-gray-200 dark:text-gray-600">
               <svg width="56" height="56" >
                 <motion.circle
