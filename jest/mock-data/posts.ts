@@ -1062,7 +1062,35 @@ export const mockTutorialManagerDownloads = [
             downloadLink: "http://bit.ly/et-ss-ep1-printable"
           }
         }
-      ]
+]
+
+export const mockPostCommentRaw: IPostCommentRaw = {
+  author: {
+    node: {
+      ...mockAuthorData,
+      databaseId: '1',
+      id: '1',
+      name: 'John Doe',
+      gravatar: {
+        url: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=24',
+      }
+    }
+  },
+  content: "This is a comment",
+  databaseId: 1,
+  approved: false,
+  parent: null,
+  commentedOn:{
+    node:{
+      databaseId: 1
+    }
+  },
+  date: "2018-04-23T15:00:00",
+  id: '1',
+  replies: {
+    edges:[]
+  }
+}
 
 export const mockPostData: IPost = {
   title: "test-title",

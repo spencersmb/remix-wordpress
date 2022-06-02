@@ -45,7 +45,6 @@ export const PrimaryNav = () => {
   const { state: { menu, user } } = useSite()
   const primaryMenu = getPrimaryMenu(menu)
   const location = useLocation()
-  console.log('location', location);
 
   const selectedNav = 'underline underline-offset-4 underline-red-400 text-red-400'
   const unselectedNav = 'text-charcoal-900'

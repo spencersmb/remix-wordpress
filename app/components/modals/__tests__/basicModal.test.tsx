@@ -9,6 +9,7 @@ describe('Basic Modal Component', () => {
   const defaultState: ISiteContextState = {
     ...siteInitialState
   }
+
   const openState = {
     ...defaultState,
     modal: {
@@ -16,6 +17,7 @@ describe('Basic Modal Component', () => {
       component: <div>Hello</div>
     }
   }
+
   it('Should not have a modal or overlay in the DOM', () => {
     const { queryByTestId } = renderUi(
       <UseSiteProvider defaultState={defaultState}>
@@ -27,6 +29,7 @@ describe('Basic Modal Component', () => {
     expect(overlay).toBeNull()
 
   })
+
   it('Modal Open and should show component, modal & overlay', () => {
     const { queryByTestId, findByText } = renderUi(
       <UseSiteProvider defaultState={openState}>

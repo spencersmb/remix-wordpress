@@ -4,7 +4,8 @@ import useSite from '../../hooks/useSite'
 
 /**
  * @Component BasicModal
- *
+ * @tested - 5/31/2022
+ * 
  * A Basic modal for displaying content. Just pass a component to the reducer when
  * opening. Example check the NAV component.
  *

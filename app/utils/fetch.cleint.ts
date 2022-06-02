@@ -2,7 +2,7 @@ import { CREATE_COMMENT } from "@App/lib/graphql/mutations/comments"
 import { getGraphQLString } from "./graphqlUtils"
 
 
-export async function fetchAPIClientSide(query: any, { variables }: any = {}) {
+async function fetchAPIClientSide(query: any, { variables }: any = {}) {
   const api_url = window.ENV.PUBLIC_WP_API_URL as string
   const res = await fetch(api_url, {
     method: 'POST',
@@ -33,8 +33,9 @@ interface ISubmitComment {
   authorEmail: string
   parent?: number
 }
-export async function fetchSubmitComment(comment: ISubmitComment): Promise<ICommentResponse> {
-  console.log('FetchSubmit Comment', comment);
+type FetchSubmitCommentType = (comment: ISubmitComment) => Promise<ICommentResponse>
+const fetchSubmitComment: FetchSubmitCommentType = (comment) => {
+  // console.log('FetchSubmit Comment', comment);
 
   //SUCCESS
   // "data": {
@@ -129,4 +130,10 @@ export async function fetchSubmitComment(comment: ISubmitComment): Promise<IComm
       input: { ...comment }
     }
   })
+}
+
+export {
+  fetchSubmitComment,
+  fetchAPIClientSide,
+  type FetchSubmitCommentType
 }

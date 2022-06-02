@@ -75,6 +75,7 @@ const CommentModal = () => {
       {commentsModal.show
         ? <>
           <motion.div
+            data-testid='commentModal'
             key='modalContainer'
             className='bg-white fixed h-screen block z-[1100] opacity-0 translate-x-[0] top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full laptop:max-w-[700px] '
             initial={containerMotion.closed}
@@ -88,7 +89,7 @@ const CommentModal = () => {
                 <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-primary-700'>
                   Comments <span className='text-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
                 </div>
-                <div className='w-[40px] hover:cursor-pointer' onClick={hideComments}>
+                <div data-testid="comments-close-btn" className='w-[40px] hover:cursor-pointer' onClick={hideComments}>
                   <CloseSvg fill={'var(--primary-plum-700)'} />
                 </div>
               </div>
@@ -100,7 +101,7 @@ const CommentModal = () => {
 
               {/* COMMENTS */}
               {commentsModal.comments.length > 0 &&
-                <div className='px-6 tablet:px-12 laptop:pr-10'>
+                <div className='px-6 tablet:px-12 laptop:pr-10' data-testid="comments-list">
                   {commentsModal.comments.map((comment: IPostComment) =>
                     <Comment
                       key={comment.id}
@@ -115,6 +116,7 @@ const CommentModal = () => {
               {commentsModal.pageInfo.hasNextPage &&
                 <div>
                   <button
+                    data-testid="comments-load-more"
                     onClick={fetchMore}
                     className={`text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white active:bg-secondary-500 active:scale-[.98]}`}>
                     {(loading) && <TwSpinnerOne />}
@@ -125,6 +127,7 @@ const CommentModal = () => {
             </div>
           </motion.div>
           <motion.div
+            data-testid="comments-modal-overlay"
             id="modalOverlay"
             className={`fixed top-0 right-0 w-0 h-0 bg-slate-900 z-[1050]`}
             key="loginOverlay"

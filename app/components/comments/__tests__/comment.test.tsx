@@ -1,6 +1,6 @@
 import { siteInitialState } from "@App/hooks/useSite"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { mockComment } from "@TestUtils/mock-data/posts"
 import Comment from "../comment"
 
@@ -39,12 +39,15 @@ describe('Comment Component', () => {
     expect(replyButton).toBeInTheDocument()
     expect(replyButton).toHaveTextContent('Reply')
   })
-  it('Should show comment reply form on click', () => {
+  it('Should show comment reply form on click', async () => {
     const { comment } = setup()
     const replyButton = screen.getByTestId('comment-reply-button')
+    const form = screen.queryByTestId('comment-form')
+
     fireEvent.click(replyButton)
-    const form = screen.queryByLabelText('Comment Form')
-    expect(form).toBeInTheDocument()
+
+    expect(form).toBeDefined()
+
   })
 
   it('Should show comment body', () => {
