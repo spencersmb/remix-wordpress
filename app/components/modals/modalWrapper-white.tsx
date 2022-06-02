@@ -8,11 +8,21 @@ interface IProps {
   closeModal?: () => void
   children: ReactNode
 }
+
+/**
+ * @Component ModalLayoutWrapperWhite
+ * @tested - 6/1/2022
+ * 
+ * A modal wrapper for a white background rounded corners design
+ *
+ *
+ */
 const ModalLayoutWrapperWhite = (props: IProps) => {
-  const { children, className, closeModal } = props;
+  const { children, className, closeModal, ...extras } = props;
 
   return (
     <div
+      {...extras}
       className="relative">
       {/* BLACK PIN */}
       <div className="w-[100px] absolute top-[-4%] left-[47%] translate-x-[-50%] z-[1]">
@@ -25,17 +35,18 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
         />
       </div>
 
-      <div className={classNames(
+      <div data-testid="custom-class-mw" className={classNames(
         "bg-white p-10 relative rounded-2.5xl overflow-hidden shadow-xxl-grey z-0",
         className
       )}>
 
         {/* CLOSE BUTTON */}
         {closeModal && <div className="closeBtn w-[38px] h-[38px] rounded-full absolute top-4 right-4 bg-navy-500 p-1">
-          <button name="close-modal" onClick={closeModal}>
+          <button data-testid="close-btn-mw" name="close-modal" onClick={closeModal}>
             <CloseSvg className="text-navy-50" stroke={'var(--navy-50)'} strokeWidth={3} />
           </button>
         </div>}
+
         {children}
       </div>
 

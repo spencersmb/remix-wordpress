@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import useSite from '@App/hooks/useSite'
 import PaidProductPopUp from '@App/components/modals/paidProductPopUp'
 import { consoleHelper } from '@App/utils/windowUtils'
-import { LazyLoadImage, ScrollPosition } from 'react-lazy-load-image-component'
+import type { ScrollPosition } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
 import CardSmall from '../cards/cardSmall'
 
@@ -23,6 +24,7 @@ type Props = {
 }
 const Freebie = (props: Props) => {
   const { resource, scrollPosition } = props
+  const { openModal, closeModal } = useSite()
 
   useEffect(() => {
     if (resource.title === 'Brush Test 1') {
@@ -36,7 +38,6 @@ const Freebie = (props: Props) => {
     fallbackSize: ImageSizeEnums.WPRP, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
-  const { openModal, closeModal } = useSite()
   function popUpDownload() {
     openModal({
       template: <PaidProductPopUp

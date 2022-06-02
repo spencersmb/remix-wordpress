@@ -1,3 +1,3 @@
-import { FunctionComponent, ReactElement } from 'react'
+import type { FunctionComponent, ReactElement } from 'react'
 
 export type IModalTemplate = null | FunctionComponent | ReactElement

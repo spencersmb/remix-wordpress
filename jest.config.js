@@ -37,12 +37,12 @@ module.exports = {
       '!<rootDir>/app/components/cards/tuesdayMakers/**',
       '!<rootDir>/app/components/footer/FooterPrimary.tsx',
       '!<rootDir>/app/components/footer/makersSignUpFooter.tsx',
-      // '!<rootDir>/app/components/comments/commentForm.tsx',
       '!<rootDir>/app/components/forms/layout/**',
       '!<rootDir>/app/components/forms/dropdown/**',
       '!<rootDir>/app/components/layout/**',
       '!<rootDir>/app/components/layoutTemplates/**',
-      '!<rootDir>/app/components/modals/makersLoginModal.tsx',
+      '!<rootDir>/app/components/modals/modalTypes.ts',
+      '!<rootDir>/app/components/modals/signUpInstructionsPopUp.tsx',
 
 
       // '!<rootDir>/app/components/blog/**',
@@ -53,7 +53,7 @@ module.exports = {
       // '!<rootDir>/app/components/forms/**',
       // '!<rootDir>/app/components/gridDownloads/**',
       // '!<rootDir>/app/components/images/**',
-      '!<rootDir>/app/components/modals/**',
+      // '!<rootDir>/app/components/modals/**',
       '!<rootDir>/app/components/nav/**',
       '!<rootDir>/app/components/post/**',
       '!<rootDir>/app/components/products/**',

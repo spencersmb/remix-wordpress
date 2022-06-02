@@ -306,7 +306,6 @@ export function getLicense(licenses: ILicense[] | null, type: LicenseEnum) {
   if (!licenses) {
     return null
   }
-  console.log('run');
 
   return licenses.reduce((acc, curr) => {
     if (curr.licenseType === type) {

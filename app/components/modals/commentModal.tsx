@@ -15,11 +15,10 @@ import { parseComment } from '@App/utils/posts'
 
 /**
  * @Component Comments Modal
+ * @tested - 5/31/2022
+ * 
+ * Large full window modal to leave a comment in the blog area
  *
- * A Basic modal for displaying content. Just pass a component to the reducer when
- * opening. Example check the NAV component.
- *
- * use the useEssGridAuth hook to use this modal type
  *
  */
 const CommentModal = () => {

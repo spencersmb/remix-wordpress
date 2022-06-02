@@ -1,7 +1,7 @@
 import type { ISiteContextState } from "@App/hooks/useSite";
 import { siteInitialState } from "@App/hooks/useSite"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
-import { screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import { renderUi } from "@TestUtils/renderUtils"
 import CommentModal from "../commentModal"
 
@@ -146,6 +146,93 @@ describe('Comment Modal Component', () => {
     )
     const button = queryByTestId('comments-load-more')
     expect(button).not.toBeNull()
+  })
+
+  it('Should show comment form to fill out', () => {
+    const openState = {
+      ...defaultState,
+      commentsModal: {
+        show: true,
+        commentOn: 2,
+        comments: [
+          {
+            author: {
+              name: 'Spencer',
+              id: '1',
+              databaseId: '12',
+              gravatar: {
+                url: 'https://www.gravatar.com/avatar/12',
+              }
+            },
+            content: 'Test Comment',
+            databaseId: 2,
+            date: '2020-01-01',
+            id: '2'
+            // parent?: number | null
+            // replies?: IPostComment[]
+          }
+        ],
+        pageInfo: {
+          hasNextPage: true,
+          endCursor: '12355'
+        }
+      }
+    }
+    const { queryByTestId } = renderUi(
+      <UseSiteProvider defaultState={openState}>
+        <CommentModal />
+      </UseSiteProvider>
+    )
+    const form = queryByTestId('comment-form')
+    expect(form).not.toBeNull()
+  })
+
+  it.skip('Should hide comment modal on click', async () => {
+    const openState = {
+      ...defaultState,
+      commentsModal: {
+        show: true,
+        commentOn: 2,
+        comments: [
+          {
+            author: {
+              name: 'Spencer',
+              id: '1',
+              databaseId: '12',
+              gravatar: {
+                url: 'https://www.gravatar.com/avatar/12',
+              }
+            },
+            content: 'Test Comment',
+            databaseId: 2,
+            date: '2020-01-01',
+            id: '2'
+            // parent?: number | null
+            // replies?: IPostComment[]
+          }
+        ],
+        pageInfo: {
+          hasNextPage: true,
+          endCursor: '12355'
+        }
+      }
+    }
+    const { queryByTestId } = renderUi(
+      <UseSiteProvider defaultState={openState}>
+        <CommentModal />
+      </UseSiteProvider>
+    )
+
+    const closeBtn = queryByTestId('comments-close-btn')
+    expect(closeBtn).not.toBeNull()
+    expect(queryByTestId('comments-modal-overlay')).toBeNull()
+    if (closeBtn) {
+      fireEvent.click(closeBtn)
+
+      await waitFor(() => {
+        expect(queryByTestId('comments-modal-overlay')).toBeNull()
+      })
+    }
   })
 
 })

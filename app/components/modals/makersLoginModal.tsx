@@ -5,15 +5,21 @@ import useSite from "@App/hooks/useSite";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
 import MakersLoginFetcherForm from "../forms/layout/makersLoginFetcherForm";
 import ModalLayoutWrapperWhite from "./modalWrapper-white";
+import MakersLoginForm from "../forms/layout/makersLoginModalFetcherForm";
 
 interface IProps {
   closeModal: () => void
   openSignUpModal: () => void
 }
-
+/**
+ * @Component TuesdayMakersLoginModal
+ * @tested - 5/31/2022
+ * 
+ * A modal to log users into Tuesday Makers
+ *
+ *
+ */
 const TuesdayMakersLoginModal = (props: IProps) => {
-
-
 
   function createAccount() {
     setTimeout(() => {
@@ -51,49 +57,7 @@ const TuesdayMakersLoginModal = (props: IProps) => {
 
 export default TuesdayMakersLoginModal
 
-function resourecLibraryLogin(arg0: { user: any; }) {
-  throw new Error("Function not implemented.");
-}
+// function resourecLibraryLogin(arg0: { user: any; }) {
+//   throw new Error("Function not implemented.");
+// }
 
-const MakersLoginForm = (props: any) => {
-  const { resourecLibraryLogin } = useSite()
-
-  const tuesdayMakersLogin = useFetcher();
-
-  function formOnComplete(data: FetcherData | undefined) {
-
-    if (data && data.user) {
-      localStorage.setItem('makers_login', 'login' + Math.random());
-      resourecLibraryLogin({ user: data.user })
-    }
-    if (data?.pass) {
-      props.closeModal()
-    }
-  }
-
-  return (
-    <>
-      {tuesdayMakersLogin.type === "done"
-        && tuesdayMakersLogin.data
-        && !tuesdayMakersLogin.data.pass &&
-        <motion.div
-          initial={{ height: 0 }}
-          animate={{ height: 'auto' }}
-          exit={{ height: 0 }}
-          className="max-w-[300px] text-center ">
-          <p className="pb-4 italic text-red-400">
-            Sorry that email is not a current subscriber.
-          </p>
-        </motion.div>
-      }
-
-      <MakersLoginFetcherForm
-        Form={tuesdayMakersLogin.Form}
-        type={tuesdayMakersLogin.type}
-        state={tuesdayMakersLogin.state}
-        data={tuesdayMakersLogin.data}
-        onComplete={formOnComplete}
-      />
-    </>
-  )
-}
