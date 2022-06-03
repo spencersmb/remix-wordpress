@@ -1,8 +1,14 @@
 import { Link, useLocation } from "@remix-run/react"
 import useSite from "@App/hooks/useSite"
 import { getPrimaryMenu } from "@App/lib/wp/nav"
-import TuesdayMakersPopOver from "./tuesdayMakersPopOver"
+import TuesdayMakersPopOver from "./popOver/tuesdayMakersPrimary"
 
+/**
+ * @Component Primary Nav for the site
+ * @tested - 6/2/2022
+ * 
+ *
+ */
 export const PrimaryNav = () => {
   const { state: { menu, user } } = useSite()
   const primaryMenu = getPrimaryMenu(menu)
@@ -17,6 +23,7 @@ export const PrimaryNav = () => {
         {primaryMenu.map((menuItem) => {
           return (
             <li key={menuItem.id}
+              data-testid="menu-item"
               className={`flex items-center justify-center m-2 mx-4 text-base normal-links  laptop:font-semibold desktop:text-base ${location.pathname === menuItem.path ? selectedNav : unselectedNav}`}>
               <Link to={menuItem.path} prefetch="intent">{menuItem.label}</Link>
             </li>

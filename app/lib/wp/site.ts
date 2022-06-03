@@ -34,7 +34,7 @@ export interface IWPMenu {
 export interface IWpMenus {
   menus: IWPMenu[]
 }
-export function getWPMenu(resourceUser: string | null): IWpMenus{
+  export function getWPMenu(resourceUser: string | null): IWpMenus{
 
   return {
     menus: [

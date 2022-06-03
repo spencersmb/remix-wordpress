@@ -44,6 +44,7 @@ module.exports = {
       '!<rootDir>/app/components/modals/modalTypes.ts',
       '!<rootDir>/app/components/modals/signUpInstructionsPopUp.tsx',
       '!<rootDir>/app/components/nav/nav.css',
+      '!<rootDir>/app/components/nav/popOver/popOverMenuItems.tsx',
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',

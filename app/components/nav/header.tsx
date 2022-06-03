@@ -14,7 +14,13 @@ import { PrimaryNav } from './primaryNav'
 interface Props {
   alternateNav?: React.ReactNode
 }
-
+/**
+ * @Component Primary Header for the site
+ * @tested - 6/2/2022
+ * 
+ * 
+ *
+ */
 function Header(props: Props) {
   const { alternateNav } = props
   const { state: { metadata: { serverSettings } } } = useSite()

@@ -1,7 +1,13 @@
 import React from 'react'
-import MakersSignUpForm from '@App/components/forms/makersSignUpForm'
+import MakersSignUpForm from '@App/components/forms/layout/makersSignUpForm'
 import { useFetcher, useTransition } from '@remix-run/react'
-
+/**
+ * @Component Makers Post Sign Up
+ * @not-tested
+ * 
+ * Tuesday Makers sign up modal with confirmation using CK form and useFetcher
+ *
+ */
 function MakersPostSignUp() {
   const tuesdayMakers = useFetcher();
   const transition = useTransition()
