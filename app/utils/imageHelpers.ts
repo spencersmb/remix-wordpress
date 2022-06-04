@@ -49,6 +49,7 @@ interface ILoadImageSrcArgs {
   fallbackSize?: ImageSizeEnums, 
   fallbackImage?: IMediaDetailSize }
 type IGetImageSize = (props: ILoadImageSrcArgs) => ImageLookupReturn
+
 const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) => {
   
   // opt out to just return the sourceURL image

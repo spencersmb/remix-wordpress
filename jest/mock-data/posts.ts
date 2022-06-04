@@ -42,6 +42,7 @@ export const mockTutorailManager__default: ITutorialManager = {
 const paidProduct: IProduct = {
   ...mockGenericProduct
 }
+
 const mockAuthorData:IAuthor ={
       avatar: {
         height: 96,
@@ -53,6 +54,7 @@ const mockAuthorData:IAuthor ={
       slug: "teelac",
       uri: "/author/teelac/"
 }
+
 const mockEtSocialNav = {
   pinterestMeta: {
     description: "Create Candy Cane Lettering in Procreate  | video tutorial: etheadlessdev.wpengine.com"
@@ -200,6 +202,7 @@ const mockEtSocialNav = {
     }
   }
 }
+
 export const mockTutorailManager__withPaidProducts: ITutorialManager = {
   paidProducts: [
     { ...paidProduct },
@@ -1139,6 +1142,7 @@ export const mockPostData: IPost = {
     title: '',
   }
 }
+
 export const mockComment: IPostComment = {
   databaseId: 218427,
   // approved: true,
@@ -1156,6 +1160,7 @@ export const mockComment: IPostComment = {
   content: "<p>Comment Body</p>\n",
   replies: []
 }
+
 export const mockComments: IComments = {
     pageInfo: {
     endCursor: "YXJyYXljb25uZWN0aW9uOjIxODQyNA==",

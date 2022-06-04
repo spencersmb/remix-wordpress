@@ -1,3 +1,5 @@
+import { siteInitialState } from "@App/hooks/useSite"
+import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { render, screen } from "@testing-library/react"
 import { mockPaidProduct } from "@TestUtils/mock-data/products"
 import { MemoryRouter } from "react-router-dom"
@@ -13,7 +15,9 @@ describe('Product Card SM', () => {
     const setupProps = { ...defualtProps, ...props }
     render(
       <MemoryRouter>
-        <ProductCardSM {...setupProps} />
+        <UseSiteProvider defaultState={siteInitialState}>
+          <ProductCardSM {...setupProps} />
+        </UseSiteProvider>
       </MemoryRouter>
     )
     return {

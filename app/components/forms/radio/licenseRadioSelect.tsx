@@ -22,7 +22,9 @@ const LicenseRadioSelect = ({ state, product, handleSelected }: IProps) => {
   }
 
   return (
-    <div className="flex flex-col rounded-xl border-[1px] border-sage-200 p-4">
+    <div
+      data-testid="license-radio-select"
+      className="flex flex-col rounded-xl border-[1px] border-sage-200 p-4">
       {product.productDetails.licences.map((license, index) => {
         return (
           <SelectRadio

@@ -119,11 +119,11 @@ export const mockPaidProduct = {
     },
     title: "Beautiful Lettering Brush Set",
     productContent:{
-      description: "desc",
+      description: null,
       productfeatureimage: {
         ...mockFeaturedImage
       },
-      subtitle: "subtitle",
+      subtitle:null,
     },
     youtube:{
       url: ''

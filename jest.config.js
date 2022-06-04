@@ -45,6 +45,9 @@ module.exports = {
       '!<rootDir>/app/components/modals/signUpInstructionsPopUp.tsx',
       '!<rootDir>/app/components/nav/nav.css',
       '!<rootDir>/app/components/nav/popOver/popOverMenuItems.tsx',
+      '!<rootDir>/app/components/post/**',
+      '!<rootDir>/app/components/products/productLayout.tsx',
+
 
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
@@ -56,8 +59,6 @@ module.exports = {
       // '!<rootDir>/app/components/images/**',
       // '!<rootDir>/app/components/modals/**',
       // '!<rootDir>/app/components/nav/**',
-      '!<rootDir>/app/components/post/**',
-      '!<rootDir>/app/components/products/**',
       '!<rootDir>/app/components/resourceLibrary/**',
       '!<rootDir>/app/components/seo/**',
       '!<rootDir>/app/components/sitemap/**',
