@@ -16,9 +16,9 @@ import CardSmall from '../cards/cardSmall'
  *
  * Download open in modal is determined by requirement set in DB
  *
- * @param {IResourceFreebie} item
+ * @tested - 6//2022
  */
-type Props = {
+interface Props {
   resource: IResourceItem
   scrollPosition: ScrollPosition
 }
@@ -26,11 +26,12 @@ const Freebie = (props: Props) => {
   const { resource, scrollPosition } = props
   const { openModal, closeModal } = useSite()
 
-  useEffect(() => {
-    if (resource.title === 'Brush Test 1') {
-      popUpDownload()
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (resource.title === 'Brush Test 1') {
+  //     popUpDownload()
+  //   }
+  // }, [])
+
   // consoleHelper('resource', resource)
   const image = loadImageSrc({
     imageSizeName: ImageSizeEnums.MEDIUM, // image name to try and get
@@ -38,6 +39,7 @@ const Freebie = (props: Props) => {
     fallbackSize: ImageSizeEnums.WPRP, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
+
   function popUpDownload() {
     openModal({
       template: <PaidProductPopUp

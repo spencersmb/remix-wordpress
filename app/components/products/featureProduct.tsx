@@ -11,7 +11,14 @@ import IpadFeatureImage from "../images/ipadFeatureImage";
 interface IProps {
   product: IProduct
 }
-
+/**
+ * @Component FeaturedProduct
+ * @tested - 6/2/2022
+ * 
+ * Main Feature Product on /Product Page
+ *
+ *
+ */
 const FeaturedProduct = ({ product }: IProps) => {
   const { state: { breakpoint } } = useSite();
   const heroImage = product.productDetails.productContent.productfeatureimage

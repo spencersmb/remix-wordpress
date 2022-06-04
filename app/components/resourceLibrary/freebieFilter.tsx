@@ -8,7 +8,7 @@ import SelectDropdown from '../forms/dropdown/selectDropdown'
  * Filter Nav element for Resource Grids
  * A dumb component that we can use to show the filter nav and what Filters are selected
  *
- *
+ * @tested - 6/4/2022
  */
 
 interface IProps {
@@ -19,12 +19,12 @@ interface IProps {
 }
 
 const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all' }, handleClick, setFilter }: IProps) => {
-  const selectedCss = 'bg-neutral-300 py-2 px-3 rounded-lg font-BlogDateAuthor'
+  const selectedCss = 'selected-tag bg-neutral-300 py-2 px-3 rounded-lg font-BlogDateAuthor'
   const defaultCss = 'py-2 px-3 bold-hover-fix inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
   return (
-    <div className='col-start-2 col-span-2 mt-8 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
-      <div className='flex flex-col tablet:flex-row justify-center items-center'>
-        <h4 className='text-sm uppercase text-neutral-700 leading-none mr-3 mb-3 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop: ml-2 text-center'>
+    <div className='col-span-2 col-start-2 mt-8 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
+      <div className='flex flex-col items-center justify-center tablet:flex-row'>
+        <h4 className='mb-3 ml-2 mr-3 text-sm leading-none text-center uppercase text-neutral-700 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop:'>
           Filter by category
         </h4>
         <div className='relative z-10 laptop:hidden'>
@@ -35,7 +35,9 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
         </div>
       </div>
       <div className='flex items-center justify-center'>
-        <ul className='hidden laptop:grid gap-x-2 w-full items-center text-sm capitalize text-neutral-900 laptop:grid-flow-col laptop:w-auto'>
+        <ul
+          data-testid="filterTags"
+          className='items-center hidden w-full text-sm capitalize laptop:grid gap-x-2 text-neutral-900 laptop:grid-flow-col laptop:w-auto'>
           {filterTags
             .map(filter => {
               return (

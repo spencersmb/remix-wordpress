@@ -9,7 +9,13 @@ interface Props {
   product: IProduct
   addFontToPreview?: IAddFontFunction
 }
-
+/**
+ * @Component License Section Component
+ * @tested - 6/2/2022
+ * 
+ * Main way to select licenses on Product Cards
+ *
+ */
 function LicenseSelectSection(props: Props) {
   const { state: { metadata } } = useSite()
   const { product, addFontToPreview } = props

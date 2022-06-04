@@ -2954,6 +2954,22 @@ export const mockPostDataComplete_3: IPost = {
       list: []
     }
 }
+export const mockResourceFreebie:IResourceFreebie = {
+  downloadLink: "https://etheadless.local/wp-content/uploads/2021/11/test-3.zip",
+  excerpt: "Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.",
+  licenseRequired: false,
+  product: null
+}
+export const mockResourceItem: IResourceItem = {
+  id: '1',
+  date: '2020-11-01T00:00:00',
+  featuredImage: null,
+  freebie: mockResourceFreebie,
+  title: 'Resrouce Item',
+  tags: [],
+  categories: [],
+  subCategories: []
+}
 
 
 

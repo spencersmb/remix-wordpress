@@ -19,6 +19,14 @@ const sellingPoints = [
     text: 'Infinite commerical usage'
   },
 ]
+
+/**
+ * @Component ExtendedLicenseUpsell Component
+ * @tested - 6/3/2022
+ * 
+ * Members area of Tuesday Makers Upsell for Extended License
+ *
+ */
 function ExtendedLicenseUpsell(props: Props) {
   const { visible } = props
   const { state: { metadata: { serverSettings } } } = useSite()

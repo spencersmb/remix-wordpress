@@ -6,6 +6,13 @@ interface IProps {
   products: IProduct[]
   metadata: ISiteMetaDataMapped
 }
+
+/**
+ * @Component ProductLayout Component
+ * 
+ * Main layout for product page - Not Tested.
+ *
+ */
 const ProductLayout = ({ products, metadata }: IProps) => {
   const { fontPreviewState } = useFontPreview()
 

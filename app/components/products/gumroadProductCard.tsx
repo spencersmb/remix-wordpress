@@ -5,7 +5,14 @@ import LicenseSelectSection from "./licenseSelectSection";
 interface IProps {
   product: IProduct
 }
-
+/**
+ * @Component Gumroad Product Card
+ * @tested - 6/2/2022
+ * 
+ * Product Card used on /Product Page
+ *
+ *
+ */
 const GumroadProductCard = ({ product }: IProps) => {
 
   const featuredImage = loadImageSrc({

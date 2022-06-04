@@ -47,7 +47,7 @@ module.exports = {
       '!<rootDir>/app/components/nav/popOver/popOverMenuItems.tsx',
       '!<rootDir>/app/components/post/**',
       '!<rootDir>/app/components/products/productLayout.tsx',
-
+      '!<rootDir>/app/components/resourceLibrary/resourceNav.tsx',
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
       // '!<rootDir>/app/components/cards/**',
@@ -59,8 +59,8 @@ module.exports = {
       // '!<rootDir>/app/components/modals/**',
       // '!<rootDir>/app/components/nav/**',
       // '!<rootDir>/app/components/tabs/**',
+      // '!<rootDir>/app/components/resourceLibrary/**',
 
-      '!<rootDir>/app/components/resourceLibrary/**',
       '!<rootDir>/app/components/seo/**',
       '!<rootDir>/app/components/sitemap/**',
       '!<rootDir>/app/components/svgs/**',
