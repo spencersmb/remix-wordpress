@@ -23,7 +23,6 @@ function ExtendedLicenseUpsell(props: Props) {
   const { visible } = props
   const { state: { metadata: { serverSettings } } } = useSite()
 
-
   if (!visible) {
     return null
   }
@@ -56,12 +55,14 @@ function ExtendedLicenseUpsell(props: Props) {
 
               <div className="wrapper relaitve bg-white p-[35px] rounded-2.5xl z-10 shadow-xxl-teal desktop:p-[45px]">
                 <div className="flex flex-col desktop:items-center">
-                  <div className="flex-1 mb-8 text-center text-success-600">
+
+                  <div data-testid="ext-card-title" className="flex-1 mb-8 text-center text-success-600">
                     <div className="text-success-500">Resource Library</div>
                     <div className="text-heading-3 font-sentinel__SemiBoldItal">Commercial License</div>
                   </div>
+
                   <div className="mb-8">
-                    <ul className="max-w-[290px] m-auto">
+                    <ul data-testid="selling-points" className="max-w-[290px] m-auto">
                       {sellingPoints.map((point, index) => (
                         <li key={index} className="flex flex-row mb-6 text-success-700">
                           <span className="w-[24px] h-[24px] mr-2"><CheckCircleSvg stroke='currentColor' /></span>
@@ -70,10 +71,13 @@ function ExtendedLicenseUpsell(props: Props) {
                       ))}
                     </ul>
                   </div>
+
                   <div>
                     {serverSettings.productPlatform === ShopPlatformEnum.GUMROAD &&
                       <>
-                        <a href="https://everytuesday.gumroad.com/l/freebie-license" className="flex flex-row items-center justify-center flex-none text-lg font-medium btn rounded-2xl btn-teal-600">
+                        <a
+                          data-testid="gumroad-btn"
+                          href="https://everytuesday.gumroad.com/l/freebie-license" className="flex flex-row items-center justify-center flex-none text-lg font-medium btn rounded-2xl btn-teal-600">
                           <span className="flex-1 mr-9">
                             Buy Now!
                           </span>

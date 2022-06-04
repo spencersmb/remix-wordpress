@@ -1,6 +1,6 @@
 import { Scripts, useLoaderData, useLocation, useMatches } from "@remix-run/react";
-import { IEnv } from "@App/interfaces/global";
-import { ISelectedMatch } from "@App/interfaces/remix";
+import type { IEnv } from "@App/interfaces/global";
+import type { ISelectedMatch } from "@App/interfaces/remix";
 import { jsonLdWebsite, jsonldImageObject, jsonldWebpage, jsonldPerson, jsonBreadcrumbsList, jsonldBlog, jsonldProduct } from "@App/utils/jsonLd";
 import { defaultFeaturedImage } from "@App/utils/pageUtils";
 interface IRootData {
@@ -13,15 +13,16 @@ interface IRootData {
 }
 const JsonLd = () => {
   let data = useLoaderData<IRootData>();
+  let matches = useMatches();
+  let location = useLocation();
 
   if (!data) {
     return (
       <Scripts />
     )
   }
+
   let { metadata } = data
-  let matches = useMatches();
-  let location = useLocation();
   let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
