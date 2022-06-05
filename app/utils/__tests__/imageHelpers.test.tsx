@@ -1,11 +1,37 @@
 import { ImageSizeEnums } from "@App/enums/imageEnums"
+import { cleanup } from "@testing-library/react"
 import { mockFeatureImageComplete } from "@TestUtils/mock-data/images"
-import { defaultImages, getImageSize, loadImageSrc } from "../imageHelpers"
+import { mockTutorailManager__default } from "@TestUtils/mock-data/posts"
+import { checkForPx, checkWidthHeight, defaultImages, getImageSize, loadImageSrc, loadThumbnailSrc } from "../imageHelpers"
 
 /**
  * @jest-environment node
  */
-describe('Utils: Image Helpers - getImageSize()', () => {
+describe('Utils: Image Helpers', () => {
+
+  afterEach(cleanup)
+
+  it('Should return width/height obj using string params', () => {
+    const width = '100'
+    const height = '200'
+    const size = checkWidthHeight(width, height)
+    expect(size).toEqual({ width: 100, height: 200 })
+  })
+
+  it('Should return width/height obj using number params', () => {
+    const width = 100
+    const height = 200
+    const size = checkWidthHeight(width, height)
+    expect(size).toEqual({ width, height })
+  })
+
+  it('checkForPx() Should return px string for string params', () => {
+    expect(checkForPx('100')).toBe('100px')
+  })
+
+  it('checkForPx() Should return px string for number params', () => {
+    expect(checkForPx(100)).toBe('100px')
+  })
 
   it('loadImageSrc() should return the ImageSrc Object used for every image', () => {
     const imageSource = loadImageSrc({
@@ -188,5 +214,66 @@ describe('Utils: Image Helpers - getImageSize()', () => {
     }
     expect(image).toEqual(result)
   })
+
+  it('loadThumbnailSrc() Should load default Post thumbnail preview', () => {
+    const imageSource = loadImageSrc({
+      imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+      imageObject: mockFeatureImageComplete, // the featured image object
+      fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+      fallbackImage: defaultImages.featured
+    })
+    const tutorialSoure: ITutorialManager = {
+      ...mockTutorailManager__default
+    }
+    const image = loadThumbnailSrc(tutorialSoure, imageSource)
+    const result: ImageLookupReturn = {
+      altTitle: mockFeatureImageComplete.altText,
+      file: "create-candy-cane-lettering-in-procreate-hero-1440x810.jpg",
+      height: "810",
+      width: "1440",
+      mimeType: "image/jpeg",
+      name: "headless_post_feature_image",
+      sizes: "(max-width: 500px) 100vw, 500px",
+      sourceUrl: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1440x810.jpg",
+      placeholder: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg",
+      srcSet: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-500x281.jpg 500w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1440x810.jpg 1440w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1024x576.jpg 1024w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1536x864.jpg 1536w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-100x56.jpg 100w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1200x675.jpg 1200w, https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg 1920w",
+    }
+    expect(image).toEqual(result)
+  })
+
+  // MUST BE AT THE END BECAUSE FUNCTION USES DELETE TO REMOVE A KEY
+  it('loadThumbnailSrc() Should load correct Post thumbnail preview', () => {
+    const imageSource = loadImageSrc({
+      imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+      imageObject: mockFeatureImageComplete, // the featured image object
+      fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+      fallbackImage: defaultImages.featured
+    })
+    const tutorialSoure: ITutorialManager = {
+      ...mockTutorailManager__default,
+      thumbnail: {
+        type: '',
+        image: mockFeatureImageComplete
+      }
+
+    }
+    const image = loadThumbnailSrc(tutorialSoure, imageSource)
+    const result = {
+      altText: "Create Candy Cane Lettering in Procreate",
+      altTitle: "Create Candy Cane Lettering in Procreate",
+      file: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1000x888.jpg",
+      height: "888",
+      width: "1000",
+      mimeType: "image/jpeg",
+      name: "thumbnail",
+      id: "cG9zdDoxMDA4NQ==",
+      placeholder: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg",
+      sizes: "",
+      srcSet: "",
+      sourceUrl: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero.jpg"
+    }
+    expect(image).toEqual(result)
+  })
+
 
 })

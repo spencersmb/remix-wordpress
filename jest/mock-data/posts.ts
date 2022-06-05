@@ -20,19 +20,7 @@ export const mockTutorailManager__default: ITutorialManager = {
   status: 'PUBLISHED',
   thumbnail: {
     type: '',
-    image: {
-      altText: '',
-      sourceUrl: '',
-      mediaDetails: {
-        sizes: [],
-        height: 0,
-        width: 0,
-      },
-      id: '',
-      mimeType: '',
-      sizes: '',
-      srcSet: '',
-    }
+    image: null
   },
   youtube: {
     embedUrl: ''
@@ -43,7 +31,7 @@ const paidProduct: IProduct = {
   ...mockGenericProduct
 }
 
-const mockAuthorData:IAuthor ={
+export const mockAuthorData:IAuthor ={
       avatar: {
         height: 96,
         url: "https://secure.gravatar.com/avatar/64857a955396b7ae5131db1265407d77?s=96&d=mm&r=g",
@@ -231,19 +219,7 @@ export const mockTutorailManager__withPaidProducts: ITutorialManager = {
   status: 'PUBLISHED',
   thumbnail: {
     type: '',
-    image: {
-      altText: '',
-      sourceUrl: '',
-      mediaDetails: {
-        sizes: [],
-        height: 0,
-        width: 0,
-      },
-      id: '',
-      mimeType: '',
-      sizes: '',
-      srcSet: '',
-    }
+    image: null
   },
   youtube: {
     embedUrl: ''

@@ -23,7 +23,7 @@ export function jsonLdWebsite(data: IjsonldWebProps): string{
 
 export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string {
 
-  return `      
+  return `{      
         '@type': 'ImageObject',
         '@id': '${pageUrl}#primaryimage',
         'inLanguage': 'en-US',
@@ -60,6 +60,7 @@ export function jsonldWebpage (props: IjsonldWebpage) {
 
 export function jsonldBlog (props: IJsonldBlog): string{
   const {url, title, dateModified, datePublished, description} = props
+  const images = props.images
   return `
   {
     "@context": "https://schema.org",
@@ -69,9 +70,7 @@ export function jsonldBlog (props: IJsonldBlog): string{
       "@id": "${url}"
     },
     "headline": "${title}",
-    "image": [
-      "https://res.cloudinary.com/every-tuesday/images/f_auto,q_auto/v1633831040/create-a-cute-notebook-icon-in-adobe-illustrator/create-a-cute-notebook-icon-in-adobe-illustrator.jpg?_i=AA"
-     ],
+    "image": ${images},
     "datePublished": "${dateModified}",
     "dateModified": "${datePublished}",
     "author": {"@type": "Person","name": "Teela"},
@@ -82,9 +81,8 @@ export function jsonldBlog (props: IJsonldBlog): string{
 
 export function jsonldProduct (props: IJsonldProduct): string{
   const {url, product} = props
-  
-  return `
-  {
+  const price = product.productDetails.licences && product.productDetails.licences.length >0 ? product.productDetails.licences[0].price : ''
+  return `{
   "@context": "http://schema.org/",
   "@type": "Product",
   "@id": "${product.slug}",
@@ -97,15 +95,14 @@ export function jsonldProduct (props: IJsonldProduct): string{
   },
   "offers": {
     "@type": "Offer",
-    "priceCurrency": "{{ shop.currency }}",
-    "price": "{{ current_variant.price | money_without_currency }}",
-    "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "priceCurrency": "USD",
+    "price": ${price},
+     "availability": "http://schema.org/InStock",
     "seller": {
       "@type": "Organization",
-      "name": "{{ shop.name }}"
+      "name": "Every Tuesday Shop"
     }
-  }
-  `
+  }`
 }
 
 export function jsonldPerson (props: IjsonldPersonProps) {

@@ -707,6 +707,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .\!visible {
   visibility: visible !important;
 }
+.static {
+  position: static;
+}
 .fixed {
   position: fixed;
 }

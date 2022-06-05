@@ -1,5 +1,4 @@
 import { Link } from '@remix-run/react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { defaultImages, loadImageSrc, loadThumbnailSrc } from '@App/utils/imageHelpers'
 import { createThumbnailImage, findSkillLevel, formatDate } from '@App/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'

@@ -138,6 +138,14 @@ export const loadImageSrc = ({
   }
 }
 
+/**
+ * 
+ * @component loadThumbnailSrc 
+ * Primary way to get the thumbnail image of a blog post that comes from the custom ACF field added for the new style of blog posts. The fallback is just the full featured image from the original blog post WP image object.
+ * 
+ * 
+ * @returns an Image Object
+ */
 export function loadThumbnailSrc(tutorialManager: ITutorialManager,
   defaultImage: ImageLookupReturn): ImageLookupReturn {
 
@@ -147,12 +155,15 @@ export function loadThumbnailSrc(tutorialManager: ITutorialManager,
     }
   }
   let imageName = tutorialManager.thumbnail.image.sourceUrl.replace('.jpg', '')
+  const {image} = tutorialManager.thumbnail
+  // @ts-ignore
+  delete image.mediaDetails
   return {
-    ...tutorialManager.thumbnail.image,
+    ...image,
     width: '1000',
     height: '888',
     srcSet: '',
-    altTitle: tutorialManager.thumbnail.image.altText,
+    altTitle: image.altText,
     placeholder: `${imageName}-20x20.jpg`,
     sizes: '',
     file: `${imageName}-1000x888.jpg`,
@@ -172,7 +183,7 @@ export const checkForPx = (value: string | number) => {
   }
 }
 
-export function checkWidthHeight(width: string | number, height: string | number) {
+export function checkWidthHeight(width: string | number, height: string | number): {width: number, height: number} {
   const widthCheck = typeof width === 'number' ? width : parseInt(width, 10)
   const heightCheck = typeof height === 'number' ? height : parseInt(height, 10)
   return {
