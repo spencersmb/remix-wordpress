@@ -2,9 +2,10 @@ import { useFetcher, useTransition } from "@remix-run/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LazyImageBase from "../images/lazyImage-base";
 import Imgix, { Picture, Source } from "react-imgix";
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers";
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers";
 import { staticImages } from "@App/lib/imgix/data";
 import MakersSignUpForm from "../forms/layout/makersSignUpForm";
+import { ImageSizeEnums } from "@App/enums/imageEnums";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();

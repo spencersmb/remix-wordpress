@@ -1,4 +1,4 @@
-import { DocumentNode } from 'graphql'
+import type { DocumentNode } from 'graphql'
 
 /**
  * @Function getGraphQLString

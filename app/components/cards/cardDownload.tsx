@@ -1,9 +1,10 @@
 import React from 'react'
 import useSite from '@App/hooks/useSite'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
+import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
 import LazyImageBase from '../images/lazyImage-base'
 import LicenseAgreementPopUp from '../modals/paidProductPopUp'
 import UploadSvg from '../svgs/uploadSvg'
+import { ImageSizeEnums } from '@App/enums/imageEnums'
 
 interface Props {
   title: string

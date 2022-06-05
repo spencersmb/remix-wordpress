@@ -1,9 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import LazyImageBase from "../images/lazyImage-base"
 import PinterestSvg from "../svgs/social/Pinterest-P-Svg"
 import Stroke1 from "../svgs/strokes/stroke-1"
+import { ImageSizeEnums } from "@App/enums/imageEnums"
 
 interface IProps {
   post: IPost

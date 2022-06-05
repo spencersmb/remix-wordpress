@@ -1,5 +1,6 @@
+import { ImageSizeEnums } from "@App/enums/imageEnums"
 import { staticImages } from "@App/lib/imgix/data"
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import { screen } from "@testing-library/react"
 import { mockFeaturedImage } from "@TestUtils/mock-data/images"
 import { mockPostDataComplete } from "@TestUtils/mock-data/posts"

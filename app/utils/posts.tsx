@@ -1,6 +1,5 @@
 import { isEmpty } from "lodash";
 import { classNames } from "./appUtils";
-import { ImageSizeEnums } from "./imageHelpers";
 
 export function flattenAllPosts(posts: any): IPost[] | false {
   const postsFiltered = posts?.edges?.map(({ node = {} }) => node);

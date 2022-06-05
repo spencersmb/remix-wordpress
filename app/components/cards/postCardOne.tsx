@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 import type { ScrollPosition } from "react-lazy-load-image-component";
 import { checkTitleForBrackets, findSkillLevel, splitProgramNameInTitle } from "@App/utils/posts";
 import BarChartSvg from "../svgs/barChartSvg";
-import { defaultImages, ImageSizeEnums, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers";
+import { defaultImages, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
 import { Link } from "@remix-run/react";
+import { ImageSizeEnums } from "@App/enums/imageEnums";
 // import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface Props {
@@ -37,21 +38,28 @@ function PostCardOne(props: Props) {
 
   const makeThisImage: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${post.title}`,
-    height: 373,
-    width: 162,
+    height: '373',
+    width: '162',
     sourceUrl: "/images/make-this.png",
     srcSet: '',
     sizes: '',
     placeholder: '/images/make-this.png',
+    file: 'make-this.png',
+    mimeType: 'image/png',
+    name: 'make-this',
   }
   const makeThisArrow: ImageLookupReturn = {
     altTitle: `Make this tutorial: ${post.title}`,
-    height: 340,
-    width: 272,
+    height: '340',
+    width: '272',
     sourceUrl: "/images/make-this-arrow-1.png",
     srcSet: '',
     sizes: '',
     placeholder: '/images/make-this-arrow-1.png',
+    file: 'make-this-arrow-1.png',
+    mimeType: 'image/png',
+    name: 'make-this-arrow-1',
+
   }
 
   return (

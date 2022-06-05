@@ -1,5 +1,8 @@
 import https from 'https'
 
+/**
+ * DEPRICATED
+ */
 const api_url = (typeof window !== "undefined" ? window.ENV.PUBLIC_WP_API_URL : process.env.PUBLIC_WP_API_URL) as string
 
 export async function logUserInClient(user: {password:string, username: string}){
@@ -33,6 +36,7 @@ export async function logUserInClient(user: {password:string, username: string})
     }),
   })
 }
+
 export async function logUserInServer(user: {password:string, username: string}){
   const https = require("https");
   const agent = new https.Agent({

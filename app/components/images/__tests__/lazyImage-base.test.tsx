@@ -1,4 +1,5 @@
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
+import { ImageSizeEnums } from "@App/enums/imageEnums"
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import { mockPostDataComplete } from "@TestUtils/mock-data/posts"
 import { renderUi } from "@TestUtils/renderUtils"
 import LazyImageBase from "../lazyImage-base"
@@ -15,7 +16,9 @@ describe('LazyImage Base Component', () => {
   }
   it('Should calcuate the correct padding-bottom', () => {
     const { getByTestId } = renderUi(<LazyImageBase {...defaultProps} />)
-    const calcPadding = defaultProps.image.height / defaultProps.image.width
+    const width = parseInt(defaultProps.image.width, 10)
+    const height = parseInt(defaultProps.image.height, 10)
+    const calcPadding = height / width
     const paddingWrapper = getByTestId('padding-bot')
     const paddingBottom = `padding-bottom: ${calcPadding * 100}%;`
     expect(paddingWrapper.getAttribute('style')).toBe(paddingBottom)
@@ -47,7 +50,9 @@ describe('LazyImage Base Component', () => {
     const reverseProps = { ...defaultProps, reverse: true }
     const { getByTestId } = renderUi(<LazyImageBase {...reverseProps} />)
     const paddingWrapper = getByTestId('padding-bot')
-    const paddingBottom = `padding-bottom: ${reverseProps.image.width / reverseProps.image.height * 100}%;`
+    const width = parseInt(reverseProps.image.width, 10)
+    const height = parseInt(reverseProps.image.height, 10)
+    const paddingBottom = `padding-bottom: ${width / height * 100}%;`
     expect(paddingWrapper.getAttribute('style')).toBe(paddingBottom)
   })
 })

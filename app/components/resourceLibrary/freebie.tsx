@@ -4,8 +4,9 @@ import PaidProductPopUp from '@App/components/modals/paidProductPopUp'
 import { consoleHelper } from '@App/utils/windowUtils'
 import type { ScrollPosition } from 'react-lazy-load-image-component';
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
+import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
 import CardSmall from '../cards/cardSmall'
+import { ImageSizeEnums } from '@App/enums/imageEnums';
 
 
 /**

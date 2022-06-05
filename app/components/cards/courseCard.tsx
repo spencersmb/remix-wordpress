@@ -1,4 +1,5 @@
-import { defaultImages, ImageSizeEnums, loadImageSrc } from "@App/utils/imageHelpers"
+import { ImageSizeEnums } from "@App/enums/imageEnums"
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import LazyImageBase from "../images/lazyImage-base"
 
 interface Props {

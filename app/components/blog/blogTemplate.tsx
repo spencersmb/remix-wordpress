@@ -5,7 +5,7 @@ import { ClientOnly } from 'remix-utils';
 import useSite from '@App/hooks/useSite';
 import useWindowResize from '@App/hooks/useWindowResize';
 import { classNames } from '@App/utils/appUtils';
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers';
+import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers';
 import { addClass } from '@App/utils/pageUtils';
 import { consoleHelper } from '@App/utils/windowUtils';
 import YouTubeVideo from '../cards/youTubeCard__post';
@@ -20,6 +20,7 @@ import PostsGrid from './postsGrid';
 import PaidProducts from './tutorialContent/paidProducts';
 import TutorialDownloads from './tutorialContent/tutorialDownloads';
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
+import { ImageSizeEnums } from '@App/enums/imageEnums';
 
 interface IProps {
   post: IPost
@@ -87,6 +88,7 @@ function BlogTemplate(props: IProps) {
     fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
+
 
   const postUrl = `${metadata.domain}/${post.slug}`
   return (

@@ -166,8 +166,6 @@ interface IFetchSubmitComment {
 }
 
 
-
-
 /*
   Shopify Fetch
 */

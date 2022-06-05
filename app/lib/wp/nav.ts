@@ -1,4 +1,4 @@
-import { IWPMenu, IWpMenuItem } from "./site"
+import type { IWPMenu, IWpMenuItem } from "./site"
 
 export function getPrimaryMenu(menus: IWPMenu[]): IWpMenuItem[]{
   const mainMenu = menus.find(menu => menu.slug === 'primary')
@@ -8,7 +8,7 @@ export function getPrimaryMenu(menus: IWPMenu[]): IWpMenuItem[]{
   // filter out submenu items appearing as main level items
   return mainMenu.menuItems.filter(menuItem => {
     if(menuItem.parentId){
-      return
+      return false
     }
     return menuItem
   })

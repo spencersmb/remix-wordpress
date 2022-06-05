@@ -1,6 +1,7 @@
 import LicenseSelectSection from '../products/licenseSelectSection'
 import LazyImageBase from '../images/lazyImage-base'
-import { defaultImages, ImageSizeEnums, loadImageSrc } from '@App/utils/imageHelpers'
+import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
+import { ImageSizeEnums } from '@App/enums/imageEnums'
 
 interface Props {
   index: number
@@ -17,7 +18,7 @@ function ProductCard__sm(props: Props) {
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
     imageObject: product.featuredImage.node, // the featured image object
-    fallbackSize: ImageSizeEnums.FULL, // fallback size to use if the image name doesn't exist
+    fallbackSize: ImageSizeEnums.FEATURE, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
 

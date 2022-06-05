@@ -145,13 +145,16 @@ interface IMediaDetails {
 }
 
 interface ImageLookupReturn {
-  width: number
-  height: number
+  width: string
+  height: string
   altTitle: string
   sourceUrl: string
   placeholder: string
   srcSet: string
   sizes: string
+  file?: string
+  mimeType?: string
+  name: string
 }
 
 interface ISocialNav {

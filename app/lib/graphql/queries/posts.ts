@@ -134,6 +134,8 @@ export const POST_FEATURED_IMAGE = gql`
     featuredImage {
       node {
         mediaDetails {
+          width
+          height
           sizes{
             width
             file
