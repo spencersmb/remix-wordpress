@@ -3,12 +3,28 @@
 const TEST_REGEX = '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?|ts?)$'
 const path = require('path')
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest',  
   testEnvironment: 'jsdom',
-   moduleNameMapper: {
-      '^@App/(.*)$': '<rootDir>/app/$1',
-      '^@TestUtils/(.*)$': '<rootDir>/jest/$1',
-   },
+  moduleNameMapper: {
+    '^@App/(.*)$': '<rootDir>/app/$1',
+    '^@TestUtils/(.*)$': '<rootDir>/jest/$1',
+  },
+ "transformIgnorePatterns": [
+    "/node_modules/(?!(@remix-run|@web-std)/).+\\.js$",
+    "/node_modules/(?!(@remix-run|@web-std)/).+\\.ts$",
+    "/node_modules/(?!(@remix-run|<@web-std)/).+\\.tsx$",
+    // "node_modules/(?!(<@remix-run>|<@web-std>)/)"
+  ],
+  transform: {
+    "^.+\\.(js|ts)$": "ts-jest",
+  },
+  // transform: {
+  //   "\\.[jt]sx?$": [
+  //     "babel-jest",
+
+  //     { configFile: "./babel.config.js" },
+  //   ],
+  // },
   moduleDirectories: ['node_modules', path.join(__dirname, 'jest')],
   moduleFileExtensions: [
       'js',

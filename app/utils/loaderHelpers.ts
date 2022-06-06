@@ -4,7 +4,7 @@ import type { Params } from 'react-router'
 import { isTokenExpired, refreshCurrentSession, requireAdminUserToken } from './session.server'
 import { consoleHelper } from './windowUtils'
 import { mapPostData } from './posts'
-import type { Cookie} from '@remix-run/node';
+import type {Cookie} from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 
 /**
@@ -162,7 +162,16 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
   }
 }
 
-export const getLoginRedirectUrl = (request:Request): string => {
+/**
+ * @function getLoginRedirectUrl
+ * 
+ * if the url is /blog/preview/:id/ but the user isn't logged in, 
+ * this function creates the login redirect url
+ * 
+ * @param request 
+ * @returns {string}
+ */
+export const getLoginRedirectUrl = (request: Request): string => {
   let url = new URL(request.url);
   let params = getPreviewUrlParams(request)
 
@@ -176,6 +185,16 @@ export const getLoginRedirectUrl = (request:Request): string => {
   return getLoginRedirectParams({previewType, id})
 }
 
+
+/**
+ * @function getLoginRedirectUrl
+ * 
+ * Checks the URL for params and creates the redirect URL for preview blog/page
+ * This URL would be coming direct from the WP backend
+ * 
+ * @param request 
+ * @returns {string}
+ */
 export const getPreviewRedirectUrl = ( request:Request ): string => {
   const {id, postType} = getPreviewUrlParams(request)
 
@@ -204,7 +223,10 @@ export async function findCookie<T>(request: Request, cookie: Cookie): Promise<{
       ...cookieData}
   };
 }
-export async function checkForCookieLogin(request: Request, cookie: Cookie, redirectTo: string){
+
+export async function checkForCookieLogin(request: Request, cookie: Cookie | null, redirectTo: string){
+  // May not need this when testing with a real cookie
+  // find cookie might do the same the same thing if we just test for hasCookie! or if data is empty
   if (!cookie) {
     throw redirect(redirectTo);
   }

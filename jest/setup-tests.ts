@@ -1,4 +1,6 @@
+import { installGlobals } from "@remix-run/node";
 import dotenv from 'dotenv';
+installGlobals();
 
 dotenv.config({ path: './.env.test' });
 
