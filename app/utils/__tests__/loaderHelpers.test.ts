@@ -1,11 +1,15 @@
 import { lfmMiniCourseCookie } from "@App/cookies.server";
-import { checkForCookieLogin, findCookie, getLoginRedirectParams, getLoginRedirectUrl, getPreviewRedirectUrl, getPreviewRedirectUrlFromParams, getPreviewUrlParams } from "../loaderHelpers";
+import { checkForCookieLogin, findCookie, getLoginRedirectParams, getLoginRedirectUrl, getPreviewRedirectUrl, getPreviewRedirectUrlFromParams, getPreviewUrlParams, previewLoaderRouteHandler } from "../loaderHelpers";
+import { createUserSession } from "../session.server";
+import { refreshJWT as mockrefreshJWT, getPreviewPostPageServer as mockPageServer } from "../fetch.server";
+import { mockPostDataComplete, mockPostRaw } from "@TestUtils/mock-data/posts";
 
 /**
  * @jest-environment node
  */
 
 describe('Utils: LoaderHelpers', () => {
+
   it('checkForCookieLogin() have cookie and cookie data so no redirect triggered', async () => {
       const cookie = await lfmMiniCourseCookie.serialize({
         video1: true
@@ -147,4 +151,102 @@ describe('Utils: LoaderHelpers', () => {
     expect(preview.postType).toEqual("post")
     expect(preview.url).toBeTruthy()
   })
+})
+
+jest.mock("../fetch.server")
+
+describe('Route Handler', () => {
+  const url = 'https://localhost:3000/api/preview'
+  it('should return a redirect to /login because no params in the URL', async () => {
+    const request = new Request(url)
+    const params = {}
+    try{
+      const response = await previewLoaderRouteHandler(request, params)
+      expect(response.status).toBe(302)
+      expect(response.headers.get('location')).toBe('/login')
+    }catch(e: any){
+      console.log('error', e);
+    }
+  })
+
+  // Simulate a full Server Response with JWT Refresh Token
+  it('Should call refresh JWT fn() and return new POST data for BLOG preview', async () => {
+    const jwtResponse:IAuthRefreshResponse = {
+      data: {
+        refreshJwtAuthToken:{
+          authToken: '0987'
+        }
+      }
+    }
+    const pageResponse = {
+      data: {
+        post:{
+          ...mockPostRaw
+        }
+      }
+    }
+
+    // Create FAKE REQUESTS
+    const reqPromise = new Promise((resolve) => {
+      resolve({
+        json: () => Promise.resolve(jwtResponse),
+      })
+    })
+    const pagePromise = new Promise((resolve) => {
+      resolve({
+        json: () => Promise.resolve(pageResponse),
+      })
+    })
+
+    // JEST MOCK FETCH CALL
+    // @ts-ignore
+    mockrefreshJWT.mockResolvedValueOnce(reqPromise)
+    // @ts-ignore
+    mockPageServer.mockResolvedValueOnce(pagePromise)
+
+    const url = 'https://localhost:3000/blog?postType=post&postId=1'
+    const userId = '1234'
+    const paramId = '1'
+    const token: IAuthToken = {
+      cmid: 'cmid1234',
+      expires: new Date(Date.now() - 600).getTime(),
+      refresh: '1234',
+      token: '1234'
+    }
+
+    const sessionStorage = createUserSession(userId, token)
+    const request = new Request(url, {
+      headers: {
+        cookie:  await sessionStorage
+      }
+    })
+    const params = {
+      id: paramId
+    }
+
+    try{
+      const response = await previewLoaderRouteHandler(request, params)
+      expect(mockrefreshJWT).toHaveBeenCalledTimes(1)
+      expect(mockrefreshJWT).toHaveBeenCalledWith({
+        ...token,
+        token: jwtResponse.data.refreshJwtAuthToken.authToken // fake new token added from server
+      })
+
+      expect(mockPageServer).toHaveBeenCalledTimes(1)
+      expect(mockPageServer).toHaveBeenCalledWith({
+        previewType: 'blog',
+        id: paramId,
+        userToken: {
+          ...token,
+          token: jwtResponse.data.refreshJwtAuthToken.authToken // fake new token added from server
+        }
+      })
+      expect(response.status).toBe(200)
+
+    }catch(e: any){
+      console.log('e', e);
+      expect(true).toBe(false)
+    }
+  })
+
 })

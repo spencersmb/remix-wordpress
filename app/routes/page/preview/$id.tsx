@@ -1,7 +1,7 @@
-import { LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import Layout from '@App/components/layoutTemplates/layout'
-import { previewLoaderRouteHandler } from '../../../utils/loaderHelpers'
+import { previewLoaderRouteHandler } from '@App/utils/loaderHelpers'
 
 export let loader: LoaderFunction = async ({ request, params, context }) => previewLoaderRouteHandler(request, params)
 

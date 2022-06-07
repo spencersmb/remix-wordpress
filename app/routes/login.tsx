@@ -38,7 +38,7 @@ export let meta: MetaFunction = (metaData): any => {
       fullHead: '',
       opengraphModifiedTime: '',
       opengraphPublishedTime: '',
-      readingTime: '1min'
+      readingTime: 1
     }
   }
 

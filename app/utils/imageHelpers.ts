@@ -46,10 +46,10 @@ interface ILoadImageSrcArgs {
 
 /**
  * 
- * @component getImageSize 
+ * @function getImageSize 
  * @tested - 6/4/2022
- * Takes in the ImageSize Array of Objects from the WP IMAGE OBJECT and returns the correct 
- * ImageSize Object based on the ImageSizeEnums Sizes definitions
+ * Takes in the ImageSize Array of Objects from the WP IMAGE MEDIA_DETAILS and returns the correct 
+ * ImageSize Object based on the ImageSizeEnums requested.
  * 
  * Exported Only because we need to test this function
  * 
@@ -79,11 +79,10 @@ export const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) =>
 }
 
 /**
- * 
- * @component loadImageSrc 
+ * @function loadImageSrc 
  * @tested - 6/4/2022
- * Primary way to get a readable image object from the WP IMAGE OBJECT sent from the server.
- * Default fallback image size to look for is LARGE and if the fallback is not found, it will load a placeholder image.
+ * Primary way to get a readable image object from the WP IMAGE OBJECT sent from the server to be used in the lazyImagebase component.
+ * Default fallback image size to look for is LARGE and if that fallback is not found, it will load a grey placeholder image.
  * 
  * 
  * @returns an Image Object
@@ -102,7 +101,7 @@ export const loadImageSrc = ({
     name: 'fallback',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
   }
-}: ILoadImageSrcArgs) => {
+}: ILoadImageSrcArgs): ImageLookupReturn => {
 
   if (!imageObject || !imageObject.mediaDetails) {
     return fallbackImage
@@ -140,11 +139,15 @@ export const loadImageSrc = ({
 
 /**
  * 
- * @component loadThumbnailSrc 
- * Primary way to get the thumbnail image of a blog post that comes from the custom ACF field added for the new style of blog posts. The fallback is just the full featured image from the original blog post WP image object.
+ * @function loadThumbnailSrc 
+ * @tested - 6/5/2022
+ * @description Primary way to get the thumbnail image of a blog post that comes from the custom ACF field added for the new style of blog posts. The fallback/default image is just the full featured image from the original blog post WP image object.
+ * 
+ * @param {ITutorialManager} tutorialManager
+ * @param {ImageLookupReturn} defaultImage
  * 
  * 
- * @returns an Image Object
+ * @returns {ImageLookupReturn} an Image Object
  */
 export function loadThumbnailSrc(tutorialManager: ITutorialManager,
   defaultImage: ImageLookupReturn): ImageLookupReturn {
@@ -172,17 +175,38 @@ export function loadThumbnailSrc(tutorialManager: ITutorialManager,
 
 }
 
-export const checkForPx = (value: string | number) => {
+/**
+ * @function checkForPx
+ * @tested - 6/5/2022
+ * 
+ * @description Helper function that checks if the value is a number or string and returns the value as a string with px on the end.
+ * 
+ * @param {string | number} value
+ * 
+ * @returns {string}
+ */
+export const checkForPx = (value: string | number): string => {
 
   let convertedValue = typeof value === 'number' ? value.toString() : value
 
-  if (convertedValue.indexOf('px') !== -1) {
-    return value
-  } else {
+  if (convertedValue.indexOf('px') === -1) {
     return `${value}px`
+  } else {
+    return convertedValue
   }
 }
 
+/**
+ * @function checkWidthHeight
+ * @tested - 6/5/2022
+ * 
+ * @description Helper function that checks if the width/height is a number or a string and returns an object with the correct width/height as numbers.
+ * 
+ * @param {string | number} width
+ * @param {string | number} height 
+ * 
+ * @returns {object}
+ */
 export function checkWidthHeight(width: string | number, height: string | number): {width: number, height: number} {
   const widthCheck = typeof width === 'number' ? width : parseInt(width, 10)
   const heightCheck = typeof height === 'number' ? height : parseInt(height, 10)

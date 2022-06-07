@@ -2782,5 +2782,75 @@ export const mockResourceItem: IResourceItem = {
   subCategories: []
 }
 
+export const mockPostRaw: IPostRaw = {
+  author: {
+    node: {
+      ...mockAuthorData
+    }
+  },
+  categories: {
+    edges: [
+      {
+        node: {
+          databaseId: 1,
+          id: 'id',
+          name: 'Cat 1',
+          slug: 'cat-1'
+        }
+      }
+    ]
+  },
+  tags: {
+    edges: [
+      {
+        node: {
+          name: 'tag 1',
+          slug: 'tag-1'
+        }
+      }
+    ]
+  },
+  relatedPosts: [],
+  featuredImage: null,
+  title: 'Test Post',
+  slug: 'test-post',
+  date: '2020-11-01T00:00:00',
+  excerpt: '<p>Test Post</p>',
+  seo: {
+      title: 'Test Post',
+      opengraphPublishedTime: '2020-11-01T00:00:00',
+      opengraphModifiedTime: '2020-11-01T00:00:00',
+      metaDesc: 'Test Post DESC',
+      readingTime: 2
+  },
+  comments: {
+    pageInfo: {
+      endCursor: 'null',
+      hasNextPage: false
+    },
+    edges: []
+  },
+  tutorialManager: {
+      status: 'published',
+      thumbnail:{
+        type: 'make',
+        image: null
+      },
+      colorPalette: [
+        {
+          downloadUrl: "http://bit.ly/polaroids-swatch",
+          iconBackgroundColor: '#00998e',
+          iconTextColor: '#ffffff'
+        }
+      ],
+      downloads: null,
+      youtube: {
+        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE'
+      },
+      paidProducts: null,
+      postExcerpt: 'string'
+  }
+}
+
 
 

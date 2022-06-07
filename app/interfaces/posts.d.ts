@@ -75,7 +75,7 @@ interface ITutorialManagerRaw {
 
 
 }
-
+ 
 interface IPostRaw {
   author: {
     node: {
@@ -96,7 +96,7 @@ interface IPostRaw {
     edges: [{node: Itag}]
   }
   relatedPosts:IPostRaw[]
-  featuredImage: {node: IFeaturedImage}
+  featuredImage: {node: IFeaturedImage} | null
   title: string
   slug: string
   date: string

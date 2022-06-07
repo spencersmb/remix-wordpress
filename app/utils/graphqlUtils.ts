@@ -1,7 +1,7 @@
 import type { DocumentNode } from 'graphql'
 
 /**
- * @Function getGraphQLString
+ * @function getGraphQLString
  *
  * Convert a gql string to a string usable in fetch
  */
