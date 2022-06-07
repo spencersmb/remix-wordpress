@@ -12,3 +12,11 @@ export function renderUi(ui: any) {
     parent: screen.getByTestId('parent')
   }
 }
+
+export function mockFetchPromise(customResponse: any) {
+  return new Promise((resolve) => {
+    resolve({
+      json: () => Promise.resolve(customResponse),
+    })
+  })
+}

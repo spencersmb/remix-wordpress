@@ -35,3 +35,10 @@ type IPageRaw = IPageCore & {
 }
 
 type IPage = IPageCore
+
+interface ILockedPage {
+  [id: string]: {
+    page: IPage
+    membersPage: IPage
+  }
+}

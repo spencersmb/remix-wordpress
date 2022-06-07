@@ -34,7 +34,7 @@ export interface IWPMenu {
 export interface IWpMenus {
   menus: IWPMenu[]
 }
-  export function getWPMenu(resourceUser: string | null): IWpMenus{
+export function getWPMenu(resourceUser: string | null): IWpMenus{
 
   return {
     menus: [
@@ -172,6 +172,20 @@ export const socialUrls = {
   facebook: "https://facebook.com/everytuesday",
   pinterest: "https://pinterest.com/everytuesday"
 }
+// TODO - get correct DEFAULT URL
+export const defaultFeaturedImage:IFeaturedImage = {
+  altText: 'Every Tuesday. The ultimate resource for Procreate digital brushes and online learning.',
+  id: '311',
+  sizes:'',
+  srcSet: '',
+  mimeType: 'image/jpeg',
+  mediaDetails:{
+    height: 0,
+    width: 0,
+    sizes:[]
+  },
+  sourceUrl: 'https://res.cloudinary.com/every-tuesday/images/v1633831046/peeling-sticker-lettering-effect-procreate/peeling-sticker-lettering-effect-procreate-jpg?_i=AA'
+}
 
 // Metadata on the server-side
 export const metadata: ISiteMetaDataStarter = {
@@ -282,3 +296,4 @@ export async function getDynamicSiteMetadata(): Promise<IDynamicMetaData> {
     throw Error('Site connection error');
   }
 }
+

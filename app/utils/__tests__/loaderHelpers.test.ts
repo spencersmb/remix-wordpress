@@ -3,6 +3,7 @@ import { checkForCookieLogin, findCookie, getLoginRedirectParams, getLoginRedire
 import { createUserSession } from "../session.server";
 import { refreshJWT as mockrefreshJWT, getPreviewPostPageServer as mockPageServer } from "../fetch.server";
 import { mockPostDataComplete, mockPostRaw } from "@TestUtils/mock-data/posts";
+import { mockFetchPromise } from "@TestUtils/renderUtils";
 
 /**
  * @jest-environment node
@@ -187,16 +188,8 @@ describe('Route Handler', () => {
     }
 
     // Create FAKE REQUESTS
-    const reqPromise = new Promise((resolve) => {
-      resolve({
-        json: () => Promise.resolve(jwtResponse),
-      })
-    })
-    const pagePromise = new Promise((resolve) => {
-      resolve({
-        json: () => Promise.resolve(pageResponse),
-      })
-    })
+    const reqPromise = mockFetchPromise(jwtResponse)
+    const pagePromise = mockFetchPromise(pageResponse)
 
     // JEST MOCK FETCH CALL
     // @ts-ignore

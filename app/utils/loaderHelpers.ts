@@ -117,17 +117,12 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
   // ID passed in from Remix param
   let id = params.id ? params.id : undefined
 
-  console.log('id', !id);
-  
-
   // Create login URL for Redirects
   let loginUrl = getLoginRedirectParams({previewType, id})
 
   // check for params
   // else redirect back to login with original url
   if(!previewType || !id){
-    console.log('redirect');
-    
     return redirect(loginUrl)
   }
   // Check for logged in user cookie - else redirect to login page
@@ -147,7 +142,6 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
       
       let newToken = res.data.refreshJwtAuthToken.authToken
       userToken.token = newToken
-      
       consoleHelper('res of newToken', newToken)
 
       const sessionStorage = refreshCurrentSession(request, newToken)

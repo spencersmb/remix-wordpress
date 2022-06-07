@@ -1,3 +1,4 @@
+import { defaultFeaturedImage, siteAuthor } from "@App/lib/wp/site"
 
 interface StaticPageProps {
   title: string
@@ -5,33 +6,18 @@ interface StaticPageProps {
   desc: string
 }
 
-// TODO - get correct DEFAULT URL
-export const defaultFeaturedImage:IFeaturedImage = {
-  altText: 'Every Tuesday. The ultimate resource for Procreate digital brushes and online learning.',
-  id: '311',
-  sizes:'',
-  srcSet: '',
-  mimeType: 'image/jpeg',
-  mediaDetails:{
-    height: 0,
-    width: 0,
-    sizes:[]
-  },
-  sourceUrl: 'https://res.cloudinary.com/every-tuesday/images/v1633831046/peeling-sticker-lettering-effect-procreate/peeling-sticker-lettering-effect-procreate-jpg?_i=AA'
-}
+/**
+ * @function getStaticPageMeta
+ * @tested - 6/7/2022
+ * 
+ * @description return the correct default Page Meta Data
+ * 
+ *
+ **/
 export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage => {
   const date = new Date().getDate.toString()
   return {
-    author: {
-      avatar:{
-        height: 96,
-        width: 96,
-        url: 'https://secure.gravatar.com/avatar/64857a955396b7ae5131db1265407d77?s=96&d=mm&r=g'
-      },
-      id: 'dXNlcjox',
-      slug: 'teelac',
-      name: 'Teela'
-    },
+    author: siteAuthor.author,
     content: '',
     date,
     title: `${title} - Every Tuesday`,
@@ -48,6 +34,14 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
   }
 }
 
+/**
+ * @function hasClass
+ * @tested - 6/7/2022
+ * 
+ * @description Returns true if the element has the class, false if it does not
+ * 
+ *
+ **/
 export const hasClass = (el: (HTMLElement | Element )| null, className: string) => {
   if(!el){
     return
@@ -55,6 +49,15 @@ export const hasClass = (el: (HTMLElement | Element )| null, className: string) 
   if (el.classList) return el.classList.contains(className);
   else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
 };
+
+/**
+ * @function addClass
+ * @tested - 6/7/2022
+ * 
+ * @description Adds a class to the element
+ * 
+ *
+ **/
 export const addClass = (el: HTMLElement | Element | null, className: string) => {
   if(!el){
     return
@@ -64,6 +67,15 @@ export const addClass = (el: HTMLElement | Element | null, className: string) =>
   else if (!hasClass(el, classList[0])) el.className += " " + classList[0];
   if (classList.length > 1) addClass(el, classList.slice(1).join(' '));
 };
+
+/**
+ * @function removeClass
+ * @tested - 6/7/2022
+ * 
+ * @description Removes class from the element
+ * 
+ *
+ **/
 export const removeClass = (el: HTMLElement | null, className: string) => {
   if(!el){
     return
@@ -76,6 +88,15 @@ export const removeClass = (el: HTMLElement | null, className: string) => {
   }
   if (classList.length > 1) removeClass(el, classList.slice(1).join(' '));
 };
+
+/**
+ * @function toggleClass
+ * @tested - 6/7/2022
+ * 
+ * @description Add/Remove a class from the element based on the boolean.
+ * True to add the element, false to remove
+ *
+ **/
 export const toggleClass = (el: HTMLElement, className: string, bool: boolean) => {
   if(bool) addClass(el, className);
   else removeClass(el, className);

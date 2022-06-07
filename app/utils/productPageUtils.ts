@@ -1,5 +1,5 @@
 export function getStandardLicense(product: IProduct): ILicense{
-  const licenses = product.details.licences || []
+  const licenses = product.productDetails.licences || []
   return licenses.reduce((previousValue: any, currentValue: any) => {
     if(currentValue.licenseType === 'standard'){
       return currentValue

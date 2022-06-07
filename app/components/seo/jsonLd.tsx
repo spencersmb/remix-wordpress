@@ -2,7 +2,8 @@ import { Scripts, useLoaderData, useLocation, useMatches } from "@remix-run/reac
 import type { IEnv } from "@App/interfaces/global";
 import type { ISelectedMatch } from "@App/interfaces/remix";
 import { jsonLdWebsite, jsonldImageObject, jsonldWebpage, jsonldPerson, jsonBreadcrumbsList, jsonldBlog, jsonldProduct } from "@App/utils/jsonLd";
-import { defaultFeaturedImage } from "@App/utils/pageUtils";
+import { defaultFeaturedImage } from "@App/lib/wp/site";
+
 interface IRootData {
   ENV: IEnv
   cart: IShopifyCart

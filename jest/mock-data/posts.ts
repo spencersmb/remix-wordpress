@@ -1,3 +1,4 @@
+import { ShopPlatformEnum } from "@App/enums/products"
 import { mockFeaturedImage, mockFeatureImageComplete } from "./images"
 import { mockGenericProduct, mockPaidProduct } from "./products"
 
@@ -2849,6 +2850,42 @@ export const mockPostRaw: IPostRaw = {
       },
       paidProducts: null,
       postExcerpt: 'string'
+  }
+}
+
+export const mockMetaData: ISiteMetaDataMapped = {
+  author: mockAuthorData,
+  description: 'Test Description',
+  title: 'Test Title',
+  domain: 'etheadless.local',
+  language: 'en',
+  serverSettings:{
+    productPlatform: ShopPlatformEnum.GUMROAD,
+  },
+  siteTitle: 'Test Title',
+  social: {
+    facebook: 'https://www.facebook.com/etheadless',
+    instagram: 'https://www.instagram.com/etheadless',
+    twitter: {
+      cardType: 'summary_large_image',
+      url: 'https://twitter.com/etheadless',
+      username: 'etheadless'
+    },
+    pinterest: 'https://www.pinterest.com/etheadless',
+    youtube: 'https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw'
+  },
+  courseLaunchBanners:{
+    basicBanner:{
+      color: '#00998e',
+      endDate: '2020-12-01T00:00:00',
+      showBanner: false,
+      title: 'Basic Course',
+      url: 'https://etheadless.local/basic-course/'
+    },
+    lfmBanner:{
+      endDate: '2020-12-01T00:00:00',
+      showBanner: false,
+    }
   }
 }
 

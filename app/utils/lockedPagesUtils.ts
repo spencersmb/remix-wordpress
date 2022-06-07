@@ -1,104 +1,10 @@
-import { RouteData } from "@remix-run/react/routeData";
-import { Params } from "react-router";
-import { lockedPageEnumSlugs } from "@App/enums/lockedPages";
-import { getStaticPageMeta } from "./pageUtils";
+import type { RouteData } from "@remix-run/react/routeData";
+import type { Params } from "react-router";
 import { getHtmlMetadataTags } from "./seo";
 import type { Location } from "history";
-import { AppData } from "@remix-run/react/data";
+import type { AppData } from "@remix-run/react/data";
+import { lockedPagesMeta } from "@App/lib/lockedPages/classDownloads";
 
-interface ILockedPage {
-  [id: string]: {
-    page: IPage
-    membersPage: IPage
-  }
-}
-
-export const lockedPagesMeta: ILockedPage = {
-  [lockedPageEnumSlugs.beautifulLettering]: {
-    page: getStaticPageMeta({
-      title: `Beautiful Lettering Bonus Downloads`,
-      desc: `Beautiful Lettering Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.beautifulLettering,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `PBeautiful Lettering Bonus Downloads Members Area`,
-      desc: `PBeautiful Lettering Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.beautifulLettering,
-    })
-  },
-  [lockedPageEnumSlugs.procreate5x]: {
-    page: getStaticPageMeta({
-      title: `Procreate 5x Bonus Downloads`,
-      desc: `Procreate 5x Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.procreate5x,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Procreate 5x Bonus Downloads Members Area`,
-      desc: `Procreate 5x Bonus Downloads members area!`,
-      slug: lockedPageEnumSlugs.procreate5x,
-    })
-  },
-  [lockedPageEnumSlugs.procreateFlorals]: {
-    page: getStaticPageMeta({
-      title: `Procreate Florals Class Bonus Downloads`,
-      desc: `Procreate Florals Class Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.procreateFlorals,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Procreate Florals Class Bonus Downloads Members Area`,
-      desc: `Procreate Florals Class Bonus Downloads members area!`,
-      slug: lockedPageEnumSlugs.procreateFlorals,
-    })
-  },
-  [lockedPageEnumSlugs.procreateWatercolors]: {
-    page: getStaticPageMeta({
-      title: `Procreate Watercolors Class Bonus Downloads`,
-      desc: `Procreate Watercolors Class Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.procreateWatercolors,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Procreate Watercolors Class Bonus Downloads Members Area`,
-      desc: `Procreate Watercolors Class Bonus Downloads members area!`,
-      slug: lockedPageEnumSlugs.procreateWatercolors,
-    })
-  },
-  [lockedPageEnumSlugs.threeDLettering]: {
-    page: getStaticPageMeta({
-      title: `Procreate 3d Lettering Class Bonus Downloads`,
-      desc: `Procreate 3d Lettering Class Bonus Downloads members only access!`,
-      slug: lockedPageEnumSlugs.threeDLettering,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Procreate 3d Lettering Class Bonus Downloads Members Area`,
-      desc: `Procreate 3d Lettering Class Bonus Downloads members area!`,
-      slug: lockedPageEnumSlugs.threeDLettering,
-    })
-  },
-  [lockedPageEnumSlugs.etAffiliates]: {
-    page: getStaticPageMeta({
-      title: `Every Tuesday Affiliate Asset Downloads`,
-      desc: `Every Tuesday Affiliate Asset Downloads for cross promotions.`,
-      slug: lockedPageEnumSlugs.etAffiliates,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Every Tuesday Affiliate Asset Downloads`,
-      desc: `Every Tuesday Affiliate Asset Downloads for cross promotions.`,
-      slug: lockedPageEnumSlugs.etAffiliates,
-    })
-  },
-  [lockedPageEnumSlugs.lfmAffiliates]: {
-    page: getStaticPageMeta({
-      title: `Learn Font Making Affiliate Asset Downloads`,
-      desc: `Learn Font Making Affiliate Asset Downloads`,
-      slug: lockedPageEnumSlugs.lfmAffiliates,
-    }),
-    membersPage: getStaticPageMeta({
-      title: `Learn Font Making Affiliate Asset Downloads`,
-      desc: `Learn Font Making Affiliate Asset Downloads`,
-      slug: lockedPageEnumSlugs.lfmAffiliates,
-    })
-  },
-}
 
 type MetaMembers = (args: {
         data: AppData;
@@ -107,7 +13,16 @@ type MetaMembers = (args: {
         location: Location;
     }, locked?:{membersPage: boolean}) => any
 
-export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined): any => {
+const parentPath = 'class-downloads'
+
+/**
+ * @function getlockedPageMetaTags
+ * @tested - 6/6/2022
+ * 
+ * @description Helper function that gets the static META DATA for both logged in and logged out pages
+ * 
+ */
+export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined) => {
 
   /*
   rootData gets passed in from the root metadata function
@@ -121,6 +36,7 @@ export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined)
     }
   }
   const lookUpSlug = params.slug;
+
   if (!lookUpSlug) {
     return {
       title: '404',
@@ -147,12 +63,28 @@ export const getlockedPageMetaTags: MetaMembers = (rootData, locked = undefined)
   })
 };
 
-const parentPath = 'class-downloads'
+/**
+ * @function getLockedPageRedirectMembersPath
+ * @tested - 6/6/2022
+ * 
+ * @description Helper function to get the redirect path for the members page
+ * ex: /class-downloads/bl/members
+ * 
+ * 
+ */
 export function getLockedPageRedirectMembersPath(slug: string): string {
-  // ex: /class-downloads/bl
   return `/${parentPath}/${slug}/members`
 }
 
+/**
+ * @function getLockedPageRedirectLogoutPath
+ * @tested - 6/6/2022
+ * 
+ * @description Helper function to get the redirect path for the members page
+ * ex: /class-downloads/bl
+ * 
+ * 
+ */
 export function getLockedPageRedirectLogoutPath(slug: string): string {
   // ex: /class-downloads/bl
   return `/${parentPath}/${slug}`
