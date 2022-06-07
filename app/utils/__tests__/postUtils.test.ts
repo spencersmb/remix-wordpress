@@ -1,5 +1,5 @@
 describe('Utils: Post Utilities', () => {
-  it('', () => {
+  it('Should flatten all posts', () => {
     
   })
 })
