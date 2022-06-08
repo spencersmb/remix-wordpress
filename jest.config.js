@@ -67,6 +67,7 @@ module.exports = {
       '!<rootDir>/app/utils/cartUtils.ts',
       '!<rootDir>/app/utils/fetch.clent.ts',
       '!<rootDir>/app/utils/fetch.server.ts',
+      '!<rootDir>/app/utils/resourceLibrarySession.server.ts',
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
       // '!<rootDir>/app/components/cards/**',
@@ -85,7 +86,7 @@ module.exports = {
       '!<rootDir>/app/components/svgs/**',
       '!<rootDir>/app/hooks/**',
       '!<rootDir>/app/lib/**',
-      '!<rootDir>/app/utils/**',
+      // '!<rootDir>/app/utils/**',
 
       "!<rootDir>/app/assets/**",
       "!<rootDir>/app/routes/**",

@@ -1,22 +1,23 @@
-export function getStandardLicense(product: IProduct): ILicense{
-  const licenses = product.productDetails.licences || []
-  return licenses.reduce((previousValue: any, currentValue: any) => {
-    if(currentValue.licenseType === 'standard'){
-      return currentValue
-    }else{
-      return previousValue
-    }
-  },{})
-}
+import type { ShopPlatformEnum } from "@App/enums/products";
+import { LicenseEnum } from "@App/enums/products"
+import { getLicense } from "./posts"
 
-export function getProductStdPrice (product: IProduct, shopPlatform: string): number{
+/**
+ * @function getProductStdPrice
+ * @tested - 6/7/2022
+ * @description Get the standard Price of a product license
+ * 
+ *
+ *
+ **/
+export function getProductStdPrice (product: IProduct, shopPlatform: ShopPlatformEnum): number{
 
   if(shopPlatform === 'sendowl'){
     return 0
   }
 
   // default is gumroad
-  const productLic = getStandardLicense(product)
-  return productLic.price ? productLic.price : 0
+  const productLic = getLicense(product.productDetails.licences, LicenseEnum.STANDARD)
+  return productLic ? productLic.price : 0
 
-}
+} 

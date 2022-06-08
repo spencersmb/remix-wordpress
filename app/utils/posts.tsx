@@ -439,27 +439,41 @@ export function getLicense(licenses: ILicense[] | null, type: LicenseEnum): ILic
   return foundLicense
 }
 
-// export function flattenAllCourses(courses: ICoursesRaw): ICourse[] | false {
-//   const coursesFiltered = courses?.edges?.map(({ node = {} }) => node);
-//   return Array.isArray(coursesFiltered) && coursesFiltered.map(mapCourseData)
-// }
+/**
+ * @function flattenAllCourses
+ * @tested - 6/7/2022
+ * @description Go over all the courses and flatten the data to remove edges and nodes from the keys
+ * 
+ *
+ **/
+export function flattenAllCourses(courses: ICoursesRaw): ICourse[] | false {
+  const coursesFiltered = courses?.edges?.map(({ node = {} }) => node);
+  return Array.isArray(coursesFiltered) && coursesFiltered.map(mapCourseData)
+}
 
-// export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
-//   const data = { ...course };
-//   let modifiedData: any = { ...course }
+/**
+ * @function mapCourseData
+ * @tested - 6/7/2022
+ * @description Map over Course data, filter and return a clean object
+ * 
+ *
+ **/
+export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
+  const data = { ...course };
+  let modifiedData: any = { ...course }
 
-//   if (data.featuredImage) {
-//     modifiedData.featuredImage = data.featuredImage.node;
-//   }
+  if (data.featuredImage) {
+    modifiedData.featuredImage = data.featuredImage.node;
+  }
 
-//   if (data.details?.courseTags && data.details.courseTags.length > 0) {
-//     modifiedData.details.courseTags = data.details.courseTags.map(item => {
-//       return item.tag
-//     })
-//   }
+  if (data.details?.courseTags && data.details.courseTags.length > 0) {
+    modifiedData.details.courseTags = data.details.courseTags.map(item => {
+      return item.tag
+    })
+  }
 
-//   return modifiedData
-// }
+  return modifiedData
+}
 
 // export function createThumbnailImage(
 //   tutorialManager: ITutorialManager,

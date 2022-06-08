@@ -1,8 +1,9 @@
 import { LicenseEnum } from "@App/enums/products"
 import { mockPostCommentRaw } from "@TestUtils/mock-data/comments"
+import { mockCourse, mockCourseRaw } from "@TestUtils/mock-data/courses"
 import { mockCategories_skill_adv, mockCategories_skill_int, mockCategories_skill_none, mockPostRaw, mockPostRawFormatted } from "@TestUtils/mock-data/posts"
 import { mockExtendedLicense, mockServerLicense, mockStandardLicense } from "@TestUtils/mock-data/products"
-import { checkTitleForBrackets, filterNodeFromTags, findSkillLevel, findString, flattenAllPosts, formatDate, getLicense, mapPostData, parseComment, parseStringForSpecialCharacters, rearrangeLicenses, splitProgramNameInTitle } from "../posts"
+import { checkTitleForBrackets, filterNodeFromTags, findSkillLevel, findString, flattenAllCourses, flattenAllPosts, formatDate, getLicense, mapCourseData, mapPostData, parseComment, parseStringForSpecialCharacters, rearrangeLicenses, splitProgramNameInTitle } from "../posts"
 
 describe('Utils: Post Utilities', () => {
 
@@ -115,6 +116,10 @@ describe('Utils: Post Utilities', () => {
     }
   })
 
+  it('mapCourseData() Should format the Course properly', () => {
+    expect(mapCourseData(mockCourseRaw)).toEqual(mockCourse)
+  })
+
   it('mapPostData() Should format the POST properly', () => {
     expect(mapPostData(mockPostRaw)).toEqual(mockPostRawFormatted)
   })
@@ -210,6 +215,20 @@ describe('Utils: Post Utilities', () => {
       ]
     }
     const result = flattenAllPosts(posts)
+    if(result){
+      expect(result.length).toEqual(1)
+    }
+  })
+
+  it('flattenAllCourses() Should flatten all posts and return correct array amount', () => {
+    const courses = {
+      edges: [
+        {node: {
+          ...mockCourseRaw
+        }}
+      ]
+    }
+    const result = flattenAllCourses(courses)
     if(result){
       expect(result.length).toEqual(1)
     }

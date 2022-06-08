@@ -6,12 +6,10 @@ import CourseCard from "@App/components/cards/courseCard";
 import CourseHeader from "@App/components/courses/courseHeader";
 import CourseHighQuality from "@App/components/courses/courseHighQuality";
 import Layout from "@App/components/layoutTemplates/layout"
-import { POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { flattenAllCourses, rearrangeLicenses } from "@App/utils/posts";
+import { flattenAllCourses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
-import { useSimpleTabs } from "@App/components/tabs/SimpleTabs/simpleTabsContext";
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses - Every-Tuesday`,

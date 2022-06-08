@@ -1,6 +1,5 @@
-// FUNCTION EXAMPLE
 /**
- * formatePrice
+ * @function formatePrice
  * @tested - 5/25/2022
  * @param price - number, the price to formate
  * @param removeZeros - boolean, if true, remove the zeros at the end of the number 

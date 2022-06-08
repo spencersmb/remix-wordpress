@@ -124,7 +124,7 @@ const FooterLinks = () => {
                       )
                     case 'instagram':
                       return (
-                        <li key={key} className='flex pl-9'> data-testid="social-link"
+                        <li key={key} className='flex pl-9'>
                           <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
                             <InstagramSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
                             <span className="sr-only">Every Tuesday on Instagram</span>
