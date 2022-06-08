@@ -1,7 +1,7 @@
 import { siteInitialState } from "@App/hooks/useSite"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { mockComment } from "@TestUtils/mock-data/posts"
+import { mockComment } from "@TestUtils/mock-data/comments"
 import Comment from "../comment"
 
 describe('Comment Component', () => {

@@ -2,6 +2,21 @@ import { LicenseEnum } from "@App/enums/products";
 import { mockFeaturedImage } from "./images";
 import { mockSeo } from "./posts";
 
+export const mockStandardLicense:ILicense = {
+  licenseType: LicenseEnum.STANDARD,
+  price: 15,
+  url: "https://gum.co/beautiful-lettering"
+}
+export const mockExtendedLicense:ILicense = {
+  licenseType: LicenseEnum.EXTENDED,
+  price: 30,
+  url: "https://gum.co/beautiful-lettering-extended"
+}
+export const mockServerLicense:ILicense = {
+  licenseType: LicenseEnum.SERVER,
+  price: 60,
+  url: "https://gum.co/beautiful-lettering-server"
+}
 export const mockGenericProduct: IProduct = {
     title: 'product 1',
     slug: 'product-1',

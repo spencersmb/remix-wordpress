@@ -227,56 +227,66 @@ export const mockTutorailManager__withPaidProducts: ITutorialManager = {
   }
 }
 
-const mockTags = [
+const mockTags: Itag[] = [
   {
     
       name: "3D lettering",
-      slug: "3d-lettering"
+      slug: "3d-lettering",
+      count: 1
   },
   {
     
       name: "candy cane",
-      slug: "candy-cane"
+      slug: "candy-cane",
+      count: 1
   },
   {
     
       name: "candy cane lettering",
-      slug: "candy-cane-lettering"
+      slug: "candy-cane-lettering",
+      count: 1
   },
   {
     
       name: "design",
-      slug: "design"
+      slug: "design",
+      count: 1
   },
   {
     
       name: "doodle",
-      slug: "doodle"
+      slug: "doodle",
+      count: 1
   },
   {
     
       name: "every tuesday",
-      slug: "every-tuesday"
+      slug: "every-tuesday",
+      count: 1
   },
   {
     
       name: "every tuesday tutorial",
-      slug: "every-tuesday-tutorial"
+      slug: "every-tuesday-tutorial",
+      count: 1
   },
   {
     
       name: "free",
-      slug: "free"
+      slug: "free",
+      count: 1
   },
   {
     
       name: "freebie",
-      slug: "freebie"
+      slug: "freebie",
+      count: 1
   },
   {
     
       name: "highlights",
-      slug: "highlights"
+      slug: "highlights",
+      count: 1
   }
 ]
 
@@ -1028,6 +1038,237 @@ const mockRelatedPost_3 = {
     }
   ],
 } 
+export const mockCategories_skill_beg = [
+  {
+      databaseId: 657,
+      id: "dGVybTo2NTc=",
+      name: "Color",
+      slug: "color"
+  },
+  {
+      databaseId: 5,
+      id: "dGVybTo1",
+      name: "Freebies",
+      slug: "freebies"
+  },
+  {
+    
+      databaseId: 816,
+      id: "dGVybTo4MTY=",
+      name: "Hand Drawn",
+      slug: "hand-drawn"
+  },
+  {
+    
+      databaseId: 559,
+      id: "dGVybTo1NTk=",
+      name: "Hand Lettering",
+      slug: "hand-lettering-2"
+  },
+  {
+    
+      databaseId: 69,
+      id: "dGVybTo2OQ==",
+      name: "Holiday",
+      slug: "holiday"
+  },
+  {
+    
+      databaseId: 1182,
+      id: "dGVybToxMTgy",
+      name: "Illustration",
+      slug: "illustration"
+  },
+  {
+    
+      databaseId: 2447,
+      id: "dGVybToyNDQ3",
+      name: "Beginner",
+      slug: "beginner"
+  },
+  {
+    
+      databaseId: 2047,
+      id: "dGVybToyMDQ3",
+      name: "Procreate",
+      slug: "procreate"
+  },
+  {
+    
+      databaseId: 9,
+      id: "dGVybTo5",
+      name: "Tutorials",
+      slug: "tutorials"
+  }
+]
+export const mockCategories_skill_int = [
+  {
+      databaseId: 657,
+      id: "dGVybTo2NTc=",
+      name: "Color",
+      slug: "color"
+  },
+  {
+      databaseId: 5,
+      id: "dGVybTo1",
+      name: "Freebies",
+      slug: "freebies"
+  },
+  {
+    
+      databaseId: 816,
+      id: "dGVybTo4MTY=",
+      name: "Hand Drawn",
+      slug: "hand-drawn"
+  },
+  {
+    
+      databaseId: 559,
+      id: "dGVybTo1NTk=",
+      name: "Hand Lettering",
+      slug: "hand-lettering-2"
+  },
+  {
+    
+      databaseId: 69,
+      id: "dGVybTo2OQ==",
+      name: "Holiday",
+      slug: "holiday"
+  },
+  {
+    
+      databaseId: 1182,
+      id: "dGVybToxMTgy",
+      name: "Illustration",
+      slug: "illustration"
+  },
+  {
+    
+      databaseId: 2447,
+      id: "dGVybToyNDQ3",
+      name: "Intermediate",
+      slug: "intermediate"
+  },
+  {
+    
+      databaseId: 2047,
+      id: "dGVybToyMDQ3",
+      name: "Procreate",
+      slug: "procreate"
+  },
+  {
+    
+      databaseId: 9,
+      id: "dGVybTo5",
+      name: "Tutorials",
+      slug: "tutorials"
+  }
+]
+export const mockCategories_skill_adv = [
+  {
+      databaseId: 657,
+      id: "dGVybTo2NTc=",
+      name: "Beginner",
+      slug: "beginner"
+  },
+  {
+      databaseId: 5,
+      id: "dGVybTo1",
+      name: "Freebies",
+      slug: "freebies"
+  },
+  {
+    
+      databaseId: 816,
+      id: "dGVybTo4MTY=",
+      name: "Hand Drawn",
+      slug: "hand-drawn"
+  },
+  {
+    
+      databaseId: 559,
+      id: "dGVybTo1NTk=",
+      name: "Hand Lettering",
+      slug: "hand-lettering-2"
+  },
+  {
+    
+      databaseId: 69,
+      id: "dGVybTo2OQ==",
+      name: "Holiday",
+      slug: "holiday"
+  },
+  {
+    
+      databaseId: 1182,
+      id: "dGVybToxMTgy",
+      name: "Illustration",
+      slug: "illustration"
+  },
+  {
+      databaseId: 2447,
+      id: "dGVybToyNDQ3",
+      name: "Advanced",
+      slug: "advanced"
+  },
+  {
+    
+      databaseId: 2047,
+      id: "dGVybToyMDQ3",
+      name: "Procreate",
+      slug: "procreate"
+  },
+  {
+    
+      databaseId: 9,
+      id: "dGVybTo5",
+      name: "Tutorials",
+      slug: "tutorials"
+  }
+]
+export const mockCategories_skill_none = [
+  {
+      databaseId: 5,
+      id: "dGVybTo1",
+      name: "Freebies",
+      slug: "freebies"
+  },
+  {
+    
+      databaseId: 816,
+      id: "dGVybTo4MTY=",
+      name: "Hand Drawn",
+      slug: "hand-drawn"
+  },
+  {
+    
+      databaseId: 559,
+      id: "dGVybTo1NTk=",
+      name: "Hand Lettering",
+      slug: "hand-lettering-2"
+  },
+  {
+    
+      databaseId: 69,
+      id: "dGVybTo2OQ==",
+      name: "Holiday",
+      slug: "holiday"
+  },
+  {
+    
+      databaseId: 1182,
+      id: "dGVybToxMTgy",
+      name: "Illustration",
+      slug: "illustration"
+  },
+  {
+    
+      databaseId: 2047,
+      id: "dGVybToyMDQ3",
+      name: "Procreate",
+      slug: "procreate"
+  }
+]
 
 export const mockTutorialManagerDownloads = [
         {
@@ -1043,34 +1284,6 @@ export const mockTutorialManagerDownloads = [
           }
         }
 ]
-
-export const mockPostCommentRaw: IPostCommentRaw = {
-  author: {
-    node: {
-      ...mockAuthorData,
-      databaseId: '1',
-      id: '1',
-      name: 'John Doe',
-      gravatar: {
-        url: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=24',
-      }
-    }
-  },
-  content: "This is a comment",
-  databaseId: 1,
-  approved: false,
-  parent: null,
-  commentedOn:{
-    node:{
-      databaseId: 1
-    }
-  },
-  date: "2018-04-23T15:00:00",
-  id: '1',
-  replies: {
-    edges:[]
-  }
-}
 
 export const mockPostData: IPost = {
   title: "test-title",
@@ -1120,151 +1333,9 @@ export const mockPostData: IPost = {
   }
 }
 
-export const mockComment: IPostComment = {
-  databaseId: 218427,
-  // approved: true,
-  parent: null,
-  id: "Y29tbWVudDoyMTg0Mjc=",
-  author: {
-    id: "YWRtaW5pc3RyYXRvcjox",
-    databaseId: "1",
-    name: "Spencer Bigum",
-    gravatar: {
-      url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-    }
-  },
-  date: "2022-01-27 21:08:02",
-  content: "<p>Comment Body</p>\n",
-  replies: []
-}
-
-export const mockComments: IComments = {
-    pageInfo: {
-    endCursor: "YXJyYXljb25uZWN0aW9uOjIxODQyNA==",
-    hasNextPage: true
-  },
-  list: [
-    {
-      databaseId: 218427,
-      // approved: true,
-      parent: null,
-      id: "Y29tbWVudDoyMTg0Mjc=",
-      author: {
-        id: "YWRtaW5pc3RyYXRvcjox",
-        databaseId: "1",
-        name: "Spencer Bigum",
-        gravatar: {
-          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-        }
-      },
-      date: "2022-01-27 21:08:02",
-      // commentedOn: {
-      //   node: {
-      //     id: "cG9zdDo1NDM0",
-      //     status: "publish"
-      //   }
-      // },
-      content: "<p>4</p>\n",
-      replies: []
-      },
-    {
-      databaseId: 218426,
-      // approved: true,
-      parent: null,
-      id: "Y29tbWVudDoyMTg0MjY=",
-      author: {
-        databaseId: "1",
-        id: "YWRtaW5pc3RyYXRvcjox",
-        name: "Spencer Bigum",
-        gravatar: {
-          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-        }
-      },
-      date: "2022-01-27 21:07:22",
-      // commentedOn: {
-      //   node: {
-      //     id: "cG9zdDo1NDM0",
-      //     status: "publish"
-      //   }
-      // },
-      content: "<p>3</p>\n",
-      replies: [
-          {
-            id: "Y29tbWVudDoyMTg0MzM=",
-            databaseId: 218433,
-            content: "<p>two test</p>\n",
-            date: "2022-01-28 01:31:37",
-            parent: 218426,
-            author: {
-              databaseId: "2",
-              id: "YWRtaW5pc3RyYXRvcjoxMg==",
-              name: "twotest",
-              gravatar: {
-                url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-              }
-            }
-          },
-          {
-            id: "Y29tbWVudDoyMTg0MzI=",
-            databaseId: 218432,
-            content: "<p>test</p>\n",
-            date: "2022-01-28 01:26:12",
-            parent: 218426,
-            author: {
-              databaseId: "1",
-              id: "YWRtaW5pc3RyYXRvcjox",
-              name: "Spencer M Bigum",
-              gravatar: {
-              url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-              }
-            }
-            },
-          {
-            id: "Y29tbWVudDoyMTg0Mjg=",
-            databaseId: 218428,
-            content: "<p>tes</p>\n",
-            date: "2022-01-27 21:08:26",
-            parent: 218426,
-            author: {
-              databaseId: "3",
-              id: "YWRtaW5pc3RyYXRvcjoxMw==",
-              name: "Teela Bigum",
-              gravatar: {
-                url: "https://secure.gravatar.com/avatar/aac786a8b226660a1064233ededdda6b?s=96&d=mm&r=g"
-              }
-            }
-          }
-        ]
-      },
-    {
-      databaseId: 218424,
-      // approved: true,
-      parent: null,
-      id: "Y29tbWVudDoyMTg0MjQ=",
-      author: {
-        databaseId: "1",
-        id: "YWRtaW5pc3RyYXRvcjox",
-        name: "Spencer",
-        gravatar: {
-          url: "https://secure.gravatar.com/avatar/9119dc766dbfe9f6b05b7f39f9dbd9ce?s=96&d=mm&r=g"
-        }
-      },
-      date: "2022-01-27 21:05:42",
-      // commentedOn: {
-      //   node: {
-      //     id: "cG9zdDo1NDM0",
-      //     status: "publish"
-      //   }
-      // },
-      content: "<p>test</p>\n",
-      replies: []
-      }
-  ]
-}
-
 export const mockPostDataComplete: IPost = {
   id: "cG9zdDoxMDA4Mw==",
-    content: "\n<h5>Here&#8217;s a written overview of how to candy cane lettering in Procreate :</h5>\n\n\n\n<ul><li>Set your background color and write out your typography with the <a href=\"https://etheadless.local/beautiful-lettering-brushes\" target=\"_blank\" rel=\"noreferrer noopener\">pencil pro brush</a> at 25%. Fill up a large amount of the canvas with your lettering since it will be the focus. </li><li>Create your candies by creating a new layer and draw in little triangles in the letter o&#8217;s. Switch colors and fill in the gaps. Choose liquify and choose twirl left or right and tap and hold right in the center of the candy and push down. Complete the candy by giving it a background circle. Apply a clipping mask to the swirl to lock it into the shape. </li><li>Erase the o&#8217;s from the lettering layer. Add a wrapper to the candy. Duplicate the candy layer and move it down into jolly, and reflect it so that it does not look the exact same. </li><li>Create a new layer above your lettering layer and draw in lines on all of your letters. Once the lines are done, apply a clipping mask to lock in the stripes. </li><li>Add in a shadow by creating a copy of your lettering layer, choose motion blur and drag it down and to the right. </li><li>To make it pop even more, add in a highlight. Draw a line on the letters on the left side. Apply a gaussian blur and change the blend mode to overlay. </li><li>Draw in some wintery swirls to fill the canvas, draw in some dots that vary in size to mimic snow. Finally, add in some asterisks so they look like little stars. </li><li>Done!</li></ul>\n\n\n\n<p></p>\n",
+  content: "\n<h5>Here&#8217;s a written overview of how to candy cane lettering in Procreate :</h5>\n\n\n\n<ul><li>Set your background color and write out your typography with the <a href=\"https://etheadless.local/beautiful-lettering-brushes\" target=\"_blank\" rel=\"noreferrer noopener\">pencil pro brush</a> at 25%. Fill up a large amount of the canvas with your lettering since it will be the focus. </li><li>Create your candies by creating a new layer and draw in little triangles in the letter o&#8217;s. Switch colors and fill in the gaps. Choose liquify and choose twirl left or right and tap and hold right in the center of the candy and push down. Complete the candy by giving it a background circle. Apply a clipping mask to the swirl to lock it into the shape. </li><li>Erase the o&#8217;s from the lettering layer. Add a wrapper to the candy. Duplicate the candy layer and move it down into jolly, and reflect it so that it does not look the exact same. </li><li>Create a new layer above your lettering layer and draw in lines on all of your letters. Once the lines are done, apply a clipping mask to lock in the stripes. </li><li>Add in a shadow by creating a copy of your lettering layer, choose motion blur and drag it down and to the right. </li><li>To make it pop even more, add in a highlight. Draw a line on the letters on the left side. Apply a gaussian blur and change the blend mode to overlay. </li><li>Draw in some wintery swirls to fill the canvas, draw in some dots that vary in size to mimic snow. Finally, add in some asterisks so they look like little stars. </li><li>Done!</li></ul>\n\n\n\n<p></p>\n",
     date: "2021-11-30T09:36:00",
     databaseId: 10083,
     title: "Create Candy Cane Lettering in Procreate",
@@ -1333,58 +1404,7 @@ export const mockPostDataComplete: IPost = {
             slug: "tutorials"
         }
       ],
-    tags: [
-        {
-          
-            name: "3D lettering",
-            slug: "3d-lettering"
-        },
-        {
-          
-            name: "candy cane",
-            slug: "candy-cane"
-        },
-        {
-          
-            name: "candy cane lettering",
-            slug: "candy-cane-lettering"
-        },
-        {
-          
-            name: "design",
-            slug: "design"
-        },
-        {
-          
-            name: "doodle",
-            slug: "doodle"
-        },
-        {
-          
-            name: "every tuesday",
-            slug: "every-tuesday"
-        },
-        {
-          
-            name: "every tuesday tutorial",
-            slug: "every-tuesday-tutorial"
-        },
-        {
-          
-            name: "free",
-            slug: "free"
-        },
-        {
-          
-            name: "freebie",
-            slug: "freebie"
-        },
-        {
-          
-            name: "highlights",
-            slug: "highlights"
-        }
-      ],
+    tags: mockTags,
     seo: {
       title: "Create Candy Cane Lettering in Procreate - Every-Tuesday",
       opengraphPublishedTime: "2021-11-30T14:36:00+00:00",
@@ -1890,58 +1910,7 @@ export const mockPostDataComplete_2: IPost = {
             slug: "tutorials"
         }
       ],
-    tags: [
-        {
-          
-            name: "3D lettering",
-            slug: "3d-lettering"
-        },
-        {
-          
-            name: "candy cane",
-            slug: "candy-cane"
-        },
-        {
-          
-            name: "candy cane lettering",
-            slug: "candy-cane-lettering"
-        },
-        {
-          
-            name: "design",
-            slug: "design"
-        },
-        {
-          
-            name: "doodle",
-            slug: "doodle"
-        },
-        {
-          
-            name: "every tuesday",
-            slug: "every-tuesday"
-        },
-        {
-          
-            name: "every tuesday tutorial",
-            slug: "every-tuesday-tutorial"
-        },
-        {
-          
-            name: "free",
-            slug: "free"
-        },
-        {
-          
-            name: "freebie",
-            slug: "freebie"
-        },
-        {
-          
-            name: "highlights",
-            slug: "highlights"
-        }
-      ],
+    tags: mockTags,
     seo: {
       title: "Create Candy Cane Lettering in Procreate - Every-Tuesday",
       opengraphPublishedTime: "2021-11-30T14:36:00+00:00",
@@ -2447,58 +2416,7 @@ export const mockPostDataComplete_3: IPost = {
             slug: "tutorials"
         }
       ],
-    tags: [
-        {
-          
-            name: "3D lettering",
-            slug: "3d-lettering"
-        },
-        {
-          
-            name: "candy cane",
-            slug: "candy-cane"
-        },
-        {
-          
-            name: "candy cane lettering",
-            slug: "candy-cane-lettering"
-        },
-        {
-          
-            name: "design",
-            slug: "design"
-        },
-        {
-          
-            name: "doodle",
-            slug: "doodle"
-        },
-        {
-          
-            name: "every tuesday",
-            slug: "every-tuesday"
-        },
-        {
-          
-            name: "every tuesday tutorial",
-            slug: "every-tuesday-tutorial"
-        },
-        {
-          
-            name: "free",
-            slug: "free"
-        },
-        {
-          
-            name: "freebie",
-            slug: "freebie"
-        },
-        {
-          
-            name: "highlights",
-            slug: "highlights"
-        }
-      ],
+    tags: mockTags,
     seo: {
       title: "Create Candy Cane Lettering in Procreate - Every-Tuesday",
       opengraphPublishedTime: "2021-11-30T14:36:00+00:00",
@@ -2766,12 +2684,14 @@ export const mockPostDataComplete_3: IPost = {
       list: []
     }
 }
+
 export const mockResourceFreebie:IResourceFreebie = {
   downloadLink: "https://etheadless.local/wp-content/uploads/2021/11/test-3.zip",
   excerpt: "Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.",
   licenseRequired: false,
   product: null
 }
+
 export const mockResourceItem: IResourceItem = {
   id: '1',
   date: '2020-11-01T00:00:00',
@@ -2784,6 +2704,8 @@ export const mockResourceItem: IResourceItem = {
 }
 
 export const mockPostRaw: IPostRaw = {
+  databaseId: 1,
+  id: 'id-1', 
   author: {
     node: {
       ...mockAuthorData
@@ -2805,10 +2727,19 @@ export const mockPostRaw: IPostRaw = {
     edges: [
       {
         node: {
-          name: 'tag 1',
+          count: 1,
+          name: 'Tag 1',
           slug: 'tag-1'
         }
+      },
+      {
+        node: {
+          count: 1,
+          name: 'Tag 2',
+          slug: 'tag-2'
+        }
       }
+      
     ]
   },
   relatedPosts: [],
@@ -2816,7 +2747,7 @@ export const mockPostRaw: IPostRaw = {
   title: 'Test Post',
   slug: 'test-post',
   date: '2020-11-01T00:00:00',
-  excerpt: '<p>Test Post</p>',
+  content: '<p>Test Post</p>',
   seo: {
       title: 'Test Post',
       opengraphPublishedTime: '2020-11-01T00:00:00',
@@ -2850,7 +2781,73 @@ export const mockPostRaw: IPostRaw = {
       },
       paidProducts: null,
       postExcerpt: 'string'
-  }
+  },
+  etSocialNav: mockEtSocialNav
+}
+
+export const mockPostRawFormatted: IPost = {
+  databaseId: 1,
+  id: 'id-1', 
+  content: '<p>Test Post</p>',
+  author: mockAuthorData,
+  categories: [
+      {
+        databaseId: 1,
+        id: 'id',
+        name: 'Cat 1',
+        slug: 'cat-1'
+      }
+    ],
+  tags: [
+      {
+        count: 1,
+        name: 'Tag 1',
+        slug: 'tag-1'
+      },
+      {
+        count: 1,
+        name: 'Tag 2',
+        slug: 'tag-2'
+      }
+    ],
+  relatedPosts: [],
+  featuredImage: null,
+  title: 'Test Post',
+  slug: 'test-post',
+  date: '2020-11-01T00:00:00',
+  seo: {
+      title: 'Test Post',
+      opengraphPublishedTime: '2020-11-01T00:00:00',
+      opengraphModifiedTime: '2020-11-01T00:00:00',
+      metaDesc: 'Test Post DESC',
+      readingTime: 2
+  },
+  comments: {
+    pageInfo: {
+      endCursor: 'null',
+      hasNextPage: false
+    },
+    list: []
+  },
+  tutorialManager: {
+      status: 'published',
+      thumbnail:{
+        type: 'make',
+        image: null
+      },
+      colorPalette: {
+          downloadUrl: "http://bit.ly/polaroids-swatch",
+          iconBackgroundColor: '#00998e',
+          iconTextColor: '#ffffff'
+        },
+      downloads: null,
+      youtube: {
+        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE'
+      },
+      paidProducts: null,
+      postExcerpt: 'string'
+  },
+  etSocialNav: mockEtSocialNav
 }
 
 export const mockMetaData: ISiteMetaDataMapped = {

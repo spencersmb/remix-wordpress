@@ -1,12 +1,28 @@
+import type { LicenseEnum } from "@App/enums/products";
 import { isEmpty } from "lodash";
-import { classNames } from "./appUtils";
 
+/**
+ * @function flattenAllPosts
+ * @tested - 6/7/2022
+ * @description Go over all the posts and flatten the data to remove edges and nodes from the keys
+ * 
+ *
+ * @returns mapped data array of posts
+ **/
 export function flattenAllPosts(posts: any): IPost[] | false {
   const postsFiltered = posts?.edges?.map(({ node = {} }) => node);
   return Array.isArray(postsFiltered) && postsFiltered.map(mapPostData)
 }
 
-export function filterNodeFromTags(tags: { edges: [{ node: ITagCount }] }): ITagCount[] {
+/**
+ * @function filterNodeFromTags
+ * @tested - 6/7/2022
+ * @description Remove Edges and nodes from the keys to return a clean array of tags
+ * 
+ *
+ * @returns mapped array of tags
+ **/
+export function filterNodeFromTags(tags: IWpTags): Itag[] {
   return tags.edges.map(({ node }) => {
     return {
       name: node.name,
@@ -16,7 +32,17 @@ export function filterNodeFromTags(tags: { edges: [{ node: ITagCount }] }): ITag
   });
 }
 
-export function rearrangeLicenses(licenses: ILicense[]) {
+/**
+ * @function rearrangeLicenses
+ * @tested - 6/7/2022
+ * @description Take in an array of licenses and rearrange them in specific order
+ * Standard
+ * Extended
+ * Server
+ * 
+ *
+ **/
+export function rearrangeLicenses(licenses: ILicense[]): ILicense[] {
 
   return licenses.reduce((acc: any, license) => {
 
@@ -24,24 +50,28 @@ export function rearrangeLicenses(licenses: ILicense[]) {
     if (license.licenseType === 'standard') {
       acc.unshift(license)
     }
-    // console.log('license.licenseType', license.licenseType);
 
-    // if there is only one item in array, add extended as the 2nd
     if (license.licenseType === 'extended') {
-      acc.push(license)
+
+      // check if the array has an item in it and make sure its not the standard license because standard is supposed to always be first
+      if (acc.length === 1 && acc[0].licenseType !== 'standard') {
+        acc.unshift(license) // means that the item in the array is the server license and we need to add the extended license before it
+
+        // if the array has 2 items in it already it means we need to put the extended license in the middle of the array
+      } else if (acc.length === 2) {
+        const standard = acc[0]
+        const server = acc[1]
+        acc = [
+          standard,
+          license,
+          server
+        ]
+      } else {
+        acc.push(license)
+      }
     }
 
-    // if the ext is the last item to get looped over
-    if (license.licenseType === 'extended' && licenses.length === 3) {
-      const standard = acc[0]
-      const server = acc[1]
-      acc = [
-        standard,
-        license,
-        server
-      ]
-    }
-
+    // always add server to the end of the array
     if (license.licenseType === 'server') {
       acc.push(license)
     }
@@ -50,6 +80,13 @@ export function rearrangeLicenses(licenses: ILicense[]) {
   }, [])
 }
 
+/**
+ * @function mapPostData
+ * @tested - 6/7/2022
+ * @description Map over POST data, filter and return a clean object
+ * 
+ *
+ **/
 export function mapPostData(post: IPostRaw | {} = {}): IPost {
   const data = { ...post };
   let modifiedData: any = { ...post }
@@ -80,6 +117,8 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
     modifiedData.tags = data.tags.edges.map(({ node }) => {
       return {
         name: node.name,
+        slug: node.slug,
+        count: node.count,
       };
     });
   }
@@ -138,6 +177,13 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
 
 }
 
+/**
+ * @function parseComment
+ * @tested - 6/7/2022
+ * @description Return a filtered clean comment object
+ * 
+ *
+ **/
 export function parseComment(node: IPostCommentRaw): IPostComment {
 
   return {
@@ -154,6 +200,13 @@ export function parseComment(node: IPostCommentRaw): IPostComment {
   }
 }
 
+/**
+ * @function formatDate
+ * @tested - 6/7/2022
+ * @description Return a readable date from a WP server timestamp
+ * 
+ *
+ **/
 export function formatDate(date: string): string {
   const blogDate = new Date(date)
   const monthIndex: number = blogDate.getMonth()
@@ -176,11 +229,26 @@ export function formatDate(date: string): string {
   return `${months[monthIndex]} ${day}, ${blogDate.getFullYear()}`
 }
 
+/**
+ * @function parseStringForSpecialCharacters
+ * @tested - 6/7/2022
+ * @description Remove certain characters from a string
+ * Used on Blog Post titles
+ * 
+ *
+ **/
 export function parseStringForSpecialCharacters(string: string): string {
   return string.replace(/&/g, '').replace(/</g, '').replace(/>/g, '').replace(/"/g, '').replace(/'/g, '').replace(/\+/g, '')
   // return string.replace(/\+/g, '');
 }
 
+/**
+ * @function checkTitleForBrackets
+ * @tested - 6/7/2022
+ * @description If brackets are in the title, remove them and return the title, then add the text that was in the brackets as a subtitle.
+ * 
+ *
+ **/
 export function checkTitleForBrackets(title: string): { title: string, subTitle: string | undefined } {
   let sqaureBrackets = title.substring(
     title.indexOf("[") + 1,
@@ -214,6 +282,13 @@ export function checkTitleForBrackets(title: string): { title: string, subTitle:
   }
 }
 
+/**
+ * @function splitProgramNameInTitle
+ * @tested - 6/7/2022
+ * @description If certain key software words are in the title, remove them and return the title, then add the text as a subtitle.
+ * 
+ *
+ **/
 export function splitProgramNameInTitle(title: string): { title: string, subTitle: string | undefined } {
   let newTitle = title
   switch (Boolean(title)) {
@@ -257,141 +332,226 @@ export function splitProgramNameInTitle(title: string): { title: string, subTitl
   }
 }
 
-export function findString(str: string, arr: string[]) {
+/**
+ * @function findString
+ * @tested - 6/7/2022
+ * @description Return a string that is in the array if found, otherwise is undefined
+ * 
+ *
+ **/
+export function findString(str: string, arr: string[]): string | undefined {
   return arr.find(item => item.includes(str))
 }
 
 /**
- * This function takes the blog catgegories and looks for skill level. Will reutrn the skill level if found from highest to lowest incase there are multiple skill levels.
- */
+ * @function findSkillLevel
+ * @tested - 6/7/2022
+ * @description This function takes the blog catgegories and looks for skill level. Will return the skill level if found from highest to lowest in-case there are multiple skill levels.
+ * 
+ *
+ **/
 export function findSkillLevel(categories: ICategories[]): ICategories | undefined {
   let tutorialsFound = false
-  let defaultSkill = {
-    name: "beginner",
+  let defaultSkill: ICategories = {
+    name: 'beginner',
+    databaseId: 0,
+    slug: 'beginner',
+    id: 'beginner',
   }
-  let skillFoundStopLooking = false
 
-  const skillFound = categories.reduce((previousValue: any, currentValue: ICategories): any => {
-    if (currentValue.slug === "tutorials") {
-      tutorialsFound = true
-    }
-    if (skillFoundStopLooking) {
-      return previousValue
-    }
+  // grab the items with skill levels in them
+  const skillsFound = categories.reduce((previousValue: any, currentValue: ICategories, index: number): any => {
+    let level
+
     switch (currentValue.slug) {
-
+      case "tutorials":
+        tutorialsFound = true
+        return previousValue
       case "advanced":
-        skillFoundStopLooking = true
-        return currentValue
+        level = 3
+        previousValue.push({
+          cat: currentValue,
+          level: level,
+          index
+        })
+        return previousValue
       case "intermediate":
-        skillFoundStopLooking = true
-        return currentValue
+        level = 2
+        previousValue.push({
+          cat: currentValue,
+          level: level,
+          index
+        })
+        return previousValue
       case "beginner":
-        skillFoundStopLooking = true
-        return currentValue
+        level = 1
+        previousValue.push({
+          cat: currentValue,
+          level: level,
+          index
+        })
+        return previousValue
       default:
         return previousValue
     }
-  }, {})
 
-  return !isEmpty(skillFound)
-    ? skillFound
-    : isEmpty(skillFound) && tutorialsFound
-      ? defaultSkill
-      : undefined
+  }, [])
+
+  // Return default skill if tutorial is found but forgot to add skill level in WP backend.
+  if (skillsFound.length === 0 && tutorialsFound) {
+    return defaultSkill
+  } else if (skillsFound.length === 0 && !tutorialsFound) {
+    return undefined
+  }
+
+  // find the highest skill level
+  return skillsFound.reduce((previousValue: any, currentValue: any): any => {
+    if (currentValue.level > previousValue.level) {
+      return currentValue
+    }
+    return previousValue
+  }).cat
 }
 
-export function getLicense(licenses: ILicense[] | null, type: LicenseEnum) {
+/**
+ * @function getLicense
+ * @tested - 6/7/2022
+ * @description Search the License array for a specific license based on the License Enum
+ * 
+ *
+ **/
+export function getLicense(licenses: ILicense[] | null, type: LicenseEnum): ILicense | null {
   if (!licenses) {
     return null
   }
 
-  return licenses.reduce((acc, curr) => {
+  const foundLicense = licenses.reduce((acc: any, curr: ILicense) => {
     if (curr.licenseType === type) {
       return curr
     }
     return acc
-  }, {
-    licenseType: '',
-    price: 0,
-    url: '',
-  })
-}
+  }, {})
 
-export function createThumbnailImage(
-  tutorialManager: ITutorialManager,
-  defaultSource: IMediaDetailSize,
-  title: string,
-  featuredPost: boolean = false
-) {
-
-  const defaultImage = () => (
-    // <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8 h-[250px]', "default_image relative overflow-hidden")}>
-    <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8', "default_image relative overflow-hidden")}>
-      {defaultSource.sourceUrl.length !== 0 &&
-        // <img className={classNames(featuredPost ? '' : 'absolute max-w-none top-[50%] w-full translate-y-[-50%]', "")}
-        <img className={classNames(featuredPost ? '' : '', "")}
-          src={defaultSource.sourceUrl} alt={title} />}
-    </div>
-  )
-  if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
-    return defaultImage()
+  if (isEmpty(foundLicense)) {
+    return null
   }
 
-  switch (tutorialManager.thumbnail.type) {
-    case "make":
-      return (
-        <>
-          <div className={classNames(featuredPost
-            ? `absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg]`
-            : `absolute top-[10px] left-[15px] w-[40%]`, 'z-10')}>
-            <img className="relative z-10" src="/images/make-this.png" alt={`Make this tutorial: ${title}`} />
-            <span className={classNames(featuredPost
-              ? 'top-[45px]'
-              : 'top-[20px] ',
-              'absolute w-[40%] left-[71%] z-[5]')}>
-              <img src="/images/make-this-arrow-1.png" alt={`Make this tutorial: ${title}`} />
-            </span>
-          </div>
-          {!featuredPost && <div className="absolute top-[15px] right-[30px] w-[25%] opacity-70">
-            <img src="/images/video-tutorial-text.png" alt={`Video tutorial: ${title}`} />
-          </div>}
-          <div className="relative">
-            <div className="rounded-2.5xl overflow-hidden">
-              <img src={tutorialManager.thumbnail.image.sourceUrl} alt={`${tutorialManager.thumbnail.image.altText} Main Image`} />
-            </div>
-            {tutorialManager.colorPalette && <div style={{ backgroundColor: tutorialManager.colorPalette.iconBackgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
-              <span style={{ color: tutorialManager.colorPalette.iconTextColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
-                Free Color Swatches
-              </span>
-            </div>}
-          </div>
-
-        </>
-      )
-    default:
-      return defaultImage()
-  }
+  return foundLicense
 }
 
-export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
-  const data = { ...course };
-  let modifiedData: any = { ...course }
+// export function flattenAllCourses(courses: ICoursesRaw): ICourse[] | false {
+//   const coursesFiltered = courses?.edges?.map(({ node = {} }) => node);
+//   return Array.isArray(coursesFiltered) && coursesFiltered.map(mapCourseData)
+// }
 
-  if (data.featuredImage) {
-    modifiedData.featuredImage = data.featuredImage.node;
-  }
+// export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
+//   const data = { ...course };
+//   let modifiedData: any = { ...course }
 
-  if (data.details?.courseTags && data.details.courseTags.length > 0) {
-    modifiedData.details.courseTags = data.details.courseTags.map(item => {
-      return item.tag
-    })
-  }
+//   if (data.featuredImage) {
+//     modifiedData.featuredImage = data.featuredImage.node;
+//   }
 
-  return modifiedData
-}
+//   if (data.details?.courseTags && data.details.courseTags.length > 0) {
+//     modifiedData.details.courseTags = data.details.courseTags.map(item => {
+//       return item.tag
+//     })
+//   }
 
-export function flattenAllCourses(courses: ICoursesRaw): ICourse[] | false {
-  const coursesFiltered = courses?.edges?.map(({ node = {} }) => node);
-  return Array.isArray(coursesFiltered) && coursesFiltered.map(mapCourseData)
-}
+//   return modifiedData
+// }
+
+// export function createThumbnailImage(
+//   tutorialManager: ITutorialManager,
+//   defaultSource: IMediaDetailSize,
+//   title: string,
+//   featuredPost: boolean = false
+// ) {
+
+//   const defaultImage = () => (
+//     // <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8 h-[250px]', "default_image relative overflow-hidden")}>
+//     <div className={classNames(featuredPost ? 'rounded-2.5xl' : 'mb-8', "default_image relative overflow-hidden")}>
+//       {defaultSource.sourceUrl.length !== 0 &&
+//         // <img className={classNames(featuredPost ? '' : 'absolute max-w-none top-[50%] w-full translate-y-[-50%]', "")}
+//         <img className={classNames(featuredPost ? '' : '', "")}
+//           src={defaultSource.sourceUrl} alt={title} />}
+//     </div>
+//   )
+//   if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
+//     return defaultImage()
+//   }
+
+//   switch (tutorialManager.thumbnail.type) {
+//     case "make":
+//       return (
+//         <>
+//           <div className={classNames(featuredPost
+//             ? `absolute top-[-20px] left-[15px] w-[45%] rotate-[352deg]`
+//             : `absolute top-[10px] left-[15px] w-[40%]`, 'z-10')}>
+//             <img className="relative z-10" src="/images/make-this.png" alt={`Make this tutorial: ${title}`} />
+//             <span className={classNames(featuredPost
+//               ? 'top-[45px]'
+//               : 'top-[20px] ',
+//               'absolute w-[40%] left-[71%] z-[5]')}>
+//               <img src="/images/make-this-arrow-1.png" alt={`Make this tutorial: ${title}`} />
+//             </span>
+//           </div>
+//           {!featuredPost && <div className="absolute top-[15px] right-[30px] w-[25%] opacity-70">
+//             <img src="/images/video-tutorial-text.png" alt={`Video tutorial: ${title}`} />
+//           </div>}
+//           <div className="relative">
+//             <div className="rounded-2.5xl overflow-hidden">
+//               <img src={tutorialManager.thumbnail.image.sourceUrl} alt={`${tutorialManager.thumbnail.image.altText} Main Image`} />
+//             </div>
+//             {tutorialManager.colorPalette && <div style={{ backgroundColor: tutorialManager.colorPalette.iconBackgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+//               <span style={{ color: tutorialManager.colorPalette.iconTextColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
+//                 Free Color Swatches
+//               </span>
+//             </div>}
+//           </div>
+
+//         </>
+//       )
+//     default:
+//       return defaultImage()
+//   }
+// }
+
+
+// export function findSkillLevelDepricated(categories: ICategories[]): { name: string } | undefined {
+//   let tutorialsFound = false
+//   let defaultSkill = {
+//     name: "beginner",
+//   }
+//   let skillFoundStopLooking = false
+
+//   const skillFound = categories.reduce((previousValue: any, currentValue: ICategories): any => {
+//     if (currentValue.slug === "tutorials") {
+//       tutorialsFound = true
+//     }
+//     if (skillFoundStopLooking) {
+//       return previousValue
+//     }
+
+//     switch (currentValue.slug) {
+
+//       case "advanced":
+//         skillFoundStopLooking = true
+//         return currentValue
+//       case "intermediate":
+//         skillFoundStopLooking = true
+//         return currentValue
+//       case "beginner":
+//         skillFoundStopLooking = true
+//         return currentValue
+//       default:
+//         return previousValue
+//     }
+//   }, {})
+
+//   return !isEmpty(skillFound)
+//     ? skillFound
+//     : isEmpty(skillFound) && tutorialsFound
+//       ? defaultSkill
+//       : undefined
+// }

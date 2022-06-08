@@ -11,7 +11,8 @@ describe('Grid Item Component', () => {
     tags: [
       {
         name: 'test',
-        slug: 'test'
+        slug: 'test',
+        count: 1
       }
     ],
     image: mockFeaturedImage

@@ -29,6 +29,19 @@ interface IFeaturedImageNode {
 interface Itag {
     name: string
     slug: string
+    count: number
+}
+
+interface ITag {
+  name: string
+  slug: string
+  count: number
+}
+interface ITagRaw {
+  node: ITag
+}
+interface IWpTags {
+  edges: ITagRaw[]
 }
 
 type ITagCount = Itag & { count: number };
@@ -77,6 +90,8 @@ interface ITutorialManagerRaw {
 }
  
 interface IPostRaw {
+  databaseId: number
+  id: string
   author: {
     node: {
       avatar: {
@@ -92,15 +107,13 @@ interface IPostRaw {
   categories: {
     edges: ICategoryRaw[]
   }
-  tags: {
-    edges: [{node: Itag}]
-  }
+  tags: IWpTags
   relatedPosts:IPostRaw[]
   featuredImage: {node: IFeaturedImage} | null
   title: string
   slug: string
   date: string
-  excerpt: string
+  content: string
   seo: IPostSeo
   comments: {
     pageInfo: {
@@ -109,7 +122,8 @@ interface IPostRaw {
     }
     edges: {node: IPostCommentRaw}[]
   }
-  tutorialManager: ITutorialManagerRaw
+  tutorialManager: ITutorialManagerRaw,
+  etSocialNav: ISocialNav
 }
 interface IPostSeo {
   fullHead?: string

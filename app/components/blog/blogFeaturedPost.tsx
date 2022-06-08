@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { defaultImages, loadImageSrc, loadThumbnailSrc } from '@App/utils/imageHelpers'
-import { createThumbnailImage, findSkillLevel, formatDate } from '@App/utils/posts'
+import { findSkillLevel, formatDate } from '@App/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'
 import LazyImageBase from '../images/lazyImage-base'
 import BarChartSvg from '../svgs/barChartSvg'

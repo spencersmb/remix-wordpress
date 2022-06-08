@@ -3,7 +3,6 @@ import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { cleanup, findByTestId, fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react"
 import CommentForm from "../commentForm"
 import { fetchSubmitComment as mockFetchSubmitComment } from "../../../utils/fetch.cleint";
-import { mockPostCommentRaw } from "@TestUtils/mock-data/posts";
 import { act } from "react-dom/test-utils";
 
 

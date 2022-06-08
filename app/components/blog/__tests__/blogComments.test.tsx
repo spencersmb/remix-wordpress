@@ -1,7 +1,8 @@
 import { siteInitialState } from "@App/hooks/useSite"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { fireEvent, render, screen } from "@testing-library/react"
-import { mockComments, mockPostData } from "@TestUtils/mock-data/posts"
+import { mockComments } from "@TestUtils/mock-data/comments"
+import { mockPostData } from "@TestUtils/mock-data/posts"
 import BlogComments from "../blogComments"
 
 describe('Blog Comments', () => {

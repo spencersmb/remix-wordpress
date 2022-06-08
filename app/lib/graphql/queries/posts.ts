@@ -246,6 +246,7 @@ export const POST_BASIC_FIELDS = gql`
           node{
             name
             slug
+            count
           }
       }
     }
