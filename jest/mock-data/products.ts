@@ -62,7 +62,11 @@ export const mockPaidProduct = {
   title: "Beautiful Lettering Brush Set",
   slug: "beautiful-lettering-brush-set",
   seo:{
-    ...mockSeo,
+    title: "Beautiful Lettering Brush Set",
+    metaDesc: "Beautiful Lettering Brush Set",
+    opengraphModifiedTime: "2020-01-01T00:00:00.000Z",
+    opengraphPublishedTime: "2020-01-01T00:00:00.000Z",
+    readingTime: 1,
     schema: {
       raw: 'string'
     },

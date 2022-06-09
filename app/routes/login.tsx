@@ -108,7 +108,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     }
 
     let token: IAuthToken = {
-      expires: setFutureDate(),
+      expires: setFutureDate(5 * 60000),
       token: String(serverRes.data.login.authToken),
       refresh: String(serverRes.data.login.refreshToken),
       cmid: String(serverRes.data.login.clientMutationId)

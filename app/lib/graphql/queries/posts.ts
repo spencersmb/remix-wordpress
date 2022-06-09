@@ -182,7 +182,29 @@ export const RESOURCE_FEATURED_IMAGE = gql`
 export const RELEATED_POSTS_FIELDS = gql`
   fragment relatedPostsFields on Post {
     relatedPosts {
-      ...featuredImageFields
+      featuredImage {
+      node {
+        mediaDetails {
+          width
+          height
+          sizes{
+            width
+            file
+            height
+            name
+            sourceUrl
+            mimeType
+          }
+        }
+          altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+        }
+      }
+    }
       title
       slug
       tutorialManager {
@@ -217,7 +239,6 @@ export const RELEATED_POSTS_FIELDS = gql`
         }
       }
     }
-  }
 `
 export const POST_BASIC_FIELDS = gql`
   fragment postBasicFields on Post {

@@ -3,7 +3,7 @@ import LicenseSelectSection from "./licenseSelectSection";
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import useSite from "@App/hooks/useSite";
-import { breakpointConvertPX } from "@App/utils/windowUtils";
+import { breakpointConvertPX } from "@App/utils/appUtils";
 import { staticImages } from "@App/lib/imgix/data";
 import { BPPX } from "@App/enums/breakpointEnums";
 import IpadFeatureImage from "../images/ipadFeatureImage";

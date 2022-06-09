@@ -6,7 +6,7 @@ import { fetchAPIClientSide } from '../../utils/fetch.cleint'
 import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { consoleHelper } from '../../utils/windowUtils'
 import { getGraphQLString } from '../../utils/graphqlUtils'
-import { getBasicPageMetaTags, getHtmlMetadataTags } from '@App/utils/seo'
+import { getBasicPageMetaTags } from '@App/utils/seo'
 import { ckFormIds } from '@App/lib/convertKit/formIds'
 import { validateEmail } from '@App/utils/validation'
 import SubmitBtn from '@App/components/buttons/submitBtn'
@@ -137,9 +137,9 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
 const ResourceLibraryHome = () => {
   let data = useLoaderData()
-  consoleHelper(data);
+  consoleHelper('data', data, 'tuesday-makers/index.tsx');
   let actionData = useActionData<ActionData | undefined>();
-  console.log('actionData', actionData);
+  consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
 
   /*
   ON page load prefetch data query to speed things up

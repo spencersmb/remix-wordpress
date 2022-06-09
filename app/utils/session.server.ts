@@ -1,6 +1,8 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import { consoleHelper } from "./windowUtils";
 
 let sessionSecret = process.env.SESSION_SECRET;
+
 if (!sessionSecret) {
   throw new Error("SESSION_SECRET must be set");
 }
@@ -57,16 +59,15 @@ export async function requireAdminUserToken(
 
 export async function isTokenExpired (token: IAuthToken) {
   let currentDate = new Date( Date.now()).getTime()
-  console.log('currentDate', currentDate)
-  console.log('token.expires', token.expires)
-
+  consoleHelper('currentDate', currentDate)
+  consoleHelper('token.expires', token.expires)
 
   return token.expires < currentDate
 }
 
 export function setFutureDate(mins = 5){
   let currentDate = new Date();
-  return new Date(currentDate.getTime() + mins*60000).getTime();
+  return new Date(currentDate.getTime() + mins).getTime();
 }
 
 export async function refreshCurrentSession(request: Request, token: string){
@@ -75,7 +76,7 @@ export async function refreshCurrentSession(request: Request, token: string){
   let newToken: IAuthToken = {
     ...oldUserToken,
     token,
-    expires: setFutureDate(),
+    expires: setFutureDate(5 * 60000),
   }
   // update current session with new token data
   session.set('token', newToken)

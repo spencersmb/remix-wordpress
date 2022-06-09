@@ -1,13 +1,11 @@
-import type { Location } from 'history'
 import { getStaticPageMeta } from './pageUtils'
-import type { RouteData } from '@remix-run/react/routeData'
-import type { Params } from 'react-router'
 import { getProductStdPrice } from './productPageUtils'
 import { formatePrice } from './priceUtils.server'
-import type { AppData } from '@remix-run/react/data'
 import { defaultFeaturedImage } from '@App/lib/wp/site'
+import type { IgetBasicPageMetaTags, IgetHtmlMetadataTags } from '@App/interfaces/seo-exported'
+import { isEmpty } from 'lodash'
 
-function createOgImages(image: IOgImageType) {
+export function createOgImages(image: IOgImageType) {
   return {
     'og:image:alt': image.altText,
     'og:image:url': image.url,
@@ -15,7 +13,8 @@ function createOgImages(image: IOgImageType) {
     'og:image:height': image.height
   }
 }
-function createOgArticle(article: IOgArticle){
+
+export function createOgArticle(article: IOgArticle){
   return {
     'og:article:publishedTime': article.publishedTime,
     'og:article:modifiedTime': article.modifiedTime,
@@ -23,6 +22,7 @@ function createOgArticle(article: IOgArticle){
     'og:article:tags': article.tags.map(tag => tag.name).join(', '),
   }
 }
+
 export function getHtmlMetadataTags({
   follow = true,
   metadata, 
@@ -30,7 +30,7 @@ export function getHtmlMetadataTags({
   page, 
   product,
   location
-}: IGetMetaTagsFunction & {location: Location}){
+}: IgetHtmlMetadataTags){
 
   let defaultImage = {
     altText: defaultFeaturedImage.altText,
@@ -132,9 +132,12 @@ export function getHtmlMetadataTags({
         height: '1080'
       }),
       // TODO: Replace with getter fn to get images and check if we are doing shopify or internal
-      'og:image:secure_url': [
-        'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-1_1200x1200.jpg?v=1622432040',
-        'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-2_1200x1200.jpg?v=1622432054'
+      // 'og:image:secure_url': [
+      //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-1_1200x1200.jpg?v=1622432040',
+      //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-2_1200x1200.jpg?v=1622432054'
+      // ],
+      'og:image:secure_url':[
+        product.featuredImage?.node.sourceUrl
       ],
       'og:price:currency': 'USD',
       'og:price:amount': price,
@@ -147,21 +150,9 @@ export function getHtmlMetadataTags({
   };
 }
 
-interface IBasicPageMetaTags{
-  data: AppData;
-  parentsData: RouteData;
-  params: Params;
-  location: Location;
-}
-interface IBasicPageInfo {
-  title: string,
-  desc: string
-  slug: string
-}
-type IgetBasicPageMetaTags = (metaData: IBasicPageMetaTags, pageData:IBasicPageInfo) => void
-export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc, slug} ) => {
+export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc, slug}) => {
     const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
+  if (!data || !parentsData || isEmpty(parentsData) || !location) {
     return {
       title: '404',
       description: 'error: No metaData or Parents Data',

@@ -68,6 +68,7 @@ module.exports = {
       '!<rootDir>/app/utils/fetch.clent.ts',
       '!<rootDir>/app/utils/fetch.server.ts',
       '!<rootDir>/app/utils/resourceLibrarySession.server.ts',
+      '!<rootDir>/app/utils/windowUtils.ts',
       // '!<rootDir>/app/components/blog/**',
       // '!<rootDir>/app/components/buttons/**',
       // '!<rootDir>/app/components/cards/**',

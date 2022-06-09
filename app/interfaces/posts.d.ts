@@ -114,6 +114,7 @@ interface IPostRaw {
   slug: string
   date: string
   content: string
+  excerpt: string
   seo: IPostSeo
   comments: {
     pageInfo: {
@@ -205,6 +206,7 @@ interface ITutorialManager {
 interface IPost {
   databaseId: number //postID in wp
   date: string
+  excerpt?: string
   author: {
     avatar: {
       height: number

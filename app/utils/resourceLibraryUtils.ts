@@ -1,6 +1,13 @@
 import { ckFormIds } from "@App/lib/convertKit/formIds";
 
-const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
+/**
+ * @function mapResourceData
+ * @tested - 6/8/2022
+ * @description Map over Resource data, filter and return a clean object
+ * 
+ *
+ **/
+export const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
   return {
     ...resourceItemRaw,
     // id: resourceItemRaw.id,
@@ -14,11 +21,25 @@ const mapResourceData = (resourceItemRaw: IResourceDataRaw): IResourceItem => {
   }
 }
 
+/**
+ * @function flattenResourceData
+ * @tested - 6/8/2022
+ * @description Go over all the resourceItems and flatten the data to remove edges and nodes from the keys
+ * 
+ *
+ **/
 export const flattenResourceData = (resourceData: IMapResourceData): IResourceItem[] | boolean => {
   const dataFiltered = resourceData?.edges?.map(({ node}) => node);
   return Array.isArray(dataFiltered) && dataFiltered.map(mapResourceData)
 }
 
+/**
+ * @function flattenResourceData
+ * @tested - 6/8/2022
+ * @description Get the CK Form ID for the type of form passed in as a string.
+ * 
+ *
+ **/
 export function getCKFormId(type: string | null): string {
   switch (type) {
     case 'footer':

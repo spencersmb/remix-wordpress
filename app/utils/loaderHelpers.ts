@@ -269,10 +269,10 @@ export async function checkForCookieLogin(request: Request, cookie: Cookie | nul
     throw redirect(redirectTo);
   }
   const cookieLookUp = await findCookie(request, cookie)
-  console.log("hasCookie", cookieLookUp);
+  consoleHelper("hasCookie", cookieLookUp, 'utils/loaderHelpers.ts');
   
   if (isEmpty(cookieLookUp.data)) {
-    console.log("redirect", redirectTo);
+    consoleHelper("redirect", redirectTo, 'utils/loaderHelpers.ts');
     throw redirect(redirectTo);
   }
   return true

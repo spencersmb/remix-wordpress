@@ -1,4 +1,5 @@
 import { ShopPlatformEnum } from "@App/enums/products"
+import type { Location } from "history"
 import { mockFeaturedImage, mockFeatureImageComplete } from "./images"
 import { mockGenericProduct, mockPaidProduct } from "./products"
 
@@ -1038,6 +1039,7 @@ const mockRelatedPost_3 = {
     }
   ],
 } 
+
 export const mockCategories_skill_beg = [
   {
       databaseId: 657,
@@ -2742,6 +2744,7 @@ export const mockPostRaw: IPostRaw = {
       
     ]
   },
+  excerpt: '',
   relatedPosts: [],
   featuredImage: null,
   title: 'Test Post',
@@ -2789,6 +2792,7 @@ export const mockPostRawFormatted: IPost = {
   databaseId: 1,
   id: 'id-1', 
   content: '<p>Test Post</p>',
+  excerpt: '',
   author: mockAuthorData,
   categories: [
       {
@@ -2884,6 +2888,14 @@ export const mockMetaData: ISiteMetaDataMapped = {
       showBanner: false,
     }
   }
+}
+
+export const mockLocationData: Location = {
+  key: '',
+  pathname: '/',
+  hash: '',
+  search: '',
+  state: '',
 }
 
 

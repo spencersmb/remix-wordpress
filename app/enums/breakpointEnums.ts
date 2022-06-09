@@ -3,7 +3,8 @@ export enum BreakpointEnums {
   tablet = "tablet",
   laptop = "laptop",
   desktop = "desktop",
-  desktopXL = "desktopXL"
+  desktopXL = "desktopXL",
+  jest = "jest"
 }
 
 export enum BPPX {

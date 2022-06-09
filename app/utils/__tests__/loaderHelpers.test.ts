@@ -2,7 +2,7 @@ import { lfmMiniCourseCookie } from "@App/cookies.server";
 import { checkForCookieLogin, findCookie, getLoginRedirectParams, getLoginRedirectUrl, getPreviewRedirectUrl, getPreviewRedirectUrlFromParams, getPreviewUrlParams, previewLoaderRouteHandler } from "../loaderHelpers";
 import { createUserSession } from "../session.server";
 import { refreshJWT as mockrefreshJWT, getPreviewPostPageServer as mockPageServer } from "../fetch.server";
-import { mockPostDataComplete, mockPostRaw } from "@TestUtils/mock-data/posts";
+import { mockPostRaw } from "@TestUtils/mock-data/posts";
 import { mockFetchPromise } from "@TestUtils/renderUtils";
 
 /**
