@@ -1,5 +1,5 @@
 
-import { getResourceUserToken } from '../../utils/resourceLibrarySession.server'
+import { getResourceUser } from '../../utils/resourceLibrarySession.server'
 import * as React from 'react'
 import { useEffect } from 'react'
 import { fetchAPIClientSide } from '../../utils/fetch.cleint'
@@ -52,7 +52,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   // Check for Resource User Cookie
   // If found redirect them to /members
-  const user = await getResourceUserToken(request)
+  const user = await getResourceUser(request)
 
   if (user) {
     return redirect('/tuesday-makers/members')

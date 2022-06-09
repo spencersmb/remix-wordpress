@@ -10,6 +10,7 @@ import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
+import { consoleHelper } from "@App/utils/windowUtils";
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses - Every-Tuesday`,
@@ -31,19 +32,19 @@ export let loader: LoaderFunction = async ({ request, }) => {
       courses: flattenAllCourses(data.courses),
     })
   } catch (e) {
-    console.log('error', e)
+    console.error('error', e)
   }
 };
+
 interface ILoaderData {
   courses: ICourse[]
 }
+
 const Courses = () => {
 
-  // TODO: SPECIFY loadER dATa tYpES
   const data = useLoaderData<ILoaderData>()
   // const test = useSimpleTabs()
-  console.log('data', data);
-  // console.log('test', test);
+  consoleHelper('data', data, 'routes/courses/index.tsx');
 
   return (
     <Layout>

@@ -5,6 +5,15 @@ import { defaultFeaturedImage } from '@App/lib/wp/site'
 import type { IgetBasicPageMetaTags, IgetHtmlMetadataTags } from '@App/interfaces/seo-exported'
 import { isEmpty } from 'lodash'
 
+
+/**
+ * @function createOgImages
+ * @tested - 6/8/2022
+ * @description Returns object of OpenGraph images properties
+ * 
+ *
+ *
+ **/
 export function createOgImages(image: IOgImageType) {
   return {
     'og:image:alt': image.altText,
@@ -14,6 +23,14 @@ export function createOgImages(image: IOgImageType) {
   }
 }
 
+/**
+ * @function createOgArticle
+ * @tested - 6/8/2022
+ * @description Returns object of OpenGraph Article properties
+ * 
+ *
+ *
+ **/
 export function createOgArticle(article: IOgArticle){
   return {
     'og:article:publishedTime': article.publishedTime,
@@ -23,6 +40,15 @@ export function createOgArticle(article: IOgArticle){
   }
 }
 
+/**
+ * @function getHtmlMetadataTags
+ * @tested - 6/8/2022
+ * @description Main function to create default OpenGraph metadata
+ * Have Post / Page / Product options to override default values
+ * 
+ *
+ *
+ **/
 export function getHtmlMetadataTags({
   follow = true,
   metadata, 
@@ -150,6 +176,15 @@ export function getHtmlMetadataTags({
   };
 }
 
+/**
+ * @function getBasicPageMetaTags
+ * @tested - 6/8/2022
+ * @description Helper function to get static Page MetaData to pass to the primary metadata function
+ * getHtmlMetadataTags()
+ * 
+ *
+ *
+ **/
 export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc, slug}) => {
     const { data, location, parentsData } = metaData
   if (!data || !parentsData || isEmpty(parentsData) || !location) {

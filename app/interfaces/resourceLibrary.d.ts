@@ -47,3 +47,9 @@ interface IResourceUser {
   id: number
   tags: string[]
 }
+
+interface IGetConvertKitUserByID{
+  id: number,
+  email_address: string,
+  state: 'inactive' | 'active' | 'unsubscribed' | 'bounced' | 'soft-bounced' | 'pending' | 'unconfirmed' | 'deleted'
+}

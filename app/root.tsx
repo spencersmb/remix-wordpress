@@ -23,7 +23,7 @@ import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
 import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
-import { getResourceUserToken } from './utils/resourceLibrarySession.server'
+import { getResourceUser } from './utils/resourceLibrarySession.server'
 import { consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
 import { commitSession, getSession } from '@App/sessions.server'
@@ -72,7 +72,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 
   let wpAdminSession = await getUserSession(request)
-  const resourceUser = await getResourceUserToken(request)
+  const resourceUser = await getResourceUser(request)
 
   // TOOD: REMOVE SHOPIFY
   // check for cart Cookie and make api queries to get cart

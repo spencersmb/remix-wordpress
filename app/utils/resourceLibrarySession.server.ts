@@ -1,10 +1,11 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import { consoleHelper } from "./windowUtils";
 
 let sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret) {
   throw new Error("SESSION_SECRET must be set");
 }
-
+ 
 let resourceStorage = createCookieSessionStorage({
   cookie: {
     name: "resource_session",
@@ -29,7 +30,7 @@ export function getResourceUserSession(request: Request) {
   return resourceStorage.getSession(request.headers.get("Cookie"));
 }
 
-export async function getResourceUserToken(request: Request) {
+export async function getResourceUser(request: Request) {
   let session = await getResourceUserSession(request);
   let userSession = session.get("user");
   if (!userSession) return null;
@@ -40,8 +41,7 @@ export async function requireResourceLibraryUser(
   request: Request,
   redirectTo: string
 ): Promise<IResourceUser> {
-  let session = await getResourceUserSession(request);
-  let userSession = session.get("user");
+  let userSession = await getResourceUser(request);
 
   if (!userSession) {
     throw redirect(redirectTo);
@@ -60,11 +60,6 @@ export async function logoutResourceLibrary(request: Request) {
   });
 }
 
-export interface IGetConvertKitUserByID{
-  id: number,
-  email_address: string,
-  state: 'inactive' | 'active' | 'unsubscribed' | 'bounced' | 'soft-bounced' | 'pending' | 'unconfirmed' | 'deleted'
-}
 export async function getConvertKitUserByID(id: number): Promise<IGetConvertKitUserByID | null> {
   // Fetch Subscriber
   const url = `https://api.convertkit.com/v3/subscribers/${id}?api_secret=${process.env.CK_SECRET}`;
@@ -76,7 +71,7 @@ export async function getConvertKitUserByID(id: number): Promise<IGetConvertKitU
   })
 
   const result = await res.json()
-  console.log('result', result);
+  consoleHelper('getConvertKitUserByID', result, '/utils/resourceLibrarySession.server.ts');
   
   if (result.error) {
     return null
@@ -98,7 +93,10 @@ export async function getConvertKitUserIdByEmail(email: string): Promise<number 
   })
 
   const result = await res.json()
-  console.log('result', result);
+
+  if (result.error) {
+    return null
+  }
 
   if (result.total_subscribers === 0 || result.subscribers[0].state !== 'active') {
     return null;
