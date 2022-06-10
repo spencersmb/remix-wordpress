@@ -8,7 +8,7 @@ import { getGraphQLString } from './graphqlUtils';
 import { CREATE_COMMENT } from '@App/lib/graphql/mutations/comments';
 
 const api_url = process.env.PUBLIC_WP_API_URL as string
-const root_url =process.env.APP_ROOT_URL as string
+const root_url = process.env.APP_ROOT_URL as string
 
 if (!api_url || !root_url) {
   throw new Error("APP_ROOT_URL and PUBLIC_WP_API_URL must be set");

@@ -217,7 +217,7 @@ const CommentForm = (props: IProps) => {
         parent
       })
 
-      consoleHelper('fetch result', result)
+      consoleHelper('fetch result', result, '/components/comments/commentForm.tsx')
 
       // If three is no comment, then the user is not authorized to update the comment right away
       if (!result.createComment.comment) {
@@ -274,9 +274,7 @@ const CommentForm = (props: IProps) => {
   function commentOnComplete(response: ICommentResponse, parent: number | undefined) {
     // setFormState(defaultFormState)
 
-    // console.log('response', response);
-
-    consoleHelper('response Comment', response);
+    consoleHelper('response Comment', response, '/components/comments/commentForm.tsx');
 
     // IF no comment response set Message so that the user knows their comment needs to be approved
     // if (!response.createComment.comment) {

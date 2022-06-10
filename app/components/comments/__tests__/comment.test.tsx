@@ -33,12 +33,14 @@ describe('Comment Component', () => {
     expect(comment).toHaveTextContent(`${defualtProps.comment.author.name}`)
     expect(comment).toHaveTextContent(`January 27, 2022`)
   })
+
   it('Should show comment reply button', () => {
     const { comment } = setup()
     const replyButton = screen.getByTestId('comment-reply-button')
     expect(replyButton).toBeInTheDocument()
     expect(replyButton).toHaveTextContent('Reply')
   })
+
   it('Should show comment reply form on click', async () => {
     const { comment } = setup()
     const replyButton = screen.getByTestId('comment-reply-button')

@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getResourceUser, getResourceUserSession, logoutResourceLibrary, requireResourceLibraryUser } from "../resourceLibrarySession.server";
+import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags, getResourceUser, getResourceUserSession, logoutResourceLibrary, requireResourceLibraryUser } from "../resourceLibrarySession.server";
 import { setupServer } from "msw/node"
 import { rest } from "msw"
 /**
@@ -156,13 +156,13 @@ describe('Utils - ResourceLibrary.Session.server', () => {
 /**
  * @jest-environment node
  */
-
 describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', () => {
   const subscriberResponse: IGetConvertKitUserByID = {
     id: 1,
     email_address: 'spencer.bigum@gmail.com',
     state: 'active',
   }
+
   const emailRespnse = {
     total_subscribers: 1,
     subscribers: [
@@ -174,11 +174,29 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
     ]
   }
 
-  const server = setupServer(
-    // get user by id
+  const handlers = [
+    rest.get('https://api.convertkit.com/v3/subscribers/2/tags', (req, res, ctx) => {
+
+      return res(ctx.status(200), ctx.json({
+        tags: [
+          {
+            "id": 1,
+            "name": "House Stark",
+            "created_at": "2016-02-28T08:07:00Z"
+          },
+          {
+            "id": 2,
+            "name": "House Lannister",
+            "created_at": "2016-02-28T08:07:00Z"
+          }
+        ]
+      }))
+    }),
     rest.get('https://api.convertkit.com/v3/subscribers/:userId', (req, res, ctx) => {
-      console.log('req.url', req);
+      // console.log('req.url', req);
       const { userId } = req.params
+      // console.log('userId', userId);
+
       if (userId !== '1') {
         return res(ctx.status(404), ctx.json({ error: `No subscriber found for id: ${userId}` }))
       }
@@ -186,7 +204,6 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
         subscriber: subscriberResponse
       }))
     }),
-
     // get user by email
     rest.get('https://api.convertkit.com/v3/subscribers', (req, res, ctx) => {
       const email = req.url.searchParams.get('email_address')
@@ -196,16 +213,20 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
       }
       return res(ctx.status(200), ctx.json(emailRespnse))
     })
+  ]
+
+  const server = setupServer(
+    // get user by id
+    ...handlers
   )
 
-
-
   beforeAll(() => {
-    server.listen({ onUnhandledRequest: 'error' })
+    server.listen()
   })
 
-  afterAll(() => {
+  afterAll((done) => {
     server.close()
+    done();
   })
 
   afterEach(() => {
@@ -216,8 +237,10 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
     try {
       const user = await getConvertKitUserByID(1)
       expect(user).toEqual(subscriberResponse)
+
     } catch (e: any) {
-      expect(e.message).toBe('MSW ConvertKit error')
+      console.log('e', e);
+      expect(e).toBe('MSW ConvertKit error')
     }
   })
 
@@ -239,4 +262,12 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
     }
   })
 
+  it('Should return array of tags for a CK user', async () => {
+    try {
+      const userId = await getConvertKitUserTags(2)
+      expect(userId).toEqual(["House Stark", "House Lannister"])
+    } catch (e: any) {
+      expect(e.message).toBe('MSW ConvertKit error')
+    }
+  })
 })

@@ -16,7 +16,7 @@ export function renderUi(ui: any) {
 export function mockFetchPromise(customResponse: any) {
   return new Promise((resolve) => {
     resolve({
-      json: () => Promise.resolve(customResponse),
+      json: () => customResponse,
     })
   })
 }

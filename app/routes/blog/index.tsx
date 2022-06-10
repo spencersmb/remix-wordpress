@@ -9,7 +9,7 @@ import BlogFeaturedPost from "@App/components/blog/blogFeaturedPost";
 import type { IPageInfo } from "@App/hooks/useFetchPagination/useFetchPaginationReducer";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
-import { gql } from "@apollo/client";
+import gql from 'graphql-tag';
 import BlogCategoryTabs from "@App/components/blog/blogHomeTabs/blogCategoryTabs";
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "@App/components/buttons/outlinedButton";

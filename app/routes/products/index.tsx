@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import gql from 'graphql-tag';
 import { useEffect, useState } from "react";
 import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";

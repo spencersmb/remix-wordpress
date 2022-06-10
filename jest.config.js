@@ -9,11 +9,11 @@ module.exports = {
     '^@App/(.*)$': '<rootDir>/app/$1',
     '^@TestUtils/(.*)$': '<rootDir>/jest/$1',
   },
- "transformIgnorePatterns": [
+ transformIgnorePatterns: [
     "/node_modules/(?!(@remix-run|@web-std)/).+\\.js$",
     "/node_modules/(?!(@remix-run|@web-std)/).+\\.ts$",
-    "/node_modules/(?!(@remix-run|<@web-std)/).+\\.tsx$",
-    // "node_modules/(?!(<@remix-run>|<@web-std>)/)"
+    "/node_modules/(?!(@remix-run|@web-std)/).+\\.tsx$",
+    // "/node_modules/(?!(@remix-run/web-fetch|@remix-run/web-blob|@remix-run/web-stream|@remix-run/web-form-data|@remix-run/web-file|@web3-storage/multipart-parser)/)",
   ],
   transform: {
     "^.+\\.(js|ts)$": "ts-jest",

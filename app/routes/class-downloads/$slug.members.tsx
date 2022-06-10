@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client"
+import gql from 'graphql-tag';
 import { fetchAPI } from "@App/utils/fetch.server"
 import { getGraphQLString } from "@App/utils/graphqlUtils"
 import { checkForCookieLogin } from "@App/utils/loaderHelpers"

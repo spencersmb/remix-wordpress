@@ -2,7 +2,7 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { findCookie } from "@App/utils/loaderHelpers"
 import { getlockedPageMetaTags, getLockedPageRedirectMembersPath } from "@App/utils/lockedPagesUtils";
 import { createLockedPageCookie } from "@App/server/lockedPages.server";
-import { gql } from "@apollo/client";
+import gql from 'graphql-tag';
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";

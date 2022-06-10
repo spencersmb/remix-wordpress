@@ -1,4 +1,4 @@
-import { fireEvent, queryByTestId, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import OutlinedButton from "../outlinedButton"
 
 interface Props {
@@ -41,6 +41,7 @@ describe('Outline Button Component', () => {
     expect(button).not.toBeDisabled()
 
   })
+
   it('Should show loading state / be disabled', () => {
     const clickHandler = jest.fn()
     setup({
@@ -57,6 +58,7 @@ describe('Outline Button Component', () => {
     expect(button).toBeDisabled()
 
   })
+
   it('Should call clickhandler', () => {
     const clickHandler = jest.fn()
     setup({

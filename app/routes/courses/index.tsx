@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import gql from 'graphql-tag';
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react";

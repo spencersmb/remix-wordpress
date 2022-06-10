@@ -4,7 +4,7 @@ import Comment from '../comments/comment'
 import { AnimatePresence, motion } from 'framer-motion'
 import CloseSvg from '../svgs/closeSvg'
 import { useState } from 'react'
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag';
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { parseComment } from '@App/utils/posts'

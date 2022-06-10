@@ -10,7 +10,6 @@ async function fetchAPIClientSide(query: any, { variables }: any = {}) {
     // @ts-ignore
     headers: {
       'Content-Type': 'application/json',
-      
     },
     body: JSON.stringify({
       query,

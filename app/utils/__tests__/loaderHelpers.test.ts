@@ -10,12 +10,12 @@ import { mockFetchPromise } from "@TestUtils/renderUtils";
  */
 
 describe('Utils: LoaderHelpers', () => {
-
+  const loginUrl = 'https://localhost:3000/login'
   it('checkForCookieLogin() have cookie and cookie data so no redirect triggered', async () => {
       const cookie = await lfmMiniCourseCookie.serialize({
         video1: true
       })
-     let request = new Request('/login', {
+     let request = new Request(loginUrl, {
       headers: {
         cookie
       }
@@ -31,7 +31,7 @@ describe('Utils: LoaderHelpers', () => {
   })
   it('checkForCookieLogin() have cookie and throw redirect with redirect string', async () => {
     
-    let request = new Request('/login')
+    let request = new Request(loginUrl)
     try{
       await checkForCookieLogin(request, lfmMiniCourseCookie, '/login')
       expect(true).toBe(false)
@@ -43,7 +43,7 @@ describe('Utils: LoaderHelpers', () => {
   })
   it('checkForCookieLogin() Should not find cookie and throw redirect with redirect string', async () => {
     
-    let request = new Request('/login')
+    let request = new Request(loginUrl)
     try{
       await checkForCookieLogin(request, null, '/login')
       expect(true).toBe(false)
@@ -58,7 +58,7 @@ describe('Utils: LoaderHelpers', () => {
     const cookie = await lfmMiniCourseCookie.serialize({
           video1: true
         })
-    let request = new Request('/login', {
+    let request = new Request(loginUrl, {
       headers: {
         cookie
       }
@@ -72,8 +72,9 @@ describe('Utils: LoaderHelpers', () => {
       expired: false
     })
   })
+
   it('findCookie() Should not find cookie', async () => {
-    let request = new Request('/login')
+    let request = new Request(loginUrl)
     const cookieLookUp = await findCookie(request, lfmMiniCourseCookie)
     expect(cookieLookUp).toEqual({
       data:{},
@@ -188,14 +189,15 @@ describe('Route Handler', () => {
     }
 
     // Create FAKE REQUESTS
-    const reqPromise = mockFetchPromise(jwtResponse)
-    const pagePromise = mockFetchPromise(pageResponse)
+    // ADD AWAIT
+    const reqPromise = await mockFetchPromise(jwtResponse)
+    const pagePromise = await mockFetchPromise(pageResponse)
 
     // JEST MOCK FETCH CALL
     // @ts-ignore
-    mockrefreshJWT.mockResolvedValueOnce(reqPromise)
+    mockrefreshJWT.mockResolvedValue(reqPromise)
     // @ts-ignore
-    mockPageServer.mockResolvedValueOnce(pagePromise)
+    mockPageServer.mockResolvedValue(pagePromise)
 
     const url = 'https://localhost:3000/blog?postType=post&postId=1'
     const userId = '1234'

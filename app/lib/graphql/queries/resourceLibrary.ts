@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag';
 import { PRODUCT_FIELDS, RESOURCE_FEATURED_IMAGE } from './posts'
 
 export const GetAllFreebiesQuery = gql`

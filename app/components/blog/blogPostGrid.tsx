@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import PostCardOne from '../cards/postCardOne'
+
+import { consoleHelper } from '@App/utils/windowUtils';
 import type { LazyComponentProps } from 'react-lazy-load-image-component';
-import { trackWindowScroll }
-  from 'react-lazy-load-image-component';
+import { trackWindowScroll } from 'react-lazy-load-image-component';
 
 interface Props {
   posts: IPost[]
@@ -28,19 +29,18 @@ type IProps = LazyComponentProps & Props
  */
 function BlogPostGrid(props: IProps) {
   const { posts, category, categories, scrollPosition } = props
-  console.log('categories', categories);
-
+  consoleHelper('categories', categories, 'components/blog/blogPostGrid.tsx');
 
   return (
     <div data-testid="post-grid" className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
       {/* @ts-ignore */}
       <AnimatePresence>
-        {category === 'all' && posts.map((post: any, index) => {
+        {category === 'all' && posts.map((post: any) => {
           return (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
         }).slice(1) // Remove first time because its the featured post
         }
 
-        {category !== 'all' && categories[category] && categories[category].posts.map(post => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
+        {category !== 'all' && categories[category] && categories[category].posts.map((post: IPost) => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
         )}
 
         {/* Iif Cat === all and no posts */}

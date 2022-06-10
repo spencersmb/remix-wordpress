@@ -1,6 +1,6 @@
 import prettier from 'prettier';
 import { fetchAPI } from '../utils/fetch.server'
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag';
 import { getGraphQLString } from '../utils/graphqlUtils'
 import { sitemapPages } from '../components/sitemap/sitemap-pages'
 import type { LoaderFunction } from '@remix-run/node';

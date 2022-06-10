@@ -63,20 +63,27 @@ export async function logoutResourceLibrary(request: Request) {
 export async function getConvertKitUserByID(id: number): Promise<IGetConvertKitUserByID | null> {
   // Fetch Subscriber
   const url = `https://api.convertkit.com/v3/subscribers/${id}?api_secret=${process.env.CK_SECRET}`;
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
 
-  const result = await res.json()
-  consoleHelper('getConvertKitUserByID', result, '/utils/resourceLibrarySession.server.ts');
-  
-  if (result.error) {
-    return null
+  try{
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    
+    const result = await res.json()
+    
+    consoleHelper('getConvertKitUserByID', result, '/utils/resourceLibrarySession.server.ts');
+    
+    if (result.error) {
+      return null
+    }
+    return result.subscriber
   }
-  return result.subscriber
+  catch(e:any){
+    return e
+  }
 
 }
 interface IGetConvertKitUserByEmail {
@@ -116,7 +123,7 @@ export async function getConvertKitUserTags(userID: number): Promise<string[]> {
   })
 
   const result = await res.json()
-  console.log('tags result', result);
+  consoleHelper('tags result', result, '/utils/resourceLibrarySession.server.ts');
 
   if(result.error) {
     return []

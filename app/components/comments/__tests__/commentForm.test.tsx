@@ -12,7 +12,9 @@ jest.mock("../../../utils/fetch.cleint")
 describe('Comment Form Component', () => {
   const optionalCallback = jest.fn()
 
-  afterEach(cleanup);
+  afterEach(() => {
+    jest.clearAllMocks()
+  });
   const setup = (props: any = {}) => {
     const defaultProps = {
       postId: 2
@@ -91,82 +93,6 @@ describe('Comment Form Component', () => {
     const error = screen.getByText('Email is invalid')
     expect(error).toBeDefined()
     expect(emailInput).toHaveClass('input-error')
-  })
-
-  it.skip('should submit form with name/email/comment', async () => {
-
-    const defaultProps = {
-      postId: 2
-      // replyToComment?: IPostComment
-      // onComplete?: (response: ICommentResponse) => void
-      // primary ?: boolean
-      // btnText?: string
-      // subForm?: boolean
-    }
-    const initialState = {
-      ...siteInitialState
-    }
-    const { queryByTestId, getByTestId } = render(
-      <UseSiteProvider defaultState={initialState}>
-        <CommentForm {...defaultProps} />
-      </UseSiteProvider>
-    )
-
-    //@ts-ignore
-    mockFetchSubmitComment.mockResolvedValueOnce({
-      createComment: {
-        success: true,
-        comment: null
-      }
-    })
-    const nameInput = screen.getByLabelText('Comment Name')
-    const emailInput = screen.getByLabelText('Comment Email')
-    const textarea = screen.getByLabelText('Comment Body')
-    // const button = screen.getByTestId('submit-comment-button')
-    const button = getByTestId('submit-comment-button')
-    const spinner = screen.queryByLabelText('TwSpinnerOne')
-
-    fireEvent.change(nameInput, { target: { value: 'John' } })
-    fireEvent.change(emailInput, { target: { value: 'spencer.bigum@gmail.com' } })
-    fireEvent.change(textarea, { target: { value: 'This is a test comment' } })
-    fireEvent.click(button)
-
-    expect(button).toHaveTextContent('...processing')
-    expect(spinner).toBeDefined()
-    expect(button).toHaveProperty('disabled', true)
-    expect(nameInput).toHaveProperty('disabled', true)
-    expect(emailInput).toHaveProperty('disabled', true)
-    expect(textarea).toHaveProperty('disabled', true)
-
-    await act(async () => {
-
-      expect(mockFetchSubmitComment).toBeCalledWith({
-        author: "John",
-        authorEmail: "spencer.bigum@gmail.com",
-        commentOn: 2,
-        content: "This is a test comment",
-        parent: undefined
-      })
-      expect(mockFetchSubmitComment).toBeCalledTimes(1)
-      // expect(queryByTestId('comment-form')).toBeNull()
-
-
-
-    });
-
-    await waitFor(() => {
-      expect(screen.queryByText('Comment submitted successfully, but needs to be approved by Teela.')).toBeInTheDocument()
-      screen.debug()
-      expect(nameInput).toHaveProperty('value', '')
-    })
-    // await (waitFor(() => {
-
-    //   // expect(queryByTestId('comment-form')).toBeNull()
-
-    // }, { timeout: 3000 }));
-
-
-
   })
 
   it('should submit form with name/email/comment', async () => {
@@ -289,5 +215,69 @@ describe('Comment Form Component', () => {
       })
     })
 
+  })
+
+  it('should submit form with name/email/comment', async () => {
+
+    const defaultProps = {
+      postId: 2
+      // replyToComment?: IPostComment
+      // onComplete?: (response: ICommentResponse) => void
+      // primary ?: boolean
+      // btnText?: string
+      // subForm?: boolean
+    }
+    const initialState = {
+      ...siteInitialState
+    }
+    const { queryByTestId, getByTestId } = render(
+      <UseSiteProvider defaultState={initialState}>
+        <CommentForm {...defaultProps} />
+      </UseSiteProvider>
+    )
+
+    //@ts-ignore
+    mockFetchSubmitComment.mockResolvedValueOnce({
+      createComment: {
+        success: true,
+        comment: null
+      }
+    })
+    const nameInput = screen.getByLabelText('Comment Name')
+    const emailInput = screen.getByLabelText('Comment Email')
+    const textarea = screen.getByLabelText('Comment Body')
+    // const button = screen.getByTestId('submit-comment-button')
+    const button = getByTestId('submit-comment-button')
+    const spinner = screen.queryByLabelText('TwSpinnerOne')
+
+    fireEvent.change(nameInput, { target: { value: 'John' } })
+    fireEvent.change(emailInput, { target: { value: 'spencer.bigum@gmail.com' } })
+    fireEvent.change(textarea, { target: { value: 'This is a test comment' } })
+    fireEvent.click(button)
+
+    expect(button).toHaveTextContent('...processing')
+    expect(spinner).toBeDefined()
+    expect(button).toHaveProperty('disabled', true)
+    expect(nameInput).toHaveProperty('disabled', true)
+    expect(emailInput).toHaveProperty('disabled', true)
+    expect(textarea).toHaveProperty('disabled', true)
+
+    await act(async () => {
+
+      expect(mockFetchSubmitComment).toBeCalledWith({
+        author: "John",
+        authorEmail: "spencer.bigum@gmail.com",
+        commentOn: 2,
+        content: "This is a test comment",
+        parent: undefined
+      })
+      expect(mockFetchSubmitComment).toBeCalledTimes(1)
+      // expect(queryByTestId('comment-form')).toBeNull()
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByText('Comment submitted successfully, but needs to be approved by Teela.')).toBeInTheDocument()
+      // expect(nameInput).toHaveProperty('value', '')
+    })
   })
 })
