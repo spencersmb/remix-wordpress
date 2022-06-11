@@ -1,3 +1,4 @@
+import { consoleHelper } from "@App/utils/windowUtils";
 import { useEffect, useRef } from "react";
 
 const SearchLayout = () => {
@@ -15,9 +16,32 @@ const SearchLayout = () => {
 
   }, [])
 
+  async function testCall() {
+    // GET REQUEST URL
+    // const api_url = 'https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows'
+    const api_url = 'https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/16167008/dispatches'
+    const res = await fetch(api_url, {
+      method: 'POST',
+      headers: {
+        // 'Authorization': 'token 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',
+        'Content-Type': 'application/json',
+        "Accept": "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        'ref': 'main'
+      }),
+    })
+
+    const json = await res.json()
+
+    consoleHelper('json', json);
+
+  }
+
   return (
     <div className="search-layout">
       SEARCH LAYOUT
+      <button onClick={testCall}>Call</button>
       <form
         ref={formRef}
       // data-search-is-active={!!query}
