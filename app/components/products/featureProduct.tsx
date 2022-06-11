@@ -1,13 +1,13 @@
 import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers";
 import LicenseSelectSection from "./licenseSelectSection";
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import useSite from "@App/hooks/useSite";
 import { breakpointConvertPX } from "@App/utils/appUtils";
 import { staticImages } from "@App/lib/imgix/data";
 import { BPPX } from "@App/enums/breakpointEnums";
 import IpadFeatureImage from "../images/ipadFeatureImage";
 import { ImageSizeEnums } from "@App/enums/imageEnums";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface IProps {
   product: IProduct

@@ -1,7 +1,7 @@
 import { checkForPx, checkWidthHeight } from '@App/utils/imageHelpers';
 import React from 'react'
 import type { ScrollPosition } from 'react-lazy-load-image-component';
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface Props {
   image: ImageLookupReturn

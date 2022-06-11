@@ -10,7 +10,10 @@ export enum IFetchPaginateTypes {
   CLEAR_POSTS = 'CLEAR_POSTS',
 }
 export const useFetchPaginationReducer = (state: IFetchPaginationState, action: IFetchPaginateAction): IFetchPaginationState => {
-  consoleHelper('fetch pagination reducer action', action)
+  consoleHelper('Pagination Reducer action', {
+    action,
+    state
+  }, 'useFetchPaginationReducer()', {bg: '#ffd321', text: '#000'})
   switch (action.type) {
 
     case IFetchPaginateTypes.ADD_POSTS :
@@ -27,7 +30,7 @@ export const useFetchPaginationReducer = (state: IFetchPaginationState, action: 
       }
 
     case IFetchPaginateTypes.ADD_CATEGORY :
-      console.log('posts add_category',state);
+      // console.log('posts add_category',state);
       // check for category
       // update posts with current + new posts
       let posts = []

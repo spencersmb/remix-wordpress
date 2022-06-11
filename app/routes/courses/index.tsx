@@ -53,7 +53,7 @@ const Courses = () => {
 
       {/* COURSES LIST */}
 
-      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto">
+      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16">
 
         {data.courses.map((course: ICourse, index: number) => {
           return <CourseCard key={index} course={course} />

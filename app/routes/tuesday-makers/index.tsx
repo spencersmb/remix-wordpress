@@ -89,6 +89,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   let email = form.get('email')
   let formType = form.get('type') as string
   const ckId = getCKFormId(formType)
+
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
@@ -102,33 +103,23 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     email: validateEmail(email)
   };
 
-  consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.resourceLibrary.landingPage
-  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
+  consoleHelper('fieldErrors', fieldErrors, '/routes/tuesday-makers/index.tsx', { bg: '#cc2c5c', text: '#fff' })
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
 
   try {
-    // Sign user up
 
+    // Sign user up
     const fetch = await fetchConvertKitSignUp({ email, id: ckId })
+
+    // Add temporary cookie to browser to process on thankyou page
     customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
       userID: fetch.subscription.subscriber.id,
       email,
     }))
-    // const res = await fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     api_key: process.env.CK_KEY,
-    //     email,
-    //   }),
-    // })
 
-    return json({ form: 'success', email })
+    return json({ form: 'success', email, fetch })
   } catch (e) {
     return json({ form: 'fail' })
   }
@@ -137,9 +128,11 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
 const ResourceLibraryHome = () => {
   let data = useLoaderData()
-  consoleHelper('data', data, 'tuesday-makers/index.tsx');
   let actionData = useActionData<ActionData | undefined>();
-  consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
+  useEffect(() => {
+    consoleHelper('data', data, 'tuesday-makers/index.tsx');
+    consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
+  }, [actionData, data]);
 
   /*
   ON page load prefetch data query to speed things up
@@ -159,7 +152,7 @@ const ResourceLibraryHome = () => {
       formRef.current?.reset()
     }
   }, [transition])
-  consoleHelper('data.form !==', data.form)
+  // consoleHelper('data.form !==', data.form, '/routes/tuesday-makers/index.tsx');
 
   React.useEffect(() => {
     if (actionData?.form === 'success') {

@@ -68,7 +68,7 @@ export default function TuesdayMakersPopOver() {
                   </div>
                   <div
                     data-testid="panel-footer"
-                    className={`grid grid-flow-row ${user.resourceUser ? 'grid-cols-1' : 'grid-cols-2'} gap-4 p-5 bg-gray-50`}>
+                    className={`grid grid-flow-row gap-4 p-5 bg-gray-50 ${user.resourceUser ? 'grid-cols-1' : 'grid-cols-2'}`}>
                     {user.resourceUser && <Link
                       to="/tuesday-makers/members"
                       className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-2"
@@ -83,7 +83,7 @@ export default function TuesdayMakersPopOver() {
                       </Link>
                       <Link
                         to="/tuesday-makers/login"
-                        className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-4"
+                        className="py-2 transition duration-300 border-3 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-3"
                       >
                         Login
                       </Link>

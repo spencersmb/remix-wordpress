@@ -171,7 +171,9 @@ button {
   .underlined-md:after {
     bottom: -4px;
   }
-
+  .border-3{
+    border-width: 3px;
+  }
   .input-basic {
     @apply text-neutral-500 bg-neutral-100 outline-none border-0 py-4 px-5 rounded-lg w-full mb-4 ring-offset-white ring-offset-4 transform transition-all;
   }

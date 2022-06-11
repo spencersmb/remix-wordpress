@@ -1,6 +1,10 @@
+import { BPPX } from "@App/enums/breakpointEnums"
+import useSite from "@App/hooks/useSite"
 import { staticImages } from "@App/lib/imgix/data"
+import { breakpointConvertPX } from "@App/utils/appUtils"
 import Imgix, { Picture, Source } from "react-imgix"
 import { LazyLoadImage } from "react-lazy-load-image-component"
+
 import LazyImageBase from "./lazyImage-base"
 
 interface IFeatureProps {
@@ -8,12 +12,13 @@ interface IFeatureProps {
   product: IProduct
 }
 const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
+  const { state: { breakpoint } } = useSite()
 
   return (
     <div className="relative max-w-[1000px] z-20">
 
       {/* APPLE PENCIL */}
-      <div className="absolute top-[30%] left-[70%] z-30 w-[5%] rotate-[52deg] origin-center">
+      <div className="absolute top-[30%] left-[70%] z-30 w-[5%] rotate-[52deg] origin-center laptop:translate-y-[35%]">
         <LazyLoadImage
           key={'applePencil'}
           alt={'Every Tuesday Apple 2 Pencil'}
@@ -24,19 +29,24 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
       </div>
 
       {/* IPAD ART */}
-      <div className="absolute top-[-2.8%] left-[-2.7%] scale-[.81] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20">
+      <div className="absolute top-[-2.8%] left-[-2.7%] scale-[.81] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20 laptop:top-[-2.5%] laptop:left-[-2.65%] laptop:translate-y-[-2.6%]">
         <LazyImageBase image={featuredImage} id={product.slug} />
       </div>
 
       {/* IPAD DEVICE */}
-      <div className="relative z-10 ipad">
-        <LazyLoadImage
-          key={'iPadFeature'}
-          alt={`Every Tuesday New Product: ${product.title}`}
-          effect="blur"
-          placeholderSrc={staticImages.assets.ipad.flat.placeholder}
-          src={staticImages.assets.ipad.flat.src}
-        />
+      <div className="relative z-10 flex-1 w-full laptop:absolute lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full ipad">
+
+        <div style={{ paddingBottom: `${breakpointConvertPX(breakpoint) > BPPX.TABLET ? (733 / 1000) * 100 : 0}%` }} >
+          <LazyLoadImage
+            key={'iPadFeature'}
+            alt={`Every Tuesday New Product: ${product.title}`}
+            effect="blur"
+            placeholderSrc={staticImages.assets.ipad.flat.placeholder}
+            src={staticImages.assets.ipad.flat.src}
+          />
+        </div>
+
+        {/* <img src={staticImages.assets.ipad.flat.src} alt="" /> */}
       </div>
 
       {/* GREEN TEXTURE  */}

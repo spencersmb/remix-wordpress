@@ -264,8 +264,8 @@ describe('Utils - Fetch Convertkit Requests: ResourceLibrary.Session.server', ()
 
   it('Should return array of tags for a CK user', async () => {
     try {
-      const userId = await getConvertKitUserTags(2)
-      expect(userId).toEqual(["House Stark", "House Lannister"])
+      const tags = await getConvertKitUserTags(2)
+      expect(tags).toEqual(["House Stark", "House Lannister"])
     } catch (e: any) {
       expect(e.message).toBe('MSW ConvertKit error')
     }

@@ -1,5 +1,5 @@
 import type { ISiteContextState } from './index'
-import { consoleHelper } from '../../utils/windowUtils'
+import { consoleColors, consoleHelper } from '../../utils/windowUtils'
 import type { IModalTemplate } from '../../components/modals/modalTypes'
 import type { BreakpointEnums } from '@App/enums/breakpointEnums'
 
@@ -90,7 +90,7 @@ export type ISiteAction =
 | ILogoutResourceUser
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
-  consoleHelper('site reducer action', action)
+  consoleHelper('site reducer action', action, 'useSiteReducer()' , {bg: consoleColors.yellow, text: "#000"})
   switch (action.type) {
 
     case ISiteTypes.MODAL_OPEN :

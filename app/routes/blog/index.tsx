@@ -105,7 +105,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
     }
 
   } catch (e) {
-    console.log('error', e)
+    console.error('error', e)
   }
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
@@ -201,7 +201,7 @@ function setWindowUrlParams(props: {
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  console.log('categories from useLoader', categories);
+  consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
 
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
   const initializePostsFromServer = createInitializingFetchState({
@@ -293,9 +293,8 @@ function BlogIndex() {
       after: state.pageInfo.endCursor
     }
 
-    console.log('variables', variables);
-    console.log('postQuery', postQuery);
-
+    consoleHelper('variables', variables, 'fetchMorePosts() /routes/blog/index.tsx');
+    consoleHelper('postQuery', postQuery, 'fetchMorePosts() /routes/blog/index.tsx');
 
     const body = await fetch(url,
       {

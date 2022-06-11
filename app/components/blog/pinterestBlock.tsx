@@ -1,4 +1,3 @@
-import { LazyLoadImage } from "react-lazy-load-image-component"
 import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import CircularStrokeBtn from "../buttons/circularStrokeBtn"
 import LazyImageBase from "../images/lazyImage-base"

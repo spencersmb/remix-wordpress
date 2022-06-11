@@ -1988,6 +1988,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(217 229 229 / var(--tw-bg-opacity));
 }
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
 .bg-contain {
   background-size: contain;
 }
@@ -2161,6 +2165,10 @@ video {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
+.px-\[30px\] {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -2253,6 +2261,9 @@ video {
 }
 .pt-14 {
   padding-top: 3.5rem;
+}
+.pt-1 {
+  padding-top: 0.25rem;
 }
 .pb-16 {
   padding-bottom: 4rem;
@@ -2839,6 +2850,9 @@ video {
     transform: scaleX(1);
     display: inline-block;
   }
+.border-3{
+    border-width: 3px;
+  }
 .input-basic {
   margin-bottom: 1rem;
   width: 100%;
@@ -3017,9 +3031,6 @@ video {
 .hover\:border-2:hover {
   border-width: 2px;
 }
-.hover\:border-4:hover {
-  border-width: 4px;
-}
 .hover\:border-success-600:hover {
   --tw-border-opacity: 1;
   border-color: rgb(79 113 113 / var(--tw-border-opacity));
@@ -3055,6 +3066,41 @@ video {
 .hover\:text-success-600:hover {
   --tw-text-opacity: 1;
   color: rgb(79 113 113 / var(--tw-text-opacity));
+}
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+.hover\:text-gray-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+.hover\:text-secondary-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(242 192 102 / var(--tw-text-opacity));
+}
+.hover\:text-secondary-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(151 114 47 / var(--tw-text-opacity));
+}
+.hover\:text-secondary-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(101 76 31 / var(--tw-text-opacity));
+}
+.hover\:text-green-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+.hover\:text-primary-700:hover {
+  color: var(--primary-plum-700);
+}
+.hover\:text-warning-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(180 83 9 / var(--tw-text-opacity));
+}
+.hover\:text-grey-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(56 64 80 / var(--tw-text-opacity));
 }
 .hover\:text-opacity-100:hover {
   --tw-text-opacity: 1;
@@ -3108,6 +3154,9 @@ video {
 .hover\:ring-offset-sage-700:hover {
   --tw-ring-offset-color: #475658;
 }
+.hover\:border-3:hover{
+    border-width: 3px;
+  }
 .focus\:border-0:focus {
   border-width: 0px;
 }
@@ -3256,6 +3305,21 @@ video {
 .group:hover .group-hover\:bg-primary-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(141 92 92 / var(--tw-bg-opacity));
+}
+.group:hover .group-hover\:stroke-secondary-600 {
+  stroke: #97722F;
+}
+.group:hover .group-hover\:stroke-green-600 {
+  stroke: #16a34a;
+}
+.group:hover .group-hover\:stroke-primary-700 {
+  stroke: var(--primary-plum-700);
+}
+.group:hover .group-hover\:stroke-warning-700 {
+  stroke: #B45309;
+}
+.group:hover .group-hover\:stroke-grey-700 {
+  stroke: #384050;
 }
 .group:hover .group-hover\:text-opacity-80 {
   --tw-text-opacity: 0.8;
@@ -3850,6 +3914,12 @@ video {
   .laptop\:top-\[-58px\] {
     top: -58px;
   }
+  .laptop\:top-\[-2\.5\%\] {
+    top: -2.5%;
+  }
+  .laptop\:left-\[-2\.65\%\] {
+    left: -2.65%;
+  }
   .laptop\:top-\[-160px\] {
     top: -160px;
   }
@@ -4083,6 +4153,14 @@ video {
   }
   .laptop\:flex-\[1_1_50\%\] {
     flex: 1 1 50%;
+  }
+  .laptop\:translate-y-\[35\%\] {
+    --tw-translate-y: 35%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+  .laptop\:translate-y-\[-2\.6\%\] {
+    --tw-translate-y: -2.6%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
   .laptop\:translate-x-0 {
     --tw-translate-x: 0px;
@@ -4594,6 +4672,9 @@ video {
   }
   .desktop\:pr-24 {
     padding-right: 6rem;
+  }
+  .desktop\:pt-9 {
+    padding-top: 2.25rem;
   }
   .desktop\:text-center {
     text-align: center;

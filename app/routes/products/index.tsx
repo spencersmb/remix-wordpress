@@ -16,6 +16,7 @@ import ProductLayout from "@App/components/products/productLayout";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { consoleHelper } from '@App/utils/windowUtils';
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -54,7 +55,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
       products,
     })
   } catch (e) {
-    console.log('error', e)
+    console.error('error', e)
     return null
   }
 };
@@ -62,7 +63,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   const { metadata } = metaDataMatches()
-  console.log('data', data);
+  consoleHelper('data', data, '/routes/products/index.tsx');
   // const { fontLoadingState, setFontClickHandler } = useFonts()
   // const { state } = useSite()
 
