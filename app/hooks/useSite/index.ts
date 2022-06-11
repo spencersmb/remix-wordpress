@@ -32,6 +32,7 @@ export interface ISiteContextState {
   },
   breakpoint: BreakpointEnums
 }
+
 interface ISiteContextType {
   state: ISiteContextState,
   dispatch: Dispatch<ISiteAction>
@@ -89,14 +90,13 @@ export const siteInitialState: ISiteContextState  = {
       endCursor: ''
     }
   },
-  breakpoint: BreakpointEnums.mobile
+  breakpoint: BreakpointEnums.mobile,
 }
 // export const SiteContext = createContext<ISiteContextType>({
 //   state: siteInitialState,
 //   dispatch: () => null
 // })
-// @ts-ignore
-export const SiteContext = createContext<ISiteContextType | undefined>()
+export const SiteContext = createContext<ISiteContextType | undefined>(undefined)
 SiteContext.displayName = 'SiteContext'
 
 const useSiteContext = () => {
@@ -183,7 +183,6 @@ const useSite = () => {
       payload: data
     })
   }
-
 
   const fetchMoreComments = (data: {comments: IPostComment[], pageInfo: {hasNextPage: boolean, endCursor: string}}) => {
     dispatch({

@@ -1,0 +1,6 @@
+export enum SEARCH_STATE_ENUMS {
+  LOADING = 'LOADING',
+  READY = 'READY',
+  ERROR = 'ERROR',
+  LOADED = 'LOADED'
+}

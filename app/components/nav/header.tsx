@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { motion, useReducedMotion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { cssColors } from '@App/enums/colors'
 import { ShopPlatformEnum } from '@App/enums/products'
 import useSite from '@App/hooks/useSite'
@@ -10,6 +10,7 @@ import EveryTuesdayLogo from '../svgs/everyTuesdayLogo'
 import HamburgerSvg from '../svgs/hamburger'
 import SearchSvg from '../svgs/searchSvg'
 import { PrimaryNav } from './primaryNav'
+import { useSearch } from '@App/hooks/useSearch'
 
 interface Props {
   alternateNav?: React.ReactNode
@@ -24,10 +25,14 @@ interface Props {
 function Header(props: Props) {
   const { alternateNav } = props
   const { state: { metadata: { serverSettings } } } = useSite()
+  const { openSearch, state } = useSearch()
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()
   const { navRef } = useTopNav() // Nav slide in and out
+  useEffect(() => {
+    openSearch()
+  }, [])
 
   return (
     <header ref={navRef} className="fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView">
@@ -74,7 +79,10 @@ function Header(props: Props) {
           </div>
 
           {/* DESKTOP SEARCH ICON */}
-          <div data-testid="search-icon-desktop" className="relative inline-flex items-center justify-center flex-none p-1 w-14 h-14 group">
+          <div
+            data-testid="search-icon-desktop"
+            onClick={openSearch}
+            className="relative inline-flex items-center justify-center flex-none p-1 w-14 h-14 group">
             <div className="absolute text-gray-200 dark:text-gray-600">
               <svg width="56" height="56" >
                 <motion.circle

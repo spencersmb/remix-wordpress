@@ -1,4 +1,5 @@
 import * as React from "react";
+import Fuse from 'fuse.js';
 import {
   Links,
   LiveReload,
@@ -24,7 +25,7 @@ import { getUserSession } from './utils/session.server'
 import UseSiteProvider from './hooks/useSite/useSiteProvider'
 import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
 import { getResourceUser } from './utils/resourceLibrarySession.server'
-import { consoleHelper } from './utils/windowUtils'
+import { consoleColors, consoleHelper } from './utils/windowUtils'
 import BasicModal from './components/modals/BasicModal'
 import { commitSession, getSession } from '@App/sessions.server'
 import CommentModal from "./components/modals/commentModal";
@@ -36,6 +37,11 @@ import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
 import 'lazysizes';
 import useWindowResize from "./hooks/useWindowResize";
+import SearchModal from "./components/modals/searchModal";
+import UseSearchProvider from "./hooks/useSearch/useSearchProvider";
+import { siteSearchState } from "./hooks/useSearch";
+import { getSearchData } from "./lib/search/searchApi";
+import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
 // import a plugin
 
 /**
@@ -64,12 +70,18 @@ export let links: LinksFunction = () => {
  Root Loader for the global App state
  */
 export let loader: LoaderFunction = async ({ request }) => {
+  // Variables to expose to the front end
+  const url = new URL(request.url);
+  let ENV = {
+    APP_ROOT_URL: process.env.APP_ROOT_URL,
+    PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
+    SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+  }
   const customHeaders = new Headers()
   // Used for session message storage
   const session = await getSession(
     request.headers.get("Cookie")
   );
-
 
   let wpAdminSession = await getUserSession(request)
   const resourceUser = await getResourceUser(request)
@@ -93,21 +105,22 @@ export let loader: LoaderFunction = async ({ request }) => {
   // async function that also returns dynamic metaData from WP
   let metadata = await createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
 
-
-  // Variables to expose to the front end
-  let ENV = {
-    APP_ROOT_URL: process.env.APP_ROOT_URL,
-    PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
-    SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-  }
   // consoleHelper('Admin user', wpAdminSession.has('userId'))
   // consoleHelper('resourceUser', resourceUser)
   const ses = session.get("globalMessage")
   const message = ses || null;
-  console.log('session message', message)
-  console.log('resourceUser', resourceUser);
+  // consoleHelper('session message', message, '/root')
+  consoleHelper('resourceUser', resourceUser, '/root', { bg: consoleColors.purple, text: '#fff' });
 
   customHeaders.append('Set-Cookie', await commitSession(session))
+
+  //
+  let searchData
+  try {
+    searchData = await getSearchData(url.origin);
+  } catch (e: any) {
+    searchData = null
+  }
 
   return json({
     message,
@@ -119,6 +132,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     },
     cart: shopifyCart.cart,
     ENV,
+    searchData
   },
     {
       headers: customHeaders
@@ -132,14 +146,20 @@ export let loader: LoaderFunction = async ({ request }) => {
  * component for your app.
  */
 export default function App() {
-  let { menus, user, metadata, message, cart } = useLoaderData<IRootData>();
-  consoleHelper('user', user)
-  // consoleHelper('metadata', metadata)
+  let { menus, user, metadata, message, cart, searchData } = useLoaderData<IRootData>();
+  consoleHelper('user', user, '/root', { bg: consoleColors.purple, text: '#fff' })
 
   // let defaultCart: IShopifyCart = {
   //   ...cart,
   //   isOpen: false,
   // }
+  let client
+  if (searchData) {
+    client = new Fuse(searchData.posts, {
+      keys: ['slug', 'title'],
+      isCaseSensitive: false,
+    });
+  }
 
   let defaultState = fetchInitialState
 
@@ -167,7 +187,8 @@ export default function App() {
       }
     });
   }, [])
-
+  // const searchInit = useSearchState()
+  // consoleHelper('searchInit', searchInit, 'root', { bg: consoleColors.orange, text: '#fff' })
   const value = {
     ...siteInitialState,
     menu: menus,
@@ -178,11 +199,18 @@ export default function App() {
     // <Provider store={store}>
     // <UseCartProvider defaultState={defaultCart}>
     <UseSiteProvider defaultState={value}>
-      <UseFetchPaginateProvider defaultState={defaultState}>
-        <Document>
-          <Outlet />
-        </Document>
-      </UseFetchPaginateProvider>
+      <UseSearchProvider defaultState={{
+        ...siteSearchState,
+        status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
+        data: searchData,
+        client,
+      }}>
+        <UseFetchPaginateProvider defaultState={defaultState}>
+          <Document>
+            <Outlet />
+          </Document>
+        </UseFetchPaginateProvider>
+      </UseSearchProvider>
     </UseSiteProvider>
     // </UseCartProvider>
     // </Provider>
@@ -260,6 +288,7 @@ export function Document({ children, title }: IDocument) {
         {/* {process.env.NODE_ENV === "development" && <LiveReload nonce="nonce-cjzkqzfj" />} */}
         <BasicModal />
         <CommentModal />
+        <SearchModal />
 
         {/* FOOTER SCRIPTS */}
         {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.every-tuesday.com/js/gumroad.js"></script>}

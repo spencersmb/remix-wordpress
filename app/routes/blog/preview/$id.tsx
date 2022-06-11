@@ -13,7 +13,7 @@ const PostPreview = () => {
   return (
     <Layout>
       <div>
-        Preview Post
+        Preview Tutorial
       </div>
     </Layout>
   )

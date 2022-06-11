@@ -41,6 +41,7 @@
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.1",
     "framer-motion": "^5.4.5",
+    "fuse.js": "^6.6.2",
     "graphql": "^16.0.1",
     "graphql-tag": "^2.12.6",
     "lazysizes": "^5.3.2",

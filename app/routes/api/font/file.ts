@@ -9,7 +9,8 @@ import espresso from '../../../server/fonts/espresso-roast/EspressoRoast-Script.
 import espressoCaps from '../../../server/fonts/espresso-roast/EspressoRoast-Caps.woff'
 import espressoSymbols from '../../../server/fonts/espresso-roast/EspressoRoast-Symbols.woff'
 import cornerBakery from '../../../server/fonts/cornerbakery/CornerBakery-Regular.woff'
-import { json, LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
 
 enum FontPreviewName {
   TUESDAY = 'tuesday',

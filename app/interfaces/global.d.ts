@@ -1,4 +1,5 @@
-import { IWPMenu, IWpMenus } from "@App/lib/wp/site"
+import type { IWPMenu} from "@App/lib/wp/site";
+import { IWpMenus } from "@App/lib/wp/site"
 
 interface IEnv {
   PUBLIC_WP_API_URL: string
@@ -23,7 +24,8 @@ interface IRootData {
   },
   cart: any
   ENV: IEnv,
-  metadata: ISiteMetaDataMapped
+  metadata: ISiteMetaDataMapped,
+  searchData: any,
 }
 
 // declare module "text2png"

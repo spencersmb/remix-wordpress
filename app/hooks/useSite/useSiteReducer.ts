@@ -6,13 +6,16 @@ import type { BreakpointEnums } from '@App/enums/breakpointEnums'
 export enum ISiteTypes {
   MODAL_OPEN = 'MODAL_OPEN',
   MODAL_CLOSE = 'MODAL_CLOSE',
+
   LOGIN_RESOURCE_USER = 'LOGIN_RESOURCE_USER',
   LOGOUT_RESOURCE_USER = 'LOGOUT_RESOURCE_USER',
+
   SHOW_COMMENTS = 'SHOW_COMMENTS',
   HIDE_COMMENTS = 'HIDE_COMMENTS',
   ADD_COMMENT = 'ADD_COMMENT',
   ADD_COMMENT_REPLY = 'ADD_COMMENT_REPLY',
   FETCH_MORE_COMMENTS = 'FETCH_MORE_COMMENTS',
+
   UPDATE_BREAKPOINT = 'UPDATE_BREAKPOINT',
 }
 interface IOpenModal {
@@ -77,6 +80,7 @@ interface IUpdateBreakpoint{
   }
 }
 
+
 export type ISiteAction =
 | IOpenModal
 | {type: ISiteTypes.MODAL_CLOSE}
@@ -88,6 +92,7 @@ export type ISiteAction =
 | IFetchMoreComments
 | IUpdateBreakpoint
 | ILogoutResourceUser
+
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
   consoleHelper('site reducer action', action, 'useSiteReducer()' , {bg: consoleColors.yellow, text: "#000"})
@@ -221,6 +226,7 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
         breakpoint: action.payload.breakpoint
       }
     }
+
     default: {
       // throw new Error(`Unhandled action type: ${action.type}`)
       return state

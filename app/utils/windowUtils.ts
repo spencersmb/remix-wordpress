@@ -2,6 +2,10 @@
 // magenta: #e0005a 
 export const consoleColors = {
   yellow: '#ffd321',
+  purple: '#7f21ff',
+  magenta: '#e0005a',
+  orange: '#ec9600',
+
 }
 export const consoleHelper = (data: string, obj: any = null, location?: String | null, color:{
   bg: string, text: string
