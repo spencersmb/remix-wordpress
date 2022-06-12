@@ -153,13 +153,14 @@ export default function App() {
   //   ...cart,
   //   isOpen: false,
   // }
-  let client
-  if (searchData) {
-    client = new Fuse(searchData.posts, {
-      keys: ['slug', 'title'],
-      isCaseSensitive: false,
-    });
-  }
+  // let client
+  // if (searchData) {
+  //   client = new Fuse(searchData.posts, {
+  //     keys: ['slug', 'title'],
+  //     minMatchCharLength: 3,
+  //     isCaseSensitive: false,
+  //   });
+  // }
 
   let defaultState = fetchInitialState
 
@@ -203,7 +204,7 @@ export default function App() {
         ...siteSearchState,
         status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
         data: searchData,
-        client,
+        // client,
       }}>
         <UseFetchPaginateProvider defaultState={defaultState}>
           <Document>

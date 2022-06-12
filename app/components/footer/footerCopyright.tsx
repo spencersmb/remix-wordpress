@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react"
+import { memo } from "react";
 
 /**
  * 
@@ -6,6 +7,8 @@ import { Link } from "@remix-run/react"
  * @tested - 5/30/2022
  */
 const FooterCopyright = () => {
+  console.log("FooterCopyright render");
+
   return (
     <div
       data-testid="footer-copyright"
@@ -20,4 +23,4 @@ const FooterCopyright = () => {
     </div>
   )
 }
-export default FooterCopyright
+export default memo(FooterCopyright)

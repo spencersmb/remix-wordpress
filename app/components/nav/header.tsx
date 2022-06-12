@@ -31,7 +31,7 @@ function Header(props: Props) {
   const shouldReduceMotion = useReducedMotion()
   const { navRef } = useTopNav() // Nav slide in and out
   useEffect(() => {
-    openSearch()
+    // openSearch()
   }, [])
 
   return (

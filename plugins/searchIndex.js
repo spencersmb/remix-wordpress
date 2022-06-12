@@ -10,6 +10,28 @@ async function getAllPosts(){
                     title
                     excerpt
                     databaseId
+                    featuredImage {
+                      node {
+                        mediaDetails {
+                          width
+                          height
+                          sizes{
+                            width
+                            file
+                            height
+                            name
+                            sourceUrl
+                            mimeType
+                          }
+                        }
+                          altText
+                          caption
+                          sourceUrl
+                          srcSet
+                          sizes
+                          id
+                        }
+                      }
                     slug
                     date
                     modified

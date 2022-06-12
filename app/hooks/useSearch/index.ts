@@ -55,9 +55,19 @@ export function useSearch(){
     })
   }
 
+  const addClient = (client: any) => {
+    dispatch({
+      type: ISearchTypes.ADD_CLIENT,
+      payload: {
+        client,
+      }
+    })
+  }
+
   return {
     state,
     openSearch,
-    closeSearch
+    closeSearch,
+    addClient
   }
 }

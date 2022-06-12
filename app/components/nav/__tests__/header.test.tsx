@@ -1,3 +1,5 @@
+import { siteSearchState } from "@App/hooks/useSearch"
+import UseSearchProvider from "@App/hooks/useSearch/useSearchProvider"
 import { siteInitialState } from "@App/hooks/useSite"
 import { renderUseSiteProviderUi } from "@TestUtils/providerUtils"
 import { MemoryRouter } from "react-router"
@@ -8,7 +10,9 @@ describe('Header Component', () => {
   it('Should have SVG logo on home link', () => {
     const { getByTestId, queryByLabelText } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -23,7 +27,9 @@ describe('Header Component', () => {
   it('Mobile Search', () => {
     const { getByTestId, queryByLabelText } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -36,7 +42,9 @@ describe('Header Component', () => {
   it('Mobile Hamburger', () => {
     const { getByTestId } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -49,7 +57,9 @@ describe('Header Component', () => {
   it('It should show <Primary Nav />', () => {
     const { queryByLabelText } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -60,7 +70,9 @@ describe('Header Component', () => {
   it('It should show alternate Nav', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header alternateNav={<div>alternate nav</div>} />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header alternateNav={<div>alternate nav</div>} />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -71,7 +83,9 @@ describe('Header Component', () => {
   it('It should have Course Login Btn', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )
@@ -84,7 +98,9 @@ describe('Header Component', () => {
   it('It should have Search Button desktop', () => {
     const { queryByTestId } = renderUseSiteProviderUi(
       <MemoryRouter>
-        <Header />
+        <UseSearchProvider defaultState={siteSearchState} >
+          <Header />
+        </UseSearchProvider>
       </MemoryRouter>
       , { providerProps: siteInitialState }
     )

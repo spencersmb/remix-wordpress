@@ -46,6 +46,7 @@ function generateIndexSearch({ posts }) {
       title,
       slug: post.slug,
       date: post.date,
+      featuredImage: post.featuredImage,
     };
   });
 
@@ -113,13 +114,15 @@ function mkdirp(directory) {
 }
 
 async function fetchAPI(query, { variables } = {}) {
-  const api_url = "https://etheadless.graphcdn.app/"
+  // const api_url = "https://etheadless.graphcdn.app/"
+  const api_url = process.env.PUBLIC_WP_API_URL
+  console.log('PUBLIC_WP_API_URL', api_url);
+  
 
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
-  console.log('api_url', api_url)
 
   const res = await fetch(api_url, {
     method: 'POST',

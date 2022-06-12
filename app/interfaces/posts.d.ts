@@ -323,3 +323,14 @@ interface IGQLError{
   message: string
   path: string[]
 }
+
+interface ISearchResult {
+  title: string
+  slug: string
+  date: string
+  featuredImage: IFeaturedImage | null
+}
+
+interface ISearchResults {
+  
+}

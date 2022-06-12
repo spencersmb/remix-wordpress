@@ -67,6 +67,7 @@
     "tailwindcss": "^3.0.24",
     "text-to-image": "^4.1.1",
     "text2png": "^2.3.0",
+    "throttle-debounce": "^5.0.0",
     "tsconfig-paths-jest": "^0.0.1",
     "uuid": "^8.3.2",
     "xstate": "^4.26.1"
@@ -89,6 +90,7 @@
     "@types/react-lazy-load-image-component": "^1.5.2",
     "@types/react-sticky": "^6.0.4",
     "@types/react-test-renderer": "^18.0.0",
+    "@types/throttle-debounce": "^5.0.0",
     "@types/uuid": "^8.3.3",
     "autoprefixer": "^10.4.0",
     "babel-jest": "^28.1.1",
