@@ -153,14 +153,7 @@ export default function App() {
   //   ...cart,
   //   isOpen: false,
   // }
-  // let client
-  // if (searchData) {
-  //   client = new Fuse(searchData.posts, {
-  //     keys: ['slug', 'title'],
-  //     minMatchCharLength: 3,
-  //     isCaseSensitive: false,
-  //   });
-  // }
+
 
   let defaultState = fetchInitialState
 

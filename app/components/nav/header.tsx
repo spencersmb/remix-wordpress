@@ -25,7 +25,7 @@ interface Props {
 function Header(props: Props) {
   const { alternateNav } = props
   const { state: { metadata: { serverSettings } } } = useSite()
-  const { openSearch, state } = useSearch()
+  const { openSearch } = useSearch()
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()

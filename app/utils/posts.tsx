@@ -101,11 +101,7 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
 
   // Clean up the categories to make them more easy to access
   if (data.categories) {
-    modifiedData.categories = data.categories.edges.map(({ node }) => {
-      return {
-        ...node,
-      };
-    });
+    modifiedData.categories = filterCategories(data.categories.edges);
   }
 
   // Clean up the featured image to make them more easy to access
@@ -473,6 +469,14 @@ export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
   }
 
   return modifiedData
+}
+
+export function filterCategories(categories: ICategoryRaw[]): ICategories[] {
+  return categories.map(({ node }) => {
+    return {
+      ...node,
+    };
+  })
 }
 
 // export function createThumbnailImage(

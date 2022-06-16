@@ -1,3 +1,4 @@
+import { consoleHelper } from "@App/utils/windowUtils";
 import Fuse from "fuse.js";
 import { useCallback, useEffect, useState } from "react";
 import { useSearch } from ".";
@@ -7,14 +8,19 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   const {client, data } = state
 
   const [query, setQuery] = useState<null | string>(defaultQuery);
+  const [category, setCategory] = useState<string | null>(null);
+  
   let results: ISearchResult[] = [];
 
   useEffect(() => {
     if(data && !client){
       let client = new Fuse(data.posts, {
-        keys: ['slug', 'title'],
-        minMatchCharLength: 3,
+        keys: ['slug', 'title', { name: 'categories', weight: 2 }], 
+        minMatchCharLength:2,
+        useExtendedSearch: true,
+        threshold: 0.3,
         isCaseSensitive: false,
+        includeScore: true
       });
       addClient(client)
     }
@@ -23,7 +29,48 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   // If we have a query, make a search. Otherwise, don't modify the
   // results to avoid passing back empty results
   if (client && query) {
-    results = client.search(query).map(({ item }: any) => item);
+    let $and: any[] = [
+      {
+        $or:[
+          {
+            title: query,
+          }
+        ]
+      }
+    ]
+    if(category){
+      $and = [
+        {
+          categories: `"'${category}}"`,
+          
+        },
+        {
+          title: query,
+        }
+      ]
+        
+    }
+    results = client.search({
+        $and
+      }).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
+      return item
+    });
+    
+    // results = client.search(query).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
+    //   return item
+    // });
+  }else if(client && category){
+    consoleHelper('CAT`', `"'${category}"`);
+    
+    results = client.search({
+        $and:[
+          {
+            categories: `"'${category}"`
+          }
+        ]
+      }).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
+      return item
+    });
   }
 
   if (maxResults && results.length > maxResults) {
@@ -48,6 +95,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   }
 
   return {
+    setCategory,
     state, // state from useContext
     query, // what userHas Typed into input
     results,

@@ -41,15 +41,17 @@ function generateIndexSearch({ posts }) {
     // within the DOM
     const post = edge.node
     const title = he.decode(post.title);
-
+    
     return {
       title,
       slug: post.slug,
       date: post.date,
       featuredImage: post.featuredImage,
+      categories: filterCategories(post.categories.edges),
     };
   });
-
+  console.log('index.length', index.length);
+  
   return JSON.stringify({
     generated: Date.now(),
     posts: index,
@@ -147,6 +149,12 @@ async function fetchAPI(query, { variables } = {}) {
 
 function lowercaseFirstChar (text) {
   return text && text[0].toLowerCase() + text.slice(1) || text;
+}
+
+function filterCategories(categories) {
+  return categories.map(({ node }) => {
+    return node.name
+  })
 }
 
 module.exports = {

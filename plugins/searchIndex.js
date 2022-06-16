@@ -10,6 +10,14 @@ async function getAllPosts(){
                     title
                     excerpt
                     databaseId
+                    categories{
+                      edges{
+                        node{
+                          name
+                          slug
+                        }
+                      }
+                    }
                     featuredImage {
                       node {
                         mediaDetails {

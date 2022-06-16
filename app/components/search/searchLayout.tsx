@@ -5,13 +5,22 @@ import { Link, useTransition } from "@remix-run/react";
 import Fuse from "fuse.js";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const SearchLayout = () => {
-  const { query, search, results, clearSearch, closeSearch, state: { isOpen } } = useSearchResults({
+interface IProps {
+  animationCompleted: boolean;
+}
+const SearchLayout = ({ animationCompleted }: IProps) => {
+  const { query, search, results, clearSearch, closeSearch, setCategory, state: { isOpen } } = useSearchResults({
     maxResults: 10,
   })
+
+  const [selectedTag, setSelectedTag] = useState<string>('');
+
+  // used for arrow keys
+  // const [focusedResult, setFocusedResult] = useState<any>(null)
+
+  // useed to close the Search when user navigates away from the page
   const transition = useTransition();
   const listRef = useRef<HTMLUListElement | null>(null);
-  const [focusedResult, setFocusedResult] = useState<any>(null)
   const formRef = useRef<null | HTMLFormElement>(null)
 
   consoleHelper('search results', results, 'searchLayout', { bg: consoleColors.orange, text: '#fff' })
@@ -19,21 +28,25 @@ const SearchLayout = () => {
   useEffect(() => {
     // When the search box opens up, additionally find the search input and focus
     // on the element so someone can start typing right away
-    if (formRef.current) {
-      const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
-        .find((input: any) => input.type === 'search') as HTMLInputElement
 
-      searchInput.focus();
-    }
     document.addEventListener('keydown', escFunction, false);
     // addResultsRoving()
     return () => {
       clearSearch()
       document.removeEventListener('keydown', escFunction, false);
-      document.removeEventListener('keydown', handleResultsRoving)
+      // document.removeEventListener('keydown', handleResultsRoving)
     }
 
   }, [])
+
+  useEffect(() => {
+    if (formRef.current && animationCompleted) {
+      const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
+        .find((input: any) => input.type === 'search') as HTMLInputElement
+
+      searchInput.focus();
+    }
+  }, [animationCompleted])
 
   useEffect(() => {
     if (transition.state === 'loading' && isOpen) {
@@ -86,28 +99,32 @@ const SearchLayout = () => {
   * addResultsRoving
   */
   function addResultsRoving() {
-    document.body.addEventListener('keydown', handleResultsRoving);
+    // document.body.addEventListener('keydown', handleResultsRoving);
   }
 
-  function handleResultsRoving(e: any) {
-    const focusElement: any = document.activeElement;
-    console.log('e', e);
-    //parentElement = form, nextSibling = div, firstChild = ul
-    console.log('focusElement', focusElement.parentElement.nextSibling.firstChild.children[1]);
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      // if user is in the input we select the first element in Results
-      if (focusElement.nodeName === 'INPUT') {
-        focusElement.parentElement.nextSibling.firstChild.children[1].focus()
-        setFocusedResult(1)
-      } else {
-        setFocusedResult(focusedResult + 1)
-      }
-
-    }
-
+  const handleSetCategory = (cat: string) => () => {
+    setCategory(cat)
   }
+
+  // function handleResultsRoving(e: any) {
+  //   const focusElement: any = document.activeElement;
+  //   console.log('e', e);
+  //   //parentElement = form, nextSibling = div, firstChild = ul
+  //   console.log('focusElement', focusElement.parentElement.nextSibling.firstChild.children[1]);
+
+  //   if (e.key === 'ArrowDown') {
+  //     e.preventDefault();
+  //     // if user is in the input we select the first element in Results
+  //     if (focusElement.nodeName === 'INPUT') {
+  //       focusElement.parentElement.nextSibling.firstChild.children[1].focus()
+  //       setFocusedResult(1)
+  //     } else {
+  //       setFocusedResult(focusedResult + 1)
+  //     }
+
+  //   }
+
+  // }
 
   return (
     <div className="search-layout">
@@ -124,18 +141,26 @@ const SearchLayout = () => {
           onChange={handleOnSearch}
           autoComplete="off"
           placeholder="Search..."
+          data-focused={animationCompleted}
           required
         />
       </form>
-
+      <div>
+        <button onClick={handleSetCategory('Gouache')}>Gouache</button>
+        <button onClick={handleSetCategory('Photography')}>Photography</button>
+        <button onClick={handleSetCategory('Intermediate')}>Intermediate</button>
+      </div>
       <div >
         {results.length > 0 && (
           <ul ref={listRef}>
             {results
-              .sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
+              // Sort by date or score?
+              // .sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
               .map(({ slug, title, date }: ISearchResult, index) => {
                 return (
-                  <li key={slug} className={`${index === focusedResult ? 'text-red-500' : ''}`}>
+                  <li key={slug}
+                  // className={`${index === focusedResult ? 'text-red-500' : ''}`}
+                  >
                     <Link to={`/${slug}`} prefetch='intent'>
                       <h3>{title}</h3>
                       <p>{formatDate(date)}</p>

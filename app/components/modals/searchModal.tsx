@@ -24,7 +24,7 @@ import { useSearch } from '@App/hooks/useSearch'
  */
 const SearchModal = () => {
   const { state: { isOpen }, closeSearch } = useSearch()
-
+  const [animationCompleted, setAnimationCompleted] = useState(false)
   return (
     // @ts-ignore
     <AnimatePresence>
@@ -37,10 +37,20 @@ const SearchModal = () => {
             initial={containerMotion.closed}
             animate={containerMotion.open}
             exit={containerMotion.closed}
+            onAnimationComplete={(e: any) => {
+
+              if (e.x === '0%') {
+                console.log('e', e);
+                setAnimationCompleted(true)
+              } else {
+                setAnimationCompleted(false)
+              }
+
+            }}
           >
             <div className='flex flex-col'>
               <div onClick={closeSearch}>CLOSE</div>
-              <SearchLayout />
+              <SearchLayout animationCompleted={animationCompleted} />
             </div>
           </motion.div>
         </>

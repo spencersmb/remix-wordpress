@@ -10,7 +10,7 @@ export enum IFetchPaginateTypes {
   CLEAR_POSTS = 'CLEAR_POSTS',
 }
 export const useFetchPaginationReducer = (state: IFetchPaginationState, action: IFetchPaginateAction): IFetchPaginationState => {
-  consoleHelper('Pagination Reducer action', {
+  consoleHelper(`Pagination Reducer ${action.type}`, {
     action,
     state
   }, 'useFetchPaginationReducer()', {bg: '#ffd321', text: '#000'})
