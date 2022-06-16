@@ -117,12 +117,8 @@ function mkdirp(directory) {
 }
 
 async function fetchAPI(query, { variables } = {}) {
-  const noDef = process.env.NODE_ENV === undefined
-  const production = process.env.NODE_ENV === "production"
-  const api_url = noDef || production
-      ? "https://etheadless.graphcdn.app/" 
-      : process.env.PUBLIC_WP_API_UR
-  
+  const env = envConfig()
+  const api_url = env.url
 
   const https = require("https");
   const agent = new https.Agent({
@@ -160,7 +156,19 @@ function filterCategories(categories) {
   })
 }
 
+function envConfig() {
+  const noDef = process.env.NODE_ENV === undefined
+  const production = process.env.NODE_ENV === "production"
+  const isProduction = noDef || production ? true : false
+
+  return {
+    url: isProduction ? "https://etheadless.graphcdn.app/"  : process.env.PUBLIC_WP_API_URL,
+    postCount: isProduction ? 1000 : 100
+  }
+}
+
 module.exports = {
+  envConfig,
   createFile,
   lowercaseFirstChar,
   fetchAPI,

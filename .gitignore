@@ -10,4 +10,5 @@ node_modules
 /public/wp-search.json
 /public/wp-prettyLinks.json
 /.env
+/.env.test
 /app/.tailwind.css

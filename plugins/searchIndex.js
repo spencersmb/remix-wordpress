@@ -1,6 +1,7 @@
 const utils = require('./utils')
 
 async function getAllPosts(){
+  const env = utils.envConfig()
   const allPostsQuery = `
     query AllPosts($count: Int)
     {
@@ -57,7 +58,7 @@ async function getAllPosts(){
 `
   return await utils.fetchAPI(allPostsQuery, {
     variables:{
-      count: parseInt(process.env.GLOBAL_POST_COUNT, 10)
+      count: parseInt(env.postCount, 10)
     }
   })
 }
