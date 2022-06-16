@@ -1,6 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 const he = require('he');
+
 /**
  * createFile
  */
@@ -117,8 +118,10 @@ function mkdirp(directory) {
 
 async function fetchAPI(query, { variables } = {}) {
   // const api_url = "https://etheadless.graphcdn.app/"
+  console.log('process NODE', process.env.NODE_ENV);
+  console.log('ENV', process.env);
+  console.log('$PUBLIC_WP_API_URL', process.env.PUBLIC_WP_API_URL);
   const api_url = process.env.PUBLIC_WP_API_URL
-  console.log('PUBLIC_WP_API_URL', api_url);
   
 
   const https = require("https");
