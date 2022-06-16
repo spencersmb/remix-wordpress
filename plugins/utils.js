@@ -117,8 +117,11 @@ function mkdirp(directory) {
 }
 
 async function fetchAPI(query, { variables } = {}) {
+  const noDef = process.env.NODE_ENV === undefined
   const production = process.env.NODE_ENV === "production"
-  const api_url = production ? "https://etheadless.graphcdn.app/" : process.env.PUBLIC_WP_API_URL
+  const api_url = noDef || production
+      ? "https://etheadless.graphcdn.app/" 
+      : process.env.PUBLIC_WP_API_UR
   
 
   const https = require("https");
