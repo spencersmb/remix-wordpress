@@ -139,6 +139,8 @@ const filterTags = [
   },
 
 ]
+
+// Order of brushes
 const ordered = ['lettering-brushes', 'stamp-brushes', 'pattern-brushes', 'scatter-brushes'];
 
 function shuffleResourcePosts(posts: IResourceItem[]): IResourceItem[] | [] {
@@ -149,7 +151,7 @@ function shuffleResourcePosts(posts: IResourceItem[]): IResourceItem[] | [] {
   let styleStudie: IResourceItem[] = []
   let misc: IResourceItem[] = []
 
-
+  // reorder each item into its own array
   posts.forEach(post => {
     let match = false
     post.categories.forEach(cat => {
@@ -183,6 +185,10 @@ function shuffleResourcePosts(posts: IResourceItem[]): IResourceItem[] | [] {
   ]
 }
 
+// Find the index of the subcategory and then sort them based on the value of the index
+//         0                    1                 2                  3
+//[ 'lettering-brushes', 'stamp-brushes', 'pattern-brushes', 'scatter-brushes'];
+// Lettering Brushes should appear first, scatter brushes last
 function reshuffleBrushes(posts: IResourceItem[]) {
   const sorter = (a: IResourceItem, b: IResourceItem) => {
     const aSubCat = a.subCategories[0]?.slug || 'test'

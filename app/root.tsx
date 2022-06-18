@@ -39,9 +39,10 @@ import 'lazysizes';
 import useWindowResize from "./hooks/useWindowResize";
 import SearchModal from "./components/modals/searchModal";
 import UseSearchProvider from "./hooks/useSearch/useSearchProvider";
-import { siteSearchState } from "./hooks/useSearch";
+import { siteSearchState, useSearch } from "./hooks/useSearch";
 import { getSearchData } from "./lib/search/searchApi";
 import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
+import { classNames } from "./utils/appUtils";
 // import a plugin
 
 /**
@@ -231,9 +232,12 @@ interface IDocument {
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
   useWindowResize()
+  const { state: { isOpen } } = useSearch()
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={classNames(isOpen ? 'overflow-y-hidden' : '', "")}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -254,7 +258,9 @@ export function Document({ children, title }: IDocument) {
         <JsonLd />
 
       </head>
-      <body className="selection:bg-teal-300 selection:text-teal-900">
+      <body
+        className={classNames(isOpen ? 'overflow-y-hidden' : '', "selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden")}
+      >
         {/* <!-- Insert Your Facebook Pixel ID below. --> */}
         <noscript>
           <img height="1" width="1" style={{ display: 'none' }}
@@ -283,6 +289,9 @@ export function Document({ children, title }: IDocument) {
         <BasicModal />
         <CommentModal />
         <SearchModal />
+        {/* <button
+          // onClick={goToTop}
+          className="fixed text-white bottom-6 right-6 w-14 h-14 bg-slate-600 z-[9999]">Scroll to Top</button> */}
 
         {/* FOOTER SCRIPTS */}
         {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.every-tuesday.com/js/gumroad.js"></script>}

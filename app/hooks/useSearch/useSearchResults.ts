@@ -9,8 +9,12 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
 
   const [query, setQuery] = useState<null | string>(defaultQuery);
   const [category, setCategory] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false)
+
   
   let results: ISearchResult[] = [];
+  let pagedResults: ISearchResult[] = [];
 
   useEffect(() => {
     if(data && !client){
@@ -73,8 +77,11 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
     });
   }
 
-  if (maxResults && results.length > maxResults) {
-    results = results.slice(0, maxResults);
+  // if (maxResults && results.length > maxResults) {
+  //   results = results.slice(0, maxResults);
+  // }
+  if (results.length) {
+    pagedResults = results.slice(0, page * 10);
   }
 
   // If the defaultQuery argument changes, the hook should reflect
@@ -94,7 +101,27 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
     setQuery(null);
   }
 
+  function nextPage(){
+    setLoading(true)
+    
+    setPage((state) => {
+      return state + 1
+    })
+
+    setTimeout(()=>{
+      setLoading(false)
+    }, 500)
+  }
+
   return {
+    pagination:{
+      page,
+      loading,
+      nextPage,
+      hasNextPage: results.length > page * 10,
+      hasPreviousPage: page > 1,
+      pagedResults
+    },
     setCategory,
     state, // state from useContext
     query, // what userHas Typed into input

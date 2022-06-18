@@ -2,34 +2,59 @@ import { useSearchResults } from "@App/hooks/useSearch/useSearchResults";
 import { formatDate } from "@App/utils/posts";
 import { consoleColors, consoleHelper } from "@App/utils/windowUtils";
 import { Link, useTransition } from "@remix-run/react";
-import Fuse from "fuse.js";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import _ from 'lodash'
 
 interface IProps {
   animationCompleted: boolean;
+  containerRef: any
 }
-const SearchLayout = ({ animationCompleted }: IProps) => {
-  const { query, search, results, clearSearch, closeSearch, setCategory, state: { isOpen } } = useSearchResults({
+const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
+  const { query, search, results, clearSearch, closeSearch, setCategory, state: { isOpen }, pagination } = useSearchResults({
     maxResults: 10,
   })
 
-  const [selectedTag, setSelectedTag] = useState<string>('');
+  const [showScrollToTopBtn, setShowScrollToTopBtn] = useState<boolean>(false)
 
-  // used for arrow keys
-  // const [focusedResult, setFocusedResult] = useState<any>(null)
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  const [inputRef, inputInView, inputEntry] = useInView({
+    /* Optional options */
+    threshold: 0,
+
+  });
+  const updatePosition = () => {
+    console.log('window.pageYOffset', containerRef.current.scrollTop);
+
+    // setScrollPosition(window.pageYOffset);
+    if (containerRef.current.scrollTop > 800) {
+      setShowScrollToTopBtn(true)
+    } else {
+      setShowScrollToTopBtn(false)
+    }
+  };
 
   // useed to close the Search when user navigates away from the page
   const transition = useTransition();
   const listRef = useRef<HTMLUListElement | null>(null);
   const formRef = useRef<null | HTMLFormElement>(null)
 
-  consoleHelper('search results', results, 'searchLayout', { bg: consoleColors.orange, text: '#fff' })
+  consoleHelper('search results', {
+    results,
+    pagination
+  }, 'searchLayout', { bg: consoleColors.orange, text: '#fff' })
 
+  // ON COMPONENT FIRST LOAD
   useEffect(() => {
     // When the search box opens up, additionally find the search input and focus
     // on the element so someone can start typing right away
-
     document.addEventListener('keydown', escFunction, false);
+
+    containerRef.current.addEventListener("scroll", _.throttle(updatePosition, 500));
     // addResultsRoving()
     return () => {
       clearSearch()
@@ -39,6 +64,7 @@ const SearchLayout = ({ animationCompleted }: IProps) => {
 
   }, [])
 
+  // ON MODAL OPEN/LOAD, BRING INTO FOCUS AFTER THE TRANSITION ANIMATION HAS COMPLETED
   useEffect(() => {
     if (formRef.current && animationCompleted) {
       const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
@@ -48,11 +74,21 @@ const SearchLayout = ({ animationCompleted }: IProps) => {
     }
   }, [animationCompleted])
 
+  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
   useEffect(() => {
     if (transition.state === 'loading' && isOpen) {
       closeSearch()
     }
   }, [closeSearch, isOpen, transition])
+
+  // When user scrolls to the bottom of the page, load more results
+  useEffect(() => {
+
+    if (results.length && pagination.hasNextPage && inView && !pagination.loading) {
+      pagination.nextPage()
+    }
+
+  }, [inView, results, pagination])
 
   async function testCall() {
 
@@ -126,15 +162,36 @@ const SearchLayout = ({ animationCompleted }: IProps) => {
 
   // }
 
+  const goToTop = () => {
+    if (containerRef.current) {
+      console.log('containerRef.current', containerRef.current.clientTop);
+      console.log('containerRef.current', containerRef.current.scrollTop);
+
+      // formRef.current.scrollIntoView({ behavior: "smooth" });
+      containerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+  };
+
   return (
-    <div className="search-layout">
+    <div className="search-layout relaitve" >
       SEARCH LAYOUT
       {/* <button onClick={testCall}>Call</button> */}
+      {!inputInView && isOpen && showScrollToTopBtn && <button
+        onClick={goToTop}
+        className="fixed text-white bottom-6 right-6 w-14 h-14 bg-slate-600">Scroll to Top</button>}
+
+
+      {/* SEARCH INPUT */}
       <form
         ref={formRef}
         data-search-is-active={!!query}
       >
         <input
+          ref={inputRef}
           type="search"
           name="q"
           value={query || ''}
@@ -145,37 +202,50 @@ const SearchLayout = ({ animationCompleted }: IProps) => {
           required
         />
       </form>
+
+      {/* FILTER CATEGORIES */}
       <div>
-        <button onClick={handleSetCategory('Gouache')}>Gouache</button>
-        <button onClick={handleSetCategory('Photography')}>Photography</button>
+        <button onClick={handleSetCategory('Beginner')}>Beginner</button>
         <button onClick={handleSetCategory('Intermediate')}>Intermediate</button>
+        <button onClick={handleSetCategory('Advanced')}>Intermediate</button>
       </div>
-      <div >
-        {results.length > 0 && (
-          <ul ref={listRef}>
-            {results
-              // Sort by date or score?
-              // .sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
-              .map(({ slug, title, date }: ISearchResult, index) => {
-                return (
-                  <li key={slug}
-                  // className={`${index === focusedResult ? 'text-red-500' : ''}`}
-                  >
-                    <Link to={`/${slug}`} prefetch='intent'>
-                      <h3>{title}</h3>
-                      <p>{formatDate(date)}</p>
-                    </Link>
-                  </li>
-                );
-              })}
-          </ul>
+
+      {/* RESULTS */}
+      <div>
+
+        {results.length > 0 && query && query.length > 0 && (
+          <>
+            <div>{results.length} Results</div>
+            <ul ref={listRef}>
+              {pagination.pagedResults
+                // Sort by date or score?
+                // .sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
+                .map(({ slug, title, date }: ISearchResult, index) => {
+                  return (
+                    <li key={slug}
+                      className='py-10 text-lg'
+                    >
+                      <Link to={`/${slug}`} prefetch='intent'>
+                        <h3>{title}</h3>
+                        <p>{formatDate(date)}</p>
+                      </Link>
+                    </li>
+                  );
+                })}
+            </ul>
+          </>
         )}
-        {results.length === 0 && (
+        {results.length === 0 && query && query.length > 0 && (
           <p>
             Sorry, not finding anything for <strong>{query}</strong>
           </p>
         )}
       </div>
+      {/* <div>
+        {pagination.hasNextPage && <button onClick={pagination.nextPage}>NextPage results</button>}
+      </div> */}
+      {results.length > 0 && !pagination.loading && <div ref={ref} className="h-0 opacity-0">
+        LOAD MORE POSTS</div>}
     </div>
   );
 }

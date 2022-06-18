@@ -1,6 +1,6 @@
+
 import type { LazyComponentProps } from 'react-lazy-load-image-component';
-import { trackWindowScroll }
-  from 'react-lazy-load-image-component';
+import { trackWindowScroll } from 'react-lazy-load-image-component';
 import Freebie from './freebie';
 interface Props {
   freebies: IResourceItem[]

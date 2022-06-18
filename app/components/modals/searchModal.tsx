@@ -3,7 +3,7 @@ import CommentForm from '../comments/commentForm'
 import Comment from '../comments/comment'
 import { AnimatePresence, motion } from 'framer-motion'
 import CloseSvg from '../svgs/closeSvg'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import gql from 'graphql-tag';
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
@@ -25,6 +25,8 @@ import { useSearch } from '@App/hooks/useSearch'
 const SearchModal = () => {
   const { state: { isOpen }, closeSearch } = useSearch()
   const [animationCompleted, setAnimationCompleted] = useState(false)
+  const containerRef = useRef<null | HTMLDivElement>(null)
+
   return (
     // @ts-ignore
     <AnimatePresence>
@@ -33,14 +35,14 @@ const SearchModal = () => {
           <motion.div
             data-testid='searchModal'
             key='modalContainer'
-            className='bg-white fixed h-screen block z-[1100] opacity-0 translate-x-[0] top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full '
+            ref={containerRef}
+            className='bg-white fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full '
             initial={containerMotion.closed}
             animate={containerMotion.open}
             exit={containerMotion.closed}
             onAnimationComplete={(e: any) => {
 
-              if (e.x === '0%') {
-                console.log('e', e);
+              if (e.width === '100%') {
                 setAnimationCompleted(true)
               } else {
                 setAnimationCompleted(false)
@@ -50,9 +52,11 @@ const SearchModal = () => {
           >
             <div className='flex flex-col'>
               <div onClick={closeSearch}>CLOSE</div>
-              <SearchLayout animationCompleted={animationCompleted} />
+              <SearchLayout animationCompleted={animationCompleted} containerRef={containerRef} />
             </div>
+
           </motion.div>
+
         </>
         : null}
     </AnimatePresence>
@@ -61,7 +65,8 @@ const SearchModal = () => {
 }
 const containerMotion = {
   closed: {
-    x: '100%',
+    // x: '100%',
+    width: '0%',
     right: 0,
     left: 'auto',
     top: 0,
@@ -74,7 +79,8 @@ const containerMotion = {
     }
   },
   open: {
-    x: '0%',
+    width: '100%',
+    // x: '0%',
     opacity: 1,
     transition: {
       type: "spring",
