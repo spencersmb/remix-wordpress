@@ -471,6 +471,7 @@ export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
   return modifiedData
 }
 
+// TODO: test this function
 export function filterCategories(categories: ICategoryRaw[]): ICategories[] {
   return categories.map(({ node }) => {
     return {

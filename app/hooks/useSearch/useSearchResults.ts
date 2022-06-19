@@ -22,7 +22,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
         keys: ['slug', 'title', { name: 'categories', weight: 2 }], 
         minMatchCharLength:2,
         useExtendedSearch: true,
-        threshold: 0.3,
+        threshold: 0.5,
         isCaseSensitive: false,
         includeScore: true
       });
@@ -81,6 +81,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   //   results = results.slice(0, maxResults);
   // }
   if (results.length) {
+    results = results.sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
     pagedResults = results.slice(0, page * 10);
   }
 
@@ -123,6 +124,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
       pagedResults
     },
     setCategory,
+    category,
     state, // state from useContext
     query, // what userHas Typed into input
     results,

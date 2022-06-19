@@ -10,6 +10,7 @@ import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { parseComment } from '@App/utils/posts'
 import SearchLayout from '../search/searchLayout'
 import { useSearch } from '@App/hooks/useSearch'
+import { classNames } from '@App/utils/appUtils'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -36,22 +37,24 @@ const SearchModal = () => {
             data-testid='searchModal'
             key='modalContainer'
             ref={containerRef}
-            className='bg-white fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full '
+            className={classNames(isOpen ? 'overflow-y-scroll' : 'overflow-y-auto', 'bg-white fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto shadow-xl w-full ')}
             initial={containerMotion.closed}
             animate={containerMotion.open}
             exit={containerMotion.closed}
             onAnimationComplete={(e: any) => {
-
               if (e.width === '100%') {
                 setAnimationCompleted(true)
               } else {
                 setAnimationCompleted(false)
               }
-
             }}
           >
             <div className='flex flex-col'>
-              <div onClick={closeSearch}>CLOSE</div>
+              <div
+                className="absolute top-2 right-2 w-full max-w-[38px] tablet:max-w-[46px]"
+                onClick={closeSearch}>
+                <CloseSvg stroke='#151213' />
+              </div>
               <SearchLayout animationCompleted={animationCompleted} containerRef={containerRef} />
             </div>
 
@@ -75,7 +78,7 @@ const containerMotion = {
       type: "spring",
       stiffness: 260,
       damping: 30,
-      duration: .2
+      duration: .1
     }
   },
   open: {

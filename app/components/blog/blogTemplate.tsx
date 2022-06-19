@@ -21,15 +21,18 @@ import PaidProducts from './tutorialContent/paidProducts';
 import TutorialDownloads from './tutorialContent/tutorialDownloads';
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
+import { useSearch } from '@App/hooks/useSearch';
 
 interface IProps {
   post: IPost
 }
 function BlogTemplate(props: IProps) {
   const { post } = props
+  const { openSearch } = useSearch()
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   consoleHelper('post', post)
   useEffect(() => {
+    openSearch()
     // handleCommentsClick()
 
     // // Refresh the window if the user logs in on another page
@@ -88,7 +91,6 @@ function BlogTemplate(props: IProps) {
     fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
-
 
   const postUrl = `${metadata.domain}/${post.slug}`
   return (

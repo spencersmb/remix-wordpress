@@ -7,7 +7,30 @@ async function getAllPosts(){
     {
         posts(first: $count) {
             edges {
-                node {
+                node { 
+                  tutorialManager {
+                    postExcerpt
+                    thumbnail {
+                      image {
+                        altText
+                        caption
+                        sourceUrl
+                        srcSet
+                        sizes
+                        id
+                        mediaDetails{
+                          sizes{
+                            width
+                            file
+                            height
+                            name
+                            sourceUrl
+                            mimeType
+                          }
+                        }
+                      }
+                    }
+                  }
                     title
                     excerpt
                     databaseId

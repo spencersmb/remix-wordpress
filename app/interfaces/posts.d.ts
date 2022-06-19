@@ -200,7 +200,7 @@ interface ITutorialManager {
     embedUrl: string
   }
   paidProducts: IProduct[]| null
-  postExcerpt: string
+  postExcerpt: string | null
 }
 
 interface IPost {
@@ -329,6 +329,7 @@ interface ISearchResult {
   slug: string
   date: string
   featuredImage: IFeaturedImage | null
+  tutorialManager: ITutorialManager
 }
 
 interface ISearchResults {

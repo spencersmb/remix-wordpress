@@ -43,5 +43,7 @@ interface InputBaseProps {
   disabled?: boolean
   className?: string
   minLength?: number
+  autoComplete?: string
   min?: number
+  ref?: (node?: Element | null | undefined) => void
 }

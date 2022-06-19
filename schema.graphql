@@ -13,6 +13,8 @@ interface AcfFieldGroup {
 
 "The author of a comment"
 interface Commenter {
+    "Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument."
+    avatar: Avatar
     "Identifies the primary key from the database."
     databaseId: Int!
     "The email address of the author of a comment."
@@ -91,6 +93,8 @@ interface ContentNode {
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
+    "The Yoast SEO data of the ContentNode"
+    seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
@@ -297,6 +301,8 @@ interface NodeWithFeaturedImage {
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
+    "The Yoast SEO data of the ContentNode"
+    seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
     "The current status of the object"
@@ -329,6 +335,8 @@ interface NodeWithTemplate {
 
 "A node that NodeWith a title"
 interface NodeWithTitle {
+    "The Yoast SEO data of the ContentNode"
+    seo: PostTypeSEO
     "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
     title(
         "Format of the field output"
@@ -826,6 +834,15 @@ type Comment implements DatabaseIdentifier & Node {
 
 "A Comment Author object"
 type CommentAuthor implements Commenter & Node {
+    "Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument."
+    avatar(
+        "Whether to always show the default image, never the Gravatar. Default false"
+        forceDefault: Boolean,
+        "The rating level of the avatar."
+        rating: AvatarRatingEnum,
+        "The size attribute of the avatar field can be used to fetch avatars of different sizes. The value corresponds to the dimension in pixels to fetch. The default is 96 pixels."
+        size: Int = 96
+    ): Avatar
     "Identifies the primary key from the database."
     databaseId: Int!
     "The email for the comment author"
@@ -1152,7 +1169,7 @@ type Course implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Nod
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the Course"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -1209,8 +1226,6 @@ type CourseToCategoryConnection {
 type CourseToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary category"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -1235,8 +1250,6 @@ type CourseToTagConnection {
 type CourseToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_tag"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -1623,7 +1636,7 @@ type DownloadFreebie implements ContentNode & DatabaseIdentifier & Node & NodeWi
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the downloadFreebie"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -1774,7 +1787,7 @@ type DownloadGrid implements ContentNode & DatabaseIdentifier & MenuItemLinkable
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the DownloadGrid"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -1837,8 +1850,6 @@ type DownloadGridToTagConnection {
 type DownloadGridToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_tag"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -2246,7 +2257,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     previewRevisionDatabaseId: Int
     "Whether the object is a node in the preview state"
     previewRevisionId: ID
-    "The Yoast SEO data of the mediaItem"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The sizes attribute value for an image."
     sizes(
@@ -2428,6 +2439,8 @@ type MenuItem implements DatabaseIdentifier & Node {
     target: String
     "Title attribute for the menu item link"
     title: String
+    "The uri of the resource the menu item links to"
+    uri: String
     "URL or destination of the menu item."
     url: String
 }
@@ -2666,7 +2679,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
         "Arguments for filtering the connection"
         where: PageToRevisionConnectionWhereArgs
     ): PageToRevisionConnection
-    "The Yoast SEO data of the page"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -2911,7 +2924,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
         "Arguments for filtering the connection"
         where: PostToRevisionConnectionWhereArgs
     ): PostToRevisionConnection
-    "The Yoast SEO data of the post"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -3131,8 +3144,6 @@ type PostToCategoryConnection {
 type PostToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary category"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3169,8 +3180,6 @@ type PostToPostFormatConnection {
 type PostToPostFormatConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_format"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: PostFormat
 }
@@ -3213,8 +3222,6 @@ type PostToTagConnection {
 type PostToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_tag"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -3518,7 +3525,7 @@ type Product implements ContentNode & DatabaseIdentifier & MenuItemLinkable & No
     productDetails: Product_Productdetails
     "The id field matches the WP_Post-&gt;ID field."
     productId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "The Yoast SEO data of the Product"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -3564,8 +3571,6 @@ type ProductToCategoryConnection {
 type ProductToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary category"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3584,8 +3589,6 @@ type ProductToPostFormatConnection {
 type ProductToPostFormatConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_format"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: PostFormat
 }
@@ -3852,7 +3855,7 @@ type ResourceLibrary implements ContentNode & DatabaseIdentifier & MenuItemLinka
     previewRevisionId: ID
     "The id field matches the WP_Post-&gt;ID field."
     resourceLibraryId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "The Yoast SEO data of the ResourceLibrary"
+    "The Yoast SEO data of the ContentNode"
     seo: PostTypeSEO
     "The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table."
     slug: String
@@ -3922,8 +3925,6 @@ type ResourceLibraryToCategoryConnection {
 type ResourceLibraryToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary category"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3948,8 +3949,6 @@ type ResourceLibraryToSubCategoryConnection {
 type ResourceLibraryToSubCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary subcategory"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: SubCategory
 }
@@ -3968,8 +3967,6 @@ type ResourceLibraryToTagConnection {
 type ResourceLibraryToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
-    "The Yoast SEO Primary post_tag"
-    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -4615,7 +4612,9 @@ type RootQuery {
         "The number of items to return after the referenced \"after\" cursor"
         first: Int,
         "The number of items to return before the referenced \"before\" cursor"
-        last: Int
+        last: Int,
+        "Arguments for filtering the connection"
+        where: RootQueryToPluginConnectionWhereArgs
     ): RootQueryToPluginConnection
     "An object of the post Type. "
     post(
@@ -5415,7 +5414,7 @@ type SEOConfig {
     webmaster: SEOWebmaster
 }
 
-"he Yoast SEO search appearance content types fields"
+"The Yoast SEO search appearance content types fields"
 type SEOContentType {
     archive: SEOContentTypeArchive
     metaDesc: String
@@ -5469,11 +5468,6 @@ type SEOPageInfoSchema {
 type SEOPostTypeBreadcrumbs {
     text: String
     url: String
-}
-
-"The page info SEO details"
-type SEOPostTypePageInfo {
-    schema: SEOPageInfoSchema
 }
 
 "The Schema types"
@@ -6225,6 +6219,7 @@ type ThemeOptions_Serversettings implements AcfFieldGroup {
     etwpHeadlessServer: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    githubToken: String
     "Select the e-commerce platform for product delivery"
     productPlatform: String
 }
@@ -6325,13 +6320,13 @@ type UpdateSettingsPayload {
     allSettings: Settings
     "If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions."
     clientMutationId: String
-    "Update the discussion setting."
+    "Update the DiscussionSettings setting."
     discussionSettings: DiscussionSettings
-    "Update the general setting."
+    "Update the GeneralSettings setting."
     generalSettings: GeneralSettings
-    "Update the reading setting."
+    "Update the ReadingSettings setting."
     readingSettings: ReadingSettings
-    "Update the writing setting."
+    "Update the WritingSettings setting."
     writingSettings: WritingSettings
 }
 
@@ -6692,8 +6687,6 @@ type WPPageInfo {
     hasNextPage: Boolean!
     "When paginating backwards, are there more items?"
     hasPreviousPage: Boolean!
-    "Raw schema for page"
-    seo: SEOPostTypePageInfo
     "When paginating backwards, the cursor to continue."
     startCursor: String
 }
@@ -7187,6 +7180,24 @@ enum PageIdType {
     URI
 }
 
+"The status of the WordPress plugin."
+enum PluginStatusEnum {
+    "The plugin is currently active."
+    ACTIVE
+    "The plugin is a drop-in plugin."
+    DROP_IN
+    "The plugin is currently inactive."
+    INACTIVE
+    "The plugin is a must-use plugin."
+    MUST_USE
+    "The plugin is technically active but was paused while loading."
+    PAUSED
+    "The plugin was active recently."
+    RECENTLY_ACTIVE
+    "The plugin has an upgrade available."
+    UPGRADE
+}
+
 "The Type of Identifier used to fetch a single resource. Default is ID."
 enum PostFormatIdType {
     "The Database ID for the node"
@@ -7215,9 +7226,9 @@ enum PostIdType {
 
 "The format of post field data."
 enum PostObjectFieldFormatEnum {
-    "Provide the field value directly from database"
+    "Provide the field value directly from database. Null on unauthenticated requests."
     RAW
-    "Apply the default WordPress rendering"
+    "Provide the field value as rendered by WordPress. Default."
     RENDERED
 }
 
@@ -8155,13 +8166,13 @@ input CreateCommentInput {
     authorUrl: String
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
     clientMutationId: String
-    "The ID of the post object the comment belongs to."
+    "The database ID of the post object the comment belongs to."
     commentOn: Int
     "Content of the comment."
     content: String
     "The date of the object. Preferable to enter as year/month/day ( e.g. 01/31/2017 ) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, \"2017\" as the input will use current date with timestamp 20:17 "
     date: String
-    "Parent comment of current comment."
+    "Parent comment ID of current comment."
     parent: ID
     "Type of comment."
     type: String
@@ -8251,7 +8262,7 @@ input CreateMediaItemInput {
     filePath: String
     "The file type of the mediaItem"
     fileType: MimeTypeEnum
-    "The WordPress post ID or the graphQL postId of the parent object"
+    "The ID of the parent object"
     parentId: ID
     "The ping status for the mediaItem"
     pingStatus: String
@@ -10505,6 +10516,16 @@ input RootQueryToPageConnectionWhereArgs {
     title: String
 }
 
+"Arguments for filtering the RootQueryToPluginConnection connection"
+input RootQueryToPluginConnectionWhereArgs {
+    "Show plugin based on a keyword search."
+    search: String
+    "Retrieve plugins where plugin status is in an array."
+    stati: [PluginStatusEnum]
+    "Show plugins with a specific status."
+    status: PluginStatusEnum
+}
+
 "Arguments for filtering the RootQueryToPostConnection connection"
 input RootQueryToPostConnectionWhereArgs {
     "The user that's connected as the author of the object. Use the userId for the author object."
@@ -11313,7 +11334,7 @@ input UpdateCommentInput {
     authorUrl: String
     "This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions."
     clientMutationId: String
-    "The ID of the post object the comment belongs to."
+    "The database ID of the post object the comment belongs to."
     commentOn: Int
     "Content of the comment."
     content: String
@@ -11321,7 +11342,7 @@ input UpdateCommentInput {
     date: String
     "The ID of the comment being updated."
     id: ID!
-    "Parent comment of current comment."
+    "Parent comment ID of current comment."
     parent: ID
     "Type of comment."
     type: String
@@ -11419,7 +11440,7 @@ input UpdateMediaItemInput {
     fileType: MimeTypeEnum
     "The ID of the mediaItem object"
     id: ID!
-    "The WordPress post ID or the graphQL postId of the parent object"
+    "The ID of the parent object"
     parentId: ID
     "The ping status for the mediaItem"
     pingStatus: String

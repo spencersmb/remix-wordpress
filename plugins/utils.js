@@ -49,6 +49,7 @@ function generateIndexSearch({ posts }) {
       date: post.date,
       featuredImage: post.featuredImage,
       categories: filterCategories(post.categories.edges),
+      tutorialManager: post.tutorialManager,
     };
   });
   console.log('index.length', index.length);
@@ -119,6 +120,8 @@ function mkdirp(directory) {
 async function fetchAPI(query, { variables } = {}) {
   const env = envConfig()
   const api_url = env.url
+  console.log('api_url', api_url);
+  
 
   const https = require("https");
   const agent = new https.Agent({
@@ -160,7 +163,7 @@ function envConfig() {
   const noDef = process.env.NODE_ENV === undefined
   const production = process.env.NODE_ENV === "production"
   const isProduction = noDef || production ? true : false
-
+  
   return {
     url: isProduction ? "https://etheadless.graphcdn.app/"  : process.env.PUBLIC_WP_API_URL,
     postCount: isProduction ? 1000 : 100

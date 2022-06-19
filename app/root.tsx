@@ -43,6 +43,7 @@ import { siteSearchState, useSearch } from "./hooks/useSearch";
 import { getSearchData } from "./lib/search/searchApi";
 import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
 import { classNames } from "./utils/appUtils";
+import { useEffect } from "react";
 // import a plugin
 
 /**
@@ -232,12 +233,26 @@ interface IDocument {
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
   useWindowResize()
+  const [openAnimationDone, setOpenAnimationDone] = React.useState(false)
   const { state: { isOpen } } = useSearch()
+
+  // Dealy the animation so it doesn't show double scroll bars
+  useEffect(() => {
+    if (isOpen && openAnimationDone) {
+      setOpenAnimationDone(false)
+    }
+
+    if (!isOpen && !openAnimationDone) {
+      setTimeout(() => {
+        setOpenAnimationDone(true)
+      }, 300)
+    }
+  }, [isOpen, openAnimationDone])
 
   return (
     <html
       lang="en"
-      className={classNames(isOpen ? 'overflow-y-hidden' : '', "")}>
+      className={classNames(!openAnimationDone ? 'overflow-y-hidden' : '', "")}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -289,9 +304,6 @@ export function Document({ children, title }: IDocument) {
         <BasicModal />
         <CommentModal />
         <SearchModal />
-        {/* <button
-          // onClick={goToTop}
-          className="fixed text-white bottom-6 right-6 w-14 h-14 bg-slate-600 z-[9999]">Scroll to Top</button> */}
 
         {/* FOOTER SCRIPTS */}
         {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script src="https://gumroad.every-tuesday.com/js/gumroad.js"></script>}
