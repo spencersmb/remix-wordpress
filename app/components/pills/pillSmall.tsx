@@ -9,7 +9,7 @@ interface Props {
   clickHandler: () => void
   selected: boolean
 }
-
+//TODO: Add test
 function PillSmall(props: Props) {
   const { className, text, clickHandler, selected } = props
 

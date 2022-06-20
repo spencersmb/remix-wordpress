@@ -18,11 +18,10 @@ interface Props {
  */
 function OutlinedButton(props: Props) {
   const { clickHandler, loading, text, loadingText = 'loading', className } = props
-
   return (
     <button
       data-testid="button"
-      className={classNames(className ? className : 'btn btn-primary btn-outlined mx-auto', '')}
+      className={classNames(className ? className : 'btn btn-primary btn-outlined mx-auto disabled:bg-primary-500', '')}
       aria-disabled={loading}
       disabled={loading}
       onClick={clickHandler}>

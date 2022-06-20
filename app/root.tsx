@@ -44,6 +44,7 @@ import { getSearchData } from "./lib/search/searchApi";
 import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
 import { classNames } from "./utils/appUtils";
 import { useEffect } from "react";
+import useSearchScrollFix from "./hooks/useSearch/useSearchScrollFix";
 // import a plugin
 
 /**
@@ -233,26 +234,14 @@ interface IDocument {
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
   useWindowResize()
-  const [openAnimationDone, setOpenAnimationDone] = React.useState(false)
   const { state: { isOpen } } = useSearch()
-
   // Dealy the animation so it doesn't show double scroll bars
-  useEffect(() => {
-    if (isOpen && openAnimationDone) {
-      setOpenAnimationDone(false)
-    }
-
-    if (!isOpen && !openAnimationDone) {
-      setTimeout(() => {
-        setOpenAnimationDone(true)
-      }, 300)
-    }
-  }, [isOpen, openAnimationDone])
+  const { openAnimationDone } = useSearchScrollFix(isOpen)
 
   return (
     <html
       lang="en"
-      className={classNames(!openAnimationDone ? 'overflow-y-hidden' : '', "")}>
+      className={classNames(!openAnimationDone ? 'overflow-y-hidden pr-[15px]' : '', "")}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

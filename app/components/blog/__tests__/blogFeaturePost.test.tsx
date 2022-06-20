@@ -102,7 +102,9 @@ describe('BlogFeature Post Component', () => {
     // Set the DIV because the code from WP server is wrapped in a P tag and the 
     // result needs to be just text.
     const div = document.createElement('div')
-    div.innerHTML = mockPostDataComplete.tutorialManager.postExcerpt
+    if (mockPostDataComplete.tutorialManager.postExcerpt) {
+      div.innerHTML = mockPostDataComplete.tutorialManager.postExcerpt
+    }
     expect(screen.getByTestId('blog-desc'))
       .toHaveTextContent(div.firstElementChild?.innerHTML as string)
   })
@@ -116,7 +118,9 @@ describe('BlogFeature Post Component', () => {
     // Set the DIV because the code from WP server is wrapped in a P tag and the 
     // result needs to be just text.
     const div = document.createElement('div')
-    div.innerHTML = mockPostDataComplete.tutorialManager.postExcerpt
+    if (mockPostDataComplete.tutorialManager.postExcerpt) {
+      div.innerHTML = mockPostDataComplete.tutorialManager.postExcerpt
+    }
     expect(screen.getByTestId('blog-skill-level'))
       .toHaveTextContent('Skill Level:')
 

@@ -328,7 +328,9 @@ interface ISearchResult {
   title: string
   slug: string
   date: string
-  featuredImage: IFeaturedImage | null
+  featuredImage: {
+    node: IFeaturedImage
+  } | null
   tutorialManager: ITutorialManager
 }
 

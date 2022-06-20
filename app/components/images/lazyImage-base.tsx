@@ -10,14 +10,16 @@ interface Props {
   alt?: string
   reverse?: boolean
   testId?: string
+  disableSrcSet?: boolean
 }
 
 /**
  * @component - LazyImageBase
  * @tested - 5/30/2022
+ * // TODO: UPDATE TEST TO INCLUDE SRCSet CCHECK
  */
 function LazyImageBase(props: Props) {
-  const { image, id, scrollPosition, alt, reverse, testId } = props
+  const { image, id, scrollPosition, alt, reverse, testId, disableSrcSet } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = reverse ? width / height : height / width
@@ -33,7 +35,7 @@ function LazyImageBase(props: Props) {
           key={id}
           alt={alt ? alt : image.altTitle}
           effect="blur"
-          srcSet={image.srcSet}
+          srcSet={disableSrcSet ? '' : image.srcSet}
           sizes={image.sizes}
           placeholderSrc={image.placeholder}
           // Make sure to pass down the scrollPosition,

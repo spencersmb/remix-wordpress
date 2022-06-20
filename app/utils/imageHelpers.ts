@@ -37,6 +37,25 @@ export const defaultImages:IDefaultImage = {
   }
 }
 
+export enum fallBackImageEnum {
+  THUMBNAIL = "thumbnail",
+  FEATURED = "featured",
+  PINTEREST = "pinterest",
+}
+
+export const fallBackImages = {
+  [fallBackImageEnum.THUMBNAIL]: {
+    width: '1000',
+    height: '888',
+    altTitle: 'Every Tuesday Fallback Featured Thumbnail',
+    srcSet: '',
+    sizes: '',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
+    name: 'thumbnail',
+  }
+}
+
 interface ILoadImageSrcArgs { 
   imageSizeName: ImageSizeEnums, 
   imageObject: IFeaturedImage | null, 
@@ -108,6 +127,7 @@ export const loadImageSrc = ({
   }
 
   let image = getImageSize(imageObject, imageSizeName)
+  
   const placeholder = getImageSize(imageObject, ImageSizeEnums.PLACEHOLDER)
 
   if (isEmpty(image)) {

@@ -20,7 +20,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
     if(data && !client){
       let client = new Fuse(data.posts, {
         keys: ['slug', 'title', { name: 'categories', weight: 2 }], 
-        minMatchCharLength:2,
+        minMatchCharLength:1,
         useExtendedSearch: true,
         threshold: 0.5,
         isCaseSensitive: false,

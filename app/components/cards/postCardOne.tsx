@@ -113,9 +113,9 @@ function PostCardOne(props: Props) {
               )}
 
             {/* CARD IMAGE */}
-            <div className={`relative ${paddingBottom} ${marginBottom}`}>
-              <div className="rounded-t-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
-                <LazyImageBase testId="post-card-one-feature-image" image={postImage} id={post.id} scrollPosition={scrollPosition} />
+            <div className={`relative ${marginBottom}`}>
+              <div className="rounded-t-2.5xl overflow-hidden flex h-full top-0 w-full">
+                <LazyImageBase testId="post-card-one-feature-image" image={postImage} id={post.id} scrollPosition={scrollPosition} disableSrcSet={true} />
                 {/* <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}

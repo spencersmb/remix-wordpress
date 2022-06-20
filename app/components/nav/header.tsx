@@ -11,6 +11,7 @@ import HamburgerSvg from '../svgs/hamburger'
 import SearchSvg from '../svgs/searchSvg'
 import { PrimaryNav } from './primaryNav'
 import { useSearch } from '@App/hooks/useSearch'
+import useSearchScrollFix from '@App/hooks/useSearch/useSearchScrollFix'
 
 interface Props {
   alternateNav?: React.ReactNode
@@ -25,7 +26,8 @@ interface Props {
 function Header(props: Props) {
   const { alternateNav } = props
   const { state: { metadata: { serverSettings } } } = useSite()
-  const { openSearch } = useSearch()
+  const { openSearch, state: { isOpen } } = useSearch()
+  const { openAnimationDone } = useSearchScrollFix(isOpen)
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()
@@ -34,8 +36,12 @@ function Header(props: Props) {
     // openSearch()
   }, [])
 
+  const paddingLeft = !openAnimationDone ? { paddingRight: '15px' } : { paddingRight: '0' }
   return (
-    <header ref={navRef} className="fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView">
+    <header
+      style={paddingLeft}
+      ref={navRef}
+      className={`fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView`}>
       <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-4 laptop:grid-cols-navDesktop">
 
         {/* ET LOGO */}

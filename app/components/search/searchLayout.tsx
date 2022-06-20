@@ -31,10 +31,10 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
   });
 
   // Used to track if its in the viewport for help with infinite scroll
-  const [inputRef, inputInView] = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
+  // const [inputRef, inputInView] = useInView({
+  //   /* Optional options */
+  //   threshold: 0,
+  // });
 
   // useed to close the Search when user navigates away from the page
   const transition = useTransition();
@@ -123,7 +123,7 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
   * Tracks scroll position and set scrollToTop inView if it reaches the threshold
   */
   const updatePosition = () => {
-    if (containerRef.current.scrollTop > 800) {
+    if (containerRef.current && containerRef.current.scrollTop > 800) {
       setShowScrollToTopBtn(true)
     } else {
       setShowScrollToTopBtn(false)
@@ -158,8 +158,6 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
 
 
   const handleSetCategory = (cat: string) => () => {
-    console.log('set');
-
     setCategory(cat)
   }
 
@@ -179,8 +177,6 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
   };
 
   const closeCategory = () => {
-    console.log('close');
-
     setCategory(null)
   }
 
@@ -190,7 +186,7 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
 
       <div className="col-span-full border-b-[1px] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop pb-8">
         {/* SEARCH FORM */}
-        <div className="col-span-2 col-start-2 mt-2">
+        <div className="col-span-2 col-start-2 mt-2 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
           <form
             ref={formRef}
             data-search-is-active={!!query}
@@ -200,7 +196,6 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
               <div className="relative mt-4">
                 <input
                   className="w-full px-4 py-3 text-base duration-200 ease-in-out transform outline-none bg-grey-100 rounded-2xl text-primary-700 hover:ring focus:ring ring-offset-0 focus:ring-sage-500 focus:bg-transparent autofill:bg-warning-100 tablet:px-5 tablet:py-4"
-                  ref={inputRef}
                   type="search"
                   name="Search"
                   value={query || ''}
@@ -232,7 +227,7 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
               animate={searchFilterMotion.open}
               exit={searchFilterMotion.closed}
               key='searchFilter'
-              className="flex flex-col col-span-2 col-start-2 overflow-hidden">
+              className="flex flex-col col-span-2 col-start-2 overflow-hidden tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5">
               <div className="flex flex-row flex-wrap justify-between pt-8 pb-4">
                 <div className="text-sm font-semibold text-grey-400 h-[24px]">FILTER BY SKILL LEVEL</div>
                 {category !== null &&
@@ -272,30 +267,28 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
 
 
       {/* RESULTS */}
-      <div className="col-span-2 col-start-2 mt-2 mb-8">
-        {results.length > 0 && query && query.length > 0 && (
-          <>
-            <div>Found <span className='font-semibold'>{results.length}</span> Results {category ? <span>within <span className='font-semibold'>{category}</span> skill level</span> : ''}</div>
-            <div ref={listRef}>
-              {pagination.pagedResults
-                // Sort by date or score?
-                // .sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
-                .map((result: ISearchResult, index) => {
-                  return (
-                    <SmallPostCard key={result.slug} post={result} scrollPosition={scrollPosition} />
-                  );
-                })}
-            </div>
-          </>
-        )}
-        {results.length === 0 && query && query.length > 0 && (
-          <p>
-            Sorry, not finding anything for <strong>{query}</strong>
-          </p>
-        )}
-      </div>
+      {results.length > 0 && query && query.length > 0 && (
+        <>
+          <div className="col-span-2 col-start-2 mt-2 mb-8 text-center tablet:col-span-10 tablet:col-start-3">
+            Found <span className='font-semibold'>{results.length}</span> Results {category ? <span>within <span className='font-semibold'>{category}</span> skill level</span> : ''}
+          </div>
+          <div className="grid grid-cols-1 col-span-2 col-start-2 mt-2 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-4 desktop:grid-cols-4" ref={listRef}>
+            {pagination.pagedResults
+              .map((result: ISearchResult, index) => {
+                return (
+                  <SmallPostCard key={result.slug} post={result} scrollPosition={scrollPosition} />
+                );
+              })}
+          </div>
+        </>
+      )}
+      {results.length === 0 && query && query.length > 0 && (
+        <p>
+          Sorry, not finding anything for <strong>{query}</strong>
+        </p>
+      )}
 
-      {!inputInView && isOpen && showScrollToTopBtn && <button
+      {isOpen && showScrollToTopBtn && <button
         onClick={goToTop}
         className="fixed text-white bottom-6 right-6 w-14 h-14 bg-slate-600">Scroll to Top</button>}
 

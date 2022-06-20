@@ -124,7 +124,9 @@ function BlogFeaturedPost(props: Props) {
 
       {/* DESCRIPTIOM */}
       <div className="relative z-10 col-span-2 col-start-2 row-start-3 featured-content tablet:col-span-6 tablet:col-start-8 tablet:row-start-2 desktop:col-span-5 desktop:col-start-8 tablet:mt-5 tablet:ml-6 laptop:mt-7 desktop:ml-12">
-        <div data-testid="blog-desc" className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />
+
+        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
+
         <div className='mt-12'>
 
           <CircularStrokeLink href={`/${featuredPost.slug}`} text='Read More' classes="font-semibold py-[21px] px-[30px]" />

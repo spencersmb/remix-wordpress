@@ -21,7 +21,7 @@ import { classNames } from '@App/utils/appUtils'
  * 
  * Large full window modal to Search Site
  *
- *
+ * TODO: ADD TEST
  */
 const SearchModal = () => {
   const { state: { isOpen }, closeSearch } = useSearch()
@@ -37,8 +37,9 @@ const SearchModal = () => {
             data-testid='searchModal'
             key='modalContainer'
             ref={containerRef}
-            className={classNames(isOpen ? 'overflow-y-scroll' : 'overflow-y-auto', 'bg-white fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto shadow-xl w-full ')}
+            className={classNames(isOpen ? 'bg-blue-300' : 'bg-red-300', ' overflow-y-scroll fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto shadow-xl w-full ')}
             initial={containerMotion.closed}
+            // @ts-ignore
             animate={containerMotion.open}
             exit={containerMotion.closed}
             onAnimationComplete={(e: any) => {
@@ -69,21 +70,24 @@ const SearchModal = () => {
 const containerMotion = {
   closed: {
     // x: '100%',
+    overflow: 'hidden',
     width: '0%',
     right: 0,
-    left: 'auto',
+    left: '100%',
     top: 0,
     opacity: 1,
     transition: {
       type: "spring",
-      stiffness: 260,
+      stiffness: 360,
       damping: 30,
-      duration: .1
+      duration: .05
     }
   },
   open: {
     width: '100%',
     // x: '0%',
+    overflowY: 'scroll',
+    left: 0,
     opacity: 1,
     transition: {
       type: "spring",
