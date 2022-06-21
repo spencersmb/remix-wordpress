@@ -43,7 +43,8 @@ const SearchModal = () => {
             animate={containerMotion.open}
             exit={containerMotion.closed}
             onAnimationComplete={(e: any) => {
-              if (e.left === '100%') {
+
+              if (e.left === 0) {
                 setAnimationCompleted(true)
               } else {
                 setAnimationCompleted(false)

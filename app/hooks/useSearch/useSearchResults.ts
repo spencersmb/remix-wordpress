@@ -109,7 +109,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   //   results = results.slice(0, maxResults);
   // }
   if (results.length) {
-    results = results.sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
+    // results = results.sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
     pagedResults = results.slice(0, page * 10);
   }
 

@@ -91,14 +91,14 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   // TOOD: REMOVE SHOPIFY
   // check for cart Cookie and make api queries to get cart
-  const shopifyCart = await getUserCart(request)
+  // const shopifyCart = await getUserCart(request)
 
   // if it's a new cart, set a new cookie with a new ID
-  if (shopifyCart?.newCart) {
-    customHeaders.append('Set-Cookie', await shopifyCartCookie.serialize({
-      cartId: shopifyCart.cart?.cartId
-    }))
-  }
+  // if (shopifyCart?.newCart) {
+  //   customHeaders.append('Set-Cookie', await shopifyCartCookie.serialize({
+  //     cartId: shopifyCart.cart?.cartId
+  //   }))
+  // }
 
   let wpAdminUser = wpAdminSession.has('userId') ? {
     id: wpAdminSession.get('userId')
@@ -133,7 +133,7 @@ export let loader: LoaderFunction = async ({ request }) => {
       wpAdmin: Boolean(wpAdminUser),
       resourceUser: resourceUser
     },
-    cart: shopifyCart.cart,
+    // cart: shopifyCart.cart,
     ENV,
     searchData
   },

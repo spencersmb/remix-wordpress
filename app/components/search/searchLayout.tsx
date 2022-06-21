@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { LazyComponentProps, ScrollPosition } from "react-lazy-load-image-component";
 import { trackWindowScroll } from "react-lazy-load-image-component";
 import SmallPostCard from "../cards/smallPostCard";
+import RenderIfVisible from "react-render-if-visible";
 
 interface Props {
   animationCompleted: boolean;
@@ -290,11 +291,13 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
           </div> */}
 
           {/* RESULT LIST */}
-          <div className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4" ref={listRef}>
+          <div className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4 search_results" ref={listRef}>
             {pagination.pagedResults
               .map((result: ISearchResult, index) => {
                 return (
-                  <SmallPostCard key={result.slug} post={result} scrollPosition={scrollPosition} />
+                  <RenderIfVisible stayRendered={true} key={result.slug} defaultHeight={313}>
+                    <SmallPostCard post={result} scrollPosition={scrollPosition} />
+                  </RenderIfVisible>
                 );
               })}
           </div>
