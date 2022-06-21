@@ -134,6 +134,8 @@ query postBySlug($slug: String!) {
                 sizes
                 id
                 mediaDetails{
+                  width
+                  height
                   sizes{
                     width
                     file

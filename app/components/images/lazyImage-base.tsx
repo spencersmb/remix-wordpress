@@ -11,6 +11,7 @@ interface Props {
   reverse?: boolean
   testId?: string
   disableSrcSet?: boolean
+  blur?: boolean
 }
 
 /**
@@ -19,7 +20,7 @@ interface Props {
  * // TODO: UPDATE TEST TO INCLUDE SRCSet CCHECK
  */
 function LazyImageBase(props: Props) {
-  const { image, id, scrollPosition, alt, reverse, testId, disableSrcSet } = props
+  const { image, id, scrollPosition, alt, reverse, testId, disableSrcSet, blur = true } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = reverse ? width / height : height / width
@@ -34,7 +35,7 @@ function LazyImageBase(props: Props) {
           data-testid={testId ? testId : `lazy-load-image-${id}`}
           key={id}
           alt={alt ? alt : image.altTitle}
-          effect="blur"
+          effect={blur ? 'blur' : 'opacity'}
           srcSet={disableSrcSet ? '' : image.srcSet}
           sizes={image.sizes}
           placeholderSrc={image.placeholder}

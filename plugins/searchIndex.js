@@ -19,6 +19,8 @@ async function getAllPosts(){
                         sizes
                         id
                         mediaDetails{
+                          width
+                          height
                           sizes{
                             width
                             file

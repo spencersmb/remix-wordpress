@@ -1,5 +1,5 @@
 import { ImageSizeEnums } from "@App/enums/imageEnums"
-import { defaultImages, fallBackImageEnum, fallBackImages, loadImageSrc, loadThumbnailSrc } from "@App/utils/imageHelpers"
+import { defaultImages, fallBackImageEnum, fallBackImages, loadImageSrc, loadThumbnailImage, loadThumbnailSrc } from "@App/utils/imageHelpers"
 import { formatDate } from "@App/utils/posts"
 import { Link } from "@remix-run/react"
 import type { ScrollPosition } from "react-lazy-load-image-component"
@@ -12,27 +12,35 @@ interface CardProps {
 }
 const SmallPostCard = ({ post, scrollPosition }: CardProps) => {
   const { slug, title, date } = post
-  const image = loadImageSrc({
-    imageSizeName: ImageSizeEnums.THUMBNAIL, // image name to try and get
+  const postImage = loadImageSrc({
+    imageSizeName: ImageSizeEnums.MEDIUM, // image name to try and get
     imageObject: post.featuredImage?.node || null, // the featured image object
-    fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
-    fallbackImage: fallBackImages[fallBackImageEnum.THUMBNAIL]
+    fallbackSize: ImageSizeEnums.MEDIUM, // fallback size to use if the image name doesn't exist
+    fallbackImage: fallBackImages[fallBackImageEnum.MEDIUM]
   })
 
-  let postImage = loadThumbnailSrc(post.tutorialManager, image)
+  // let postImage = loadThumbnailSrc(post.tutorialManager, image)
+  // let postImage = loadThumbnailImage(
+  //   post.tutorialManager,
+  //   post.featuredImage?.node || null,
+  //   ImageSizeEnums.THUMBNAIL_SM
+  // )
+
 
   return (
-    <div className='py-10 text-lg'
-    >
+    <div className='bg-white transition-all translate-y-0 duration-300 rounded-2.5xl shadow-et_1 overflow-hidden mb-4 hover:shadow-et_4 hover:-translate-y-1'>
       <Link to={`/${slug}`} prefetch='intent'>
         <LazyImageBase
           testId="post-card-one-feature-image"
           image={postImage}
           id={post.slug}
+          blur={false}
           scrollPosition={scrollPosition}
           disableSrcSet={true} />
-        <h3>{title}</h3>
-        <p>{formatDate(date)}</p>
+        <div className="px-6 py-4">
+          <p className="mb-1 text-sm text-grey-600">{formatDate(date)}</p>
+          <h3 className="text-2xl font-sentinel__SemiBoldItal">{title}</h3>
+        </div>
       </Link>
     </div>
   )

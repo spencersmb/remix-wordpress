@@ -39,6 +39,8 @@ export const defaultImages:IDefaultImage = {
 
 export enum fallBackImageEnum {
   THUMBNAIL = "thumbnail",
+  LARGE = "large",
+  MEDIUM = "medium",
   FEATURED = "featured",
   PINTEREST = "pinterest",
 }
@@ -52,6 +54,26 @@ export const fallBackImages = {
     sizes: '',
     sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
+    name: 'thumbnail',
+  },
+  [fallBackImageEnum.LARGE]: {
+    width: '1000',
+    height: '888',
+    altTitle: 'Every Tuesday Fallback Large Image',
+    srcSet: '',
+    sizes: '',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
+    name: 'thumbnail',
+  },
+  [fallBackImageEnum.MEDIUM]: {
+    width: '500',
+    height: '281',
+    altTitle: 'Every Tuesday Fallback Medium Image',
+    srcSet: '',
+    sizes: '',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=500&h=281&fit=crop&auto=compress&q=80',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
     name: 'thumbnail',
   }
 }
@@ -193,6 +215,34 @@ export function loadThumbnailSrc(tutorialManager: ITutorialManager,
     name: 'thumbnail'
   }
 
+}
+
+export function loadThumbnailImage(
+  tutorialManager: ITutorialManager, 
+  backUpImage: IFeaturedImage | null,
+  imageSizeEnum?: ImageSizeEnums,
+  ): ImageLookupReturn {
+
+  
+  const backUpFeatured = loadImageSrc({
+    imageSizeName: imageSizeEnum || ImageSizeEnums.SOURCE, // image name to try and get
+    imageObject: backUpImage, // the featured image object
+    fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+    fallbackImage: fallBackImages[fallBackImageEnum.THUMBNAIL]
+  })
+  if (!tutorialManager.thumbnail || !tutorialManager.thumbnail.image) {
+    return {
+      ...backUpFeatured,
+    }
+  }
+  const image = loadImageSrc({
+    imageSizeName: imageSizeEnum || ImageSizeEnums.SOURCE, // image name to try and get
+    imageObject: tutorialManager.thumbnail.image, // the featured image object
+    fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+    fallbackImage: backUpFeatured
+  })
+
+  return image
 }
 
 /**

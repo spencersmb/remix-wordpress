@@ -37,13 +37,13 @@ const SearchModal = () => {
             data-testid='searchModal'
             key='modalContainer'
             ref={containerRef}
-            className={classNames(isOpen ? 'bg-blue-300' : 'bg-red-300', ' overflow-y-scroll fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto shadow-xl w-full ')}
+            className={classNames(isOpen ? '' : '', 'bg-white overflow-y-scroll fixed h-screen block z-[1100] opacity-0 top-0 right-0 left-auto shadow-xl w-full ')}
             initial={containerMotion.closed}
             // @ts-ignore
             animate={containerMotion.open}
             exit={containerMotion.closed}
             onAnimationComplete={(e: any) => {
-              if (e.width === '100%') {
+              if (e.left === '100%') {
                 setAnimationCompleted(true)
               } else {
                 setAnimationCompleted(false)
@@ -71,20 +71,17 @@ const containerMotion = {
   closed: {
     // x: '100%',
     overflow: 'hidden',
-    width: '0%',
+    // width: '0%',
     right: 0,
     left: '100%',
     top: 0,
     opacity: 1,
     transition: {
-      type: "spring",
-      stiffness: 360,
-      damping: 30,
-      duration: .05
+      duration: .3
     }
   },
   open: {
-    width: '100%',
+    // width: '100%',
     // x: '0%',
     overflowY: 'scroll',
     left: 0,

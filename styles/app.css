@@ -24,15 +24,16 @@
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
   --sage-700: #475658;
-  --sage-400: #95A7AA;
+  --sage-400: #95a7aa;
   --navy-50: #f7f8fa;
   --neutral-50: #fcfafb;
   --neutral-400: #d0c9cd;
   --neutral-500: #a1929a;
   --neutral-600: #8f7d87;
   --warning-700: #b45309;
-  --grey-600: #4D5561
-  --grey-700: #384050
+  --grey-600: #4d5561;
+  --grey-700: #384050;
+  --grey-800: #212837;
 }
 
 @font-face {
@@ -90,7 +91,7 @@ button {
   .btn-sage-200 {
     @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-sage-600 active:ring active:bg-sage-600;
   }
- 
+
   .btn-sage-300 {
     @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
   }
@@ -171,7 +172,7 @@ button {
   .underlined-md:after {
     bottom: -4px;
   }
-  .border-3{
+  .border-3 {
     border-width: 3px;
   }
   .input-basic {

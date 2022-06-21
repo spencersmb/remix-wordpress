@@ -9,12 +9,17 @@ function useTopNav(){
     
     window.addEventListener('scroll', function () {
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if ((scrollTop > lastScrollTop) && navbar) {
+      
+      if (!navbar){
+        return
+      }
+      if (scrollTop > lastScrollTop && Math.sign(scrollTop) > 0 ) {
+        // remove class
         toggleClass(navbar, 'inView', false)
       }
       else {
-        if (navbar)
-          toggleClass(navbar, 'inView', true)
+        // add class
+        toggleClass(navbar, 'inView', true)
       }
       lastScrollTop = scrollTop;
     });

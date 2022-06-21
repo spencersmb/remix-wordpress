@@ -19,10 +19,10 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   useEffect(() => {
     if(data && !client){
       let client = new Fuse(data.posts, {
-        keys: ['slug', 'title', { name: 'categories', weight: 2 }], 
+        keys: ['categories', 'title', 'slug'], 
         minMatchCharLength:1,
         useExtendedSearch: true,
-        threshold: 0.5,
+        threshold: 0.4,
         isCaseSensitive: false,
         includeScore: true
       });
@@ -33,16 +33,43 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   // If we have a query, make a search. Otherwise, don't modify the
   // results to avoid passing back empty results
   if (client && query) {
+    let mySearch: any = {
+        $or:[
+          {
+            title: query,
+          },
+          {
+            categories: query
+          }
+        ]
+      }
     let $and: any[] = [
       {
         $or:[
           {
             title: query,
+          },
+          {
+            categories: query
           }
         ]
       }
     ]
     if(category){
+      mySearch = {
+        $and:[
+        {
+          categories: `"'${category}}"`,
+        }],
+        $or:[
+          {
+            title: query,
+          },
+          {
+            categories: query
+          }
+        ]
+      }
       $and = [
         {
           categories: `"'${category}}"`,
@@ -50,13 +77,14 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
         },
         {
           title: query,
+        },
+        {
+          categories: query
         }
       ]
         
     }
-    results = client.search({
-        $and
-      }).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
+    results = client.search(mySearch).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
       return item
     });
     
