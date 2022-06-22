@@ -17,5 +17,5 @@ interface SearchResult {
     indicies: number[],
     key: string
     value: string
-  }[]
+  }
 }

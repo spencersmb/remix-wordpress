@@ -14,7 +14,7 @@ describe('pillSmall Test', () => {
       clickHandler: clickHanderTest,
       selected: false
     })
-    const pill = screen.getByTestId('Beginner-pillTest')
+    const pill = screen.getByTestId('pillTest')
     expect(pill).toBeVisible()
     expect(pill).not.toHaveClass('bg-success-100 text-grey-600')
   })
@@ -26,7 +26,7 @@ describe('pillSmall Test', () => {
       selected: true,
       selectedClassName: 'bg-success-100 text-grey-600'
     })
-    const pill = screen.getByTestId('Beginner-pillTest')
+    const pill = screen.getByTestId('pillTest')
     expect(pill).toBeVisible()
     expect(pill).toHaveClass('bg-success-100 text-grey-600')
   })
@@ -38,7 +38,7 @@ describe('pillSmall Test', () => {
       selected: true,
       selectedClassName: 'bg-success-100 text-grey-600'
     })
-    const pill = screen.getByTestId('Beginner-pillTest')
+    const pill = screen.getByTestId('pillTest')
     fireEvent.click(pill)
     expect(clickHanderTest).toHaveBeenCalled()
   })

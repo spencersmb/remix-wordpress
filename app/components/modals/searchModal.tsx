@@ -3,7 +3,7 @@ import CommentForm from '../comments/commentForm'
 import Comment from '../comments/comment'
 import { AnimatePresence, motion } from 'framer-motion'
 import CloseSvg from '../svgs/closeSvg'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gql from 'graphql-tag';
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
@@ -11,6 +11,7 @@ import { parseComment } from '@App/utils/posts'
 import SearchLayout from '../search/searchLayout'
 import { useSearch } from '@App/hooks/useSearch'
 import { classNames } from '@App/utils/appUtils'
+import { useTransition } from '@remix-run/react'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -27,6 +28,15 @@ const SearchModal = () => {
   const { state: { isOpen }, closeSearch } = useSearch()
   const [animationCompleted, setAnimationCompleted] = useState(false)
   const containerRef = useRef<null | HTMLDivElement>(null)
+  const transition = useTransition();
+
+  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
+  useEffect(() => {
+    if (transition.state === 'loading' && isOpen) {
+      closeSearch()
+    }
+  }, [closeSearch, isOpen, transition])
+
 
   return (
     // @ts-ignore

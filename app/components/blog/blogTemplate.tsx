@@ -29,15 +29,9 @@ interface IProps {
 function BlogTemplate(props: IProps) {
   const { post } = props
   const { openSearch } = useSearch()
-  const { state: { isOpen }, closeSearch } = useSearch()
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   consoleHelper('post', post)
-  useEffect(() => {
-    consoleHelper('isOpen', isOpen)
-    if (isOpen) {
-      closeSearch()
-    }
-  }, [post])
+
   useEffect(() => {
 
     // openSearch()

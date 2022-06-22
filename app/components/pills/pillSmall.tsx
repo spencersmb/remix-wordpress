@@ -20,7 +20,7 @@ function PillSmall(props: Props) {
     // eslint-disable-n ext-line jsx-a11y/role-supports-aria-props
     <div
       id={`${text}`}
-      data-testid={`${text}-pillTest`}
+      data-testid={`pillTest`}
       onClick={clickHandler}
       aria-selected={selected}
       className={classNames(selectedClassName && selected

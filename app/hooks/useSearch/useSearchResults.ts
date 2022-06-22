@@ -12,7 +12,6 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false)
 
-  
   let results: SearchResult[] = [];
   let pagedResults: SearchResult[] = [];
 

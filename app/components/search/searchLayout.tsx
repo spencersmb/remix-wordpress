@@ -12,6 +12,7 @@ import SmallPostCard from "../cards/smallPostCard";
 import RenderIfVisible from "react-render-if-visible";
 import SearchFilterHeader from "./searchFilterHeader";
 import BackToTopButton from "../buttons/backToTopButton";
+import SearchForm from "../forms/search/searchForm";
 
 interface Props {
   animationCompleted: boolean;
@@ -38,7 +39,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   // });
 
   // useed to close the Search when user navigates away from the page
-  // const transition = useTransition();
   const listRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<null | HTMLFormElement>(null)
 
@@ -79,13 +79,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
       searchInput.focus();
     }
   }, [animationCompleted])
-
-  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
-  // useEffect(() => {
-  //   if (transition.state === 'loading' && isOpen) {
-  //     closeSearch()
-  //   }
-  // }, [closeSearch, isOpen, transition])
 
   useEffect(() => {
 
@@ -197,44 +190,14 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
         {/* SEARCH FORM */}
         <div className="col-span-2 col-start-2 mt-2 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
-          <form
-            ref={formRef}
-            data-search-is-active={!!query}
-          >
-            <fieldset className="flex flex-col">
-              <div className="flex flex-row items-baseline justify-between mt-2">
-                <label className="text-xl font-semibold text-grey-800 laptop:text-2xl" htmlFor="Search">Search</label>
-
-                {results.length > 0 && query && query.length > 0 && (
-                  <div className="text-base text-grey-500">
-                    Found <span className='font-semibold underline text-grey-800 underline-offset-4'>{results.length}</span> Results {category ? <span>in <span className='font-semibold underline text-grey-800 underline-offset-4'>{category}</span> skill level</span> : ''}
-                  </div>
-                )}
-
-              </div>
-              <div className="relative mt-4">
-                <input
-                  className="w-full px-4 py-3 text-base duration-200 ease-in-out transform outline-none bg-grey-100 rounded-2xl text-primary-700 hover:ring focus:ring ring-offset-0 focus:ring-sage-500 focus:bg-transparent autofill:bg-warning-100 tablet:px-5 tablet:py-4"
-                  type="search"
-                  name="Search"
-                  value={query || ''}
-                  onChange={handleOnSearch}
-                  autoComplete="off"
-                  placeholder="Watercolor, gouache, lettering......"
-                  data-focused={animationCompleted}
-                  required
-                />
-                {/* <span className="absolute top-[50%] translate-y-[-50%] left-[10px]">
-                  <PillSmall
-                    className="bg-success-100 text-grey-600"
-                    clickHandler={handleSetCategory('Beginner')}
-                    text={'Beginner'}
-                    selected={category === 'Beginner' || category === null}
-                  />
-                </span> */}
-              </div>
-            </fieldset>
-          </form>
+          <SearchForm
+            formRef={formRef}
+            query={query}
+            results={results}
+            handleOnSearch={handleOnSearch}
+            category={category}
+            animationCompleted={animationCompleted}
+          />
         </div>
 
         {/* FILTER CATEGORIES */}
