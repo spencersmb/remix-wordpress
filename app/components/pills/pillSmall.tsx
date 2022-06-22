@@ -20,7 +20,7 @@ function PillSmall(props: Props) {
       onClick={clickHandler}
       aria-selected={selected}
       className={classNames(className && selected
-        ? className : 'bg-grey-100 text-grey-500', 'ml-6 font-semibold rounded-xl px-3 py-2 text-sm flex flex-row items-center first:ml-0')}>
+        ? className : 'bg-grey-100 text-grey-500', 'ml-4 font-semibold rounded-xl px-3 py-2 text-sm flex flex-row items-center first:ml-0 hover:cursor-pointer')}>
       <div>
         {text}
       </div>

@@ -323,17 +323,3 @@ interface IGQLError{
   message: string
   path: string[]
 }
-
-interface ISearchResult {
-  title: string
-  slug: string
-  date: string
-  featuredImage: {
-    node: IFeaturedImage
-  } | null
-  tutorialManager: ITutorialManager
-}
-
-interface ISearchResults {
-  
-}

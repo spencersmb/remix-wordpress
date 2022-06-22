@@ -13,18 +13,20 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   const [loading, setLoading] = useState<boolean>(false)
 
   
-  let results: ISearchResult[] = [];
-  let pagedResults: ISearchResult[] = [];
+  let results: SearchResult[] = [];
+  let pagedResults: SearchResult[] = [];
 
   useEffect(() => {
     if(data && !client){
       let client = new Fuse(data.posts, {
         keys: ['categories', 'title', 'slug'], 
-        minMatchCharLength:1,
+        minMatchCharLength: 2,
         useExtendedSearch: true,
-        threshold: 0.4,
+        includeMatches: true,
+        threshold: 0.3,
         isCaseSensitive: false,
-        includeScore: true
+        includeScore: true,
+        ignoreLocation: true,
       });
       addClient(client)
     }
@@ -84,8 +86,8 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
       ]
         
     }
-    results = client.search(mySearch).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
-      return item
+    results = client.search(mySearch).map((data: SearchResult) => {
+      return data
     });
     
     // results = client.search(query).map(({ item, score }: {item: IPost, ref: number, score: number}) => {

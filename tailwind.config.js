@@ -172,6 +172,15 @@ module.exports = {
       //https://tailwindcss.com/docs/plugins#dynamic-utilities
       svgColor: {
           1: '1'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        }
+      },
+      animation: {
+        fadeIn: 'fadeIn 300ms ease-in-out',
       }
     }
   },

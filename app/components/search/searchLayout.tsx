@@ -8,17 +8,17 @@ import _ from 'lodash'
 import PillSmall from "../pills/pillSmall";
 import CloseSvg from "../svgs/closeSvg";
 import { AnimatePresence, motion } from "framer-motion";
-import type { LazyComponentProps, ScrollPosition } from "react-lazy-load-image-component";
-import { trackWindowScroll } from "react-lazy-load-image-component";
 import SmallPostCard from "../cards/smallPostCard";
 import RenderIfVisible from "react-render-if-visible";
+import SearchFilterHeader from "./searchFilterHeader";
+import BackToTopButton from "../buttons/backToTopButton";
 
 interface Props {
   animationCompleted: boolean;
   containerRef: any
 }
-type IProps = LazyComponentProps & Props
-const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IProps) => {
+type IProps = Props
+const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   const { query, search, results, clearSearch, closeSearch, category, setCategory, state: { isOpen }, pagination } = useSearchResults({
     maxResults: 10,
   })
@@ -247,36 +247,11 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
               exit={searchFilterMotion.closed}
               key='searchFilter'
               className="flex flex-col col-span-2 col-start-2 overflow-hidden tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
-              <div className="flex flex-row flex-wrap justify-between pt-8 pb-4">
-                <div className="text-sm font-semibold text-grey-400 h-[24px]">FILTER BY SKILL LEVEL</div>
-                {category !== null &&
-                  <div onClick={closeCategory} className="flex flex-row items-center">
-                    <div className="">Clear</div>
-                    <div className="w-full max-w-[20px] ml-1">
-                      <CloseSvg stroke="#384050" strokeWidth={3} />
-                    </div>
-                  </div>}
-              </div>
-              <div className="flex flex-row ">
-                <PillSmall
-                  className="bg-success-100 text-grey-600"
-                  clickHandler={handleSetCategory('Beginner')}
-                  text={'Beginner'}
-                  selected={category === 'Beginner' || category === null}
-                />
-                <PillSmall
-                  className="bg-secondary-200 text-grey-600"
-                  clickHandler={handleSetCategory('Intermediate')}
-                  text={'Intermediate'}
-                  selected={category === 'Intermediate' || category === null}
-                />
-                <PillSmall
-                  className="bg-primary-200 text-grey-600"
-                  clickHandler={handleSetCategory('Advanced')}
-                  text={'Advanced'}
-                  selected={category === 'Advanced' || category === null}
-                />
-              </div>
+              <SearchFilterHeader
+                category={category}
+                closeCategory={closeCategory}
+                handleSetCategory={handleSetCategory}
+              />
             </motion.div>
           }
         </AnimatePresence>
@@ -285,18 +260,14 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
       {/* RESULTS */}
       {results.length > 0 && query && query.length > 0 && (
         <>
-          {/* RESULT TOTAL */}
-          {/* <div className="col-span-2 col-start-2 mt-8 mb-8 text-xl text-center tablet:col-span-10 tablet:col-start-3 text-grey-500">
-            Found <span className='text-xl font-semibold underline text-grey-800 underline-offset-4'>{results.length}</span> Results {category ? <span>in <span className='text-xl font-semibold underline text-grey-800 underline-offset-4'>{category}</span> skill level</span> : ''}
-          </div> */}
-
           {/* RESULT LIST */}
           <div className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4 search_results" ref={listRef}>
             {pagination.pagedResults
-              .map((result: ISearchResult, index) => {
+              .map((result: SearchResult, index) => {
+                const { item } = result
                 return (
-                  <RenderIfVisible stayRendered={true} key={result.slug} defaultHeight={313}>
-                    <SmallPostCard post={result} scrollPosition={scrollPosition} />
+                  <RenderIfVisible stayRendered={true} key={item.slug} defaultHeight={313}>
+                    <SmallPostCard post={item} />
                   </RenderIfVisible>
                 );
               })}
@@ -304,6 +275,7 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
         </>
       )}
 
+      {/* No Results Found Message */}
       {results.length === 0 && query && query.length > 0 && (
         <div className="col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
           <p className="text-xl">
@@ -312,22 +284,21 @@ const SearchLayout = ({ animationCompleted, containerRef, scrollPosition }: IPro
         </div>
       )}
 
-      {isOpen && showScrollToTopBtn && <button
-        onClick={goToTop}
-        className="fixed text-white bottom-6 right-6 w-14 h-14 bg-slate-600">Scroll to Top</button>}
+      {/* Back To Top Button */}
+      <BackToTopButton handleGoToTop={goToTop} visible={isOpen && showScrollToTopBtn} />
 
       {/* INFINITE SCROLL TRACKER */}
       {results.length > 0 && !pagination.loading &&
-        <div className="col-span-2 col-start-2 mt-2 mb-8">
-          <div ref={postFooterRef} className="">
-            LOAD MORE POSTS</div>
+        <div className="mt-2 mb-8 col-span-full">
+          <div ref={postFooterRef} className="text-center">
+            End of Results</div>
         </div>
       }
     </div>
   );
 }
 
-export default trackWindowScroll(SearchLayout)
+export default SearchLayout
 
 const searchFilterMotion = {
   closed: {
@@ -352,3 +323,4 @@ const searchFilterMotion = {
     }
   }
 }
+
