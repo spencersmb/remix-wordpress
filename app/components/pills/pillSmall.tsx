@@ -1,26 +1,30 @@
 import { classNames } from '@App/utils/appUtils'
-import React from 'react'
-import CloseSvg from '../svgs/closeSvg'
-import CloseSvgThick from '../svgs/closeSvgThick'
 
 interface Props {
-  className?: string
+  selectedClassName?: string
   text: string
   clickHandler: () => void
   selected: boolean
 }
-//TODO: Add test
+
+/**
+ * @component PillSmall
+ * 
+ * @tested - 6/23/2022 
+ *
+ */
 function PillSmall(props: Props) {
-  const { className, text, clickHandler, selected } = props
+  const { selectedClassName, text, clickHandler, selected } = props
 
   return (
     // eslint-disable-n ext-line jsx-a11y/role-supports-aria-props
     <div
       id={`${text}`}
+      data-testid={`${text}-pillTest`}
       onClick={clickHandler}
       aria-selected={selected}
-      className={classNames(className && selected
-        ? className : 'bg-grey-100 text-grey-500', 'ml-4 font-semibold rounded-xl px-3 py-2 text-sm flex flex-row items-center first:ml-0 hover:cursor-pointer')}>
+      className={classNames(selectedClassName && selected
+        ? selectedClassName : 'bg-grey-100 text-grey-500', 'ml-4 font-semibold rounded-xl px-3 py-2 text-sm flex flex-row items-center first:ml-0 hover:cursor-pointer')}>
       <div>
         {text}
       </div>

@@ -1,4 +1,6 @@
 import SimpleTabs from "@App/components/tabs/SimpleTabs/simpleTabs"
+import type { ISearchContextState } from "@App/hooks/useSearch";
+import UseSearchProvider from "@App/hooks/useSearch/useSearchProvider";
 import type { ISiteContextState } from "@App/hooks/useSite"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import type { RenderOptions } from "@testing-library/react";
@@ -39,7 +41,25 @@ function renderUseSiteProviderUi(ui: any, { providerProps }: { providerProps: IS
   }
 }
 
+function renderUseSearchProviderUi(ui: any, { providerProps }: { providerProps: ISearchContextState }) {
+  const { rerender } = render(
+    <UseSearchProvider defaultState={providerProps}>
+      <div data-testid="parent">
+        {ui}
+      </div>
+    </UseSearchProvider>
+  )
+  const parent = screen.getByTestId('parent')
+  const queries = getQueriesForElement(parent)
+  return {
+    ...queries,
+    rerender,
+    parent: screen.getByTestId('parent')
+  }
+}
+
 export {
+  renderUseSearchProviderUi,
   TabsProviderRender,
   UseSiteProviderRender,
   renderUseSiteProviderUi

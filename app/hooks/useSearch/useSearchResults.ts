@@ -19,11 +19,11 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   useEffect(() => {
     if(data && !client){
       let client = new Fuse(data.posts, {
-        keys: ['categories', 'title', 'slug'], 
+        keys: ['categories', {name: 'title', weight: 2}, 'tags'], 
         minMatchCharLength: 2,
         useExtendedSearch: true,
         includeMatches: true,
-        threshold: 0.3,
+        threshold: 0.4,
         isCaseSensitive: false,
         includeScore: true,
         ignoreLocation: true,
@@ -42,6 +42,9 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
           },
           {
             categories: query
+          },
+          {
+            tags: query
           }
         ]
       }
@@ -53,25 +56,40 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
           },
           {
             categories: query
+          },
+          {
+            tags: query
           }
         ]
       }
     ]
     if(category){
+      console.log('CAT', `"'${category} ${query}"`);
+      // mySearch = `"'${category} '${query}"`
       mySearch = {
         $and:[
-        {
-          categories: `"'${category}}"`,
-        }],
-        $or:[
           {
-            title: query,
+            categories: `"'${category}"`,
           },
           {
-            categories: query
+            $or:[
+              {
+                title: query,
+              },
+              {
+                tags: `"'${query}"`,
+              },
+            ]
           }
-        ]
+          // {
+          //   title: query,
+          // },
+          // {
+          //   tags: query,
+          // },
+        ],
       }
+
       $and = [
         {
           categories: `"'${category}}"`,

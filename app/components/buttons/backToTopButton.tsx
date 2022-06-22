@@ -1,11 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion'
 
-// TODO: TEST
 interface Props {
   handleGoToTop: () => void
   visible: boolean
 }
-
+/**
+ * @component BackToTopButton
+ * 
+ * @tested - 6/23/2022 
+ *
+ */
 function BackToTopButton(props: Props) {
   const { handleGoToTop, visible } = props
 
@@ -18,6 +22,7 @@ function BackToTopButton(props: Props) {
           animate={backToTopMotion.show}
           exit={backToTopMotion.hide}
           key='backToTopButton'
+          data-testid='backToTopButton-test'
           className="fixed bottom-6 right-8">
           <button
             onClick={handleGoToTop}
@@ -68,9 +73,8 @@ const backToTopMotion = {
     transition: {
       bottom: {
         type: "spring",
-        stiffness: 260,
-        damping: 10,
-        duration: .2
+        damping: 15,
+        stiffness: 600,
       }
     }
   }

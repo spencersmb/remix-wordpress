@@ -27,19 +27,19 @@ function SearchFilterHeader(props: Props) {
       {/* PILLS */}
       <div className="flex flex-row ">
         <PillSmall
-          className="bg-success-100 text-grey-600"
+          selectedClassName="bg-success-100 text-grey-600"
           clickHandler={handleSetCategory('Beginner')}
           text={'Beginner'}
           selected={category === 'Beginner' || category === null}
         />
         <PillSmall
-          className="bg-secondary-200 text-grey-600"
+          selectedClassName="bg-secondary-200 text-grey-600"
           clickHandler={handleSetCategory('Intermediate')}
           text={'Intermediate'}
           selected={category === 'Intermediate' || category === null}
         />
         <PillSmall
-          className="bg-primary-200 text-grey-600"
+          selectedClassName="bg-primary-200 text-grey-600"
           clickHandler={handleSetCategory('Advanced')}
           text={'Advanced'}
           selected={category === 'Advanced' || category === null}

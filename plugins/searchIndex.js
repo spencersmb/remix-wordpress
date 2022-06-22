@@ -8,6 +8,13 @@ async function getAllPosts(){
         posts(first: $count) {
             edges {
                 node { 
+                  tags(first: 100){
+                    edges{
+                      node{
+                        name
+                      }
+                    }
+                  }
                   tutorialManager {
                     postExcerpt
                     thumbnail {

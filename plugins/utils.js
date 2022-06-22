@@ -49,6 +49,7 @@ function generateIndexSearch({ posts }) {
       date: post.date,
       featuredImage: post.featuredImage,
       categories: filterCategories(post.categories.edges),
+      tags: filterCategories(post.tags.edges),
       tutorialManager: post.tutorialManager,
     };
   });
@@ -166,6 +167,8 @@ function envConfig() {
   
   return {
     url: isProduction ? "https://etheadless.graphcdn.app/"  : process.env.PUBLIC_WP_API_URL,
+    // url: "https://etheadless.graphcdn.app/",
+    // postCount: 1000
     postCount: isProduction ? 1000 : 100
   }
 }

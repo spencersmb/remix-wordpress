@@ -38,7 +38,7 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   // });
 
   // useed to close the Search when user navigates away from the page
-  const transition = useTransition();
+  // const transition = useTransition();
   const listRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<null | HTMLFormElement>(null)
 
@@ -81,11 +81,11 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   }, [animationCompleted])
 
   // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
-  useEffect(() => {
-    if (transition.state === 'loading' && isOpen) {
-      closeSearch()
-    }
-  }, [closeSearch, isOpen, transition])
+  // useEffect(() => {
+  //   if (transition.state === 'loading' && isOpen) {
+  //     closeSearch()
+  //   }
+  // }, [closeSearch, isOpen, transition])
 
   useEffect(() => {
 
