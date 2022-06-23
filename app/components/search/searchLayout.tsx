@@ -40,7 +40,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
   // useed to close the Search when user navigates away from the page
   const listRef = useRef<HTMLDivElement | null>(null);
-  const formRef = useRef<null | HTMLFormElement>(null)
 
   consoleHelper('search results', {
     results,
@@ -70,15 +69,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
   }, [])
 
-  // ON MODAL OPEN/LOAD, BRING INPUT INTO FOCUS AFTER THE WIDTH TRANSITION ANIMATION HAS COMPLETED
-  useEffect(() => {
-    if (formRef.current && animationCompleted) {
-      const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
-        .find((input: any) => input.type === 'search') as HTMLInputElement
-
-      searchInput.focus();
-    }
-  }, [animationCompleted])
 
   useEffect(() => {
 
@@ -191,7 +181,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
         {/* SEARCH FORM */}
         <div className="col-span-2 col-start-2 mt-2 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
           <SearchForm
-            formRef={formRef}
             query={query}
             results={results}
             handleOnSearch={handleOnSearch}
