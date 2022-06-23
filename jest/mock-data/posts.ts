@@ -2898,5 +2898,24 @@ export const mockLocationData: Location = {
   state: '',
 }
 
-
+export const mockSearchData: SearchPostResult[] = [
+  {
+    title:"Test post 2",
+    slug:"test-post",
+    date:"2022-06-11T15:07:0",
+    featuredImage:null,
+    categories:["Beginner"],
+    tags:[],
+    tutorialManager: mockTutorailManager__default
+  },
+  {
+    title:"Test post 3",
+    slug:"test-pos-3",
+    date:"2022-06-11T15:07:0",
+    featuredImage:null,
+    categories:["Beginner"],
+    tags:[],
+    tutorialManager: mockTutorailManager__default
+  }
+]
 

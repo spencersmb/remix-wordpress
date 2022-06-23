@@ -119,7 +119,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
             categories: `"'${category}"`
           }
         ]
-      }).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
+      }).map(({ item, score }: {item: SearchPostResult, ref: number, score: number}) => {
       return item
     });
   }

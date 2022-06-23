@@ -10,7 +10,7 @@ interface Props {
 /**
  * @component SearchFilterHeader
  * 
- * @tested - 6/23/2022 
+ * @tested - 6/22/2022 
  *
  */
 function SearchFilterHeader(props: Props) {

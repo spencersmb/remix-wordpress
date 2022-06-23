@@ -11,7 +11,7 @@ export interface ISearchContextState {
   client: null | any,
   data: {
     generated: number,
-    posts: IPost[]
+    posts: SearchPostResult[]
   } | null
 }
 interface ISearchContextType {

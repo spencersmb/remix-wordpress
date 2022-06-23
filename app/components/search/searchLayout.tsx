@@ -19,6 +19,13 @@ interface Props {
   containerRef: any
 }
 type IProps = Props
+
+/**
+ * @component SearchLayout
+ * 
+ * @tested - 6/22/2022 
+ *
+ */
 const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   const { query, search, results, clearSearch, closeSearch, category, setCategory, state: { isOpen }, pagination } = useSearchResults({
     maxResults: 10,
@@ -54,7 +61,10 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
     document.addEventListener('keydown', escFunction, false);
 
     // Tack scroll position of the modal container to hide or show the scroll to top button
-    container.addEventListener("scroll", _.throttle(updatePosition, 500));
+
+    if (container) {
+      container.addEventListener("scroll", _.throttle(updatePosition, 500));
+    }
 
 
     // addResultsRoving()
@@ -212,8 +222,11 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
       {/* RESULTS */}
       {results.length > 0 && query && query.length > 0 && (
         <>
-          {/* RESULT LIST */}
-          <div className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4 search_results" ref={listRef}>
+          {/* RESULTS LIST */}
+          <div
+            data-testid='resultsList'
+            className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4 search_results"
+            ref={listRef}>
             {pagination.pagedResults
               .map((result: SearchResult, index) => {
                 const { item } = result

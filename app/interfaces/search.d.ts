@@ -1,5 +1,6 @@
 interface SearchPostResult {
   categories: string[];
+  tags: string[];
   date: string;
   featuredImage: null | {
     node: IFeaturedImage

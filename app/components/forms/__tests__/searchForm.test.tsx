@@ -52,6 +52,7 @@ describe('Search Form', () => {
             item: {
               title: 'test',
               categories: [],
+              tags: [],
               date: '',
               featuredImage: null,
               slug: 'test',
