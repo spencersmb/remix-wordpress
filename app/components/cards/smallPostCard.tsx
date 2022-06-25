@@ -1,10 +1,7 @@
-import { ImageSizeEnums } from "@App/enums/imageEnums"
-import { checkForPx, defaultImages, fallBackImageEnum, fallBackImages, loadImageSrc, loadThumbnailImage, loadThumbnailSrc } from "@App/utils/imageHelpers"
+import { fallBackImageEnum, ImageSizeEnums } from "@App/enums/imageEnums"
+import { fallBackImages, loadImageSrc } from "@App/utils/imageHelpers"
 import { formatDate } from "@App/utils/posts"
 import { Link } from "@remix-run/react"
-import type { ScrollPosition } from "react-lazy-load-image-component";
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import LazyImageBase from "../images/lazyImage-base"
 
 // Todo: test
 interface CardProps {

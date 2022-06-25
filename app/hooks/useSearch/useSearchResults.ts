@@ -1,4 +1,3 @@
-import { consoleHelper } from "@App/utils/windowUtils";
 import Fuse from "fuse.js";
 import { useCallback, useEffect, useState } from "react";
 import { useSearch } from ".";
@@ -19,7 +18,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
     if(data && !client){
       let client = new Fuse(data.posts, {
         keys: ['categories', {name: 'title', weight: 2}, 'tags'], 
-        minMatchCharLength: 2,
+        minMatchCharLength: 1,
         useExtendedSearch: true,
         includeMatches: true,
         threshold: 0.4,
@@ -47,24 +46,8 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
           }
         ]
       }
-    let $and: any[] = [
-      {
-        $or:[
-          {
-            title: query,
-          },
-          {
-            categories: query
-          },
-          {
-            tags: query
-          }
-        ]
-      }
-    ]
+
     if(category){
-      console.log('CAT', `"'${category} ${query}"`);
-      // mySearch = `"'${category} '${query}"`
       mySearch = {
         $and:[
           {
@@ -88,53 +71,32 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
           // },
         ],
       }
-
-      $and = [
-        {
-          categories: `"'${category}}"`,
-          
-        },
-        {
-          title: query,
-        },
-        {
-          categories: query
-        }
-      ]
-        
     }
     results = client.search(mySearch).map((data: SearchResult) => {
       return data
     });
-    
-    // results = client.search(query).map(({ item, score }: {item: IPost, ref: number, score: number}) => {
-    //   return item
-    // });
+
   }else if(client && category){
-    consoleHelper('CAT`', `"'${category}"`);
-    
+    // NOT CURRENTLY USED BECAUSE FILTER IS HIDDEN UNTIL SEARCH IS ACTIVATED   
     results = client.search({
         $and:[
           {
             categories: `"'${category}"`
           }
         ]
-      }).map(({ item, score }: {item: SearchPostResult, ref: number, score: number}) => {
-      return item
+      }).map((data: SearchResult) => {
+      return data
     });
   }
 
-  // if (maxResults && results.length > maxResults) {
-  //   results = results.slice(0, maxResults);
-  // }
+  // Once we have results, paginate them
   if (results.length) {
-    // results = results.sort((a: ISearchResult, b: ISearchResult) => Date.parse(b.date) - Date.parse(a.date))
+    
     pagedResults = results.slice(0, page * 10);
   }
 
   // If the defaultQuery argument changes, the hook should reflect
   // that update and set that as the new state
-
   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
   /**
@@ -149,6 +111,9 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
     setQuery(null);
   }
 
+  /**
+   * nextPage
+   */
   function nextPage(){
     setLoading(true)
     

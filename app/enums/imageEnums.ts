@@ -11,3 +11,11 @@ export enum ImageSizeEnums {
   WPRP = 'wp_rp_thumbnail',
   SOURCE = 'source',
 }
+
+export enum fallBackImageEnum {
+  THUMBNAIL = "thumbnail",
+  LARGE = "large",
+  MEDIUM = "medium",
+  FEATURED = "featured",
+  PINTEREST = "pinterest",
+}

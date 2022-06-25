@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 import { useSimpleTabs } from './simpleTabsContext'
 
@@ -16,14 +17,22 @@ interface Props {
   className?: string
   id: string
   children: React.ReactNode
+  initial?: string
+  exit?: string
+  animate?: string
+  variants?: any
 }
-const TabContent = ({ id, children, className }: Props) => {
+const TabContent = ({ id, children, className, ...props }: Props) => {
   const { state } = useSimpleTabs()
   return state.selectedTab !== id
     ? null
-    : <div id={id} role={'tabpanel'} aria-labelledby={`${id}-tab`} className={className}>
+    : <motion.div
+      {...props}
+      id={id} role={'tabpanel'}
+      aria-labelledby={`${id}-tab`}
+      className={className}>
       {children}
-    </div>
+    </motion.div>
 }
 
 export default TabContent;

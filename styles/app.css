@@ -96,6 +96,10 @@ button {
     @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
   }
 
+  .btn-sage-600 {
+    @apply bg-sage-600 text-sage-50 hover:text-sage-50 hover:bg-sage-600 hover:ring-sage-600 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
+  }
+
   .btn-disabled-sage-200 {
     @apply disabled:hover:bg-sage-200 disabled:hover:ring-0 transform disabled:bg-sage-200 disabled:hover:ring-offset-0;
   }

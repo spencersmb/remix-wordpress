@@ -9,6 +9,12 @@ interface Props {
   animationCompleted: boolean
 }
 
+/**
+ * @component SearchForm
+ * 
+ * @tested - 6/22/2022 
+ *
+ */
 function SearchForm(props: Props) {
   const { query, results, category, animationCompleted, handleOnSearch } = props
   const formRef = useRef<null | HTMLFormElement>(null)

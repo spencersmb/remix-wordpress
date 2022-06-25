@@ -1,5 +1,4 @@
 import type { IWPMenu} from "@App/lib/wp/site";
-import { IWpMenus } from "@App/lib/wp/site"
 
 interface IEnv {
   PUBLIC_WP_API_URL: string
@@ -26,6 +25,12 @@ interface IRootData {
   ENV: IEnv,
   metadata: ISiteMetaDataMapped,
   searchData: any,
+}
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    "lottie-player": any;
+  }
 }
 
 // declare module "text2png"

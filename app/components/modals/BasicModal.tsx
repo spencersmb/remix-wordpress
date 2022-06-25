@@ -37,8 +37,8 @@ const BasicModal = () => {
           </motion.div>
           <motion.div
             data-testid='modalOverlay'
-            id="modalOverlay"
             className={`fixed top-0 right-0 w-0 h-0 bg-slate-900 z-[1050]`}
+            id="modalOverlay"
             key="loginOverlay"
             initial={'initial'}
             exit={'exit'}

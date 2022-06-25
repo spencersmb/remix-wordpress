@@ -1,4 +1,5 @@
 export enum LicenseEnum {
+  FREE = 'freebie',
   STANDARD = 'standard',
   EXTENDED = 'extended',
   SERVER = 'server'

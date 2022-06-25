@@ -92,7 +92,7 @@ function BlogCategoryTabs(props: Props) {
               Svg={GridSvg}
               iconFillType={'stroke'}
               id="topics"
-              text="Search blog by category" />
+              text="Search by category" />
           </Tab>
           <Tab name={'difficulty'} className="flex-1 tablet:flex-none">
             <TabLabel

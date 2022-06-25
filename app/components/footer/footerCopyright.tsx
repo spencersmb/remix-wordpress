@@ -7,7 +7,6 @@ import { memo } from "react";
  * @tested - 5/30/2022
  */
 const FooterCopyright = () => {
-  console.log("FooterCopyright render");
 
   return (
     <div

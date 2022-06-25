@@ -30,6 +30,7 @@
   "dependencies": {
     "@headlessui/react": "1.6.4",
     "@heroicons/react": "^1.0.5",
+    "@lottiefiles/lottie-player": "^1.5.7",
     "@remix-run/node": "1.4.3",
     "@remix-run/react": "1.4.3",
     "@remix-run/serve": "1.4.3",

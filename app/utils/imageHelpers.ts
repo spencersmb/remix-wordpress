@@ -1,4 +1,4 @@
-import { ImageSizeEnums } from "@App/enums/imageEnums"
+import { fallBackImageEnum, ImageSizeEnums } from "@App/enums/imageEnums"
 import { isEmpty } from "lodash"
 
 type IDefaultImage = {
@@ -37,14 +37,6 @@ export const defaultImages:IDefaultImage = {
   }
 }
 
-export enum fallBackImageEnum {
-  THUMBNAIL = "thumbnail",
-  LARGE = "large",
-  MEDIUM = "medium",
-  FEATURED = "featured",
-  PINTEREST = "pinterest",
-}
-
 export const fallBackImages = {
   [fallBackImageEnum.THUMBNAIL]: {
     width: '1000',
@@ -57,13 +49,13 @@ export const fallBackImages = {
     name: 'thumbnail',
   },
   [fallBackImageEnum.LARGE]: {
-    width: '1000',
-    height: '888',
+    width: '1024',
+    height: '576',
     altTitle: 'Every Tuesday Fallback Large Image',
     srcSet: '',
     sizes: '',
-    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg',
-    placeholder: 'https://et-website.imgix.net/defaultImages/default-thumb.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
+    sourceUrl: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=1024&h=576&fit=crop&auto=compress&q=80',
+    placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80',
     name: 'thumbnail',
   },
   [fallBackImageEnum.MEDIUM]: {

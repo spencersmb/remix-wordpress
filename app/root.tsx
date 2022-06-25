@@ -236,12 +236,12 @@ export function Document({ children, title }: IDocument) {
   useWindowResize()
   const { state: { isOpen } } = useSearch()
   // Dealy the animation so it doesn't show double scroll bars
-  const { openAnimationDone } = useSearchScrollFix(isOpen)
+  // const { openAnimationDone } = useSearchScrollFix(isOpen)
 
   return (
     <html
       lang="en"
-      className={classNames(!openAnimationDone ? 'overflow-y-hidden pr-[15px]' : '', "")}>
+      className={classNames(isOpen ? 'overflow-y-hidden pr-[15px]' : '', "")}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
