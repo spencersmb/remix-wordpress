@@ -4,7 +4,12 @@ import { useSimpleTabs } from "../SimpleTabs/simpleTabsContext"
 interface ITabContent {
   type: string
 }
-// TODO: ADD TEST
+
+/**
+ * 
+ * @component LicenseTabContent
+ * @tested 6-25-20 
+ */
 const LicenseTabContent = ({ type }: ITabContent) => {
   const { state } = useSimpleTabs()
   return (

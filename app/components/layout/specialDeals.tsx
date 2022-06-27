@@ -11,8 +11,9 @@ interface Props { }
 function SpecialDeals(props: Props) {
   const { } = props
   const iPadImg: ImageLookupReturn = {
-    width: 1000,
-    height: 733,
+    width: '1000',
+    height: '733',
+    name: 'makers-ipad',
     altTitle: 'Nab special deals on Every-Tuesday Courses + Products',
     placeholder: '/images/makers-ipad.png',
     sizes: '',

@@ -1,7 +1,7 @@
 import type { LicenseEnum } from "@App/enums/products"
 import { BadgeCheckIcon, InformationCircleIcon, XCircleIcon } from "@heroicons/react/solid"
 
-interface LicenseTabContentProps {
+export interface LicenseTabContentProps {
   type: LicenseEnum,
   requirements: {
     icon: any,
@@ -13,11 +13,15 @@ interface LicenseTabContentProps {
   cannotBeUsedFor: string[]
 }
 
-// TODO: ADD TEST
+/**
+ * 
+ * @component LicenseTabContent
+ * @tested 6-25-2022
+ */
 const LicenseTabLayout = ({ requirements, description, usedFor, cannotBeUsedFor }: LicenseTabContentProps) => {
   return (
     <>
-      <div className='flex flex-col items-center py-8 tablet:flex-row tablet:max-w-[740px] mx-auto'>
+      <div data-testid="requirements" className='flex flex-col items-center py-8 tablet:flex-row tablet:max-w-[740px] mx-auto'>
 
         {/* ITEMS */}
         {requirements.map((item, index) => {
@@ -32,7 +36,9 @@ const LicenseTabLayout = ({ requirements, description, usedFor, cannotBeUsedFor 
       </div>
 
       {/* DESCRIpTioN */}
-      <div className='flex flex-col p-6 mt-8 mb-16 tablet:flex-row bg-success-50 rounded-2xl'>
+      <div
+        data-testid="description"
+        className='flex flex-col p-6 mt-8 mb-16 tablet:flex-row bg-success-50 rounded-2xl'>
         <div className='max-w-[44px]'>
           <InformationCircleIcon />
         </div>

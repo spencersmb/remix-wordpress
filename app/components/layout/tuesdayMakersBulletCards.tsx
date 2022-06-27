@@ -16,8 +16,9 @@ function TuesdayMakersBulletCards(props: Props) {
 
   const card_1_image: ImageLookupReturn = {
     altTitle: 'Free Procreate Brushes',
-    height: 790,
-    width: 791,
+    height: '790',
+    width: '791',
+    name: '',
     placeholder: '/images/tm-card-1.jpg',
     sizes: '',
     srcSet: '',
@@ -25,8 +26,9 @@ function TuesdayMakersBulletCards(props: Props) {
   }
   const card_2_image: ImageLookupReturn = {
     altTitle: '100+ Procreate Color Swatches',
-    height: 790,
-    width: 791,
+    height: '790',
+    width: '791',
+    name: '',
     placeholder: '/images/tm-card-2.jpg',
     sizes: '',
     srcSet: '',
@@ -42,8 +44,9 @@ function TuesdayMakersBulletCards(props: Props) {
         title: 'Corner Bakery',
         image: {
           altTitle: '100+ Procreate Color Swatches',
-          height: 790,
-          width: 791,
+          height: '790',
+          width: '791',
+          name: '',
           placeholder: '/images/tm-card-2.jpg',
           sizes: '',
           srcSet: '',
@@ -56,8 +59,9 @@ function TuesdayMakersBulletCards(props: Props) {
         title: 'Lettering Guides',
         image: {
           altTitle: 'Lettering Guides',
-          height: 790,
-          width: 791,
+          height: '790',
+          width: '791',
+          name: '',
           placeholder: '/images/tm-card-2.jpg',
           sizes: '',
           srcSet: '',
@@ -70,8 +74,9 @@ function TuesdayMakersBulletCards(props: Props) {
         title: 'Digital or Printable',
         image: {
           altTitle: 'Digital or Printable',
-          height: 790,
-          width: 791,
+          height: '790',
+          width: '791',
+          name: '',
           placeholder: '/images/tm-card-2.jpg',
           sizes: '',
           srcSet: '',

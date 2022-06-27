@@ -8,7 +8,7 @@ import { SimpleTabsContext, simpleTabsDefaultState } from './simpleTabsContext'
  * A generic Tab Component with a shareable state so that other content can
  * react to the selected tab.
  *
- * @param {React.Children} children
+ * @param {React.Children} children 
  */
 const SimpleTabs = ({ children, customState = null }: { children: any, customState?: ITabsState | null }) => {
   const [state, setState] = useState<ITabsState>(customState ? customState : simpleTabsDefaultState)

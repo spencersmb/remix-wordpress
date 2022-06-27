@@ -3,10 +3,18 @@ import useSite from "@App/hooks/useSite";
 import { motion } from "framer-motion";
 import { useSimpleTabs } from "../SimpleTabs/simpleTabsContext";
 
+/**
+ * 
+ * @component LicenseTabSlider 
+ * @description Slider button behind options for license type
+ * 
+ */
 const LicenseTabSlider = () => {
   const { state: { breakpoint } } = useSite();
   const { state } = useSimpleTabs()
+
   const selectPosition = (tab: string) => {
+
     switch (tab) {
       case 'freebie':
         return 'left'

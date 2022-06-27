@@ -14,9 +14,9 @@ import { Link } from 'remix'
 import LicenseTabContent from '@App/components/tabs/licenseTabs/licenseTabContent'
 import LicenseTabSlider from '@App/components/tabs/licenseTabs/licenseTabSlider'
 import LicenseTabLayout from '@App/components/tabs/licenseTabs/licenseTabLayout'
+import ContactUsV1 from '@App/components/layout/contactUsV1'
 interface Props { }
 
-// TODO:ADD TEST
 /**
  * 
  * @component LicensesPage 
@@ -24,7 +24,6 @@ interface Props { }
  * 
  */
 function LicensesPage(props: Props) {
-  const { } = props
 
   // useEffect(() => {
   //   import("@lottiefiles/lottie-player");
@@ -98,19 +97,7 @@ function LicensesPage(props: Props) {
 
           </div>
 
-          <div className='flex flex-col items-center justify-center col-span-2 col-start-2 mb-32 text-center mt-18 tablet:col-start-2 tablet:col-span-12'>
-            <div className='w-[57px] mb-1'>
-              <ChatIcon fill='#788F92' />
-            </div>
-            <div className='mb-8 text-4xl font-sentinel__SemiBoldItal'>
-              Still have questions?
-            </div>
-            <Link
-              className='btn btn-primary btn-sage-600'
-              to={'contact-us'}>
-              Contact Us
-            </Link>
-          </div>
+          <ContactUsV1 />
         </div>
       </SimpleTabsProvider>
 

@@ -58,7 +58,7 @@ export const mockGenericProduct: IProduct = {
     }
 }
 
-export const mockPaidProduct = {
+export const mockPaidProduct: IProduct = {
   title: "Beautiful Lettering Brush Set",
   slug: "beautiful-lettering-brush-set",
   seo:{

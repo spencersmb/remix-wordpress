@@ -1,4 +1,5 @@
 import SimpleTabs from "@App/components/tabs/SimpleTabs/simpleTabs"
+import type { ITabsState } from "@App/components/tabs/SimpleTabs/simpleTabsContext";
 import type { ISearchContextState } from "@App/hooks/useSearch";
 import UseSearchProvider from "@App/hooks/useSearch/useSearchProvider";
 import type { ISiteContextState } from "@App/hooks/useSite"
@@ -58,7 +59,25 @@ function renderUseSearchProviderUi(ui: any, { providerProps }: { providerProps: 
   }
 }
 
+function renderUseSimpleTabsProviderUi(ui: any, { providerProps }: { providerProps: ITabsState }) {
+  const { rerender } = render(
+    <SimpleTabs customState={providerProps}>
+      <div data-testid="parent">
+        {ui}
+      </div>
+    </SimpleTabs>
+  )
+  const parent = screen.getByTestId('parent')
+  const queries = getQueriesForElement(parent)
+  return {
+    ...queries,
+    rerender,
+    parent: screen.getByTestId('parent')
+  }
+}
+
 export {
+  renderUseSimpleTabsProviderUi,
   renderUseSearchProviderUi,
   TabsProviderRender,
   UseSiteProviderRender,
