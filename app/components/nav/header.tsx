@@ -78,7 +78,7 @@ function Header(props: Props) {
 
           {/* COURSE LOGIN */}
           <div className="">
-            <a className={'normal-link text-primary-600 mr-4 underlined underlined-active hover:text-primary-300'} href="https://teachable.com">Course Login</a>
+            <a className={'normal-link text-primary-600 mr-4 underlined after:underlined-active hover:text-primary-300'} href="https://teachable.com">Course Login</a>
           </div>
 
           {/* DESKTOP SEARCH ICON */}

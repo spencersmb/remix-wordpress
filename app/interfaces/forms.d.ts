@@ -33,6 +33,7 @@ type FetcherTypes =
 interface InputBaseProps {
   type: string
   label?: string
+  labelCss?: string
   id?: string
   name: string
   invalid: boolean | undefined

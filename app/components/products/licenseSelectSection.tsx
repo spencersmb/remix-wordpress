@@ -30,7 +30,7 @@ function LicenseSelectSection(props: Props) {
         <div className='flex flex-row mb-3 ml-2'>
           <div>License Type</div>
           <div className='pt-1 ml-2 text-xs italic font-semibold text-success-500'>
-            <Link className='underlined underlined-active' to={'/license-types'}>What are these?</Link>
+            <Link className='underlined after:underlined-active' to={'/license-types'}>What are these?</Link>
           </div>
         </div>
 

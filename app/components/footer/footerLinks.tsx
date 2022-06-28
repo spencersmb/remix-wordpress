@@ -59,6 +59,7 @@ const footerLinks = [
  * @component FooterLinks
  * @tested - 5/30/2022
  */
+
 const FooterLinks = () => {
   const { state: { metadata } } = useSite()
   return (
@@ -89,7 +90,7 @@ const FooterLinks = () => {
                 <ul>
                   {block.links.map(link => (
                     <li key={link.url} className='pb-3 text-lg text-sage-400 btn-spencer'>
-                      <Link data-testid="footer-link--item" className='hover:text-sage-300 underlined' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
+                      <Link data-testid="footer-link--item" className='hover:text-sage-300 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                     </li>
                   ))}
                 </ul>

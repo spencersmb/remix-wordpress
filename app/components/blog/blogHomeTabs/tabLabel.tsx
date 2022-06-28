@@ -36,7 +36,7 @@ function TabLabel(props: Props) {
     <div
       role="tab"
       className={classNames(state.selectedTab === id
-        ? 'text-primary-500 underlined-active'
+        ? 'text-primary-500 after:underlined-active'
         : 'text-neutral-400',
         'tabName flex flex-row items-center tablet:items-end font-sentinel__SemiBoldItal transition-colors leading-5 tablet:leading-none tablet:text-2xl underlined cursor-pointer after:bottom-[-16px]')
       }

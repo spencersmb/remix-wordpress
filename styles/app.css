@@ -63,8 +63,6 @@
 }
 a {
   transition: all 0.3s;
-  &:hover {
-  }
 }
 button {
   &:focus {
@@ -72,9 +70,9 @@ button {
   }
 }
 @layer components {
-  .btn {
+  /* .btn {
     @apply no-underline text-primary-600 font-semibold px-6 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97];
-  }
+  } */
 
   .btn-small {
     @apply py-2 px-4 flex-initial;
@@ -128,6 +126,9 @@ button {
   .btn-outlined {
     @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
   }
+  .btn-outline-sage-600 {
+    @apply max-h-[56px] h-full transition duration-300 bg-white border-3 text-sage-600 btn border-sage-600 hover:ring-sage-700 active:ring-sage-700 active:ring hover:border-sage-700 hover:border-3 hover:bg-sage-700 hover:text-white;
+  }
   .btn-outlined-teal-600 {
     @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50;
   }
@@ -146,33 +147,6 @@ button {
   .rest-link {
     @apply text-primary-500 hover:text-primary-500;
   }
-  .underlined {
-    position: relative;
-  }
-  .underlined:hover:after {
-    background-color: currentColor;
-    transform: scaleX(1);
-    display: inline-block;
-  }
-  .underlined:after {
-    content: "";
-    height: 2px;
-    transform: scaleX(0);
-    transition: transform 0.25s ease;
-    transform-origin: left;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    display: block;
-    position: absolute;
-    background-color: currentColor;
-  }
-  .underlined-active:after {
-    background-color: currentColor;
-    transform: scaleX(1);
-    display: inline-block;
-  }
-
   .underlined-md:after {
     bottom: -4px;
   }

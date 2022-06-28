@@ -5,17 +5,58 @@ import SimpleTabsHeader from '@App/components/tabs/SimpleTabs/simpleTabsHeader'
 import Tab from '@App/components/tabs/SimpleTabs/tab'
 import TabContent from '@App/components/tabs/SimpleTabs/tabContent'
 import type { ReactNode } from 'react';
-import * as LottiePlayer from "@lottiefiles/lottie-player";
-import { AnimatePresence, motion } from 'framer-motion'
+// import * as LottiePlayer from "@lottiefiles/lottie-player";
+import { AnimatePresence } from 'framer-motion'
 import { LicenseEnum } from '@App/enums/products'
 import CloseSvg from '@App/components/svgs/closeSvg'
-import { ChatIcon } from '@heroicons/react/solid'
-import { Link } from 'remix'
+import { getBasicPageMetaTags } from "@App/utils/seo";
+import type { MetaFunction } from 'remix'
 import LicenseTabContent from '@App/components/tabs/licenseTabs/licenseTabContent'
 import LicenseTabSlider from '@App/components/tabs/licenseTabs/licenseTabSlider'
 import LicenseTabLayout from '@App/components/tabs/licenseTabs/licenseTabLayout'
 import ContactUsV1 from '@App/components/layout/contactUsV1'
-interface Props { }
+import type { LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
+
+
+export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  metaData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title: `License Details`,
+    desc: `Three clear license options to take the guesswork out of choosing a license, so you can get back to designing.`,
+    slug: `licenses`
+  })
+};
+
+export let loader: LoaderFunction = async () => {
+
+
+  const page = {
+    title: 'Tuesday Makers: Login',
+    slug: 'tuesday-makers/login',
+    description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
+    seo: {
+      title: 'Tuesday Makers Login - Every Tuesday',
+      opengraphModifiedTime: '',
+      metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
+    }
+  }
+  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+};
 
 /**
  * 
@@ -23,6 +64,7 @@ interface Props { }
  * @description Page that displays the licenses for the app.
  * 
  */
+interface Props { }
 function LicensesPage(props: Props) {
 
   // useEffect(() => {

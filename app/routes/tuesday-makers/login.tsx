@@ -3,8 +3,9 @@ import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/no
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 import { createResourceUserSession, getResourceUser } from "@App/utils/resourceLibrarySession.server";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
+import { getBasicPageMetaTags } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
+import InputBase from "@App/components/forms/input/inputBase";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -134,52 +135,86 @@ const ResourceLibraryLogin = () => {
   const transition = useTransition()
 
   return (
-    <div>
-      <h1>Tuesday Makers Login</h1>
-      <Form method='post' className="mb-4" aria-describedby={
-        actionData?.formError
-          ? "form-error-message"
-          : undefined
-      }>
-        <label htmlFor="email-input" className="text-sm leading-7 text-gray-600">
-          email:
-          <input
+    <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
-            type="email"
-            className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-            name="email"
-            aria-invalid={
-              Boolean(
-                actionData?.fieldErrors?.email
-              ) || undefined
-            }
-            aria-describedby={
-              actionData?.fieldErrors?.email
-                ? "email-error"
+      <div className="col-span-2 col-start-2 px-3 py-16 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
+        <div className="flex flex-col pt-8">
+
+          <div className="flex flex-col mb-16 text-center">
+            <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+              Welcome back!
+            </h1>
+            <h2 className="text-lg text-grey-500">Login to the Tuesday Tribe to access over 200+ design assets.</h2>
+          </div>
+
+          <div className="login_form relative z-[2]">
+            <Form method='post' className="flex flex-col" aria-describedby={
+              actionData?.formError
+                ? "form-error-message"
                 : undefined
-            }
-          />
-        </label>
-        {actionData?.fieldErrors?.email ? (
-          <p
-            className="form-validation-error"
-            role="alert"
-            id="email-error"
-          >
-            {actionData?.fieldErrors.email}
-          </p>
-        ) : null}
+            }>
 
-        <button
-          disabled={transition.state !== 'idle'}
-          aria-disabled={transition.state !== 'idle'}
-          type='submit'
-          className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
-          {transition.state === 'idle' ? 'Login' : '...Loading'}
-        </button>
-      </Form>
+              <InputBase
+                label="Email"
+                labelCss="text-sm text-grey-600 font-semibold"
+                className="mt-2 mb-4 bg-grey-100"
+                invalid={Boolean(
+                  actionData?.fieldErrors?.email
+                ) || undefined}
+                id='email-input'
+                name='email'
+                type='email'
+                required={true}
+                placeholder='Enter your email'
+              />
 
-      {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Tuesday Makers Library <Link to={`/tuesday-makers`}>here</Link></p></div>}
+              {/*ERROR EMAIL*/}
+              {actionData?.fieldErrors?.email ? (
+                <p
+                  className="form-validation-error"
+                  role="alert"
+                  id="email-error"
+                >
+                  {actionData?.fieldErrors.email}
+                </p>
+              ) : null}
+
+              <button
+                disabled={transition.state !== 'idle'}
+                aria-disabled={transition.state !== 'idle'}
+                type='submit'
+                className="btn btn-sage-600">
+                {transition.state === 'idle' ? 'Sign In' : '...Loading'}
+              </button>
+
+            </Form>
+
+            {/*ERROR SUBMISSION*/}
+            {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Tuesday Makers Library <Link to={`/tuesday-makers`}>here</Link></p></div>}
+          </div>
+
+          <div className="z-[1] relative flex flex-col items-center justify-center text-center">
+            <div className="italic">
+              <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
+              <div className="p-4 bg-white relative z-[2]">Don’t have an account?</div>
+            </div>
+          </div>
+
+          <div className="flex flex-row relative z-[2] mb-8">
+            <Link
+              className="btn"
+              to="/tuesday-makers">
+              Sign Up
+            </Link>
+          </div>
+
+          <div className={'text-center'}>
+            <h3 className={'font-semibold'}>Having trouble?</h3>
+            <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }
