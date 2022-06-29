@@ -34,6 +34,7 @@ interface InputBaseProps {
   type: string
   label?: string
   labelCss?: string
+  defaultValue?: string
   id?: string
   name: string
   invalid: boolean | undefined

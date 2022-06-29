@@ -28,7 +28,7 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
       opengraphModifiedTime: date,
       opengraphPublishedTime: date,
       readingTime: 3,
-      title,
+      title: `${title} - Every Tuesday`,
     },
     featuredImage: defaultFeaturedImage
   }

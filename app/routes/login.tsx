@@ -5,57 +5,40 @@ import {
 } from '../utils/loaderHelpers'
 import { logUserInJWT } from '../utils/fetch.server'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { getHtmlMetadataTags } from '../utils/seo'
+import { getBasicPageMetaTags, getHtmlMetadataTags } from '../utils/seo'
 import Layout from '@App/components/layoutTemplates/layout'
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node'
-import { Form, useActionData, useLoaderData, useTransition } from '@remix-run/react'
+import { Form, Link, useActionData, useLoaderData, useTransition } from '@remix-run/react'
+import { AnimatePresence, motion } from "framer-motion";
+import { XCircleIcon } from '@heroicons/react/solid'
+import InputBase from '@App/components/forms/input/inputBase'
+import useSite from '@App/hooks/useSite'
 
 export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  metaData gets passed in from the root metadata function
+   */
   const { data, location, parentsData } = metaData
-
-  // hardcoded Page
-  // TODO: REPLACE PAGE
-  const page: IPage = {
-    id: '24',
-    title: 'Login',
-    author: {
-      id: '23',
-      name: 'Teela',
-      avatar: {
-        url: '',
-        width: 24,
-        height: 24
-      },
-      slug: 'login'
-    },
-    slug: 'login',
-    content: '',
-    date: '',
-    seo: {
-      title: 'Login - Every Tuesday',
-      metaDesc: 'Login Page for Every-Tuesday.com',
-      fullHead: '',
-      opengraphModifiedTime: '',
-      opengraphPublishedTime: '',
-      readingTime: 1
-    }
-  }
-
   if (!data || !parentsData || !location) {
     return {
       title: '404',
-      description: 'error: No metaData or Parents Data'
+      description: 'error: No metaData or Parents Data',
     }
   }
 
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page,
-    location
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title: `Tuesday Admin`,
+    desc: `Admin Page for Every-Tuesday Preview Pages`,
+    slug: `/login`
+  }, {
+    googleIndex: false
   })
-}
+};
 
 export let loader: LoaderFunction = async ({ request }): Promise<IDataType> => {
   const { id, postType, url } = getPreviewUrlParams(request)
@@ -157,98 +140,152 @@ type ActionData = {
 };
 
 const Login = () => {
+  const { state: { user } } = useSite()
   let actionData = useActionData<ActionData | undefined>();
   let { params } = useLoaderData<IDataType>()
   let transition = useTransition();
   let action = params.postType ? `/login?postType=${params.postType}&postId=${params.id}` : '/login'
-
+  const backendUrl = process.env.NODE_ENV === 'production' ? 'https://api.every-tuesday.com/wp-admin' : 'https://etheadless.local/wp-admin/'
   return (
     <Layout>
-      <div className="w-5/12 p-8 m-auto mt-10 bg-gray-100 rounded-lg login-form md:ml-auto md:mt-12">
-        <h4 className="block mb-5 text-lg font-medium text-gray-900 title-font">Login</h4>
-        {actionData?.formError && (
-          <div
-            className="text-red-600"
-            dangerouslySetInnerHTML={{ __html: actionData.formError || '' }}
-          />
-        )}
-        <Form method='post'
-          action={action}
-          aria-disabled={transition.state !== 'idle'}
-          className="mb-4"
-          aria-describedby={
-            actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
-              ? "form-error-message"
-              : undefined
-          }>
-          <div>
-            <label className="text-sm leading-7 text-gray-600" htmlFor="username-input">Username</label>
-            <input
-              className="w-full px-3 py-1 mb-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              type="text"
-              id="username-input"
-              name="username"
-              defaultValue={actionData?.fields?.username}
-              aria-invalid={Boolean(
-                actionData?.fieldErrors?.username
-              )}
-              aria-describedby={
-                actionData?.fieldErrors?.username
-                  ? "username-error"
-                  : undefined
+      <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+        <div className="col-span-2 col-start-2 px-3 py-16 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
+          <div className="flex flex-col items-center pt-8">
+
+            <div className="flex flex-col items-center mb-8 text-center">
+              <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+                {user.wpAdmin ? 'Welcome back, Teela' : 'Admin Login '}
+              </h1>
+            </div>
+
+            {/*ERROR SUBMISSION*/}
+            {/* @ts-ignore */}
+            <AnimatePresence>
+              {actionData?.formError && transition.state === 'idle' &&
+                <FormErrorMessage
+                  id={'subscriberError'}
+                  message={actionData.formError || ''} />
               }
-            />
-            {actionData?.fieldErrors?.username ? (
-              <p
-                className="text-red-500 form-validation-error"
-                role="alert"
-                id="username-error"
-              >
-                {actionData?.fieldErrors.username}
-              </p>
-            ) : null}
+              {actionData?.fieldErrors?.password && transition.state === 'idle' &&
+                <FormErrorMessage
+                  id={'passwordError'}
+                  message={actionData?.fieldErrors.password} />
+              }
+            </AnimatePresence>
+
+            {/*LOGIN FORM*/}
+            {!user.wpAdmin && <div className="login_form relative z-[2] mt-2 w-full">
+              <Form method='post'
+                action={action}
+                aria-disabled={transition.state !== 'idle'}
+                className="flex flex-col"
+                aria-describedby={
+                  actionData?.fieldErrors?.username || actionData?.fieldErrors?.password
+                    ? "form-error-message"
+                    : undefined
+                }>
+
+                <InputBase
+                  type="text"
+                  id="username-input"
+                  name="username"
+                  label="Username"
+                  labelCss="text-sm text-grey-600 font-semibold"
+                  className="mt-2 mb-5 bg-grey-100"
+                  defaultValue={actionData?.fields?.username}
+                  invalid={Boolean(
+                    actionData?.fields?.username
+                  ) || undefined}
+                  required={true}
+                  placeholder='Username'
+                />
+
+                <InputBase
+                  name="password"
+                  id="password-input"
+                  type="password"
+                  label="Password"
+                  labelCss="text-sm text-grey-600 font-semibold"
+                  className="mt-2 mb-5 bg-grey-100"
+                  invalid={Boolean(
+                    actionData?.fieldErrors?.password
+                  ) || undefined}
+                  required={true}
+                  placeholder='Password'
+                />
+
+                <button
+                  disabled={transition.state !== 'idle'}
+                  aria-disabled={transition.state !== 'idle'}
+                  type='submit'
+                  className="mt-4 btn btn-sage-600">
+                  {transition.state === 'idle' ? 'Log In' : '...Loading'}
+                </button>
+              </Form>
+            </div>}
+
+            {user.wpAdmin && <div className='flex flex-row'>
+              <div className='mr-2'>
+                <a
+                  rel='noopener noreferrer'
+                  href={backendUrl}
+                  className='btn btn-outline'
+                  target={'_blank'}>
+                  Visit CMS
+                </a>
+              </div>
+              <div className='ml-2'>
+                <form action="/logout" method="post">
+                  <button type="submit" className="btn btn-sage-600">
+                    Logout
+                  </button>
+                </form>
+              </div>
+            </div>}
+
+
           </div>
-          <div>
-            <label htmlFor="password-input" className="text-sm leading-7 text-gray-600">
-              Password:
-            </label>
-            <input
-              id="password-input"
-              type="password"
-              className="w-full px-3 py-1 mb-8 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
-              name="password"
-              aria-invalid={
-                Boolean(
-                  actionData?.fieldErrors?.password
-                ) || undefined
-              }
-              aria-describedby={
-                actionData?.fieldErrors?.password
-                  ? "password-error"
-                  : undefined
-              }
-            />
-            {actionData?.fieldErrors?.password ? (
-              <p
-                className="text-red-500 form-validation-error"
-                role="alert"
-                id="password-error"
-              >
-                {actionData?.fieldErrors.password}
-              </p>
-            ) : null}
-          </div>
-          <button
-            disabled={transition.state !== 'idle'}
-            aria-disabled={transition.state !== 'idle'}
-            type='submit'
-            className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
-            {transition.state === 'idle' ? 'Login' : '...Loading'}
-          </button>
-        </Form>
+        </div>
       </div>
+
     </Layout>
   )
 }
 
 export default Login
+
+
+const containerMotion = {
+  closed: {
+    height: 0,
+    y: '-15%'
+  },
+  open: {
+    height: 'auto',
+    y: 0
+  }
+}
+
+interface Props {
+  message: string
+  id: string
+}
+const FormErrorMessage = ({ message, id }: Props) => {
+  return (
+    <motion.div
+      key={id}
+      id={id}
+      initial={containerMotion.closed}
+      animate={containerMotion.open}
+      exit={containerMotion.closed}
+      role="alert"
+      className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
+      <div className="flex flex-row items-center justify-center p-3 ">
+        <div className="max-w-[24px] w-full mr-2">
+          <XCircleIcon fill={'#7F1D1D'} />
+        </div>
+        <p dangerouslySetInnerHTML={{ __html: message }} />
+      </div>
+    </motion.div>
+  )
+}

@@ -14,6 +14,6 @@ interface IBasicPageInfo {
   desc: string
   slug: string
 }
-type IgetBasicPageMetaTags = (metaData: IBasicPageMetaTags, pageData:IBasicPageInfo) => {title: string, description: string}
+type IgetBasicPageMetaTags = (metaData: IBasicPageMetaTags, pageData:IBasicPageInfo ,follow?: {googleIndex: boolean}) => {title: string, description: string}
 
 type IgetHtmlMetadataTags = IGetMetaTagsFunction & {location: Location}

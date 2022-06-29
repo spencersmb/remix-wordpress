@@ -8,7 +8,11 @@ import { Link } from "@remix-run/react"
  *  manually set it here because of testing
  * @tested - 5/27/2020
  * @param {IBreadCrumb[]} array
+ * 
+ * 
  */
+
+// TODO: test this function again for single item output
 function removeLastItemFromArray(array: any[] | undefined) {
   if (!array) {
     return { lastElement: null, modifiedArray: null }
@@ -27,7 +31,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
 
   return (
     <div className="mt-8">
-      <ul className="flex flex-row text-xs text-primary-500 tablet:text-base">
+      <ul className="flex flex-row text-xs text-sage-700 tablet:text-base">
         <li>
           <Link to={'/'} className='font-semibold'>Home </Link>
           <span className="mr-1">/</span></li>
@@ -36,12 +40,12 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
           return (
             <li key={index}>
               <Link className='font-semibold' to={link.url}>{linkText}</Link>
+              <span className="mx-1">/</span>
             </li>
           )
         })}
         {lastElement &&
           <li data-testid="last-element" className="">
-            <span className="mx-1">/</span>
             {lastElement.text}
           </li>}
       </ul>

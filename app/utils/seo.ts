@@ -185,7 +185,11 @@ export function getHtmlMetadataTags({
  *
  *
  **/
-export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc, slug}) => {
+export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
+  metaData, 
+  {title, desc, slug}, 
+  follow = {googleIndex: true}
+  ) => {
     const { data, location, parentsData } = metaData
   if (!data || !parentsData || isEmpty(parentsData) || !location) {
     return {
@@ -201,6 +205,7 @@ export let getBasicPageMetaTags: IgetBasicPageMetaTags = (metaData, {title, desc
   })
 
   return getHtmlMetadataTags({
+    follow: follow.googleIndex,
     metadata: parentsData.root.metadata,
     page,
     location

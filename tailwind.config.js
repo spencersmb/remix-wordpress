@@ -87,15 +87,15 @@ module.exports = {
         900: '#1A2626'
       },
       'sage':{
-        50: '#F3F5F6',
-        100: '#EDF0F1',
-        200: '#D0D8D9',
-        300: '#B3C0C1',
-        400: '#95A7AA',
-        500: '#788F92',
-        600: '#596C6E',
-        700: '#475658',
-        800: '#354142',
+        50: 'var(--sage-50)',
+        100: 'var(--sage-100)',
+        200: 'var(--sage-200)',
+        300: 'var(--sage-300)',
+        400: 'var(--sage-400)',
+        500: 'var(--sage-500)',
+        600: 'var(--sage-600)',
+        700: 'var(--sage-700)',
+        800: 'var(--sage-800)',
       },
       'navy':{
         50: '#F7F8FA',
@@ -145,8 +145,8 @@ module.exports = {
         'navMobile': 'minmax(50px, 1fr) minmax(50px, auto) minmax(50px, auto)',
         'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
         'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
-        'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr);',
-        'desktop': 'minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr);'
+        'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr)',
+        'desktop': 'minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr)'
       },
       fontSize: {
         'h5': ['1.5rem', '1.75rem'],

@@ -2,6 +2,25 @@
 const css = {
   '.underlined':{
     position: 'relative',
+  },
+  '.et-grid-basic':{
+    display: 'grid',
+    gridAutoFlow: 'row',
+    gridRow: 'auto',
+    gridTemplateColumns: 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
+    '-moz-column-gap': '1.25rem',
+    columnGap: '1.25rem',
+
+    //TABLET
+    '@media (min-width: 768px)': {
+      gridTemplateColumns: 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr)',
+    },
+
+    '@media (min-width: 1280px)': {
+      gridTemplateColumns: 'grid-template-columns: minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr)',
+    },
+
+
   }
 }
 const underlined = {
@@ -31,4 +50,4 @@ const underlined = {
   }
 }
 module.exports = { css, underlined }
-  
+

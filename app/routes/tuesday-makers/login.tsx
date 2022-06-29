@@ -6,6 +6,8 @@ import { createResourceUserSession, getResourceUser } from "@App/utils/resourceL
 import { getBasicPageMetaTags } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import InputBase from "@App/components/forms/input/inputBase";
+import { XCircleIcon } from "@heroicons/react/solid";
+import { AnimatePresence, motion } from "framer-motion";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -42,7 +44,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     slug: 'tuesday-makers/login',
     description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
     seo: {
-      title: 'Tuesday Makers Login - Every Tuesday',
+      title: 'Tuesday Makers Login',
       opengraphModifiedTime: '',
       metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
@@ -138,16 +140,40 @@ const ResourceLibraryLogin = () => {
     <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       <div className="col-span-2 col-start-2 px-3 py-16 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
-        <div className="flex flex-col pt-8">
+        <div className="flex flex-col items-center pt-8">
 
-          <div className="flex flex-col mb-16 text-center">
+          <div className="flex flex-col items-center mb-8 text-center">
             <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
               Welcome back!
             </h1>
             <h2 className="text-lg text-grey-500">Login to the Tuesday Tribe to access over 200+ design assets.</h2>
+
           </div>
 
-          <div className="login_form relative z-[2]">
+          {/*ERROR SUBMISSION*/}
+          {/* @ts-ignore */}
+          <AnimatePresence>
+            {actionData?.subscriberError && transition.state === 'idle' &&
+              <motion.div
+                key={'subscriberError'}
+                id="subscriberError"
+                initial={containerMotion.closed}
+                animate={containerMotion.open}
+                exit={containerMotion.closed}
+                className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
+                <div className="flex flex-row items-center justify-center p-3 ">
+                  <div className="max-w-[24px] w-full mr-2">
+                    <XCircleIcon fill={'#7F1D1D'} />
+                  </div>
+                  <p>
+                    No user found, please sign up below.
+                  </p>
+                </div>
+              </motion.div>}
+          </AnimatePresence>
+
+
+          <div className="login_form relative z-[2] mt-4 w-full">
             <Form method='post' className="flex flex-col" aria-describedby={
               actionData?.formError
                 ? "form-error-message"
@@ -157,7 +183,7 @@ const ResourceLibraryLogin = () => {
               <InputBase
                 label="Email"
                 labelCss="text-sm text-grey-600 font-semibold"
-                className="mt-2 mb-4 bg-grey-100"
+                className="mt-2 mb-5 bg-grey-100"
                 invalid={Boolean(
                   actionData?.fieldErrors?.email
                 ) || undefined}
@@ -189,20 +215,19 @@ const ResourceLibraryLogin = () => {
 
             </Form>
 
-            {/*ERROR SUBMISSION*/}
-            {actionData?.subscriberError && <div><p>Sorry no user exists, please sign up for the Tuesday Makers Library <Link to={`/tuesday-makers`}>here</Link></p></div>}
           </div>
 
-          <div className="z-[1] relative flex flex-col items-center justify-center text-center">
+          <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">
             <div className="italic">
               <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
               <div className="p-4 bg-white relative z-[2]">Don’t have an account?</div>
             </div>
           </div>
 
-          <div className="flex flex-row relative z-[2] mb-8">
+          <div className="flex flex-row relative z-[2] mb-8 w-full">
             <Link
-              className="btn"
+              prefetch={'intent'}
+              className="btn btn-outline"
               to="/tuesday-makers">
               Sign Up
             </Link>
@@ -220,3 +245,14 @@ const ResourceLibraryLogin = () => {
 }
 
 export default ResourceLibraryLogin
+
+const containerMotion = {
+  closed: {
+    height: 0,
+    y: '-15%'
+  },
+  open: {
+    height: 'auto',
+    y: 0
+  }
+}

@@ -23,8 +23,15 @@
   --primary-plum-600: #5f3d3d;
   --primary-plum-700: #4c3434;
   --secondary-500: #c59743;
-  --sage-700: #475658;
+  --sage-50: #f3f5f6;
+  --sage-100: #edf0f1;
+  --sage-200: #d0d8d9;
+  --sage-300: #b3c0c1;
   --sage-400: #95a7aa;
+  --sage-500: #788f92;
+  --sage-600: #596c6e;
+  --sage-700: #475658;
+  --sage-800: #354142;
   --navy-50: #f7f8fa;
   --neutral-50: #fcfafb;
   --neutral-400: #d0c9cd;
@@ -74,17 +81,19 @@ button {
     @apply no-underline text-primary-600 font-semibold px-6 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97];
   } */
 
-  .btn-small {
+  /* .btn-small {
     @apply py-2 px-4 flex-initial;
-  }
+  } */
 
+  /* 
+  NOT USED
   .btn-disabled-outline {
     @apply disabled:ring disabled:ring-neutral-500 disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform disabled:bg-neutral-500;
-  }
+  } */
 
-  .btn-primary {
+  /* .btn-primary {
     @apply bg-primary-400 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
-  }
+  } */
 
   .btn-sage-200 {
     @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-sage-600 active:ring active:bg-sage-600;
@@ -94,9 +103,9 @@ button {
     @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
   }
 
-  .btn-sage-600 {
+  /* .btn-sage-600 {
     @apply bg-sage-600 text-sage-50 hover:text-sage-50 hover:bg-sage-600 hover:ring-sage-600 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
-  }
+  } */
 
   .btn-disabled-sage-200 {
     @apply disabled:hover:bg-sage-200 disabled:hover:ring-0 transform disabled:bg-sage-200 disabled:hover:ring-offset-0;
@@ -126,9 +135,9 @@ button {
   .btn-outlined {
     @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
   }
-  .btn-outline-sage-600 {
-    @apply max-h-[56px] h-full transition duration-300 bg-white border-3 text-sage-600 btn border-sage-600 hover:ring-sage-700 active:ring-sage-700 active:ring hover:border-sage-700 hover:border-3 hover:bg-sage-700 hover:text-white;
-  }
+  /* .btn-outline-sage-600 {
+    @apply max-h-[56px] h-full mt-[3px] py-[.82rem] transition duration-300 bg-white text-sage-600 ring ring-sage-600 hover:ring-sage-700 active:ring-sage-700 hover:bg-sage-700 hover:text-white ring-offset-0 hover:ring-offset-4;
+  } */
   .btn-outlined-teal-600 {
     @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50;
   }
