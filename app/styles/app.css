@@ -2499,6 +2499,9 @@ video {
 .pt-4 {
   padding-top: 1rem;
 }
+.pt-12 {
+  padding-top: 3rem;
+}
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -2546,9 +2549,6 @@ video {
 }
 .pb-\[35px\] {
   padding-bottom: 35px;
-}
-.pt-12 {
-  padding-top: 3rem;
 }
 .pb-6 {
   padding-bottom: 1.5rem;

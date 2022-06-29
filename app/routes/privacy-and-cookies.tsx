@@ -59,7 +59,7 @@ const PrivacyPage = () => {
           <h1 className='pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800'>Use of This Website and Privacy
           </h1>
           <p className='text-xl font-sentinel__SemiBoldItal'>
-            Updated — Dec 7, 2021
+            Last Updated — Dec 7, 2021
           </p>
           <p className='text-xl'>
             <span className='font-bold'>Hey everyone, Teela here.</span> Just like you, I care about the use of my personal information online and I want you to have full transparency about the privacy practices implemented here at Every-Tuesday.com. Please read the entire policy to make sure you understand our practices fully.
