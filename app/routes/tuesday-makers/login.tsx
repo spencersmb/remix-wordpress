@@ -214,7 +214,6 @@ const ResourceLibraryLogin = () => {
               </button>
 
             </Form>
-
           </div>
 
           <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">

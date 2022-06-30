@@ -5,12 +5,12 @@ export const lockedPagesMeta: ILockedPage = {
   [lockedPageEnumSlugs.beautifulLettering]: {
     page: getStaticPageMeta({
       title: `Beautiful Lettering Bonus Downloads`,
-      desc: `Beautiful Lettering Bonus Downloads members only access!`,
+      desc: `Beautiful Lettering Bonus Downloads`,
       slug: lockedPageEnumSlugs.beautifulLettering,
     }),
     membersPage: getStaticPageMeta({
-      title: `PBeautiful Lettering Bonus Downloads Members Area`,
-      desc: `PBeautiful Lettering Bonus Downloads members only access!`,
+      title: `Beautiful Lettering Bonus Downloads Members Area`,
+      desc: `Beautiful Lettering Bonus Downloads members only access!`,
       slug: lockedPageEnumSlugs.beautifulLettering,
     })
   },

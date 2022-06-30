@@ -30,7 +30,7 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 }
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: `Blog - Every-Tuesday`,
+  title: `Blog`,
   desc: `Get the most up-to-date content on Procreate`,
   slug: `blog`,
 }))

@@ -20,7 +20,7 @@ export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage =
     author: siteAuthor.author,
     content: '',
     date,
-    title: `${title} - Every Tuesday`,
+    title: `${title}`,
     id: '',
     slug,
     seo:{

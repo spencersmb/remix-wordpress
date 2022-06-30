@@ -11,6 +11,7 @@ import Layout from "@App/components/layoutTemplates/layout"
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
+import { lockedPagesMeta } from '@App/lib/lockedPages/classDownloads';
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
@@ -21,6 +22,15 @@ export let loader: LoaderFunction = async ({ request, params }) => {
     throw new Response("Not Found", {
       status: 404
     });
+  }
+
+  const lockedMeta = lockedPagesMeta[lookUpSlug]
+
+  if (!lockedMeta) {
+    return {
+      title: '404',
+      description: 'error: No Locked Data found',
+    }
   }
 
   let { downloadGridBy, gridTags } = await fetchAPI(getGraphQLString(query), {
@@ -39,11 +49,18 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   const logoutRedirect = getLockedPageRedirectLogoutPath(lookUpSlug)
   await checkForCookieLogin(request, getCookie, logoutRedirect)
 
+  // PAGE coming from the server needs to be renamed so that JSONLD doesn't get crossed with wrong data
+  const response = {
+    ...downloadGridBy,
+    serverPage: downloadGridBy.page, // not needed on the front end..
+    page: lockedMeta.membersPage
+  }
+
   return json({
     user: true,
     freebies: downloadGridBy.grid.items,
     filterTags: gridTags,
-    ...downloadGridBy
+    ...response
   })
 
 }

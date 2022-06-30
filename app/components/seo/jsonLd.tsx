@@ -36,6 +36,7 @@ const JsonLd = () => {
       item: metadata.domain,
     }
   ]
+
   let image = {
     url: defaultFeaturedImage.sourceUrl,
     altText: defaultFeaturedImage.altText,
@@ -80,7 +81,7 @@ const JsonLd = () => {
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
-      title: `${page.seo.title} - Every Tuesday`,
+      title: `${page.seo.title}`, // Every-Tuesday is added in getStaticPageMeta for static pages
       publishTime: page.seo.opengraphPublishedTime,
       modifiedTime: page.seo.opengraphModifiedTime,
       description: page.seo.metaDesc,

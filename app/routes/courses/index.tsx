@@ -13,7 +13,7 @@ import { getBasicPageMetaTags } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: `Courses - Every-Tuesday`,
+  title: `Courses`,
   desc: `Tons of Procreate Brushes, textures, and highrez assets to choose from`,
   slug: `courses`,
 }))

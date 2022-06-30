@@ -5,15 +5,15 @@ import {
 } from '../utils/loaderHelpers'
 import { logUserInJWT } from '../utils/fetch.server'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { getBasicPageMetaTags, getHtmlMetadataTags } from '../utils/seo'
+import { getBasicPageMetaTags } from '../utils/seo'
 import Layout from '@App/components/layoutTemplates/layout'
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node'
-import { Form, Link, useActionData, useLoaderData, useTransition } from '@remix-run/react'
-import { AnimatePresence, motion } from "framer-motion";
-import { XCircleIcon } from '@heroicons/react/solid'
+import { Form, useActionData, useLoaderData, useTransition } from '@remix-run/react'
+import { AnimatePresence } from "framer-motion";
 import InputBase from '@App/components/forms/input/inputBase'
 import useSite from '@App/hooks/useSite'
+import FormErrorMessage from '@App/components/forms/messages/ErrorMessage'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -254,38 +254,3 @@ const Login = () => {
 
 export default Login
 
-
-const containerMotion = {
-  closed: {
-    height: 0,
-    y: '-15%'
-  },
-  open: {
-    height: 'auto',
-    y: 0
-  }
-}
-
-interface Props {
-  message: string
-  id: string
-}
-const FormErrorMessage = ({ message, id }: Props) => {
-  return (
-    <motion.div
-      key={id}
-      id={id}
-      initial={containerMotion.closed}
-      animate={containerMotion.open}
-      exit={containerMotion.closed}
-      role="alert"
-      className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
-      <div className="flex flex-row items-center justify-center p-3 ">
-        <div className="max-w-[24px] w-full mr-2">
-          <XCircleIcon fill={'#7F1D1D'} />
-        </div>
-        <p dangerouslySetInnerHTML={{ __html: message }} />
-      </div>
-    </motion.div>
-  )
-}
