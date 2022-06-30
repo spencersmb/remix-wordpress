@@ -25,7 +25,7 @@ describe('Utils: LockedPages', () => {
     })
 
     expect(response.title)
-    .toBe('Beautiful Lettering Bonus Downloads')
+    .toEqual('Beautiful Lettering Bonus Downloads - Every Tuesday')
   })
   it('Should get metaData tags for loggedIn LockedPage based on slug and show page title', () => {
 
@@ -49,7 +49,7 @@ describe('Utils: LockedPages', () => {
     }, {membersPage: true})
 
     expect(response.title)
-    .toBe('PBeautiful Lettering Bonus Downloads Members Area')
+    .toBe('PBeautiful Lettering Bonus Downloads Members Area - Every Tuesday')
   })
   it('Should return 404 title for metaTag with no Data', () => {
 

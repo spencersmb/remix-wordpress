@@ -5,7 +5,6 @@ import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers"
 import { mockPostDataComplete } from "@TestUtils/mock-data/posts"
 import { mockPaidProduct } from "@TestUtils/mock-data/products"
 import { renderUseSiteProviderUi } from "@TestUtils/providerUtils"
-import { renderUi } from "@TestUtils/renderUtils"
 import IpadFeatureImage from "../ipadFeatureImage"
 
 // TODO: TEST FOR PADDING_BOTTOM on breakpoint

@@ -471,13 +471,38 @@ export function mapCourseData(course: ICourseRaw | {} = {}): ICourse {
   return modifiedData
 }
 
-// TODO: test this function
+/**
+ * @function filterCategories
+ * @tested - 6/29/2022
+ * @description Map over Categories and return a clean object
+ * 
+ *
+ **/
 export function filterCategories(categories: ICategoryRaw[]): ICategories[] {
   return categories.map(({ node }) => {
     return {
       ...node,
     };
   })
+}
+
+/**
+ * @function removeLastItemFromArray
+ * @tested - 6/29/2022
+ * @description Removes the last item from an array and return the new array AND the last item both as seperate objects to use in the breadcrumbs component
+ * 
+ *
+ **/
+export function removeLastItemFromArray(array: any[] | undefined) {
+  if (!array) {
+    return { lastElement: null, modifiedArray: null }
+  }
+  const newArray = [...array]
+  const lastElement = newArray.pop()
+  return {
+    modifiedArray: newArray,
+    lastElement
+  }
 }
 
 // export function createThumbnailImage(

@@ -276,6 +276,6 @@ describe('Utils: Seo', () => {
     }, page)
 
     expect(response.title)
-    .toBe('Page Title')
+    .toBe('Page Title - Every Tuesday')
   })
 })

@@ -1,3 +1,4 @@
+import { removeLastItemFromArray } from "@App/utils/posts"
 import { Link } from "@remix-run/react"
 
 
@@ -11,20 +12,6 @@ import { Link } from "@remix-run/react"
  * 
  * 
  */
-
-// TODO: test this function again for single item output
-function removeLastItemFromArray(array: any[] | undefined) {
-  if (!array) {
-    return { lastElement: null, modifiedArray: null }
-  }
-  const newArray = [...array]
-  const lastElement = newArray.pop()
-  return {
-    modifiedArray: newArray,
-    lastElement
-  }
-
-}
 function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
   const { links } = props
   const { modifiedArray, lastElement } = removeLastItemFromArray(links)

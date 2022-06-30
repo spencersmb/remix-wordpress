@@ -3,7 +3,7 @@ import { mockPostCommentRaw } from "@TestUtils/mock-data/comments"
 import { mockCourse, mockCourseRaw } from "@TestUtils/mock-data/courses"
 import { mockCategories_skill_adv, mockCategories_skill_int, mockCategories_skill_none, mockPostRaw, mockPostRawFormatted } from "@TestUtils/mock-data/posts"
 import { mockExtendedLicense, mockServerLicense, mockStandardLicense } from "@TestUtils/mock-data/products"
-import { checkTitleForBrackets, filterNodeFromTags, findSkillLevel, findString, flattenAllCourses, flattenAllPosts, formatDate, getLicense, mapCourseData, mapPostData, parseComment, parseStringForSpecialCharacters, rearrangeLicenses, splitProgramNameInTitle } from "../posts"
+import { checkTitleForBrackets, filterCategories, filterNodeFromTags, findSkillLevel, findString, flattenAllCourses, flattenAllPosts, formatDate, getLicense, mapCourseData, mapPostData, parseComment, parseStringForSpecialCharacters, rearrangeLicenses, removeLastItemFromArray, splitProgramNameInTitle } from "../posts"
 
 describe('Utils: Post Utilities', () => {
 
@@ -232,5 +232,40 @@ describe('Utils: Post Utilities', () => {
     if(result){
       expect(result.length).toEqual(1)
     }
+  })
+
+  it('filterCategories() Should format the Categories Object', () => {
+    expect(filterCategories(mockPostRaw.categories.edges)).toEqual([
+      {
+        databaseId: 1,
+        id: 'id',
+        name: 'Cat 1',
+        slug: 'cat-1'
+      }
+    ])
+  })
+
+  it('removeLastItemFromArray() Should remove the last item from array', () => {
+      const breadcrumbLinks = [
+          {
+          url: '/blog',
+          text: 'Blog'
+        },
+        {
+          url: `/procreate-tutorial`,
+          text: 'Procreate Tutorial'
+        }
+      ]
+      const result = removeLastItemFromArray(breadcrumbLinks)
+      expect(result.modifiedArray?.length).toEqual(1)
+      expect(result.modifiedArray).toEqual([{...breadcrumbLinks[0]}])
+
+      expect(result.lastElement).toEqual(breadcrumbLinks[1])
+  })
+
+  it('removeLastItemFromArray() Should return null items', () => {
+      const result = removeLastItemFromArray(undefined)
+      expect(result.modifiedArray).toEqual(null)
+      expect(result.lastElement).toEqual(null)
   })
 })

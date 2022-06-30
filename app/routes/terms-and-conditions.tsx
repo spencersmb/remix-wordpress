@@ -1,6 +1,47 @@
 import Breadcrumbs from "@App/components/blog/breadcrumbs"
 import Layout from "@App/components/layoutTemplates/layout"
+import { getBasicPageMetaTags } from "@App/utils/seo";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link } from "remix"
+
+export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  metaData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title: `Terms & Conditions`,
+    desc: `Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms`,
+    slug: `privacy-and-cookies`
+  })
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+
+  const page = {
+    title: 'Terms & Conditions',
+    slug: 'privacy-and-cookies',
+    description: 'Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms',
+    seo: {
+      title: 'Terms & Conditions',
+      opengraphModifiedTime: '',
+      metaDesc: 'Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms'
+    }
+  }
+  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+};
 
 const TermsConditionsPage = () => {
   const breadcrumbLinks = [

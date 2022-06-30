@@ -15,7 +15,7 @@ describe('Utils: PageUtils', () => {
       author:siteAuthor.author,
       content:'',
       date: new Date().getDate.toString(),
-      title: `Test title - Every Tuesday`,
+      title: `${testData.title} - Every Tuesday`,
       id:'',
       slug:'test-slug',
       seo:{
@@ -23,7 +23,7 @@ describe('Utils: PageUtils', () => {
         opengraphModifiedTime: date,
         opengraphPublishedTime: date,
         readingTime: 3,
-        title: testData.title,
+        title: `${testData.title} - Every Tuesday`,
       },
       featuredImage: defaultFeaturedImage
     }
