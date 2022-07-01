@@ -23,7 +23,7 @@ function SelectDropdown(props: IProps) {
   // console.log('items', items);
   // console.log('selected', selected);
   function onChangeFilter(item: { name: string, slug: string }) {
-    // console.log('click', item);
+    console.log('click', item);
     setFilter(item)
   }
 

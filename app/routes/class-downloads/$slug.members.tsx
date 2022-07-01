@@ -12,6 +12,8 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { lockedPagesMeta } from '@App/lib/lockedPages/classDownloads';
+import { consoleHelper } from '@App/utils/windowUtils';
+import GridItems from '@App/components/gridDownloads/gridItems';
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
@@ -65,31 +67,40 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 
 }
 interface ILoaderData {
+  page: IPageCore
   freebies: IGridItem[]
   filterTags: IFilterTag[]
   title: string
 }
+
 const LockedMembersPage = () => {
   let data = useLoaderData<ILoaderData>()
-  console.log(`${data.title} data.freebies`, data.freebies);
-
-  const { filter, handleFilterClick, handlePageClick, posts, pagination } = useFreebies<IGridItem[]>({ items: data.freebies })
+  consoleHelper(`${data.title} data`, data);
+  const mobileFilterTags = [
+    { slug: 'all', name: 'All' },
+    ...data.filterTags
+  ]
+  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IGridItem[]>({ items: data.freebies })
 
   return (
     <Layout>
-      <div>Logged In: {data.title}</div>
-      <FreebieFilter
-        setFilter={handleFilterClick}
-        filterTags={data.filterTags}
-        selectedFilter={filter}
-        handleClick={handleFilterClick}
-      />
-      <div>
-        {posts
-          .map(item => (<GridItem key={item.title} {...item} />))}
-      </div>
-      <div>
-        {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+      <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
+        <div className='col-span-2 col-start-2 mt-8 mb-8 text-center tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
+          <h1 className='text-5xl font-sentinel__SemiBoldItal'>{data.title}</h1>
+          <h2 className='mt-4 text-2xl'>Members Area</h2>
+        </div>
+        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+          <FreebieFilter
+            setFilter={setFilter}
+            filterTags={mobileFilterTags}
+            selectedFilter={filter}
+            handleClick={handleFilterClick}
+          />
+        </div>
+        <GridItems gridItems={posts} />
+        <div>
+          {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+        </div>
       </div>
     </Layout>
   )
@@ -115,22 +126,29 @@ query LockedPageGrid($slug: String) {
         title
         excerpt
         image {
-          srcSet
+          altText
+          caption
           sourceUrl
-          sizes
           srcSet
+          sizes
+          id
           mediaDetails {
-            sizes {
-              sourceUrl
-              width
-            }
             width
+            height
+            sizes{
+              width
+              file
+              height
+              name
+              sourceUrl
+              mimeType
+            }
           }
         }
-        tags {
-          name
-          slug
-        }
+      tags {
+        name
+        slug
+      }
         downloadLink
       }
     }

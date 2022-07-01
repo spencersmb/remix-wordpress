@@ -335,12 +335,14 @@ const ResourceLibraryMembers = () => {
       {/* Check tags on user example for paid Resource Library License */}
       <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
 
-      <FreebieFilter
-        setFilter={setFilter}
-        filterTags={filterTags}
-        selectedFilter={filter}
-        handleClick={handleFilterClick}
-      />
+      <div className='col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+        <FreebieFilter
+          setFilter={setFilter}
+          filterTags={filterTags}
+          selectedFilter={filter}
+          handleClick={handleFilterClick}
+        />
+      </div>
 
       <FreebieGrid freebies={posts} />
 

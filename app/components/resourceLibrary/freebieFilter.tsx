@@ -22,11 +22,17 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
   const selectedCss = 'selected-tag bg-neutral-300 py-2 px-3 rounded-lg font-BlogDateAuthor'
   const defaultCss = 'py-2 px-3 bold-hover-fix inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
   return (
-    <div className='col-span-2 col-start-2 mt-8 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
+    <>
+
       <div className='flex flex-col items-center justify-center tablet:flex-row'>
-        <h4 className='mb-3 ml-2 mr-3 text-sm leading-none text-center uppercase text-neutral-700 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop:'>
+        <h4 className='mb-3 text-sm leading-none text-center uppercase text-neutral-700 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop:'>
           Filter by category
         </h4>
+
+      </div>
+
+      {/* MOBILE FILTER */}
+      <div className='flex flex-col items-center justify-center'>
         <div className='relative z-10 laptop:hidden'>
           <SelectDropdown
             setFilter={setFilter}
@@ -34,6 +40,8 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
             items={filterTags} />
         </div>
       </div>
+
+      {/* DESKTOP FILTER */}
       <div className='flex items-center justify-center'>
         <ul
           data-testid="filterTags"
@@ -55,7 +63,7 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
             })}
         </ul>
       </div>
-    </div>
+    </>
   )
 }
 

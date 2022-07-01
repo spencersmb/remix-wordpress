@@ -35,10 +35,7 @@ interface IResourceItem{
 interface IGridItem{
   downloadLink: string
   excerpt: string
-  image: {
-    sourceUrl: string
-    srcSet: string
-  }
+  image: IFeaturedImage | null
   tags: Itag[]
   title: string
 }

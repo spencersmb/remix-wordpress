@@ -1224,6 +1224,10 @@ video {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
 .mb-16 {
   margin-bottom: 4rem;
 }
@@ -1632,9 +1636,6 @@ video {
 .max-w-\[525px\] {
   max-width: 525px;
 }
-.max-w-\[24px\] {
-  max-width: 24px;
-}
 .max-w-none {
   max-width: none;
 }
@@ -1658,6 +1659,9 @@ video {
 }
 .max-w-\[547px\] {
   max-width: 547px;
+}
+.max-w-\[24px\] {
+  max-width: 24px;
 }
 .max-w-\[278px\] {
   max-width: 278px;
@@ -2139,10 +2143,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 247 / var(--tw-bg-opacity));
 }
-.bg-red-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
 .bg-slate-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
@@ -2259,6 +2259,10 @@ video {
 .bg-indigo-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 .bg-black {
   --tw-bg-opacity: 1;
@@ -2759,10 +2763,6 @@ video {
 .text-sage-700 {
   color: var(--sage-700);
 }
-.text-red-800 {
-  --tw-text-opacity: 1;
-  color: rgb(153 27 27 / var(--tw-text-opacity));
-}
 .text-neutral-600 {
   --tw-text-opacity: 1;
   color: rgb(143 125 135 / var(--tw-text-opacity));
@@ -2841,6 +2841,10 @@ video {
 .text-sage-100 {
   color: var(--sage-100);
 }
+.text-blue-slate {
+  --tw-text-opacity: 1;
+  color: rgb(64 71 100 / var(--tw-text-opacity));
+}
 .text-slate-700 {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
@@ -2889,10 +2893,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(21 18 19 / var(--tw-text-opacity));
 }
-.text-blue-slate {
-  --tw-text-opacity: 1;
-  color: rgb(64 71 100 / var(--tw-text-opacity));
-}
 .text-grey-400 {
   --tw-text-opacity: 1;
   color: rgb(157 163 175 / var(--tw-text-opacity));
@@ -2904,6 +2904,10 @@ video {
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity));
 }
 .text-neutral-400 {
   --tw-text-opacity: 1;
@@ -4895,11 +4899,11 @@ video {
   .laptop\:pr-4 {
     padding-right: 1rem;
   }
-  .laptop\:pt-0 {
-    padding-top: 0px;
-  }
   .laptop\:pb-16 {
     padding-bottom: 4rem;
+  }
+  .laptop\:pt-0 {
+    padding-top: 0px;
   }
   .laptop\:text-left {
     text-align: left;
