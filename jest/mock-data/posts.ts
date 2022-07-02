@@ -2879,13 +2879,14 @@ export const mockMetaData: ISiteMetaDataMapped = {
     basicBanner:{
       color: '#00998e',
       endDate: '2020-12-01T00:00:00',
-      showBanner: false,
+      showBanner: 'false',
       title: 'Basic Course',
       url: 'https://etheadless.local/basic-course/'
     },
     lfmBanner:{
       endDate: '2020-12-01T00:00:00',
-      showBanner: false,
+      showBanner: 'false',
+      nextLaunchDate: null
     }
   }
 }

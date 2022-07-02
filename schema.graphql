@@ -6209,6 +6209,8 @@ type ThemeOptions_Courselaunchbanners_LfmBannner implements AcfFieldGroup {
     endDate: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    "Select the next launch date &amp; time. (Time should normally be 10 am)"
+    nextLaunchDate: String
     "Display Banner?"
     showBanner: String
 }
@@ -6916,6 +6918,8 @@ enum MediaItemSizeEnum {
     HEADLESS_POST_FEATURE_IMAGE
     "MediaItem with the headless_post_thumbnail size"
     HEADLESS_POST_THUMBNAIL
+    "MediaItem with the headless_post_thumbnail_small size"
+    HEADLESS_POST_THUMBNAIL_SMALL
     "MediaItem with the headless_resource_image size"
     HEADLESS_RESOURCE_IMAGE
     "MediaItem with the large size"

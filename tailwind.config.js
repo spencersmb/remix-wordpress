@@ -135,6 +135,13 @@ module.exports = {
       'charcoal':{
         100: '#F7F8FA',
         900: '#1E1E21'
+      },
+      'lfm-pink':{
+        200: 'var(--lfm-pink-200)',
+        400: '#b08383'
+      },
+      'lfm-blue':{
+        700: '#35546d'
       }
     },
     extend:{

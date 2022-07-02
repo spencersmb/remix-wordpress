@@ -1,4 +1,5 @@
-import { json, LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
 import { Link, Outlet, useLoaderData } from '@remix-run/react'
 import React from 'react'
 import { lfmMiniCourseCookie } from '@App/cookies.server'
@@ -45,7 +46,9 @@ function LfmMiniCourse(props: any) {
           </li>
         </ul>
       </nav>
+
       <Outlet context={{ cookie: { ...data } }} />
+
       <footer>
         LFM MiniCourse Footer
       </footer>

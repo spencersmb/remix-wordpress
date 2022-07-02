@@ -60,15 +60,16 @@ export const siteInitialState: ISiteContextState  = {
     },
     courseLaunchBanners:{
       basicBanner:{
-        showBanner: false,
+        showBanner: 'false',
         color: 'null',
         endDate: 'null',
         title: 'null',
         url: 'null'
       },
       lfmBanner:{
-        showBanner: false,
-        endDate: 'null'
+        showBanner: 'false',
+        endDate: 'null',
+        nextLaunchDate: 'null'
       }
     }
   },

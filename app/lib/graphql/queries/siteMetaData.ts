@@ -14,9 +14,10 @@ export const SiteMetaDataQuery = gql`
           title
           url
         }
-        lfmBannner {
+        lfmBanner {
           endDate
           showBanner
+          nextLaunchDate
         }
       }
     }

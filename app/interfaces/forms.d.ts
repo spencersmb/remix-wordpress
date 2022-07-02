@@ -49,3 +49,14 @@ interface InputBaseProps {
   min?: number
   ref?: (node?: Element | null | undefined) => void
 }
+type MiniCourseSignUpActionData = {
+  formError?: string;
+  subscriberError?: string
+  fieldErrors?: {
+    email: string | undefined;
+  };
+  fields?: {
+    email: string;
+  }
+  form?: string
+};

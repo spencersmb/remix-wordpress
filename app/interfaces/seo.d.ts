@@ -214,15 +214,16 @@ interface IDynamicMetaData {
   }
   courseLaunchBanners: {
     basicBanner: {
-      showBanner: boolean
+      showBanner: string
       color: string
       endDate: string
       title: string
       url: string
     }
     lfmBanner: {
-      showBanner: boolean
-      endDate: string
+      showBanner: string
+      endDate: string | null
+      nextLaunchDate: string | null
     }
   }
 }

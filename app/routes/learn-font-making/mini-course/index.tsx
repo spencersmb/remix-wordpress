@@ -1,4 +1,5 @@
-import { ActionFunction, json, LoaderFunction, MetaFunction } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { Form, Link, useActionData, useTransition } from '@remix-run/react';
 import React from 'react'
 import { lfmMiniCourseCookie } from '@App/cookies.server';
@@ -40,7 +41,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({})
 };
 
-export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
+export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => {
 
   let form = await request.formData();
   let email = form.get('email')
@@ -84,20 +85,9 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
 }
 
-type ActionData = {
-  formError?: string;
-  subscriberError?: string
-  fieldErrors?: {
-    email: string | undefined;
-  };
-  fields?: {
-    email: string;
-  }
-  form?: string
-};
 
 function LfmMiniCourseSignUp() {
-  let actionData = useActionData<ActionData | undefined>();
+  let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
 
   return (
