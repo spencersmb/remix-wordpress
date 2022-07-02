@@ -75,8 +75,11 @@ export let links: LinksFunction = () => {
 export let loader: LoaderFunction = async ({ request }) => {
   // Variables to expose to the front end
   const url = new URL(request.url);
+
   let ENV = {
-    APP_ROOT_URL: process.env.APP_ROOT_URL,
+    // APP_ROOT_URL: process.env.APP_ROOT_URL,
+    // Alternate way of setting the APP_ROOT_URL
+    APP_ROOT_URL: url.origin, // now its dynamic
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
     SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
   }

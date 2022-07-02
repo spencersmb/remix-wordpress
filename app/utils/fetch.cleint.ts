@@ -131,6 +131,29 @@ const fetchSubmitComment: FetchSubmitCommentType = (comment) => {
   })
 }
 
+/*
+Font File fetch
+*/
+export async function fetchFontPreviewFile(fontName: string){
+  const rootUrl = window.ENV.APP_ROOT_URL as string
+  const url = `${rootUrl}/api/font/file?font=${fontName}`;
+
+  console.log('fontUrl', url);
+  
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  const json = await res.json()
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json
+}
+
 export {
   fetchSubmitComment,
   fetchAPIClientSide,

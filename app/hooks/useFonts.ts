@@ -1,5 +1,7 @@
+import { fetchFontPreviewFile } from "@App/utils/fetch.cleint";
+import { consoleHelper } from "@App/utils/windowUtils";
 import { useEffect, useState } from "react";
-import { fetchFontPreviewFile } from "@App/utils/fetch.server";
+
 
 interface FontState {
   status: string
@@ -7,7 +9,7 @@ interface FontState {
   fontName: null | string
 }
 export type ISetFontFunction = (fontSlug: string | null) => (event: IClickEvent) => void;
-export function useFonts(){
+export function useFonts(initialFont?: string){
   const [state, setState] = useState<FontState>({
     status: 'idle',
     font: null,
@@ -18,6 +20,14 @@ export function useFonts(){
   //   const check = document.fonts.check(`12px ${fontSlug}`)
   //   return check
   // }
+
+  useEffect(() => {
+    if(initialFont){
+      loadFont(initialFont)
+    }
+  }, [
+    initialFont
+  ])
 
   function loadFont(fontSlug: string){
     setState((localState) =>{
@@ -30,7 +40,6 @@ export function useFonts(){
 
   const setFontClickHandler: ISetFontFunction = (fontName) => (event) => {
     event.preventDefault();
-
     if (fontName) loadFont(fontName);
   }
 

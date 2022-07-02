@@ -197,7 +197,7 @@ export async function fetchShopifyStoreFrontRequest({query, variables }: {query:
 /*
 Font File fetch
 */
-export async function fetchFontPreviewFile(fontName: string){
+export async function fetchFontPreviewFileServer(fontName: string){
 
   const url = `${root_url}/api/font/file?font=${fontName}`;
   const res = await fetch(url, {

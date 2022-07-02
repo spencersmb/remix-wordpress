@@ -6187,7 +6187,7 @@ type ThemeOptions_Courselaunchbanners implements AcfFieldGroup {
     basicBanner: ThemeOptions_Courselaunchbanners_BasicBanner
     "The name of the ACF Field Group"
     fieldGroupName: String
-    lfmBannner: ThemeOptions_Courselaunchbanners_LfmBannner
+    lfmBanner: ThemeOptions_Courselaunchbanners_LfmBanner
 }
 
 "Field Group"
@@ -6204,7 +6204,7 @@ type ThemeOptions_Courselaunchbanners_BasicBanner implements AcfFieldGroup {
 }
 
 "Field Group"
-type ThemeOptions_Courselaunchbanners_LfmBannner implements AcfFieldGroup {
+type ThemeOptions_Courselaunchbanners_LfmBanner implements AcfFieldGroup {
     "Choose the launch end date and time"
     endDate: String
     "The name of the ACF Field Group"

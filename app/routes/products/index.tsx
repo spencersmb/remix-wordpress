@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useEffect, useState } from "react";
 import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
-import { fetchAPI, fetchFontPreviewFile } from "@App/utils/fetch.server";
+import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "@App/utils/seo";
 import FeaturedProduct from "@App/components/products/featureProduct";

@@ -1,6 +1,6 @@
 
 import { flattenAllPosts } from '../utils/posts'
-import { fetchAPI, fetchFontPreviewFile } from '../utils/fetch.server'
+import { fetchAPI, fetchFontPreviewFileServer } from '../utils/fetch.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
 import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
@@ -93,7 +93,9 @@ export let loader: LoaderFunction = async ({ request }) => {
   const pageInfo = wpAPI?.posts.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
 
-  // const fontPreview = await fetchFontPreviewFile('skinny')
+  // const fontPreview = await fetchFontPreviewFileServer('skinny')
+  // console.log('fontPreview', fontPreview);
+
 
   // https://remix.run/api/remix#json
   return {

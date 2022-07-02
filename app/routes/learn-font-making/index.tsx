@@ -1,12 +1,19 @@
 import LfmClosedPage from '@App/components/lfm/closedPage';
+import { useFonts } from '@App/hooks/useFonts';
 import useSite from '@App/hooks/useSite'
 import { ckFormIds } from '@App/lib/convertKit/formIds';
+import { fetchFontPreviewFile } from '@App/utils/fetch.cleint';
+import { fetchFontPreviewFileServer } from '@App/utils/fetch.server';
 import { formatDate } from '@App/utils/posts'
 import { validateEmail } from '@App/utils/validation';
 import { consoleHelper } from '@App/utils/windowUtils';
-import type { ActionFunction } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
 
+export let loader: LoaderFunction = async ({ request }) => {
+  return null
+}
 export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => {
 
   let form = await request.formData();
@@ -63,7 +70,10 @@ function formatAMPM(date: Date) {
   return strTime;
 }
 function LfmLandingPage(props: Props) {
+  let data = useLoaderData<any>();
+
   const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
+
   const testDate = lfmBanner.nextLaunchDate ? new Date(lfmBanner.nextLaunchDate) : new Date()
 
   // can compare dates
