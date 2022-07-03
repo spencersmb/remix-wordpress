@@ -192,6 +192,11 @@ module.exports = {
       },
       animation: {
         fadeIn: 'fadeIn 300ms ease-in-out',
+      },
+      zIndex:{
+        '1': '1',
+        '2': '2',
+        '3': '3',
       }
     }
   },

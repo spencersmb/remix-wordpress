@@ -11,17 +11,17 @@ interface Props {
     placeholder: string
   }
   srcSet?: string
-  reverse?: boolean
+  vertical?: boolean
   testId?: string
   scrollPosition?: ScrollPosition
   blur?: boolean
 }
 //TODO: Test this
 function LazyImgix(props: Props) {
-  const { image, id, scrollPosition, reverse, testId, srcSet, blur = true } = props
+  const { image, id, scrollPosition, vertical, testId, srcSet, blur = true } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
-  const imagePadding = reverse ? width / height : height / width
+  const imagePadding = vertical ? width / height : height / width
 
   return (
     <div

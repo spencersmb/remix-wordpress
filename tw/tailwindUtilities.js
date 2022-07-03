@@ -21,6 +21,11 @@ const css = {
     },
 
 
+  },
+  '.img-child-w-auto':{
+    '& img':{
+      width: 'auto !important',
+    }
   }
 }
 const underlined = {
