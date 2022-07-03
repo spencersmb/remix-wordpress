@@ -1,9 +1,7 @@
+import Layout from '@App/components/layoutTemplates/layout';
 import LfmClosedPage from '@App/components/lfm/closedPage';
-import { useFonts } from '@App/hooks/useFonts';
 import useSite from '@App/hooks/useSite'
 import { ckFormIds } from '@App/lib/convertKit/formIds';
-import { fetchFontPreviewFile } from '@App/utils/fetch.cleint';
-import { fetchFontPreviewFileServer } from '@App/utils/fetch.server';
 import { formatDate } from '@App/utils/posts'
 import { validateEmail } from '@App/utils/validation';
 import { consoleHelper } from '@App/utils/windowUtils';
@@ -89,11 +87,10 @@ function LfmLandingPage(props: Props) {
   const isClassOpen = lfmBanner.showBanner === "true"
 
   return (
-    <div>
-      LFM HOME PAGE
+    <Layout>
       {isClassOpen && <div>Class is open</div>}
       {!isClassOpen && <LfmClosedPage date={nextLaunchDate} />}
-    </div>
+    </Layout>
   )
 }
 

@@ -7,7 +7,6 @@ export let loader: LoaderFunction = async({request, params}) => {
   
   const fontSlug = url.searchParams.get('font')
   
-  
   if(!fontSlug){
     return {
       error: {

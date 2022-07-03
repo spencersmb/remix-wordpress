@@ -1,8 +1,6 @@
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Form, Link, useActionData, useTransition } from '@remix-run/react';
-import React from 'react'
-import { lfmMiniCourseCookie } from '@App/cookies.server';
 import { ckFormIds } from '@App/lib/convertKit/formIds';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { getHtmlMetadataTags } from '@App/utils/seo';
