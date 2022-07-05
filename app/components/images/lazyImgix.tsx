@@ -8,7 +8,7 @@ interface Props {
     height: number
     alt: string
     src: string
-    placeholder: string
+    placeholder?: string
   }
   srcSet?: string
   vertical?: boolean
@@ -35,7 +35,7 @@ function LazyImgix(props: Props) {
           alt={image.alt ? image.alt : 'Every Tuesday Image'}
           effect={blur ? 'blur' : 'opacity'}
           srcSet={srcSet ? srcSet : ''}
-          placeholderSrc={image.placeholder}
+          placeholderSrc={image.placeholder ? image.placeholder : ''}
           // Make sure to pass down the scrollPosition,
           // this will be used by the component to know
           // whether it must track the scroll position or not

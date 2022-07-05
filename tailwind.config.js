@@ -9,7 +9,7 @@ module.exports = {
     screens: {
       'mobile': '640px',
       // => @media (min-width: 640px) { ... }
-
+      'mobileWide': '600px',
       'tablet': '768px',
       // => @media (min-width: 768px) { ... }
 
@@ -197,6 +197,9 @@ module.exports = {
         '1': '1',
         '2': '2',
         '3': '3',
+      },
+      gridColumnEnd: {
+        'full': '-1'
       }
     }
   },

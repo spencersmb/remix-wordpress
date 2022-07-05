@@ -91,10 +91,9 @@
 
       & > div {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 0;
+        left: 0;
         width: 100%;
-        transform: translate(-50%, -50%);
       }
     }
   }
@@ -141,10 +140,10 @@
 
       & > div {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 0;
+        left: 0;
         width: 100%;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
       }
     }
   }
@@ -160,7 +159,7 @@
       max-width: 182px;
     }
     @media only screen and (min-width: 1024px) {
-      min-width: 232px;
+      min-width: 245px;
       min-height: 124px;
       grid-column: 4/5;
       grid-row: 4/6;
@@ -168,10 +167,10 @@
 
       & > div {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 0%;
+        left: 0%;
         width: 100%;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
       }
     }
   }
@@ -186,7 +185,7 @@
   @media only screen and (min-width: 1024px) {
     grid-column: 2/12;
     grid-row: 1/2;
-    padding: 0;
+    padding: 40px 0 0;
     grid-template-rows: [date] 1fr [title] auto auto;
     z-index: 3;
   }
@@ -195,7 +194,12 @@
 .skinnyJeans {
   font-family: skinny;
 }
-
+.skinnyJeans-caps {
+  font-family: skinny-caps;
+}
+.skinnyJeans-symbols {
+  font-family: skinny-symbols;
+}
 .lfm-myFonts {
   margin: 60px auto;
   grid-template-rows: 70px auto auto;

@@ -15,9 +15,13 @@ type ActionData = {
   form?: string
 };
 
+interface Props {
+  inputBg?: string
+}
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
 // TODO: TEST
-const LfmMiniCourseSignUpForm = (props: any) => {
+const LfmMiniCourseSignUpForm = (props: Props) => {
+  const { inputBg } = props
   let actionData = useActionData<ActionData | undefined>();
   const transition = useTransition()
 
@@ -48,7 +52,7 @@ const LfmMiniCourseSignUpForm = (props: any) => {
             label="Email"
             wrapperCss="desktop:flex-[1_1_45%]"
             labelCss="text-sm text-grey-600 font-semibold"
-            className="mt-2 mb-5 bg-grey-100 desktop:mb-0 "
+            className={`mt-2 mb-5 desktop:mb-0 ${inputBg}`}
             invalid={Boolean(
               actionData?.fieldErrors?.email
             ) || undefined}

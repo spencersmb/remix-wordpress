@@ -17,7 +17,7 @@ const css = {
     },
 
     '@media (min-width: 1280px)': {
-      gridTemplateColumns: 'grid-template-columns: minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr)',
+      gridTemplateColumns: 'minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr)'
     },
 
 

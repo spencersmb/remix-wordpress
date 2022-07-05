@@ -86,6 +86,7 @@ function LfmLandingPage(props: Props) {
   const nextLaunchDate = lfmBanner.nextLaunchDate ? formatDate(lfmBanner.nextLaunchDate) : ''
   const isClassOpen = lfmBanner.showBanner === "true"
 
+
   return (
     <Layout>
       {isClassOpen && <div>Class is open</div>}
