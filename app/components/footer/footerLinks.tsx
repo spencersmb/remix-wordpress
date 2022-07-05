@@ -89,8 +89,8 @@ const FooterLinks = () => {
                 <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
                 <ul>
                   {block.links.map(link => (
-                    <li key={link.url} className='pb-3 text-lg text-sage-400 btn-spencer'>
-                      <Link data-testid="footer-link--item" className='hover:text-sage-300 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
+                    <li key={link.url} className='pb-3 text-lg text-sage-300 btn-spencer'>
+                      <Link data-testid="footer-link--item" className='hover:text-sage-200 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                     </li>
                   ))}
                 </ul>

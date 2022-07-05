@@ -10,7 +10,7 @@ export const lfmTestimonialData: testimonial = {
       last: 'K.'
     },
     texture: TestimonialTexutreEnum.T1,
-    backgroundColor: '#f2faf3',
+    backgroundColor: '#e8f3e9',
     instagramHandle: '@howjoyful',
     profileImg: `${testimonialProfileUrl}/howjoyful.jpg`,
     img: {

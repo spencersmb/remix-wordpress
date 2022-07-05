@@ -70,10 +70,14 @@ function MiniCourse3Steps(props: Props) {
 
             {breakpointConvertPX(breakpoint) >= 768 && loaded && <img
               className='max-w-[740px] tablet:max-w-[830px] laptop:max-w-[840px] desktop:max-w-[1100px] desktopXl:max-w-[1180px] animate-fadeIn'
+              width={'1596px'}
+              height={'2000px'}
               src={`${lfmImgRoot.aws}/mini-course/footer_hero.jpg`} alt="Learn Font Making Mini Course: Enroll for free!" />}
 
             {breakpointConvertPX(breakpoint) < 768 && loaded && <img
               className='max-w-[740px] tablet:max-w-[830px] laptop:max-w-[840px] desktop:max-w-[1100px] desktopXl:max-w-[1180px] animate-fadeIn'
+              width={'830px'}
+              height={'1040px'}
               src={`${lfmImgRoot.aws}/mini-course/footer_hero-mobile.jpg`} alt="Learn Font Making Mini Course: Enroll for free!" />}
 
             {/* <picture>
@@ -107,8 +111,8 @@ function MiniCourse3Steps(props: Props) {
 
         </div>
 
-        <div className="relative col-span-2 col-start-2 py-4 miniCourse-vids__subtitle tablet:row-start-2 tablet:col-start-2 tablet:col-span-7 z-2 tablet:pb-16 tablet:pt-0 laptop:col-start-2 laptop:col-span-6 laptop:pt-7 laptop:pb-14 desktop:ml-8 desktop:col-start-2 desktop:col-span-5 desktop:pr-24 desktop:pt-8 desktop:pb-24">
-          <p className='max-w-[360px] mx-auto text-center text-lfm-pink-400 text-xl font-medium tablet:max-w-[400px] tablet:m-0 tablet:text-left laptop:max-w-none laptop:text-lg desktop:text-xl'>
+        <div className="relative col-span-2 col-start-2 py-4 miniCourse-vids__subtitle tablet:row-start-2 tablet:col-start-2 tablet:col-span-7 z-2 tablet:pb-16 tablet:pt-0 laptop:col-start-2 laptop:col-span-6 laptop:pt-7 laptop:pb-14 desktop:ml-8 desktop:col-start-2 desktop:col-span-5 desktop:pr-0 desktopXl:pr-24 desktop:pt-0 desktop:pb-24">
+          <p className='max-w-[360px] mx-auto text-center text-lfm-pink-400 text-xl font-medium tablet:max-w-[400px] tablet:m-0 tablet:text-left laptop:max-w-none laptop:text-2xl '>
             Watch the basics of hand lettered font making *and* selling in this 3 part free video series.
           </p>
         </div>

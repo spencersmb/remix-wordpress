@@ -64,10 +64,10 @@ function MiniCourse40k(props: Props) {
       </div>
 
       <div className="lfm-myFonts__content row-start-3 col-start-2 col-span-2 mt-20 mx-0 mb-[30px] flex flex-col tablet:col-start-4 tablet:col-span-8 tablet:mb-6 tablet:mt-16 laptop:col-start-9 laptop:col-span-5 laptop:row-start-1 laptop:row-span-2 desktop:col-start-8 desktop:col-span-5">
-        <h2 className="mt-5 mb-3 text-3xl font-sentinel__SemiBoldItal text-lfm-pink-400">
+        <h2 className="mt-5 mb-3 text-3xl font-sentinel__SemiBoldItal text-lfm-pink-400 laptop:text-4xl">
           In my first year creating and selling hand lettered fonts, I made $40,000
         </h2>
-        <span className="mb-8 font-sentinel__SemiBoldItal text-lfm-pink-400">(that’s not a typo!)</span>
+        <span className="mb-8 font-sentinel__SemiBoldItal text-lfm-blue-700 laptop:text-lg">(that’s not a typo!)</span>
         <p className="text-lg">
           This is passive income at its finest. When you sell a digital product (like a font) online, you get paid and the buyer
           downloads it instantly. End of story. No restocking supplies, packing orders or trips to the post office. Make a font once, sell it forever.

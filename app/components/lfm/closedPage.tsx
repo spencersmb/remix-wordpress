@@ -5,6 +5,7 @@ import { lfmImgRoot } from "@App/utils/lfmUtils"
 import LfmMiniCourseSignUpForm from "../forms/lfm/miniCourseSignUp"
 import LazyImgix from "../images/lazyImgix"
 import AboutMe from "./aboutMe"
+import MadeBy from "./madeBy"
 import MiniCourse3Steps from "./mini-course/miniCourse3Steps"
 import MiniCourse40k from "./mini-course/miniCourse40k"
 import MiniCourseHeader from "./mini-course/miniCourseHeader"
@@ -65,9 +66,14 @@ function LfmClosedPage(props: Props) {
                 Begin the *free* font making mini course today to learn all the basics!
               </p>
             </div>
-            <LfmMiniCourseSignUpForm inputBg="bg-white" />
+            <LfmMiniCourseSignUpForm
+              idLoop="2"
+              inputBg="bg-white"
+            />
           </div>
         </div>
+
+        <MadeBy />
 
         <LfmTestimonial
           fontLoadingStatus={fontLoadingState.status}

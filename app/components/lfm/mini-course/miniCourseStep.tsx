@@ -22,14 +22,14 @@ interface Props {
 function MiniCourseStep(props: Props) {
   const { stepModule } = props
   const { state: { breakpoint } } = useSite()
-  const [ref, inView] = useInView()
-  const [loaded, setLoaded] = useState(false)
+  // const [ref, inView] = useInView()
+  // const [loaded, setLoaded] = useState(false)
 
-  useEffect(() => {
-    if (inView) {
-      setLoaded(true)
-    }
-  }, [inView])
+  // useEffect(() => {
+  //   if (inView) {
+  //     setLoaded(true)
+  //   }
+  // }, [inView])
   const imageClassName = 'relative shadow-et_2_lg z-3 w-full'
   const isStep2 = stepModule.step === 'Video 2'
   const bgClass = isStep2
@@ -42,22 +42,27 @@ function MiniCourseStep(props: Props) {
   return (
     <div className={classNames(isStep2 ? 'laptop:mt-28 ' : '', 'relative items-center miniCourse-vids__courseVideo et-grid-basic col-span-full gap-y-7 tablet:mt-8 laptop:mt-20')}>
 
-      <div ref={ref} className={classNames(imgCss, 'miniCourse-vids__courseVideo--img min-h-[240px] z-2 relative col-start-2 col-span-2 tablet:min-h-[214.59px] laptop:min-h-[316px] desktop:min-h-[377.31px]')}>
+      <div className={classNames(imgCss, 'miniCourse-vids__courseVideo--img min-h-[240px] z-2 relative col-start-2 col-span-2 tablet:min-h-[214.59px] laptop:min-h-[316px] desktop:min-h-[377.31px]')}>
 
-        {breakpointConvertPX(breakpoint) >= 768 && loaded &&
-          <img
-            className={imageClassName}
-            src={stepModule.image.desktop}
-            alt={stepModule.image.alt} />}
+        {breakpointConvertPX(breakpoint) >= 768 &&
+          <div className={imageClassName}>
+            <LazyImgix
+              blur={false}
+              id={`${stepModule.step}-image`}
+              image={
+                {
+                  src: stepModule.image.desktop,
+                  alt: stepModule.image.alt,
+                  width: 1000,
+                  height: 645,
+                }
+              }
+            />
+          </div>
+        }
 
-        {breakpointConvertPX(breakpoint) < 768 && loaded &&
-          <img
-            className={imageClassName}
-            src={stepModule.image.mobile}
-            alt={stepModule.image.alt} />}
-
-        {/* {breakpointConvertPX(breakpoint) < 768 && loaded &&
-          <div className='relative shadow-xl z-2'>
+        {breakpointConvertPX(breakpoint) < 768 &&
+          <div className={imageClassName}>
             <LazyImgix
               blur={false}
               id={`${stepModule.step}-image`}
@@ -71,7 +76,7 @@ function MiniCourseStep(props: Props) {
               }
             />
           </div>
-        } */}
+        }
 
         {isStep2 && <div className="miniCourse-vids__courseVideo--watercolor absolute z-2 top-[50px] right-[-150px] left-auto w-[300px] laptop:w-[600px] laptop:left-auto laptop:right-[-240px] laptop:top-[180px] laptop:rotate-[-15deg]">
           <LazyImgix

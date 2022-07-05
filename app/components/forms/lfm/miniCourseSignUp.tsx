@@ -17,11 +17,12 @@ type ActionData = {
 
 interface Props {
   inputBg?: string
+  idLoop?: string
 }
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
 // TODO: TEST
 const LfmMiniCourseSignUpForm = (props: Props) => {
-  const { inputBg } = props
+  const { inputBg, idLoop = '1' } = props
   let actionData = useActionData<ActionData | undefined>();
   const transition = useTransition()
 
@@ -56,8 +57,8 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             invalid={Boolean(
               actionData?.fieldErrors?.email
             ) || undefined}
-            id='email-input'
-            name='email'
+            id={`email-input-${idLoop}`}
+            name={`email-${idLoop}`}
             type='email'
             required={true}
             placeholder='Enter your email'

@@ -138,10 +138,10 @@ export async function fetchFontPreviewFile(fontName: string){
   // const rootUrl = window.ENV.APP_ROOT_URL as string
   const rootUrl = window.location.origin
   const url = `${rootUrl}/api/font/file?font=${fontName}`;
-  const hostname = window.location.protocol + "//" 
-    + window.location.hostname
-  console.log('fontUrl', url);
-  console.log('host', hostname);
+  // const hostname = window.location.protocol + "//" 
+  //   + window.location.hostname
+  // console.log('fontUrl', url);
+  // console.log('host', hostname);
   
   
   const res = await fetch(url, {

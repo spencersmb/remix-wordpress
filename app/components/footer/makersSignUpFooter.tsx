@@ -43,10 +43,10 @@ const MakersFooterSignUp = () => {
     <div className="bg-sage-600 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto py-9 px-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
 
       {/* CONTENT */}
-      <div className="flex flex-col mt-48 ml-auto text-primary-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[53%] mb-[10px] laptop:mt-0 relative">
+      <div className="flex flex-col mt-[80%] ml-auto text-primary-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[53%] mb-[10px] laptop:mt-0 relative">
 
         {/* IMAGE */}
-        <div className="absolute w-full top-[-250px] left-[0px] max-w-[600px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[90%] laptop:top-[20px] laptop:left-[-96%] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
+        <div className="absolute w-full top-[-60vw] left-[0px] max-w-[600px] mobileWide:top-[-360px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[90%] laptop:top-[20px] laptop:left-[-96%] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
           <IpadFooterImage
             id={heroImage.id}
             featuredImage={featuredImage}
@@ -54,9 +54,9 @@ const MakersFooterSignUp = () => {
           />
         </div>
 
-        <h4 className="pb-4 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2">
+        <p className="pb-4 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2">
           Grab 50+ Design and Lettering Files!
-        </h4>
+        </p>
         <p className="text-lg pb-11">
           When you join the Tuesday Makers, you’ll receive special offers on courses + products and gain access to the Resource Library, stocked with over 50 design and lettering files!
         </p>
@@ -125,8 +125,15 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
       </div>
 
       {/* SCRIBBLE TEXTURE  */}
-      <div className="absolute top-[-50px] left-[-50px] z-0 w-[301px] tablet:left-[-200px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[550px] laptop:left-[-130px] laptop:top-[-58px] desktop:w-[650px] desktop:left-[-190px] desktop:top-[-90px]">
-        <Picture >
+      <div className="absolute top-[-50px] left-[-50px] z-0 w-[301px] tablet:left-[-200px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[550px] laptop:left-[-25px] laptop:top-[-58px] desktop:w-[650px] desktop:left-[-50px] desktop:top-[-50px] h-full">
+        <LazyLoadImage
+          key={'ipadScribble'}
+          alt={'Every-Tuesday hand drawn scribble with Procreate'}
+          effect="blur"
+          placeholderSrc={staticImages.scribbles.scribble_3.placeholder}
+          src={staticImages.scribbles.scribble_3.src}
+        />
+        {/* <Picture >
           <Source
             attributeConfig={{
               src: 'data-src',
@@ -179,7 +186,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
             htmlAttributes={{
               src: staticImages.scribbles.scribble_3.placeholder, // low quality image here
             }} />
-        </Picture>
+        </Picture> */}
       </div>
     </div>
   )

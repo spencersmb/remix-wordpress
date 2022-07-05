@@ -3,15 +3,50 @@ import LfmClosedPage from '@App/components/lfm/closedPage';
 import useSite from '@App/hooks/useSite'
 import { ckFormIds } from '@App/lib/convertKit/formIds';
 import { formatDate } from '@App/utils/posts'
+import { getBasicPageMetaTags } from '@App/utils/seo';
 import { validateEmail } from '@App/utils/validation';
 import { consoleHelper } from '@App/utils/windowUtils';
-import type { ActionFunction, LoaderFunction } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
+
+export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  rootData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title: `Learn Font Making: Mini-Course SignUp`,
+    desc: `The proven step-by-step process to create professional and profitable hand lettered fonts.`,
+    slug: `learn-font-making`
+  })
+};
+
 export let loader: LoaderFunction = async ({ request }) => {
-  return null
-}
+  const page = {
+    title: `Learn Font Making: Mini-Course SignUp`,
+    slug: 'learn-font-making',
+    description: `The proven step-by-step process to create professional and profitable hand lettered fonts.`,
+    seo: {
+      title: `Learn Font Making: Mini-Course SignUp`,
+      opengraphModifiedTime: '',
+      metaDesc: `The proven step-by-step process to create professional and profitable hand lettered fonts.`
+    }
+  }
+  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+};
 export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => {
 
   let form = await request.formData();

@@ -49,10 +49,13 @@ function LfmTestimonial(props: Props) {
           <div className="flex flex-row items-center justify-center py-5 lfm-testimonial__avatar laptop:pt-10 laptop:pb-5">
 
             <div className="lfm-testimonial__avatar--img max-w-[72px] w-full mr-4 min-h-[72px] overflow-hidden rounded-full">
-              <img className="lozad lozad-not-loaded img-responsive"
-                data-src={testimonial.profileImg}
-                src={testimonial.profileImg}
-                alt={`${testimonial.instagramHandle} Instagram Profile`} />
+              <LazyImgix
+                id={`${testimonial.instagramHandle} Instagram Profile`} image={{
+                  width: 150,
+                  height: 150,
+                  alt: `${testimonial.instagramHandle} Instagram Profile`,
+                  src: testimonial.profileImg,
+                }} />
             </div>
 
             <div className="flex flex-col items-center lfm-testimonial__user">
@@ -61,7 +64,7 @@ function LfmTestimonial(props: Props) {
                 <div className='w-5'>
                   <InstagramSvg fill='#8976ff' />
                 </div>
-                <p className='text-[#8976ff] ml-2'>{testimonial.instagramHandle}</p>
+                <p className='text-[#634bf9] ml-2'>{testimonial.instagramHandle}</p>
               </div>
             </div>
           </div>
@@ -91,7 +94,10 @@ function LfmTestimonial(props: Props) {
             </div>
 
             <div className="lfm-testimonial__fontHero z-3 relative rounded-2xl overflow-hidden rotate-[-3deg] shadow-2xl laptop:mx-0 laptop:ml-auto laptop:mt-0 desktop:max-w-[545px] desktop:mx-auto">
-              <a href={testimonial.fontLink} target="_blank" rel="noopener noreferrer">
+              <a
+                href={testimonial.fontLink}
+                target="_blank"
+                rel="noopener noreferrer">
                 <LazyImgix
                   id={`${testimonial.instagramHandle}-font`}
                   blur={false}
@@ -100,26 +106,9 @@ function LfmTestimonial(props: Props) {
                     alt: `${testimonial.name.first}'s Font`,
                     height: 700,
                     width: 1020,
+                    placeholder: testimonial.img.mobile,
                   }}
                 />
-                {/* <LazyLoadPicture
-                  alt={`${testimonial.name.first}'s Font`}
-                  sources={[
-                    {
-                      media: `(min-width: 320px)`,
-                      url: testimonial.img.mobile,
-                    },
-                    {
-                      media: `(min-width: 768px)`,
-                      url: testimonial.img.desktop,
-                    },
-                    {
-                      media: `(min-width: 1200px)`,
-                      url: `${testimonial.img.retina} 2x`,
-                    }
-                  ]}
-                  className='w-full'
-                /> */}
               </a>
             </div>
 
@@ -133,6 +122,7 @@ function LfmTestimonial(props: Props) {
               </div>
             </div>
 
+            {/* TODO: add watercolor to AWS */}
             <div className="lfm-testimonial__scribble max-w-[200px] absolute bottom-[-70px] left-[140px] rotate-[120deg] z-2 min-h-[277.71px] w-full desktop:bottom-[-169px] desktop:w-[350px] desktop:rotate-[130deg] desktop:min-h-[503.25px] desktop:max-w-none desktop:left-[230px]">
               <LazyImgix
                 id={`${testimonial.name.first}-scribble`}

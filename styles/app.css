@@ -227,7 +227,10 @@ button {
     height: auto !important;
   }
 }
-
+.lazy-load-image-background {
+  height: 100%;
+  width: 100%;
+}
 .lazy-load-wrapper-block {
   & span {
     display: block !important;

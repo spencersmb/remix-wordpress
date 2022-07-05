@@ -6,7 +6,7 @@ import { classNames } from "@App/utils/appUtils"
  * @tested - 5/30/2022
  * @param props 
  */
-// TODO: Add tests for DEFAULT VALUE and label
+// TODO: Add tests for DEFAULT VALUE and label, check aria-label
 function InputBase(props: InputBaseProps) {
   const { type, id, name, invalid, className, label, disabled, placeholder = '', required = false, ref, autoComplete, labelCss, defaultValue, wrapperCss } = props
 
@@ -19,7 +19,7 @@ function InputBase(props: InputBaseProps) {
         data-testid={id}
         className={classNames(className ? className : '', defaultClass)}
         type={type}
-        aria-label={label}
+        // aria-label={label}
         id={id}
         minLength={props.minLength}
         min={props.min}
