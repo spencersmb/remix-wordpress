@@ -30,5 +30,4 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - uses: superfly/flyctl-actions/setup-flyctl@master
-        with:
-          args: "deploy"
+      - run: flyctl deploy --remote-only
