@@ -1,5 +1,7 @@
 export enum LfmTestimonialNamesEnum {
   joyK = 'joyK',
+  LizU = 'lizU',
+  BeckM = 'beckM',
 }
 
 export enum TestimonialTexutreEnum {

@@ -4,9 +4,8 @@ import { AnimatePresence } from "framer-motion";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
 type ActionData = {
-  formError?: {
-    [key: string]: string
-  }
+  formError?: string;
+  formError__footer?: string;
   subscriberError?: string
   fieldErrors?: {
     email: string | undefined;
@@ -14,20 +13,16 @@ type ActionData = {
   fields?: {
     email: string;
   }
-  form?: {
-    [key: string]: string
-  }
+  form?: string
+  form__footer?: string
 };
 
 interface Props {
-  inputBg?: string
-  type: string
 }
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
 // TODO: TEST
-const LfmMiniCourseSignUpForm = (props: Props) => {
-  const { inputBg, type = 'default' } = props
-  let actionData = useActionData<ActionData | undefined>();
+const LfmMiniCourseSignUpFormFooter = (props: Props) => {
+  let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
 
   return (
@@ -35,10 +30,10 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
       {/*ERROR SUBMISSION*/}
       {/* @ts-ignore */}
       <AnimatePresence>
-        {actionData?.formError?.[`${type}`] && transition.state === 'idle' &&
+        {actionData?.formError?.footer && transition.state === 'idle' &&
           <FormErrorMessage
             id={'subscriberError'}
-            message={actionData?.formError?.[`${type}`] || ''} />
+            message={actionData.formError.footer || ''} />
         }
         {actionData?.fieldErrors?.email && transition.state === 'idle' &&
           <FormErrorMessage
@@ -47,37 +42,39 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
         }
       </AnimatePresence>
       <div className="login_form relative z-[2] mt-2 w-full">
-        <Form method='post' className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
-          actionData?.formError?.[`${type}`]
-            ? "form-error-message"
-            : undefined
-        }>
+        <Form method='post'
+          className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
+            actionData?.formError?.footer
+              ? "form-error-message"
+              : undefined
+          }>
 
           <InputBase
             label="Email"
             wrapperCss="desktop:flex-[1_1_45%]"
             labelCss="text-sm text-grey-600 font-semibold"
-            className={`mt-2 mb-5 desktop:mb-0 ${inputBg}`}
+            className={`mt-2 mb-5 desktop:mb-0 bg-grey-100 tablet:bg-white tablet:ring-offset-lfm-pink-200`}
             invalid={Boolean(
               actionData?.fieldErrors?.email
             ) || undefined}
-            id={`email-${type}`}
+            id={`email-footer`}
             name={`email`}
             type='email'
             required={true}
             placeholder='Enter your email'
           />
-          <input type="hidden" name="_action" value={type} />
+          <input type="hidden" name="_action" value={'footer'} />
+
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
             type='submit'
-            className="btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 desktop:max-h-[56px] desktop:ml-4 desktop:flex-1">
+            className="btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 desktop:max-h-[56px] desktop:ml-4 desktop:flex-1 ring-offset-lfm-pink-200">
             {transition.state === 'idle' ? 'Start Now' : '...Loading'}
           </button>
         </Form>
       </div>
-      {actionData?.form?.[`${type}`] === 'success' && <div>
+      {actionData?.form?.footer === 'success' && <div>
         <h2>Sucess</h2>
         <h3>Instructions</h3>
         <p>Accept email </p>
@@ -86,4 +83,4 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
   )
 }
 
-export default LfmMiniCourseSignUpForm
+export default LfmMiniCourseSignUpFormFooter

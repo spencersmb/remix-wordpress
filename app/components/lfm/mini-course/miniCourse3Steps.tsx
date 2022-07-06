@@ -1,20 +1,27 @@
+import LfmMiniCourseSignUpForm from '@App/components/forms/lfm/miniCourseSignUp'
+import LfmMiniCourseSignUpFormFooter from '@App/components/forms/lfm/miniCourseSignUpFooter'
 import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
-import { breakpointConvertPX } from '@App/utils/appUtils'
+import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import MiniCourseStep from './miniCourseStep'
 
-interface Props { }
+interface Props {
+  children?: React.ReactNode
+  showForm?: boolean
+}
 
 function MiniCourse3Steps(props: Props) {
+  const { children, showForm } = props
   const miniCourseTextImg = {
     src: `${lfmImgRoot.aws}/mini-course/mini-course-title--desktop.png`,
     width: 950,
     height: 446,
     alt: 'Mini Course Title',
   }
+
   const [ref, inView] = useInView()
   const [loaded, setLoaded] = useState(false)
   const { state: { breakpoint } } = useSite()
@@ -25,48 +32,26 @@ function MiniCourse3Steps(props: Props) {
     }
   }, [inView])
 
-  const step1 = {
-    step: 'Video 1',
-    title: 'How to Choose a Font Style that Sells',
-    description: 'How I discovered + implemented these steps, which led to over $40,000 in font sales my first year creating + selling hand lettered fonts.',
-    image: {
-      desktop: `${lfmImgRoot.aws}/mini-course/video-1.jpg`,
-      mobile: `${lfmImgRoot.aws}/mini-course/video-1-mobile.jpg`,
-      alt: 'Mini Course Step 1',
-    }
-  }
-  const step2 = {
-    step: 'Video 2',
-    title: '5 Font Making Rookie Mistakes',
-    description: '5 of the biggest font making myths + mistakes. Avoid them now to save time and money creating your fonts later.',
-    image: {
-      desktop: `${lfmImgRoot.aws}/mini-course/video-2.jpg`,
-      mobile: `${lfmImgRoot.aws}/mini-course/video-2-mobile.jpg`,
-      alt: 'Mini Course Step 2',
-    }
-  }
-  const step3 = {
-    step: 'Video 3',
-    title: 'The Tools',
-    description: 'Everything you need (links included!) to start creating and selling your own hand lettered fonts.',
-    image: {
-      desktop: `${lfmImgRoot.aws}/mini-course/video-3.jpg`,
-      mobile: `${lfmImgRoot.aws}/mini-course/video-3-mobile.jpg`,
-      alt: 'Mini Course Step 3',
-    }
-  }
-
   return (
-    <div className='py-10 tablet:py-20'>
+    <div className={classNames(showForm ? 'pt-10 tablet:pt-20' : 'py-10 tablet:py-20', '')}>
 
-      <div className="et-grid-basic rows-[auto_auto_auto_auto] gap-y-6">
+      <div className={classNames(showForm
+        ? 'rows-[auto auto 1fr auto auto]'
+        : 'rows-[auto_auto_auto_auto]',
+        'et-grid-basic gap-y-6')}>
 
         {/* Background Img */}
         <div
           ref={ref}
-          className="miniCourse-vids__background row-start-1 col-span-full min-h-[433px] relative overflow-hidden z-1 bg-lfm-pink-200 bg-[140px_center] bg-no-repeat tablet:min-h-[426px] tablet:col-start-6 tablet:col-span-9 tablet:row-start-1 tablet:row-span-2 tablet:mr-[-30px] laptop:row-start-1 laptop:row-span-2 laptop:col-start-4 laptop:col-end-full desktop:mr-[-30px] desktop:min-h-[566px]">
+          className={classNames(showForm
+            ? 'tablet:row-start-1 tablet:row-span-3 tablet:col-span-full laptop:col-start-1 laptop:col-end-full'
+            : 'tablet:col-start-6 tablet:col-span-9 tablet:row-start-1 tablet:row-span-2 laptop:row-start-1 laptop:row-span-2 laptop:col-start-4 laptop:col-end-full',
+            'miniCourse-vids__background row-start-1 col-span-full min-h-[360px] relative overflow-hidden z-1 bg-lfm-pink-200 bg-[140px_center] bg-no-repeat tablet:min-h-[426px] tablet:mr-[-30px] desktop:mr-[-30px] desktop:min-h-[566px]')}>
 
-          <div className='absolute top-[-240px] right-[-505px] mobileWide:right-[-345px] tablet:right-[-495px] tablet:top-[-225px] tablet:mr-[20%] laptop:top-[-205px] laptop:right-[-475px] desktop:right-[-555px] desktop:top-[-223px] desktopXl:right-[-765px] desktopXl:mr-[40%]'>
+          <div className={classNames(showForm
+            ? 'desktop:right-[-665px] desktopXl:right-[-945px]'
+            : 'desktop:right-[-555px] desktopXl:right-[-765px]',
+            'absolute top-[-240px] right-[-505px] mobileWide:right-[-345px] tablet:right-[-495px] tablet:top-[-225px] tablet:mr-[20%] laptop:top-[-205px] laptop:right-[-475px]  desktop:top-[-223px]  desktopXl:mr-[40%]')}>
 
             {breakpointConvertPX(breakpoint) >= 768 && loaded && <img
               className='max-w-[740px] tablet:max-w-[830px] laptop:max-w-[840px] desktop:max-w-[1100px] desktopXl:max-w-[1180px] animate-fadeIn'
@@ -97,7 +82,7 @@ function MiniCourse3Steps(props: Props) {
         </div>
 
         {/* HEADING */}
-        <div className='relative flex flex-col justify-center col-span-2 col-start-2 row-start-1 my-12 miniCourse-vids__title z-2 tablet:col-start-2 tablet:col-span-7 tablet:mt-16 tablet:mb-10 laptop:mb-0 desktop:mt-[100px] desktop:ml-8'>
+        <div className='relative flex flex-col justify-center col-span-2 col-start-2 row-start-1 my-3 miniCourse-vids__title z-2 tablet:col-start-2 tablet:col-span-7 tablet:mt-16 tablet:mb-0 laptop:mb-0 desktop:mt-[100px] desktop:ml-8'>
 
           <h2 className='flex flex-col mt-0 text-7xl font-sentinel__SemiBoldItal max-w-[260px] relative text-lfm-blue-700 tablet:text-[80px] tablet:max-w-[400px] tablet:mb-0 laptop:text-[110px] laptop:max-w-[540px] desktop:text-[136px] desktop:max-w-none'>
             Free Font Making
@@ -111,22 +96,17 @@ function MiniCourse3Steps(props: Props) {
 
         </div>
 
-        <div className="relative col-span-2 col-start-2 py-4 miniCourse-vids__subtitle tablet:row-start-2 tablet:col-start-2 tablet:col-span-7 z-2 tablet:pb-16 tablet:pt-0 laptop:col-start-2 laptop:col-span-6 laptop:pt-7 laptop:pb-14 desktop:ml-8 desktop:col-start-2 desktop:col-span-5 desktop:pr-0 desktopXl:pr-24 desktop:pt-0 desktop:pb-24">
+        <div className={classNames(showForm ? ' pt-4 tablet:pb-0' : 'py-4 tablet:pb-16 laptop:pb-14 desktop:pb-24', 'relative col-span-2 col-start-2 miniCourse-vids__subtitle tablet:row-start-2 tablet:col-start-2 tablet:col-span-7 z-2 tablet:pt-0 laptop:col-start-2 laptop:col-span-6 desktop:ml-8 desktop:col-start-2 desktop:col-span-5 desktop:pr-0 desktopXl:pr-24 desktop:pt-0')}>
           <p className='max-w-[360px] mx-auto text-center text-lfm-pink-400 text-xl font-medium tablet:max-w-[400px] tablet:m-0 tablet:text-left laptop:max-w-none laptop:text-2xl '>
             Watch the basics of hand lettered font making *and* selling in this 3 part free video series.
           </p>
         </div>
 
-        {/* ./HEADING */}
+        {showForm && <div className="miniCourse-vids__signUpFooter pb-10 col-start-2 col-span-2 tablet:pb-16 tablet:max-w-[457px] z-2 tablet:row-start-3 tablet:col-start-2 tablet:col-span-12 tablet:min-h-[94px] laptop:min-h-[155px] desktop:ml-8 desktop:max-w-[625px]">
+          <LfmMiniCourseSignUpFormFooter />
+        </div>}
 
-        {/* VIDEO 1 */}
-        <MiniCourseStep stepModule={step1} />
-
-        {/* VIDEO 2 */}
-        <MiniCourseStep stepModule={step2} />
-
-        {/* VIDEO 3 */}
-        <MiniCourseStep stepModule={step3} />
+        {children}
 
       </div>
 

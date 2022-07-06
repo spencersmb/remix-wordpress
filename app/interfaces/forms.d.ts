@@ -51,7 +51,9 @@ interface InputBaseProps {
   ref?: (node?: Element | null | undefined) => void
 }
 type MiniCourseSignUpActionData = {
-  formError?: string;
+  formError?: {
+    [key: string]: string
+  }
   subscriberError?: string
   fieldErrors?: {
     email: string | undefined;
@@ -59,5 +61,7 @@ type MiniCourseSignUpActionData = {
   fields?: {
     email: string;
   }
-  form?: string
-};
+  form?: {
+    [key: string]: string
+  }
+}

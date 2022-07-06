@@ -26,3 +26,8 @@ interface ITestimonial {
   fontLink: string
   fontName: string
 }
+interface CmGridItem {
+	img: string
+	link: string
+	alt: string
+}

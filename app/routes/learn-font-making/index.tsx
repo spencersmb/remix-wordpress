@@ -2,6 +2,7 @@ import Layout from '@App/components/layoutTemplates/layout';
 import LfmClosedPage from '@App/components/lfm/closedPage';
 import useSite from '@App/hooks/useSite'
 import { ckFormIds } from '@App/lib/convertKit/formIds';
+import { shuffleArray } from '@App/utils/lfmUtils';
 import { formatDate } from '@App/utils/posts'
 import { getBasicPageMetaTags } from '@App/utils/seo';
 import { validateEmail } from '@App/utils/validation';
@@ -9,6 +10,7 @@ import { consoleHelper } from '@App/utils/windowUtils';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import gridItemsJson from '../../server/fonts/gridItems.json'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -45,18 +47,29 @@ export let loader: LoaderFunction = async ({ request }) => {
       metaDesc: `The proven step-by-step process to create professional and profitable hand lettered fonts.`
     }
   }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  const gridItems = gridItemsJson
+  return json({
+    page,
+    gridItems: shuffleArray(gridItems.items)
+  }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => {
 
   let form = await request.formData();
+  let formType = form.get('_action') as string
   let email = form.get('email')
+
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
+
   if (
     typeof email !== "string"
   ) {
-    return { formError: `Form not submitted correctly.` };
+    return {
+      formError: {
+        [formType]: `Form not submitted correctly.`
+      }
+    }
   }
 
   let fields = { email };
@@ -84,10 +97,20 @@ export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignU
       }),
     })
 
-    return json({ form: 'success' })
+    return json({
+      form: {
+        [formType]: 'success'
+      }
+    })
   } catch (e) {
-    return json({ form: 'fail' })
+    return json({
+      form: {
+        [formType]: 'fail'
+      }
+    })
   }
+
+
 
 }
 
@@ -104,6 +127,8 @@ function formatAMPM(date: Date) {
 }
 function LfmLandingPage(props: Props) {
   let data = useLoaderData<any>();
+  console.log('data', data);
+
 
   const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
 
@@ -125,7 +150,7 @@ function LfmLandingPage(props: Props) {
   return (
     <Layout>
       {isClassOpen && <div>Class is open</div>}
-      {!isClassOpen && <LfmClosedPage date={nextLaunchDate} />}
+      {!isClassOpen && <LfmClosedPage date={nextLaunchDate} gridItems={data.gridItems} />}
     </Layout>
   )
 }

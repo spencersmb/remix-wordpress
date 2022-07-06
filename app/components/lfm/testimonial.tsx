@@ -86,7 +86,7 @@ function LfmTestimonial(props: Props) {
               {fontLoadingStatus === 'completed' && <p className={classNames(authorNameCss, 'absolute left-[50px] top-[-70px] skinnyJeans text-2xl text-[#333F4F] rotate-[-5deg] mt-0 laptop:text-3xl')}>
                 {testimonial.name.first}'s Font
 
-                <span className={classNames(fontArrowSvgCss, 'absolute w-full max-w-[55px] right-[-55px] top-0 rotate-[55deg] laptop:top-3')}>
+                <span className={classNames(fontArrowSvgCss, 'absolute w-full max-w-[55px] right-[-55px] top-0 rotate-[55deg] laptop:top-9')}>
                   <LfmArrowSvg className={direction === 'right' ? '' : 'laptop:scale-x-[-1]'} />
                 </span>
               </p>}

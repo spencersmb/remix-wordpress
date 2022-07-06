@@ -102,7 +102,9 @@ function MiniCourseHeader(props: Props) {
 
         {/* FORM */}
         <div className="pt-[25px] pb-[40px] tablet:max-w-[570px] tablet:mx-auto tablet:w-full laptop:max-w-[505px] laptop:ml-[50px] desktop:ml-[70px]">
-          <LfmMiniCourseSignUpForm inputBg='bg-grey-100' />
+          <LfmMiniCourseSignUpForm
+            type='header'
+            inputBg='bg-grey-100' />
         </div>
 
       </div>
