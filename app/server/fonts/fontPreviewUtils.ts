@@ -19,6 +19,8 @@ enum FontPreviewName {
   ESPRESSOROAST = 'espresso',
   CORNERBAKERY = 'cornerbakery',
 }
+
+// MUST BE IMPORTED BEFORE USE so assets get added to public
 export const fontAssetsFile: IFontAsset = {
   [FontPreviewName.TUESDAY]: {
     name: 'Tuesday Script',

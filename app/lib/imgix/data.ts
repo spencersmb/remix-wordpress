@@ -1,3 +1,4 @@
+// TOOD: Add Width and Height to the data object
 export const staticImages = {
   assets:{
     pins: {

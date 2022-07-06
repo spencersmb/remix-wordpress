@@ -6,7 +6,7 @@ import CardSmall from '../cards/cardSmall'
 
 /**
  * @component - GridItem
- * @tested - 5/30/2022
+ * @tested - 7/6/2022
  */
 
 

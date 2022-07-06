@@ -56,6 +56,7 @@ module.exports = {
       '!<rootDir>/app/components/forms/layout/**',
       '!<rootDir>/app/components/forms/dropdown/**',
       '!<rootDir>/app/components/layout/**',
+      '!<rootDir>/app/components/lfm/closedPage.tsx',
       '!<rootDir>/app/components/layoutTemplates/**',
       '!<rootDir>/app/components/modals/modalTypes.ts',
       '!<rootDir>/app/components/modals/signUpInstructionsPopUp.tsx',

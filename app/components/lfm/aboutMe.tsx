@@ -2,11 +2,15 @@ import LazyImgix from '../images/lazyImgix'
 
 interface Props { }
 
-// TODO: Test this
+/**
+ * 
+ * @component LFM: About Me 
+ * @tested 7/06/2022
+ */
 function AboutMe(props: Props) {
   const authorImage = {
     src: 'https://et-website.imgix.net/et-website/images/teela-profile.jpeg?w=450&fit=clip',
-    alt: "Learn Font Making: Your Instructor Teela Cunninghamo",
+    alt: "Learn Font Making: Your Instructor Teela Cunningham",
     width: 390,
     height: 497,
     placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile.jpeg?w=20&fit=clip',
@@ -53,7 +57,7 @@ function AboutMe(props: Props) {
                 <LazyImgix
                   key={'Author'}
                   image={authorWatercolor}
-                  id={'author_image'}
+                  id={'author_image_watercolor'}
                 />
               </div>
             </div>
@@ -89,7 +93,7 @@ function AboutMe(props: Props) {
 
         {/* lfm-about-me__desc */}
         <div className="relative col-span-2 col-start-2 row-start-4 lfm-about-me__desc z-2 tablet:col-start-8 tablet:col-span-6 laptop:col-start-7 laptop:col-span-7 laptop:ml-7 desktop:mx-12 desktopXl:col-start-8 desktopXl:col-span-5">
-          <div className="max-w-[400px] mx-auto laptop:max-w-none">
+          <div data-testid="aboutMe_content" className="max-w-[400px] mx-auto laptop:max-w-none">
             <h3 className="my-4 text-2xl italic font-semibold text-lfm-pink-400">I help creatives build and improve their digital skills to open new opportunities.</h3>
             <p className="mb-4 text-lg">
               If you’re familiar with Every Tuesday, then you know my love for lettering + design runs deep. In fact, in the last 6 years, I’ve taught over 200,000 students and my design + lettering videos on YouTube have accumulated over 19 million views

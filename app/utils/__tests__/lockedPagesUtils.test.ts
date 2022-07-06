@@ -49,7 +49,7 @@ describe('Utils: LockedPages', () => {
     }, {membersPage: true})
 
     expect(response.title)
-    .toBe('PBeautiful Lettering Bonus Downloads Members Area - Every Tuesday')
+    .toBe('Beautiful Lettering Bonus Downloads Members Area - Every Tuesday')
   })
   it('Should return 404 title for metaTag with no Data', () => {
 

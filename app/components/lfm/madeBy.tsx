@@ -4,6 +4,12 @@ import LazyImgix from '../images/lazyImgix'
 
 interface Props { }
 
+/**
+ * 
+ * @component LFM: MadeBy
+ * 
+ * @tested: 7/6/2022
+ */
 function MadeBy(props: Props) {
 
   return (

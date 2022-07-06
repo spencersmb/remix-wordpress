@@ -5,7 +5,7 @@ import { lfmImgRoot } from "@App/utils/lfmUtils"
 import LfmMiniCourseSignUpForm from "../forms/lfm/miniCourseSignUp"
 import LazyImgix from "../images/lazyImgix"
 import AboutMe from "./aboutMe"
-import CmGrid from "./cmGrid"
+import CmGrid from "./fontGrid/cmGrid"
 import MadeBy from "./madeBy"
 import MiniCourse3Steps from "./mini-course/miniCourse3Steps"
 import MiniCourse40k from "./mini-course/miniCourse40k"
@@ -64,6 +64,7 @@ function LfmClosedPage(props: Props) {
       alt: 'Mini Course Step 3',
     }
   }
+
   return (
     <>
       {/* < !--main intro sign up for mini course-- > */}

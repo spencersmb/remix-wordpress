@@ -15,7 +15,7 @@ describe('Utils: PageUtils', () => {
       author:siteAuthor.author,
       content:'',
       date: new Date().getDate.toString(),
-      title: `${testData.title} - Every Tuesday`,
+      title: `${testData.title}`,
       id:'',
       slug:'test-slug',
       seo:{
