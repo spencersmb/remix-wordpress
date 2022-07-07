@@ -1,4 +1,3 @@
-import LfmMiniCourseSignUpForm from '@App/components/forms/lfm/miniCourseSignUp'
 import LazyImgix from '@App/components/images/lazyImgix'
 import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
 
@@ -8,6 +7,11 @@ interface Props {
   form?: React.ReactNode
 }
 
+/**
+ * 
+ * @component MiniCourseHeader
+ * @tested 07/07/2022
+ */
 function MiniCourseHeader(props: Props) {
   const { fontLoadingState, date, form } = props
 
@@ -55,7 +59,9 @@ function MiniCourseHeader(props: Props) {
       {/* INTRO CARDS COMPONENT */}
       <div className="col-span-full lfm-intro__cards h-[300px] z-[2] relative bg-lfm-pink-200 tablet:h-[400px] laptop:bg-transparent laptop:h-[695px] laptop:row-span-2 laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14]">
 
-        <div className="lfm-intro__cardsContent">
+        <div
+          data-testid="intro-header-fonts"
+          className="lfm-intro__cardsContent">
           {introImages.map((image, index) => {
             return (
               <div key={index} className="lfm-intro__font">
