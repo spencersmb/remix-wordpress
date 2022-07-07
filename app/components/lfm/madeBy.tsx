@@ -61,7 +61,9 @@ function MadeBy(props: Props) {
                 }}
               />
             </div>
-            <p className='max-w-[625px] text-lg'>
+            <p
+              data-testid='madeByText'
+              className='max-w-[625px] text-lg'>
               There are helpful tutorials online for font making, but a lot of them use language that can get confusing fast. We're speaking the same language here: no confusion, and as straightforward as possible. From one lettering artist to another.
             </p>
           </div>

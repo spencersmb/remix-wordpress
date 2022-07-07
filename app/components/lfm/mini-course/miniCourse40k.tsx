@@ -6,7 +6,11 @@ interface Props {
   fontLoadingState: string
 }
 
-// TODO: TEST THIS
+/**
+ * 
+ * @component MiniCourse40k
+ * @tested 7/7/2022 
+ */
 function MiniCourse40k(props: Props) {
   const { fontLoadingState } = props
 
@@ -40,7 +44,9 @@ function MiniCourse40k(props: Props) {
 
       {/* FONT IMAGES */}
       <div className="lfm-myFonts__fontsContent w-full col-span-full row-start-2 row-span-1 relative z-[2] max-w-[375px] mx-auto tablet:max-w-[525px] tablet:col-start-3 tablet:col-span-10 tablet:mx-[30px] laptop:max-w-[501px] laptop:col-start-1 laptop:col-span-8 desktop:m-0 desktop:col-start-3 desktop:col-span-8">
-        <div className="lfm-myFonts__fonts">
+        <div
+          data-testid='lfm-40k-images'
+          className="lfm-myFonts__fonts">
           {firstYearImages.map((image, index) => {
             return (
               <div key={index}
@@ -54,6 +60,7 @@ function MiniCourse40k(props: Props) {
             )
           })}
         </div>
+
         {fontLoadingState === 'completed' && <div className="lfm-myFonts__quote absolute left-[15px] bottom-[-60px] rotate-[-15deg] tablet:bottom-auto tablet:top-[210px] tablet:left-auto tablet:right-[-30px]">
           <LfmArrowSvg
             className="w-[62px] rotate-[250deg] tablet:absolute tablet:bottom-[-50px] tablet:left-[-50px] tablet:rotate-[320deg] tablet:scale-[-1]"
@@ -64,7 +71,9 @@ function MiniCourse40k(props: Props) {
       </div>
 
       <div className="lfm-myFonts__content row-start-3 col-start-2 col-span-2 mt-20 mx-0 mb-[30px] flex flex-col tablet:col-start-4 tablet:col-span-8 tablet:mb-6 tablet:mt-16 laptop:col-start-9 laptop:col-span-5 laptop:row-start-1 laptop:row-span-2 desktop:col-start-8 desktop:col-span-5">
-        <h2 className="mt-5 mb-3 text-3xl font-sentinel__SemiBoldItal text-lfm-pink-400 laptop:text-4xl">
+        <h2
+          data-testid='lfm-40k-title'
+          className="mt-5 mb-3 text-3xl font-sentinel__SemiBoldItal text-lfm-pink-400 laptop:text-4xl">
           In my first year creating and selling hand lettered fonts, I made $40,000
         </h2>
         <span className="mb-8 font-sentinel__SemiBoldItal text-lfm-blue-700 laptop:text-lg">(that’s not a typo!)</span>

@@ -1,21 +1,7 @@
 import { Form, useActionData, useTransition } from "@remix-run/react"
-import type { Transition } from "@remix-run/react/transition";
 import { AnimatePresence } from "framer-motion";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
-type ActionData = {
-  formError?: string;
-  formError__footer?: string;
-  subscriberError?: string
-  fieldErrors?: {
-    email: string | undefined;
-  };
-  fields?: {
-    email: string;
-  }
-  form?: string
-  form__footer?: string
-};
 
 interface Props {
 }
@@ -43,6 +29,7 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
       </AnimatePresence>
       <div className="login_form relative z-[2] mt-2 w-full">
         <Form method='post'
+          data-testid="lfm-mc-signup-footer"
           className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
             actionData?.formError?.footer
               ? "form-error-message"

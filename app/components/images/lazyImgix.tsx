@@ -27,7 +27,7 @@ function LazyImgix(props: Props) {
   const [loaded, setLoaded] = useState(false)
   return (
     <div
-      data-testid='padding-bot'
+      data-testid='imigx-padding-bot'
       style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative flex-1`}>
       <div className={classNames(
         !blur && !loaded
@@ -43,11 +43,11 @@ function LazyImgix(props: Props) {
           alt={image.alt ? image.alt : 'Every Tuesday Image'}
           effect={blur ? 'blur' : 'opacity'}
           srcSet={srcSet ? srcSet : ''}
-          placeholderSrc={image.placeholder ? image.placeholder : ''}
+          placeholderSrc={image.placeholder ? image.placeholder : undefined}
           // Make sure to pass down the scrollPosition,
           // this will be used by the component to know
           // whether it must track the scroll position or not
-          scrollPosition={scrollPosition}
+          scrollPosition={scrollPosition ? scrollPosition : undefined}
           src={image.src}
           height={`${checkForPx(image.height)}`}
           width={`${checkForPx(image.width)}`}

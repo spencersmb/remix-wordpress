@@ -57,6 +57,12 @@ export const staticImages = {
     }
   },
   scribbles:{
+    stroke_2:{
+        src: 'https://et-website.imgix.net/et-website/images/stroke-02-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/stroke-02-min.png?w=20&fit=clip',
+        width: 288,
+        height:310
+    },
     scribble_3:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-3-min.png',
       placeholder: 'https://et-website.imgix.net/et-website/images/scribble-3-min.png?w=20&fit=clip'

@@ -2,8 +2,6 @@ import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
 import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
-import { useEffect, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
 
 interface Props {
   stepModule: {
@@ -22,14 +20,7 @@ interface Props {
 function MiniCourseStep(props: Props) {
   const { stepModule } = props
   const { state: { breakpoint } } = useSite()
-  // const [ref, inView] = useInView()
-  // const [loaded, setLoaded] = useState(false)
 
-  // useEffect(() => {
-  //   if (inView) {
-  //     setLoaded(true)
-  //   }
-  // }, [inView])
   const imageClassName = 'relative shadow-et_2_lg z-3 w-full'
   const isStep2 = stepModule.step === 'Video 2'
   const bgClass = isStep2

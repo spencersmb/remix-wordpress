@@ -7,7 +7,7 @@ import LazyImgix from "../images/lazyImgix"
 import AboutMe from "./aboutMe"
 import CmGrid from "./fontGrid/cmGrid"
 import MadeBy from "./madeBy"
-import MiniCourse3Steps from "./mini-course/miniCourse3Steps"
+import MiniCourseBanner from "./mini-course/miniCourseBanner"
 import MiniCourse40k from "./mini-course/miniCourse40k"
 import MiniCourseHeader from "./mini-course/miniCourseHeader"
 import MiniCourseStep from "./mini-course/miniCourseStep"
@@ -74,6 +74,9 @@ function LfmClosedPage(props: Props) {
         <MiniCourseHeader
           date={date}
           fontLoadingState={fontLoadingState.status}
+          form={<LfmMiniCourseSignUpForm
+            type='header'
+            inputBg='bg-grey-100' />}
         />
 
         {/* $40k Intro */}
@@ -89,7 +92,7 @@ function LfmClosedPage(props: Props) {
           testimonial={lfmTestimonialData.joyK}
           direction="full" />
 
-        <MiniCourse3Steps>
+        <MiniCourseBanner>
           <>
             {/* VIDEO 1 */}
             <MiniCourseStep stepModule={step1} />
@@ -100,7 +103,7 @@ function LfmClosedPage(props: Props) {
             {/* VIDEO 3 */}
             <MiniCourseStep stepModule={step3} />
           </>
-        </MiniCourse3Steps>
+        </MiniCourseBanner>
 
         <div className="p-8 m-6 mx-auto bg-[#e8f3e9] tablet:w-full">
           <div className="max-w-[400px] w-full mx-auto laptop:max-w-[800px] justify-center items-center">
@@ -143,7 +146,7 @@ function LfmClosedPage(props: Props) {
         {gridItems && gridItems.length > 0 &&
           <CmGrid gridItems={gridItems} />}
 
-        <MiniCourse3Steps showForm={true} />
+        <MiniCourseBanner showForm={true} />
 
       </div>
     </>

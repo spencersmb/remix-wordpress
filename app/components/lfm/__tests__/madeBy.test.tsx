@@ -21,9 +21,10 @@ describe('LFM: Made by', () => {
     expect(img).toHaveAttribute('src', 'https://s3.amazonaws.com/et-courses/lfm/bydesingerfordesigners.png')
   })
 
-  it('Should have description', () => {
-    const { findByText } = setup()
-    expect(findByText('There are helpful tutorials online')).toBeTruthy()
+  it('Should have description', async () => {
+    const { getByTestId } = setup()
+    const text = getByTestId('madeByText')
+    expect(text.innerHTML.length).toBeGreaterThan(0)
   })
 
 })

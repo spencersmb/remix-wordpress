@@ -5,10 +5,11 @@ import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
 interface Props {
   fontLoadingState: string
   date: string
+  form?: React.ReactNode
 }
 
 function MiniCourseHeader(props: Props) {
-  const { fontLoadingState, date } = props
+  const { fontLoadingState, date, form } = props
 
   const introImages = [
     {
@@ -102,9 +103,7 @@ function MiniCourseHeader(props: Props) {
 
         {/* FORM */}
         <div className="pt-[25px] pb-[40px] tablet:max-w-[570px] tablet:mx-auto tablet:w-full laptop:max-w-[505px] laptop:ml-[50px] desktop:ml-[70px]">
-          <LfmMiniCourseSignUpForm
-            type='header'
-            inputBg='bg-grey-100' />
+          {form}
         </div>
 
       </div>

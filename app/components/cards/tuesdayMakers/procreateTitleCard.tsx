@@ -7,14 +7,16 @@ interface Props { }
 
 function ProcreateTitleCard(props: Props) {
   const { } = props
-  const image: IMediaDetailSize = {
+  const image: ImageLookupReturn = {
     width: '618',
     height: '945',
     altTitle: '',
     placeholder: '/images/tm-stroke.jpg',
-    sizes: '',
+    sizes: '[]',
     sourceUrl: '/images/tm-stroke.jpg',
     srcSet: '',
+    name: 'tm-stroke',
+    file: 'tm-stroke.jpg',
   }
   return (
     <div className='relative bg-white shadow-xxl-red w-full h-full rounded-xl p-4 grid grid-cols-1 grid-flow-col max-w-[347px] mx-auto'>

@@ -3,6 +3,7 @@ export const lfmImgRoot = {
   aws: `https://et-courses.s3.amazonaws.com/lfm`
 }
 
+// TODO: Test
 export const getLfmTexture = (type: TestimonialTexutreEnum): {
   class: string, image: {
     width: number
