@@ -7,11 +7,7 @@ import React, { useRef } from 'react'
 import CmGridItem from './cmGridItem'
 
 interface Props {
-  gridItems: {
-    alt: string
-    img: string
-    link: string
-  }[]
+  gridItems: CmGridItem[]
 }
 
 function CmGrid(props: Props) {
@@ -85,7 +81,9 @@ function CmGrid(props: Props) {
         variants={gridVarients}
         custom={breakpoint}
         className="lfm-cmGrid__wrapper col-start-2 col-span-2 mb-5 z-3 relative transition-all tablet:max-w-[768px] tablet:row-start-2 tablet:mx-auto tablet:mb-10 tablet:col-span-full laptop:mb-8 laptop:max-w-[1000px] desktop:row-[2_auto] desktop:max-w-[1200px] overflow-hidden h-[645px] laptop:h-[675px] desktop:h-[810px] w-full">
-        <div className="flex flex-wrap px-4 pt-4 cmGrid__items">
+        <div
+          data-testid="cmGrid-items"
+          className="flex flex-wrap px-4 pt-4 cmGrid__items">
           {gridItems
             .map((item, index) => (
               <CmGridItem

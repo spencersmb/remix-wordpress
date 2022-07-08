@@ -83,32 +83,11 @@ export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignU
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
-
-  // Sign user up
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        api_key: process.env.CK_KEY,
-        email,
-      }),
-    })
-
-    return json({
-      form: {
-        [formType]: 'success'
-      }
-    })
-  } catch (e) {
-    return json({
-      form: {
-        [formType]: 'fail'
-      }
-    })
-  }
+  return json({
+    form: {
+      [formType]: 'success'
+    }
+  })
 
 
 

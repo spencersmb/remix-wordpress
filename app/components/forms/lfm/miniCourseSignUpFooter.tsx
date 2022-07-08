@@ -1,15 +1,36 @@
+import SignUpSuccess from "@App/components/modals/signUpSuccess";
+import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from "react";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
 
 interface Props {
 }
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
-// TODO: TEST
 const LfmMiniCourseSignUpFormFooter = (props: Props) => {
   let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
+  const { openModal, closeModal } = useSite()
+  const formRef: any = useRef()
+  useEffect(() => {
+    if (actionData?.form?.footer === 'success') {
+      openModal(
+        {
+          template: <SignUpSuccess
+            message='Check your email and click the link inside to watch the first video!'
+            closeModal={closeModal} />
+        }
+      )
+    }
+  }, [actionData])
+
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      formRef.current?.reset()
+    }
+  }, [transition])
 
   return (
     <>
@@ -28,7 +49,9 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
         }
       </AnimatePresence>
       <div className="login_form relative z-[2] mt-2 w-full">
-        <Form method='post'
+        <Form
+          ref={formRef}
+          method='post'
           data-testid="lfm-mc-signup-footer"
           className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
             actionData?.formError?.footer

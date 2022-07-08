@@ -1,6 +1,9 @@
+import SignUpSuccess from "@App/components/modals/signUpSuccess";
+import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
 import type { Transition } from "@remix-run/react/transition";
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from "react";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
 type ActionData = {
@@ -24,11 +27,31 @@ interface Props {
   type: string
 }
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
-// TODO: TEST
 const LfmMiniCourseSignUpForm = (props: Props) => {
   const { inputBg, type = 'default' } = props
   let actionData = useActionData<ActionData | undefined>();
   const transition = useTransition()
+
+  const { openModal, closeModal } = useSite()
+  const formRef: any = useRef()
+  useEffect(() => {
+
+    if (actionData?.form?.[`${type}`] === 'success') {
+      openModal(
+        {
+          template: <SignUpSuccess
+            message='Check your email and click the link inside to watch the first video!'
+            closeModal={closeModal} />
+        }
+      )
+    }
+  }, [actionData, type])
+
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      formRef.current?.reset()
+    }
+  }, [transition])
 
   return (
     <>
@@ -47,11 +70,13 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
         }
       </AnimatePresence>
       <div className="login_form relative z-[2] mt-2 w-full">
-        <Form method='post' className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
-          actionData?.formError?.[`${type}`]
-            ? "form-error-message"
-            : undefined
-        }>
+        <Form
+          ref={formRef}
+          method='post' className="flex flex-col desktop:flex-row desktop:items-end" aria-describedby={
+            actionData?.formError?.[`${type}`]
+              ? "form-error-message"
+              : undefined
+          }>
 
           <InputBase
             label="Email"
@@ -77,11 +102,6 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
           </button>
         </Form>
       </div>
-      {actionData?.form?.[`${type}`] === 'success' && <div>
-        <h2>Sucess</h2>
-        <h3>Instructions</h3>
-        <p>Accept email </p>
-      </div>}
     </>
   )
 }
