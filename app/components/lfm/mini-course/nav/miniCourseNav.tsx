@@ -1,11 +1,10 @@
 import HamburgerSvg from '@App/components/svgs/hamburger'
 import useSite from '@App/hooks/useSite'
 import { classNames } from '@App/utils/appUtils'
-import { lfmImgRoot, miniCourseVideoData } from '@App/utils/lfmUtils'
+import { miniCourseVideoData } from '@App/utils/lfmUtils'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Link } from 'remix'
 import MiniCourseNavItem from './miniCourseNavItem'
 
 
@@ -24,18 +23,18 @@ function LfmMiniCourseNavMobile(props: Props) {
 
 
   return (
-    <div className='et-grid-basic bg-sage-300 tablet:bg-transparent'>
+    <div className='mb-12 et-grid-basic bg-sage-300 tablet:bg-transparent tablet:mb-8'>
       {/* NAV BUTTON */}
       <div
         onClick={toggleNav}
-        className='flex flex-row justify-center col-span-2 col-start-2 py-4 tablet:col-start-2 tablet:col-span-12'>
+        className='flex flex-row justify-center col-span-2 col-start-2 py-4 tablet:col-start-2 tablet:col-span-12 tablet:pl-5 laptop:col-start-3 laptop:col-span-10 tablet:pb-0 desktop:col-start-4 desktop:col-span-8'>
         {/* ICON */}
         <div className='w-full max-w-[31px] mr-4 tablet:hidden'>
           <HamburgerSvg fill={'var(--sage-700)'} />
         </div>
 
         {/* TEXT */}
-        <div className='flex-1 font-semibold text-sage-700'>
+        <div className='flex flex-col justify-center flex-1 font-semibold leading-none text-sage-700'>
           <span className=' tablet:hidden'>View All Lessons</span>
           <span className='hidden tablet:block'>All Lessons</span>
         </div>
@@ -65,7 +64,6 @@ function LfmMiniCourseNavMobile(props: Props) {
         </div>
 
       </motion.div>
-
     </div>
   )
 }

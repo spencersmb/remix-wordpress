@@ -1,12 +1,9 @@
 import Layout from '@App/components/layoutTemplates/layout';
 import LfmClosedPage from '@App/components/lfm/closedPage';
 import useSite from '@App/hooks/useSite'
-import { ckFormIds } from '@App/lib/convertKit/formIds';
 import { lfmMiniCourseSignUpAction, shuffleArray } from '@App/utils/lfmUtils';
 import { formatDate } from '@App/utils/posts'
 import { getBasicPageMetaTags } from '@App/utils/seo';
-import { validateEmail } from '@App/utils/validation';
-import { consoleHelper } from '@App/utils/windowUtils';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';

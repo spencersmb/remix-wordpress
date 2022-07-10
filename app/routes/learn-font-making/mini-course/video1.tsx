@@ -7,8 +7,8 @@ import { getStaticPageMeta } from '@App/utils/pageUtils'
 import { getHtmlMetadataTags } from '@App/utils/seo'
 import type { IlfmMiniCourseCookie } from '../mini-course'
 import { miniCourseVideoData } from '@App/utils/lfmUtils';
-import { useEffect } from 'react';
 import useScript from '@App/hooks/useScript';
+import VideoPageTemplate from '@App/components/lfm/mini-course/videoPageTemplate';
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -53,30 +53,16 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
 }
 
 
-// export default useScript;
+
 const LfmMiniCourseVideo1 = () => {
-  const data = useLoaderData()
+  // const data = useLoaderData()
   const context = useOutletContext()
   const video1 = miniCourseVideoData[0]
   const videoUrl = `https://fast.wistia.com/embed/medias/${video1.videoId}.jsonp`
   useScript(videoUrl)
 
   return (
-    <div>
-      <div className="relative w-full content">
-        <div className=" embed-responsive-16by9 pb-[56.25%] h-0 block mx-auto text-center">
-          <div className="wistia_responsive_padding">
-            <div className="wistia_responsive_wrapper"
-              style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}>
-              <div className={`wistia_embed wistia_async_${video1.videoId} videoFoam=true`} style={{ height: ' 100%', width: ' 100%' }}>
-                &nbsp;
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <VideoPageTemplate video={video1} />
   )
 }
 

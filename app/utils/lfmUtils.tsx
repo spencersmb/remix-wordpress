@@ -12,7 +12,7 @@ export const lfmImgRoot = {
 export const miniCourseVideoData: MiniCoureVideoItem[] = [
   {
     title: '3 Steps to choosing a font style that sells',
-    description: 'Learn how to choose a font style that sells',
+    description: 'Over the last year and a half, I’ve had the opportunity to teach the basics of typography to undergraduate graphic design students. During this time, I’ve noticed some common mistakes that my students make when first learning how to work with type.',
     videoId: '6hc6iwbssb',
     image: {
       src: `${lfmImgRoot.imigix}/mini-course/video-1.jpg?w=200&fit=crop&q=80`,

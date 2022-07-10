@@ -17,6 +17,7 @@ import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/n
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { consoleHelper } from '@App/utils/windowUtils';
+import { formatRawProduct } from '@App/utils/productPageUtils';
 
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -40,19 +41,20 @@ export let loader: LoaderFunction = async ({ request, }) => {
       { variables }
     )
 
-    const products = data.products?.edges?.map(({ node }: { node: IProduct }) => {
-      const product = {
-        ...node,
-        details: {
-          ...node.productDetails,
-          licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
-        }
-      }
-      return product
-    });
+    // const products = data.products?.edges.map(({ node }: { node: IProduct }) => {
+    //   const product = {
+    //     ...node,
+    //     details: {
+    //       ...node.productDetails,
+    //       licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
+    //     }
+    //   }
+    //   return product
+    // });
+
 
     return json({
-      products,
+      products: formatRawProduct(data.products?.edges),
     })
   } catch (e) {
     console.error('error', e)

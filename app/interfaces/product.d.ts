@@ -48,6 +48,10 @@ interface IProduct {
   }
 }
 
+interface IProductRaw {
+  
+}
+
 interface useProductLicenseState {
   price: number
   licenseType: LicenseEnum

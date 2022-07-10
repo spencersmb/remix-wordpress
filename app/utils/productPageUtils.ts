@@ -1,6 +1,6 @@
 import type { ShopPlatformEnum } from "@App/enums/products";
 import { LicenseEnum } from "@App/enums/products"
-import { getLicense } from "./posts"
+import { getLicense, rearrangeLicenses } from "./posts"
 
 /**
  * @function getProductStdPrice
@@ -21,3 +21,15 @@ export function getProductStdPrice (product: IProduct, shopPlatform: ShopPlatfor
   return productLic ? productLic.price : 0
 
 } 
+
+export function formatRawProduct(products: {node: IProduct}[]): IProduct[]{
+  return products?.map(({ node }: { node: IProduct }) => {
+      return {
+        ...node,
+        details: {
+          ...node.productDetails,
+          licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
+        }
+      }
+    });
+}
