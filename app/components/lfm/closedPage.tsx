@@ -92,18 +92,20 @@ function LfmClosedPage(props: Props) {
           testimonial={lfmTestimonialData.joyK}
           direction="full" />
 
-        <MiniCourseBanner>
-          <>
-            {/* VIDEO 1 */}
-            <MiniCourseStep stepModule={step1} />
+        <div className={'py-10 tablet:py-20'}>
+          <MiniCourseBanner>
+            <>
+              {/* VIDEO 1 */}
+              <MiniCourseStep stepModule={step1} />
 
-            {/* VIDEO 2 */}
-            <MiniCourseStep stepModule={step2} />
+              {/* VIDEO 2 */}
+              <MiniCourseStep stepModule={step2} />
 
-            {/* VIDEO 3 */}
-            <MiniCourseStep stepModule={step3} />
-          </>
-        </MiniCourseBanner>
+              {/* VIDEO 3 */}
+              <MiniCourseStep stepModule={step3} />
+            </>
+          </MiniCourseBanner>
+        </div>
 
         <div className="p-8 m-6 mx-auto bg-[#e8f3e9] tablet:w-full">
           <div className="max-w-[400px] w-full mx-auto laptop:max-w-[800px] justify-center items-center">
@@ -146,8 +148,9 @@ function LfmClosedPage(props: Props) {
         {gridItems && gridItems.length > 0 &&
           <CmGrid gridItems={gridItems} />}
 
-        <MiniCourseBanner showForm={true} />
-
+        <div className={'pt-10 tablet:pt-20'}>
+          <MiniCourseBanner showForm={true} />
+        </div>
       </div>
     </>
   )

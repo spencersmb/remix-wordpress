@@ -2,7 +2,7 @@ import Layout from '@App/components/layoutTemplates/layout';
 import LfmClosedPage from '@App/components/lfm/closedPage';
 import useSite from '@App/hooks/useSite'
 import { ckFormIds } from '@App/lib/convertKit/formIds';
-import { shuffleArray } from '@App/utils/lfmUtils';
+import { lfmMiniCourseSignUpAction, shuffleArray } from '@App/utils/lfmUtils';
 import { formatDate } from '@App/utils/posts'
 import { getBasicPageMetaTags } from '@App/utils/seo';
 import { validateEmail } from '@App/utils/validation';
@@ -53,45 +53,8 @@ export let loader: LoaderFunction = async ({ request }) => {
     gridItems: shuffleArray(gridItems.items)
   }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
-export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => {
 
-  let form = await request.formData();
-  let formType = form.get('_action') as string
-  let email = form.get('email')
-
-  // we do this type check to be extra sure and to make TypeScript happy
-  // we'll explore validation next!
-
-  if (
-    typeof email !== "string"
-  ) {
-    return {
-      formError: {
-        [formType]: `Form not submitted correctly.`
-      }
-    }
-  }
-
-  let fields = { email };
-  let fieldErrors = {
-    email: validateEmail(email)
-  };
-
-  consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.miniCourse.signUp
-  const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
-
-  if (Object.values(fieldErrors).some(Boolean))
-    return { fieldErrors, fields };
-  return json({
-    form: {
-      [formType]: 'success'
-    }
-  })
-
-
-
-}
+export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => (lfmMiniCourseSignUpAction(request));
 
 interface Props { }
 function formatAMPM(date: Date) {
@@ -104,6 +67,7 @@ function formatAMPM(date: Date) {
   const strTime = hours + ':' + minuteString + ' ' + ampm;
   return strTime;
 }
+
 function LfmLandingPage(props: Props) {
   let data = useLoaderData<any>();
   console.log('data', data);

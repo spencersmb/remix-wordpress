@@ -84,11 +84,6 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
           </button>
         </Form>
       </div>
-      {actionData?.form?.footer === 'success' && <div>
-        <h2>Sucess</h2>
-        <h3>Instructions</h3>
-        <p>Accept email </p>
-      </div>}
     </>
   )
 }

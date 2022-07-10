@@ -1,11 +1,12 @@
-import { json, LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useOutletContext } from '@remix-run/react';
 import React from 'react'
 import { lfmMiniCourseCookie } from '@App/cookies.server';
 import { findCookie } from '@App/utils/loaderHelpers';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { getHtmlMetadataTags } from '@App/utils/seo';
-import { IlfmMiniCourseCookie } from '../mini-course';
+import type { IlfmMiniCourseCookie } from '../mini-course';
 
 export let meta: MetaFunction = (rootData): any => {
 
@@ -42,7 +43,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
   */
   const { hasCookie, data } = await findCookie<IlfmMiniCourseCookie>(request, lfmMiniCourseCookie)
   if (!hasCookie || !data.video2) {
-    return redirect('/learn-font-making/mini-course')
+    return redirect('/learn-font-making')
   }
 
   return json({})

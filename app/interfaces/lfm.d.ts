@@ -31,3 +31,16 @@ interface CmGridItem {
 	link: string
 	alt: string
 }
+interface MiniCoureVideoItem {
+  title: string,
+  description: string,
+  videoId: string,
+  image: {
+    src: string,
+    alt: string,
+    width: number,
+    height: number,
+    placeholder?: string
+  },
+  link: string
+}
