@@ -58,7 +58,13 @@ function LfmMiniCourseNavMobile(props: Props) {
           {/* NAV LIST ITEMS */}
           {miniCourseVideoData.map((video, index) => {
             return (
-              <MiniCourseNavItem key={index} index={index} video={video} cookieUnlock={videoCookiesArray[index]} />
+              <MiniCourseNavItem
+                toggleNav={toggleNav}
+                key={index}
+                index={index}
+                video={video}
+                cookieUnlock={videoCookiesArray[index]}
+              />
             )
           })}
         </div>

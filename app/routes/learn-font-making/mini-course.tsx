@@ -13,6 +13,10 @@ import gql from 'graphql-tag';
 import { fetchAPI } from '@App/utils/fetch.server';
 import { getGraphQLString } from '@App/utils/graphqlUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
+import LazyImgix from '@App/components/images/lazyImgix';
+import { staticImages } from '@App/lib/imgix/data';
+import { breakpointConvertPX } from '@App/utils/appUtils';
+import useSite from '@App/hooks/useSite';
 
 export interface IlfmMiniCourseCookie {
   video1: boolean
@@ -24,7 +28,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // ADD IN TOP LEVEL
   // THEN FIND WITH USE MATCHES To UNLOCK PAGE
   const cookie = await findCookie<IlfmMiniCourseCookie>(request, lfmMiniCourseCookie)
-  const ids = process.env.PUBLIC_WP_API_URL === 'https://etheadless.local/graphql/' ? [10051, 10053, 8934] : [10051, 10053, 8558]
+  const ids = process.env.PUBLIC_WP_API_URL === 'https://etheadless.local/graphql/' ? [10051, 10053, 8558, 8934] : [10051, 10053, 8558, 8934]
   let data = await fetchAPI(getGraphQLString(query), {
     variables: {
       ids
@@ -33,6 +37,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   return json({ cookie, products: formatRawProduct(data.products?.edges) })
 }
+
 interface IDataType {
   products: IProduct[]
   cookie: {
@@ -47,6 +52,7 @@ interface IDataType {
 
 function LfmMiniCourse(props: any) {
   const { cookie, products }: IDataType = useLoaderData()
+  const { state: { breakpoint } } = useSite()
   consoleHelper('minicourse home page', cookie)
   consoleHelper('minicourse products', products)
   const wistaScript2 = `https://fast.wistia.com/assets/external/E-v1.js`
@@ -63,7 +69,22 @@ function LfmMiniCourse(props: any) {
       <div className='bg-[#F7F6F7] flex flex-col'>
 
         <div className='et-grid-basic'>
-          <div className='col-span-2 col-start-2 my-4 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 tablet:mt-8 tablet:pl-5 desktop:col-start-4 desktop:col-span-8'>
+
+
+
+          <div className='relative col-span-2 col-start-2 my-4 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 tablet:mt-8 tablet:pl-5 desktop:col-start-4 desktop:col-span-8'>
+            {breakpointConvertPX(breakpoint) >= 1024 &&
+              <div className='absolute top-[-170px] left-[-120px] w-full max-w-[120px]'>
+                <LazyImgix
+                  id={'scribble-5'} image={{
+                    width: staticImages.scribbles.scribble_5.width,
+                    height: staticImages.scribbles.scribble_5.height,
+                    alt: 'Learn Font Making: Free Mini Course',
+                    src: staticImages.scribbles.scribble_5.src,
+                    placeholder: staticImages.scribbles.scribble_5.placeholder
+                  }}
+                />
+              </div>}
             <h1 className='font-semibold text-sage-600'>Learn Font Making</h1>
             <h2 className='text-4xl font-sentinel__SemiBoldItal text-sage-800'>Mini Course</h2>
           </div>

@@ -44,3 +44,11 @@ interface MiniCoureVideoItem {
   },
   link: string
 }
+interface MiniCoursePageContext {
+  cookie: {
+    video1?: boolean | undefined
+    video2?: boolean | undefined
+    video3?: boolean | undefined
+  },
+  products: IProduct[]
+}

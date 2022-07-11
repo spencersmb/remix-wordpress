@@ -3,7 +3,7 @@ import type { LicenseEnum } from "@App/enums/products";
 
 export function useProductLicense(productLicences: ILicense[] | null) {
 
-  const firstLicense = productLicences ? {
+  const firstLicense = productLicences && productLicences.length > 0 ? {
     price: productLicences[0].price,
     licenseType: productLicences[0].licenseType,
     url: productLicences[0].url

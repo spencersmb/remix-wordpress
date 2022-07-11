@@ -8,15 +8,17 @@ interface Props {
   index: number
   video: MiniCoureVideoItem
   cookieUnlock: boolean | undefined
+  toggleNav: () => void
 }
 
 function MiniCourseNavItem(props: Props) {
-  const { index, video, cookieUnlock } = props
+  const { index, video, cookieUnlock, toggleNav } = props
   let navigate = useNavigate();
 
   const handleNavigate = () => {
     // if cookie is here and its not the current page
     if (cookieUnlock) {
+      toggleNav()
       navigate(`/learn-font-making/mini-course/video${index + 1}`);
     }
   }

@@ -70,6 +70,20 @@ export const staticImages = {
     scribble_4:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-4-min.png',
       placeholder: 'https://et-website.imgix.net/et-website/images/scribble-4-min.png?w=20&fit=clip'
+    },
+    scribble_5:{
+      src: 'https://et-website.imgix.net/et-website/images/scribble-5-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/scribble-5-min.png?w=20&fit=clip',
+      width: 356,
+      height:959
+    }
+  },
+  lettering:{
+    alphabet:{
+      src: 'https://et-website.imgix.net/et-website/images/lfm/lfm-alphabet-min.png?w=900&fit=clip',
+        placeholder: 'https://et-website.imgix.net/et-website/images/lfm/lfm-alphabet-min.png?w=20&fit=clip',
+        width: 900,
+        height:463
     }
   }
 }

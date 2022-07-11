@@ -19,6 +19,16 @@ import { useLoaderData } from "@remix-run/react";
 import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
 
+const page = {
+  title: 'Products',
+  slug: 'products',
+  description: 'Every-Tuesday.com digital products for sale using the Procreate app.',
+  seo: {
+    title: 'Products',
+    opengraphModifiedTime: '',
+    metaDesc: 'Every-Tuesday.com digital products for sale using the Procreate app.'
+  }
+}
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
@@ -26,9 +36,9 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
   }
 }
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: `Products - Every-Tuesday`,
-  desc: `Tons of Procreate Brushes, textures, and highrez assets to choose from`,
-  slug: `products`,
+  title: page.title,
+  desc: page.description,
+  slug: page.slug,
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
@@ -41,19 +51,8 @@ export let loader: LoaderFunction = async ({ request, }) => {
       { variables }
     )
 
-    // const products = data.products?.edges.map(({ node }: { node: IProduct }) => {
-    //   const product = {
-    //     ...node,
-    //     details: {
-    //       ...node.productDetails,
-    //       licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
-    //     }
-    //   }
-    //   return product
-    // });
-
-
     return json({
+      page,
       products: formatRawProduct(data.products?.edges),
     })
   } catch (e) {

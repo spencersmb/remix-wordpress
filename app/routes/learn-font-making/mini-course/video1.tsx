@@ -10,6 +10,16 @@ import { miniCourseVideoData } from '@App/utils/lfmUtils';
 import useScript from '@App/hooks/useScript';
 import VideoPageTemplate from '@App/components/lfm/mini-course/videoPageTemplate';
 
+const videoPage = {
+  title: '3 Steps to choosing a font style that sells: Learn Font Making',
+  slug: 'learn-font-making/mini-course/video1',
+  description: 'Learn the 3 steps to choosing fonts that look good and make a lot of money.',
+  seo: {
+    title: '3 Steps to choosing a font style that sells: Learn Font Making',
+    opengraphModifiedTime: '',
+    metaDesc: 'Learn the 3 steps to choosing fonts that look good and make a lot of money.'
+  }
+}
 export let meta: MetaFunction = (rootData): any => {
 
   /*
@@ -22,12 +32,11 @@ export let meta: MetaFunction = (rootData): any => {
       description: 'error: No metaData or Parents Data',
     }
   }
-  console.log('data', location)
 
   const page = getStaticPageMeta({
-    title: `Learn Font Making - Mini Course: Video 1`,
-    desc: `Learn Font Making: Mini Course - Video 1: Choosing a Font Style that Sells`,
-    slug: `video-1`
+    title: videoPage.title,
+    desc: videoPage.description,
+    slug: videoPage.slug,
   })
 
   /*
@@ -49,20 +58,17 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     return redirect('/learn-font-making')
   }
 
-  return json({})
+  return json({ page: videoPage })
 }
 
-
-
 const LfmMiniCourseVideo1 = () => {
-  // const data = useLoaderData()
-  const context = useOutletContext()
+  const context = useOutletContext<MiniCoursePageContext>()
   const video1 = miniCourseVideoData[0]
   const videoUrl = `https://fast.wistia.com/embed/medias/${video1.videoId}.jsonp`
   useScript(videoUrl)
 
   return (
-    <VideoPageTemplate video={video1} />
+    <VideoPageTemplate video={video1} products={context.products} />
   )
 }
 

@@ -26,9 +26,9 @@ export function formatRawProduct(products: {node: IProduct}[]): IProduct[]{
   return products?.map(({ node }: { node: IProduct }) => {
       return {
         ...node,
-        details: {
+        productDetails: {
           ...node.productDetails,
-          licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : null,
+          licences: node.productDetails.licences ? rearrangeLicenses(node.productDetails.licences) : [],
         }
       }
     });
