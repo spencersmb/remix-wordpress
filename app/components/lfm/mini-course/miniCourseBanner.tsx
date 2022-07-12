@@ -11,7 +11,11 @@ interface Props {
   children?: React.ReactNode
   showForm?: boolean
 }
-
+/**
+ * 
+ * @component MiniCourseBanner
+ * @tested - 7/09/2022 
+ */
 function MiniCourseBanner(props: Props) {
   const { children, showForm } = props
   const miniCourseTextImg = {

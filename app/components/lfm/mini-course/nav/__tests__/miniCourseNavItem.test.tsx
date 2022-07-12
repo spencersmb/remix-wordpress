@@ -17,12 +17,14 @@ describe('LFM: MiniCourse Nav item', () => {
     },
     link: '/learn-font-making/mini-course/video-1',
   }
+  const toggleNav = jest.fn()
   const setup = () => {
     return (renderUi(
       <MemoryRouter>
         <MiniCourseNavItem
           index={0}
           video={video1}
+          toggleNav={toggleNav}
           cookieUnlock={undefined} />
       </MemoryRouter>
     ))

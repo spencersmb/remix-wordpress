@@ -28,7 +28,9 @@ function VideoPageTemplate(props: Props) {
             <div className="wistia_responsive_padding">
               <div className="wistia_responsive_wrapper"
                 style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}>
-                <div className={`wistia_embed wistia_async_${video.videoId} videoFoam=true`} style={{ height: ' 100%', width: ' 100%' }}>
+                <div
+                  data-testid='wistia-video'
+                  className={`wistia_embed wistia_async_${video.videoId} videoFoam=true`} style={{ height: ' 100%', width: ' 100%' }}>
                   &nbsp;
                 </div>
               </div>

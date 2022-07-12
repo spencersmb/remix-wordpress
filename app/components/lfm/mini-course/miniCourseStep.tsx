@@ -16,7 +16,11 @@ interface Props {
 
   }
 }
-
+/**
+ * 
+ * @component MiniCourseStep
+ * @tested - 7/09/2022 
+ */
 function MiniCourseStep(props: Props) {
   const { stepModule } = props
   const { state: { breakpoint } } = useSite()

@@ -79,26 +79,31 @@ const categories = [
     ]
   }
 ]
+
+/**
+ * 
+ * @component MiniCourseSupplies
+ * @tested - 07/12/2022 
+ */
 function MiniCourseSupplies(props: Props) {
 
   return (
     <div className='flex flex-col my-8'>
-      {/* <div className='mb-4 text-lg font-semibold'>
-        Links to tools I use
-      </div> */}
 
       {/* CATEGORIES */}
       <div className='grid grid-cols-1 gap-5 tablet:grid-cols-3'>
         {categories.map((category, index) => {
           return (
             <div key={index} className='flex flex-col'>
-              <div className='mb-4 pb-2 text-2xl font-sentinel__SemiBoldItal border-b-[1px] border-grey-400'>
+              <div
+                data-testid='category-title'
+                className='mb-4 pb-2 text-2xl font-sentinel__SemiBoldItal border-b-[1px] border-grey-400'>
                 {category.name}
               </div>
-              <ul>
+              <ul data-testid='category-list'>
                 {category.links.map((link, linkIndex) => {
                   return (
-                    <li key={index} className='mb-2'>
+                    <li key={`${category.name}-${linkIndex}`} className='mb-2'>
                       <a
                         className='font-medium text-sage-600 hover:text-sage-500 underlined after:underlineAnimation laptop:text-lg'
                         target='_blank'

@@ -70,8 +70,6 @@ function LfmMiniCourse(props: any) {
 
         <div className='et-grid-basic'>
 
-
-
           <div className='relative col-span-2 col-start-2 my-4 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 tablet:mt-8 tablet:pl-5 desktop:col-start-4 desktop:col-span-8'>
             {breakpointConvertPX(breakpoint) >= 1024 &&
               <div className='absolute top-[-170px] left-[-120px] w-full max-w-[120px]'>

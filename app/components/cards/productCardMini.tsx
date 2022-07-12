@@ -7,7 +7,7 @@ interface Props {
   product: IProduct
   index: number
 }
-//TODO: Test this
+
 function ProductCardMini(props: Props) {
   const { product } = props
   const featuredImage = loadImageSrc({
@@ -23,7 +23,7 @@ function ProductCardMini(props: Props) {
     <div className='bg-white rounded-2.5xl p-4 transition-all duration-300 translate-y-0 shadow-xs hover:cursor-pointer hover:shadow-et_4 hover:-translate-y-2 mb-4'>
 
       <a
-        data-testid='test-GumroadBtn'
+        data-testid='test-gumroadLink'
         href={licenseState?.url}>
 
         {/* PRODUCT IMG */}
