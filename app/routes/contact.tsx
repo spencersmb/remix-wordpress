@@ -62,6 +62,7 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
 export default function Contact() {
   let data = useActionData()
   consoleHelper('Email useActionData', data)
+  console.log('data', data)
   useEffect(() => {
     window.scrollTo({
       top: 0,
