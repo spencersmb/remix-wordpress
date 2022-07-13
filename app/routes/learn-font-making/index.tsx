@@ -51,7 +51,8 @@ export let loader: LoaderFunction = async ({ request }) => {
   }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 
-export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> => (lfmMiniCourseSignUpAction(request));
+export let action: ActionFunction = async ({ request }): Promise<MiniCourseSignUpActionData | Response> =>
+  (lfmMiniCourseSignUpAction(request));
 
 interface Props { }
 function formatAMPM(date: Date) {

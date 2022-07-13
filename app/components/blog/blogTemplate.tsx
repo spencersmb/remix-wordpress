@@ -117,7 +117,7 @@ function BlogTemplate(props: IProps) {
         </div>}
 
       {/* EXCERPT */}
-      {post.tutorialManager.postExcerpt && <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+      {post.tutorialManager.postExcerpt && <div className='grid grid-flow-row row-auto blog__postExcerpt col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
         <div className='blog-content mt-4 tablet:mb-16 col-start-2 col-span-2 row-[1/1] tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
           <div className='text-lg tablet:text-xl' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
         </div>
@@ -125,55 +125,60 @@ function BlogTemplate(props: IProps) {
 
 
       {/* TUTORIAL DOWNLOADS */}
-      <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
-        <div className='col-span-2 col-start-2 tablet:col-span-full laptop:col-start-3 laptop:col-span-10 desktop:col-span-full'>
-          <StickyContainer>
+      {post.tutorialManager.youtube.embedUrl &&
+        <div
+          data-testId='blog-tutorialDownloads'
+          className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
+          <div className='col-span-2 col-start-2 tablet:col-span-full laptop:col-start-3 laptop:col-span-10 desktop:col-span-full'>
+            <StickyContainer>
 
-            <div className={classNames(
-              post.tutorialManager.downloads || post.tutorialManager.paidProducts
-                ? 'desktop:px-8'
-                : '',
-              'relative flex pt-16 pb-8 tablet:py-16 laptop:flex-row items-start max-w-[1475px] mx-auto desktop:py-0')}>
+              <div className={classNames(
+                post.tutorialManager.downloads || post.tutorialManager.paidProducts
+                  ? 'desktop:px-8'
+                  : '',
+                'relative flex pt-16 pb-8 tablet:py-16 laptop:flex-row items-start max-w-[1475px] mx-auto desktop:py-0')}>
 
-              <div className='relative flex-none my-20 desktop:flex-1'>
-                {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <Sticky topOffset={-20} bottomOffset={184}>
-                  {({
-                    style,
+                <div className='relative flex-none my-20 desktop:flex-1'>
+                  {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <Sticky topOffset={-20} bottomOffset={184}>
+                    {({
+                      style,
 
-                    // the following are also available but unused in this example
-                    isSticky,
-                    wasSticky,
-                    distanceFromTop,
-                    distanceFromBottom,
-                    calculatedHeight
-                  }) => {
+                      // the following are also available but unused in this example
+                      isSticky,
+                      wasSticky,
+                      distanceFromTop,
+                      distanceFromBottom,
+                      calculatedHeight
+                    }) => {
 
-                    // topOffset = 104(size of the nav minus size of margin)
-                    let top = 104 // size of nav
-                    return (
-                      <div style={{
-                        ...style,
-                        // @ts-ignore
-                        top: style && style.top ? style.top + top : top,
-                      }}>
-                        <TutorialDownloads post={post} style={style} />
-                      </div>
-                    )
-                  }}
-                </Sticky>
-                }
+                      // topOffset = 104(size of the nav minus size of margin)
+                      let top = 104 // size of nav
+                      return (
+                        <div style={{
+                          ...style,
+                          // @ts-ignore
+                          top: style && style.top ? style.top + top : top,
+                        }}>
+                          <TutorialDownloads post={post} style={style} />
+                        </div>
+                      )
+                    }}
+                  </Sticky>
+                  }
 
+                </div>
+                <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
+                  <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+
+                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+
+                  <PaidProducts post={post} />
+                </div>
               </div>
-              <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
-                <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
-                {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+            </StickyContainer>
+          </div>
+        </div>}
 
-                <PaidProducts post={post} />
-              </div>
-            </div>
-          </StickyContainer>
-        </div>
-      </div>
 
       {/* BLOG CONTENT */}
       <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />

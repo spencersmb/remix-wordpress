@@ -1,6 +1,5 @@
 import { TestimonialTexutreEnum } from "@App/enums/lfm"
 import { ckFormIds } from "@App/lib/convertKit/formIds"
-import type { Request } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { validateEmail } from "./validation"
 import { consoleHelper } from "./windowUtils"

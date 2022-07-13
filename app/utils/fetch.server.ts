@@ -63,7 +63,6 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   return json.data
 }
 
-
 export async function getPreviewPostPageServer({previewType, id, userToken}: {previewType: string, id: string, userToken: IAuthToken}){
   consoleHelper('getPreviewPostPageServer', previewType)
   consoleHelper('getPreviewPostPageServer id', id)

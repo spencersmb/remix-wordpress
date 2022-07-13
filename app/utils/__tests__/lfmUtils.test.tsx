@@ -1,5 +1,4 @@
 import { TestimonialTexutreEnum } from "@App/enums/lfm"
-import { Request } from "@remix-run/node"
 import { isArray, isEqual } from "lodash"
 import { getLfmTexture, lfmImgRoot, lfmMiniCourseSignUpAction, miniCourseVideoData, shuffleArray } from "../lfmUtils"
 
@@ -53,6 +52,7 @@ describe('LFM: utils', () => {
     expect(isEqual(startArray, endArray)).toEqual(false)
   })
 
+  // REMIX TEST ACTION EXAMPLE
   it('lfmMiniCourseSignUpAction: Action should return status error', async () => {
     let body = new URLSearchParams({
       name: "Sergio",
@@ -75,7 +75,6 @@ describe('LFM: utils', () => {
 
     let request = new Request("/path", {
       method: "POST",
-      // @ts-ignore
       body: formData,
     });
 

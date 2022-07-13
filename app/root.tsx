@@ -280,8 +280,7 @@ export function Document({ children, title }: IDocument) {
         <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
         <ScrollRestoration />
         <Scripts />
-
-        <LiveReload />
+        <LiveReload port={8002} />
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
