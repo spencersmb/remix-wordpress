@@ -1,6 +1,6 @@
 import ContactUsForm from "@App/components/forms/contact/contactUsForm";
 import Layout from "@App/components/layoutTemplates/layout";
-import { fetchAPI } from "@App/utils/fetch.server";
+import { fetchAPI, fetchAPIOrigin, getOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { consoleHelper } from "@App/utils/windowUtils";
 import type { ActionFunction } from "@remix-run/node";
@@ -39,8 +39,9 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
   // }
 
   try {
+    const url = new URL(request.url);
 
-    let response = await fetchAPI(getGraphQLString(emailMutation))
+    let response = await fetchAPIOrigin(getGraphQLString(emailMutation), url.origin)
     console.log('data in action', response);
     // let data = await response.json()
 
@@ -119,6 +120,7 @@ const emailMutation = gql`
       origin
       sent
       message
+      test
     }
   }
 `

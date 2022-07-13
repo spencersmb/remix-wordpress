@@ -37,8 +37,17 @@ export async function fetchConvertKitSignUp({email, id}: {email: string, id: str
   return json
 }
 
+export function getOrigin(url: string) {
+  const origin = new URL(url).origin
+  return origin
+}
+
 export async function fetchAPI(query: any, { variables }: any = {}) {
   const https = require("https");
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
@@ -46,12 +55,42 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const res = await fetch(api_url, {
     method: 'POST',
     mode: 'cors',
+    
     // @ts-ignore
     agent,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: headers,
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
+  })
+  const json = await res.json()
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json.data
+}
+
+export async function fetchAPIOrigin(query: any, origin: string, { variables }: any = {}) {
+  const https = require("https");
+  let headers = new Headers();
+
+  headers.append('Origin', origin);
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
+
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
+
+  const res = await fetch(api_url, {
+    method: 'POST',
+    mode: 'cors',
     
+    // @ts-ignore
+    agent,
+    headers: headers,
     body: JSON.stringify({
       query,
       variables,
