@@ -1,6 +1,6 @@
 import ContactUsForm from "@App/components/forms/contact/contactUsForm";
 import Layout from "@App/components/layoutTemplates/layout";
-import { fetchAPI, fetchAPIMutation } from "@App/utils/fetch.server";
+import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { consoleHelper } from "@App/utils/windowUtils";
 import type { ActionFunction } from "@remix-run/node";
@@ -109,11 +109,10 @@ const emailMutation = gql`
   mutation SEND_EMAIL {
     sendEmail(
       input: {
-        to: "spencer.bigum@gmail.com", 
-        from: "test@test.com", 
-        subject: "test email", 
+        from: "spencer.bigum@gmail.com", , 
+        subject: "test email mutation", 
         body: "test email", 
-        clientMutationId: "test"
+        clientMutationId: "test 1"
       }
     ) {
       origin

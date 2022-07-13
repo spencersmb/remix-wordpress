@@ -45,11 +45,13 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
 
   const res = await fetch(api_url, {
     method: 'POST',
+    mode: 'cors',
     // @ts-ignore
     agent,
     headers: {
       'Content-Type': 'application/json',
     },
+    
     body: JSON.stringify({
       query,
       variables,
