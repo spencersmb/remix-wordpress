@@ -40,12 +40,9 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
 
   try {
     const url = new URL(request.url);
-    console.log('url check', request.url);
-    console.log('hostname', url.hostname);
-    console.log('host', url.host);
-    console.log('protocol', url.protocol);
-
-    let response = await fetchAPIOrigin(getGraphQLString(emailMutation), url.origin)
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const origin = `${protocol}://${url.host}`
+    let response = await fetchAPIOrigin(getGraphQLString(emailMutation), origin)
     console.log('data in action', response);
     // let data = await response.json()
 
