@@ -120,7 +120,6 @@ const emailMutation = gql`
       origin
       sent
       message
-      test
     }
   }
 `
