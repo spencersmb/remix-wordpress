@@ -28,6 +28,7 @@ function LfmMiniCourseNavMobile(props: Props) {
       <div
         onClick={toggleNav}
         className='flex flex-row justify-center col-span-2 col-start-2 py-4 tablet:col-start-2 tablet:col-span-12 tablet:pl-5 laptop:col-start-3 laptop:col-span-10 tablet:pb-0 desktop:col-start-4 desktop:col-span-8'>
+
         {/* ICON */}
         <div className='w-full max-w-[31px] mr-4 tablet:hidden'>
           <HamburgerSvg fill={'var(--sage-700)'} />
@@ -35,7 +36,7 @@ function LfmMiniCourseNavMobile(props: Props) {
 
         {/* TEXT */}
         <div className='flex flex-col justify-center flex-1 font-semibold leading-none text-sage-700'>
-          <span className=' tablet:hidden'>View All Lessons</span>
+          <span className='tablet:hidden'>View All Lessons</span>
           <span className='hidden tablet:block'>All Lessons</span>
         </div>
 
@@ -54,7 +55,9 @@ function LfmMiniCourseNavMobile(props: Props) {
         variants={navVarients}
         custom={breakpoint === 'mobile'}
         className='flex flex-col col-span-2 col-start-2 overflow-hidden tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-4 desktop:col-span-8'>
-        <div className='py-4 tablet:py-0 tablet:flex tablet:flex-row'>
+        <div
+          data-testid='test-minicourse-navList'
+          className='py-4 tablet:py-0 tablet:flex tablet:flex-row'>
           {/* NAV LIST ITEMS */}
           {miniCourseVideoData.map((video, index) => {
             return (

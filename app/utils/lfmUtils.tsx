@@ -1,5 +1,6 @@
 import { TestimonialTexutreEnum } from "@App/enums/lfm"
 import { ckFormIds } from "@App/lib/convertKit/formIds"
+import type { Request } from "@remix-run/node";
 import { json } from "@remix-run/node"
 import { validateEmail } from "./validation"
 import { consoleHelper } from "./windowUtils"
@@ -51,16 +52,17 @@ export const miniCourseVideoData: MiniCoureVideoItem[] = [
   },
 ]
 
-// TODO: Test
-export const getLfmTexture = (type: TestimonialTexutreEnum): {
-  class: string, image: {
+interface LfmTextureReturn {
+  class: string,
+  image: {
     width: number
     height: number
     alt: string
     src: string
     placeholder?: string
   }
-} => {
+}
+export const getLfmTexture = (type: TestimonialTexutreEnum): LfmTextureReturn => {
   switch (type) {
     case TestimonialTexutreEnum.Red:
       return {
@@ -127,20 +129,28 @@ export const getLfmTexture = (type: TestimonialTexutreEnum): {
 }
 
 export function shuffleArray(array: any[]): any[] {
+  let modifiedArray = new Array(...array)
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1))
-    var temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
+    var temp = modifiedArray[i]
+    modifiedArray[i] = modifiedArray[j]
+    modifiedArray[j] = temp
   }
-  return array
+  return modifiedArray
 }
 
 export async function lfmMiniCourseSignUpAction(request: Request) {
 
   let form = await request.formData();
-  let formType = form.get('_action') as string
+  let formType = form.get('_action') as string | null
   let email = form.get('email')
+
+  if (!formType) {
+    return {
+      status: 'error',
+      message: 'No form type provided'
+    }
+  }
 
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
@@ -166,6 +176,14 @@ export async function lfmMiniCourseSignUpAction(request: Request) {
 
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
+
+  if (process.env.NODE_ENV === 'test') {
+    return json({
+      form: {
+        [formType]: 'success'
+      }
+    })
+  }
 
   // Sign user up
   try {

@@ -18,19 +18,32 @@ describe('LFM: MiniCourse Nav item', () => {
     link: '/learn-font-making/mini-course/video-1',
   }
   const toggleNav = jest.fn()
-  const setup = () => {
+  const setup = (unlocked: boolean = false) => {
     return (renderUi(
       <MemoryRouter>
         <MiniCourseNavItem
           index={0}
           video={video1}
           toggleNav={toggleNav}
-          cookieUnlock={undefined} />
+          cookieUnlock={unlocked} />
       </MemoryRouter>
     ))
   }
-  it('Should not error', () => {
+  it('Should have correct title', () => {
     const { queryByText } = setup()
     expect(queryByText(video1.title)).toBeInTheDocument()
+  })
+  it('video should be locked', () => {
+    const { queryByTestId, getByTestId } = setup()
+    expect(queryByTestId('test-lockedSvg')).toBeInTheDocument()
+    expect(queryByTestId('test-locked-bg')).toBeInTheDocument()
+
+    const imageWrapper = getByTestId('test-lazyImgix')
+    expect(imageWrapper).toHaveClass('opacity-50')
+  })
+  it('Should have correct Video image', () => {
+    const { getByTestId } = setup()
+    const videoImg = getByTestId(`lazy-load-image-Video-1`)
+    expect(videoImg).toHaveAttribute('src', video1.image.src)
   })
 })

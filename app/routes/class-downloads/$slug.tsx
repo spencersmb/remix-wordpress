@@ -101,6 +101,7 @@ export let action: ActionFunction = async ({ request, params }) => {
 
   const customHeaders = new Headers()
   const createPageCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
+
   customHeaders.append('Set-Cookie', await createPageCookie.serialize({
     [downloadGridBy.page.cookie.key]: true
   }))
