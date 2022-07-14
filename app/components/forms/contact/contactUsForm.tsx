@@ -10,7 +10,6 @@ function ContactUsForm(props: Props) {
   let actionData = useActionData<ContactActionData | undefined>();
   const transition = useTransition()
   const formRef = useRef(null);
-  console.log('transition', transition);
 
   useRemixFormReset({
     completed: actionData?.sendEmail?.sent
@@ -64,6 +63,17 @@ function ContactUsForm(props: Props) {
         required={true}
         placeholder='Title'
       />
+
+      {/* HONEYPOT */}
+      <label className="inpot" htmlFor="lastName"></label>
+      <input
+        tabIndex={-1}
+        className="inpot"
+        autoComplete="off"
+        type="text"
+        id="lastName"
+        name="lastName"
+        placeholder="Your last name here" />
 
       <label htmlFor={'message'}>
         <span className="text-sm font-semibold text-grey-600">Message</span>

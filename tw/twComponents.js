@@ -36,6 +36,22 @@ const classes = {
       '--tw-bg-opacity': '1',
       backgroundColor: 'rgb(242 192 102 / var(--tw-bg-opacity))'
     },
+    '&:focus':{
+      color: 'var(--primary-plum-600)',
+
+      //RING COLOR
+      '--tw-ring-opacity': '1',
+      '--tw-ring-color': 'rgb(242 192 102 / var(--tw-ring-opacity))',
+
+      //RING OFFSET
+      '--tw-ring-offset-shadow': 'var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)',
+      '--tw-ring-shadow': 'var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color)',
+      boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
+
+      //BG COLOR
+      '--tw-bg-opacity': '1',
+      backgroundColor: 'rgb(242 192 102 / var(--tw-bg-opacity))'
+    },
     '&:active':{
       // backgroundColor: 'var(--secondary-500)',
       '--tw-scale-x': '.97',
@@ -78,6 +94,11 @@ const classes = {
     backgroundColor: 'var(--sage-600)',
     color: 'var(--sage-50)',
     '&:hover':{
+      color: 'var(--sage-50)',
+      backgroundColor: 'var(--sage-600)',
+      '--tw-ring-color': 'var(--sage-600)',
+    },
+    '&:focus':{
       color: 'var(--sage-50)',
       backgroundColor: 'var(--sage-600)',
       '--tw-ring-color': 'var(--sage-600)',

@@ -26,7 +26,16 @@ const css = {
     '& img':{
       width: 'auto !important',
     }
-  }
+  },
+  '.inpot':{
+    opacity: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 0,
+    width: 0,
+    zIndex: -1
+    }
 }
 const underlined = {
   ".underlineAnimation": {

@@ -30,14 +30,20 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
   let email = form.get('email')
   let subject = form.get('subject')
   let body = form.get('message')
-
+  let honeyPot = form.get('lastName')
+  console.log('honeyPot', honeyPot);
+  if (typeof honeyPot === "string") {
+    console.log('honeyPot type', honeyPot.length);
+  }
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
     typeof name !== "string" ||
     typeof email !== "string" ||
     typeof subject !== "string" ||
-    typeof body !== "string"
+    typeof body !== "string" ||
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
   ) {
     return { formError: `Form not submitted correctly.` };
   }
@@ -133,18 +139,11 @@ export default function Contact() {
 
 
 const emailMutation = gql`
-  mutation SEND_EMAIL {
-    sendEmail(
-      input: {
-        from: "spencer.bigum@gmail.com", , 
-        subject: "test email mutation", 
-        body: "test email", 
-        clientMutationId: "test 1"
-      }
-    ) {
-      origin
-      sent
-      message
-    }
+  mutation SEND_EMAIL($input: SendEmailInput!) {
+  sendEmail(input: $input) {
+    origin
+    sent
+    message
   }
+}
 `
