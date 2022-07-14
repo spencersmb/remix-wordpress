@@ -1,8 +1,11 @@
 import useRemixFormReset from '@App/hooks/useRemixFormReset';
+import { XCircleIcon } from '@heroicons/react/solid';
 import { Form, useActionData, useTransition } from '@remix-run/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 import InputBase from '../input/inputBase';
+import FormErrorMessage from '../messages/ErrorMessage';
+import FormSuccessMessage from '../messages/SuccessMessage';
 
 interface Props { }
 
@@ -21,6 +24,39 @@ function ContactUsForm(props: Props) {
         ? "form-error-message"
         : undefined
     }>
+
+      {/*ERROR SUBMISSION*/}
+      {/* @ts-ignore */}
+      <AnimatePresence>
+        {actionData?.formError && transition.state === 'idle' &&
+          <FormErrorMessage
+            className='mb-4'
+            message={actionData.formError}
+            id={'subscriberError'} />
+        }
+      </AnimatePresence>
+
+
+      {/*FAILED SUBMISSION*/}
+      {/* @ts-ignore */}
+      <AnimatePresence>
+        {actionData?.sendEmail?.sent === false && transition.state === 'idle' &&
+          <FormErrorMessage
+            className='mb-4'
+            message={actionData?.sendEmail?.message}
+            id={'sendEmailError'} />}
+      </AnimatePresence>
+
+      {/*SUCCESS MESSAGE*/}
+      {/* @ts-ignore */}
+      <AnimatePresence>
+        {actionData?.sendEmail?.sent && transition.state === 'idle' &&
+          <FormSuccessMessage
+            className='mb-4'
+            message={'Your message has been sent!'}
+            id={'subscriberError'} />
+        }
+      </AnimatePresence>
 
       <InputBase
         label="First Name"
@@ -75,11 +111,12 @@ function ContactUsForm(props: Props) {
         name="lastName"
         placeholder="Your last name here" />
 
+      {/* MESSAGE BODY */}
       <label htmlFor={'message'}>
         <span className="text-sm font-semibold text-grey-600">Message</span>
         <textarea
-          className="w-full px-5 py-4 mt-2 mb-5 text-base duration-200 ease-in-out transform rounded-lg outline-none bg-grey-100 text-primary-700 hover:ring focus:ring ring-offset-4 focus:ring-primary-300"
-          rows={6}
+          className="w-full px-5 py-4 mt-2 text-base duration-200 ease-in-out transform rounded-lg outline-none bg-grey-100 text-primary-700 hover:ring focus:ring ring-offset-4 focus:ring-primary-300"
+          rows={4}
           id='message-input'
           name='message'
           required={true}
@@ -92,14 +129,15 @@ function ContactUsForm(props: Props) {
         />
       </label>
 
-      <div className='mt-2'>
+      {/* SUBMIT BUTTON */}
+      <div className='flex flex-row items-center'>
 
         {/* @ts-ignore */}
         <AnimatePresence>
 
           {!actionData?.sendEmail?.sent && (
             <motion.div
-              className="overflow-hidden"
+              key={'email-message'}
               initial={buttonVarients.initial}
               animate={buttonVarients.animate}
               exit={buttonVarients.exit}
@@ -109,24 +147,9 @@ function ContactUsForm(props: Props) {
                 disabled={transition.state !== 'idle'}
                 aria-disabled={transition.state !== 'idle'}
                 type='submit'
-                className="m-2 btn btn-sage-600">
+                className="btn btn-sage-600 max-w-[86px] mt-7" >
                 {transition.state === 'idle' ? 'Submit' : '...Sending'}
               </button>
-            </motion.div>
-          )}
-
-
-          {actionData?.sendEmail?.sent && (
-            <motion.div
-              className="overflow-hidden"
-              key={'email-message'}
-              initial={messageVarients.initial}
-              animate={messageVarients.animate}
-              exit={messageVarients.exit}
-            >
-              <p className="text-lg text-center text-sage-600 font-sentinel__SemiBoldItal">
-                Message sent!
-              </p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -140,13 +163,22 @@ function ContactUsForm(props: Props) {
 export default ContactUsForm
 const buttonVarients = {
   initial: {
-    height: 'auto'
+    opacity: 1,
+    height: 'auto',
   },
   animate: {
-    height: 'auto'
+    opacity: 1,
+    height: 'auto',
   },
   exit: {
-    height: 0
+    opacity: 0,
+    height: 0,
+    overflow: 'hidden',
+    transition: {
+      height: {
+        delay: .2
+      }
+    }
   }
 }
 const messageVarients = {
@@ -163,5 +195,16 @@ const messageVarients = {
   },
   exit: {
     height: 0
+  }
+}
+
+const containerMotion = {
+  closed: {
+    height: 0,
+    y: '-15%'
+  },
+  open: {
+    height: 'auto',
+    y: 0
   }
 }

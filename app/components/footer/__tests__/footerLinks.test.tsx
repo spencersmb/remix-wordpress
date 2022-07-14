@@ -62,18 +62,5 @@ describe('Footer Component', () => {
     setup()
     const footerSocialLinks = screen.getAllByTestId('social-link')
     expect(footerSocialLinks.length).toBe(4)
-
-    expect(footerSocialLinks[0]).toHaveTextContent('Youtube')
-    expect(footerSocialLinks[0]).toHaveAttribute('href', 'https://youtube.com/everytues')
-
-    expect(footerSocialLinks[1]).toHaveTextContent('Pinterest')
-    expect(footerSocialLinks[1]).toHaveAttribute('href', 'https://pinterest.com/everytuesday')
-
-    expect(footerSocialLinks[2]).toHaveTextContent('Instagram')
-    expect(footerSocialLinks[2]).toHaveAttribute('href', 'https://instagram.com/everytuesday')
-
-    expect(footerSocialLinks[3]).toHaveTextContent('Facebook')
-    expect(footerSocialLinks[3]).toHaveAttribute('href', 'https://facebook.com/everytuesday')
-
   })
 })

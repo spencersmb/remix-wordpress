@@ -1520,6 +1520,9 @@ video {
 .mt-\[3px\] {
   margin-top: 3px;
 }
+.mt-7 {
+  margin-top: 1.75rem;
+}
 .block {
   display: block;
 }
@@ -1999,6 +2002,12 @@ video {
 }
 .max-w-\[32px\] {
   max-width: 32px;
+}
+.max-w-\[86px\] {
+  max-width: 86px;
+}
+.max-w-\[548px\] {
+  max-width: 548px;
 }
 .flex-\[0_1_50\%\] {
   flex: 0 1 50%;
@@ -2968,6 +2977,9 @@ video {
 .pr-8 {
   padding-right: 2rem;
 }
+.pt-7 {
+  padding-top: 1.75rem;
+}
 .text-left {
   text-align: left;
 }
@@ -3342,6 +3354,10 @@ video {
 .text-primary-800 {
   --tw-text-opacity: 1;
   color: rgb(60 38 38 / var(--tw-text-opacity));
+}
+.text-\[\#3E3E3E\] {
+  --tw-text-opacity: 1;
+  color: rgb(62 62 62 / var(--tw-text-opacity));
 }
 .text-opacity-90 {
   --tw-text-opacity: 0.9;
@@ -5220,6 +5236,14 @@ video {
     font-size: 6rem;
     line-height: 1;
   }
+  .tablet\:text-9xl {
+    font-size: 8rem;
+    line-height: 1;
+  }
+  .tablet\:text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
   .tablet\:leading-4 {
     line-height: 1rem;
   }
@@ -5578,6 +5602,24 @@ video {
   .laptop\:ml-\[50px\] {
     margin-left: 50px;
   }
+  .laptop\:mr-5 {
+    margin-right: 1.25rem;
+  }
+  .laptop\:mr-auto {
+    margin-right: auto;
+  }
+  .laptop\:ml-8 {
+    margin-left: 2rem;
+  }
+  .laptop\:ml-16 {
+    margin-left: 4rem;
+  }
+  .laptop\:mb-10 {
+    margin-bottom: 2.5rem;
+  }
+  .laptop\:mb-12 {
+    margin-bottom: 3rem;
+  }
   .laptop\:block {
     display: block;
   }
@@ -5728,6 +5770,9 @@ video {
   .laptop\:max-w-\[1440px\] {
     max-width: 1440px;
   }
+  .laptop\:max-w-\[490px\] {
+    max-width: 490px;
+  }
   .laptop\:flex-\[0_1_50\%\] {
     flex: 0 1 50%;
   }
@@ -5809,6 +5854,9 @@ video {
   }
   .laptop\:flex-col {
     flex-direction: column;
+  }
+  .laptop\:items-start {
+    align-items: flex-start;
   }
   .laptop\:items-center {
     align-items: center;
@@ -5983,6 +6031,10 @@ video {
   .laptop\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+  .laptop\:text-8xl {
+    font-size: 6rem;
+    line-height: 1;
   }
   .laptop\:font-semibold {
     font-weight: 600;
@@ -6281,6 +6333,12 @@ video {
   .desktop\:ml-\[70px\] {
     margin-left: 70px;
   }
+  .desktop\:ml-16 {
+    margin-left: 4rem;
+  }
+  .desktop\:mt-\[-60px\] {
+    margin-top: -60px;
+  }
   .desktop\:flex {
     display: flex;
   }
@@ -6403,6 +6461,9 @@ video {
   }
   .desktop\:max-w-\[475px\] {
     max-width: 475px;
+  }
+  .desktop\:max-w-\[550px\] {
+    max-width: 550px;
   }
   .desktop\:flex-1 {
     flex: 1 1 0%;

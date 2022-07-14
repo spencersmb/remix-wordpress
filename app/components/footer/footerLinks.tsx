@@ -2,6 +2,7 @@ import { cssColors } from "@App/enums/colors"
 import useSite from "@App/hooks/useSite"
 import { Link } from "@remix-run/react"
 import { memo } from "react"
+import SocialLinksList1 from "../social/socialLinksList1"
 import EveryTuesdayLogo from "../svgs/everyTuesdayLogo"
 import FacebookSvg from "../svgs/social/facebookSvg"
 import InstagramSvg from "../svgs/social/instagramSvg"
@@ -61,7 +62,6 @@ const footerLinks = [
  */
 
 const FooterLinks = () => {
-  const { state: { metadata } } = useSite()
   return (
     <div className='flex flex-col justify-between pb-12 laptop:flex-row '>
 
@@ -98,55 +98,13 @@ const FooterLinks = () => {
             )
           }
 
-          const socialkeys = Object.keys(metadata.social)
 
           return (
             <div data-testid="social-links-block" key={index}>
               <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
-              <ul className='flex flex-row'>
-                {socialkeys.map(key => {
-                  switch (key) {
-                    case 'youtube':
-                      return (
-                        <li key={key} className='flex'>
-                          <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                            <YoutubeSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
-                            <span className="sr-only">Every Tuesday on Youtube</span>
-                          </a>
-                        </li>
-                      )
-                    case 'facebook':
-                      return (
-                        <li key={key} className='flex pl-9'>
-                          <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                            <FacebookSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
-                            <span className="sr-only">Every Tuesday on Facebook</span>
-                          </a>
-                        </li>
-                      )
-                    case 'instagram':
-                      return (
-                        <li key={key} className='flex pl-9'>
-                          <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                            <InstagramSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
-                            <span className="sr-only">Every Tuesday on Instagram</span>
-                          </a>
-                        </li>
-                      )
-                    case 'pinterest':
-                      return (
-                        <li key={key} className='flex pl-9'>
-                          <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                            <PinterestSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={`var(${cssColors.primaryPlum50})`} />
-                            <span className="sr-only">Every Tuesday on Pinterest</span>
-                          </a>
-                        </li>
-                      )
-                    default:
-                      return null
-                  }
-                })}
-              </ul>
+              <SocialLinksList1
+                svgColor={`var(${cssColors.primaryPlum50})`}
+              />
             </div>
           )
         })}

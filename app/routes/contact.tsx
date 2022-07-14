@@ -1,14 +1,12 @@
 import ContactUsForm from "@App/components/forms/contact/contactUsForm";
 import Layout from "@App/components/layoutTemplates/layout";
-import { fetchAPI, fetchAPIOrigin, getOrigin } from "@App/utils/fetch.server";
+import SocialLinksList1 from "@App/components/social/socialLinksList1";
+import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { validateEmail } from "@App/utils/validation";
-import { consoleHelper } from "@App/utils/windowUtils";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useActionData } from '@remix-run/react'
 import gql from "graphql-tag";
-import { useEffect } from "react";
 
 interface ServerRespons {
   sendEmail: {
@@ -31,10 +29,7 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
   let subject = form.get('subject')
   let body = form.get('message')
   let honeyPot = form.get('lastName')
-  console.log('honeyPot', honeyPot);
-  if (typeof honeyPot === "string") {
-    console.log('honeyPot type', honeyPot.length);
-  }
+
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
@@ -77,7 +72,7 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
     if (!response.sendEmail.sent) {
       return {
         fields,
-        formError: `Message was not sent`
+        formError: `Message was not sent.`
       };
     }
 
@@ -90,46 +85,41 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
 }
 
 export default function Contact() {
-  let data = useActionData()
-  consoleHelper('Email useActionData', data)
-  console.log('data', data)
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-    })
-  }, [])
+  // let data = useActionData()
+
   return (
     <Layout>
       {/* CONTACT FORM + TEXT */}
       <div className="relative et-grid-basic bg-primary-100">
 
-        <div className="relative grid grid-cols-1 col-span-2 col-start-2 z-2 tablet:col-start-3 tablet:col-span-10 laptop:grid-cols-2">
+        <div className="relative flex flex-col col-span-2 col-start-2 z-2 tablet:col-start-3 tablet:col-span-10 laptop:col-start-3 laptop:col-span-11 laptop:flex-row">
 
           {/* TEXT */}
-          <div className="relative z-2">
-            <h2>We’d love to hear from you.</h2>
+          <div className="relative mt-8 z-2 text-[#3E3E3E] flex laptop:items-center laptop:mt-0 laptop:w-full laptop:max-w-[490px] laptop:mr-5 desktop:max-w-[550px]">
+            <h2 className="text-6xl font-sentinel__SemiBoldItal tablet:text-7xl laptop:text-8xl desktop:text-9xl desktop:mt-[-60px]">We’d love to hear from you.</h2>
           </div>
 
           {/* FORM */}
-          <div className="relative mt-11 z-2">
+          <div className="relative mt-11 z-2 max-w-[548px] w-full mx-auto laptop:mr-auto desktop:ml-16">
             <div className='relative p-8 bg-white laptop:p-10 shadow-et_1 z-2 rounded-2xl'>
               <ContactUsForm />
             </div>
           </div>
 
-
-
         </div>
 
+        {/* WHITE SPACER */}
         <div className="absolute bottom-0 left-0 w-full bg-white h-14 z-1" />
-
 
       </div>
 
       {/* SOCIAL MEDIA LINKS */}
       <div className="bg-white et-grid-basic">
         <div className="col-span-2 col-start-2 bg-white tablet:col-start-3 tablet:col-span-10">
-          social media
+          <SocialLinksList1
+            ulClassName="justify-center items-center my-8 laptop:justify-start laptop:items-start laptop:mt-0 laptop:mb-12"
+            svgColor="#3E3E3E"
+          />
         </div>
       </div>
 
