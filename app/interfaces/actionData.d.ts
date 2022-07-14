@@ -4,13 +4,18 @@ interface ContactActionData{
     email: string | undefined;
     name: string | undefined;
     subject: string | undefined;
-    message: string | undefined;
+    body: string | undefined;
   };
   fields?: {
     email: string;
     name: string;
     subject: string;
-    message: string;
+    body: string;
   }
   form?: string
+  sendEmail?:{
+    sent: boolean;
+    origin: string;
+    message: string;
+  }
 }

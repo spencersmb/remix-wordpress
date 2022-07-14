@@ -2,6 +2,7 @@ import ContactUsForm from "@App/components/forms/contact/contactUsForm";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI, fetchAPIOrigin, getOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
+import { validateEmail } from "@App/utils/validation";
 import { consoleHelper } from "@App/utils/windowUtils";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -9,52 +10,73 @@ import { useActionData } from '@remix-run/react'
 import gql from "graphql-tag";
 import { useEffect } from "react";
 
+interface ServerRespons {
+  sendEmail: {
+    message: string
+    origin: string
+    sent: boolean
+  }
+}
+
+interface FieldErrors {
+  name: string | undefined,
+  email: string | undefined
+  subject: string | undefined
+  body: string | undefined
+}
 export let action: ActionFunction = async ({ request }): Promise<ContactActionData | Response> => {
   let form = await request.formData();
   let name = form.get('name')
   let email = form.get('email')
-  console.log('email from form', email);
+  let subject = form.get('subject')
+  let body = form.get('message')
 
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
-  // if (
-  //   typeof password !== "string" ||
-  //   typeof username !== "string"
-  // ) {
-  //   return { formError: `Form not submitted correctly.` };
-  // }
+  if (
+    typeof name !== "string" ||
+    typeof email !== "string" ||
+    typeof subject !== "string" ||
+    typeof body !== "string"
+  ) {
+    return { formError: `Form not submitted correctly.` };
+  }
 
-  // let fields = { password, username };
-  // let fieldErrors: { password: string | undefined, username: string | undefined } = {
-  //   password: undefined,
-  //   username: undefined
-  // };
+  let fields = { name, email, subject, body };
+  let fieldErrors: FieldErrors = {
+    name: undefined,
+    email: validateEmail(email),
+    subject: undefined,
+    body: undefined,
+  };
 
-  // if (password.length < 4) {
-  //   fieldErrors = {
-  //     password: `Password length too small`,
-  //     username: undefined
-  //   };
-  //   return { fieldErrors, fields };
-  // }
+  if (Object.values(fieldErrors).some(Boolean))
+    return { fieldErrors, fields };
 
   try {
     const url = new URL(request.url);
     const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
     const origin = `${protocol}://${url.host}`
-    let response = await fetchAPIOrigin(getGraphQLString(emailMutation), origin)
-    console.log('data in action', response);
-    // let data = await response.json()
+    let response: ServerRespons = await fetchAPIOrigin(getGraphQLString(emailMutation), origin, {
+      variables: {
+        input: {
+          name,
+          email,
+          subject,
+          body
+        }
+      }
+    })
 
-    // if (serverRes.errors) {
-    //   return {
-    //     fields,
-    //     formError: `Username/Password combination is incorrect`
-    //   };
-    // }
+    if (!response.sendEmail.sent) {
+      return {
+        fields,
+        formError: `Message was not sent`
+      };
+    }
 
     return json({
-      response
+      ...response
     })
   } catch (e) {
     return { formError: `Form error: ${e}` };
@@ -77,12 +99,14 @@ export default function Contact() {
 
         <div className="relative grid grid-cols-1 col-span-2 col-start-2 z-2 tablet:col-start-3 tablet:col-span-10 laptop:grid-cols-2">
 
+          {/* TEXT */}
           <div className="relative z-2">
             <h2>We’d love to hear from you.</h2>
           </div>
 
+          {/* FORM */}
           <div className="relative mt-11 z-2">
-            <div className='relative p-4 bg-white laptop:p-10 shadow-et_1 z-2 rounded-2xl'>
+            <div className='relative p-8 bg-white laptop:p-10 shadow-et_1 z-2 rounded-2xl'>
               <ContactUsForm />
             </div>
           </div>

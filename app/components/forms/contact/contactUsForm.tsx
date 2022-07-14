@@ -1,15 +1,23 @@
+import useRemixFormReset from '@App/hooks/useRemixFormReset';
 import { Form, useActionData, useTransition } from '@remix-run/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRef } from 'react';
 import InputBase from '../input/inputBase';
 
 interface Props { }
 
 function ContactUsForm(props: Props) {
-  const { } = props
   let actionData = useActionData<ContactActionData | undefined>();
   const transition = useTransition()
+  const formRef = useRef(null);
+  console.log('transition', transition);
+
+  useRemixFormReset({
+    completed: actionData?.sendEmail?.sent
+  }, formRef.current);
 
   return (
-    <Form method='post' className="flex flex-col" aria-describedby={
+    <Form ref={formRef} method='post' className="flex flex-col" aria-describedby={
       actionData?.formError
         ? "form-error-message"
         : undefined
@@ -67,22 +75,52 @@ function ContactUsForm(props: Props) {
           required={true}
           placeholder='...Add message'
           aria-describedby={
-            actionData?.fieldErrors?.message
-              ? `message-error`
+            actionData?.fieldErrors?.body
+              ? `body-error`
               : undefined
           }
         />
       </label>
 
-
       <div className='mt-2'>
-        <button
-          disabled={transition.state !== 'idle'}
-          aria-disabled={transition.state !== 'idle'}
-          type='submit'
-          className="btn btn-sage-600">
-          {transition.state === 'idle' ? 'Submit' : '...Sending'}
-        </button>
+
+        {/* @ts-ignore */}
+        <AnimatePresence>
+
+          {!actionData?.sendEmail?.sent && (
+            <motion.div
+              className="overflow-hidden"
+              initial={buttonVarients.initial}
+              animate={buttonVarients.animate}
+              exit={buttonVarients.exit}
+            >
+              <button
+                key={'email-btn'}
+                disabled={transition.state !== 'idle'}
+                aria-disabled={transition.state !== 'idle'}
+                type='submit'
+                className="m-2 btn btn-sage-600">
+                {transition.state === 'idle' ? 'Submit' : '...Sending'}
+              </button>
+            </motion.div>
+          )}
+
+
+          {actionData?.sendEmail?.sent && (
+            <motion.div
+              className="overflow-hidden"
+              key={'email-message'}
+              initial={messageVarients.initial}
+              animate={messageVarients.animate}
+              exit={messageVarients.exit}
+            >
+              <p className="text-lg text-center text-sage-600 font-sentinel__SemiBoldItal">
+                Message sent!
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </div>
 
     </Form>
@@ -90,3 +128,30 @@ function ContactUsForm(props: Props) {
 }
 
 export default ContactUsForm
+const buttonVarients = {
+  initial: {
+    height: 'auto'
+  },
+  animate: {
+    height: 'auto'
+  },
+  exit: {
+    height: 0
+  }
+}
+const messageVarients = {
+  initial: {
+    height: 0
+  },
+  animate: {
+    height: 'auto',
+    transition: {
+      height: {
+        delay: .2
+      }
+    }
+  },
+  exit: {
+    height: 0
+  }
+}
