@@ -67,7 +67,7 @@ export let action: ActionFunction = async ({ request }): Promise<ContactActionDa
       variables: {
         input: {
           name,
-          email,
+          from: email,
           subject,
           body
         }
