@@ -20,8 +20,9 @@ const Tab = ({ name, children, onClick, className }: { name: string, children: R
   return <div className={className} data-name={name} {...getTabsProps({
     onClick: onClick || null,
     'aria-controls': name,
-    'role': 'presentation',
-    'aria-checked': state.selectedTab === name ? 'true' : "false"
+    'role': 'tab',
+    'tab-index': state.selectedTab === name ? 0 : -1,
+    'aria-selected': state.selectedTab === name ? 'true' : "false"
   })}>
     {children}
   </div>

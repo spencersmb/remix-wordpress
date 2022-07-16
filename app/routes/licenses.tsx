@@ -128,6 +128,7 @@ function LicensesPage(props: Props) {
                       variants={tabVariants}
                       key={license.type}
                       id={license.type}
+                      index={index}
                       className=''>
                       <LicenseTabLayout {...license} />
                     </TabContent>

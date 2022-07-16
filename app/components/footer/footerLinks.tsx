@@ -101,7 +101,7 @@ const FooterLinks = () => {
 
           return (
             <div data-testid="social-links-block" key={index}>
-              <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
+              <p className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</p>
               <SocialLinksList1
                 svgColor={`var(${cssColors.primaryPlum50})`}
               />

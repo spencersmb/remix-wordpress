@@ -20,16 +20,19 @@ interface Props {
   initial?: string
   exit?: string
   animate?: string
+  index: number
   variants?: any
 }
-const TabContent = ({ id, children, className, ...props }: Props) => {
+const TabContent = ({ id, children, className, index, ...props }: Props) => {
   const { state } = useSimpleTabs()
   return state.selectedTab !== id
     ? null
     : <motion.div
       {...props}
-      id={id} role={'tabpanel'}
-      aria-labelledby={`${id}-tab`}
+      id={id}
+      role={'tabpanel'}
+      tabIndex={0}
+      aria-labelledby={`tab-${index}`}
       className={className}>
       {children}
     </motion.div>

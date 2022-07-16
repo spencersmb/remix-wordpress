@@ -13,8 +13,7 @@ interface ITabContent {
 const LicenseTabContent = ({ type }: ITabContent) => {
   const { state } = useSimpleTabs()
   return (
-    <div
-      role="tab">
+    <div>
       <div className='text-sm text-grey-700 tablet:text-base'>Type</div>
       <div
         className={classNames(state.selectedTab === type
