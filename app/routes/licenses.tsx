@@ -17,6 +17,7 @@ import LicenseTabLayout from '@App/components/tabs/licenseTabs/licenseTabLayout'
 import ContactUsV1 from '@App/components/layout/contactUsV1'
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
+import { cacheControl } from '@App/lib/remix/loaders'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -55,7 +56,11 @@ export let loader: LoaderFunction = async () => {
       metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
   }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=31536000, stale-while-revalidate" } })
+  return json({ page }, {
+    headers: {
+      ...cacheControl
+    }
+  })
 };
 
 /**

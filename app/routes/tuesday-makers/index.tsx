@@ -22,6 +22,7 @@ import { fetchConvertKitSignUp } from '@App/utils/fetch.server'
 import { ckSignUpCookie } from '@App/cookies.server'
 import { getCKFormId } from '@App/utils/resourceLibraryUtils'
 import InputBase from '@App/components/forms/input/inputBase'
+import { cacheControl } from '@App/lib/remix/loaders'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -68,7 +69,11 @@ export let loader: LoaderFunction = async ({ request }) => {
       metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
   }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page }, {
+    headers: {
+      ...cacheControl,
+    }
+  })
 };
 
 type ActionData = {

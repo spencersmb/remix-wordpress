@@ -1,6 +1,7 @@
 import ContactUsForm from "@App/components/forms/contact/contactUsForm";
 import Layout from "@App/components/layoutTemplates/layout";
 import SocialLinksList1 from "@App/components/social/socialLinksList1";
+import { cacheControl } from "@App/lib/remix/loaders";
 import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "@App/utils/seo";
@@ -59,7 +60,7 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page: pageInfo }, { headers: { ...cacheControl } })
 };
 
 

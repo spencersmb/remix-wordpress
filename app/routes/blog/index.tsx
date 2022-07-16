@@ -16,6 +16,7 @@ import OutlinedButton from "@App/components/buttons/outlinedButton";
 import BlogPostGrid from "@App/components/blog/blogPostGrid";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { cacheControl } from "@App/lib/remix/loaders";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -25,7 +26,7 @@ type IndexData = {
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
+    ...cacheControl
   }
 }
 
