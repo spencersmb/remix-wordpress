@@ -15,7 +15,7 @@ const LicenseTabContent = ({ type }: ITabContent) => {
   return (
     <div
       role="tab">
-      <div className='text-sm text-grey-400 tablet:text-base'>Type</div>
+      <div className='text-sm text-grey-700 tablet:text-base'>Type</div>
       <div
         className={classNames(state.selectedTab === type
           ? 'text-sage-800'

@@ -86,7 +86,7 @@ const FooterLinks = () => {
           if (index !== 2) {
             return (
               <div data-testid="footer-link" key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
-                <h5 className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</h5>
+                <p className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</p>
                 <ul>
                   {block.links.map(link => (
                     <li key={link.url} className='pb-3 text-lg text-sage-300 btn-spencer'>

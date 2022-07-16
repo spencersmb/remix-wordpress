@@ -10,11 +10,11 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useEffect } from "react";
 
-const description = `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`;
-const title = 'Contact Teela'
+const description = `Every-Tuesday is an education resource for ambitious graphic designers and hand letterers.`;
+const title = 'About Every Tuesday'
 const pageInfo = {
   title,
-  slug: 'contact',
+  slug: 'about',
   description,
   seo: {
     title,
@@ -151,7 +151,7 @@ export default function About() {
 
         {/* IMG COLLECTION 3 */}
         <div className="flex flex-col mb-8 col-span-full tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 laptop:mb-16 tablet:flex-row tablet:justify-center">
-          <div className="flex-1 mx-auto w-full max-w-[210px] tablet:mr-2 tablet:max-w-[300px] laptop:max-w-[257px] desktop:max-w-[410px]">
+          <div className="flex-1 mx-auto w-full max-w-[210px] tablet:mr-2 tablet:max-w-[300px] laptop:max-w-[257px] desktop:max-w-[410px] laptop:mr-8">
             <PolaroidImg imgixImage={headerImage} rotate='left' />
           </div>
           <div className="flex-1 mx-auto w-full max-w-[210px] tablet:ml-5 tablet:max-w-[300px] laptop:max-w-[257px] desktop:max-w-[410px]">

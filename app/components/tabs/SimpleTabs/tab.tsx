@@ -21,7 +21,7 @@ const Tab = ({ name, children, onClick, className }: { name: string, children: R
     onClick: onClick || null,
     'aria-controls': name,
     'role': 'presentation',
-    'aria-selected': state.selectedTab === name ? 'true' : "false"
+    'aria-checked': state.selectedTab === name ? 'true' : "false"
   })}>
     {children}
   </div>

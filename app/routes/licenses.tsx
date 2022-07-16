@@ -55,7 +55,7 @@ export let loader: LoaderFunction = async () => {
       metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
     }
   }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page }, { headers: { "Cache-Control": "public, max-age=31536000, stale-while-revalidate" } })
 };
 
 /**
@@ -79,7 +79,7 @@ function LicensesPage(props: Props) {
           <div className='col-span-full'>
             <Header1>
               <div className='max-w-[500px] flex flex-col my-32'>
-                <span className='pb-4 text-grey-500'>Every-Tuesday Licenses</span>
+                <span className='pb-4 text-grey-700'>Every-Tuesday Licenses</span>
                 <h1 className='pb-8 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2 text-grey-700'>Licenses to bring your creative projects to life.</h1>
                 <p className='text-xl text-grey-600'>With three clear options, we take the guesswork out of choosing a license so you can get back to designing.</p>
               </div>

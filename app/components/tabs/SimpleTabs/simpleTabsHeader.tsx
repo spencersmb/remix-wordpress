@@ -51,7 +51,8 @@ const SimpleTabsHeader = ({ children, className }: IProps) => {
 
 
   return (
-    <ul className={className} role='tablist'>
+    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+    <ul className={className} role='list'>
       {children}
     </ul>
   )

@@ -15,7 +15,7 @@ function ContactUsV1(props: Props) {
       </div>
       <Link
         className='btn btn-primary btn-sage-600'
-        to={'/contact-us'}>
+        to={'/contact'}>
         Contact Us
       </Link>
     </div>

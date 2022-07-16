@@ -18,7 +18,7 @@ export const PrimaryNav = () => {
   const unselectedNav = 'text-charcoal-900'
 
   return (
-    <div aria-label="desktop navigation" className="transform translate-x-[-100%] left-0 top-[68px] h-[100vh] w-full bg-slate-500 text-center absolute laptop:translate-x-0 laptop:relative laptop:top-auto laptop:h-full laptop:flex laptop:justify-center laptop:items-center laptop:bg-inherit">
+    <div aria-label="desktop navigation" className="transform translate-x-[-100%] left-0 top-[68px] h-[100vh] w-full bg-slate-500 text-center absolute laptop:translate-x-0 laptop:relative laptop:top-auto laptop:h-full laptop:flex laptop:justify-center laptop:bg-inherit">
       <ul className="laptop:flex laptop:flex-row laptop:justify-center">
         {primaryMenu.map((menuItem) => {
           return (
@@ -31,7 +31,6 @@ export const PrimaryNav = () => {
           // return <NavMenuItem key={menuItem.id} dropDownClassNames={styles.navSubMenu} item={menuItem} />;
         })}
 
-        <TuesdayMakersPopOver />
 
         {user?.wpAdmin && <li>
 
@@ -43,6 +42,8 @@ export const PrimaryNav = () => {
         </li>}
 
       </ul>
+      <TuesdayMakersPopOver />
+
     </div>
   )
 }
