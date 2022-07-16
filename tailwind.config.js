@@ -142,6 +142,9 @@ module.exports = {
       },
       'lfm-blue':{
         700: '#35546d'
+      },
+      'cream':{
+        100: '#F7F6F7',
       }
     },
     extend:{

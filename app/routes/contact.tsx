@@ -3,8 +3,9 @@ import Layout from "@App/components/layoutTemplates/layout";
 import SocialLinksList1 from "@App/components/social/socialLinksList1";
 import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
+import { getBasicPageMetaTags } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import gql from "graphql-tag";
 
@@ -22,6 +23,46 @@ interface FieldErrors {
   subject: string | undefined
   body: string | undefined
 }
+const description = `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`;
+const title = 'Contact Teela'
+const pageInfo = {
+  title,
+  slug: 'contact',
+  description,
+  seo: {
+    title,
+    opengraphModifiedTime: '',
+    metaDesc: description
+  }
+}
+export let meta: MetaFunction = (metaData): any => {
+
+  /*
+  metaData gets passed in from the root metadata function
+   */
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  /*
+  Build Metadata tags for the page
+   */
+  return getBasicPageMetaTags(metaData, {
+    title,
+    desc: description,
+    slug: pageInfo.slug
+  })
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return json({ page: pageInfo }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+};
+
+
 export let action: ActionFunction = async ({ request }): Promise<ContactActionData | Response> => {
   let form = await request.formData();
   let name = form.get('name')
@@ -88,9 +129,10 @@ export default function Contact() {
   // let data = useActionData()
 
   return (
-    <Layout>
+    <Layout bgColor="bg-primary-100">
+
       {/* CONTACT FORM + TEXT */}
-      <div className="relative et-grid-basic bg-primary-100">
+      <div className="relative et-grid-basic">
 
         <div className="relative flex flex-col col-span-2 col-start-2 z-2 tablet:col-start-3 tablet:col-span-10 laptop:col-start-3 laptop:col-span-11 laptop:flex-row">
 

@@ -36,6 +36,20 @@ export const staticImages = {
         width: 414,
         height:611
       }
+    },
+    tape:{
+      starPattern:{
+        src: 'https://et-website.imgix.net/et-website/images/tape-1-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/tape-1-min.png?w=20&fit=clip',
+        width: 520,
+        height: 154
+      },
+      teal:{
+        src: 'https://et-website.imgix.net/et-website/images/tape-1-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/tape-1-min.png?w=20&fit=clip',
+        width: 520,
+        height: 154
+      }
     }
   },
   profiles:{
@@ -63,6 +77,12 @@ export const staticImages = {
         width: 288,
         height:310
     },
+    scribble_2:{
+      src: 'https://et-website.imgix.net/et-website/images/scribble-2-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/scribble-2-min.png?w=20&fit=clip',
+      width: 800,
+      height: 210
+    },
     scribble_3:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-3-min.png',
       placeholder: 'https://et-website.imgix.net/et-website/images/scribble-3-min.png?w=20&fit=clip'
@@ -76,6 +96,12 @@ export const staticImages = {
       placeholder: 'https://et-website.imgix.net/et-website/images/scribble-5-min.png?w=20&fit=clip',
       width: 356,
       height:959
+    },
+    scribble_6:{
+      src: 'https://et-website.imgix.net/et-website/images/scribble-6-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/scribble-6-min.png?w=20&fit=clip',
+      width: 1310,
+      height:924
     }
   },
   lettering:{
