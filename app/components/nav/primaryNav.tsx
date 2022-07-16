@@ -14,7 +14,7 @@ export const PrimaryNav = () => {
   const primaryMenu = getPrimaryMenu(menu)
   const location = useLocation()
 
-  const selectedNav = 'underline underline-offset-4 underline-red-400 text-red-400'
+  const selectedNav = 'underline underline-offset-4 underline-red-600 text-red-600'
   const unselectedNav = 'text-charcoal-900'
 
   return (

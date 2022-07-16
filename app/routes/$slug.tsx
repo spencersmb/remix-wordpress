@@ -9,17 +9,18 @@ import BlogTemplate from '@App/components/blog/blogTemplate'
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
+import { cacheControl } from '@App/lib/remix/loaders';
 // @ts-nocheck
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
-  }
-}
+// export const headers: HeadersFunction = ({ loaderHeaders }) => {
+//   return {
+//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
+//   }
+// }
 
 export let loader: LoaderFunction = async ({ params, request }) => {
   const url = new URL(request.url)
@@ -37,6 +38,10 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   return json({
     post: mapPostData(wpAPI.postBy),
     url
+  }, {
+    headers: {
+      ...cacheControl
+    }
   })
 };
 

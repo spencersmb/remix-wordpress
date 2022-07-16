@@ -4,19 +4,25 @@ export const staticImages = {
     pins: {
       black_1:{
         src: 'https://et-website.imgix.net/et-website/images/black-pin-min.png',
-        placeholder: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip',
+        width: 757,
+        height: 595,
       }
     },
     applePencil:{ 
       flat: {
         src: 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png',
-        placeholder: 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png?w=20&fit=clip',
+        width: 84,
+        height: 1012,
       },
     },
     ipad:{
       flat: {
         src: 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png',
-        placeholder: 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png?w=20&fit=clip',
+        width: 1000,
+        height: 733,
       }
     },
     swatchPalette:{
@@ -56,14 +62,18 @@ export const staticImages = {
     teela: {
       vertical:{
         src: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg',
-        placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?w=20&fit=clip',
+          width:800,
+          height:1367,
       }
     }
   },
   textures:{
     greenLarge: {
       src: 'https://et-website.imgix.net/et-website/textures/green-texture-min.png',
-      placeholder: 'https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip'
+      placeholder: 'https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip',
+      width: 1800,
+      height: 1794
     },
     orangeWatercolor03:{
       src: 'https://et-website.imgix.net/et-website/textures/watercolor-03.png',
@@ -89,7 +99,9 @@ export const staticImages = {
     },
     scribble_4:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-4-min.png',
-      placeholder: 'https://et-website.imgix.net/et-website/images/scribble-4-min.png?w=20&fit=clip'
+      placeholder: 'https://et-website.imgix.net/et-website/images/scribble-4-min.png?w=20&fit=clip',
+      width: 600,
+      height: 158
     },
     scribble_5:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-5-min.png',

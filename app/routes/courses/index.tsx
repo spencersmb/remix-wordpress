@@ -11,6 +11,7 @@ import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
+import { cacheControl } from '@App/lib/remix/loaders';
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses`,
@@ -30,6 +31,10 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
     return json({
       courses: flattenAllCourses(data.courses),
+    }, {
+      headers: {
+        ...cacheControl
+      }
     })
   } catch (e) {
     console.error('error', e)

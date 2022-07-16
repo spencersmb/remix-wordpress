@@ -8,6 +8,7 @@ import { BPPX } from "@App/enums/breakpointEnums";
 import IpadFeatureImage from "../images/ipadFeatureImage";
 import { ImageSizeEnums } from "@App/enums/imageEnums";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import LazyImgix from "../images/lazyImgix";
 
 interface IProps {
   product: IProduct
@@ -70,24 +71,15 @@ const FeaturedProduct = ({ product }: IProps) => {
               <div
                 data-testid='featured-black-pin'
                 className="w-[100px] absolute top-[-4%] left-[50%] translate-x-[-50%] z-[1]">
-                <LazyLoadImage
-                  key={'blackPin'}
-                  alt={'Every Tuesday Hand Made Black Pin'}
-                  effect="blur"
-                  // srcSet={`
-                  //   ${src1} 328w,
-                  //     ${src2} 767w,
-                  //     ${src3} 1200w
-                  //   `}
-                  // sizes="(min-width: 1280px) 1200px,
-                  //   (min-width: 768px) 400px,
-                  //   (min-width: 328px) 200px,
-                  //   100vw"
-                  placeholderSrc={staticImages.assets.pins.black_1.placeholder}
-                  // Make sure to pass down the scrollPosition,
-                  // this will be used by the component to know
-                  // whether it must track the scroll position or not
-                  src={staticImages.assets.pins.black_1.src}
+                <LazyImgix
+                  id={'black-pin'}
+                  image={{
+                    width: staticImages.assets.pins.black_1.width,
+                    height: staticImages.assets.pins.black_1.height,
+                    alt: 'Every Tuesday Hand Made Black Pin',
+                    src: staticImages.assets.pins.black_1.src,
+                    placeholder: staticImages.assets.pins.black_1.placeholder
+                  }}
                 />
               </div>}
 
@@ -95,7 +87,7 @@ const FeaturedProduct = ({ product }: IProps) => {
             <div
               data-testid="featured-product-content"
               className="flex flex-col items-start mb-8 text-left product_header">
-              <span className="rounded-md uppercase py-1 px-[14px] mb-4 bg-red-400 text-xs text-white font-semibold flex justify-center items-center">
+              <span className="rounded-md uppercase py-1 px-[14px] mb-4 bg-[#ffc900] text-xs text-[#7a4b0e] font-bold flex justify-center items-center">
                 New
               </span>
 

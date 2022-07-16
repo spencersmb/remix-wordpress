@@ -6,6 +6,7 @@ import Imgix, { Picture, Source } from "react-imgix"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 
 import LazyImageBase from "./lazyImage-base"
+import LazyImgix from "./lazyImgix"
 
 interface IFeatureProps {
   featuredImage: ImageLookupReturn
@@ -18,13 +19,16 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
     <div className="relative max-w-[1000px] z-20">
 
       {/* APPLE PENCIL */}
-      <div className="absolute top-[30%] left-[70%] z-30 w-[5%] rotate-[52deg] origin-center laptop:translate-y-[35%]">
-        <LazyLoadImage
-          key={'applePencil'}
-          alt={'Every Tuesday Apple 2 Pencil'}
-          effect="blur"
-          placeholderSrc={staticImages.assets.applePencil.flat.placeholder}
-          src={staticImages.assets.applePencil.flat.src}
+      <div className="absolute top-[30%] left-[70%] z-30 w-[43px] rotate-[52deg] origin-center laptop:translate-y-[35%]">
+        <LazyImgix
+          id={"applePencil"}
+          image={{
+            width: 43,
+            height: 518,
+            alt: "Every Tuesday Apple 2 Pencil",
+            src: `${staticImages.assets.applePencil.flat.src}?h=518&fit=clip`,
+            placeholder: staticImages.assets.applePencil.flat.placeholder
+          }}
         />
       </div>
 
@@ -36,66 +40,40 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
       {/* IPAD DEVICE */}
       <div className="relative z-10 flex-1 w-full laptop:absolute lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full ipad">
 
-        <div style={{ paddingBottom: `${breakpointConvertPX(breakpoint) > BPPX.TABLET ? (733 / 1000) * 100 : 0}%` }} >
-          <LazyLoadImage
-            key={'iPadFeature'}
-            alt={`Every Tuesday New Product: ${product.title}`}
-            effect="blur"
-            placeholderSrc={staticImages.assets.ipad.flat.placeholder}
-            src={staticImages.assets.ipad.flat.src}
-          />
-        </div>
-
-        {/* <img src={staticImages.assets.ipad.flat.src} alt="" /> */}
+        <LazyImgix
+          id={"iPadFeature"}
+          image={{
+            width: staticImages.assets.ipad.flat.width,
+            height: staticImages.assets.ipad.flat.height,
+            alt: `Every Tuesday New Product: ${product.title}`,
+            src: staticImages.assets.ipad.flat.src,
+            placeholder: staticImages.assets.ipad.flat.placeholder
+          }} />
       </div>
 
       {/* GREEN TEXTURE  */}
       <div className="absolute top-[-110px] left-[40px] z-0 w-[390px] tablet:w-[500px] laptop:rotate-[85deg] laptop:w-[740px] laptop:left-[-130px] laptop:top-[-160px] desktop:w-[950px] desktop:left-[-320px] desktop:top-[-250px]">
-        <Picture >
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.textures.greenLarge.src}
-            width={1200}
-            htmlAttributes={{ media: "(min-width: 1200px)" }}
-          />
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.textures.greenLarge.src}
-            width={740}
-            htmlAttributes={{ media: "(min-width: 1024px)" }}
-          />
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.textures.greenLarge.src}
-            width={600}
-            htmlAttributes={{ media: "(min-width: 320px)" }}
-          />
-          <Imgix
-            className="lazyload"
-            src={staticImages.textures.greenLarge.src}
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            imgixParams={{ w: 100 }}
-            htmlAttributes={{
-              alt: 'Every Tuesday Texture Pack: Green',
-              src: staticImages.textures.greenLarge.placeholder, // low quality image here
-            }} />
-        </Picture>
+        {breakpoint !== 'mobile' && <LazyImgix
+          id={'green-desktop'}
+          image={{
+            width: 1100,
+            height: 1096,
+            alt: 'Large green watercolor texture by Teela',
+            src: `${staticImages.textures.greenLarge.src}?w=1100&fit=clip`,
+            placeholder: staticImages.textures.greenLarge.placeholder
+          }}
+        />}
+
+        {breakpoint === 'mobile' && <LazyImgix
+          id={'green-desktop'}
+          image={{
+            width: 400,
+            height: 399,
+            alt: 'Large green watercolor texture by Teela',
+            src: `${staticImages.textures.greenLarge.src}?w=400&fit=clip`,
+            placeholder: staticImages.textures.greenLarge.placeholder
+          }}
+        />}
       </div>
     </div>
   )

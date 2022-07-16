@@ -36,9 +36,9 @@ const GumroadProductCard = ({ product }: IProps) => {
 
         {/* PRODUCT title */}
         <div data-testid="gumroad-title" className="items-center mb-4 text-left product_header">
-          <h5 className={`max-w-[275px] text-gray-900 text-3xl font-sentinel__SemiBoldItal tablet:max-w-[260px] laptop:text-2xl desktop:text-4xl laptop:max-w-[355px]`}>
+          <p className={`max-w-[275px] text-gray-900 text-3xl font-sentinel__SemiBoldItal tablet:max-w-[260px] laptop:text-2xl desktop:text-4xl laptop:max-w-[355px]`}>
             {product.title}
-          </h5>
+          </p>
         </div>
 
         {/* PRODUCT SELECT */}

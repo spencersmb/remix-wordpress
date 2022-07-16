@@ -18,6 +18,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
+import { cacheControl } from '@App/lib/remix/loaders';
 
 const page = {
   title: 'Products',
@@ -30,11 +31,11 @@ const page = {
   }
 }
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
-  }
-}
+// export const headers: HeadersFunction = ({ loaderHeaders }) => {
+//   return {
+//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
+//   }
+// }
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: page.title,
   desc: page.description,
@@ -54,6 +55,10 @@ export let loader: LoaderFunction = async ({ request, }) => {
     return json({
       page,
       products: formatRawProduct(data.products?.edges),
+    }, {
+      headers: {
+        ...cacheControl
+      }
     })
   } catch (e) {
     console.error('error', e)

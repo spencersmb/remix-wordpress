@@ -14,7 +14,8 @@ import BlogCategoryTabs from "@App/components/blog/blogHomeTabs/blogCategoryTabs
 import { AnimatePresence, motion } from "framer-motion";
 import OutlinedButton from "@App/components/buttons/outlinedButton";
 import BlogPostGrid from "@App/components/blog/blogPostGrid";
-import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { HeadersFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { cacheControl } from "@App/lib/remix/loaders";
 
@@ -24,11 +25,11 @@ type IndexData = {
 };
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    ...cacheControl
-  }
-}
+// export const headers: HeadersFunction = ({ loaderHeaders }) => {
+//   return {
+//     ...cacheControl
+//   }
+// }
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Blog`,
@@ -125,14 +126,19 @@ export let loader: LoaderFunction = async ({ request, }) => {
   } : null
 
   // https://remix.run/api/remix#json
-  return {
+  return json({
     ...data,
     posts,
     pageInfo,
     categories,
     pageUrlParams: page ? parseInt(page, 10) : 1
-  }
+  }, {
+    headers: {
+      ...cacheControl
+    }
+  })
 };
+
 interface ICategoryArgs {
   selectedCategory: string;
   category: {

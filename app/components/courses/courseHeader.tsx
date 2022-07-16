@@ -3,6 +3,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { staticImages } from '@App/lib/imgix/data'
 import LazyImageBase from '../images/lazyImage-base'
 import HeyTeela from '../svgs/heyTeela'
+import LazyImgix from '../images/lazyImgix'
+import useSite from '@App/hooks/useSite'
 
 /**
  * @component CourseHeader
@@ -10,19 +12,23 @@ import HeyTeela from '../svgs/heyTeela'
  */
 function CourseHeader() {
 
+  const { state: { breakpoint } } = useSite()
+
   return (
     <div className='grid grid-flow-row grid-rows-[auto_auto_1fr_1fr_1fr] bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(60px,auto)_1fr_1fr_minmax(60px,auto)_minmax(60px,auto)] desktop:grid-cols-desktop'>
 
       {/* INTRO TEXT */}
       <div className='relative z-30 flex flex-col col-span-2 col-start-2 row-span-1 row-start-1 pb-8 tablet:col-start-2 tablet:col-span-7 tablet:pr-8 laptop:col-start-3 laptop:col-span-6 laptop:row-span-4 laptop:row-end-4 desktop:col-span-5 desktop:col-start-2 desktop:pr-0 desktop:pl-8 desktopXl:px-0 desktopXl:col-span-4 desktopXl:col-start-3'>
         <div className='flex-1 max-w-[60%] pt-8 '>
-          <LazyLoadImage
-            className='w-full'
-            key={'Online Course Scribbles'}
-            alt={'Every Tuesday Online Courses'}
-            effect="blur"
-            placeholderSrc={headerData.scribble.placeholder}
-            src={headerData.scribble.src}
+          <LazyImgix
+            id={'scribble-4'}
+            image={{
+              width: headerData.scribble.width,
+              height: headerData.scribble.height,
+              alt: 'Every Tuesday Online Courses',
+              src: headerData.scribble.src,
+              placeholder: headerData.scribble.placeholder
+            }}
           />
         </div>
         <h1 className='text-7xl font-sentinel__SemiBoldItal text-sage-700 laptop:max-w-[470px] desktop:text-9xl desktop:mb-8'>
@@ -47,65 +53,58 @@ function CourseHeader() {
           </div>
 
           {/* BLACK PIN */}
-          <div className='absolute max-w-[76px] z-20 top-[-18px] left-[45%] translate-x-[-50%] desktop:max-w-[100px]'>
-            <LazyLoadImage
-              key={'blackPin'}
-              alt={'Every Tuesday Hand Made Black Pin'}
-              effect="blur"
-              placeholderSrc={staticImages.assets.pins.black_1.placeholder}
-              src={staticImages.assets.pins.black_1.src}
+          <div className='w-full absolute max-w-[76px] z-20 top-[-18px] left-[45%] translate-x-[-50%] desktop:max-w-[100px]'>
+            <LazyImgix
+              id={'black-pin'}
+              image={{
+                width: staticImages.assets.pins.black_1.width,
+                height: staticImages.assets.pins.black_1.height,
+                alt: 'Every Tuesday Hand Made Black Pin',
+                src: staticImages.assets.pins.black_1.src,
+                placeholder: staticImages.assets.pins.black_1.placeholder
+              }}
             />
           </div>
 
           <div className='relative z-10 '>
-            <LazyImageBase
-              id={'teela'}
-              alt={'Every Tuesday: Hey I\'m Teela, your course instructor.'}
-              key={'Online Course Author'}
-              image={
-                {
-                  width: '800',
-                  height: '1367',
-                  altTitle: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
-                  sourceUrl: headerData.profileImage.src,
-                  placeholder: headerData.profileImage.placeholder,
-                  srcSet: '',
-                  sizes: '',
-                  file: '',
-                  mimeType: "image/jpeg",
-                  name: 'teela',
-                }
-              }
+            <LazyImgix
+              id={'teela-profile'}
+              image={{
+                width: headerData.profileImage.width,
+                height: headerData.profileImage.height,
+                alt: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
+                src: headerData.profileImage.src,
+                placeholder: headerData.profileImage.placeholder
+              }}
             />
           </div>
         </div>
 
         {/* GREEN TEXTURE */}
         <div className='absolute top-[-30px] left-auto right-[-30px] w-[300px] z-0 rotate-[-175deg] tablet:w-[500px] tablet:right-[-220px] tablet:rotate-[45deg] laptop:top-[-50px] laptop:right-[-90px] laptop:w-[400px] desktop:w-[545px]'>
-          <Picture >
-            <Source
-              attributeConfig={{
-                src: 'data-src',
-                srcSet: 'data-srcset',
-                sizes: 'data-sizes'
-              }}
-              src={staticImages.textures.greenLarge.src}
-              width={600}
-              htmlAttributes={{ media: "(min-width: 320px)" }}
-            />
-            <Imgix
-              className="lazyload"
-              src={staticImages.textures.greenLarge.src}
-              attributeConfig={{
-                src: 'data-src',
-                srcSet: 'data-srcset',
-                sizes: 'data-sizes'
-              }}
-              imgixParams={{ w: 100 }}
-              htmlAttributes={{
-                src: staticImages.textures.greenLarge.placeholder, // low quality image here
-              }} />
-          </Picture>
+
+          {breakpoint !== 'mobile' && <LazyImgix
+            id={'green-desktop'}
+            image={{
+              width: 895,
+              height: 893,
+              alt: 'Large green watercolor texture by Teela',
+              src: `${staticImages.textures.greenLarge.src}?w=895&fit=clip`,
+              placeholder: staticImages.textures.greenLarge.placeholder
+            }}
+          />}
+
+          {breakpoint === 'mobile' && <LazyImgix
+            id={'green-desktop'}
+            image={{
+              width: 400,
+              height: 399,
+              alt: 'Large green watercolor texture by Teela',
+              src: `${staticImages.textures.greenLarge.src}?w=400&fit=clip`,
+              placeholder: staticImages.textures.greenLarge.placeholder
+            }}
+          />}
+
         </div>
       </div>
     </div>
@@ -120,10 +119,14 @@ const headerData = {
   profileImage: {
     src: staticImages.profiles.teela.vertical.src,
     placeholder: staticImages.profiles.teela.vertical.placeholder,
+    width: 800,
+    height: 1367,
   },
   scribble: {
     src: staticImages.scribbles.scribble_4.src,
     placeholder: staticImages.scribbles.scribble_4.src,
+    width: staticImages.scribbles.scribble_4.width,
+    height: staticImages.scribbles.scribble_4.height,
   },
   textureImage: {
     ...staticImages.textures.greenLarge,

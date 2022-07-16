@@ -6,7 +6,7 @@ import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { getBasicPageMetaTags } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
-import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import gql from "graphql-tag";
 
@@ -36,6 +36,13 @@ const pageInfo = {
     metaDesc: description
   }
 }
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    ...cacheControl
+  }
+}
+
 export let meta: MetaFunction = (metaData): any => {
 
   /*
@@ -60,7 +67,7 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo }, { headers: { ...cacheControl } })
+  return json({ page: pageInfo })
 };
 
 
