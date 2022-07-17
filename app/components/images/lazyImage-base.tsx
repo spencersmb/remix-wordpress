@@ -12,15 +12,16 @@ interface Props {
   testId?: string
   disableSrcSet?: boolean
   blur?: boolean
+  visibleByDefault?: boolean
 }
 
 /**
  * @component - LazyImageBase
  * @tested - 5/30/2022
- * // TODO: UPDATE TEST TO INCLUDE SRCSet CCHECK
+ * // TODO: UPDATE TEST TO INCLUDE SRCSet CCHECK & VisibleByDefault
  */
 function LazyImageBase(props: Props) {
-  const { image, id, scrollPosition, alt, reverse, testId, disableSrcSet, blur = true } = props
+  const { image, id, scrollPosition, alt, reverse, testId, disableSrcSet, blur = true, visibleByDefault = false } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = reverse ? width / height : height / width
@@ -39,6 +40,7 @@ function LazyImageBase(props: Props) {
           srcSet={disableSrcSet ? '' : image.srcSet}
           sizes={image.sizes}
           placeholderSrc={image.placeholder}
+          visibleByDefault={visibleByDefault}
           // Make sure to pass down the scrollPosition,
           // this will be used by the component to know
           // whether it must track the scroll position or not

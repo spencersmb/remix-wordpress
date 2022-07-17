@@ -70,8 +70,8 @@ function CourseHeader() {
             <LazyImgix
               id={'teela-profile'}
               image={{
-                width: headerData.profileImage.width,
-                height: headerData.profileImage.height,
+                width: 350,
+                height: 598,
                 alt: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
                 src: headerData.profileImage.src,
                 placeholder: headerData.profileImage.placeholder
@@ -117,10 +117,10 @@ const headerData = {
   title: 'Online Courses',
   content: 'I’ve taught over 200,000 students and my design + lettering videos on YouTube have accumulated over 19 million views. I love sharing what I’ve learned over my career and motivating others to create something new every week.',
   profileImage: {
-    src: staticImages.profiles.teela.vertical.src,
+    src: `${staticImages.profiles.teela.vertical.src}?w=350&fit=clip`,
     placeholder: staticImages.profiles.teela.vertical.placeholder,
-    width: 800,
-    height: 1367,
+    width: 350,
+    height: 598,
   },
   scribble: {
     src: staticImages.scribbles.scribble_4.src,

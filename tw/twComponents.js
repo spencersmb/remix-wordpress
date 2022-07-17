@@ -88,6 +88,11 @@ const classes = {
     },
     '&:active':{
       '--tw-ring-color': 'var(--sage-700)',
+    },
+    '&:focus':{
+      color: 'rgb(255 255 255 / var(--tw-text-opacity))',
+      backgroundColor: 'var(--sage-700)',
+      '--tw-ring-color': 'var(--sage-700)',
     }
   },
   '.btn-sage-600':{

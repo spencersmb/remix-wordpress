@@ -1,5 +1,7 @@
 import { ShopPlatformEnum } from "@App/enums/products";
 import useFontPreview from "@App/hooks/useFontPreivew";
+import useFreebies from "@App/hooks/useFreebies";
+import OutlinedButton from "../buttons/outlinedButton";
 import FeaturedProduct from "./featureProduct";
 import GumroadProductCard from "./gumroadProductCard";
 interface IProps {
@@ -13,20 +15,32 @@ interface IProps {
  * Main layout for product page - Not Tested.
  *
  */
+
+function createNewProductsArray(products: IProduct[]) {
+  const featuredProduct = products[0]
+  const productsArray = products.slice(1)
+  return {
+    featuredProduct,
+    productsArray
+  }
+}
+
 const ProductLayout = ({ products, metadata }: IProps) => {
+  const { productsArray, featuredProduct } = createNewProductsArray(products)
   const { fontPreviewState } = useFontPreview()
+  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
 
   return (
     <div>
       <FeaturedProduct
-        product={products[0]}
+        product={featuredProduct}
       />
       {/* parent grid wrapper to match blog index layout */}
       <div className="grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop">
 
         <div className="col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 desktop:pt-9">
           <div className="grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 ">
-            {products.map((product: IProduct) => {
+            {posts.map((product: IProduct) => {
 
               if (metadata?.serverSettings?.productPlatform === ShopPlatformEnum.GUMROAD) {
 
@@ -38,10 +52,28 @@ const ProductLayout = ({ products, metadata }: IProps) => {
                 )
               }
 
-            }).slice(1) // Remove first time because its the featured product
+            })
             }
           </div>
 
+        </div>
+
+        <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+          {pagination.hasNextPage &&
+            <>
+              <OutlinedButton
+                className='mx-auto btn btn-teal-600 btn-outlined-teal-600'
+                clickHandler={handlePageClick}
+                text={'Show More'}
+                loading={false}
+                loadingText={'Loading...'}
+              />
+            </>
+          }
+
+          {!pagination.hasNextPage && pagination.currentPage > 1 &&
+            <div>No More Products</div>
+          }
         </div>
 
       </div>

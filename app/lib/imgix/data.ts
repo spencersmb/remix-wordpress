@@ -56,6 +56,20 @@ export const staticImages = {
         width: 520,
         height: 154
       }
+    },
+    makeThis:{
+      src: 'https://et-website.imgix.net/et-website/images/make-this-lg-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/make-this-lg-min.png?w=20&fit=clip',
+      width: 730,
+      height: 289,
+    },
+    arrows:{
+      arrow_1:{
+        src: 'https://et-website.imgix.net/et-website/images/make-this-arrow-1-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/make-this-arrow-1-min.png?w=20&fit=clip',
+        width: 272,
+        height: 340,
+      }
     }
   },
   profiles:{

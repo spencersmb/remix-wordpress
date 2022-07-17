@@ -39,6 +39,7 @@
   --neutral-500: #a1929a;
   --neutral-600: #8f7d87;
   --warning-700: #b45309;
+  --grey-400: #9da3af;
   --grey-600: #4d5561;
   --grey-700: #384050;
   --grey-800: #212837;
@@ -141,7 +142,7 @@ button {
     @apply max-h-[56px] h-full mt-[3px] py-[.82rem] transition duration-300 bg-white text-sage-600 ring ring-sage-600 hover:ring-sage-700 active:ring-sage-700 hover:bg-sage-700 hover:text-white ring-offset-0 hover:ring-offset-4;
   } */
   .btn-outlined-teal-600 {
-    @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50;
+    @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50 focus:bg-success-600 focus:text-neutral-50 focus:ring-success-600 focus:ring;
   }
   .container {
     padding: 0 15px;
