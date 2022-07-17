@@ -36,9 +36,9 @@ function ProductCard__sm(props: Props) {
         {/* PRODUCT title */}
         <div className="items-center mb-8 text-center product_header">
 
-          <h5 className={`text-2xl font-sentinel__SemiBoldItal laptop:text-h5 max-w-[250px] mx-auto`}>
+          <h3 className={`text-2xl font-sentinel__SemiBoldItal laptop:text-h5 max-w-[250px] mx-auto`}>
             {product.title}
-          </h5>
+          </h3>
         </div>
 
         {/* PRODUCT SELECT */}

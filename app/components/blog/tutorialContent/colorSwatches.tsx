@@ -1,6 +1,7 @@
 import Imgix, { Picture, Source } from "react-imgix"
 import CircularStrokeBtn from "@App/components/buttons/circularStrokeBtn"
 import { staticImages } from "@App/lib/imgix/data"
+import LazyImgix from "@App/components/images/lazyImgix"
 
 interface Props {
   multipleLayout: boolean
@@ -33,7 +34,7 @@ function ColorSwatches(props: Props) {
     : 'mt-[75%] tablet:mt-0 tablet:mb-8'
 
   const imageStyles = multipleLayout
-    ? `swatch_img w-full top-[-80px] right-[0px] left-auto absolute z-0 tablet:top-auto tablet:bottom-0 tablet:right-[-350px]`
+    ? `swatch_img w-full top-[-80px] right-[0px] left-auto absolute z-0 tablet:top-0 tablet:bottom-0 tablet:right-[-350px] max-w-[940px]`
     : `swatch_img w-full max-w-[400px] top-[-80px] right-[0px] left-[50%] translate-x-[-50%] absolute z-0 tablet:top-[7%]`
   return (
     <div
@@ -55,30 +56,15 @@ function ColorSwatches(props: Props) {
           </div>
         </div>
         <div className={imageStyles}>
-          <Picture >
-            <Source
-              attributeConfig={{
-                src: 'data-src',
-                srcSet: 'data-srcset',
-                sizes: 'data-sizes'
-              }}
-              src={staticImages.assets.swatchPalette.freebie.src}
-              width={800}
-              htmlAttributes={{ media: "(min-width: 768px)" }}
-            />
-            <Imgix
-              className="w-full lazyload"
-              src={staticImages.assets.swatchPalette.freebie.src}
-              attributeConfig={{
-                src: 'data-src',
-                srcSet: 'data-srcset',
-                sizes: 'data-sizes'
-              }}
-              imgixParams={{ w: 400 }}
-              htmlAttributes={{
-                src: staticImages.assets.swatchPalette.freebie.placeholder, // low quality image here
-              }} />
-          </Picture>
+          <LazyImgix
+            id={"color-swatch"}
+            image={{
+              width: staticImages.assets.swatchPalette.freebie.width,
+              height: staticImages.assets.swatchPalette.freebie.height,
+              alt: "Download the free clolor swatches",
+              src: staticImages.assets.swatchPalette.freebie.src,
+              placeholder: staticImages.assets.swatchPalette.freebie.placeholder,
+            }} />
         </div>
       </div>
     </div>

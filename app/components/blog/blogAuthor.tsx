@@ -41,7 +41,7 @@ function BlogAuthor(props: Props) {
 
       {/* AUTHOR INFO */}
       <div className='my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left'>
-        <div className='mb-2 text-sm text-neutral-600'>Written By</div>
+        <div className='mb-2 text-sm text-sagae-700'>Written By</div>
         <div className='text-primary-600 font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
         <div className='text-base text-primary-600'>Every Tuesday's content creator and founder.</div>
       </div>

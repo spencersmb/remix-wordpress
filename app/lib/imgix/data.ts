@@ -28,11 +28,13 @@ export const staticImages = {
     swatchPalette:{
       circles:{
         src: 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png',
-        placeholder: 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/color-palette-1-min.png?w=20&fit=clip',
       },
       freebie:{
         src: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg',
-        placeholder: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?w=20&fit=clip'
+        placeholder: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg?w=20&fit=clip',
+        width: 553,
+        height: 464,
       }
     },
     brushes:{

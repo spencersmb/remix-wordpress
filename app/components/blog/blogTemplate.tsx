@@ -125,7 +125,7 @@ function BlogTemplate(props: IProps) {
 
 
       {/* TUTORIAL DOWNLOADS */}
-      {post.tutorialManager.youtube.embedUrl &&
+      {post.tutorialManager.youtube.id &&
         <div
           data-testId='blog-tutorialDownloads'
           className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
@@ -168,7 +168,9 @@ function BlogTemplate(props: IProps) {
 
                 </div>
                 <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
-                  <YouTubeVideo title={post.title} url={post.tutorialManager.youtube.embedUrl} />
+                  <YouTubeVideo
+                    id={post.tutorialManager.youtube.id}
+                    title={post.title} url={post.tutorialManager.youtube.embedUrl} />
 
                   {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
 

@@ -1744,6 +1744,9 @@ video {
 .w-\[30px\] {
   width: 30px;
 }
+.w-\[167px\] {
+  width: 167px;
+}
 .w-\[100\%\] {
   width: 100%;
 }
@@ -1872,12 +1875,6 @@ video {
 }
 .w-\[98\.34px\] {
   width: 98.34px;
-}
-.w-\[297px\] {
-  width: 297px;
-}
-.w-\[167px\] {
-  width: 167px;
 }
 .min-w-\[320px\] {
   min-width: 320px;
@@ -2031,6 +2028,9 @@ video {
 }
 .max-w-\[481px\] {
   max-width: 481px;
+}
+.max-w-\[940px\] {
+  max-width: 940px;
 }
 .max-w-\[110px\] {
   max-width: 110px;
@@ -2577,9 +2577,8 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(141 92 92 / var(--tw-bg-opacity));
 }
-.bg-teal-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(45 212 191 / var(--tw-bg-opacity));
+.bg-sage-600 {
+  background-color: var(--sage-600);
 }
 .bg-success-50 {
   --tw-bg-opacity: 1;
@@ -2606,9 +2605,6 @@ video {
 }
 .bg-sage-800 {
   background-color: var(--sage-800);
-}
-.bg-sage-600 {
-  background-color: var(--sage-600);
 }
 .bg-primary-400 {
   --tw-bg-opacity: 1;
@@ -2722,9 +2718,6 @@ video {
 }
 .bg-transparent {
   background-color: transparent;
-}
-.bg-sage-400 {
-  background-color: var(--sage-400);
 }
 .bg-contain {
   background-size: contain;
@@ -3268,10 +3261,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.text-neutral-50 {
-  --tw-text-opacity: 1;
-  color: rgb(252 250 251 / var(--tw-text-opacity));
-}
 .text-success-700 {
   --tw-text-opacity: 1;
   color: rgb(52 76 76 / var(--tw-text-opacity));
@@ -3330,6 +3319,10 @@ video {
 .text-slate-700 {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+.text-neutral-50 {
+  --tw-text-opacity: 1;
+  color: rgb(252 250 251 / var(--tw-text-opacity));
 }
 .text-lfm-blue-700 {
   --tw-text-opacity: 1;
@@ -3417,9 +3410,6 @@ video {
 }
 .text-sage-50 {
   color: var(--sage-50);
-}
-.text-sage-400 {
-  color: var(--sage-400);
 }
 .text-gray-400 {
   --tw-text-opacity: 1;
@@ -3593,9 +3583,8 @@ video {
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
-.ring-teal-400 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(45 212 191 / var(--tw-ring-opacity));
+.ring-sage-600 {
+  --tw-ring-color: var(--sage-600);
 }
 .ring-black {
   --tw-ring-opacity: 1;
@@ -3604,9 +3593,6 @@ video {
 .ring-primary-500 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(141 92 92 / var(--tw-ring-opacity));
-}
-.ring-sage-600 {
-  --tw-ring-color: var(--sage-600);
 }
 .ring-success-600 {
   --tw-ring-opacity: 1;
@@ -4164,6 +4150,9 @@ video {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(45 212 191 / var(--tw-ring-opacity));
 }
+.hover\:ring-sage-600:hover {
+  --tw-ring-color: var(--sage-600);
+}
 .hover\:ring-neutral-400:hover {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(208 201 205 / var(--tw-ring-opacity));
@@ -4188,9 +4177,6 @@ video {
 }
 .hover\:ring-sage-200:hover {
   --tw-ring-color: var(--sage-200);
-}
-.hover\:ring-sage-600:hover {
-  --tw-ring-color: var(--sage-600);
 }
 .hover\:ring-teal-500:hover {
   --tw-ring-opacity: 1;
@@ -4592,9 +4578,6 @@ video {
   .tablet\:top-\[70\%\] {
     top: 70%;
   }
-  .tablet\:top-auto {
-    top: auto;
-  }
   .tablet\:bottom-0 {
     bottom: 0px;
   }
@@ -4639,6 +4622,9 @@ video {
   }
   .tablet\:top-\[-225px\] {
     top: -225px;
+  }
+  .tablet\:top-auto {
+    top: auto;
   }
   .tablet\:bottom-\[-23px\] {
     bottom: -23px;
@@ -5842,6 +5828,9 @@ video {
   .laptop\:w-full {
     width: 100%;
   }
+  .laptop\:w-\[227px\] {
+    width: 227px;
+  }
   .laptop\:w-\[250px\] {
     width: 250px;
   }
@@ -5868,9 +5857,6 @@ video {
   }
   .laptop\:w-\[600px\] {
     width: 600px;
-  }
-  .laptop\:w-\[227px\] {
-    width: 227px;
   }
   .laptop\:min-w-\[1009px\] {
     min-width: 1009px;
@@ -6605,6 +6591,9 @@ video {
   .desktop\:w-\[138px\] {
     width: 138px;
   }
+  .desktop\:w-\[373px\] {
+    width: 373px;
+  }
   .desktop\:w-\[70\%\] {
     width: 70%;
   }
@@ -6640,9 +6629,6 @@ video {
   }
   .desktop\:w-\[311px\] {
     width: 311px;
-  }
-  .desktop\:w-\[373px\] {
-    width: 373px;
   }
   .desktop\:min-w-\[1265px\] {
     min-width: 1265px;
@@ -6940,10 +6926,10 @@ video {
 }
 .blog-content a {
   font-weight: 600;
-  --tw-text-opacity: 1;
-  color: rgb(20 184 166 / var(--tw-text-opacity));
+  color: var(--sage-700);
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
+  text-underline-offset: 4px;
 }
 .blog-content a:hover {
   --tw-text-opacity: 1;

@@ -198,6 +198,7 @@ interface ITutorialManager {
   }[] | null
   youtube: {
     embedUrl: string
+    id: string | undefined
   }
   paidProducts: IProduct[]| null
   postExcerpt: string | null

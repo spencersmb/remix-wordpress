@@ -68,15 +68,15 @@ function TutorialDownloads(props: Props) {
       <div className='flex flex-col bg-sage-700 text-sage-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
 
         {resourceUser &&
-          <div className='mb-0 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
+          <h2 className='mb-0 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
             Tutorial Downloads
-          </div>
+          </h2>
         }
 
         {!resourceUser && <>
-          <div className='mb-3 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
+          <h2 className='mb-3 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>
             Tutorial Downloads
-          </div>
+          </h2>
           <p className='mb-4'>
             Gain access to all tutorial assets for free by joining Tuesday Makers.
           </p>
@@ -114,15 +114,16 @@ function TutorialDownloads(props: Props) {
           </div>
         </div>}
 
+        {/* LOCKED ITEMS LIST */}
         <div className='py-6 locked_items_list'>
           {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
             return (
               <div data-testid='test-downloadItem' key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
-                <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-sage-400' : 'text-sage-600'}`}>
+                <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-200 btn-disabled-sage-200` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
-                  Download
+                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-600 btn-disabled-sage-600` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
+                  {!resourceUser ? 'Locked' : 'Download'}
                 </button>
               </div>
             )

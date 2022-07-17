@@ -1704,6 +1704,7 @@ type DownloadFreebie_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    id: String
 }
 
 "Field Group"
@@ -3374,6 +3375,7 @@ type Post_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    id: String
 }
 
 "Field Group"
@@ -3711,6 +3713,7 @@ type Product_Tutorialmanager_Youtube implements AcfFieldGroup {
     embedUrl: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    id: String
 }
 
 "Field Group"
@@ -5611,6 +5614,8 @@ type SendEmailPayload {
     replyTo: String
     "Was the email sent"
     sent: Boolean
+    "Was the email sent"
+    test: String
     "Who the email got sent to"
     to: String
 }
@@ -10922,6 +10927,8 @@ input SendEmailInput {
     clientMutationId: String
     "Who to send the email from"
     from: String
+    "Name of person"
+    name: String
     "Reply to address"
     replyTo: String
     "Subject of email"

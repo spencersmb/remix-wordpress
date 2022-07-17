@@ -1,6 +1,6 @@
 .blog-content {
   & a {
-    @apply text-teal-500 underline hover:text-teal-800 font-semibold;
+    @apply text-sage-700 underline underline-offset-4 hover:text-teal-800 font-semibold;
   }
   iframe {
     position: absolute;

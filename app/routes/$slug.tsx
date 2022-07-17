@@ -195,6 +195,7 @@ query postBySlug($slug: String!) {
             }
             youtube {
                 embedUrl
+                id
             }
             downloads {
                 ... on ResourceLibrary {
