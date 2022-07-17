@@ -21,8 +21,7 @@ describe('TabLabel', () => {
     TabsProviderRender(
       <TabLabel {...tabProps} />
       , { props: providerDefaultProps })
-    expect(screen.getByRole('tab')).toBeInTheDocument()
-    expect(screen.getByRole('tab')).toHaveTextContent('test-text')
+    expect(screen.getByTestId('tab')).toHaveTextContent('test-text')
 
     // expect(screen.getByText(/^My Name Is:/)).toHaveTextContent('My Name Is: C3P0')
   })
@@ -33,9 +32,9 @@ describe('TabLabel', () => {
       text: 'test-text',
       Svg: () => <div>Svg</div>,
     }
-    const css = 'text-neutral-400'
+    const css = 'text-grey-500'
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerDefaultProps })
-    expect(screen.getByRole('tab')).toHaveClass(css)
+    expect(screen.getByTestId('tab')).toHaveClass(css)
   })
 
   it('Tab shows correct class for selected', () => {
@@ -46,8 +45,9 @@ describe('TabLabel', () => {
     }
     const css = 'text-primary-500'
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerSelectedProps })
-    expect(screen.getByRole('tab')).toHaveClass(css)
+    expect(screen.getByTestId('tab')).toHaveClass(css)
   })
+
   it('Should show neutral svg fill color', () => {
     const tabProps = {
       id: 'test-id',
@@ -56,10 +56,11 @@ describe('TabLabel', () => {
     }
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerDefaultProps })
     const svgElement = screen.getByTestId('test-svg')
-    const svgcolor = 'var(--neutral-400)'
+    const svgcolor = 'var(--grey-400)'
 
     expect(svgElement).toHaveAttribute('fill', svgcolor)
   })
+
   it('Should show correct svg fill color', () => {
     const tabProps = {
       id: 'test-id',

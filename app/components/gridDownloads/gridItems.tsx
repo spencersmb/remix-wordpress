@@ -6,7 +6,11 @@ interface Props {
 }
 type IProps = LazyComponentProps & Props
 
-//TODO: Test this component
+/**
+ * 
+ * @component DownloadGrid (GridItems)) 
+ * @tested - 7/6/2022 
+ */
 function DownloadGrid(props: IProps) {
   const { gridItems, scrollPosition } = props
 

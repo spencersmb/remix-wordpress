@@ -10,7 +10,25 @@ describe('License Select Component', () => {
   const setup = (props: any, addFontToPreview: any = null) => {
     const queries = renderUseSiteProviderUi(
       <MemoryRouter>
-        <LicenseSelectSection product={...props} addFontToPreview={addFontToPreview} />
+        <LicenseSelectSection
+          product={...props}
+          addFontToPreview={addFontToPreview} />
+      </MemoryRouter>
+      , {
+        providerProps: siteInitialState
+      }
+    )
+
+    return {
+      ...queries,
+    }
+  }
+
+  const setup2 = (props: any) => {
+    const queries = renderUseSiteProviderUi(
+      <MemoryRouter>
+        <LicenseSelectSection
+          {...props} />
       </MemoryRouter>
       , {
         providerProps: siteInitialState
@@ -75,5 +93,20 @@ describe('License Select Component', () => {
       expect(fontFn).toHaveBeenCalled()
       expect(fontFn).toHaveBeenCalledWith(mockPaidProduct.productDetails.font.name)
     }
+  })
+
+  it('Should have default button text', () => {
+    const { queryByText } = setup2({
+      product: mockPaidProduct
+    })
+    expect(queryByText(/buy now/i)).toBeTruthy()
+  })
+
+  it('Should have correct button text', () => {
+    const { queryByText } = setup2({
+      product: mockPaidProduct,
+      buttonText: 'Test Button Text'
+    })
+    expect(queryByText(/test button text/i)).toBeTruthy()
   })
 })

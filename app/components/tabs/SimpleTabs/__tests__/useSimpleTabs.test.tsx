@@ -53,7 +53,7 @@ describe('useSimpleTabs', () => {
 
 
     // render(<TestTabProps />)
-    const button = screen.getByRole('presentation')
+    const button = screen.getByRole('tab')
     expect(button).toHaveAttribute('aria-controls', 'spencer')
     expect(button).toHaveAttribute('aria-selected', "false")
     expect(button).toHaveClass('test-tab')
@@ -69,6 +69,7 @@ describe('useSimpleTabs', () => {
     render(<SimpleTabs>
       <div data-testid="parent">
         <TabContent {...{
+          index: 0,
           id: 'spencer',
           className: 'test-tabContent',
         }}>
@@ -88,6 +89,7 @@ describe('useSimpleTabs', () => {
     }}>
       <div data-testid="parent">
         <TabContent {...{
+          index: 0,
           id: 'spencer',
           className: 'test-tabContent',
         }}>
@@ -98,7 +100,7 @@ describe('useSimpleTabs', () => {
 
     expect(screen.queryByTestId('parent')).toHaveTextContent('Inner')
     expect(screen.getByRole('tabpanel')).toBeVisible()
-    expect(screen.getByRole('tabpanel')).toHaveAttribute('aria-labelledby', `spencer-tab`)
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('aria-labelledby', `tab-0`)
     expect(screen.getByRole('tabpanel')).toHaveAttribute('id', `spencer`)
     expect(screen.getByRole('tabpanel')).toHaveClass(`test-tabContent`)
 
@@ -122,7 +124,7 @@ describe('useSimpleTabs', () => {
       </SimpleTabsHeader>
     </SimpleTabs>)
     const tabList = screen.getByRole('tablist')
-    const tabs = screen.getAllByRole('presentation')
+    const tabs = screen.getAllByRole('tab')
     expect(tabList).toBeVisible()
 
     // Should show both tabs since this is the nav

@@ -37,12 +37,6 @@ const pageInfo = {
   }
 }
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    ...cacheControl
-  }
-}
-
 export let meta: MetaFunction = (metaData): any => {
 
   /*
@@ -67,7 +61,7 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo })
+  return json({ page: pageInfo }, { headers: { ...cacheControl } })
 };
 
 

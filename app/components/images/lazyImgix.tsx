@@ -13,26 +13,32 @@ interface Props {
     placeholder?: string
   }
   srcSet?: string
-  vertical?: boolean
   testId?: string
   scrollPosition?: ScrollPosition
   blur?: boolean
 }
-//TODO: Test this
+
+/**
+ * 
+ * @component LazyImgix
+ * @tested - 7/17/2022
+ */
 function LazyImgix(props: Props) {
-  const { image, id, scrollPosition, vertical, testId, srcSet, blur = true } = props
+  const { image, id, scrollPosition, testId, srcSet, blur = true } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
-  const imagePadding = vertical ? width / height : height / width
+  const imagePadding = height / width
   const [loaded, setLoaded] = useState(false)
   return (
     <div
       data-testid='imigx-padding-bot'
       style={{ paddingBottom: `${imagePadding * 100}%` }} className={`relative flex-1`}>
-      <div className={classNames(
-        !blur && !loaded
-          ? 'opacity-0'
-          : !blur && loaded ? 'opacity-1' : '', 'absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300')}>
+      <div
+        data-testid={'imigx-container'}
+        className={classNames(
+          !blur && !loaded
+            ? 'opacity-0'
+            : !blur && loaded ? 'opacity-1' : '', 'absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300')}>
         <LazyLoadImage
           afterLoad={() => {
             setLoaded(true)

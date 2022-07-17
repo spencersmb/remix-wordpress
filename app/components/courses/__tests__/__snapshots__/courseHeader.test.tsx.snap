@@ -10,28 +10,45 @@ exports[`CourseHeader component renders correctly 1`] = `
     <div
       className="flex-1 max-w-[60%] pt-8 "
     >
-      <span
-        className=" lazy-load-image-background blur"
+      <div
+        className="relative flex-1"
+        data-testid="imigx-padding-bot"
         style={
           Object {
-            "backgroundImage": "url(https://et-website.imgix.net/et-website/images/scribble-4-min.png)",
-            "backgroundSize": "100% 100%",
-            "color": "transparent",
-            "display": "inline-block",
-            "height": undefined,
-            "width": undefined,
+            "paddingBottom": "26.333333333333332%",
           }
         }
       >
-        <span
-          className="w-full"
-          style={
-            Object {
-              "display": "inline-block",
+        <div
+          className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+          data-testid="imigx-container"
+        >
+          <span
+            className=" lazy-load-image-background blur"
+            style={
+              Object {
+                "backgroundImage": "url(https://et-website.imgix.net/et-website/images/scribble-4-min.png)",
+                "backgroundSize": "100% 100%",
+                "color": "transparent",
+                "display": "inline-block",
+                "height": "158px",
+                "width": "600px",
+              }
             }
-          }
-        />
-      </span>
+          >
+            <span
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                  "height": "158px",
+                  "width": "600px",
+                }
+              }
+            />
+          </span>
+        </div>
+      </div>
     </div>
     <h1
       className="text-7xl font-sentinel__SemiBoldItal text-sage-700 laptop:max-w-[470px] desktop:text-9xl desktop:mb-8"
@@ -75,45 +92,63 @@ exports[`CourseHeader component renders correctly 1`] = `
         </svg>
       </div>
       <div
-        className="absolute max-w-[76px] z-20 top-[-18px] left-[45%] translate-x-[-50%] desktop:max-w-[100px]"
+        className="w-full absolute max-w-[76px] z-20 top-[-18px] left-[45%] translate-x-[-50%] desktop:max-w-[100px]"
       >
-        <span
-          className=" lazy-load-image-background blur"
+        <div
+          className="relative flex-1"
+          data-testid="imigx-padding-bot"
           style={
             Object {
-              "backgroundImage": "url(https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip)",
-              "backgroundSize": "100% 100%",
-              "color": "transparent",
-              "display": "inline-block",
-              "height": undefined,
-              "width": undefined,
+              "paddingBottom": "78.5997357992074%",
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
+          <div
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+            data-testid="imigx-container"
+          >
+            <span
+              className=" lazy-load-image-background blur"
+              style={
+                Object {
+                  "backgroundImage": "url(https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip)",
+                  "backgroundSize": "100% 100%",
+                  "color": "transparent",
+                  "display": "inline-block",
+                  "height": "595px",
+                  "width": "757px",
+                }
               }
-            }
-          />
-        </span>
+            >
+              <span
+                className=""
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "height": "595px",
+                    "width": "757px",
+                  }
+                }
+              />
+            </span>
+          </div>
+        </div>
       </div>
       <div
         className="relative z-10 "
       >
         <div
           className="relative flex-1"
-          data-testid="padding-bot"
+          data-testid="imigx-padding-bot"
           style={
             Object {
-              "paddingBottom": "170.875%",
+              "paddingBottom": "170.85714285714286%",
             }
           }
         >
           <div
-            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+            data-testid="imigx-container"
           >
             <span
               className=" lazy-load-image-background blur"
@@ -123,8 +158,8 @@ exports[`CourseHeader component renders correctly 1`] = `
                   "backgroundSize": "100% 100%",
                   "color": "transparent",
                   "display": "inline-block",
-                  "height": "1367px",
-                  "width": "800px",
+                  "height": "598px",
+                  "width": "350px",
                 }
               }
             >
@@ -133,8 +168,8 @@ exports[`CourseHeader component renders correctly 1`] = `
                 style={
                   Object {
                     "display": "inline-block",
-                    "height": "1367px",
-                    "width": "800px",
+                    "height": "598px",
+                    "width": "350px",
                   }
                 }
               />
@@ -146,53 +181,45 @@ exports[`CourseHeader component renders correctly 1`] = `
     <div
       className="absolute top-[-30px] left-auto right-[-30px] w-[300px] z-0 rotate-[-175deg] tablet:w-[500px] tablet:right-[-220px] tablet:rotate-[45deg] laptop:top-[-50px] laptop:right-[-90px] laptop:w-[400px] desktop:w-[545px]"
     >
-      <picture>
-        <source
-          data-srcset="https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=600&dpr=1&q=75 1x,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=600&dpr=2&q=50 2x,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=600&dpr=3&q=35 3x,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=600&dpr=4&q=23 4x,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=600&dpr=5&q=20 5x"
-          media="(min-width: 320px)"
-          width={600}
-        />
-        <img
-          className="lazyload"
-          data-src="https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&w=100&ixlib=react-9.5.1-beta.1"
-          data-srcset="https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=100 100w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=116 116w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=135 135w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=156 156w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=181 181w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=210 210w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=244 244w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=283 283w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=328 328w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=380 380w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=441 441w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=512 512w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=594 594w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=689 689w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=799 799w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=927 927w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=1075 1075w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=1247 1247w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=1446 1446w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=1678 1678w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=1946 1946w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=2257 2257w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=2619 2619w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=3038 3038w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=3524 3524w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=4087 4087w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=4741 4741w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=5500 5500w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=6380 6380w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=7401 7401w,
-https://et-website.imgix.net/et-website/textures/green-texture-min.png?auto=format&ixlib=react-9.5.1-beta.1&w=8192 8192w"
-          src="https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip"
-        />
-      </picture>
+      <div
+        className="relative flex-1"
+        data-testid="imigx-padding-bot"
+        style={
+          Object {
+            "paddingBottom": "99.75%",
+          }
+        }
+      >
+        <div
+          className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+          data-testid="imigx-container"
+        >
+          <span
+            className=" lazy-load-image-background blur"
+            style={
+              Object {
+                "backgroundImage": "url(https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip)",
+                "backgroundSize": "100% 100%",
+                "color": "transparent",
+                "display": "inline-block",
+                "height": "399px",
+                "width": "400px",
+              }
+            }
+          >
+            <span
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                  "height": "399px",
+                  "width": "400px",
+                }
+              }
+            />
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

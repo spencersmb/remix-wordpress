@@ -7,11 +7,11 @@ exports[`Course High Quality component renders correctly 1`] = `
   <div
     className="col-span-2 col-start-2 mb-8 text-center text-sage-700 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 laptop:mb-16"
   >
-    <h3
+    <h2
       className="mb-8 text-5xl font-sentinel__SemiBoldItal desktop:text-6xl desktop:max-w-[500px] desktop:mx-auto"
     >
       High quality video & class assets
-    </h3>
+    </h2>
     <p
       className="tablet:text-lg laptop:text-xl desktop:text-2xl"
     >
@@ -50,9 +50,9 @@ exports[`Course High Quality component renders correctly 1`] = `
       <div
         className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
       >
-        <h4>
+        <h3>
           Pre-recorded videos
-        </h4>
+        </h3>
       </div>
     </div>
     <div
@@ -108,9 +108,9 @@ exports[`Course High Quality component renders correctly 1`] = `
       <div
         className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
       >
-        <h4>
+        <h3>
           Step-by-step instructions
-        </h4>
+        </h3>
       </div>
     </div>
     <div
@@ -148,9 +148,9 @@ exports[`Course High Quality component renders correctly 1`] = `
       <div
         className="flex-1 pl-4 font-bold leading-6 laptop:text-lg text-sage-600"
       >
-        <h4>
+        <h3>
           Project Based Tutorials
-        </h4>
+        </h3>
       </div>
     </div>
   </div>

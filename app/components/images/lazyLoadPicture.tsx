@@ -11,7 +11,7 @@ interface Props {
   className?: string
 }
 
-// TODO: TEST THIS
+// CURRENTLY NOT USED
 function LazyLoadPicture(props: Props) {
   const { sources, alt, className } = props
 

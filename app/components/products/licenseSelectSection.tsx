@@ -5,7 +5,6 @@ import GumroadBtn from '../buttons/gumroadBtn'
 import LicenseRadioSelect from '../forms/radio/licenseRadioSelect'
 import useSite from '@App/hooks/useSite';
 
-// TODO: TEST - Add buttonText test
 interface Props {
   product: IProduct
   addFontToPreview?: IAddFontFunction
@@ -13,7 +12,7 @@ interface Props {
 }
 /**
  * @Component License Section Component
- * @tested - 6/2/2022
+ * @tested - 7/17/2022
  * 
  * Main way to select licenses on Product Cards
  *

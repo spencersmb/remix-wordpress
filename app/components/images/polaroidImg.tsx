@@ -6,7 +6,11 @@ interface Props {
   children?: React.ReactNode
   rotate?: 'left' | 'right' | 'none'
 }
-//TODO: Test this
+/**
+ * 
+ * @component PolaroidImg
+ * @tested - 07/17/2022 
+ */
 function PolaroidImg(props: Props) {
   const { imgixImage, children, rotate = 'none' } = props
   const spacing = 64
@@ -22,7 +26,7 @@ function PolaroidImg(props: Props) {
   }
 
   return (
-    <div className={`p-2 bg-white rounded-lg shadow-md ${getRotation()} tablet:p-3`}>
+    <div data-testid="polaroid-container" className={`p-2 bg-white rounded-lg shadow-md ${getRotation()} tablet:p-3`}>
 
       {imgixImage &&
         <div>

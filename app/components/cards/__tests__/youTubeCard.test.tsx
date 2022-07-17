@@ -16,15 +16,11 @@ describe('YouTube Card', () => {
 
     )
     return {
-      card: screen.getByTestId('youtube_video'),
+      parent: screen.getByTestId('embed-parent'),
     }
   }
-  it('Should have correct title', () => {
-    const { card } = setup()
-    expect(card).toHaveAttribute('title', `YouTube video: ${defualtProps.title}`)
-  })
-  it('Should have correct video src', () => {
-    const { card } = setup()
-    expect(card).toHaveAttribute('src', defualtProps.url)
+  it('Should have correct children', () => {
+    const { parent } = setup()
+    expect(parent.children).toHaveLength(2)
   })
 })

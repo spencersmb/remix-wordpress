@@ -11,7 +11,11 @@ interface Props {
   products?: IProduct[]
 }
 
-//TODO: Test this
+/**
+ * 
+ * @component VideoPageTemplate 
+ * @tested - 07/08/2022 
+ */
 function VideoPageTemplate(props: Props) {
   const { video, children, products } = props
 

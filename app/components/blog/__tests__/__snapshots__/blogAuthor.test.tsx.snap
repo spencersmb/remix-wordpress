@@ -45,7 +45,7 @@ exports[`Blog Author Tests Should render Blog Author Component  1`] = `
     className="my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left"
   >
     <div
-      className="mb-2 text-sm text-neutral-600"
+      className="mb-2 text-sm text-sagae-700"
     >
       Written By
     </div>

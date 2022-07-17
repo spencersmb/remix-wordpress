@@ -50,8 +50,8 @@ describe('BlogFeature Post Component', () => {
         }} />
       </MemoryRouter>
     )
-    const image = screen.getByTestId("make-this-image")
-    const arrow = screen.getByTestId("make-this-arrow")
+    const image = screen.getByTestId("lazy-load-image-make-this")
+    const arrow = screen.getByTestId("lazy-load-image-make-this-arrow")
     expect(arrow).toBeVisible()
     expect(image).toBeVisible()
 
@@ -108,7 +108,6 @@ describe('BlogFeature Post Component', () => {
     expect(screen.getByTestId('blog-desc'))
       .toHaveTextContent(div.firstElementChild?.innerHTML as string)
   })
-
 
   it('should show blog skill level', () => {
     setup({

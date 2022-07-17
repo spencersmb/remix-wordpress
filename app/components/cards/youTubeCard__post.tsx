@@ -1,5 +1,5 @@
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
-import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
+// import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 interface Props {
   url: string
   id: string
@@ -14,7 +14,7 @@ function YouTubeVideo(props: Props) {
   return (
     <div className='relative mb-8 overflow-hidden shadow-xs youtube_container rounded-2xl'>
       <div className='embed-responsive'>
-        <div className='embed-responsive-item'>
+        <div data-testid="embed-parent" className='embed-responsive-item'>
           <LiteYouTubeEmbed
             wrapperClass={`h-full bg-contain`}
             id={id} // Default none, id of the video or playlist

@@ -7,7 +7,11 @@ interface Props {
   imgixImage?: ImgixImageType
   wpImage?: ImageLookupReturn
 }
-//TODO: Test this
+/**
+ * 
+ * @component ImageTextHeader1
+ * @tested - 07/17/2022 
+ */
 function ImageTextHeader1(props: Props) {
   const { imgixImage } = props
   return (

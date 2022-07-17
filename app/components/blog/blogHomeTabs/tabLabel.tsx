@@ -34,6 +34,7 @@ function TabLabel(props: Props) {
 
   return (
     <div
+      data-testid="tab"
       className={classNames(state.selectedTab === id
         ? 'text-primary-500 after:underlined-active'
         : 'text-grey-500',
