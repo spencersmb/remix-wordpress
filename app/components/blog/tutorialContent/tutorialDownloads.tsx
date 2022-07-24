@@ -122,7 +122,7 @@ function TutorialDownloads(props: Props) {
                 <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn-sage-600 btn-disabled-sage-600` : `btn-sage-300`, 'btn btn-small')} onClick={handleDownload(index)}>
+                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outline` : `btn btn-outline`, 'btn btn-small')} onClick={handleDownload(index)}>
                   {!resourceUser ? 'Locked' : 'Download'}
                 </button>
               </div>

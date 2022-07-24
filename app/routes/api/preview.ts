@@ -1,5 +1,6 @@
-import { LoaderFunction, redirect } from '@remix-run/node';
-import { getLoginRedirectUrl, getPreviewRedirectUrl } from '../../utils/loaderHelpers'
+import type { LoaderFunction} from '@remix-run/node';
+import { redirect } from '@remix-run/node';
+import { getLoginRedirectUrl, getPreviewRedirectUrl, getRedirectUrlForLogin } from '../../utils/loaderHelpers'
 import { requireAdminUserToken } from '../../utils/session.server'
 
 
@@ -15,7 +16,7 @@ import { requireAdminUserToken } from '../../utils/session.server'
 export let loader: LoaderFunction = async ({request}) => {
 
   // Build Login redirect if there is no user found
-  const loginRedirectUrl = getLoginRedirectUrl(request)
+  const loginRedirectUrl = getRedirectUrlForLogin(request)
   await requireAdminUserToken(request, loginRedirectUrl)
 
   // Build preview redirect URL

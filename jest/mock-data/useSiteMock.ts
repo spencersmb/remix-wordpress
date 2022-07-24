@@ -43,6 +43,7 @@ export const mockUseSiteData_default: ISiteContextState = {
         showBanner: 'false',
         endDate: 'null',
         nextLaunchDate: 'null',
+        minicourseSignup: true
       }
     }
   },

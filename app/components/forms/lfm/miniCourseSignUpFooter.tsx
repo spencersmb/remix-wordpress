@@ -12,10 +12,10 @@ interface Props {
 const LfmMiniCourseSignUpFormFooter = (props: Props) => {
   let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
-  const { openModal, closeModal } = useSite()
+  const { openModal, closeModal, state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
   const formRef: any = useRef()
   useEffect(() => {
-    if (actionData?.form?.footer === 'success') {
+    if (actionData?.form?.footer.message === 'success') {
       openModal(
         {
           template: <SignUpSuccess
@@ -40,7 +40,7 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
         {actionData?.formError?.footer && transition.state === 'idle' &&
           <FormErrorMessage
             id={'subscriberError'}
-            message={actionData.formError.footer || ''} />
+            message={actionData.formError.footer.message || ''} />
         }
         {actionData?.fieldErrors?.email && transition.state === 'idle' &&
           <FormErrorMessage
@@ -74,7 +74,7 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
             placeholder='Enter your email'
           />
           <input type="hidden" name="_action" value={'footer'} />
-
+          <input type="hidden" disabled name="_openstatus" value={lfmBanner.minicourseSignup.toString()} />
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}

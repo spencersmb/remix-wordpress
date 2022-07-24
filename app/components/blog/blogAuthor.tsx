@@ -48,7 +48,7 @@ function BlogAuthor(props: Props) {
 
       {/* BUTTON */}
       <div className='mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0'>
-        <Link to={'/about'} prefetch='intent' className='btn btn-primary' >About Me</Link>
+        <Link to={'/about'} prefetch='intent' className='btn btn-outline' >About Me</Link>
       </div>
     </div>
   )

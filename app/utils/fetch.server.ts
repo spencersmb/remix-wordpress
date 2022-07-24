@@ -104,8 +104,8 @@ export async function fetchAPIOrigin(query: any, origin: string, { variables }: 
   return json.data
 }
 
-export async function getPreviewPostPageServer({previewType, id, userToken}: {previewType: string, id: string, userToken: IAuthToken}){
-  consoleHelper('getPreviewPostPageServer', previewType)
+export async function getPreviewPostPageServer({postType, id, userToken}: {postType: string, id: string, userToken: IAuthToken}){
+  consoleHelper('getPreviewPostPageServer', postType)
   consoleHelper('getPreviewPostPageServer id', id)
 
   const https = require("https");
@@ -127,10 +127,17 @@ export async function getPreviewPostPageServer({previewType, id, userToken}: {pr
       authorization: userToken ? `Bearer ${userToken.token}` : '',
     },
     body: JSON.stringify({
-      query: previewType === 'blog' ? QUERY_POST_BY_ID : QUERY_PAGE_BY_ID,
+      query: getPostTypeQueryHeader(postType),
       variables
     }),
   })
+}
+
+// TODO: TEST THIS
+const getPostTypeQueryHeader = (postType: string) => {
+  return postType === 'page' 
+    ? getGraphQLString(QUERY_PAGE_BY_ID)
+    : getGraphQLString(QUERY_POST_BY_ID)
 }
 
 /*

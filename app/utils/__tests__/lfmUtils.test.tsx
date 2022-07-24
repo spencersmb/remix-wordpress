@@ -1,8 +1,16 @@
 import { TestimonialTexutreEnum } from "@App/enums/lfm"
+import { ckFormIds } from "@App/lib/convertKit/formIds"
 import { isArray, isEqual } from "lodash"
 import { getLfmTexture, lfmImgRoot, lfmMiniCourseSignUpAction, miniCourseVideoData, shuffleArray } from "../lfmUtils"
 
 describe('LFM: utils', () => {
+
+  beforeEach(() => {
+    jest.spyOn(console, 'error')
+    // @ts-ignore jest.spyOn adds this functionallity
+    console.error.mockImplementation(() => null);
+  });
+
   it('Should have 3 videos for the mini-course', () => {
     expect(miniCourseVideoData).toHaveLength(3)
   })
@@ -63,15 +71,21 @@ describe('LFM: utils', () => {
       body,
     });
 
+    // return error because we dont have proper form fields
     const response = await lfmMiniCourseSignUpAction(request);
-    expect(response.status).toBe('error');
+    // expect(response.status).toBe(500);
+    const result = await response.json()
+    expect(response.status).toBe(200);
+    expect(result.status).toBe(500);
+    expect(result.message).toBe('No form type provided');
 
   })
 
-  it('lfmMiniCourseSignUpAction: Action should return status 200', async () => {
+  it('lfmMiniCourseSignUpAction: Action should return status 200 with correct formID', async () => {
     let formData = new FormData()
     formData.append('email', 'spencer.bigum@gmail.com')
     formData.append('_action', 'test')
+    formData.append('_openstatus', 'true')
 
     let request = new Request("/path", {
       method: "POST",
@@ -79,7 +93,29 @@ describe('LFM: utils', () => {
     });
 
     const response = await lfmMiniCourseSignUpAction(request);
+    const result = await response.json()
     expect(response.status).toBe(200);
+    expect(result.form.test.message).toBe('success')
+    expect(result.form.test.formId).toBe(ckFormIds.miniCourse.signUp)
+
+  })
+
+  it('lfmMiniCourseSignUpAction: Action should return status 200 with correct formID for no funnel CK ID', async () => {
+    let formData = new FormData()
+    formData.append('email', 'spencer.bigum@gmail.com')
+    formData.append('_action', 'test')
+    formData.append('_openstatus', 'false')
+
+    let request = new Request("/path", {
+      method: "POST",
+      body: formData,
+    });
+
+    const response = await lfmMiniCourseSignUpAction(request);
+    const result = await response.json()
+    expect(response.status).toBe(200);
+    expect(result.form.test.message).toBe('success')
+    expect(result.form.test.formId).toBe(ckFormIds.miniCourse.getNotified)
 
   })
 })

@@ -27,7 +27,7 @@ function MiniCourseBanner(props: Props) {
 
   const [ref, inView] = useInView()
   const [loaded, setLoaded] = useState(false)
-  const { state: { breakpoint } } = useSite()
+  const { state: { breakpoint, metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
 
   useEffect(() => {
     if (inView) {
@@ -103,7 +103,10 @@ function MiniCourseBanner(props: Props) {
 
       <div className={classNames(showForm ? ' pt-4 tablet:pb-0' : 'py-4 tablet:pb-16 laptop:pb-14 desktop:pb-24', 'relative col-span-2 col-start-2 miniCourse-vids__subtitle tablet:row-start-2 tablet:col-start-2 tablet:col-span-7 z-2 tablet:pt-0 laptop:col-start-2 laptop:col-span-6 desktop:ml-8 desktop:col-start-2 desktop:col-span-5 desktop:pr-0 desktopXl:pr-24 desktop:pt-0')}>
         <p className='max-w-[360px] mx-auto text-center text-lfm-pink-400 text-xl font-medium tablet:max-w-[400px] tablet:m-0 tablet:text-left laptop:max-w-none laptop:text-2xl '>
-          Watch the basics of hand lettered font making *and* selling in this 3 part free video series.
+          {lfmBanner.minicourseSignup
+            ? 'Watch the basics of hand lettered font making *and* selling in this 3 part free video series.'
+            : 'Sign up to get notified as soon as enrollment reopens!'}
+
         </p>
       </div>
 

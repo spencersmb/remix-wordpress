@@ -1,5 +1,6 @@
 import LazyImgix from '@App/components/images/lazyImgix'
 import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
+import useSite from '@App/hooks/useSite'
 
 interface Props {
   fontLoadingState: string
@@ -14,6 +15,7 @@ interface Props {
  */
 function MiniCourseHeader(props: Props) {
   const { fontLoadingState, date, form } = props
+  const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
 
   const introImages = [
     {
@@ -52,6 +54,7 @@ function MiniCourseHeader(props: Props) {
       placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/gingerbread.jpeg?w=20&fit=clip',
     }
   ]
+
   return (
     <div className="et-grid-basic">
       <div className='hidden lfm-intro__cardsbg bg-lfm-pink-200 row-span-1 row-start-1 col-start-8 col-end-[-1] laptop:block'></div>
@@ -104,7 +107,8 @@ function MiniCourseHeader(props: Props) {
 
         {/* CTA */}
         <p className="max-w-[625px] text-center text-lfm-blue-700 mt-5 mx-[10px] tablet:max-w-[570px] tablet:mt-5 tablet:mx-auto tablet:text-lg laptop:max-w-[395px] laptop:text-left laptop:m-[20px_0_5px_50px] desktop:m-[20px_0_5px_70px] desktop:max-w-[475px]">
-          Sign up to get notified of the next public enrollment and take a free font making mini course while you wait!
+          {lfmBanner.minicourseSignup
+            ? 'Sign up to get notified of the next public enrollment and take a free font making mini course while you wait!' : 'Sign up to get notified as soon as enrollment reopens!'}
         </p>
 
         {/* FORM */}

@@ -1,7 +1,8 @@
 interface ICKFormIds {
   miniCourse: {
     signUp: string,
-    // homepage: string
+    homepage: string,
+    getNotified: string
   },
   resourceLibrary:{
     footer: string,
@@ -24,7 +25,8 @@ interface ICKFormIds {
 export const ckFormIds: ICKFormIds = {
   miniCourse: {
     signUp: '2853459',
-    // homepage: '1034740'
+    homepage: '1034740',
+    getNotified: '1096984' //form Name in CK: LFM_GetNotified
   },
   resourceLibrary:{
     footer: '2855591',

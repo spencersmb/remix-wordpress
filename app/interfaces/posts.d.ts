@@ -1,3 +1,5 @@
+type IPreviewPostType = 'post' | 'page' | null
+
 interface ICategories {
   databaseId: number
   id: string
@@ -81,7 +83,8 @@ interface ITutorialManagerRaw {
     }
   }[] | null
   youtube: {
-    embedUrl: string
+    embedUrl: string,
+    id: string
   }
   paidProducts: IProduct[]| null
   postExcerpt: string

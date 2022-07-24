@@ -25,7 +25,8 @@ export const mockTutorailManager__default: ITutorialManager = {
     image: null
   },
   youtube: {
-    embedUrl: ''
+    embedUrl: '',
+    id: ''
   }
 }
 
@@ -224,7 +225,8 @@ export const mockTutorailManager__withPaidProducts: ITutorialManager = {
     image: null
   },
   youtube: {
-    embedUrl: ''
+    embedUrl: '',
+    id: ''
   }
 }
 
@@ -1320,7 +1322,8 @@ export const mockPostData: IPost = {
       image: mockFeaturedImage,
     },
     youtube: {
-      embedUrl: ''
+      embedUrl: '',
+      id:''
     }
   },
   tags: [],
@@ -1662,7 +1665,8 @@ export const mockPostDataComplete: IPost = {
         {...mockPaidProduct}
       ],
       youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE"
+        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
+        id:"tZce1wvLzDE",
       },
       downloads: mockTutorialManagerDownloads
     },
@@ -2168,7 +2172,8 @@ export const mockPostDataComplete_2: IPost = {
         {...mockPaidProduct}
       ],
       youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE"
+        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
+        id: "tZce1wvLzDE"
       },
       downloads: mockTutorialManagerDownloads
     },
@@ -2674,7 +2679,8 @@ export const mockPostDataComplete_3: IPost = {
         {...mockPaidProduct}
       ],
       youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE"
+        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
+        id: "tZce1wvLzDE"
       },
       downloads: mockTutorialManagerDownloads
     },
@@ -2780,7 +2786,8 @@ export const mockPostRaw: IPostRaw = {
       ],
       downloads: null,
       youtube: {
-        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE'
+        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
+        id: 'tZce1wvLzDE'
       },
       paidProducts: null,
       postExcerpt: 'string'
@@ -2846,7 +2853,8 @@ export const mockPostRawFormatted: IPost = {
         },
       downloads: null,
       youtube: {
-        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE'
+        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
+        id: 'tZce1wvLzDE'
       },
       paidProducts: null,
       postExcerpt: 'string'
@@ -2886,7 +2894,8 @@ export const mockMetaData: ISiteMetaDataMapped = {
     lfmBanner:{
       endDate: '2020-12-01T00:00:00',
       showBanner: 'false',
-      nextLaunchDate: null
+      nextLaunchDate: null,
+      minicourseSignup: true
     }
   }
 }

@@ -20,7 +20,7 @@ import { json, redirect } from '@remix-run/node'
  * @returns {IPreviewParams} - IPreviewParams object with url, the previewPostId and postId
  */
 interface IPreviewParams {
-  postType: string | null,
+  postType: IPreviewPostType,
   id: string | undefined
   url: URL
 }
@@ -29,7 +29,7 @@ export function getPreviewUrlParams(request: Request): IPreviewParams{
   let url = new URL(request.url);
 
   return {
-    postType: url.searchParams.get("postType"),
+    postType: url.searchParams.get("postType") as IPreviewPostType,
     id: url.searchParams.get("postId") || undefined,
     url
   }
@@ -51,6 +51,9 @@ interface ILoginRedirectParams{
   previewType: string | undefined
   id: string | undefined
 }
+
+// TODO:TEST THIS
+// THIS function is usaed after a url has been created like /blog/preview/102388. In order to create the login url we have to do it backwards with no searchParams
 export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): string{
   
   if ( isEmpty( previewType ) || isEmpty( id ) ) {
@@ -73,17 +76,17 @@ export function getLoginRedirectParams({previewType, id}:ILoginRedirectParams): 
  * @param {postType} string | null - postType of the post or page
  * @param {previewPostId} string | null - id of the post or page
  **/
-export const getPreviewRedirectUrlFromParams = ( postType : string | null = '', previewPostId : string | null = ''  ): string => {
+export const getPreviewRedirectUrlFromParams = ( postType : string | null = '', id : string | null = ''  ): string => {
 
-  if ( isEmpty( postType ) || isEmpty( previewPostId ) ) {
+  if ( isEmpty( postType ) || isEmpty( id ) ) {
     return '/login';
   }
 
   switch ( postType ) {
     case 'post':
-      return `/blog/preview/${previewPostId}/`;
+      return `/blog/preview/${id}/`;
     case 'page':
-      return `/page/preview/${previewPostId}/`;
+      return `/page/preview/${id}/`;
     default:
       return '/';
   }
@@ -112,17 +115,18 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
   let url = new URL(request.url);
   
   // if url is /blog this will mean post, else page
-  let previewType = url.pathname.split('/').splice(1).shift()
-
+  let postType = url.pathname.split('/').splice(1).shift()
+  
   // ID passed in from Remix param
   let id = params.id ? params.id : undefined
 
   // Create login URL for Redirects
-  let loginUrl = getLoginRedirectParams({previewType, id})
+  // URL is either /blog/preview/102388 or /page/preview/102388
+  let loginUrl = getLoginRedirectParams({previewType: postType, id})
 
   // check for params
   // else redirect back to login with original url
-  if(!previewType || !id){
+  if(!postType || !id){
     return redirect(loginUrl)
   }
   // Check for logged in user cookie - else redirect to login page
@@ -136,6 +140,8 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
 
   // check token Expired
   if(isExpired){
+    consoleHelper('Token Expired')
+    
     try {
       let refresh = await refreshJWT(userToken)
       let res: IAuthRefreshResponse = await refresh.json()
@@ -153,24 +159,26 @@ export const previewLoaderRouteHandler = async (request: Request, params: Params
 
   // After token is refreshed, get preview post/page query
   try{
+    consoleHelper('postType', postType)
     const res = await getPreviewPostPageServer({
-      previewType,
+      postType,
       id,
       userToken
     })
     const jsonResp = await res.json()
-    const postType = previewType === 'blog' ? 'post' : 'page'
-    const postPageData = jsonResp.data[postType]
-
+    const convertedPostType = postType === 'blog' ? 'post' : 'page'
+    const postPageData = jsonResp.data[convertedPostType]
+    console.log('convertetd', convertedPostType);
+    
     return json({
-        [postType]: mapPostData(postPageData)
+        [convertedPostType]: mapPostData(postPageData)
       },{
         headers: customHeaders
       }
     )
 
   }catch (e){
-    console.error(`e in /${previewType}/preview/$id`, e)
+    console.error(`e in preview ${postType}/${id}`, e)
     return redirect(loginUrl)
   }
 }
@@ -197,6 +205,24 @@ export const getLoginRedirectUrl = (request: Request): string => {
     return '/login'
   }
   return getLoginRedirectParams({previewType, id})
+}
+
+// TODO: Add tests for this function
+export const getRedirectUrlForLogin = (request: Request) => {
+  const {id, postType} = getPreviewUrlParams(request)
+
+  if ( isEmpty( postType ) || isEmpty( id ) ) {
+    return '/login';
+  }
+
+  switch ( postType ) {
+    case 'post':
+      return `/login?postType=${postType}&postId=${id}`
+    case 'page':
+      return `/login?postType=${postType}&postId=${id}`
+    default:
+      return '/login?postType=noPostTypeFound';
+  }
 }
 
 

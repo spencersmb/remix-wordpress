@@ -18,6 +18,7 @@ export const SiteMetaDataQuery = gql`
           endDate
           showBanner
           nextLaunchDate
+          minicourseSignup
         }
       }
     }

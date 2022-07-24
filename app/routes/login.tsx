@@ -111,6 +111,7 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
     }
 
     const redirectUrl = getPreviewRedirectUrlFromParams(postType, id)
+    console.log('redirectURL', redirectUrl);
 
     return redirect(redirectUrl, {
       headers: customHeaders

@@ -6,21 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
-type ActionData = {
-  formError?: {
-    [key: string]: string
-  }
-  subscriberError?: string
-  fieldErrors?: {
-    email: string | undefined;
-  };
-  fields?: {
-    email: string;
-  }
-  form?: {
-    [key: string]: string
-  }
-};
+
 
 interface Props {
   inputBg?: string
@@ -29,14 +15,14 @@ interface Props {
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
 const LfmMiniCourseSignUpForm = (props: Props) => {
   const { inputBg, type = 'default' } = props
-  let actionData = useActionData<ActionData | undefined>();
+  let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
 
-  const { openModal, closeModal } = useSite()
+  const { openModal, closeModal, state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
   const formRef: any = useRef()
   useEffect(() => {
 
-    if (actionData?.form?.[`${type}`] === 'success') {
+    if (actionData?.form?.[`${type}`].message === 'success') {
       openModal(
         {
           template: <SignUpSuccess
@@ -61,7 +47,7 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
         {actionData?.formError?.[`${type}`] && transition.state === 'idle' &&
           <FormErrorMessage
             id={'subscriberError'}
-            message={actionData?.formError?.[`${type}`] || ''} />
+            message={actionData?.formError?.[`${type}`].message || ''} />
         }
         {actionData?.fieldErrors?.email && transition.state === 'idle' &&
           <FormErrorMessage
@@ -92,7 +78,8 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             required={true}
             placeholder='Enter your email'
           />
-          <input type="hidden" name="_action" value={type} />
+          <input type="hidden" disabled name="_action" value={type} />
+          <input type="hidden" disabled name="_openstatus" value={lfmBanner.minicourseSignup.toString()} />
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}

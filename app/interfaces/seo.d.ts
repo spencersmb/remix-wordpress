@@ -224,6 +224,7 @@ interface IDynamicMetaData {
       showBanner: string
       endDate: string | null
       nextLaunchDate: string | null
+      minicourseSignup: boolean
     }
   }
 }

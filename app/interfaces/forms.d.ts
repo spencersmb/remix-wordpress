@@ -52,7 +52,10 @@ interface InputBaseProps {
 }
 type MiniCourseSignUpActionData = {
   formError?: {
-    [key: string]: string
+    [key: string]: {
+      message: string
+      formId: string
+    }
   }
   subscriberError?: string
   fieldErrors?: {
@@ -62,6 +65,11 @@ type MiniCourseSignUpActionData = {
     email: string;
   }
   form?: {
-    [key: string]: string
+    [key: string]: {
+      message: string
+      formId: string
+    }
   }
+  status?: number
+  message?: string
 }

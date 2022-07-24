@@ -12,6 +12,7 @@ import MiniCourse40k from "./mini-course/miniCourse40k"
 import MiniCourseHeader from "./mini-course/miniCourseHeader"
 import MiniCourseStep from "./mini-course/miniCourseStep"
 import LfmTestimonial from "./testimonial"
+import useSite from "@App/hooks/useSite"
 
 interface Props {
   date: string
@@ -24,7 +25,9 @@ interface Props {
 
 function LfmClosedPage(props: Props) {
   const { date, gridItems } = props
-  const assets = fontAssetsFile
+  const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
+
+  const assets = fontAssetsFile // have this line in the file to make sure the fonts are loaded
   const { fontLoadingState } = useFonts('skinny')
 
   const getStartedImg = {
@@ -94,7 +97,8 @@ function LfmClosedPage(props: Props) {
 
         <div className={'py-10 tablet:py-20'}>
           <MiniCourseBanner>
-            <>
+
+            {lfmBanner.minicourseSignup && <>
               {/* VIDEO 1 */}
               <MiniCourseStep stepModule={step1} />
 
@@ -103,30 +107,33 @@ function LfmClosedPage(props: Props) {
 
               {/* VIDEO 3 */}
               <MiniCourseStep stepModule={step3} />
-            </>
+            </>}
+
           </MiniCourseBanner>
         </div>
 
-        <div className="p-8 m-6 mx-auto bg-[#e8f3e9] tablet:w-full">
-          <div className="max-w-[400px] w-full mx-auto laptop:max-w-[800px] justify-center items-center">
-            <div className="flex flex-col max-w-[400px] w-full mx-auto">
-              <div className="mb-2">
-                <LazyImgix
-                  id={'get-started-img'}
-                  blur={false}
-                  image={getStartedImg}
-                />
+        {lfmBanner.minicourseSignup &&
+          <div className="p-8 m-6 mx-auto bg-[#e8f3e9] tablet:w-full">
+            <div className="max-w-[400px] w-full mx-auto laptop:max-w-[800px] justify-center items-center">
+              <div className="flex flex-col max-w-[400px] w-full mx-auto">
+                <div className="mb-2">
+                  <LazyImgix
+                    id={'get-started-img'}
+                    blur={false}
+                    image={getStartedImg}
+                  />
+                </div>
+                <p className="mb-8 text-xl text-center">
+                  Begin the *free* font making mini course today to learn all the basics!
+                </p>
               </div>
-              <p className="mb-8 text-xl text-center">
-                Begin the *free* font making mini course today to learn all the basics!
-              </p>
+              <LfmMiniCourseSignUpForm
+                type="steps"
+                inputBg="bg-white"
+              />
             </div>
-            <LfmMiniCourseSignUpForm
-              type="steps"
-              inputBg="bg-white"
-            />
           </div>
-        </div>
+        }
 
         <MadeBy />
 

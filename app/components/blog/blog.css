@@ -63,3 +63,34 @@
 [rel*="et_ck_modal"] {
   display: none !important;
 }
+
+.lty-playbtn {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  cursor: pointer;
+  transform: translate3d(-50%, -50%, 0);
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  background-color: transparent;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.7112 4.14321C14.0082 3.95188 7.988 3.95265 5.28875 4.14321C2.366 4.35009 2.02175 6.18096 2 11C2.02175 15.8105 2.363 17.6491 5.28875 17.8568C7.98875 18.0473 14.0082 18.0481 16.7112 17.8568C19.634 17.6499 19.9783 15.819 20 11C19.9783 6.18951 19.637 4.35087 16.7112 4.14321V4.14321ZM8.75 14.1111V7.88893L14.75 10.9946L8.75 14.1111V14.1111Z" fill="%23FF0000" /></svg>');
+  //filter: grayscale(100%);
+  transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+  border: none;
+}
+.lty-activated .lty-playbtn {
+  width: 0;
+  height: 0;
+}
+.lty-wrapper {
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0, 0, 0.2, 1);
+  &:hover {
+    opacity: 0.9;
+    .lty-playbtn {
+      filter: grayscale(100%);
+    }
+  }
+}

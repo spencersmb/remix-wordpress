@@ -229,7 +229,7 @@ describe('Route Handler', () => {
 
       expect(mockPageServer).toHaveBeenCalledTimes(1)
       expect(mockPageServer).toHaveBeenCalledWith({
-        previewType: 'blog',
+        postType: 'blog',
         id: paramId,
         userToken: {
           ...token,

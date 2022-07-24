@@ -69,7 +69,8 @@ export const siteInitialState: ISiteContextState  = {
       lfmBanner:{
         showBanner: 'false',
         endDate: 'null',
-        nextLaunchDate: 'null'
+        nextLaunchDate: 'null',
+        minicourseSignup: true
       }
     }
   },

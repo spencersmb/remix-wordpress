@@ -138,17 +138,19 @@ export function shuffleArray(array: any[]): any[] {
   return modifiedArray
 }
 
-export async function lfmMiniCourseSignUpAction(request: Request) {
+export async function lfmMiniCourseSignUpAction(request: Request): Promise<Response> {
 
   let form = await request.formData();
   let formType = form.get('_action') as string | null
+  let formStatus = form.get('_openstatus') as string
   let email = form.get('email')
 
   if (!formType) {
-    return {
-      status: 'error',
-      message: 'No form type provided'
-    }
+    console.error('lfmMiniCourseSignUpAction: formType is null')
+    return json({
+      status: 500,
+      message: 'No form type provided',
+    })
   }
 
   // we do this type check to be extra sure and to make TypeScript happy
@@ -157,11 +159,15 @@ export async function lfmMiniCourseSignUpAction(request: Request) {
   if (
     typeof email !== "string"
   ) {
-    return {
+    return json({
       formError: {
-        [formType]: `Form not submitted correctly.`
-      }
-    }
+        [formType]: {
+          message: 'No email provided',
+          formId: 'error'
+        }
+      },
+
+    })
   }
 
   let fields = { email };
@@ -170,16 +176,22 @@ export async function lfmMiniCourseSignUpAction(request: Request) {
   };
 
   consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.miniCourse.signUp
+  const id = formStatus === 'true'
+    ? ckFormIds.miniCourse.signUp
+    : ckFormIds.miniCourse.getNotified
   const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
 
   if (Object.values(fieldErrors).some(Boolean))
-    return { fieldErrors, fields };
+    return json({ fieldErrors, fields });
 
+  // Intercept the request and respond with a fake response when testing
   if (process.env.NODE_ENV === 'test') {
     return json({
       form: {
-        [formType]: 'success'
+        [formType]: {
+          message: 'success',
+          formId: id
+        }
       }
     })
   }
@@ -199,13 +211,21 @@ export async function lfmMiniCourseSignUpAction(request: Request) {
 
     return json({
       form: {
-        [formType]: 'success'
+        [formType]: {
+          message: 'success',
+          formId: id
+        }
       }
     })
-  } catch (e) {
+  } catch (error: any) {
+    console.error(error.message)
+    console.error(error.response)
     return json({
-      form: {
-        [formType]: 'fail'
+      formError: {
+        [formType]: {
+          message: `Something went wrong. Please try again later. Error: ${error.message}`,
+          formId: id
+        }
       }
     })
   }

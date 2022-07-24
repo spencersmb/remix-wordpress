@@ -1,4 +1,6 @@
-export const QUERY_PAGE_BY_ID = `
+import gql from "graphql-tag";
+
+export const QUERY_PAGE_BY_ID = gql`
     query pageById($id: ID!) {
         page(idType: DATABASE_ID, id: $id) {
           author {

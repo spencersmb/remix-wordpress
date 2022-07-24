@@ -36,6 +36,38 @@ describe('LFM: MiniCourse Banner', () => {
     expect(queryByText('Free Font Making')).toBeVisible()
   })
 
+  it('Should have MiniCourse CTA text', () => {
+    const { queryByText } = renderUseSiteProviderUi(
+      <MiniCourseBanner />,
+      {
+        providerProps: siteInitialState
+      }
+    )
+    expect(queryByText('Watch the basics of hand lettered font making *and* selling in this 3 part free video series.')).toBeInTheDocument()
+  })
+
+  it('Should have alternate MiniCourse CTA text', () => {
+    const { queryByText } = renderUseSiteProviderUi(
+      <MiniCourseBanner />,
+      {
+        providerProps: {
+          ...siteInitialState,
+          metadata: {
+            ...siteInitialState.metadata,
+            courseLaunchBanners: {
+              ...siteInitialState.metadata.courseLaunchBanners,
+              lfmBanner: {
+                ...siteInitialState.metadata.courseLaunchBanners.lfmBanner,
+                minicourseSignup: false
+              }
+            }
+          }
+        },
+      }
+    )
+    expect(queryByText('Sign up to get notified as soon as enrollment reopens!')).toBeInTheDocument()
+  })
+
   it('Should render child', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MiniCourseBanner >

@@ -1226,6 +1226,8 @@ type CourseToCategoryConnection {
 type CourseToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary category"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -1250,6 +1252,8 @@ type CourseToTagConnection {
 type CourseToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_tag"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -1851,6 +1855,8 @@ type DownloadGridToTagConnection {
 type DownloadGridToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_tag"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -3145,6 +3151,8 @@ type PostToCategoryConnection {
 type PostToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary category"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3181,6 +3189,8 @@ type PostToPostFormatConnection {
 type PostToPostFormatConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_format"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: PostFormat
 }
@@ -3223,6 +3233,8 @@ type PostToTagConnection {
 type PostToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_tag"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -3573,6 +3585,8 @@ type ProductToCategoryConnection {
 type ProductToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary category"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3591,6 +3605,8 @@ type ProductToPostFormatConnection {
 type ProductToPostFormatConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_format"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: PostFormat
 }
@@ -3928,6 +3944,8 @@ type ResourceLibraryToCategoryConnection {
 type ResourceLibraryToCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary category"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Category
 }
@@ -3952,6 +3970,8 @@ type ResourceLibraryToSubCategoryConnection {
 type ResourceLibraryToSubCategoryConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary subcategory"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: SubCategory
 }
@@ -3970,6 +3990,8 @@ type ResourceLibraryToTagConnection {
 type ResourceLibraryToTagConnectionEdge {
     "A cursor for use in pagination"
     cursor: String
+    "The Yoast SEO Primary post_tag"
+    isPrimary: Boolean
     "The item at the end of the edge"
     node: Tag
 }
@@ -5473,6 +5495,11 @@ type SEOPostTypeBreadcrumbs {
     url: String
 }
 
+"The page info SEO details"
+type SEOPostTypePageInfo {
+    schema: SEOPageInfoSchema
+}
+
 "The Schema types"
 type SEOPostTypeSchema {
     articleType: [String]
@@ -6214,6 +6241,8 @@ type ThemeOptions_Courselaunchbanners_LfmBanner implements AcfFieldGroup {
     endDate: String
     "The name of the ACF Field Group"
     fieldGroupName: String
+    "Disable the Mini Course Signup when getting close to an LFM launch"
+    minicourseSignup: Boolean
     "Select the next launch date &amp; time. (Time should normally be 10 am)"
     nextLaunchDate: String
     "Display Banner?"
@@ -6694,6 +6723,8 @@ type WPPageInfo {
     hasNextPage: Boolean!
     "When paginating backwards, are there more items?"
     hasPreviousPage: Boolean!
+    "Raw schema for page"
+    seo: SEOPostTypePageInfo
     "When paginating backwards, the cursor to continue."
     startCursor: String
 }
@@ -6985,8 +7016,12 @@ enum MenuNodeIdTypeEnum {
     DATABASE_ID
     "Identify a menu node by the (hashed) Global ID."
     ID
-    "Identify a menu node by it's name"
+    "Identify a menu node by the slug of menu location to which it is assigned"
+    LOCATION
+    "Identify a menu node by its name"
     NAME
+    "Identify a menu node by its slug"
+    SLUG
 }
 
 "The MimeType of the object"
