@@ -22,7 +22,7 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
   const formRef: any = useRef()
   useEffect(() => {
 
-    if (actionData?.form?.[`${type}`].message === 'success') {
+    if (actionData?.form?.[`${type}`]?.message === 'success') {
       openModal(
         {
           template: <SignUpSuccess
@@ -44,10 +44,10 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
       {/*ERROR SUBMISSION*/}
       {/* @ts-ignore */}
       <AnimatePresence>
-        {actionData?.formError?.[`${type}`] && transition.state === 'idle' &&
+        {actionData?.formError?.[`${type}`]?.message && transition.state === 'idle' &&
           <FormErrorMessage
             id={'subscriberError'}
-            message={actionData?.formError?.[`${type}`].message || ''} />
+            message={actionData?.formError?.[`${type}`]?.message || ''} />
         }
         {actionData?.fieldErrors?.email && transition.state === 'idle' &&
           <FormErrorMessage
@@ -78,8 +78,23 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             required={true}
             placeholder='Enter your email'
           />
-          <input type="hidden" disabled name="_action" value={type} />
-          <input type="hidden" disabled name="_openstatus" value={lfmBanner.minicourseSignup.toString()} />
+          <input type="hidden" readOnly name="_action" value={type} />
+          <input type="hidden" readOnly name="_openstatus"
+            value={lfmBanner.minicourseSignup ? 'true' : 'false'} />
+
+          {/* HONEYPOT */}
+          <label className="inpot" htmlFor="lastName">
+            <span className="text-sm font-semibold text-grey-600">Email</span>
+            <input
+              tabIndex={-1}
+              className="inpot"
+              autoComplete="off"
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Your last name here" />
+          </label>
+
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}

@@ -61,6 +61,12 @@ interface LfmTextureReturn {
     placeholder?: string
   }
 }
+
+/**
+ * 
+ * @function getLfmTexture 
+ * @tested  
+ */
 export const getLfmTexture = (type: TestimonialTexutreEnum): LfmTextureReturn => {
   switch (type) {
     case TestimonialTexutreEnum.Red:
@@ -127,6 +133,11 @@ export const getLfmTexture = (type: TestimonialTexutreEnum): LfmTextureReturn =>
   }
 }
 
+/**
+ * 
+ * @function shuffleArray 
+ * @tested  
+ */
 export function shuffleArray(array: any[]): any[] {
   let modifiedArray = new Array(...array)
   for (var i = array.length - 1; i > 0; i--) {
@@ -138,12 +149,18 @@ export function shuffleArray(array: any[]): any[] {
   return modifiedArray
 }
 
+/**
+ * 
+ * @function lfmMiniCourseSignUpAction 
+ * @tested  
+ */
 export async function lfmMiniCourseSignUpAction(request: Request): Promise<Response> {
 
   let form = await request.formData();
   let formType = form.get('_action') as string | null
   let formStatus = form.get('_openstatus') as string
   let email = form.get('email')
+  let honeyPot = form.get('lastName')
 
   if (!formType) {
     console.error('lfmMiniCourseSignUpAction: formType is null')
@@ -155,9 +172,10 @@ export async function lfmMiniCourseSignUpAction(request: Request): Promise<Respo
 
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
-
   if (
-    typeof email !== "string"
+    typeof email !== "string" ||
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
   ) {
     return json({
       formError: {
@@ -175,7 +193,6 @@ export async function lfmMiniCourseSignUpAction(request: Request): Promise<Respo
     email: validateEmail(email)
   };
 
-  consoleHelper('fieldErrors', fieldErrors)
   const id = formStatus === 'true'
     ? ckFormIds.miniCourse.signUp
     : ckFormIds.miniCourse.getNotified

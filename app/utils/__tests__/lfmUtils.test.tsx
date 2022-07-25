@@ -73,8 +73,7 @@ describe('LFM: utils', () => {
 
     // return error because we dont have proper form fields
     const response = await lfmMiniCourseSignUpAction(request);
-    // expect(response.status).toBe(500);
-    const result = await response.json()
+    const result = await response.json();
     expect(response.status).toBe(200);
     expect(result.status).toBe(500);
     expect(result.message).toBe('No form type provided');
@@ -86,6 +85,7 @@ describe('LFM: utils', () => {
     formData.append('email', 'spencer.bigum@gmail.com')
     formData.append('_action', 'test')
     formData.append('_openstatus', 'true')
+    formData.append('lastName', '')
 
     let request = new Request("/path", {
       method: "POST",
@@ -100,11 +100,33 @@ describe('LFM: utils', () => {
 
   })
 
+  it('lfmMiniCourseSignUpAction: Action should return form error because the honeypot was filled out', async () => {
+    let formData = new FormData()
+    formData.append('email', 'spencer.bigum@gmail.com')
+    formData.append('_action', 'test')
+    formData.append('_openstatus', 'false')
+    formData.append('lastName', 'Bigum')
+
+    let request = new Request("/path", {
+      method: "POST",
+      body: formData,
+    });
+
+    const response = await lfmMiniCourseSignUpAction(request);
+    const result = await response.json()
+
+    expect(response.status).toBe(200);
+    expect(result.formError.test.message).toBe('No email provided')
+    expect(result.formError.test.formId).toBe('error')
+
+  })
+
   it('lfmMiniCourseSignUpAction: Action should return status 200 with correct formID for no funnel CK ID', async () => {
     let formData = new FormData()
     formData.append('email', 'spencer.bigum@gmail.com')
     formData.append('_action', 'test')
     formData.append('_openstatus', 'false')
+    formData.append('lastName', '')
 
     let request = new Request("/path", {
       method: "POST",

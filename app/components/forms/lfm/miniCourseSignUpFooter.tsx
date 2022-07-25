@@ -14,8 +14,9 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
   const transition = useTransition()
   const { openModal, closeModal, state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
   const formRef: any = useRef()
+
   useEffect(() => {
-    if (actionData?.form?.footer.message === 'success') {
+    if (actionData?.form?.footer?.message === 'success') {
       openModal(
         {
           template: <SignUpSuccess
@@ -73,8 +74,24 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
             required={true}
             placeholder='Enter your email'
           />
-          <input type="hidden" name="_action" value={'footer'} />
-          <input type="hidden" disabled name="_openstatus" value={lfmBanner.minicourseSignup.toString()} />
+          <input type="hidden" readOnly name="_action" value={'footer'} />
+          <input type="hidden" readOnly name="_openstatus"
+            value={lfmBanner.minicourseSignup ? 'true' : 'false'} />
+
+          {/* HONEYPOT */}
+          <label className="inpot" htmlFor="lastName">
+            <span className="text-sm font-semibold text-grey-600">Email</span>
+            <input
+              tabIndex={-1}
+              className="inpot"
+              autoComplete="off"
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Your last name here" />
+          </label>
+
+
           <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
