@@ -73,3 +73,27 @@ type MiniCourseSignUpActionData = {
   status?: number
   message?: string
 }
+
+type RemixSignUpActionData = {
+  formError?: {
+    [key: string]: {
+      message: string
+      formId: string
+    }
+  }
+  subscriberError?: string
+  fieldErrors?: {
+    email: string | undefined;
+  };
+  fields?: {
+    email: string;
+  }
+  form?: {
+    [key: string]: {
+      message: string
+      formId: string
+    }
+  }
+  status?: number
+  message?: string
+}

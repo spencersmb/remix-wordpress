@@ -145,6 +145,7 @@ module.exports = {
       },
       'cream':{
         100: '#F7F6F7',
+        300: '#F3ECE6'
       }
     },
     extend:{

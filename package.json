@@ -40,7 +40,7 @@
     "canvas": "^2.8.0",
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.1",
-    "framer-motion": "^5.4.5",
+    "framer-motion": "6.5.1",
     "fuse.js": "^6.6.2",
     "graphql": "16.5.0",
     "graphql-tag": "2.12.6",

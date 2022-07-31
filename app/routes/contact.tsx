@@ -24,6 +24,7 @@ interface FieldErrors {
   subject: string | undefined
   body: string | undefined
 }
+
 const description = `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`;
 const title = 'Contact Teela'
 const pageInfo = {
@@ -63,7 +64,6 @@ export let meta: MetaFunction = (metaData): any => {
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page: pageInfo }, { headers: { ...cacheControl } })
 };
-
 
 export let action: ActionFunction = async ({ request }): Promise<ContactActionData | Response> => {
   let form = await request.formData();
@@ -170,7 +170,6 @@ export default function Contact() {
     </Layout>
   )
 }
-
 
 const emailMutation = gql`
   mutation SEND_EMAIL($input: SendEmailInput!) {

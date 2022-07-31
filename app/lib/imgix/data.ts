@@ -23,6 +23,24 @@ export const staticImages = {
         placeholder: 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png?w=20&fit=clip',
         width: 1000,
         height: 733,
+      },
+      transparent: {
+        src: 'https://et-teachable.imgix.net/procreate501/hero-ipad.png',
+        placeholder: 'https://et-teachable.imgix.net/procreate501/hero-ipad.png?w=20&fit=clip',
+        width: 1800,
+        height: 1319
+      },
+      blank: {
+        src: 'https://et-website.imgix.net/et-website/images/ipad-blank-no-ui-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/ipad-blank-no-ui-min.png?w=20&fit=clip',
+        width: 1800,
+        height: 1319
+      },
+      longShadow:{
+        src: 'https://et-website.imgix.net/et-website/images/ipad-device-1_3-min.png?auto=format',
+        placeholder: 'https://et-website.imgix.net/et-website/images/ipad-device-1_3-min.png?w=20&fit=clip&auto=format',
+        width: 2500,
+        height: 1954
       }
     },
     swatchPalette:{

@@ -12,6 +12,8 @@ import { flattenAllCourses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 import { cacheControl } from '@App/lib/remix/loaders';
+import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
+import { ClientOnly } from "remix-utils";
 
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: `Courses`,
@@ -56,6 +58,11 @@ const Courses = () => {
       <CourseHeader />
       <CourseHighQuality />
 
+
+      <ClientOnly fallback={<p>Loading...</p>}>
+        {() => <IpadVerticalAnimation />}
+      </ClientOnly>
+
       {/* COURSES LIST */}
 
       <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16">
@@ -65,6 +72,9 @@ const Courses = () => {
         })}
 
       </div>
+
+
+
     </Layout>
   )
 }

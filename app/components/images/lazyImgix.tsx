@@ -16,15 +16,17 @@ interface Props {
   testId?: string
   scrollPosition?: ScrollPosition
   blur?: boolean
+  visibleByDefault?: boolean
 }
 
 /**
  * 
  * @component LazyImgix
  * @tested - 7/17/2022
+ * // TODO: UPDATE TEST TO INCLUDE VisibleByDefault
  */
 function LazyImgix(props: Props) {
-  const { image, id, scrollPosition, testId, srcSet, blur = true } = props
+  const { image, id, scrollPosition, testId, srcSet, blur = true, visibleByDefault = false } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = height / width
@@ -57,6 +59,7 @@ function LazyImgix(props: Props) {
           src={image.src}
           height={`${checkForPx(image.height)}`}
           width={`${checkForPx(image.width)}`}
+          visibleByDefault={visibleByDefault}
         />
       </div>
     </div>
