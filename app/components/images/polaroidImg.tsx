@@ -3,6 +3,10 @@ import LazyImgix from './lazyImgix'
 
 interface Props {
   imgixImage?: ImgixImageType
+  imgOptions?: {
+    sizes: string
+    srcSet: string
+  }
   children?: React.ReactNode
   rotate?: 'left' | 'right' | 'none'
 }
@@ -11,8 +15,10 @@ interface Props {
  * @component PolaroidImg
  * @tested - 07/17/2022 
  */
+
+// TODO:TEST FOR IMG OPTIONS
 function PolaroidImg(props: Props) {
-  const { imgixImage, children, rotate = 'none' } = props
+  const { imgixImage, children, imgOptions, rotate = 'none' } = props
   const spacing = 64
   function getRotation() {
     switch (rotate) {
@@ -26,12 +32,16 @@ function PolaroidImg(props: Props) {
   }
 
   return (
-    <div data-testid="polaroid-container" className={`p-2 bg-white rounded-lg shadow-md ${getRotation()} tablet:p-3`}>
+    <div data-testid="polaroid-container" className={`p-3 bg-white shadow-md ${getRotation()} tablet:p-3 laptop:p-4`}>
 
       {imgixImage &&
         <div>
           <LazyImgix
-            id={'polaroidImg'} image={imgixImage} />
+            id={'polaroidImg'}
+            image={imgixImage}
+            sizes={imgOptions ? imgOptions.sizes : ''}
+            srcSet={imgOptions ? imgOptions.srcSet : ''}
+          />
         </div>}
 
       <div className={`relative`}>

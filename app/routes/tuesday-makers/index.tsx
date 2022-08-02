@@ -27,9 +27,10 @@ import IpadHeader1 from '@App/components/layout/headers/ipadHeader1'
 import TmSignupForm from '@App/components/forms/tuesdayMakers/tmSignupForm'
 import IpadLongShadow from '@App/components/images/ipadLongShadow'
 import LazyImgix from '@App/components/images/lazyImgix'
-import WygSubscriber from '@App/components/forms/tuesdayMakers/wygSubscriber'
+import WygSubscriber from '@App/components/layout/tuesdayMakers/wygSubscriber'
 import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
-import TmResourceLibraryModule from '@App/components/forms/tuesdayMakers/tmResourceLibraryModule'
+import TmResourceLibraryModule from '@App/components/layout/tuesdayMakers/tmResourceLibraryModule'
+import TmAuthor from '@App/components/layout/tuesdayMakers/tmAuthor'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -314,6 +315,10 @@ const ResourceLibraryHome = () => {
 
         <div className='col-span-full bg-cream-100'>
           <TmResourceLibraryModule />
+        </div>
+
+        <div className='col-span-full bg-cream-300'>
+          <TmAuthor />
         </div>
 
       </div>

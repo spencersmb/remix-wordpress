@@ -95,10 +95,16 @@ export const staticImages = {
   profiles:{
     teela: {
       vertical:{
-        src: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg',
-        placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?w=20&fit=clip',
+        src: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format',
+        placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=20&fit=clip',
           width:800,
           height:1367,
+      },
+      square:{
+        src: 'https://et-website.imgix.net/et-website/images/teela-profile-square.jpg?auto=format',
+        placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-square.jpg?auto=format&w=20&fit=clip',
+          width:1540,
+          height:1656,
       }
     }
   },
