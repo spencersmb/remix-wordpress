@@ -17,16 +17,17 @@ interface Props {
   scrollPosition?: ScrollPosition
   blur?: boolean
   visibleByDefault?: boolean
+  sizes?: string
 }
 
 /**
  * 
  * @component LazyImgix
  * @tested - 7/17/2022
- * // TODO: UPDATE TEST TO INCLUDE VisibleByDefault
+ * // TODO: UPDATE TEST TO INCLUDE VisibleByDefault and sizes
  */
 function LazyImgix(props: Props) {
-  const { image, id, scrollPosition, testId, srcSet, blur = true, visibleByDefault = false } = props
+  const { image, id, scrollPosition, testId, srcSet, sizes, blur = true, visibleByDefault = false } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = height / width
@@ -52,6 +53,7 @@ function LazyImgix(props: Props) {
           effect={blur ? 'blur' : 'opacity'}
           srcSet={srcSet ? srcSet : ''}
           placeholderSrc={image.placeholder ? image.placeholder : undefined}
+          sizes={sizes ? sizes : undefined}
           // Make sure to pass down the scrollPosition,
           // this will be used by the component to know
           // whether it must track the scroll position or not

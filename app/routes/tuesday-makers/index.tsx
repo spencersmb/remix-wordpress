@@ -28,6 +28,8 @@ import TmSignupForm from '@App/components/forms/tuesdayMakers/tmSignupForm'
 import IpadLongShadow from '@App/components/images/ipadLongShadow'
 import LazyImgix from '@App/components/images/lazyImgix'
 import WygSubscriber from '@App/components/forms/tuesdayMakers/wygSubscriber'
+import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
+import TmResourceLibraryModule from '@App/components/forms/tuesdayMakers/tmResourceLibraryModule'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -264,7 +266,7 @@ const ResourceLibraryHome = () => {
               {/* LOGIN LINK */}
               <div className='flex flex-row justify-center mt-6 signup_wrapper'>
                 <div className='mr-3'>Already a member?</div>
-                <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outlined p-0 text-xs uppercase px-2 rounded-md flex-none border-[1px] ring-2 ring-offset-1 leading-none'} >
+                <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outlined p-0 text-xs uppercase px-2 rounded-md flex-none ring-offset-1 leading-none ring-offset-transparent ring-1 hover:ring-offset-transparent hover:ring-1 border-0'} >
                   Login
                 </Link>
               </div>
@@ -276,16 +278,42 @@ const ResourceLibraryHome = () => {
 
         {/* DUAL IPADS */}
         <div className='relative col-span-2 col-start-2 tablet:col-span-full laptop:col-start-4 laptop:col-span-9 desktop:col-start-5 desktop:col-span-9'>
+
+          {/* IPAD 1 */}
           <div className='relative z-1 left-20 tablet:left-40'>
+
+            {/* TOP QUOTE */}
+            <div className='absolute top-[-100px] right-[80px] w-[150px] z-1 tablet:right-[50%]'>
+              <div className='-rotate-12'>Free Procreate color palettes</div>
+              <div className='absolute top-[30px] right-[10px] w-[42px] rotate-[45deg] laptop:w-[50px]'>
+                <LfmArrowSvg />
+              </div>
+            </div>
+
             <IpadLongShadow image={iPadArt} />
           </div>
+
+          {/* IPAD OVERLAP */}
           <div className='absolute w-full top-[-20%] -left-1/2 z-2'>
             <IpadLongShadow image={iPadArt} />
+
+            {/* BOTTOM QUOTE */}
+            <div className='hidden absolute bottom-[-32px] right-[80px] w-[150px] z-1 tablet:bottom-[-32px] laptop:block tablet:right-[26%] laptop:right-[36%] desktop:bottom-0'>
+              <div className='rotate-[15deg]'>Free Procreate color palettes</div>
+              <div className='absolute top-[-50px] left-[-28px] w-[42px] rotate-[-118deg] laptop:w-[50px]'>
+                <LfmArrowSvg />
+              </div>
+            </div>
+
           </div>
         </div>
 
         <div className='col-span-full bg-cream-300'>
           <WygSubscriber />
+        </div>
+
+        <div className='col-span-full bg-cream-100'>
+          <TmResourceLibraryModule />
         </div>
 
       </div>

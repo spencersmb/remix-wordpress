@@ -13,8 +13,8 @@ function IpadHeader1(props: Props) {
     width: 1400,
     height: 1049,
     alt: `Every Tuesday IPad Art`,
-    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
-    placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?w=20&fit=clip'
+    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format',
+    placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip'
   }
   return (
     <>
@@ -32,7 +32,7 @@ function IpadHeader1(props: Props) {
             200+ Procreate downloads
           </span>
         </h1>
-        <p className='relative z-10 tablet:flex-[1] tablet:ml-4 tablet:mr-6 laptop:flex-[1.25] desktop:flex-[1.4] desktop:text-xl'>
+        <p className='relative z-10 text-lg tablet:flex-[1] tablet:ml-4 tablet:mr-6 laptop:flex-[1.25] desktop:flex-[1.4] desktop:text-xl'>
           When you’re part of Tuesday Makers, you’re the first to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!
         </p>
       </div>
