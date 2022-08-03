@@ -31,6 +31,7 @@ import WygSubscriber from '@App/components/layout/tuesdayMakers/wygSubscriber'
 import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
 import TmResourceLibraryModule from '@App/components/layout/tuesdayMakers/tmResourceLibraryModule'
 import TmAuthor from '@App/components/layout/tuesdayMakers/tmAuthor'
+import DoubleBgImageLayout from '@App/components/layout/doubleBgImageLayout'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -319,6 +320,10 @@ const ResourceLibraryHome = () => {
 
         <div className='col-span-full bg-cream-300'>
           <TmAuthor />
+        </div>
+
+        <div className='col-span-full bg-cream-300'>
+          <DoubleBgImageLayout />
         </div>
 
       </div>

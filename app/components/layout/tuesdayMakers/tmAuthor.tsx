@@ -53,7 +53,7 @@ function TmAuthor(props: Props) {
           <p className='mb-4 text-4xl font-sentinel__SemiBoldItal laptop:text-5xl desktop:text-6xl laptop:mb-8'>
             Hey, I’m Teela!
           </p>
-          <p className='mb-4 text-2xl laptop:text-3xl laptop:mb-8'>
+          <p className='mb-4 text-xl laptop:text-2xl laptop:mb-8'>
             Artist, Designer, and Teacher for Creatives
           </p>
           <p className='text-lg laptop:text-xl'>
