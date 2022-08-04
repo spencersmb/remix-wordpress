@@ -23,6 +23,7 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     fontFamily:{
+      'sans': ['ui-sans-serif', 'system-ui', 'Inter', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
       'sentinel__Book': ['Sentinel Book', 'serif'],
       'sentinel__SemiBold': ['Sentinel SemiBold', 'serif'],
       'sentinel__SemiBoldItal': ['Sentinel SemiBoldItal', 'serif'],

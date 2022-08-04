@@ -318,11 +318,11 @@ const ResourceLibraryHome = () => {
           <TmResourceLibraryModule />
         </div>
 
-        <div className='col-span-full bg-cream-300'>
+        <div className='relative z-1 col-span-full bg-cream-300'>
           <TmAuthor />
         </div>
 
-        <div className='col-span-full bg-cream-300'>
+        <div className='relative z-2 col-span-full bg-cream-300'>
           <DoubleBgImageLayout />
         </div>
 

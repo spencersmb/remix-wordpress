@@ -3,10 +3,16 @@ export const staticImages = {
   assets:{
     pins: {
       black_1:{
-        src: 'https://et-website.imgix.net/et-website/images/black-pin-min.png',
-        placeholder: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?w=20&fit=clip',
+        src: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?auto=formatw=300&fit=clip',
+        placeholder: 'https://et-website.imgix.net/et-website/images/black-pin-min.png?auto=format&w=20&fit=clip',
         width: 757,
         height: 595,
+      },
+      silver:{
+        src: 'https://et-website.imgix.net/et-website/images/silver-pin-min-1_1.png?auto=format',
+        placeholder: 'https://et-website.imgix.net/et-website/images/silver-pin-min-1_1.png?auto=format&w=20&fit=clip',
+        width: 219,
+        height: 279,
       }
     },
     applePencil:{ 

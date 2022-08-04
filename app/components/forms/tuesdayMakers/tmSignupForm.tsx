@@ -1,5 +1,6 @@
 import SignUpSuccess from '@App/components/modals/signUpSuccess';
 import useSite from '@App/hooks/useSite';
+import { classNames } from '@App/utils/appUtils';
 import { Form, useActionData, useTransition } from '@remix-run/react';
 import { AnimatePresence } from 'framer-motion';
 import React, { useEffect, useRef } from 'react'
@@ -9,10 +10,11 @@ import FormErrorMessage from '../messages/ErrorMessage';
 interface Props {
   inputBg?: string
   formName: string
+  flexRow?: boolean
 }
 
 function TmSignupForm(props: Props) {
-  const { inputBg, formName = 'default' } = props
+  const { inputBg, formName = 'default', flexRow = true } = props
   let actionData = useActionData<RemixSignUpActionData | undefined>();
   const transition = useTransition()
 
@@ -57,11 +59,13 @@ function TmSignupForm(props: Props) {
       <div className="login_form relative z-[2] mt-2 w-full">
         <Form
           ref={formRef}
-          method='post' className="flex flex-col tablet:flex-row tablet:items-end" aria-describedby={
-            actionData?.formError?.[`${formName}`]
-              ? "form-error-message"
-              : undefined
-          }>
+          method='post' className={classNames(flexRow
+            ? 'tablet:flex-row tablet:items-end'
+            : '', 'flex flex-col ')} aria-describedby={
+              actionData?.formError?.[`${formName}`]
+                ? "form-error-message"
+                : undefined
+            }>
 
           <InputBase
             label="Email"
@@ -96,7 +100,9 @@ function TmSignupForm(props: Props) {
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
             type='submit'
-            className="btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 tablet:max-h-[56px] tablet:ml-4 tablet:flex-1">
+            className={classNames(flexRow
+              ? 'tablet:ml-4'
+              : '', 'btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 tablet:max-h-[56px] tablet:flex-1')}>
             {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
           </button>
 
