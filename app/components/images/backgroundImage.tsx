@@ -17,7 +17,7 @@ const BackgroundImage = ({ source, placeholder, bgColor = 'bg-white' }: Props) =
   // const loaded = false
 
   return (
-    <div ref={ref} className="w-full h-full">
+    <div data-testid={'bgImage'} ref={ref} className="w-full h-full">
 
       {/* ORIGINAL */}
       {/* <div

@@ -5,6 +5,7 @@ import PolaroidImg from '../images/polaroidImg'
 
 interface Props { }
 
+// TODO: Add tests for this component
 function StaggerImages1(props: Props) {
   const { } = props
 

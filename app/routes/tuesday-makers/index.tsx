@@ -323,7 +323,12 @@ const ResourceLibraryHome = () => {
         </div>
 
         <div className='relative z-2 col-span-full bg-cream-300'>
-          <DoubleBgImageLayout />
+          <DoubleBgImageLayout
+            form={<TmSignupForm
+              flexRow={false}
+              formName={'tmFooter'}
+              inputBg={'bg-sage-100 hover:ring-offset-cream-100 tablet:mb-4'} />}
+          />
         </div>
 
       </div>

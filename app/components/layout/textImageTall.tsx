@@ -11,7 +11,11 @@ interface TextImageProps {
   description: string
 }
 
-// TODO:TEST THIS
+/**
+ * 
+ * @function TextImageTall 
+ * @tested 08/04/2022 
+ */
 const TextImageTall = (props: TextImageProps) => {
   const { index, img, title, description } = props
   return (

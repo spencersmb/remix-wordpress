@@ -4,6 +4,11 @@ interface Props {
   text: string
 }
 
+/**
+ * 
+ * @function AccentHeaderText 
+ * @tested 8/4/2022 
+ */
 function AccentHeaderText(props: Props) {
   const { text } = props
 

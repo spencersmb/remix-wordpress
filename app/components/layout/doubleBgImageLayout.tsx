@@ -1,23 +1,18 @@
 import { staticImages } from '@App/lib/imgix/data'
 import React from 'react'
-import TmSignupForm from '../forms/tuesdayMakers/tmSignupForm'
 import BackgroundImage from '../images/backgroundImage'
-import LazyImgix from '../images/lazyImgix'
+import LazyImgix from "@App/components/images/lazyImgix"
 import AccentHeaderText from './accentHeaderText'
 
-interface Props { }
-
-function DoubleBgImageLayout(props: Props) {
-  const { } = props
-
-  const signUpImageUrl = `https://et-website.imgix.net/et-website/images/tuesday-makers/tm-1_1.jpg`
-  const signUpImage = {
-    width: 1200,
-    height: 1616,
-    alt: `Every Tuesday Printed Cards`,
-    src: `${signUpImageUrl}?auto=format&w=900&fit=clip`,
-    placeholder: `${signUpImageUrl}?auto=format&w=20&fit=clip`
-  }
+interface Props {
+  form?: React.ReactNode
+}
+/**
+ * 
+ * @param DoubleBgImageLayout 
+ * @tested 08/04/2022 
+ */
+function DoubleBgImageLayout({ form }: Props) {
 
   return (
     <div className='et-grid-basic grid-rows-[auto_minmax(60px,auto)auto_minmax(60px,auto)] relative tablet:grid-rows-[auto] tablet:gap-0'>
@@ -38,10 +33,13 @@ function DoubleBgImageLayout(props: Props) {
         {/* PIN */}
         <div className='absolute top-[-23px] left-1/2 -translate-x-1/2 w-[65px]'>
           <LazyImgix
-            id={'tmPin'}
+            id={'tm-pin'}
             image={{
               alt: 'Tuesday Makers Silver Pin',
-              ...staticImages.assets.pins.silver
+              width: staticImages.assets.pins.silver.width,
+              height: staticImages.assets.pins.silver.height,
+              src: staticImages.assets.pins.silver.src,
+              placeholder: staticImages.assets.pins.silver.placeholder,
             }}
           />
         </div>
@@ -56,10 +54,7 @@ function DoubleBgImageLayout(props: Props) {
             When you join the Tuesday Makers, you’ll receive special offers on courses + products and gain access to the Resource Library, stocked with hundres of design and lettering files!
           </p>
           <div className='w-full'>
-            <TmSignupForm
-              flexRow={false}
-              formName={'tmFooter'}
-              inputBg={'bg-sage-100 hover:ring-offset-cream-100 tablet:mb-4'} />
+            {form}
           </div>
         </div>
       </div>
