@@ -6,6 +6,11 @@ import React from 'react'
 
 interface Props { }
 
+/**
+ * 
+ * @function TmAuthor 
+ * @tested 08/05/2022 
+ */
 function TmAuthor(props: Props) {
   const authorUrl = staticImages.profiles.teela.square.src
   const authorImg = {
@@ -56,7 +61,7 @@ function TmAuthor(props: Props) {
           <p className='mb-4 text-xl laptop:text-2xl laptop:mb-8'>
             Artist, Designer, and Teacher for Creatives
           </p>
-          <p className='text-lg laptop:text-xl'>
+          <p data-testid="desc" className='text-lg laptop:text-xl'>
             If you’re familiar with Every Tuesday, then you know my love for lettering, design and illustration runs deep. In fact, in the last 7 years, I’ve taught over 200,000 students and my tutorials on YouTube have accumulated over 20 million views.
           </p>
         </div>

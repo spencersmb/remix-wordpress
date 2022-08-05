@@ -7,11 +7,15 @@ interface Props {
   image: ImgixImageType
 }
 
-// TODO: TEST THIS
+/**
+ * 
+ * @function IpadLongShadow 
+ * @tested 08/04/2022 
+ */
 function IpadLongShadow({ image, visibleByDefault = false }: Props) {
 
   return (
-    <div className='relative '>
+    <div className='relative ' data-testid="ipadImage">
 
       {/* DEVICE ART */}
       <div className='overflow-hidden absolute top-[-4.5%] left-[-5.65%] scale-[.82] z-3 w-full rounded-lg tablet:rounded-xl laptop:rounded-2xl desktop:rounded-3xl'>

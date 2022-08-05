@@ -7,7 +7,7 @@ import WygSubscribeItem from './wygSubscriberItem'
 
 interface Props { }
 
-const items = [
+export const wygSubscriberItems = [
   {
     title: 'New Emails every week',
     description: 'Receive something new in your inbox every Tuesday to push your digital skills further - from free fonts, to brushes, tutorials, textures and more!'
@@ -33,7 +33,7 @@ const collage1Url = `https://et-website.imgix.net/et-website/images/photo-collag
 const collage1 = {
   width: 2400,
   height: 2362,
-  alt: `Every Tuesday IPad Art`,
+  alt: `Every Tuesday Photo Collage Watercolors`,
   src: `${collage1Url}?auto=format&w=900&fit=clip`,
   placeholder: 'https://et-website.imgix.net/et-website/images/photo-collage-1_1-min.png?auto=format&w=20&fit=clip'
 }
@@ -41,12 +41,16 @@ const collage2Url = `https://et-website.imgix.net/et-website/images/photo-collag
 const collage2 = {
   width: 2600,
   height: 2167,
-  alt: `Every Tuesday IPad Art`,
+  alt: `Every Tuesday Tuesday Makers Products`,
   src: `${collage2Url}?auto=format&w=900&fit=clip`,
   placeholder: 'https://et-website.imgix.net/et-website/images/photo-collage-2_1-min.png?auto=format&w=20&fit=clip'
 }
 
-//TODO: TEST THIS
+/**
+ * 
+ * @function WygSubscriber 
+ * @tested 08/04/2022 
+ */
 function WygSubscriber(props: Props) {
   const { state: { breakpoint } } = useSite()
 
@@ -74,7 +78,7 @@ function WygSubscriber(props: Props) {
         What you get as a subscriber
       </h3>
 
-      {items.map((item, index) => (
+      {wygSubscriberItems.map((item, index) => (
         <WygSubscribeItem key={index} {...{
           ...item,
           index

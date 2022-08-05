@@ -26,6 +26,7 @@ function UseSiteProviderRender(ui: any, { props, renderOptions }: IUseSiteRender
 }
 
 function renderUseSiteProviderUi(ui: any, { providerProps }: { providerProps: ISiteContextState }) {
+
   const { rerender } = render(
     <UseSiteProvider defaultState={providerProps}>
       <div data-testid="parent">

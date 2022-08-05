@@ -9,7 +9,7 @@ interface Props {
 }
 /**
  * 
- * @param DoubleBgImageLayout 
+ * @function DoubleBgImageLayout 
  * @tested 08/04/2022 
  */
 function DoubleBgImageLayout({ form }: Props) {

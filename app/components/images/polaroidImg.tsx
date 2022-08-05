@@ -13,10 +13,9 @@ interface Props {
 /**
  * 
  * @component PolaroidImg
- * @tested - 07/17/2022 
+ * @tested - 08/05/2022 
  */
 
-// TODO:TEST FOR IMG OPTIONS
 function PolaroidImg(props: Props) {
   const { imgixImage, children, imgOptions, rotate = 'none' } = props
   const spacing = 64

@@ -25,3 +25,7 @@ export function mockFetchError(error: string | null) {
   const errorResponse = error ? error : "API is down"
   return Promise.reject(errorResponse)
 }
+
+export const testNames = {
+  default: 'lazy-load-image-'
+}

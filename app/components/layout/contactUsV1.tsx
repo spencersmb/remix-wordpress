@@ -3,6 +3,11 @@ import { Link } from '@remix-run/react'
 
 interface Props { }
 
+/**
+ * 
+ * @function ContactUsV1 
+ * @tested 08/04/2022 
+ */
 function ContactUsV1(props: Props) {
 
   return (

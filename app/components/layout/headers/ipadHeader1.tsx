@@ -1,12 +1,14 @@
 import IpadLongShadow from '@App/components/images/ipadLongShadow'
-import LazyImgix from '@App/components/images/lazyImgix'
-import { staticImages } from '@App/lib/imgix/data'
 import React from 'react'
 
 interface Props {
   children?: React.ReactNode
 }
-
+/**
+ * 
+ * @function IpadHeader1 
+ * @tested 08/04/2022 
+ */
 function IpadHeader1(props: Props) {
   const { children } = props
   const iPadArt = {
@@ -22,7 +24,9 @@ function IpadHeader1(props: Props) {
 
       {/* <div className='overflow-hidden absolute top-[-2.85%] left-[-2.65%] scale-[.81] z-3 w-full rounded-lg tablet:rounded-xl laptop:rounded-2xl desktop:rounded-3xl'></div> */}
       <div className='absolute max-w-[340px] w-full m-auto top-[-250px] left-[54%] -translate-x-1/2 tablet:top-[-510px] tablet:max-w-[713px] laptop:max-w-[707px] desktop:top-[-290%] desktop:max-w-[1180px]'>
-        <IpadLongShadow visibleByDefault={true} image={iPadArt} />
+        <IpadLongShadow
+          visibleByDefault={true}
+          image={iPadArt} />
       </div>
 
       {/* HEADER TITLE */}
@@ -32,7 +36,7 @@ function IpadHeader1(props: Props) {
             200+ Procreate downloads
           </span>
         </h1>
-        <p className='relative z-10 text-lg tablet:flex-[1] tablet:ml-4 tablet:mr-6 laptop:flex-[1.25] desktop:flex-[1.4] desktop:text-xl'>
+        <p data-testid='desc' className='relative z-10 text-lg tablet:flex-[1] tablet:ml-4 tablet:mr-6 laptop:flex-[1.25] desktop:flex-[1.4] desktop:text-xl'>
           When you’re part of Tuesday Makers, you’re the first to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!
         </p>
       </div>

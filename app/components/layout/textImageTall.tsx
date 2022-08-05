@@ -19,7 +19,7 @@ interface TextImageProps {
 const TextImageTall = (props: TextImageProps) => {
   const { index, img, title, description } = props
   return (
-    <div className={classNames(index === 1 ? 'tablet:mt-0' : 'tablet:mt-12', 'mb-16 last:mb-0 tablet:mx-4 tablet:mb-0 desktop:mx-7')}>
+    <div data-testid="textImageTall" className={classNames(index === 1 ? 'tablet:mt-0' : 'tablet:mt-12', 'mb-16 last:mb-0 tablet:mx-4 tablet:mb-0 desktop:mx-7')}>
 
       {/* IMAGE */}
       <div className='relative'>

@@ -24,8 +24,8 @@ interface Props {
 /**
  * 
  * @component LazyImgix
- * @tested - 7/17/2022
- * // TODO: UPDATE TEST TO INCLUDE VisibleByDefault and sizes & srcSet
+ * @tested - 8/4/2022
+ * 
  */
 function LazyImgix(props: Props) {
   const { image, id, scrollPosition, testId, srcSet, sizes, blur = true, visibleByDefault = false } = props

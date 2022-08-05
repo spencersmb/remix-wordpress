@@ -5,7 +5,11 @@ interface itemProps {
   index: number
   description: string
 }
-//TODO:TEST THIS
+/**
+ * 
+ * @function WygSubscribeItem 
+ * @tested 08/04/2022 
+ */
 const WygSubscribeItem = (item: itemProps) => {
 
   const first3Items = item.index < 3
@@ -45,7 +49,7 @@ const WygSubscribeItem = (item: itemProps) => {
   `
 
   return (
-    <div className={classNames('flex flex-row mb-6', containerCss)}>
+    <div data-testid='wygSubscriberItem' className={classNames('flex flex-row mb-6', containerCss)}>
       <div className='mr-2 text-3xl italic laptop:mr-5'>
         0{item.index + 1}
       </div>

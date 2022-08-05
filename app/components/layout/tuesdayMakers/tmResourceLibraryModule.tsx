@@ -39,7 +39,12 @@ const items = [
     }
   }
 ]
-// TODO: TEST THIS
+
+/**
+ * 
+ * @function TmResourceLibraryModule 
+ * @tested 08/04/2022 
+ */
 function TmResourceLibraryModule(props: Props) {
 
   return (
@@ -48,7 +53,7 @@ function TmResourceLibraryModule(props: Props) {
         <div className='mb-4 text-4xl font-sentinel__SemiBoldItal laptop:text-5xl'>
           The Resource Library
         </div>
-        <p className='text-lg laptop:text-xl'>
+        <p data-testid="description" className='text-lg laptop:text-xl'>
           When you become a Tuesday Maker, you’re the first to nab special deals on courses + brush sets *and* you get instant access to our Resource Library, stocked with hundreds of Procreate brushes, color palettes, textures, fonts and more!
         </p>
       </div>
