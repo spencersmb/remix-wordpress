@@ -21,6 +21,8 @@ import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 import { useFetcher, useLoaderData, useMatches } from '@remix-run/react'
 import useTuesdayMakersClientSideLogin from '@App/hooks/useTuesdayMakersClientSideLogin'
+import AccentHeaderText from '@App/components/layout/accentHeaderText'
+import LazyImgix from '@App/components/images/lazyImgix'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -297,83 +299,144 @@ const ResourceLibraryMembers = () => {
 
   const featuredDownload = reshuffledPosts[0]
 
+  const bgPaintStrokes = {
+    width: 2000,
+    height: 2921,
+    alt: `Every Tuesday Watercolor textures`,
+    src: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg?auto=format',
+    placeholder: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg?auto=format&w=20&fit=clip'
+  }
+
+  function createImigixSizes({ src, mobileSize, width, height, alt }: { src: string, mobileSize: number, width: number, height: number, alt: string }): {
+    image: ImgixImageType,
+    defaultSrc: string,
+  } {
+    const defaultSrc = `${src}?auto=format`
+    const image = {
+      width,
+      height,
+      alt,
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip`,
+      placeholder: `${defaultSrc}&w=20&fit=clip`
+    }
+
+    return {
+      image,
+      defaultSrc
+    }
+  }
+
+  const paintStreakBg = createImigixSizes({
+    width: 2000,
+    height: 2921,
+    mobileSize: 900,
+    alt: `Every Tuesday Watercolor textures`,
+    src: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg',
+  })
+
 
   return (
-    <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
+    <div className='pt-[68px] laptop:pt-[96px] bg-cream-100'>
+      <div className='py-16 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
 
-      <div className='mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-16 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
-        <div className='mt-0 mb-16 tablet:mb-20 laptop:mt-0 laptop:mb-24'>
-          <h1 style={{ color: '#404764' }} className='relative text-5xl font-sentinel__SemiBoldItal laptop:text-6xl desktop:text-7xl'>
-            <span className='relative z-10'>
-              Welcome to the Makers Library
-            </span>
-            <span className='absolute bottom-[-50px] w-full max-w-[481px] left-0 laptop:bottom-[-70px] '>
-              <StrokeOneSvg fill="#FECACA" opacity={'1'} />
-            </span>
-          </h1>
-        </div>
-        <div className='flex flex-col laptop:flex-row'>
-          <div className='flex-1 mb-8 tablet:mr-4 laptop:mb-0'>
-            <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Freebies</h2>
-            <p className='text-blue-slate'>All downloads come with a freebie license that you can use on any type of project.</p>
+        {/* HEADER */}
+        <div className='relative z-2 mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-8 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:ml-[55px] desktop:mr-[35px] desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
+
+          <div className='mt-16 mb-8 tablet:mt-28 laptop:mt-0 laptop:mb-16'>
+            <h1 style={{ color: '#404764' }} className='relative text-5xl text-center font-sentinel__SemiBoldItal laptop:text-left laptop:text-[56px] desktop:text-[67px] desktopXl:text-[80px]'>
+              <span className='relative z-10'>
+                <AccentHeaderText text='Welcome to the' />
+                Resource Library
+              </span>
+            </h1>
           </div>
-          <div className='flex-1 laptop:ml-4'>
-            <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Commerical Usage</h2>
-            <p className='text-blue-slate'>A few freeibes are just for personal use and will require an extended license purchase if used commericially.</p>
+          <div className='relative flex flex-col tablet:flex-row z-2'>
+
+            {/* REQ 1 */}
+            <div className='flex-1 mb-8 tablet:mr-4 laptop:mb-0'>
+              <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Freebies</h2>
+              <p className='text-blue-slate'>All downloads come with a freebie license that you can use on any type of project.</p>
+            </div>
+
+            {/* REQ 2 */}
+            <div className='flex-1 laptop:ml-4'>
+              <h2 className='mb-2 text-lg font-semibold text-blue-slate'>Commerical Usage</h2>
+              <p className='text-blue-slate'>A few freeibes are just for personal use and will require an extended license purchase if used commericially.</p>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className='z-10 mb-16 relative col-start-2 col-span-2 row-start-2 tablet:flex tablet:col-start-4 tablet:col-end-[12]  laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:mx-0 flex-col'>
-        <CardDownload
-          title={featuredDownload.title}
-          buttonText='Download'
-          freebie={featuredDownload.freebie}
-          featuredImage={featuredDownload.featuredImage} />
-      </div>
-
-      {/* Check tags on user example for paid Resource Library License */}
-      <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
-
-      <div className='col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
-        <FreebieFilter
-          setFilter={setFilter}
-          filterTags={filterTags}
-          selectedFilter={filter}
-          handleClick={handleFilterClick}
-        />
-      </div>
-
-      <FreebieGrid freebies={posts} />
-
-      <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
-        {pagination.hasNextPage &&
-          <>
-            <OutlinedButton
-              className='mx-auto btn btn-teal-600 btn-outlined-teal-600'
-              clickHandler={handlePageClick}
-              text={'Show More'} loading={false}
-              loadingText={'Loading...'}
+          <div className='absolute top-[-560px] left-[-114px] w-[450px] z-1 rotate-[-5deg] tablet:top-[-650px] tablet:left-[-90px] tablet:w-[540px] tablet:rotate-[-5deg] laptop:w-[770px] laptop:left-[418px] laptop:top-[-600px] laptop:rotate-45 desktop:w-[1020px] desktop:left-[558px] desktop:top-[-770px]'>
+            <LazyImgix
+              visibleByDefault={true}
+              id={"download-bg"}
+              image={paintStreakBg.image}
+              sizes="(max-width: 400px) 150px, 300px, (min-width: 900px) 33vw, 900px"
+              srcSet={
+                `${paintStreakBg.image.src} 400w,
+                ${paintStreakBg.defaultSrc}&w=1400&fit=clip 900w,
+              `
+              }
             />
-          </>
-        }
-      </div>
+          </div>
 
-      <div>
-        {/* <EmptyCartBtn />
+        </div>
+
+        {/* DOWNLOAD CARD */}
+        <div className='z-3 mb-16 relative col-start-2 col-span-2 row-start-2 tablet:flex tablet:col-start-3 tablet:col-end-[13]  laptop:row-start-1 laptop:col-start-8 laptop:col-end-[14] laptop:mx-[40px] laptop:mt-20 laptop:mb-24 desktop:col-start-8 desktop:col-end-[14] desktop:mb-24 desktop:mt-28 desktop:mx-0 flex-col'>
+
+          <div className='relative z-2'>
+            <CardDownload
+              title={featuredDownload.title}
+              buttonText='Download'
+              freebie={featuredDownload.freebie}
+              featuredImage={featuredDownload.featuredImage} />
+          </div>
+        </div>
+
+        {/* Check tags on user example for paid Resource Library License */}
+        <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
+
+        <div className='col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+          <FreebieFilter
+            setFilter={setFilter}
+            filterTags={filterTags}
+            selectedFilter={filter}
+            handleClick={handleFilterClick}
+          />
+        </div>
+
+        <FreebieGrid freebies={posts} />
+
+        <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+          {pagination.hasNextPage &&
+            <>
+              <OutlinedButton
+                className='mx-auto btn btn-teal-600 btn-outlined-teal-600'
+                clickHandler={handlePageClick}
+                text={'Show More'} loading={false}
+                loadingText={'Loading...'}
+              />
+            </>
+          }
+        </div>
+
+        <div>
+          {/* <EmptyCartBtn />
         <AddToCartBtn /> */}
 
-        {/* <button onClick={shopifyTestCall}>Test Shopify Call</button>
+          {/* <button onClick={shopifyTestCall}>Test Shopify Call</button>
       <a href="https://transactions.sendowl.com/cart?merchant_id=210642" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/view-cart.png" /></a> <script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
       <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/add_to_cart" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/add-to-cart.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
       <a href="https://transactions.sendowl.com/products/78519232/1DC0A989/purchase" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script> */}
-        {/* <button onClick={clearCart}>Empty Cart</button>
+          {/* <button onClick={clearCart}>Empty Cart</button>
       <div>
         <button onClick={addItem}>Add Item to Cart</button>
         <div>Cart items: {cart?.lines.edges.length}</div>
       </div> */}
+        </div>
       </div>
     </div>
+
   )
 }
 export default ResourceLibraryMembers

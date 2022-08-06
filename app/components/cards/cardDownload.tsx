@@ -52,14 +52,14 @@ function CardDownload(props: Props) {
   return (
     <div
       data-testid="card-download"
-      className='p-5 bg-white rounded-2.5xl shadow-md w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
-      <div className='overflow-hidden rounded-xl'>
+      className='p-5 bg-white shadow-md w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
+      <div className='overflow-hidden'>
         <LazyImageBase testId='download-image' id={'tuesdayMakersFeaturedImage'} image={image} />
       </div>
       <div className='pt-5 pr-[12%] laptop:pr-[20%] desktop:pr-0 desktop:flex desktop:flex-row desktop:justify-between desktop:items-center'>
         <div>
           <div className='mb-1 text-sm text-success-700'>
-            Latest Download
+            Latest Freebie
           </div>
           <div className='text-xl font-medium leading-7 text-success-700'>
             {title}

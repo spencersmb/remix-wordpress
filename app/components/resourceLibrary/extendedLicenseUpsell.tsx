@@ -37,7 +37,7 @@ function ExtendedLicenseUpsell(props: Props) {
 
   return (
     <>
-      <div className='bg-neutral-100 col-span-full tablet:row-span-2'>
+      <div className='relative bg-cream-300 col-span-full tablet:row-span-2 z-[4]'>
         <div className='mt-16 mb-28 laptop:mt-20 laptop:mb-20 desktop:mt-20'>
           <div className="grid-container">
 

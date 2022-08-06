@@ -9,6 +9,8 @@ import InputBase from "@App/components/forms/input/inputBase";
 import { XCircleIcon } from "@heroicons/react/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { cacheControl } from "@App/lib/remix/loaders";
+import Layout from "@App/components/layoutTemplates/layout";
+import { classNames } from "@App/utils/appUtils";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -138,106 +140,108 @@ const ResourceLibraryLogin = () => {
   const transition = useTransition()
 
   return (
-    <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+    <div className={classNames('', 'pt-[68px] laptop:pt-[96px]')}>
+      <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
-      <div className="col-span-2 col-start-2 px-3 py-16 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
-        <div className="flex flex-col items-center pt-8">
+        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-16 my-8 tablet:my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
+          <div className="flex flex-col items-center px-4">
 
-          <div className="flex flex-col items-center mb-8 text-center">
-            <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
-              Welcome back!
-            </h1>
-            <h2 className="text-lg text-grey-500">Login to the Tuesday Tribe to access over 200+ design assets.</h2>
+            <div className="flex flex-col items-center mb-8 text-center">
+              <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+                Welcome back!
+              </h1>
+              <h2 className="text-lg text-grey-500">Login to the Tuesday Tribe to access over 200+ design assets.</h2>
 
-          </div>
-
-          {/*ERROR SUBMISSION*/}
-          {/* @ts-ignore */}
-          <AnimatePresence>
-            {actionData?.subscriberError && transition.state === 'idle' &&
-              <motion.div
-                key={'subscriberError'}
-                id="subscriberError"
-                initial={containerMotion.closed}
-                animate={containerMotion.open}
-                exit={containerMotion.closed}
-                className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
-                <div className="flex flex-row items-center justify-center p-3 ">
-                  <div className="max-w-[24px] w-full mr-2">
-                    <XCircleIcon fill={'#7F1D1D'} />
-                  </div>
-                  <p>
-                    No user found, please sign up below.
-                  </p>
-                </div>
-              </motion.div>}
-          </AnimatePresence>
-
-
-          <div className="login_form relative z-[2] mt-4 w-full">
-            <Form method='post' className="flex flex-col" aria-describedby={
-              actionData?.formError
-                ? "form-error-message"
-                : undefined
-            }>
-
-              <InputBase
-                label="Email"
-                labelCss="text-sm text-grey-600 font-semibold"
-                className="mt-2 mb-5 bg-grey-100"
-                invalid={Boolean(
-                  actionData?.fieldErrors?.email
-                ) || undefined}
-                id='email-input'
-                name='email'
-                type='email'
-                required={true}
-                placeholder='Enter your email'
-              />
-
-              {/*ERROR EMAIL*/}
-              {actionData?.fieldErrors?.email ? (
-                <p
-                  className="form-validation-error"
-                  role="alert"
-                  id="email-error"
-                >
-                  {actionData?.fieldErrors.email}
-                </p>
-              ) : null}
-
-              <button
-                disabled={transition.state !== 'idle'}
-                aria-disabled={transition.state !== 'idle'}
-                type='submit'
-                className="btn btn-sage-600">
-                {transition.state === 'idle' ? 'Sign In' : '...Loading'}
-              </button>
-
-            </Form>
-          </div>
-
-          <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">
-            <div className="italic">
-              <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
-              <div className="p-4 bg-white relative z-[2]">Don’t have an account?</div>
             </div>
-          </div>
 
-          <div className="flex flex-row relative z-[2] mb-8 w-full">
-            <Link
-              prefetch={'intent'}
-              className="btn btn-outline"
-              to="/tuesday-makers">
-              Sign Up
-            </Link>
-          </div>
+            {/*ERROR SUBMISSION*/}
+            {/* @ts-ignore */}
+            <AnimatePresence>
+              {actionData?.subscriberError && transition.state === 'idle' &&
+                <motion.div
+                  key={'subscriberError'}
+                  id="subscriberError"
+                  initial={containerMotion.closed}
+                  animate={containerMotion.open}
+                  exit={containerMotion.closed}
+                  className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
+                  <div className="flex flex-row items-center justify-center p-3 ">
+                    <div className="max-w-[24px] w-full mr-2">
+                      <XCircleIcon fill={'#7F1D1D'} />
+                    </div>
+                    <p>
+                      No user found, please sign up below.
+                    </p>
+                  </div>
+                </motion.div>}
+            </AnimatePresence>
 
-          <div className={'text-center'}>
-            <h3 className={'font-semibold'}>Having trouble?</h3>
-            <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
-          </div>
 
+            <div className="login_form relative z-[2] mt-4 w-full">
+              <Form method='post' className="flex flex-col" aria-describedby={
+                actionData?.formError
+                  ? "form-error-message"
+                  : undefined
+              }>
+
+                <InputBase
+                  label="Email"
+                  labelCss="text-sm text-grey-600 font-semibold"
+                  className="mt-2 mb-5 bg-grey-100"
+                  invalid={Boolean(
+                    actionData?.fieldErrors?.email
+                  ) || undefined}
+                  id='email-input'
+                  name='email'
+                  type='email'
+                  required={true}
+                  placeholder='Enter your email'
+                />
+
+                {/*ERROR EMAIL*/}
+                {actionData?.fieldErrors?.email ? (
+                  <p
+                    className="form-validation-error"
+                    role="alert"
+                    id="email-error"
+                  >
+                    {actionData?.fieldErrors.email}
+                  </p>
+                ) : null}
+
+                <button
+                  disabled={transition.state !== 'idle'}
+                  aria-disabled={transition.state !== 'idle'}
+                  type='submit'
+                  className="btn btn-sage-600">
+                  {transition.state === 'idle' ? 'Sign In' : '...Loading'}
+                </button>
+
+              </Form>
+            </div>
+
+            <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">
+              <div className="italic">
+                <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
+                <div className="p-4 bg-white relative z-[2]">Don’t have an account?</div>
+              </div>
+            </div>
+
+            <div className="flex flex-row relative z-[2] mb-8 w-full">
+              <Link
+                prefetch={'intent'}
+                className="btn btn-outline"
+                to="/tuesday-makers">
+                Sign Up
+              </Link>
+            </div>
+
+            <div className={'text-center'}>
+              <h3 className={'font-semibold'}>Having trouble?</h3>
+              <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
