@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all' }, handleClick, setFilter }: IProps) => {
-  const selectedCss = 'selected-tag bg-neutral-300 py-2 px-3 rounded-lg font-BlogDateAuthor'
+  const selectedCss = 'selected-tag bg-sage-600 py-2 px-3 rounded-full text-white'
   const defaultCss = 'py-2 px-3 bold-hover-fix inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
   return (
     <>
@@ -42,10 +42,10 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
       </div>
 
       {/* DESKTOP FILTER */}
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center laptop:border-grey-300 laptop:border-b-[1px] laptop:pb-4'>
         <ul
           data-testid="filterTags"
-          className='items-center hidden w-full text-sm capitalize laptop:grid gap-x-2 text-neutral-900 laptop:grid-flow-col laptop:w-auto'>
+          className='items-center hidden w-full text-sm capitalize laptop:grid gap-x-2 text-neutral-900 laptop:grid-flow-col laptop:w-auto laptop:gap-x-1'>
           {filterTags
             .map(filter => {
               return (

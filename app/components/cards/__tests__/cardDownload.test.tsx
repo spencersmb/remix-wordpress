@@ -49,9 +49,12 @@ describe('Card Download Component', () => {
     expect(screen.getByText('My Title')).toBeInTheDocument()
   })
 
-  it('Should show button text', () => {
+  it('Should have 2 buttons: one mobile, one desktop', () => {
     setup(defaultProps)
-    expect(screen.getByText('Download')).toBeInTheDocument()
+    const buttons = screen.getAllByTestId('download-btn')
+    expect(buttons).toHaveLength(2)
+    expect(buttons[0].parentElement).toHaveClass('desktop:hidden')
+    expect(buttons[1].parentElement).toHaveClass('hidden desktop:flex')
   })
 
   // This happens because a modal pops up first that I don't 
@@ -65,7 +68,7 @@ describe('Card Download Component', () => {
         licenseRequired: true
       }
     })
-    const button = screen.getByTestId('download-btn-mobile')
+    const button = screen.getAllByTestId('download-btn')[0]
     fireEvent.click(button)
     expect(window.open).not.toHaveBeenCalled()
   })
@@ -75,8 +78,9 @@ describe('Card Download Component', () => {
     setup({
       ...defaultProps,
     })
-    const button = screen.getByTestId('download-btn-mobile')
-    const button2 = screen.getByTestId('download-btn-desktop')
+    const buttons = screen.getAllByTestId('download-btn')
+    const button = buttons[0]
+    const button2 = buttons[1]
     fireEvent.click(button)
     expect(window.open).toHaveBeenCalledWith(defaultProps.freebie.downloadLink)
     fireEvent.click(button2)

@@ -13,7 +13,7 @@ function FreebieGrid(props: IProps) {
   return (
     <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
-      <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8'>
+      <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 desktop:grid-cols-4'>
         {freebies.length === 0 && <div className='text-center text-blue-slate'>No results found</div>}
         {freebies.map(freebie => <Freebie key={freebie.id} resource={freebie} scrollPosition={scrollPosition} />)}
       </div>

@@ -32,15 +32,15 @@ function CardSmall(props: Props) {
   return (
     <div
       data-testid="card-small"
-      className='mb-12 flex flex-col bg-white rounded-2.5xl p-4 shadow-et_1 transition-shadow will-change-auto hover:shadow-xxl-red'>
-      <div className={`cardWrapper relative overflow-hidden rounded-2xl`}>
+      className='flex flex-col p-4 mb-12 transition-shadow bg-white shadow-et_1 will-change-auto hover:shadow-xxl-grey'>
+      <div className={`cardWrapper relative overflow-hidden`}>
         <LazyImageBase image={image} id={id} scrollPosition={scrollPosition} />
       </div>
       <h3 className='my-2 mt-4 text-2xl font-sentinel__SemiBoldItal text-primary-900'>{title}</h3>
       <p className='flex-1 mb-8'>{excerpt}</p>
-      <button data-testid='card-button' className=' btn rounded-[13px] btn-teal-400 text-lg font-medium  flex flex-row flex-none justify-center items-center' onClick={handleButtonClick}>
-        <span className='max-w-[24px] mr-3'><UploadSvg stroke={'currentColor'} /></span>
+      <button data-testid='card-button' className='flex flex-row items-center justify-center flex-none text-lg font-medium btn btn-sage-600' onClick={handleButtonClick}>
         <span>{buttonText}</span>
+        <span className='max-w-[24px] ml-4'><UploadSvg stroke={'currentColor'} /></span>
       </button>
     </div>
   )

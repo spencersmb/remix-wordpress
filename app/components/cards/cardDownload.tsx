@@ -52,7 +52,7 @@ function CardDownload(props: Props) {
   return (
     <div
       data-testid="card-download"
-      className='p-5 bg-white shadow-md w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
+      className='p-5 bg-white shadow-xxl-grey w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
       <div className='overflow-hidden'>
         <LazyImageBase testId='download-image' id={'tuesdayMakersFeaturedImage'} image={image} />
       </div>
@@ -67,15 +67,16 @@ function CardDownload(props: Props) {
         </div>
         <div className='desktop:hidden'>
           <button
-            data-testid="download-btn-mobile"
+            data-testid="download-btn"
             className='rounded-[13px] font-medium flex flex-row flex-none justify-center items-center mt-4'
             onClick={handleButtonClick}>
             <span className='font-bold uppercase text-success-500'>{buttonText}</span>
           </button>
         </div>
         <div className='hidden desktop:flex'>
-          <button data-testid="download-btn-desktop" onClick={handleButtonClick} className='bg-success-50 text-success-500 rounded-xl flex justify-center items-center p-3 scale-100 duration-200 ease-in-out active:bg-success-200 active:text-success-600 active:scale-[.8] transform transition-all'>
-            <span className='w-[35px]'>
+          <button data-testid="download-btn" onClick={handleButtonClick} className='flex flex-row items-center btn btn-sage-600'>
+            <span>Download</span>
+            <span className='w-[21px] ml-4'>
               <UploadSvg stroke={'currentColor'} />
             </span>
           </button>

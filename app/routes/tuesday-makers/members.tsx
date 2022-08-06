@@ -342,6 +342,7 @@ const ResourceLibraryMembers = () => {
         {/* HEADER */}
         <div className='relative z-2 mb-8 col-start-2 col-span-2 tablet:row-start-1 tablet:col-start-4 tablet:col-end-[12] tablet:mb-8 laptop:col-start-2 laptop:col-end-8 laptop:ml-[25px] laptop:mb-0 desktop:ml-[55px] desktop:mr-[35px] desktop:col-start-2 desktop:col-end-[8] laptop:justify-center flex flex-col'>
 
+          {/* TITLE */}
           <div className='mt-16 mb-8 tablet:mt-28 laptop:mt-0 laptop:mb-16'>
             <h1 style={{ color: '#404764' }} className='relative text-5xl text-center font-sentinel__SemiBoldItal laptop:text-left laptop:text-[56px] desktop:text-[67px] desktopXl:text-[80px]'>
               <span className='relative z-10'>
@@ -350,6 +351,8 @@ const ResourceLibraryMembers = () => {
               </span>
             </h1>
           </div>
+
+          {/* DESCRIPTION */}
           <div className='relative flex flex-col tablet:flex-row z-2'>
 
             {/* REQ 1 */}
@@ -365,6 +368,7 @@ const ResourceLibraryMembers = () => {
             </div>
           </div>
 
+          {/* BACKGROUND IMAGE */}
           <div className='absolute top-[-560px] left-[-114px] w-[450px] z-1 rotate-[-5deg] tablet:top-[-650px] tablet:left-[-90px] tablet:w-[540px] tablet:rotate-[-5deg] laptop:w-[770px] laptop:left-[418px] laptop:top-[-600px] laptop:rotate-45 desktop:w-[1020px] desktop:left-[558px] desktop:top-[-770px]'>
             <LazyImgix
               visibleByDefault={true}
@@ -396,7 +400,7 @@ const ResourceLibraryMembers = () => {
         {/* Check tags on user example for paid Resource Library License */}
         <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
 
-        <div className='col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+        <div className='relative z-[5] col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
           <FreebieFilter
             setFilter={setFilter}
             filterTags={filterTags}
