@@ -5,7 +5,7 @@ export const GetAllFreebiesQuery = gql`
     ${RESOURCE_FEATURED_IMAGE}
     ${PRODUCT_FIELDS}
     query GetNextFreebies {
-        resourceLibraries(first: 1000, where: {
+        resourceLibraries(first: 12, where: {
           orderby: {
             field:MENU_ORDER
             order: ASC

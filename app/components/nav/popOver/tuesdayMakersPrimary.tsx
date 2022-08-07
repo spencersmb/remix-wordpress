@@ -19,14 +19,7 @@ export default function TuesdayMakersPopOver() {
     close()
     navigate(link, { replace: true })
   }
-  // const transition = useTransition();
 
-  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
-  // useEffect(() => {
-  //   if (transition.state === 'loading' && isOpen) {
-  //     closeSearch()
-  //   }
-  // }, [closeSearch, isOpen, transition])
   return (
     <div className="m-2 mx-4 text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
       <Popover className="relative">

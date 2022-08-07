@@ -15,7 +15,7 @@ function IpadHeader1(props: Props) {
     width: 1400,
     height: 1049,
     alt: `Every Tuesday IPad Art`,
-    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format',
+    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
     placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip'
   }
   return (

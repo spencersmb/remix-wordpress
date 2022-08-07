@@ -41,15 +41,15 @@ describe('Tuesday Makers Popover', () => {
 
     expect(panelItems[0]).toHaveTextContent(popOverMenuItems[0].name)
     expect(panelItems[0]).toHaveTextContent(popOverMenuItems[0].description)
-    expect(panelItems[0]).toHaveAttribute('href', popOverMenuItems[0].href)
+
 
     expect(panelItems[1]).toHaveTextContent(popOverMenuItems[1].name)
     expect(panelItems[1]).toHaveTextContent(popOverMenuItems[1].description)
-    expect(panelItems[1]).toHaveAttribute('href', popOverMenuItems[1].href)
+
 
     expect(panelItems[2]).toHaveTextContent(popOverMenuItems[2].name)
     expect(panelItems[2]).toHaveTextContent(popOverMenuItems[2].description)
-    expect(panelItems[2]).toHaveAttribute('href', popOverMenuItems[2].href)
+
   })
   it('Should have footer items for logout state', () => {
     const { getByTestId, queryAllByTestId } = renderUseSiteProviderUi
@@ -64,10 +64,8 @@ describe('Tuesday Makers Popover', () => {
     const panelItems = panelFooter.children
     expect(panelFooter.children.length).toBe(2)
     expect(panelItems[0]).toHaveTextContent('Sign Up')
-    expect(panelItems[0]).toHaveAttribute('href', '/tuesday-makers')
 
     expect(panelItems[1]).toHaveTextContent('Login')
-    expect(panelItems[1]).toHaveAttribute('href', '/tuesday-makers/login')
 
   })
   it('Should have footer items for login state', () => {
@@ -92,6 +90,5 @@ describe('Tuesday Makers Popover', () => {
     const panelItems = panelFooter.children
     expect(panelFooter.children.length).toBe(1)
     expect(panelItems[0]).toHaveTextContent('Makers Dashboard')
-    expect(panelItems[0]).toHaveAttribute('href', '/tuesday-makers/members')
   })
 })

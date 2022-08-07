@@ -11,6 +11,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cacheControl } from "@App/lib/remix/loaders";
 import Layout from "@App/components/layoutTemplates/layout";
 import { classNames } from "@App/utils/appUtils";
+import { useEffect, useRef, useState } from "react";
+import AccentHeaderText from "@App/components/layout/accentHeaderText";
+import BellSvg from "@App/components/svgs/bellSvg";
+import useSite from "@App/hooks/useSite";
+import GeneralMessageModal from "@App/components/modals/generalMessageModal";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -103,18 +108,19 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
   // Get subscriber Tags and create session
   let userId = result.subscribers[0].id
-  const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
+  // const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
 
-  const resTag = await fetch(urlTags, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  const tagResults = await resTag.json()
+  // const resTag = await fetch(urlTags, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  // const tagResults = await resTag.json()
   const user = {
     id: userId,
-    tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+    tags: []
+    // tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
   }
 
 
@@ -138,20 +144,52 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 const ResourceLibraryLogin = () => {
   let actionData = useActionData<ActionData | undefined>();
   const transition = useTransition()
+  const { openModal, closeModal } = useSite()
+  const [inputVaue, setInputValue] = useState<null | string>(null)
+  const [usedOldPassword, setUsedOldPassword] = useState(false)
+  const formRef = useRef<null | HTMLFormElement>(null)
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let { value } = e.target;
+    setInputValue(value)
+  }
+
+  useEffect(() => {
+    if (inputVaue === 'TUESDAYHUSTLERS') {
+      openModal({
+        template: <GeneralMessageModal
+          closeModal={closeModal}
+          header={'Old password'}
+          message={'You\'re trying to use the old password. Please use your email associated with Every-Tuesday. If you don\'t have one create a new account. If you need help please email us.'}
+        />
+      })
+
+      if (formRef.current) {
+        const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
+          .find((input: any) => input.type === 'email') as HTMLInputElement
+
+        searchInput.blur();
+        formRef.current.reset()
+      }
+
+    }
+  }, [inputVaue, formRef])
+
+
 
   return (
     <div className={classNames('', 'pt-[68px] laptop:pt-[96px]')}>
       <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
-        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-16 my-8 tablet:my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
+
+        {/* FORM */}
+        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-12 mt-8 mb-4 tablet:mt-8 tablet:mb-8 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
           <div className="flex flex-col items-center px-4">
 
             <div className="flex flex-col items-center mb-8 text-center">
-              <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
-                Welcome back!
+              <h1 className="relative flex flex-col text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+                <span className="mb-4 font-sans text-[24px] italic font-light">Tuesday Makers</span>
+                Login
               </h1>
-              <h2 className="text-lg text-grey-500">Login to the Tuesday Tribe to access over 200+ design assets.</h2>
-
             </div>
 
             {/*ERROR SUBMISSION*/}
@@ -178,7 +216,7 @@ const ResourceLibraryLogin = () => {
 
 
             <div className="login_form relative z-[2] mt-4 w-full">
-              <Form method='post' className="flex flex-col" aria-describedby={
+              <Form ref={formRef} method='post' className="flex flex-col" aria-describedby={
                 actionData?.formError
                   ? "form-error-message"
                   : undefined
@@ -196,22 +234,12 @@ const ResourceLibraryLogin = () => {
                   type='email'
                   required={true}
                   placeholder='Enter your email'
+                  onChange={handleInputChange}
                 />
 
-                {/*ERROR EMAIL*/}
-                {actionData?.fieldErrors?.email ? (
-                  <p
-                    className="form-validation-error"
-                    role="alert"
-                    id="email-error"
-                  >
-                    {actionData?.fieldErrors.email}
-                  </p>
-                ) : null}
-
                 <button
-                  disabled={transition.state !== 'idle'}
-                  aria-disabled={transition.state !== 'idle'}
+                  disabled={transition.state !== 'idle' || usedOldPassword}
+                  aria-disabled={transition.state !== 'idle' || usedOldPassword}
                   type='submit'
                   className="btn btn-sage-600">
                   {transition.state === 'idle' ? 'Sign In' : '...Loading'}
@@ -227,7 +255,7 @@ const ResourceLibraryLogin = () => {
               </div>
             </div>
 
-            <div className="flex flex-row relative z-[2] mb-8 w-full">
+            <div className="flex flex-row relative z-[2] w-full">
               <Link
                 prefetch={'intent'}
                 className="btn btn-outline"
@@ -236,13 +264,43 @@ const ResourceLibraryLogin = () => {
               </Link>
             </div>
 
-            <div className={'text-center'}>
+            {/* <div className={'text-center'}>
               <h3 className={'font-semibold'}>Having trouble?</h3>
               <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
+            </div> */}
+
+          </div>
+        </div>
+
+        {/* ALERT */}
+        <div className="bg-sage-200 p-4 max-w-[725px] mx-auto mb-8 col-span-2 col-start-2 tablet:p-8 tablet:mb-16 tablet:col-start-2 tablet:col-span-12 laptop:col-start-4 laptop:col-span-8 desktop:col-start-5 desktop:col-span-6">
+          <div className="flex flex-row items-start justify-center">
+            {/* ICON BELL */}
+            <div className="flex items-center justify-center mb-5 mr-4 tablet:mr-8 tablet:mb-0">
+              <div className="rounded-full bg-sage-100 p-[9px] w-[39px] h-[39px] tablet:w-[66px] tablet:h-[66px] tablet:p-[15px]">
+                <BellSvg fill="var(--sage-500)" />
+              </div>
+            </div>
+
+            {/* MESSAGE */}
+            <div className="flex flex-col">
+              <p className="mb-4 text-sage-600 tablet:text-xl">
+                An active Tuesday Makers account is required to login. If you don’t have an account, signup for one today.
+              </p>
+
+              <div className="flex flex-row tablet:text-xl">
+                <Link to={"/contact"} className="font-semibold underline text-sage-800">
+                  Help
+                </Link>
+                <Link to={"/contact"} className="ml-4 font-semibold underline text-sage-800">
+                  Sign Up
+                </Link>
+              </div>
             </div>
 
           </div>
         </div>
+
       </div>
     </div>
   )

@@ -1807,6 +1807,12 @@ video {
 .h-\[94px\] {
   height: 94px;
 }
+.h-\[66px\] {
+  height: 66px;
+}
+.h-\[39px\] {
+  height: 39px;
+}
 .max-h-60 {
   max-height: 15rem;
 }
@@ -2023,6 +2029,15 @@ video {
 .w-\[500px\] {
   width: 500px;
 }
+.w-\[66px\] {
+  width: 66px;
+}
+.w-\[39px\] {
+  width: 39px;
+}
+.w-\[330px\] {
+  width: 330px;
+}
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -2235,6 +2250,9 @@ video {
 }
 .max-w-\[220px\] {
   max-width: 220px;
+}
+.max-w-\[725px\] {
+  max-width: 725px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -3000,6 +3018,12 @@ video {
 .p-\[10px\] {
   padding: 10px;
 }
+.p-\[15px\] {
+  padding: 15px;
+}
+.p-\[9px\] {
+  padding: 9px;
+}
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -3372,6 +3396,18 @@ video {
 }
 .text-\[33px\] {
   font-size: 33px;
+}
+.text-\[16px\] {
+  font-size: 16px;
+}
+.text-\[18px\] {
+  font-size: 18px;
+}
+.text-\[21px\] {
+  font-size: 21px;
+}
+.text-\[24px\] {
+  font-size: 24px;
 }
 .font-semibold {
   font-weight: 600;
@@ -4076,6 +4112,9 @@ video {
 .grid-resource-header {
     grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
   }
+.first-letter\:font-sentinel__SemiBoldItal::first-letter {
+  font-family: Sentinel SemiBoldItal, serif;
+}
 .first-letter\:uppercase::first-letter {
   text-transform: uppercase;
 }
@@ -5219,6 +5258,9 @@ video {
   .tablet\:mt-28 {
     margin-top: 7rem;
   }
+  .tablet\:mr-8 {
+    margin-right: 2rem;
+  }
   .tablet\:block {
     display: block;
   }
@@ -5245,6 +5287,9 @@ video {
   }
   .tablet\:h-\[160px\] {
     height: 160px;
+  }
+  .tablet\:h-\[66px\] {
+    height: 66px;
   }
   .tablet\:max-h-\[56px\] {
     max-height: 56px;
@@ -5326,6 +5371,9 @@ video {
   }
   .tablet\:w-\[1030px\] {
     width: 1030px;
+  }
+  .tablet\:w-\[66px\] {
+    width: 66px;
   }
   .tablet\:min-w-\[753px\] {
     min-width: 753px;
@@ -5603,6 +5651,15 @@ video {
   .tablet\:p-9 {
     padding: 2.25rem;
   }
+  .tablet\:p-8 {
+    padding: 2rem;
+  }
+  .tablet\:p-\[15px\] {
+    padding: 15px;
+  }
+  .tablet\:p-10 {
+    padding: 2.5rem;
+  }
   .tablet\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -5658,6 +5715,10 @@ video {
   .tablet\:py-0 {
     padding-top: 0px;
     padding-bottom: 0px;
+  }
+  .tablet\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   .tablet\:pr-6 {
     padding-right: 1.5rem;

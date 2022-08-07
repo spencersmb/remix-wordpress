@@ -48,7 +48,7 @@ interface InputBaseProps {
   autoComplete?: string
   min?: number
   wrapperCss?: string
-  ref?: (node?: Element | null | undefined) => void
+  ref?: any
 }
 type MiniCourseSignUpActionData = {
   formError?: {
