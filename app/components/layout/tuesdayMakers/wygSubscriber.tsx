@@ -63,10 +63,13 @@ function WygSubscriber(props: Props) {
           <div className='max-w-[560px] w-[900px] absolute tablet:top-0 laptop:top-0 left-0 laptop:max-w-[730px] desktop:top-[-100px]'>
             <LazyImgix
               id={"collage-1"}
-              sizes="(max-width: 400px) 150px, 300px, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px"
+              sizes="(max-width: 666px) 100w, (max-width: 1399px) 50vw, 735px"
               srcSet={
-                `${collage1.src} 400w,
-              ${collage1Url}?auto=format&w=1800&fit=clip 900w,
+                `
+                ${collage1Url}?auto=format&w=800&fit=clip 800w,
+                ${collage1Url}?auto=format&w=1000&fit=clip 1000w,
+                ${collage1Url}?auto=format&w=1400&fit=clip 1400w,
+                ${collage1Url}?auto=format&w=1500&fit=clip 1500w,
               `
               }
               image={collage1} />
@@ -74,9 +77,9 @@ function WygSubscriber(props: Props) {
         </div>
       }
 
-      <h3 className='col-span-2 col-start-2 mb-8 text-4xl font-sentinel__SemiBoldItal tablet:col-start-2 tablet:col-span-6 laptop:text-5xl desktop:col-start-3 desktop:col-span-5 laptop:mb-16'>
+      <h2 className='col-span-2 col-start-2 mb-8 text-4xl font-sentinel__SemiBoldItal tablet:col-start-2 tablet:col-span-6 laptop:text-5xl desktop:col-start-3 desktop:col-span-5 laptop:mb-16'>
         What you get as a subscriber
-      </h3>
+      </h2>
 
       {wygSubscriberItems.map((item, index) => (
         <WygSubscribeItem key={index} {...{
@@ -94,10 +97,10 @@ function WygSubscriber(props: Props) {
             </div>
             <LazyImgix
               id={"collage-1"}
-              sizes="(max-width: 400px) 150px, 300px, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px"
+              sizes="(max-width: 666px) 100w, (max-width: 1399px) 50vw, 535px"
               srcSet={
-                `${collage2.src} 400w,
-              ${collage2Url}?auto=format&w=1400&fit=clip 900w,
+                `${collage2Url}?auto=format&w=1000&fit=clip 1000w,
+                ${collage2Url}?auto=format&w=1400&fit=clip 1400w,
               `
               }
               image={collage2} />

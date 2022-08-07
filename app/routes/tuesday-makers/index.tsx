@@ -234,22 +234,32 @@ const ResourceLibraryHome = () => {
     placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?w=20&fit=clip'
   }
   const bgPaintStrokes = {
-    width: 3046,
-    height: 2456,
-    alt: `Every Tuesday IPad Art`,
-    src: 'https://et-website.imgix.net/et-website/images/tm-bg-1.jpg?auto=format',
-    placeholder: 'https://et-website.imgix.net/et-website/images/tm-bg-1.jpg?auto=format&w=20&fit=clip'
+    width: 2000,
+    height: 2921,
+    alt: `Every Tuesday iPad watercolor paint streaks`,
+    src: 'https://et-website.imgix.net/et-website/images/tuesday-makers/tm-bg-1_3.jpg?auto=format',
+    placeholder: 'https://et-website.imgix.net/et-website/images/tuesday-makers/tm-bg-1_3.jpg?auto=format&w=100&fit=clip'
   }
   return (
     <div className='bg-cream-100 pt-[68px] laptop:pt-[96px]'>
       <div className='relative et-grid-basic'>
 
-        {/* BG PAINT */}
-        <div className='absolute top-[-34px] w-full -translate-x-1/2 left-1/2 tablet:w-[930px] tablet:top-[-110px] desktop:w-[1540px] desktop:top-[-170px]'>
+        {/* BG PAINTSTREAKS */}
+        <div className='absolute left-[62%] top-[-470px] w-[500px] -translate-x-1/2 rotate-45 tablet:w-[1030px] tablet:left-[62%] tablet:top-[-820px] laptop:top-[-860px] laptop:w-[1050px] laptop:left-[57%] desktop:w-[1620px] desktop:top-[-1370px] desktopXl:left-[54%]'>
           <LazyImgix
             visibleByDefault={true}
             id={"iPadArt"}
-            image={bgPaintStrokes} />
+            image={bgPaintStrokes}
+            sizes="(max-width: 666px) 100w, (max-width: 1399px) 100vw, 1500px"
+            srcSet={
+              `
+              ${bgPaintStrokes.src}&w=1200&fit=clip 1200w,
+              ${bgPaintStrokes.src}&w=1400&fit=clip 1400w,
+              ${bgPaintStrokes.src}&w=1600&fit=clip 1600w,
+              ${bgPaintStrokes.src}&w=1800&fit=clip 1800w,
+              ${bgPaintStrokes.src}&w=3000&fit=clip 3000w,
+              `}
+          />
         </div>
 
         {/* IPAD HEADER */}

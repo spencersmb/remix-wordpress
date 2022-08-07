@@ -50,9 +50,9 @@ function TmResourceLibraryModule(props: Props) {
   return (
     <div className='my-10 laptop:my-20 desktop:my-32 et-grid-basic'>
       <div className='col-span-2 col-start-2 mb-16 tablet:col-start-3 tablet:col-span-10 tablet:text-center desktop:col-start-4 desktop:col-span-8 desktop:mb-24 desktopXl:col-start-4 desktopXl:col-span-8 desktop:max-w-[837px] desktop:mx-auto'>
-        <div className='mb-4 text-4xl font-sentinel__SemiBoldItal laptop:text-5xl'>
+        <h3 className='mb-4 text-4xl font-sentinel__SemiBoldItal laptop:text-5xl'>
           The Resource Library
-        </div>
+        </h3>
         <p data-testid="description" className='text-lg laptop:text-xl'>
           When you become a Tuesday Maker, you’re the first to nab special deals on courses + brush sets *and* you get instant access to our Resource Library, stocked with hundreds of Procreate brushes, color palettes, textures, fonts and more!
         </p>

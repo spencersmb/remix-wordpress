@@ -28,14 +28,15 @@ const TextImageTall = (props: TextImageProps) => {
           0{index + 1}
         </div>
 
+        {/* https://stackoverflow.com/a/51345189/5794430 */}
         <LazyImgix
           id='tm-rl-1'
           image={img.obj}
-          sizes="(max-width: 400px) 150px, 300px, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px"
+          sizes="(max-width: 666px) 100vw, (max-width: 1399px) 38vw, 535px"
           srcSet={`
-                ${img.obj.src} 400w,
-                ${img.url}?auto=format&w=1400&fit=clip 900w,
-              `}
+          ${img.url}?auto=format&w=400&fit=clip 400w,
+          ${img.url}?auto=format&w=768&fit=clip 768w,
+          `}
         />
       </div>
 

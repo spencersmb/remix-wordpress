@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { Link } from '@remix-run/react'
+import { Link, useNavigate } from '@remix-run/react'
 import { Fragment } from 'react'
 import useSite from '@App/hooks/useSite'
 import popOverMenuItems from './popOverMenuItems'
@@ -14,10 +14,23 @@ import popOverMenuItems from './popOverMenuItems'
  */
 export default function TuesdayMakersPopOver() {
   const { state: { user } } = useSite()
+  let navigate = useNavigate();
+  const handleButtonClick = (link: string, close: any) => () => {
+    close()
+    navigate(link, { replace: true })
+  }
+  // const transition = useTransition();
+
+  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
+  // useEffect(() => {
+  //   if (transition.state === 'loading' && isOpen) {
+  //     closeSearch()
+  //   }
+  // }, [closeSearch, isOpen, transition])
   return (
     <div className="m-2 mx-4 text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
       <Popover className="relative">
-        {({ open }) => (
+        {({ open, close }) => (
           <>
             {/* MAIN BTN USER SEES FIRST */}
             <Popover.Button
@@ -46,10 +59,10 @@ export default function TuesdayMakersPopOver() {
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
                     {popOverMenuItems.map((item) => (
-                      <Link
+                      <button
                         data-testid="panel-item"
                         key={item.name}
-                        to={item.href}
+                        onClick={handleButtonClick(item.href, close)}
                         className="flex items-center p-2 -m-3 text-left transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div style={{ background: item.bg }} className="flex items-center justify-center flex-shrink-0 w-[57px] h-[57px] p-[10px] text-white rounded-lg">
@@ -63,30 +76,30 @@ export default function TuesdayMakersPopOver() {
                             {item.description}
                           </p>
                         </div>
-                      </Link>
+                      </button>
                     ))}
                   </div>
                   <div
                     data-testid="panel-footer"
                     className={`grid grid-flow-row gap-4 p-5 bg-gray-50 ${user.resourceUser ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                    {user.resourceUser && <Link
-                      to="/tuesday-makers/members"
+                    {user.resourceUser && <button
+                      onClick={handleButtonClick('/tuesday-makers/members', close)}
                       className="py-2 transition duration-300 border-2 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-2"
                     >
                       Makers Dashboard
-                    </Link>}
+                    </button>}
                     {!user.resourceUser && <>
-                      <Link
-                        to="/tuesday-makers"
+                      <button
+                        onClick={handleButtonClick('/tuesday-makers', close)}
                         className="transition duration-300 ease-in-out btn btn-teal-400 ring-offset-0 ring-0 hover:ring-0 hover-ring-offset-0 hover-ring-0 hover:bg-success-500">
                         Sign Up
-                      </Link>
-                      <Link
-                        to="/tuesday-makers/login"
+                      </button>
+                      <button
+                        onClick={handleButtonClick('/tuesday-makers/login', close)}
                         className="py-2 transition duration-300 border-3 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-50 hover:text-success-600 hover:border-3"
                       >
                         Login
-                      </Link>
+                      </button>
                     </>}
                   </div>
                 </div>

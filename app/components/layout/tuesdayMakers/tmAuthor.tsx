@@ -45,10 +45,10 @@ function TmAuthor(props: Props) {
               imgixImage={authorImg}
               imgOptions={
                 {
-                  sizes: "(max-width: 400px) 150px, 300px, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 900px",
+                  sizes: "(max-width: 666px) 100w, (max-width: 1399px) 38vw, 535px",
                   srcSet: `
-                ${authorImg.src} 400w,
-                ${authorUrl}?auto=format&w=1400&fit=clip 900w,
+                ${authorUrl}?auto=format&w=600&fit=clip 600w,
+                ${authorUrl}?auto=format&w=800&fit=clip 800w,
               `
                 }
               }

@@ -54,7 +54,7 @@ const WygSubscribeItem = (item: itemProps) => {
         0{item.index + 1}
       </div>
       <div>
-        <h4 className='text-xl font-sentinel__SemiBoldItal laptop:text-2xl laptop:mb-4 desktop:text-[28px]'>{item.title}</h4>
+        <h3 className='text-xl font-sentinel__SemiBoldItal laptop:text-2xl laptop:mb-4 desktop:text-[28px]'>{item.title}</h3>
         <p className='laptop:text-xl'>{item.description}</p>
       </div>
     </div>
