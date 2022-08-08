@@ -50,3 +50,18 @@ interface IGetConvertKitUserByID{
   email_address: string,
   state: 'inactive' | 'active' | 'unsubscribed' | 'bounced' | 'soft-bounced' | 'pending' | 'unconfirmed' | 'deleted'
 }
+
+interface MakersLibraryStateType{
+  loading: boolean,
+  categories: {
+    [id: string]: {
+      pageInfo: {
+        page: number,
+        endCursor: string,
+        hasNextPage: boolean,
+      }
+      freebies: IResourceItem[]
+    }
+  }
+  initialized: boolean
+}

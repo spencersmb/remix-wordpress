@@ -246,8 +246,7 @@ interface IwpPageInfo {
   endCursor: string
   hasNextPage: boolean
   hasPreviousPage: boolean
-  startCursor: string
-
+  // startCursor?: string
 }
 interface ICommentContent {
   author: {name: string}

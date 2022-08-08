@@ -45,6 +45,8 @@ import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
 import { classNames } from "./utils/appUtils";
 import { useEffect } from "react";
 import useSearchScrollFix from "./hooks/useSearch/useSearchScrollFix";
+import UseMakersLibraryProvider from "./hooks/useFreebies/useFreebiesPaginateProvider";
+import { tuesdayMakersInitialState } from "./hooks/useFreebies";
 // import a plugin
 
 /**
@@ -206,9 +208,11 @@ export default function App() {
         // client,
       }}>
         <UseFetchPaginateProvider defaultState={defaultState}>
-          <Document>
-            <Outlet />
-          </Document>
+          <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
+            <Document>
+              <Outlet />
+            </Document>
+          </UseMakersLibraryProvider>
         </UseFetchPaginateProvider>
       </UseSearchProvider>
     </UseSiteProvider>

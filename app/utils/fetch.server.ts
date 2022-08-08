@@ -72,6 +72,34 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   return json.data
 }
 
+export async function fetchAPIBatch(batch: any) {
+  const https = require("https");
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
+
+  const res = await fetch(api_url, {
+    method: 'POST',
+    mode: 'cors',
+    
+    // @ts-ignore
+    agent,
+    headers: headers,
+    body: JSON.stringify(batch),
+  })
+  const json = await res.json()
+  
+  if (json.errors) {
+    console.error(json.errors)
+    throw new Error('WP QUERY FETCH' + json.errors)
+  }
+  return json
+}
+
 export async function fetchAPIOrigin(query: any, origin: string, { variables }: any = {}) {
   const https = require("https");
   let headers = new Headers();

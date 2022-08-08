@@ -1,10 +1,10 @@
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
 import { getBasicPageMetaTags, getHtmlMetadataTags } from '../../utils/seo'
-import { fetchAPI } from '../../utils/fetch.server'
-import { GetAllFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
+import { fetchAPI, fetchAPIBatch } from '../../utils/fetch.server'
+import { GetAllFreebiesQuery, GetFirstFreebiesQuery, GetFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
-import useFreebies from '../../hooks/useFreebies'
+import useFreebies, { useMakersLibraryAsync } from '../../hooks/useFreebies'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import useSite from '@App/hooks/useSite'
 import { useEffect } from 'react'
@@ -23,6 +23,10 @@ import { useFetcher, useLoaderData, useMatches } from '@remix-run/react'
 import useTuesdayMakersClientSideLogin from '@App/hooks/useTuesdayMakersClientSideLogin'
 import AccentHeaderText from '@App/components/layout/accentHeaderText'
 import LazyImgix from '@App/components/images/lazyImgix'
+import { SiteMetaDataQuery } from '@App/lib/graphql/queries/siteMetaData'
+import { isArray } from 'lodash'
+import { consoleHelper } from '@App/utils/windowUtils'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -69,13 +73,46 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     id: userId,
     tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
   }
-
+  const defaultCategory = {
+    name: 'Style Studies',
+    slug: 'style-studies'
+  }
+  let variables: {
+    first: number;
+    after: string | null;
+    catName?: string;
+  } = {
+    first: 12,
+    after: null,
+    catName: defaultCategory.name
+  }
   try {
-    let data = await fetchAPI(getGraphQLString(GetAllFreebiesQuery))
+    // GRAPHQL BULK QUERY EXAMPLE
+    let data = await fetchAPIBatch([
+      {
+        query: getGraphQLString(GetFreebiesQuery),
+        variables,
+        operationname: 'QueryNextFreebies'
+      },
+      {
+        query: getGraphQLString(GetFirstFreebiesQuery),
+        operationname: 'GetFirstFreebie'
+      }
+    ])
+
+    const featuredFreebie = flattenResourceData(data[1].data.resourceLibraries)
 
     return json({
-      freebies: flattenResourceData(data.resourceLibraries),
       // filterTags: data.cptTags,
+      freebies: flattenResourceData(data[0].data.resourceLibraries),
+      pageInfo: {
+        ...data[0].data.resourceLibraries.pageInfo,
+        page: 1
+      },
+      selectedCategory: defaultCategory,
+      featured: isArray(featuredFreebie) && featuredFreebie.length > 0
+        ? featuredFreebie[0]
+        : null,
       user: {
         ...user,
         tags: newUser.tags
@@ -89,7 +126,18 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
 
 interface ILoaderData {
   freebies: IResourceItem[]
-  filterTags: IFilterTag[],
+  featuredFreebie: IResourceItem | null
+  pageInfo: {
+    endCursor: string
+    hasNextPage: boolean
+    hasPreviousPage: boolean
+    page: number
+  }
+  selectedCategory: {
+    name: string
+    slug: string
+  }
+  // filterTags: IFilterTag[],
   user: IResourceUser,
 }
 
@@ -210,7 +258,7 @@ function reshuffleBrushes(posts: IResourceItem[]) {
 
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
-  // console.log('data', data);
+  console.log('data', data);
 
   // const { cart } = useCartMatches()
   // console.log('match', cart);
@@ -295,7 +343,21 @@ const ResourceLibraryMembers = () => {
   }
 
   const reshuffledPosts = shuffleResourcePosts(data.freebies)
-  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IResourceItem[]>({ items: reshuffledPosts, itemsPerPage: 12 })
+  // const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IResourceItem[]>({ items: reshuffledPosts, itemsPerPage: 12 })
+
+  const { state, selectedFilter, handleFetchMorePosts, handleFilterClick, setFilter } = useMakersLibraryAsync({
+    selectedFilter: data.selectedCategory,
+    itemsPerPage: 12,
+    initialData: {
+      freebies: data.freebies,
+      pageInfo: {
+        ...data.pageInfo
+      }
+    }
+  })
+  consoleHelper(`MakersLibrary State`, {
+    state
+  }, 'members.tsx', { bg: '#ffd321', text: '#000' })
 
   const featuredDownload = reshuffledPosts[0]
 
@@ -333,7 +395,6 @@ const ResourceLibraryMembers = () => {
     alt: `Every Tuesday Watercolor textures`,
     src: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg',
   })
-
 
   return (
     <div className='pt-[68px] laptop:pt-[96px] bg-cream-100'>
@@ -404,25 +465,64 @@ const ResourceLibraryMembers = () => {
           <FreebieFilter
             setFilter={setFilter}
             filterTags={filterTags}
-            selectedFilter={filter}
+            selectedFilter={selectedFilter}
             handleClick={handleFilterClick}
           />
         </div>
 
-        <FreebieGrid freebies={posts} />
+        <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
+          {/* @ts-ignore */}
+          <AnimatePresence>
+            {state.loading
+              && !state.categories[selectedFilter.slug]
+              && <motion.div
+                key="catSpinner"
+                initial={{
+                  opacity: 0,
+                  height: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  height: 60,
+                }}
+                exit={{
+                  opacity: 0,
+                  height: 0,
+                  transition: {
+                    duration: .3,
+                  }
+                }}
+                className='rounded-full mx-auto flex items-center justify-center text-center w-[60px] h-[60px] p-1 overflow-hidden'>
+                <svg
+                  className="text-white motion-reduce:hidden animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="#b45309" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="#845c5c" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </motion.div>
+            }
+          </AnimatePresence>
 
-        <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
-          {pagination.hasNextPage &&
-            <>
+          <FreebieGrid
+            selectedFilter={selectedFilter.slug}
+            categories={state.categories} />
+        </div>
+
+
+        {state.categories[selectedFilter.slug] && state.categories[selectedFilter.slug].pageInfo.hasNextPage &&
+          <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+            <div className='tablet:mt-5 tablet:mb-12'>
               <OutlinedButton
-                className='mx-auto btn btn-teal-600 btn-outlined-teal-600'
-                clickHandler={handlePageClick}
-                text={'Show More'} loading={false}
+                className='mx-auto bg-transparent btn btn-outline'
+                clickHandler={handleFetchMorePosts}
+                text={'Show More'} loading={state.loading}
                 loadingText={'Loading...'}
               />
-            </>
-          }
-        </div>
+            </div>
+          </div>
+        }
 
         <div>
           {/* <EmptyCartBtn />

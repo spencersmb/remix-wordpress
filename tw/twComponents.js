@@ -93,6 +93,13 @@ const classes = {
       color: 'rgb(255 255 255 / var(--tw-text-opacity))',
       backgroundColor: 'var(--sage-700)',
       '--tw-ring-color': 'var(--sage-700)',
+    },
+    '&:disabled':{
+      '--tw-text-opacity': '1',
+      color: 'rgb(255 255 255 / var(--tw-text-opacity))',
+      '--tw-ring-offset-width': '4px',
+      backgroundColor: 'var(--sage-700)',
+      '--tw-ring-color': 'var(--sage-700)',
     }
   },
   '.btn-sage-600':{

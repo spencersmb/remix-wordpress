@@ -45,18 +45,16 @@ const useFetchPaginateContent = (newData?:updateContext) => {
   let context
   // console.log('FetchPaginateContext', FetchPaginateContext);
   
+  // Initialize Context State based on FetchPaginateContext "createContext"
   context = useContext(FetchPaginateContext)
   // console.log('context pre', context);
-  
-  // if(newData){
-  //   context = createContext<IFetchPaginateContextType>({
-  //     state: fetchInitialState,
-  //     dispatch: () => null
-  //   })
-  // }
-  // console.log('!context.state.init', context.state.init);
+
+  // When this first renders we check if customData was passed in to override the default state intially set in the context
   
   // Only do this on first Render load to getData in from Server
+  // Check if the new data has posts because of how we map the data in from the server. We also check for page info and check that state has 0 posts. If it does we set the state to the new data.
+  
+  // Have to check for context.state.posts because if it's just a page link click instead of a page refresh, it should already have data in it.
   if((newData?.posts && newData.pageInfo) && context.state.posts.length === 0){
     context.state.init = true
     context.state.posts = newData.posts

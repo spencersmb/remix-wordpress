@@ -180,7 +180,6 @@ function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any
     }
   }
 
-
   return initialState
 }
 
@@ -211,6 +210,8 @@ function BlogIndex() {
   consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
 
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
+
+  // Create initializing state for Context
   const initializePostsFromServer = createInitializingFetchState({
     posts,
     pageInfo,
@@ -269,11 +270,12 @@ function BlogIndex() {
     })
   }, [state.categories[category]])
 
+
   useEffect(() => {
 
     return () => {
-      clearCategory()
-      clearPosts()
+      // clearCategory()
+      // clearPosts()
     }
   }, [])
 
@@ -364,6 +366,7 @@ function BlogIndex() {
         ...filteredPosts
       ]
     }
+
     addCategoriAction({
       category,
       pageInfo: {
@@ -384,6 +387,7 @@ function BlogIndex() {
       <BlogCategoryTabs catClick={handleCatClick} category={category} />
 
       <div className='grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+
         <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
           {/* @ts-ignore */}

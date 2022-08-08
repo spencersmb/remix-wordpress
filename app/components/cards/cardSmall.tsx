@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react'
 import type { ScrollPosition } from 'react-lazy-load-image-component';
 import LazyImageBase from '../images/lazyImage-base'
@@ -30,7 +31,24 @@ function CardSmall(props: Props) {
   } = props
 
   return (
-    <div
+    <motion.div
+      key={id}
+      initial={{
+        opacity: 0,
+
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: .3,
+        }
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          duration: 0
+        }
+      }}
       data-testid="card-small"
       className='flex flex-col p-4 mb-12 transition-shadow bg-white shadow-et_1 will-change-auto hover:shadow-xxl-grey'>
       <div className={`cardWrapper relative overflow-hidden`}>
@@ -42,7 +60,7 @@ function CardSmall(props: Props) {
         <span>{buttonText}</span>
         <span className='max-w-[24px] ml-4'><UploadSvg stroke={'currentColor'} /></span>
       </button>
-    </div>
+    </motion.div>
   )
 }
 
