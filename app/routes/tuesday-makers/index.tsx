@@ -29,6 +29,7 @@ import TmResourceLibraryModule from '@App/components/layout/tuesdayMakers/tmReso
 import TmAuthor from '@App/components/layout/tuesdayMakers/tmAuthor'
 import DoubleBgImageLayout from '@App/components/layout/doubleBgImageLayout'
 import { createImgixSizes } from '@App/utils/imageHelpers'
+import { MakersSignupAction } from '@App/actions/tmSignUpAction.server'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -82,7 +83,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   })
 };
 
-type ActionData = {
+type MakersSignupActionData = {
   formError?: string;
   fieldErrors?: {
     email: string | undefined;
@@ -92,104 +93,11 @@ type ActionData = {
   }
   form?: string
 };
-
-
-export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
-  const customHeaders = new Headers()
-  let form = await request.formData();
-  let email = form.get('email')
-  let formType = form.get('_action') as string
-  let honeyPot = form.get('lastName')
-
-  const ckId = getCKFormId(formType)
-
-
-  if (!formType) {
-    console.error('RemixSignUpAction: formType is null')
-    return json({
-      status: 500,
-      message: 'No form type provided',
-    })
-  }
-
-  // we do this type check to be extra sure and to make TypeScript happy
-  // we'll explore validation next!
-  if (
-    typeof email !== "string" ||
-    typeof honeyPot !== "string" ||
-    honeyPot.length !== 0
-  ) {
-    return json({
-      formError: {
-        [formType]: {
-          message: 'No email provided',
-          formId: 'error'
-        }
-      },
-    })
-  }
-
-  let fields = { email };
-  let fieldErrors = {
-    email: validateEmail(email)
-  };
-
-  consoleHelper('fieldErrors', fieldErrors, '/routes/tuesday-makers/index.tsx', { bg: '#cc2c5c', text: '#fff' })
-
-  if (Object.values(fieldErrors).some(Boolean))
-    return json({ fieldErrors, fields });
-
-  // Intercept the request and respond with a fake response when testing
-  if (process.env.NODE_ENV === 'test') {
-    return json({
-      form: {
-        [formType]: {
-          message: 'success',
-          formId: formType
-        }
-      }
-    })
-  }
-
-  try {
-
-    // Sign user up
-    const fetch = await fetchConvertKitSignUp({ email, id: ckId })
-
-    // Add temporary cookie to browser to process on thankyou page
-    customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
-      userID: fetch.subscription.subscriber.id,
-      email,
-    }))
-
-    return json({
-      form: {
-        [formType]: {
-          message: 'success',
-          email,
-          formId: formType,
-          // fetch
-        }
-      }
-    })
-  } catch (error: any) {
-    console.error(error.message)
-    console.error(error.response)
-    return json({
-      formError: {
-        [formType]: {
-          message: `Something went wrong. Please try again later. Error: ${error.message}`,
-          formId: formType
-        }
-      }
-    })
-  }
-
-}
+export let action: ActionFunction = async ({ request }) => MakersSignupAction<Promise<MakersSignupActionData>>(request)
 
 const ResourceLibraryHome = () => {
   let data = useLoaderData()
-  let actionData = useActionData<ActionData | undefined>();
+  let actionData = useActionData<MakersSignupActionData | undefined>();
 
   useEffect(() => {
     consoleHelper('data', data, 'tuesday-makers/index.tsx');

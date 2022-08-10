@@ -106,7 +106,6 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
 };
 
-// TODO: AM I USING THIS
 export let action: ActionFunction = async ({ request }): Promise<any | Response> => {
 
   let form = await request.formData();
