@@ -28,7 +28,9 @@ const compile = (pluginsArray) => {
   })
 
   Promise.all(actions).then((results)=>{
-  }).catch()
+  }).catch((err)=>{
+    console.log(err)
+  })
 }
 
 compile([
