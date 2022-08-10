@@ -1,42 +1,19 @@
 import { useFetcher, useTransition } from "@remix-run/react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import LazyImageBase from "../images/lazyImage-base";
-import Imgix, { Picture, Source } from "react-imgix";
-import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers";
+import { createImgixSizes } from "@App/utils/imageHelpers";
 import { staticImages } from "@App/lib/imgix/data";
 import MakersSignUpForm from "../forms/layout/makersSignUpForm";
-import { ImageSizeEnums } from "@App/enums/imageEnums";
+import LazyImgix from "../images/lazyImgix";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();
   const transition = useTransition()
-  const heroImage: IFeaturedImage = {
-    altText: "Every Tuesday Makers Library",
-    id: "ETMK",
-    sizes: "",
-    mimeType: "image/jpeg",
-    sourceUrl: '/images/feature-image.jpg',
-    srcSet: "",
-    mediaDetails: {
-      height: 1049,
-      width: 1400,
-      sizes: [
-        {
-          name: ImageSizeEnums.PLACEHOLDER,
-          width: "20px",
-          file: 'feature-image.jpg',
-          height: "15px",
-          sourceUrl: '/images/feature-image.jpg',
-          mimeType: "image/jpeg",
-        }
-      ]
-    }
-  }
-  const featuredImage = loadImageSrc({
-    imageSizeName: ImageSizeEnums.SOURCE, // image name to try and get
-    imageObject: heroImage, // the featured image object
-    fallbackSize: ImageSizeEnums.FULL, // fallback size to use if the image name doesn't exist
-    fallbackImage: defaultImages.featured
+  const iPadImage = createImgixSizes({
+    compress: true,
+    height: 1049,
+    width: 1400,
+    alt: "Every Tuesday Makers Library",
+    mobileSize: 400,
+    src: 'https://et-website.imgix.net/et-website/images/footer-ipad-image_1.jpg'
   })
 
   return (
@@ -48,9 +25,9 @@ const MakersFooterSignUp = () => {
         {/* IMAGE */}
         <div className="absolute w-full top-[-60vw] left-[0px] max-w-[600px] mobileWide:top-[-360px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[90%] laptop:top-[20px] laptop:left-[-96%] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">
           <IpadFooterImage
-            id={heroImage.id}
-            featuredImage={featuredImage}
-            alt={heroImage.altText}
+            id={"ETMK"}
+            featuredImage={iPadImage}
+            alt={iPadImage.image.alt}
           />
         </div>
 
@@ -77,61 +54,116 @@ const MakersFooterSignUp = () => {
 export default MakersFooterSignUp
 
 interface IFeatureProps {
-  featuredImage: ImageLookupReturn
+  featuredImage: CreateImgixReturn
   alt: string
   id: string
 }
 const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
+
+  const applePencil = createImgixSizes({
+    width: 84,
+    height: 1012,
+    src: staticImages.assets.applePencil.flat.src,
+    alt: 'Apple Pencil',
+    mobileSize: 28
+  })
+  const iPadDevice = createImgixSizes({
+    width: 1000,
+    height: 733,
+    src: staticImages.assets.ipad.flat.src,
+    alt,
+    mobileSize: 400
+  })
+  const swatchCard = createImgixSizes({
+    width: 400,
+    height: 1312,
+    src: staticImages.assets.swatchPalette.circles.src,
+    alt: 'Every Tuesday Swatch Card',
+    mobileSize: 120
+  })
+  const scribble = createImgixSizes({
+    width: 1400,
+    height: 1282,
+    alt: 'Every-Tuesday hand drawn scribble with Procreate',
+    src: staticImages.scribbles.scribble_3.src,
+    mobileSize: 600
+  })
 
   return (
     <div className="relative max-w-[1000px] z-20">
 
       {/* APPLE PENCIL */}
       <div className="absolute top-[30%] left-[70%] z-30 w-[5%] rotate-[52deg] origin-center">
-        <LazyLoadImage
-          key={'applePencil'}
-          alt={'Every Tuesday Apple 2 Pencil'}
-          effect="blur"
-          placeholderSrc={staticImages.assets.applePencil.flat.placeholder}
-          src={staticImages.assets.applePencil.flat.src}
+        <LazyImgix
+          id={'applePencil'}
+          image={applePencil.image}
+          sizes="(max-width: 666px) 2vw, (max-width: 1279px) 3vw, (min-width: 1280px) 3vw, 30px"
+          srcSet={
+            `
+              ${applePencil.defaultSrc}&w=28&fit=clip 28w,
+              ${applePencil.defaultSrc}&w=48&fit=clip 48w,
+              ${applePencil.defaultSrc}&w=60&fit=clip 60w,
+            `
+          }
         />
+
       </div>
 
       {/* IPAD ART */}
       <div className="absolute top-[-2.8%] left-[-2.7%] scale-[.81] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20">
-        <LazyImageBase image={featuredImage} id={id} />
+        <LazyImgix
+          id={id}
+          image={featuredImage.image}
+          sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
+          srcSet={
+            `
+              ${featuredImage.defaultSrc}&w=500&fit=clip 500w,
+              ${featuredImage.defaultSrc}&w=900&fit=clip 900w,
+              ${featuredImage.defaultSrc}&w=1200&fit=clip 1200w,
+              `}
+        />
       </div>
 
       {/* IPAD DEVICE */}
       <div className="relative z-10 ipad">
-        <LazyLoadImage
-          key={'iPadFeature'}
-          alt={alt}
-          effect="blur"
-          placeholderSrc={staticImages.assets.ipad.flat.placeholder}
-          src={staticImages.assets.ipad.flat.src}
+        <LazyImgix
+          id={'iPadFeature'}
+          image={iPadDevice.image}
+          sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
+          srcSet={
+            `
+            ${iPadDevice.defaultSrc}&w=500&fit=clip 500w,
+            ${iPadDevice.defaultSrc}&w=900&fit=clip 900w,
+            ${iPadDevice.defaultSrc}&w=1200&fit=clip 1200w,
+            `}
         />
       </div>
 
       {/* SWATCH CARD */}
       <div className="absolute z-[1] swatches top-0 w-[60px] right-[-20px] rotate-[25deg] tablet:w-[100px] tablet:right-[-40px] tablet:top-[40px] laptop:top-0 laptop:right-[-10px] laptop:rotate-[15deg] desktop:right-[-20px]">
-        <LazyLoadImage
-          key={'iPadFeature'}
-          alt={alt}
-          effect="blur"
-          placeholderSrc={staticImages.assets.swatchPalette.circles.placeholder}
-          src={staticImages.assets.swatchPalette.circles.src}
+        <LazyImgix
+          id={'swatchCard'}
+          image={swatchCard.image}
+          sizes="(max-width: 666px) 4vw, 200px"
+          srcSet={
+            `
+            ${swatchCard.defaultSrc}&w=120&fit=clip 120w,
+            ${swatchCard.defaultSrc}&w=200&fit=clip 200w,
+            `}
         />
       </div>
 
       {/* SCRIBBLE TEXTURE  */}
-      <div className="absolute top-[-50px] left-[-50px] z-0 w-[301px] tablet:left-[-200px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[550px] laptop:left-[-25px] laptop:top-[-58px] desktop:w-[650px] desktop:left-[-50px] desktop:top-[-50px] h-full">
-        <LazyLoadImage
-          key={'ipadScribble'}
-          alt={'Every-Tuesday hand drawn scribble with Procreate'}
-          effect="blur"
-          placeholderSrc={staticImages.scribbles.scribble_3.placeholder}
-          src={staticImages.scribbles.scribble_3.src}
+      <div className="absolute top-[-50px] left-[-50px] z-0 w-[301px] tablet:left-[-160px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[550px] laptop:left-[-25px] laptop:top-[-58px] desktop:w-[650px] desktop:left-[20px] desktop:top-[-50px] h-full">
+        <LazyImgix
+          id={'iPadScribble'}
+          image={scribble.image}
+          sizes="(max-width: 666px) 40vw, 1200px"
+          srcSet={
+            `
+              ${scribble.defaultSrc}&w=600&fit=clip 600w,
+              ${scribble.defaultSrc}&w=1200&fit=clip 1200w,
+              `}
         />
         {/* <Picture >
           <Source

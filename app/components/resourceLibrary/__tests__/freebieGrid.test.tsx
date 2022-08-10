@@ -5,7 +5,17 @@ import FreebieGrid from "../freebieGrid"
 
 describe('Freebie Grid Component', () => {
   const defaultProps = {
-    freebies: []
+    selectedFilter: 'procreate-brushes',
+    categories: {
+      "procreate-brushes": {
+        pageInfo: {
+          page: 1,
+          endCursor: '1234',
+          hasNextPage: false,
+        },
+        freebies: []
+      }
+    }
   }
 
   const setup = (props: any) => {
@@ -26,9 +36,19 @@ describe('Freebie Grid Component', () => {
   })
   it('Should show one freebies result found', () => {
     const props = {
-      freebies: [
-        { ...mockResourceItem }
-      ]
+      selectedFilter: 'procreate-brushes',
+      categories: {
+        "procreate-brushes": {
+          pageInfo: {
+            page: 1,
+            endCursor: '1234',
+            hasNextPage: false,
+          },
+          freebies: [
+            { ...mockResourceItem }
+          ]
+        }
+      }
     }
     const { queryByText, queryAllByTestId } = setup(props)
     expect(queryByText('No results found')).toBeNull()

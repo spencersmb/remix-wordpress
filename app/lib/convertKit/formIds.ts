@@ -9,7 +9,7 @@ interface ICKFormIds {
     // aboutPage: string,
     // blogWidget: string,
     // freebieWidget: string,
-    // homePage: string,
+    homePage: string,
     landingPage: string,
     // sidebar: string
   },
@@ -33,7 +33,7 @@ export const ckFormIds: ICKFormIds = {
     // aboutPage: '969013',
     // blogWidget: '969014',
     // freebieWidget: '969015',
-    // homePage: '2850591',
+    homePage: '2850591',
     landingPage: '2850591',
     // sidebar: '969012'
   },

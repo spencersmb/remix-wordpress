@@ -17,7 +17,7 @@ export default function TuesdayMakersPopOver() {
   let navigate = useNavigate();
   const handleButtonClick = (link: string, close: any) => () => {
     close()
-    navigate(link, { replace: true })
+    navigate(link, { replace: false })
   }
 
   return (

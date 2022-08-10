@@ -4,7 +4,7 @@ import { fetchAPI, fetchAPIBatch } from '../../utils/fetch.server'
 import { GetAllFreebiesQuery, GetFirstFreebiesQuery, GetFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
 import FreebieFilter from '../../components/resourceLibrary/freebieFilter'
-import useFreebies, { useMakersLibraryAsync } from '../../hooks/useFreebies'
+import { useMakersLibraryAsync } from '../../hooks/useFreebies'
 import { getGraphQLString } from '../../utils/graphqlUtils'
 import useSite from '@App/hooks/useSite'
 import { useEffect } from 'react'
@@ -27,6 +27,8 @@ import { SiteMetaDataQuery } from '@App/lib/graphql/queries/siteMetaData'
 import { isArray } from 'lodash'
 import { consoleHelper } from '@App/utils/windowUtils'
 import { AnimatePresence, motion } from 'framer-motion'
+import CircleSpinner from '@App/components/spinners/circleSpinner'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -77,6 +79,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     name: 'Style Studies',
     slug: 'style-studies'
   }
+
   let variables: {
     first: number;
     after: string | null;
@@ -86,6 +89,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     after: null,
     catName: defaultCategory.name
   }
+
   try {
     // GRAPHQL BULK QUERY EXAMPLE
     let data = await fetchAPIBatch([
@@ -161,7 +165,7 @@ const filterTags = [
   },
   {
     name: 'Color Palettes',
-    slug: "color-palettes",
+    slug: "color-palette",
   },
   {
     name: 'Procreate',
@@ -369,26 +373,7 @@ const ResourceLibraryMembers = () => {
     placeholder: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg?auto=format&w=20&fit=clip'
   }
 
-  function createImigixSizes({ src, mobileSize, width, height, alt }: { src: string, mobileSize: number, width: number, height: number, alt: string }): {
-    image: ImgixImageType,
-    defaultSrc: string,
-  } {
-    const defaultSrc = `${src}?auto=format`
-    const image = {
-      width,
-      height,
-      alt,
-      src: `${defaultSrc}&w=${mobileSize}&fit=clip`,
-      placeholder: `${defaultSrc}&w=20&fit=clip`
-    }
-
-    return {
-      image,
-      defaultSrc
-    }
-  }
-
-  const paintStreakBg = createImigixSizes({
+  const paintStreakBg = createImgixSizes({
     width: 2000,
     height: 2921,
     mobileSize: 900,
@@ -470,40 +455,12 @@ const ResourceLibraryMembers = () => {
           />
         </div>
 
-        <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
-          {/* @ts-ignore */}
-          <AnimatePresence>
-            {state.loading
-              && !state.categories[selectedFilter.slug]
-              && <motion.div
-                key="catSpinner"
-                initial={{
-                  opacity: 0,
-                  height: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                  height: 60,
-                }}
-                exit={{
-                  opacity: 0,
-                  height: 0,
-                  transition: {
-                    duration: .3,
-                  }
-                }}
-                className='rounded-full mx-auto flex items-center justify-center text-center w-[60px] h-[60px] p-1 overflow-hidden'>
-                <svg
-                  className="text-white motion-reduce:hidden animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="#b45309" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="#845c5c" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              </motion.div>
-            }
-          </AnimatePresence>
+        <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:min-h-[600px]'>
+
+          <CircleSpinner
+            visible={state.loading
+              && !state.categories[selectedFilter.slug]}
+          />
 
           <FreebieGrid
             selectedFilter={selectedFilter.slug}

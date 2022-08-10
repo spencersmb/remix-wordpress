@@ -44,6 +44,8 @@ export function getCKFormId(type: string | null): string {
   switch (type) {
     case 'footer':
       return ckFormIds.resourceLibrary.footer
+    case 'tm-landing-page':
+      return ckFormIds.resourceLibrary.landingPage
     default:
       return ckFormIds.resourceLibrary.landingPage
   }

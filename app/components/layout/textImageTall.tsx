@@ -35,6 +35,7 @@ const TextImageTall = (props: TextImageProps) => {
           sizes="(max-width: 666px) 100vw, (max-width: 1399px) 38vw, 535px"
           srcSet={`
           ${img.url}?auto=format&w=400&fit=clip 400w,
+          ${img.url}?auto=format&w=500&fit=clip 500w,
           ${img.url}?auto=format&w=768&fit=clip 768w,
           `}
         />

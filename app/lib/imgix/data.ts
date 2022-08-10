@@ -22,6 +22,12 @@ export const staticImages = {
         width: 84,
         height: 1012,
       },
+      angledRight:{
+        src: 'https://et-website.imgix.net/et-website/images/apple-pencil-alt-vertical_1-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/images/apple-pencil-alt-vertical_1-min.png?auto=format&w=20&fit=clip',
+        width: 1086,
+        height: 2998,
+      }
     },
     ipad:{
       flat: {
@@ -107,7 +113,7 @@ export const staticImages = {
           height:1367,
       },
       square:{
-        src: 'https://et-website.imgix.net/et-website/images/teela-profile-square.jpg?auto=format',
+        src: 'https://et-website.imgix.net/et-website/images/teela-profile-square.jpg',
         placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-square.jpg?auto=format&w=20&fit=clip',
           width:1540,
           height:1656,

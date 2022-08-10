@@ -1,4 +1,5 @@
 import IpadLongShadow from '@App/components/images/ipadLongShadow'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import React from 'react'
 
 interface Props {
@@ -11,13 +12,21 @@ interface Props {
  */
 function IpadHeader1(props: Props) {
   const { children } = props
-  const iPadArt = {
+  // const iPadArt = {
+  //   width: 1400,
+  //   height: 1049,
+  //   alt: `Every Tuesday IPad Art`,
+  //   src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
+  //   placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip'
+  // }
+
+  const iPadArt = createImgixSizes({
     width: 1400,
     height: 1049,
     alt: `Every Tuesday IPad Art`,
     src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
-    placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip'
-  }
+    mobileSize: 800,
+  })
   return (
     <>
       {/* IPAD WRAPPER */}
@@ -26,7 +35,7 @@ function IpadHeader1(props: Props) {
       <div className='absolute max-w-[340px] w-full m-auto top-[-250px] left-[54%] -translate-x-1/2 tablet:top-[-510px] tablet:max-w-[713px] laptop:max-w-[707px] desktop:top-[-290%] desktop:max-w-[1180px]'>
         <IpadLongShadow
           visibleByDefault={true}
-          image={iPadArt} />
+          imigixArt={iPadArt} />
       </div>
 
       {/* HEADER TITLE */}

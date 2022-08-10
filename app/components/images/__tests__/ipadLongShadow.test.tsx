@@ -1,16 +1,18 @@
+import { createImgixSizes } from "@App/utils/imageHelpers"
 import { renderUi, testNames } from "@TestUtils/renderUtils"
 import IpadLongShadow from "../ipadLongShadow"
 
 describe('Ipad LongShadow', () => {
-  const iPadArt = {
+  const iPadArt = createImgixSizes({
     width: 1400,
     height: 1049,
     alt: `Every Tuesday IPad Art`,
-    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format',
-    placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip'
-  }
+    src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
+    mobileSize: 400,
+  })
   const setup = (props: any = {}) => {
-    const setupProps = { image: iPadArt, ...props }
+
+    const setupProps = { imigixArt: iPadArt, ...props }
     return renderUi(<IpadLongShadow {...setupProps} />)
   }
   it('Should show the ipad device', () => {

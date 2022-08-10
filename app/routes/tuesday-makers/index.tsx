@@ -28,6 +28,7 @@ import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
 import TmResourceLibraryModule from '@App/components/layout/tuesdayMakers/tmResourceLibraryModule'
 import TmAuthor from '@App/components/layout/tuesdayMakers/tmAuthor'
 import DoubleBgImageLayout from '@App/components/layout/doubleBgImageLayout'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -226,13 +227,13 @@ const ResourceLibraryHome = () => {
   }, [actionData])
 
   const { openModal, closeModal } = useSite()
-  const iPadArt = {
+  const iPadArt = createImgixSizes({
     width: 1400,
     height: 1049,
     alt: `Every Tuesday IPad Art`,
     src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
-    placeholder: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg?w=20&fit=clip'
-  }
+    mobileSize: 800
+  })
   const bgPaintStrokes = {
     width: 2000,
     height: 2921,
@@ -253,11 +254,11 @@ const ResourceLibraryHome = () => {
             sizes="(max-width: 666px) 100w, (max-width: 1399px) 100vw, 1500px"
             srcSet={
               `
-              ${bgPaintStrokes.src}&w=1200&fit=clip 1200w,
-              ${bgPaintStrokes.src}&w=1400&fit=clip 1400w,
-              ${bgPaintStrokes.src}&w=1600&fit=clip 1600w,
-              ${bgPaintStrokes.src}&w=1800&fit=clip 1800w,
-              ${bgPaintStrokes.src}&w=3000&fit=clip 3000w,
+              ${bgPaintStrokes.src}&w=1200&fit=clip&auto=compress 1200w,
+              ${bgPaintStrokes.src}&w=1400&fit=clip&auto=compress 1400w,
+              ${bgPaintStrokes.src}&w=1600&fit=clip&auto=compress 1600w,
+              ${bgPaintStrokes.src}&w=1800&fit=clip&auto=compress 1800w,
+              ${bgPaintStrokes.src}&w=3000&fit=clip&auto=compress 3000w,
               `}
           />
         </div>
@@ -269,7 +270,7 @@ const ResourceLibraryHome = () => {
 
             <div className='w-full tablet:max-w-[678px] tablet:mx-auto'>
               {/* SIGNUP FORM */}
-              <TmSignupForm formName={'landing-page'} inputBg={'bg-white hover:ring-offset-cream-100'} />
+              <TmSignupForm formName={'tm-landing-page'} inputBg={'bg-white hover:ring-offset-cream-100'} />
 
               {/* LOGIN LINK */}
               <div className='flex flex-row justify-center mt-6 signup_wrapper'>
@@ -298,12 +299,12 @@ const ResourceLibraryHome = () => {
               </div>
             </div>
 
-            <IpadLongShadow image={iPadArt} />
+            <IpadLongShadow imigixArt={iPadArt} />
           </div>
 
           {/* IPAD OVERLAP */}
           <div className='absolute w-full top-[-20%] -left-1/2 z-2'>
-            <IpadLongShadow image={iPadArt} />
+            <IpadLongShadow imigixArt={iPadArt} />
 
             {/* BOTTOM QUOTE */}
             <div className='hidden absolute bottom-[-32px] right-[80px] w-[150px] z-1 tablet:bottom-[-32px] laptop:block tablet:right-[26%] laptop:right-[36%] desktop:bottom-0'>

@@ -2,6 +2,7 @@ import LazyImgix from '@App/components/images/lazyImgix'
 import PolaroidImg from '@App/components/images/polaroidImg'
 import EucalyptusSvg from '@App/components/svgs/eucalyptusSvg'
 import { staticImages } from '@App/lib/imgix/data'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import React from 'react'
 
 interface Props { }
@@ -12,12 +13,15 @@ interface Props { }
  * @tested 08/05/2022 
  */
 function TmAuthor(props: Props) {
-  const authorUrl = staticImages.profiles.teela.square.src
-  const authorImg = {
-    ...staticImages.profiles.teela.square,
+
+
+  const authorImg = createImgixSizes({
+    width: 800,
+    height: 860,
     alt: `Every Tuesday: Teelas profile picture`,
-    src: `${authorUrl}?auto=format&w=400&fit=clip`, // default image
-  }
+    src: staticImages.profiles.teela.square.src,
+    mobileSize: 600,
+  })
 
   return (
     <div className='relative my-10 et-grid-basic tablet:mt-20 tablet:mb-40'>
@@ -42,13 +46,13 @@ function TmAuthor(props: Props) {
 
             <PolaroidImg
               rotate='left'
-              imgixImage={authorImg}
+              imgixImage={authorImg.image}
               imgOptions={
                 {
-                  sizes: "(max-width: 666px) 100w, (max-width: 1399px) 38vw, 535px",
+                  sizes: "(max-width: 666px) 60vw, (max-width: 1399px) 38vw, 535px",
                   srcSet: `
-                ${authorUrl}?auto=format&w=600&fit=clip 600w,
-                ${authorUrl}?auto=format&w=800&fit=clip 800w,
+                ${authorImg.defaultSrc}&w=600&fit=clip&auto=compress 600w,
+                ${authorImg.defaultSrc}&w=800&fit=clip&auto=compress 800w,
               `
                 }
               }

@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 import { fetchAPI } from "@App/utils/fetch.server"
 import { getGraphQLString } from "@App/utils/graphqlUtils"
 import { checkForCookieLogin } from "@App/utils/loaderHelpers"
-import useFreebies from "@App/hooks/useFreebies"
 import FreebieFilter from "@App/components/resourceLibrary/freebieFilter"
 import GridItem from "@App/components/gridDownloads/gridItem"
 import { getlockedPageMetaTags, getLockedPageRedirectLogoutPath } from "@App/utils/lockedPagesUtils"
@@ -14,6 +13,7 @@ import { useLoaderData } from "@remix-run/react"
 import { lockedPagesMeta } from '@App/lib/lockedPages/classDownloads';
 import { consoleHelper } from '@App/utils/windowUtils';
 import GridItems from '@App/components/gridDownloads/gridItems';
+import useFreebiesLocal from '@App/hooks/useFreebies/useFreebiesPaginate';
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
@@ -80,7 +80,7 @@ const LockedMembersPage = () => {
     { slug: 'all', name: 'All' },
     ...data.filterTags
   ]
-  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IGridItem[]>({ items: data.freebies })
+  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IGridItem[]>({ items: data.freebies })
 
   return (
     <Layout>

@@ -23,7 +23,7 @@ function FreebieGrid(props: IProps) {
   const { categories, scrollPosition, selectedFilter } = props
 
   return (
-    <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 desktop:grid-cols-4 tablet:min-h-[600px]'>
+    <div className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 desktop:grid-cols-4'>
       <AnimatePresence>
         {categories[selectedFilter] && categories[selectedFilter].freebies.map((freebie) => (<Freebie key={freebie.id} resource={freebie} scrollPosition={scrollPosition} />)
         )}

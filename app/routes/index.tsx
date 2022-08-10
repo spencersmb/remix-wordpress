@@ -15,6 +15,7 @@ import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.t
 import Layout from "@App/components/layoutTemplates/layout";
 import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
+import TransformSkillsHeader from '@App/components/headers/transformSkillsHeader'
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
@@ -265,57 +266,11 @@ export default function Index() {
     openModal({ template: TestModal })
   }
 
-  /*
-    Font preview loader example
-  */
-
-
-
   return (
     <Layout>
-      <div className="remix__page">
-        <main>
-          <h2 className="text-6xl font-sentinel__SemiBoldItal sky">Welcome to Remix! Staging 3</h2>
-          <p className={`text-red-600`}>We're stoked that you're here. 🥳</p>
-          <p>
-            Feel free to take a look around the code to see how Remix does things,
-            it might be a bit different than what you’re used to. When you're
-            ready to dive deeper, we've got plenty of resources to get you
-            up-and-running quickly.
-          </p>
-          <p>
-            Check out all the demos in this starter, and then just delete the{" "}
-            <code>app/routes/demos</code> and <code>app/styles/demos</code>{" "}
-            folders when you're ready to turn this into your next project.
-          </p>
-        </main>
-        <aside>
-          <h2>Demos In This App</h2>
-          <ul>
-            {data.demos.map((demo: any) => (
-              <li key={demo.to} className="remix__page__resource">
-                <Link to={demo.to} prefetch="intent">
-                  {demo.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <h2>Resources</h2>
-          <ul>
-            {state.posts.map((post: any) => {
-              return (
-                <li key={post.id} >
-                  <Link to={`/${post.slug}`} prefetch="intent">
-                    {post.title}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-          {state.pageInfo.hasNextPage && <button onClick={fetchMore}>{state.loading ? 'Loading...' : 'Fetch More'}</button>}
-        </aside>
+      <div className='remix__page'>
+        <TransformSkillsHeader />
       </div>
-      <div><button onClick={open}>OPen modal</button></div>
     </Layout>
   );
 }

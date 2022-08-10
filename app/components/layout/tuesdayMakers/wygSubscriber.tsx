@@ -63,7 +63,7 @@ function WygSubscriber(props: Props) {
           <div className='max-w-[560px] w-[900px] absolute tablet:top-0 laptop:top-0 left-0 laptop:max-w-[730px] desktop:top-[-100px]'>
             <LazyImgix
               id={"collage-1"}
-              sizes="(max-width: 666px) 100w, (max-width: 1399px) 50vw, 735px"
+              sizes="(max-width: 666px) 100vw, (max-width: 1399px) 60vw, 735px"
               srcSet={
                 `
                 ${collage1Url}?auto=format&w=800&fit=clip 800w,
@@ -97,7 +97,7 @@ function WygSubscriber(props: Props) {
             </div>
             <LazyImgix
               id={"collage-1"}
-              sizes="(max-width: 666px) 100w, (max-width: 1399px) 50vw, 535px"
+              sizes="(max-width: 666px) 100vw, (max-width: 1399px) 50vw, 535px"
               srcSet={
                 `${collage2Url}?auto=format&w=1000&fit=clip 1000w,
                 ${collage2Url}?auto=format&w=1400&fit=clip 1400w,

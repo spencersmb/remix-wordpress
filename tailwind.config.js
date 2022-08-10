@@ -20,6 +20,7 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
 
       'desktopXl': '1536px',
+      'desktopMax': '1880px',
       // => @media (min-width: 1536px) { ... }
     },
     fontFamily:{

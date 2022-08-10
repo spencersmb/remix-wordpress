@@ -1,6 +1,7 @@
 import { ShopPlatformEnum } from "@App/enums/products";
 import useFontPreview from "@App/hooks/useFontPreivew";
-import useFreebies from "@App/hooks/useFreebies";
+import useFreebiesLocal from "@App/hooks/useFreebies/useFreebiesPaginate";
+
 import OutlinedButton from "../buttons/outlinedButton";
 import FeaturedProduct from "./featureProduct";
 import GumroadProductCard from "./gumroadProductCard";
@@ -28,7 +29,7 @@ function createNewProductsArray(products: IProduct[]) {
 const ProductLayout = ({ products, metadata }: IProps) => {
   const { productsArray, featuredProduct } = createNewProductsArray(products)
   const { fontPreviewState } = useFontPreview()
-  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebies<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
+  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
 
   return (
     <div>

@@ -21,8 +21,8 @@ function DoubleBgImageLayout({ form }: Props) {
       <div className='relative col-span-full h-[259px] bg-slate-500 row-start-1 row-span-2 z-0 tablet:col-start-1 tablet:col-span-8 tablet:row-span-1 tablet:row-start-1 tablet:h-auto laptop:col-start-1 laptop:col-span-9'>
 
         <BackgroundImage
-          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&w=100&fit=clip'
-          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format'
+          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&w=100&fit=clip&auto=compress'
+          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&auto=compress'
         />
 
       </div>
@@ -62,8 +62,8 @@ function DoubleBgImageLayout({ form }: Props) {
       {/* BG2 */}
       <div className='relative z-0 row-span-2 row-start-3 overflow-hidden bg-red-300 col-span-full tablet:row-start-1 tablet:col-start-9 tablet:col-end-full tablet:row-span-1 tablet:h-auto laptop:col-start-10 laptop:col-end-full'>
         <BackgroundImage
-          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-1_1.jpg?auto=format&w=100&fit=clip'
-          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-1_1.jpg?auto=format'
+          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-1_1.jpg?auto=format&w=100&fit=clip&auto=compress'
+          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-1_1.jpg?auto=format&auto=compress'
         />
       </div>
 
