@@ -34,7 +34,7 @@ export const flattenResourceData = (resourceData: IMapResourceData): IResourceIt
 }
 
 /**
- * @function flattenResourceData
+ * @function getCKFormId
  * @tested - 6/8/2022
  * @description Get the CK Form ID for the type of form passed in as a string.
  * 
@@ -45,8 +45,8 @@ export function getCKFormId(type: string | null): string {
     case 'footer':
       return ckFormIds.resourceLibrary.footer
     case 'tm-landing-page':
-      return ckFormIds.resourceLibrary.landingPage
+      return ckFormIds.resourceLibrary.sellPage
     default:
-      return ckFormIds.resourceLibrary.landingPage
+      return ckFormIds.resourceLibrary.homePage
   }
 }

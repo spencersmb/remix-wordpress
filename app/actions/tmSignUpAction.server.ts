@@ -5,7 +5,7 @@ import { validateEmail } from '@App/utils/validation';
 import { consoleHelper } from '@App/utils/windowUtils';
 import { json } from '@remix-run/node';
 
-export async function MakersSignupAction<T>(request: Request): Promise<T | Response> {
+export async function MakersSignupAction<T>(request: Request): Promise<Response> {
   const customHeaders = new Headers()
   let form = await request.formData();
   let email = form.get('email')
@@ -25,14 +25,27 @@ export async function MakersSignupAction<T>(request: Request): Promise<T | Respo
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
-    typeof email !== "string" ||
+    typeof email !== "string" || 
+    validateEmail(email) !== undefined
+  ) {
+    return json({
+      formError: {
+        [formType]: {
+          message: 'Email Error',
+          formId: 'error'
+        }
+      },
+    })
+  }
+
+  if (
     typeof honeyPot !== "string" ||
     honeyPot.length !== 0
   ) {
     return json({
       formError: {
         [formType]: {
-          message: 'No email provided',
+          message: 'No last name provided',
           formId: 'error'
         }
       },

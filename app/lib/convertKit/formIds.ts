@@ -10,7 +10,7 @@ interface ICKFormIds {
     // blogWidget: string,
     // freebieWidget: string,
     homePage: string,
-    landingPage: string,
+    sellPage: string,
     // sidebar: string
   },
   styleStudies:{
@@ -29,12 +29,12 @@ export const ckFormIds: ICKFormIds = {
     getNotified: '1096984' //form Name in CK: LFM_GetNotified
   },
   resourceLibrary:{
-    footer: '2855591',
+    footer: '2855591', //form Name in CK: MakersSignUp: Footer
     // aboutPage: '969013',
     // blogWidget: '969014',
     // freebieWidget: '969015',
-    homePage: '2850591',
-    landingPage: '2850591',
+    homePage: '3512068', //form Name in CK: MakersSignUp: HomePage Header
+    sellPage: '2850591', //form Name in CK: MakersSignUp: LandingPage
     // sidebar: '969012'
   },
   styleStudies:{

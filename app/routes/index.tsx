@@ -124,7 +124,7 @@ export let action: ActionFunction = async ({ request }): Promise<any | Response>
   };
 
   consoleHelper('fieldErrors', fieldErrors)
-  const id = ckFormIds.resourceLibrary.landingPage
+  const id = ckFormIds.resourceLibrary.sellPage
   const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
 
   if (Object.values(fieldErrors).some(Boolean))
