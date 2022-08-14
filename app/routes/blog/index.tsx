@@ -447,6 +447,7 @@ function BlogIndex() {
         </div>
 
       </div>
+
     </Layout>
   )
 }

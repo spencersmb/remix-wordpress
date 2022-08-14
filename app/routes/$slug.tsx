@@ -105,6 +105,7 @@ query postBySlug($slug: String!) {
                 uri
             }
         }
+        
         etSocialNav{
             pinterestMeta {
               description
@@ -129,82 +130,84 @@ query postBySlug($slug: String!) {
             }
         }
         tutorialManager {
-            postExcerpt
-            thumbnail {
-              image {
-                altText
-                caption
-                sourceUrl
-                srcSet
-                sizes
-                id
-                mediaDetails{
+          postExcerpt
+          thumbnail {
+            image {
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
+              id
+              mediaDetails{
+                width
+                height
+                sizes{
                   width
+                  file
                   height
-                  sizes{
-                    width
-                    file
-                    height
-                    name
-                    sourceUrl
-                    mimeType
-                  }
+                  name
+                  sourceUrl
+                  mimeType
                 }
               }
             }
-            colorPalette {
-              downloadUrl
-              iconBackgroundColor
-              iconTextColor
+          }
+          youtube {
+              embedUrl
+              id
+          }
+          downloads {
+            ... on ResourceLibrary {
+              title
+              freebie {
+                  downloadLink
+              }
             }
-            paidProducts {
-              ... on Product{
-                title 
-                slug
-                featuredImage {
-                  node {
-                    mimeType
-                    mediaDetails {
-                      height
-                      width
-                      sizes{
-                        width
-                        file
-                        height
-                        name
-                        sourceUrl
-                        mimeType
-                      }
+          }
+          resources {
+            ... on Post_Tutorialmanager_Resources_PaidProduct {
+              product {
+                ... on Product {
+                  title
+                  slug
+                  productDetails {
+                    licences {
+                      licenseType
+                      price
+                      url
                     }
-                      altText
-                      caption
-                      sourceUrl
-                      srcSet
-                      sizes
-                      id
-                  }
-                }
-                productDetails {
-                  licences {
-                    licenseType
-                    price
-                    url
                   }
                 }
               }
+              description
             }
-            youtube {
-                embedUrl
-                id
-            }
-            downloads {
-                ... on ResourceLibrary {
-                    title
-                    freebie {
-                        downloadLink
-                    }
+            ... on Post_Tutorialmanager_Resources_Course {
+              course {
+                ... on Course {
+                  title
+                  slug
+                  link
+                  details {
+                    courseUrl
+                  }
                 }
+              }
+              description
             }
+            ... on Post_Tutorialmanager_Resources_Download {
+              download {
+                name
+                description
+                url
+              }
+            }
+            ... on Post_Tutorialmanager_Resources_ColorSwatch {
+              colorSwatch {
+                url
+              }
+            }
+          }
         }
         comments(first: 500, after: null, where: {parent: null}) {
             pageInfo{

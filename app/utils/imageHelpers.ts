@@ -280,6 +280,7 @@ export function checkWidthHeight(width: string | number, height: string | number
   }
 }
 
+//TODO: TEST THIS
 export function createImgixSizes(image : CreateImgixParams ): 
 CreateImgixReturn {
   const {src, mobileSize, width, height, alt, compress = false} = image

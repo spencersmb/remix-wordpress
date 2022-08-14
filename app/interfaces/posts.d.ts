@@ -181,6 +181,27 @@ interface ISocialNav {
   }
   pinterestImage: IFeaturedImage | null
 }
+interface IPostResourceProduct {
+  product: IProduct
+  description: string
+}
+interface IPostResourceCourse {
+  course: ICourse
+  description: string
+}
+interface IPostResourceColorSwatch {
+  colorSwatch: {
+    url: string
+  }
+}
+interface IPostResourceDownload {
+  download: {
+    url: string
+    name: string
+    description: string
+  }
+}
+type IPostResource = IPostResourceProduct | IPostResourceCourse | IPostResourceColorSwatch | IPostResourceDownload
 
 interface ITutorialManager {
   status: string
@@ -188,11 +209,6 @@ interface ITutorialManager {
     type: string
     image: IFeaturedImage | null
   }
-  colorPalette: {
-    downloadUrl: string
-    iconBackgroundColor: string
-    iconTextColor: string
-  } | null // Coming from the server this is acutally an array or null
   downloads: {
     title: string
     freebie:{
@@ -203,8 +219,8 @@ interface ITutorialManager {
     embedUrl: string
     id: string | undefined
   }
-  paidProducts: IProduct[]| null
   postExcerpt: string | null
+  resources:IPostResource[]
 }
 
 interface IPost {

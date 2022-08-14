@@ -22,6 +22,7 @@ import TutorialDownloads from './tutorialContent/tutorialDownloads';
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
 import { useSearch } from '@App/hooks/useSearch';
+import TutorialResources from './tutorialContent/tutorialResources';
 
 interface IProps {
   post: IPost
@@ -30,7 +31,7 @@ function BlogTemplate(props: IProps) {
   const { post } = props
   const { openSearch } = useSearch()
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
-  consoleHelper('post', post)
+  consoleHelper('post', post, 'blogTemplate.tsx')
 
   useEffect(() => {
 
@@ -127,13 +128,13 @@ function BlogTemplate(props: IProps) {
       {/* TUTORIAL DOWNLOADS */}
       {post.tutorialManager.youtube.id &&
         <div
-          data-testId='blog-tutorialDownloads'
+          data-testid='blog-tutorialDownloads'
           className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
           <div className='col-span-2 col-start-2 tablet:col-span-full laptop:col-start-3 laptop:col-span-10 desktop:col-span-full'>
             <StickyContainer>
 
               <div className={classNames(
-                post.tutorialManager.downloads || post.tutorialManager.paidProducts
+                post.tutorialManager.downloads
                   ? 'desktop:px-8'
                   : '',
                 'relative flex pt-16 pb-8 tablet:py-16 laptop:flex-row items-start max-w-[1475px] mx-auto desktop:py-0')}>
@@ -174,7 +175,8 @@ function BlogTemplate(props: IProps) {
 
                   {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
 
-                  <PaidProducts post={post} />
+                  {/* <PaidProducts post={post} /> */}
+                  <TutorialResources resources={post.tutorialManager.resources} />
                 </div>
               </div>
             </StickyContainer>

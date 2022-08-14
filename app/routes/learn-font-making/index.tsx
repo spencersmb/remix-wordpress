@@ -1,7 +1,8 @@
+import { lfmMiniCourseSignUpAction } from '@App/actions/lfmMiniCourseActions';
 import Layout from '@App/components/layoutTemplates/layout';
 import LfmClosedPage from '@App/components/lfm/closedPage';
 import useSite from '@App/hooks/useSite'
-import { lfmMiniCourseSignUpAction, shuffleArray } from '@App/utils/lfmUtils';
+import { shuffleArray } from '@App/utils/lfmUtils';
 import { formatDate } from '@App/utils/posts'
 import { getBasicPageMetaTags } from '@App/utils/seo';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';

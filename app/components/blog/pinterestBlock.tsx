@@ -23,7 +23,7 @@ function PinterestBlock(props: IProps) {
   let description = post.etSocialNav.pinterestMeta.description
 
   let pinterestImage = loadImageSrc({
-    imageSizeName: ImageSizeEnums.THUMBNAIL_SM, //rename to imageSizeName
+    imageSizeName: ImageSizeEnums.MEDIUM, //rename to imageSizeName
     imageObject: post.etSocialNav.pinterestImage, // rename to Image Object
     fallbackSize: ImageSizeEnums.THUMBNAIL, // rename to imageSizeName
     fallbackImage: {
