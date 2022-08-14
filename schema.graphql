@@ -425,8 +425,6 @@ union ContentRevisionUnion = Page | Post
 
 union Course_Tutorialmanager_Downloads = ResourceLibrary
 
-union Course_Tutorialmanager_PaidProducts = Product
-
 union Course_Tutorialmanager_Resources = Course_Tutorialmanager_Resources_ColorSwatch | Course_Tutorialmanager_Resources_Course | Course_Tutorialmanager_Resources_Download | Course_Tutorialmanager_Resources_PaidProduct
 
 union Course_Tutorialmanager_Resources_Course_Course = Course
@@ -434,8 +432,6 @@ union Course_Tutorialmanager_Resources_Course_Course = Course
 union Course_Tutorialmanager_Resources_PaidProduct_Product = Product
 
 union DownloadFreebie_Tutorialmanager_Downloads = ResourceLibrary
-
-union DownloadFreebie_Tutorialmanager_PaidProducts = Product
 
 union DownloadFreebie_Tutorialmanager_Resources = DownloadFreebie_Tutorialmanager_Resources_ColorSwatch | DownloadFreebie_Tutorialmanager_Resources_Course | DownloadFreebie_Tutorialmanager_Resources_Download | DownloadFreebie_Tutorialmanager_Resources_PaidProduct
 
@@ -450,8 +446,6 @@ union MenuItem_Featured_Courses = Course
 
 union Post_Tutorialmanager_Downloads = ResourceLibrary
 
-union Post_Tutorialmanager_PaidProducts = Product
-
 union Post_Tutorialmanager_Resources = Post_Tutorialmanager_Resources_ColorSwatch | Post_Tutorialmanager_Resources_Course | Post_Tutorialmanager_Resources_Download | Post_Tutorialmanager_Resources_PaidProduct
 
 union Post_Tutorialmanager_Resources_Course_Course = Course
@@ -459,8 +453,6 @@ union Post_Tutorialmanager_Resources_Course_Course = Course
 union Post_Tutorialmanager_Resources_PaidProduct_Product = Product
 
 union Product_Tutorialmanager_Downloads = ResourceLibrary
-
-union Product_Tutorialmanager_PaidProducts = Product
 
 union Product_Tutorialmanager_Resources = Product_Tutorialmanager_Resources_ColorSwatch | Product_Tutorialmanager_Resources_Course | Product_Tutorialmanager_Resources_Download | Product_Tutorialmanager_Resources_PaidProduct
 
@@ -1357,13 +1349,10 @@ type Course_Details_courseTags implements AcfFieldGroup {
 
 "Field Group"
 type Course_Tutorialmanager implements AcfFieldGroup {
-    colorPalette: [Course_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [Course_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Link paid products from the tutorial here"
-    paidProducts: [Course_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
     resources: [Course_Tutorialmanager_Resources]
@@ -1432,15 +1421,6 @@ type Course_Tutorialmanager_Youtube implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
-}
-
-"Field Group"
-type Course_Tutorialmanager_colorPalette implements AcfFieldGroup {
-    downloadUrl: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    iconBackgroundColor: String
-    iconTextColor: String
 }
 
 "CPT Tag Object"
@@ -1848,13 +1828,10 @@ type DownloadFreebie_Downloaddetails implements AcfFieldGroup {
 
 "Field Group"
 type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
-    colorPalette: [DownloadFreebie_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [DownloadFreebie_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Link paid products from the tutorial here"
-    paidProducts: [DownloadFreebie_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
     resources: [DownloadFreebie_Tutorialmanager_Resources]
@@ -1923,15 +1900,6 @@ type DownloadFreebie_Tutorialmanager_Youtube implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
-}
-
-"Field Group"
-type DownloadFreebie_Tutorialmanager_colorPalette implements AcfFieldGroup {
-    downloadUrl: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    iconBackgroundColor: String
-    iconTextColor: String
 }
 
 "The DownloadGrid type"
@@ -3574,13 +3542,10 @@ type Post_Etsocialnav_PinterestMeta implements AcfFieldGroup {
 
 "Field Group"
 type Post_Tutorialmanager implements AcfFieldGroup {
-    colorPalette: [Post_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [Post_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Link paid products from the tutorial here"
-    paidProducts: [Post_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
     resources: [Post_Tutorialmanager_Resources]
@@ -3649,15 +3614,6 @@ type Post_Tutorialmanager_Youtube implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
-}
-
-"Field Group"
-type Post_Tutorialmanager_colorPalette implements AcfFieldGroup {
-    downloadUrl: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    iconBackgroundColor: String
-    iconTextColor: String
 }
 
 "PrettyLink Object"
@@ -3963,13 +3919,10 @@ type Product_Productdetails_licences implements AcfFieldGroup {
 
 "Field Group"
 type Product_Tutorialmanager implements AcfFieldGroup {
-    colorPalette: [Product_Tutorialmanager_colorPalette]
     "Select Freebies included in the tutorial"
     downloads: [Product_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
-    "Link paid products from the tutorial here"
-    paidProducts: [Product_Tutorialmanager_PaidProducts]
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
     resources: [Product_Tutorialmanager_Resources]
@@ -4038,15 +3991,6 @@ type Product_Tutorialmanager_Youtube implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
-}
-
-"Field Group"
-type Product_Tutorialmanager_colorPalette implements AcfFieldGroup {
-    downloadUrl: String
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    iconBackgroundColor: String
-    iconTextColor: String
 }
 
 "The reading setting type"
