@@ -299,47 +299,6 @@ export const QUERY_POST_BY_ID = gql`
                   }
                 }
               }
-              colorPalette {
-                downloadUrl
-                iconBackgroundColor
-                iconTextColor
-              }
-              paidProducts {
-                ... on Product{
-                  title 
-                  slug
-                  featuredImage {
-                    node {
-                      mimeType
-                      mediaDetails {
-                        height
-                        width
-                        sizes{
-                          width
-                          file
-                          height
-                          name
-                          sourceUrl
-                          mimeType
-                        }
-                      }
-                        altText
-                        caption
-                        sourceUrl
-                        srcSet
-                        sizes
-                        id
-                    }
-                  }
-                  productDetails {
-                    licences {
-                      licenseType
-                      price
-                      url
-                    }
-                  }
-                }
-              }
               youtube {
                   embedUrl
                   id

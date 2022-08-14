@@ -14,7 +14,7 @@ export default function Layout({ children, alternateNav, bgColor }: React.PropsW
   return (
     <div className="flex flex-col min-h-fullBot">
       <Header alternateNav={alternateNav} />
-      <main className={classNames(bgColor ? bgColor : '', 'pt-[68px] laptop:pt-[96px] remix-app__main-content')}>
+      <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content')}>
         {children}
       </main>
       <FooterPrimary />

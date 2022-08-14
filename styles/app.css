@@ -44,6 +44,8 @@
   --grey-700: #384050;
   --grey-800: #212837;
   --lfm-pink-200: #fae7e7;
+  --nav-top-sm: 68px;
+  --nav-top-lg: 76px;
 }
 
 @font-face {

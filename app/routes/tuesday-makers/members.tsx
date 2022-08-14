@@ -382,7 +382,7 @@ const ResourceLibraryMembers = () => {
   })
 
   return (
-    <div className='pt-[68px] laptop:pt-[96px] bg-cream-100'>
+    <div className='pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] bg-cream-100'>
       <div className='py-16 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
 
         {/* HEADER */}

@@ -39,10 +39,10 @@ function Header(props: Props) {
     <header
       ref={navRef}
       className={`fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`}>
-      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-3 laptop:grid-cols-navDesktop">
+      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop">
 
         {/* ET LOGO */}
-        <div data-testid="logo" className="max-w-[144px] desktop:max-w-[220px]">
+        <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
           <Link to="/" title="Every Tuesday" prefetch="intent" className="">
             <EveryTuesdayLogo fill={`var(${cssColors.primaryPlum700})`} aria-label='Every Tuesday Logo' />
           </Link>

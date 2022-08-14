@@ -36,8 +36,12 @@ const footerLinks = [
     heading: 'Help + Information',
     links: [
       {
-        text: 'About',
-        url: '/about'
+        text: 'Our Story',
+        url: '/about/our-story'
+      },
+      {
+        text: 'Things I love',
+        url: '/about/things-i-love'
       },
       {
         text: 'Contact',

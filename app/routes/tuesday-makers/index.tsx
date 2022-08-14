@@ -150,7 +150,7 @@ const ResourceLibraryHome = () => {
     placeholder: 'https://et-website.imgix.net/et-website/images/tuesday-makers/tm-bg-1_3.jpg?auto=format&w=100&fit=clip'
   }
   return (
-    <div className='bg-cream-100 pt-[68px] laptop:pt-[96px]'>
+    <div className='bg-cream-100 pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)]'>
       <div className='relative et-grid-basic'>
 
         {/* BG PAINTSTREAKS */}

@@ -21,7 +21,7 @@ export default function TuesdayMakersPopOver() {
   }
 
   return (
-    <div className="m-2 mx-4 text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
+    <div className="mx-4 text-sm  normal-links text-primary-600 laptop:font-medium desktop:text-base">
       <Popover className="relative">
         {({ open, close }) => (
           <>
@@ -30,7 +30,7 @@ export default function TuesdayMakersPopOver() {
               data-testid="tuesday-makers-btn"
               className={`
                 ${open ? '' : 'text-opacity-90'}
-                text-success-700 group bg-success-100 px-6 py-4 rounded-2xl inline-flex items-center text-base font-semibold hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                text-success-700 group bg-success-100 px-6 py-3 rounded-2xl inline-flex items-center text-base font-semibold hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span>Tuesday Makers</span>
               <ChevronDownIcon

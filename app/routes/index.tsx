@@ -309,10 +309,6 @@ const query = `
               }
             }
           }
-          colorPalette {
-            iconBackgroundColor
-            iconTextColor
-          }
         }
         categories {
           edges {

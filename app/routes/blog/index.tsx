@@ -489,10 +489,6 @@ query GetMorePosts($first: Int, $after: String) {
               }
             }
           }
-          colorPalette {
-            iconBackgroundColor
-            iconTextColor
-          }
         }
         categories {
           edges {
