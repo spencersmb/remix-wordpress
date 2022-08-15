@@ -248,7 +248,7 @@ export function Document({ children, title }: IDocument) {
   return (
     <html
       lang="en"
-      className={classNames(isOpen ? 'overflow-y-hidden pr-[15px]' : '', "")}>
+      className={classNames(isOpen ? 'laptop:animate-addPadding ' : '', "")}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

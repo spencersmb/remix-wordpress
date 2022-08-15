@@ -107,13 +107,13 @@ const classes = {
     color: 'var(--sage-50)',
     '&:hover':{
       color: 'var(--sage-50)',
-      backgroundColor: 'var(--sage-600)',
-      '--tw-ring-color': 'var(--sage-600)',
+      backgroundColor: 'var(--sage-700)',
+      '--tw-ring-color': 'var(--sage-700)',
     },
     '&:focus':{
       color: 'var(--sage-50)',
-      backgroundColor: 'var(--sage-600)',
-      '--tw-ring-color': 'var(--sage-600)',
+      backgroundColor: 'var(--sage-700)',
+      '--tw-ring-color': 'var(--sage-700)',
     },
     '&:active':{
       color: 'var(--sage-50)',

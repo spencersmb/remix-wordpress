@@ -39,7 +39,7 @@ function Header(props: Props) {
     <header
       ref={navRef}
       className={`fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`}>
-      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop">
+      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl">
 
         {/* ET LOGO */}
         <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
@@ -78,7 +78,7 @@ function Header(props: Props) {
 
           {/* COURSE LOGIN */}
           <div className="">
-            <a className={'normal-link text-primary-600 mr-4 underlined after:underlined-active hover:text-primary-300'} href="https://teachable.com">Course Login</a>
+            <a className={'normal-link text-primary-600 mr-4 underlined after:underlined-active hover:text-primary-300 text-sm desktop:text-base'} href="https://teachable.com">Course Login</a>
           </div>
 
           {/* DESKTOP SEARCH ICON */}

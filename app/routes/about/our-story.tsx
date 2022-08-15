@@ -53,23 +53,23 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function About() {
   const { state: { breakpoint } } = useSite()
 
-  useEffect(() => {
-    function getTop(): number {
-      if (breakpoint === 'tablet') {
-        return 500
-      } else if (breakpoint === 'laptop') {
-        return 500
-      } else if (breakpoint === 'desktop') {
-        return 500
-      } else {
-        return 800
-      }
-    }
-    const top = getTop()
-    window.scrollTo({
-      top,
-    })
-  }, [breakpoint])
+  // useEffect(() => {
+  //   function getTop(): number {
+  //     if (breakpoint === 'tablet') {
+  //       return 500
+  //     } else if (breakpoint === 'laptop') {
+  //       return 500
+  //     } else if (breakpoint === 'desktop') {
+  //       return 500
+  //     } else {
+  //       return 800
+  //     }
+  //   }
+  //   const top = getTop()
+  //   window.scrollTo({
+  //     top,
+  //   })
+  // }, [breakpoint])
 
   const headerImage = {
     src: 'https://et-website.imgix.net/et-website/images/teela-spencer-house-1.jpg',

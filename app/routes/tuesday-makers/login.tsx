@@ -177,7 +177,7 @@ const ResourceLibraryLogin = () => {
 
 
   return (
-    <div className={classNames('', 'pt-[68px] laptop:pt-[96px]')}>
+    <div className={classNames('', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)]')}>
       <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
 

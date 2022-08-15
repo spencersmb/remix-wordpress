@@ -33,6 +33,7 @@ module.exports = {
       ...colors,
       'grey': {
         100: '#F3F4F7',
+        200: '#E5E6EB',
         300: '#D3D5DB',
         400: '#9DA3AF',
         500: '#6D727F',
@@ -102,6 +103,7 @@ module.exports = {
       'navy':{
         50: '#F7F8FA',
         100: '#EEF1F6',
+        200: '#DDE2EC',
         500: '#879ABD',
         700: '#4D648D',
         900: '#1E2737'
@@ -131,7 +133,8 @@ module.exports = {
         900: '#7F1D1D'
       },
       'yellow': {
-        800: ''
+        800: '',
+        400: '#F3CB48'
       },
       'blue-slate': '#404764',
       'charcoal':{
@@ -156,7 +159,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         'navMobile': 'minmax(50px, 1fr) minmax(50px, auto) minmax(50px, auto)',
-        'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
+        'navDesktop': 'minmax(auto, 1fr) minmax(auto, 4fr) minmax(auto, 1fr)',
+        'navDesktopXl': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
         'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
         'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr)',
         'desktop': 'minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr)'
@@ -194,10 +198,18 @@ module.exports = {
         fadeIn: {
           '0%': { opacity: '0%' },
           '100%': { opacity: '100%' },
+        },
+        addPadding: {
+          '0%': { padding: '0 0px 0 0' },
+          '100%': { 
+            overflowY: 'hidden',
+            padding: '0 15px 0 0' },
         }
+        
       },
       animation: {
         fadeIn: 'fadeIn 300ms ease-in-out',
+        addPadding: 'addPadding 300ms 150ms ease-in-out forwards',
       },
       zIndex:{
         '1': '1',
