@@ -16,6 +16,8 @@ import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import gql from 'graphql-tag'
 import type { MutableRefObject } from 'react'
+// import animateScrollTo from 'animated-scroll-to';
+
 const description = 'Wonder what Teela Cunningham loves, paints with, uses, enjoys, recommends and subscribes to? Here\'s the Holy Grail of all things Teela! From amazing tech, business resources to social media solutions, courses, products, even online printing services! It\'s the home of all things Every Tuesday and it\'s about time you bookmark it!'
 const page = {
   title: 'Things I love',
@@ -40,23 +42,25 @@ interface ThingIlove {
   image: IFeaturedImage
 }
 interface ThingsIloveCategory {
-  name: string
+  title: string
   items: ThingIlove[] | null
 }
 interface ThingsILoveRawData {
   node: {
-    thingsILove: {
-      categories: ThingsIloveCategory[]
+    title: string
+    TIL_acfData: {
+      items: ThingIlove[]
     }
   }
 }
-function mapThingsILoveData(data: ThingsILoveRawData) {
-  if (!data.node) {
-    return null
-  }
-  const { categories } = data.node.thingsILove
+function mapThingsILoveData(data: ThingsILoveRawData[]) {
+  return data.map((item) => {
+    return {
+      title: item.node.title,
+      items: item.node.TIL_acfData.items
+    }
+  })
 
-  return categories
 }
 export let loader: LoaderFunction = async ({ request, }) => {
 
@@ -65,7 +69,8 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
     return json({
       page,
-      thingsILove: mapThingsILoveData(data.thingsILove?.edges[0]),
+      // thingsILove: mapThingsILoveData(data.thingsILove?.edges[0]),
+      thingsILove: mapThingsILoveData(data.thingsILove?.edges),
     }, {
       headers: {
         ...cacheControl
@@ -139,10 +144,12 @@ function ThingsILove() {
     mobileSize: 288,
   })
 
+  // Create string of category names to loop through
   const categories = data.thingsILove.map((thing) => {
-    return thing.name
+    return thing.title
   })
 
+  // Smooth Scroll to Categories
   const categoryItemClick = (category: string) => () => {
     const element = document.getElementById(category)
     element?.scrollIntoView({ behavior: "smooth" });
@@ -202,14 +209,13 @@ function ThingsILove() {
         {/* THINGS I LOVE */}
         {data.thingsILove.map((category: ThingsIloveCategory, index: number) => {
           return (
-            <div id={category.name.toLowerCase()} key={index} className='relative col-span-2 col-start-2 mb-16'>
-              {/* HEADER */}
+            <div id={category.title.toLowerCase()} key={index} className='relative col-span-2 col-start-2 mb-16'>
+
               <div className='relative mb-16'>
-                <h2 className='relative text-5xl z-2 font-bonVivant -rotate-6'>{category.name} </h2>
+                <h2 className='relative text-5xl z-2 font-bonVivant -rotate-6'>{category.title} </h2>
                 <span className='bg-grey-300 z-1 w-full h-[1px] absolute bottom-0 left-0' />
               </div>
 
-              {/* ITEMS */}
               <div className='grid grid-cols-1'>
                 {category.items?.map((item: ThingIlove, index: number) => {
 
@@ -226,13 +232,11 @@ function ThingsILove() {
                         <LazyImageBase image={image} id={`${index}-image`} />
                       </div>
 
-                      {/* TITLE */}
                       <div className='relative flex flex-row my-4'>
                         <span className='absolute left-0 top-[-27px] text-6xl font-bonVivant'>{`0${index + 1}`}</span>
                         <span className='text-3xl ml-11 font-sentinel__SemiBoldItal'>{item.name}</span>
                       </div>
 
-                      {/* DESCRIPTION */}
                       <p className='mb-8'>
                         {item.description}
                       </p>
@@ -262,33 +266,31 @@ const queryThingsILove = gql`
     thingsILove {
       edges {
         node {
-          thingsILove {
-            categories {
+          title
+          TIL_acfData {
+            items {
               name
-              items {
-                name
-                link
-                description
-                image {
-                  mediaDetails {
+              description
+              link
+              image {
+                mediaDetails {
+                  width
+                  height
+                  sizes {
                     width
+                    file
                     height
-                    sizes{
-                      width
-                      file
-                      height
-                      name
-                      sourceUrl
-                      mimeType
-                    }
-                  }
-                    altText
-                    caption
+                    name
                     sourceUrl
-                    srcSet
-                    sizes
-                    id
+                    mimeType
+                  }
                 }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
               }
             }
           }

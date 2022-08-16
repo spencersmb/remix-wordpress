@@ -6580,7 +6580,9 @@ type ThemeOptions_Serversettings implements AcfFieldGroup {
 }
 
 "The ThingILove type"
-type ThingILove implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & UniformResourceIdentifiable {
+type ThingILove implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithFeaturedImage & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable {
+    "Added to the GraphQL Schema because the ACF Field Group &quot;Things I love&quot; was set to Show in GraphQL."
+    TIL_acfData: ThingILove_TilAcfdata
     "Connection between the ThingILove type and the category type"
     categories(
         "Cursor used along with the \"first\" argument to reference where in the dataset to get data"
@@ -6687,8 +6689,11 @@ type ThingILove implements ContentNode & DatabaseIdentifier & MenuItemLinkable &
     ): ThingILoveToTermNodeConnection
     "The id field matches the WP_Post-&gt;ID field."
     thingILoveId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
-    "Added to the GraphQL Schema because the ACF Field Group &quot;Things I love&quot; was set to Show in GraphQL."
-    thingsILove: ThingILove_Thingsilove
+    "The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made."
+    title(
+        "Format of the field output"
+        format: PostObjectFieldFormatEnum
+    ): String
     "The unique resource identifier path"
     uri: String
 }
@@ -6738,22 +6743,15 @@ type ThingILoveToTermNodeConnectionEdge {
 }
 
 "Field Group"
-type ThingILove_Thingsilove implements AcfFieldGroup {
-    categories: [ThingILove_Thingsilove_categories]
+type ThingILove_TilAcfdata implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
+    "List of the items in this category"
+    items: [ThingILove_TilAcfdata_items]
 }
 
 "Field Group"
-type ThingILove_Thingsilove_categories implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    items: [ThingILove_Thingsilove_categories_items]
-    name: String
-}
-
-"Field Group"
-type ThingILove_Thingsilove_categories_items implements AcfFieldGroup {
+type ThingILove_TilAcfdata_items implements AcfFieldGroup {
     description: String
     "The name of the ACF Field Group"
     fieldGroupName: String
@@ -9058,6 +9056,8 @@ input CreateThingILoveInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
+    "The title of the object"
+    title: String
 }
 
 "Input for the createUser mutation"
@@ -12474,6 +12474,8 @@ input UpdateThingILoveInput {
     slug: String
     "The status of the object"
     status: PostStatusEnum
+    "The title of the object"
+    title: String
 }
 
 "Input for the updateUser mutation"

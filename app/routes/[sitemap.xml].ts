@@ -5,23 +5,25 @@ import { getGraphQLString } from '../utils/graphqlUtils'
 import { sitemapPages } from '../components/sitemap/sitemap-pages'
 import type { LoaderFunction } from '@remix-run/node';
 
-async function getSitemapData(){
+async function getSitemapData(count: number = 10){
   return fetchAPI(getGraphQLString(QUERY_SITEMAP), {
     variables: {
-      count: 1000
+      count
     }
   })
 }
-
+ 
 export const loader: LoaderFunction = async({request}) => {
   let url = new URL(request.url);
-  const {posts, pages} = await getSitemapData()
+  const setCount = process.env.NODE_ENV === 'production' ? 1000 : 10;
+  console.log('setCount', setCount);
+  const {posts, pages} = await getSitemapData(setCount)
   let xml = await generateXmlIndex({
-    pages: pages.edges,
+    pages: [], // pages
+    // pages: pages.edges, // pages to be set manually currently
     posts: posts.edges,
     homepage: url.origin
   })
-
   return new Response(xml, {
     status: 200,
     headers: {
@@ -96,24 +98,6 @@ const QUERY_SITEMAP = gql`
                         title
                         opengraphModifiedTime
                         metaDesc
-                    }
-                }
-            }
-        }
-        pages(first: $count){
-            edges {
-                node {
-                    status
-                    title
-                    slug
-                    seo {
-                        title
-                        opengraphModifiedTime
-                    }
-                    author {
-                        node {
-                            username
-                        }
                     }
                 }
             }

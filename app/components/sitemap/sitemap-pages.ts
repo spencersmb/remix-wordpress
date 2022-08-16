@@ -101,7 +101,7 @@ export const sitemapPages: ISitemapPage[] = [
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
   },
   {
-    slug: 'resources',
+    slug: 'tuesday-makers',
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
   },
 ]
