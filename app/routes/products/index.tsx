@@ -31,11 +31,6 @@ const page = {
   }
 }
 
-// export const headers: HeadersFunction = ({ loaderHeaders }) => {
-//   return {
-//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
-//   }
-// }
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
   title: page.title,
   desc: page.description,
@@ -61,7 +56,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
       }
     })
   } catch (e) {
-    console.error('error', e)
+    console.error('error products page', e)
     return null
   }
 };

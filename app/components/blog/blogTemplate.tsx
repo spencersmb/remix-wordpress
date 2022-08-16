@@ -124,10 +124,10 @@ function BlogTemplate(props: IProps) {
       {/* BREADCURMBS */}
       <div className='col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
         <Breadcrumbs links={breadcrumbLinks} />
-        <h1 className='mt-4 text-5xl text-primary-600 font-sentinel__SemiBoldItal tablet:text-display-1 tablet:mt-8 desktop:mt-12'>
+        <h1 className='mt-4 text-5xl text-sage-600 font-sentinel__SemiBoldItal tablet:text-display-1 tablet:mt-8 desktop:mt-12'>
           {post.title}
         </h1>
-        <div className='mt-4 text-xs text-primary-500 tablet:mt-8 tablet:text-base desktop:mt-12'>
+        <div className='mt-4 text-xs text-sage-600 tablet:mt-8 tablet:text-base desktop:mt-12'>
           <BlogDateAuthor date={post.date} author={post.author.name} />
         </div>
       </div>

@@ -73,6 +73,16 @@
   src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff") format("woff");
   src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: "Bon Vivant";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
+}
+html {
+  scroll-behavior: smooth;
+}
 a {
   transition: all 0.3s;
 }

@@ -78,6 +78,7 @@ function renderUseSimpleTabsProviderUi(ui: any, { providerProps }: { providerPro
   }
 }
 
+// https://github.com/remix-run/remix/issues/372
 function render(ui: React.ReactElement, options?: RenderOptions) {
   function RootComponent() {
     return ui;

@@ -28,6 +28,7 @@ module.exports = {
       'sentinel__Book': ['Sentinel Book', 'serif'],
       'sentinel__SemiBold': ['Sentinel SemiBold', 'serif'],
       'sentinel__SemiBoldItal': ['Sentinel SemiBoldItal', 'serif'],
+      'bonVivant': ['Bon Vivant', 'sans-serif'],
     },
     colors: {
       ...colors,

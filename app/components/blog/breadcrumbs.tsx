@@ -18,7 +18,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
 
   return (
     <div className="mt-8">
-      <ul className="flex flex-row text-xs text-sage-700 tablet:text-base">
+      <ul className="flex flex-row text-xs text-sage-600 tablet:text-base">
         <li>
           <Link to={'/'} className='font-semibold'>Home </Link>
           <span className="mr-1">/</span></li>

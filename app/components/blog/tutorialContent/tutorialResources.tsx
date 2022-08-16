@@ -18,7 +18,7 @@ function TutorialResources(props: Props) {
         if (resource.colorSwatch) {
           const colorSwatch = resource.colorSwatch
           return (
-            <div className='mb-2'>
+            <div key={`colorSwatch-${index}`} className='mb-2'>
               Free Color Swatch
               <p>
                 {colorSwatch.url}
@@ -30,7 +30,7 @@ function TutorialResources(props: Props) {
         if (resource.course) {
           const course = resource.course
           return (
-            <div className='mb-2'>
+            <div key={`course-${index}`} className='mb-2'>
               {course.title}
             </div>
           )
@@ -39,7 +39,7 @@ function TutorialResources(props: Props) {
         if (resource.product) {
           const product = resource.product
           return (
-            <div className='mb-2'>
+            <div key={`product-${index}`} className='mb-2'>
               {product.title}
             </div>
           )
@@ -48,17 +48,13 @@ function TutorialResources(props: Props) {
         if (resource.download) {
           const download = resource.download
           return (
-            <div className='mb-2'>
+            <div key={`download-${index}`} className='mb-2'>
               {download.name}
             </div>
           )
         }
 
-        return (
-          <div key={index}>
-            Default Items matched
-          </div>
-        )
+        return null
       })}
     </div>
   )

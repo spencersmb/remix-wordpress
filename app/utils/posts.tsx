@@ -132,37 +132,10 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
   // }
 
   if (data.tutorialManager) {
-    console.log('data.tutorialManager.resources', data.tutorialManager.resources);
-
     modifiedData.tutorialManager = {
       ...data.tutorialManager,
       resources: data.tutorialManager.resources ? mapPostResources(data.tutorialManager.resources) : []
     }
-
-    // modifiedData.tutorialManager = {
-    //   ...data.tutorialManager,
-    //   colorPalette: data.tutorialManager?.colorPalette
-    //     ? data.tutorialManager.colorPalette.reduce((previousValue: any, currentValue: any, currentIndex: number) => {
-    //       if (currentIndex === 0) {
-    //         return currentValue
-    //       } else {
-    //         return previousValue
-    //       }
-    //     }, {})
-    //     : data.tutorialManager.colorPalette,
-    //   paidProducts: data.tutorialManager.paidProducts
-    //     ? data.tutorialManager?.paidProducts.map(product => {
-    //       const newProduct = {
-    //         ...product,
-    //         productDetails: {
-    //           ...product.productDetails,
-    //           licences: product.productDetails.licences ? rearrangeLicenses(product.productDetails.licences) : null,
-    //         }
-    //       }
-    //       return newProduct
-    //     })
-    //     : data.tutorialManager.paidProducts
-    // }
   }
 
 
