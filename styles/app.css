@@ -81,7 +81,6 @@
   src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
 }
 html {
-  scroll-behavior: smooth;
 }
 a {
   transition: all 0.3s;

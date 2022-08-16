@@ -1161,6 +1161,9 @@ video {
 .top-\[-71px\] {
   top: -71px;
 }
+.top-\[210px\] {
+  top: 210px;
+}
 .top-\[-35px\] {
   top: -35px;
 }
@@ -1287,8 +1290,8 @@ video {
 .left-\[300px\] {
   left: 300px;
 }
-.top-\[210px\] {
-  top: 210px;
+.top-\[-27px\] {
+  top: -27px;
 }
 .z-2 {
   z-index: 2;
@@ -1645,6 +1648,9 @@ video {
 .mt-9 {
   margin-top: 2.25rem;
 }
+.ml-11 {
+  margin-left: 2.75rem;
+}
 .mt-40 {
   margin-top: 10rem;
 }
@@ -1680,15 +1686,6 @@ video {
 }
 .mt-\[3px\] {
   margin-top: 3px;
-}
-.ml-\[20px\] {
-  margin-left: 20px;
-}
-.ml-\[28px\] {
-  margin-left: 28px;
-}
-.ml-11 {
-  margin-left: 2.75rem;
 }
 .block {
   display: block;
@@ -2394,6 +2391,10 @@ video {
   --tw-rotate: -4deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.rotate-\[-15deg\] {
+  --tw-rotate: -15deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .-rotate-6 {
   --tw-rotate: -6deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2412,10 +2413,6 @@ video {
 }
 .rotate-\[-118deg\] {
   --tw-rotate: -118deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.rotate-\[-15deg\] {
-  --tw-rotate: -15deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .rotate-\[250deg\] {
@@ -7928,7 +7925,6 @@ video {
   src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
 }
 html {
-  scroll-behavior: smooth;
 }
 a {
   transition: all 0.3s;

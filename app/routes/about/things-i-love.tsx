@@ -145,7 +145,7 @@ function ThingsILove() {
 
   const categoryItemClick = (category: string) => () => {
     const element = document.getElementById(category)
-    element?.scrollIntoView();
+    element?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -228,7 +228,7 @@ function ThingsILove() {
 
                       {/* TITLE */}
                       <div className='relative flex flex-row my-4'>
-                        <span className='absolute left-0 top-[-20px] text-6xl font-bonVivant'>{`0${index + 1}`}</span>
+                        <span className='absolute left-0 top-[-27px] text-6xl font-bonVivant'>{`0${index + 1}`}</span>
                         <span className='text-3xl ml-11 font-sentinel__SemiBoldItal'>{item.name}</span>
                       </div>
 
