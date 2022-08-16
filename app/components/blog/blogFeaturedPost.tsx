@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { defaultImages, loadImageSrc, loadThumbnailSrc } from '@App/utils/imageHelpers'
-import { findSkillLevel, formatDate } from '@App/utils/posts'
+import { findSkillLevel, formatDate, getResource } from '@App/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'
 import LazyImageBase from '../images/lazyImage-base'
 import BarChartSvg from '../svgs/barChartSvg'
@@ -34,6 +34,14 @@ function BlogFeaturedPost(props: Props) {
     fallbackImage: defaultImages.thumbnail
   })
   let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
+  // console.log('featuredPost', featuredPost);
+
+  const colorSwatch = getResource({
+    resources: featuredPost.tutorialManager.resources,
+    resourceName: 'colorSwatch'
+  })
+
+
 
   return (
     <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
@@ -78,11 +86,16 @@ function BlogFeaturedPost(props: Props) {
                 image={postImage} />
             </div>
 
-            {featuredPost.tutorialManager.colorPalette && <div data-testid="color-swatch" style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }} className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-slate-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
-              <span style={{ color: featuredPost.tutorialManager.colorPalette.iconTextColor }} className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6">
-                Free Color Swatches
-              </span>
-            </div>}
+            {colorSwatch &&
+              <div data-testid="color-swatch"
+                // style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }}
+                className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+                <span
+                  // style={{ color: featuredPost.tutorialManager.colorPalette.iconTextColor }} 
+                  className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6 text-white">
+                  Free Color Swatches
+                </span>
+              </div>}
 
           </div>
         </Link>

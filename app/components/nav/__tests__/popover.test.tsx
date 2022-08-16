@@ -1,27 +1,30 @@
 import { siteInitialState } from "@App/hooks/useSite";
 import { fireEvent } from "@testing-library/react";
-import { renderUseSiteProviderUi } from "@TestUtils/providerUtils";
+import { renderUseSiteProviderUi, withTransitionsRender } from "@TestUtils/providerUtils";
 import { MemoryRouter } from "react-router";
 import TuesdayMakersPrimary from "../popOver/tuesdayMakersPrimary";
 import popOverMenuItems from "../popOver/popOverMenuItems";
+import UseSiteProvider from "@App/hooks/useSite/useSiteProvider";
 
 describe('Tuesday Makers Popover', () => {
   it('Should have Tuesday Makers Button Text', () => {
-    const { getByText } = renderUseSiteProviderUi
-      (<MemoryRouter>
-        <TuesdayMakersPrimary />
-      </MemoryRouter>, {
-        providerProps: siteInitialState
-      });
+    const { getByText } = withTransitionsRender(
+      <UseSiteProvider defaultState={siteInitialState}>
+        <div data-testid="parent">
+          <TuesdayMakersPrimary />
+        </div>
+      </UseSiteProvider>
+    )
     expect(getByText('Tuesday Makers')).toBeInTheDocument();
   })
   it('Should open menu when clicked', () => {
-    const { getByTestId, queryAllByTestId } = renderUseSiteProviderUi
-      (<MemoryRouter>
-        <TuesdayMakersPrimary />
-      </MemoryRouter>, {
-        providerProps: siteInitialState
-      });
+    const { getByTestId, queryAllByTestId } = withTransitionsRender(
+      <UseSiteProvider defaultState={siteInitialState}>
+        <div data-testid="parent">
+          <TuesdayMakersPrimary />
+        </div>
+      </UseSiteProvider>
+    )
     const button = getByTestId('tuesday-makers-btn')
     fireEvent.click(button)
     const panelItems = queryAllByTestId('panel-item')
@@ -29,12 +32,13 @@ describe('Tuesday Makers Popover', () => {
     // screen.debug()
   })
   it('Should have correct panel items', () => {
-    const { getByTestId, queryAllByTestId } = renderUseSiteProviderUi
-      (<MemoryRouter>
-        <TuesdayMakersPrimary />
-      </MemoryRouter>, {
-        providerProps: siteInitialState
-      });
+    const { getByTestId, queryAllByTestId } = withTransitionsRender(
+      <UseSiteProvider defaultState={siteInitialState}>
+        <div data-testid="parent">
+          <TuesdayMakersPrimary />
+        </div>
+      </UseSiteProvider>
+    )
     const button = getByTestId('tuesday-makers-btn')
     fireEvent.click(button)
     const panelItems = queryAllByTestId('panel-item')
@@ -52,12 +56,13 @@ describe('Tuesday Makers Popover', () => {
 
   })
   it('Should have footer items for logout state', () => {
-    const { getByTestId, queryAllByTestId } = renderUseSiteProviderUi
-      (<MemoryRouter>
-        <TuesdayMakersPrimary />
-      </MemoryRouter>, {
-        providerProps: siteInitialState
-      });
+    const { getByTestId, queryAllByTestId } = withTransitionsRender(
+      <UseSiteProvider defaultState={siteInitialState}>
+        <div data-testid="parent">
+          <TuesdayMakersPrimary />
+        </div>
+      </UseSiteProvider>
+    )
     const button = getByTestId('tuesday-makers-btn')
     fireEvent.click(button)
     const panelFooter = getByTestId('panel-footer')
@@ -69,21 +74,22 @@ describe('Tuesday Makers Popover', () => {
 
   })
   it('Should have footer items for login state', () => {
-    const { getByTestId } = renderUseSiteProviderUi
-      (<MemoryRouter>
-        <TuesdayMakersPrimary />
-      </MemoryRouter>, {
-        providerProps: {
-          ...siteInitialState,
-          user: {
-            resourceUser: {
-              id: 1,
-              tags: []
-            },
-            wpAdmin: false
-          }
+    const { getByTestId } = withTransitionsRender(
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        user: {
+          resourceUser: {
+            id: 1,
+            tags: []
+          },
+          wpAdmin: false
         }
-      })
+      }}>
+        <div data-testid="parent">
+          <TuesdayMakersPrimary />
+        </div>
+      </UseSiteProvider>
+    )
     const button = getByTestId('tuesday-makers-btn')
     fireEvent.click(button)
     const panelFooter = getByTestId('panel-footer')

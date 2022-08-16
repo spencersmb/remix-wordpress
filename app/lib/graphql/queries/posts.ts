@@ -187,6 +187,53 @@ export const POST_BASIC_FIELDS = gql`
     }
   }
 `
+export const POST_RESOURCE_FIELDS = gql`
+  fragment postResourceFields on Post_Tutorialmanager {
+    resources {
+    ... on Post_Tutorialmanager_Resources_PaidProduct {
+      product {
+        ... on Product {
+          title
+          slug
+          productDetails {
+            licences {
+              licenseType
+              price
+              url
+            }
+          }
+        }
+      }
+      description
+    }
+    ... on Post_Tutorialmanager_Resources_Course {
+      course {
+        ... on Course {
+          title
+          slug
+          link
+          details {
+            courseUrl
+          }
+        }
+      }
+      description
+    }
+    ... on Post_Tutorialmanager_Resources_Download {
+      download {
+        name
+        description
+        url
+      }
+    }
+    ... on Post_Tutorialmanager_Resources_ColorSwatch {
+      colorSwatch {
+        url
+      }
+    }
+  }
+}
+`
 export const PRODUCT_FIELDS = gql`
   fragment productFields on Product {
     title 

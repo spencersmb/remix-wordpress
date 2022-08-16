@@ -14,35 +14,49 @@ function TutorialResources(props: Props) {
   return (
     <div className='bg-white'>
       {resources.map((resource, index) => {
-        const keys = Object.keys(resource)
 
-        if (keys.includes('colorSwatch')) {
+        if (resource.colorSwatch) {
+          const colorSwatch = resource.colorSwatch
           return (
-            <div>
-              Color Swatch
+            <div className='mb-2'>
+              Free Color Swatch
+              <p>
+                {colorSwatch.url}
+              </p>
             </div>
           )
         }
 
-        if (keys.includes('course')) {
+        if (resource.course) {
+          const course = resource.course
           return (
-            <div>
-              Course
+            <div className='mb-2'>
+              {course.title}
             </div>
           )
         }
 
-        if (keys.includes('product')) {
+        if (resource.product) {
+          const product = resource.product
           return (
-            <div>
-              Product
+            <div className='mb-2'>
+              {product.title}
+            </div>
+          )
+        }
+
+        if (resource.download) {
+          const download = resource.download
+          return (
+            <div className='mb-2'>
+              {download.name}
             </div>
           )
         }
 
         return (
           <div key={index}>
-            Default Download Generic
+            Default Items matched
           </div>
         )
       })}

@@ -8,7 +8,7 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import BlogFeaturedPost from "@App/components/blog/blogFeaturedPost";
 import type { IPageInfo } from "@App/hooks/useFetchPagination/useFetchPaginationReducer";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
 import gql from 'graphql-tag';
 import BlogCategoryTabs from "@App/components/blog/blogHomeTabs/blogCategoryTabs";
 import { AnimatePresence, motion } from "framer-motion";
@@ -455,6 +455,7 @@ function BlogIndex() {
 export default BlogIndex
 
 const postQuery = gql`
+ ${POST_RESOURCE_FIELDS}
 query GetMorePosts($first: Int, $after: String) {
   posts(first: $first, after: $after) {
     pageInfo {
@@ -467,6 +468,7 @@ query GetMorePosts($first: Int, $after: String) {
       node {
         id
         tutorialManager {
+          ...postResourceFields
           postExcerpt
           thumbnail {
             type

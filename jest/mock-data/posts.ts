@@ -4,12 +4,7 @@ import { mockFeaturedImage, mockFeatureImageComplete } from "./images"
 import { mockGenericProduct, mockPaidProduct } from "./products"
 
 export const mockTutorailManager__default: ITutorialManager = {
-  paidProducts: [],
-  colorPalette: {
-    downloadUrl: 'https://google.com',
-    iconBackgroundColor: '#000',
-    iconTextColor: '#000'
-  },
+  resources:[],
   downloads: [
     {
       title: 'download 1',
@@ -195,15 +190,7 @@ const mockEtSocialNav = {
 }
 
 export const mockTutorailManager__withPaidProducts: ITutorialManager = {
-  paidProducts: [
-    { ...paidProduct },
-    { ...paidProduct }
-  ],
-  colorPalette: {
-    downloadUrl: 'https://google.com',
-    iconBackgroundColor: '#000',
-    iconTextColor: '#000'
-  },
+  resources:[],
   downloads: [
     {
       title: 'download 1',
@@ -1312,8 +1299,7 @@ export const mockPostData: IPost = {
     }
   },
   tutorialManager: {
-    paidProducts: [],
-    colorPalette: null,
+    resources:[],
     downloads: [],
     postExcerpt: 'EXCERPT',
     status: 'PUBLISHED',
@@ -1656,14 +1642,7 @@ export const mockPostDataComplete: IPost = {
           }
         }
       },
-      colorPalette: {
-          downloadUrl: "http://bit.ly/polaroids-swatch",
-          iconBackgroundColor: "#00998e",
-          iconTextColor: "#ffffff"
-        },
-      paidProducts: [
-        {...mockPaidProduct}
-      ],
+      resources:[],
       youtube: {
         embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
         id:"tZce1wvLzDE",
@@ -2163,14 +2142,7 @@ export const mockPostDataComplete_2: IPost = {
           }
         }
       },
-      colorPalette: {
-          downloadUrl: "http://bit.ly/polaroids-swatch",
-          iconBackgroundColor: "#00998e",
-          iconTextColor: "#ffffff"
-        },
-      paidProducts: [
-        {...mockPaidProduct}
-      ],
+      resources:[],
       youtube: {
         embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
         id: "tZce1wvLzDE"
@@ -2670,14 +2642,7 @@ export const mockPostDataComplete_3: IPost = {
           }
         }
       },
-      colorPalette: {
-          downloadUrl: "http://bit.ly/polaroids-swatch",
-          iconBackgroundColor: "#00998e",
-          iconTextColor: "#ffffff"
-        },
-      paidProducts: [
-        {...mockPaidProduct}
-      ],
+      resources:[],
       youtube: {
         embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
         id: "tZce1wvLzDE"
@@ -2777,19 +2742,12 @@ export const mockPostRaw: IPostRaw = {
         type: 'make',
         image: null
       },
-      colorPalette: [
-        {
-          downloadUrl: "http://bit.ly/polaroids-swatch",
-          iconBackgroundColor: '#00998e',
-          iconTextColor: '#ffffff'
-        }
-      ],
       downloads: null,
       youtube: {
         embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
         id: 'tZce1wvLzDE'
       },
-      paidProducts: null,
+      resources:[],
       postExcerpt: 'string'
   },
   etSocialNav: mockEtSocialNav
@@ -2846,17 +2804,12 @@ export const mockPostRawFormatted: IPost = {
         type: 'make',
         image: null
       },
-      colorPalette: {
-          downloadUrl: "http://bit.ly/polaroids-swatch",
-          iconBackgroundColor: '#00998e',
-          iconTextColor: '#ffffff'
-        },
+      resources:[],
       downloads: null,
       youtube: {
         embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
         id: 'tZce1wvLzDE'
       },
-      paidProducts: null,
       postExcerpt: 'string'
   },
   etSocialNav: mockEtSocialNav

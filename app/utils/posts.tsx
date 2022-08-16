@@ -132,30 +132,37 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
   // }
 
   if (data.tutorialManager) {
+    console.log('data.tutorialManager.resources', data.tutorialManager.resources);
+
     modifiedData.tutorialManager = {
       ...data.tutorialManager,
-      colorPalette: data.tutorialManager?.colorPalette
-        ? data.tutorialManager.colorPalette.reduce((previousValue: any, currentValue: any, currentIndex: number) => {
-          if (currentIndex === 0) {
-            return currentValue
-          } else {
-            return previousValue
-          }
-        }, {})
-        : data.tutorialManager.colorPalette,
-      paidProducts: data.tutorialManager.paidProducts
-        ? data.tutorialManager?.paidProducts.map(product => {
-          const newProduct = {
-            ...product,
-            productDetails: {
-              ...product.productDetails,
-              licences: product.productDetails.licences ? rearrangeLicenses(product.productDetails.licences) : null,
-            }
-          }
-          return newProduct
-        })
-        : data.tutorialManager.paidProducts
+      resources: data.tutorialManager.resources ? mapPostResources(data.tutorialManager.resources) : []
     }
+
+    // modifiedData.tutorialManager = {
+    //   ...data.tutorialManager,
+    //   colorPalette: data.tutorialManager?.colorPalette
+    //     ? data.tutorialManager.colorPalette.reduce((previousValue: any, currentValue: any, currentIndex: number) => {
+    //       if (currentIndex === 0) {
+    //         return currentValue
+    //       } else {
+    //         return previousValue
+    //       }
+    //     }, {})
+    //     : data.tutorialManager.colorPalette,
+    //   paidProducts: data.tutorialManager.paidProducts
+    //     ? data.tutorialManager?.paidProducts.map(product => {
+    //       const newProduct = {
+    //         ...product,
+    //         productDetails: {
+    //           ...product.productDetails,
+    //           licences: product.productDetails.licences ? rearrangeLicenses(product.productDetails.licences) : null,
+    //         }
+    //       }
+    //       return newProduct
+    //     })
+    //     : data.tutorialManager.paidProducts
+    // }
   }
 
 
@@ -503,6 +510,103 @@ export function removeLastItemFromArray(array: any[] | undefined) {
     modifiedArray: newArray,
     lastElement
   }
+}
+
+// TODO: TEST THIS
+export function getResource({ resources, resourceName }: { resources: IPostResource[], resourceName: string }): IPostResource | null {
+  let foundResource = null
+  resources.forEach(resource => {
+    const keys = Object.keys(resource)
+    if (keys.includes(resourceName)) {
+      foundResource = resource
+    }
+  })
+  return foundResource
+}
+
+export function mapPostResources(resources: IPostResource[]) {
+  return resources.map((resource, index) => {
+    const keys = Object.keys(resource)
+
+    if (keys.includes('colorSwatch')) {
+      return resource
+    }
+
+    if (keys.includes('course')) {
+      return resource
+    }
+
+    if (keys.includes('product')) {
+      if (!resource.product) {
+        return resource
+      }
+      return {
+        ...resource,
+        product: {
+          ...resource.product,
+          productDetails: {
+            ...resource.product.productDetails,
+            licences: resource.product.productDetails.licences ? rearrangeLicenses(resource.product.productDetails.licences) : null,
+          }
+        }
+      }
+    }
+
+    return resource
+  })
+}
+
+
+export function reducePostResourceData(resources: IPostResource[]) {
+  return resources.reduce((acc, resource) => {
+    const keys = Object.keys(resource)
+
+    if (keys.includes('colorSwatch')) {
+      return {
+        ...acc,
+        colorSwatch: resource.colorSwatch
+      }
+    }
+
+    if (keys.includes('course')) {
+      if (!resource.course) {
+        return acc
+      }
+      return {
+        ...acc,
+        course: {
+          ...resource.course,
+          description: resource.description
+        }
+      }
+    }
+
+    if (keys.includes('product')) {
+      if (!resource.product) {
+        return acc
+      }
+      return {
+        ...acc,
+        product: {
+          ...resource.product,
+          description: resource.description,
+          productDetails: {
+            ...resource.product.productDetails,
+            licences: resource.product.productDetails.licences ? rearrangeLicenses(resource.product.productDetails.licences) : null,
+          }
+        }
+      }
+    }
+
+    if (keys.includes('download')) {
+      return {
+        ...acc,
+        download: resource.download
+      }
+    }
+
+    return acc
+  }, {})
 }
 
 // export function createThumbnailImage(

@@ -24,7 +24,7 @@ interface IProductDetails{
   font: {
     name: string | null
   }
-  licences: ILicense[]
+  licences: ILicense[] | null
   youtube: {
     url: string
   }

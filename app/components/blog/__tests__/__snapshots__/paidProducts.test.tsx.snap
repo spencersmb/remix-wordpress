@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`paidProduct Test PaidProducts component renders correctly 1`] = `
-<div
-  className="single_product flex flex-col-reverse tablet:flex-row laptop:flex-row"
-  data-testid="test-paidProduct"
-/>
+<div>
+  DEPRICATED
+</div>
 `;

@@ -4,7 +4,7 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { getHtmlMetadataTags } from '../utils/seo'
 import gql from 'graphql-tag';
 import { getGraphQLString } from '@App/utils/graphqlUtils'
-import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
+import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
 import BlogTemplate from '@App/components/blog/blogTemplate'
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
@@ -75,6 +75,7 @@ const query = gql`
   ${POST_BASIC_FIELDS}
   ${POST_FEATURED_IMAGE}
   ${RELEATED_POSTS_FIELDS}
+  ${POST_RESOURCE_FIELDS}
 query postBySlug($slug: String!) {
     postBy(slug: $slug) {
         ...postBasicFields
@@ -165,49 +166,7 @@ query postBySlug($slug: String!) {
               }
             }
           }
-          resources {
-            ... on Post_Tutorialmanager_Resources_PaidProduct {
-              product {
-                ... on Product {
-                  title
-                  slug
-                  productDetails {
-                    licences {
-                      licenseType
-                      price
-                      url
-                    }
-                  }
-                }
-              }
-              description
-            }
-            ... on Post_Tutorialmanager_Resources_Course {
-              course {
-                ... on Course {
-                  title
-                  slug
-                  link
-                  details {
-                    courseUrl
-                  }
-                }
-              }
-              description
-            }
-            ... on Post_Tutorialmanager_Resources_Download {
-              download {
-                name
-                description
-                url
-              }
-            }
-            ... on Post_Tutorialmanager_Resources_ColorSwatch {
-              colorSwatch {
-                url
-              }
-            }
-          }
+          ...postResourceFields
         }
         comments(first: 500, after: null, where: {parent: null}) {
             pageInfo{

@@ -23,6 +23,7 @@ import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
 import { useSearch } from '@App/hooks/useSearch';
 import TutorialResources from './tutorialContent/tutorialResources';
+import { getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
 
 interface IProps {
   post: IPost
@@ -96,6 +97,26 @@ function BlogTemplate(props: IProps) {
   })
 
   const postUrl = `${metadata.domain}/${post.slug}`
+
+  // // rewrite data example
+  // const tutorialManager: ITutorialManager = {
+  //   ...post.tutorialManager,
+  //   resources: mapPostResources(post.tutorialManager.resources)
+  // }
+
+  // const tutorialManagerObj = {
+  //   ...post.tutorialManager,
+  //   resources: reducePostResourceData(post.tutorialManager.resources)
+  // }
+
+
+  // get specific instance example
+  // const colorSwatch = getResource({ resources: tutorialManager.resources, resourceName: 'colorSwatch' })
+  // console.log('colorSwatch', colorSwatch);
+
+  // console.log('tutorialManagerObj', tutorialManagerObj.resources);
+
+
   return (
 
     <article className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>

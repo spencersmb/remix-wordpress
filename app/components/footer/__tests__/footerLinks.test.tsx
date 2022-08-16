@@ -35,7 +35,7 @@ describe('Footer Component', () => {
   it('Should have correct foot link text/url', () => {
     setup()
     const footerLinks = screen.getAllByTestId('footer-link--item')
-    expect(footerLinks.length).toBe(7)
+    expect(footerLinks.length).toBe(8)
     expect(footerLinks[0]).toHaveTextContent('Blog')
     expect(footerLinks[0]).toHaveAttribute('href', '/blog')
     expect(footerLinks[1]).toHaveTextContent('Courses')
@@ -44,12 +44,15 @@ describe('Footer Component', () => {
     expect(footerLinks[2]).toHaveAttribute('href', '/products')
     expect(footerLinks[3]).toHaveTextContent('Tuesday Makers')
     expect(footerLinks[3]).toHaveAttribute('href', '/tuesday-makers')
-    expect(footerLinks[4]).toHaveTextContent('About')
-    expect(footerLinks[4]).toHaveAttribute('href', '/about')
-    expect(footerLinks[5]).toHaveTextContent('Contact')
-    expect(footerLinks[5]).toHaveAttribute('href', '/contact')
-    expect(footerLinks[6]).toHaveTextContent('Licenses')
-    expect(footerLinks[6]).toHaveAttribute('href', '/licenses')
+    expect(footerLinks[4]).toHaveTextContent('Our Story')
+    expect(footerLinks[4]).toHaveAttribute('href', '/about/our-story')
+    expect(footerLinks[5]).toHaveTextContent('Things I love')
+    expect(footerLinks[5]).toHaveAttribute('href', '/about/things-i-love')
+    expect(footerLinks[6]).toHaveTextContent('Contact')
+    expect(footerLinks[6]).toHaveAttribute('href', '/contact')
+
+    expect(footerLinks[7]).toHaveTextContent('Licenses')
+    expect(footerLinks[7]).toHaveAttribute('href', '/licenses')
   })
 
   it('Should have correct social header text', () => {

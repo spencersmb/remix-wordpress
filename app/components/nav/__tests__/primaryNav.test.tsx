@@ -1,6 +1,7 @@
 import { siteInitialState } from "@App/hooks/useSite"
+import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
 import { getWPMenu } from "@App/lib/wp/site"
-import { renderUseSiteProviderUi } from "@TestUtils/providerUtils"
+import { renderUseSiteProviderUi, withTransitionsRender } from "@TestUtils/providerUtils"
 import { MemoryRouter } from "react-router-dom"
 import { PrimaryNav } from "../primaryNav"
 
@@ -9,19 +10,18 @@ describe('Primary Nav Component', () => {
   it('Should have correct menu items', () => {
     const menuData = getWPMenu(null)
 
-    const { queryAllByTestId } = renderUseSiteProviderUi(
-      <MemoryRouter>
-        <PrimaryNav />
-      </MemoryRouter>,
-      {
-        providerProps: {
-          ...siteInitialState,
-          menu: [
-            ...menuData.menus
-          ]
-
-        }
-      })
+    const { queryAllByTestId } = withTransitionsRender(
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        menu: [
+          ...menuData.menus
+        ]
+      }}>
+        <div data-testid="parent">
+          <PrimaryNav />
+        </div>
+      </UseSiteProvider>
+    )
     const menuItems = queryAllByTestId('menu-item')
     expect(menuItems.length).toBe(3)
     const item1 = menuItems[0].firstChild
@@ -40,46 +40,47 @@ describe('Primary Nav Component', () => {
   })
 
   it('Should have Tuesday Makers Popup menu', () => {
-    const { queryByText } = renderUseSiteProviderUi(
-      <MemoryRouter>
-        <PrimaryNav />
-      </MemoryRouter>,
-      {
-        providerProps: {
-          ...siteInitialState,
-        }
-      })
+    const { queryByText } = withTransitionsRender(
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+      }}>
+        <div data-testid="parent">
+          <PrimaryNav />
+        </div>
+      </UseSiteProvider>
+    )
     expect(queryByText('Tuesday Makers')).toBeInTheDocument()
   })
 
   it('Should Not have user logged in', () => {
-    const { queryByText } = renderUseSiteProviderUi(
-      <MemoryRouter>
-        <PrimaryNav />
-      </MemoryRouter>,
-      {
-        providerProps: {
-          ...siteInitialState,
-        }
-      })
+    const { queryByText } = withTransitionsRender(
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+      }}>
+        <div data-testid="parent">
+          <PrimaryNav />
+        </div>
+      </UseSiteProvider>
+    )
     expect(queryByText('Logout')).not.toBeInTheDocument()
 
   })
 
   it('Should show user logged in', () => {
-    const { queryByText } = renderUseSiteProviderUi(
-      <MemoryRouter>
-        <PrimaryNav />
-      </MemoryRouter>,
-      {
-        providerProps: {
-          ...siteInitialState,
-          user: {
-            resourceUser: null,
-            wpAdmin: true
-          }
+
+    const { queryByText } = withTransitionsRender(
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        user: {
+          resourceUser: null,
+          wpAdmin: true
         }
-      })
+      }}>
+        <div data-testid="parent">
+          <PrimaryNav />
+        </div>
+      </UseSiteProvider>
+    )
     expect(queryByText('Logout')).toBeInTheDocument()
   })
 })

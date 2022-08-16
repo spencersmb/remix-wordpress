@@ -59,7 +59,7 @@ describe('BlogFeature Post Component', () => {
     expect(featureImage).toBeVisible()
   })
 
-  it('Should show Free Color Swatch Icon', () => {
+  it('Should not show Free Color Swatch Icon', () => {
     const props = {
       featuredPost: mockPostDataComplete
     }
@@ -69,8 +69,32 @@ describe('BlogFeature Post Component', () => {
       </MemoryRouter>
     )
 
-    expect(screen.getByTestId('color-swatch')).toHaveTextContent('Free Color Swatches')
+    expect(screen.queryByText("Free Color Swatches")).toBeNull()
+  })
 
+  it('Should show Free Color Swatch Icon', () => {
+    const props = {
+      featuredPost: {
+        ...mockPostDataComplete,
+        tutorialManager: {
+          ...mockPostDataComplete.tutorialManager,
+          resources: [
+            {
+              colorSwatch: {
+                url: "https://www.google.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+    render(
+      <MemoryRouter>
+        <BlogFeaturedPost {...props} />
+      </MemoryRouter>
+    )
+
+    expect(screen.queryByText(/Free Color Swatch/i)).toBeInTheDocument()
   })
 
   it('should show blog title', () => {

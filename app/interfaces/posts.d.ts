@@ -71,11 +71,6 @@ interface ITutorialManagerRaw {
       altText: string
     } | null
   }
-  colorPalette: {
-    downloadUrl: string
-    iconBackgroundColor: string
-    iconTextColor: string
-  }[] | null // Coming from the server this is acutally an array or null
   downloads: {
     title: string
     freebie:{
@@ -86,7 +81,7 @@ interface ITutorialManagerRaw {
     embedUrl: string,
     id: string
   }
-  paidProducts: IProduct[]| null
+  resources: IPostResource[] | null
   postExcerpt: string
 
 
@@ -190,18 +185,37 @@ interface IPostResourceCourse {
   description: string
 }
 interface IPostResourceColorSwatch {
-  colorSwatch: {
     url: string
-  }
 }
 interface IPostResourceDownload {
-  download: {
-    url: string
-    name: string
-    description: string
-  }
+  url: string
+  name: string
+  description: string
 }
-type IPostResource = IPostResourceProduct | IPostResourceCourse | IPostResourceColorSwatch | IPostResourceDownload
+type IPostResource = {
+  description?: string
+  product?: IProduct
+  course?: {
+    link: string
+    slug: string
+    title: string
+    details:{
+      courseUrl: string
+    }
+  }
+  colorSwatch?: IPostResourceColorSwatch
+  download?: IPostResourceDownload
+}
+
+interface IPostResourceObject {
+  product?: IProduct & {description: string}
+  course?: ICourse & {description: string}
+  colorSwatch?: IPostResourceColorSwatch
+  download?: IPostResourceDownload
+}
+// | IPostResourceCourse 
+// | IPostResourceColorSwatch 
+// | IPostResourceDownload
 
 interface ITutorialManager {
   status: string
