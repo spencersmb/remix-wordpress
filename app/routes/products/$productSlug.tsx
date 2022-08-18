@@ -81,16 +81,7 @@ const query = gql`
           }
         }
       }
-      details{
-        youtube{
-          url
-        }
-        licences{
-          licenseType
-          price
-          url
-        }
-      }
+      
       seo{
         fullHead
         metaDesc

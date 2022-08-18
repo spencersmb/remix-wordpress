@@ -77,6 +77,7 @@ interface ILoadImageSrcArgs {
   imageObject: IFeaturedImage | null, 
   fallbackSize?: ImageSizeEnums, 
   fallbackImage?: ImageLookupReturn 
+  disableSrcSet?: boolean
 }
 
 /**
@@ -115,7 +116,7 @@ export const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) =>
 
 /**
  * @function loadImageSrc 
- * @tested - 6/4/2022
+ * @tested - TODO: TEST THiS added disableSrcSet
  * Primary way to get a readable image object from the WP IMAGE OBJECT sent from the server to be used in the lazyImagebase component.
  * Default fallback image size to look for is LARGE and if that fallback is not found, it will load a grey placeholder image.
  * 
@@ -135,7 +136,8 @@ export const loadImageSrc = ({
     sizes: '',
     name: 'fallback',
     placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
-  }
+  },
+  disableSrcSet = false
 }: ILoadImageSrcArgs): ImageLookupReturn => {
 
   if (!imageObject || !imageObject.mediaDetails) {
@@ -143,10 +145,11 @@ export const loadImageSrc = ({
   }
 
   let image = getImageSize(imageObject, imageSizeName)
-  
+
   const placeholder = getImageSize(imageObject, ImageSizeEnums.PLACEHOLDER)
 
   if (isEmpty(image)) {
+    
     return imageObject.mediaDetails.sizes.reduce((previousValue: any, currentValue: any) => {
           
       if (currentValue.name === fallbackSize) {
@@ -166,7 +169,7 @@ export const loadImageSrc = ({
 
   return {
     ...image,
-    srcSet: imageObject.srcSet,
+    srcSet: !disableSrcSet ? imageObject.srcSet : '',
     altTitle: imageObject.altText,
     sizes: imageObject.sizes,
     placeholder: !isEmpty(placeholder) ? placeholder.sourceUrl : fallbackImage.placeholder
@@ -283,15 +286,48 @@ export function checkWidthHeight(width: string | number, height: string | number
 //TODO: TEST THIS
 export function createImgixSizes(image : CreateImgixParams ): 
 CreateImgixReturn {
-  const {src, mobileSize, width, height, alt, compress = false} = image
-  const defaultSrc = `${src}?auto=format`
-  const newImage = {
-    width,
-    height,
+  const {src, mobileSize, width, height, alt, staticImage, compress = false} = image
+
+  let imageUrl = src 
+    ? src 
+    : staticImage 
+      ? staticImage.src 
+      : "https://et-website.imgix.net/defaultImages/default-thumb.jpg"
+
+  let defaultSrc = `${imageUrl}?auto=format`
+
+  // default image to show up if the image is not found
+  let newImage = {
+    width: 1000,
+    height: 888,
     alt,
     src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
     placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
   }
+
+  if(staticImage){
+
+    newImage = {
+      width: staticImage.width,
+      height: staticImage.height,
+      alt,
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
+    }
+  }
+
+  // manual method
+  if(src && width && height){
+
+    newImage = {
+      width,
+      height,
+      alt,
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
+    }
+  }
+
 
   return {
     image: newImage,

@@ -287,7 +287,7 @@ function BlogIndex() {
     }
   }, [category])
 
-  const handleCatClick = (cat: string) => async () => {
+  const handleCatClick = (cat: string) => () => {
     if (state.loading) {
       return
     }
@@ -384,7 +384,9 @@ function BlogIndex() {
 
       <BlogFeaturedPost featuredPost={posts[0]} />
 
-      <BlogCategoryTabs catClick={handleCatClick} category={category} />
+      <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
+        <BlogCategoryTabs catClick={handleCatClick} category={category} />
+      </div>
 
       <div className='grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 

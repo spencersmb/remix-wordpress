@@ -84,7 +84,7 @@ export function rearrangeLicenses(licenses: ILicense[]): ILicense[] {
  * @function mapPostData
  * @tested - 6/7/2022
  * @description Map over POST data, filter and return a clean object
- * 
+ * TODO: TEST CHECK NEW RESOURCES MAPPER
  *
  **/
 export function mapPostData(post: IPostRaw | {} = {}): IPost {
@@ -497,6 +497,7 @@ export function getResource({ resources, resourceName }: { resources: IPostResou
   return foundResource
 }
 
+//TODO: TEST THIS
 export function mapPostResources(resources: IPostResource[]) {
   return resources.map((resource, index) => {
     const keys = Object.keys(resource)

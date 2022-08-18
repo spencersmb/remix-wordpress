@@ -7,10 +7,16 @@ interface ImgixImageType {
 }
 
 interface CreateImgixParams { 
-  src: string, 
+  staticImage?: {
+    src: string,
+    width: number,
+    height: number
+    placeholder: string
+  }
+  src?: string, 
   mobileSize: number, 
-  width: number, 
-  height: number, 
+  width?: number, 
+  height?: number, 
   alt: string,
   compress?: boolean
 }

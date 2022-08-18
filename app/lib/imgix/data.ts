@@ -127,6 +127,14 @@ export const staticImages = {
       width: 1800,
       height: 1794
     },
+    red: {
+      A:{
+        src: 'https://et-website.imgix.net/et-website/textures/red-texture-1_1-min.png',
+        placeholder: 'https://et-website.imgix.net/et-website/textures/red-texture-1_1-min.png?w=20&fit=clip',
+        width: 1258,
+        height: 871
+      }
+    },
     orangeWatercolor03:{
       src: 'https://et-website.imgix.net/et-website/textures/watercolor-03.png',
       placeholder: 'https://et-website.imgix.net/et-website/textures/watercolor-03.png?w=20&fit=clip'
@@ -138,6 +146,13 @@ export const staticImages = {
         placeholder: 'https://et-website.imgix.net/et-website/images/stroke-02-min.png?w=20&fit=clip',
         width: 288,
         height:310
+      },
+    shortStrokes:{
+      src: 'https://et-website.imgix.net/et-website/images/short-strokes-01_1-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/short-strokes-01_1-min.png?w=20&fit=clip',
+      width: 500,
+      height:131
+      
     },
     scribble_2:{
       src: 'https://et-website.imgix.net/et-website/images/scribble-2-min.png',

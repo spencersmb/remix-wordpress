@@ -5,7 +5,7 @@ import CheckmarkSvg from '../svgs/checkmarkSvg'
 
 interface IPillProps {
   selected: boolean
-  clickHandler: () => Promise<void>
+  clickHandler: () => void
   children?: any
 }
 /**

@@ -10,6 +10,7 @@
 @import "../app/components/nav/nav.css";
 @import "react-lazy-load-image-component/src/effects/blur.css";
 @import "../app/components/lfm/lfm.css";
+@import "../app/components/cards/things-i-love/horizontal-card.css";
 
 .root,
 :root,

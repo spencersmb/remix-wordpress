@@ -8,7 +8,7 @@ import TabLabel from './tabLabel'
 import Tab from "@App/components/tabs/SimpleTabs/tab"
 
 interface Props {
-  catClick: (cat: string) => () => Promise<void>
+  catClick: (cat: string) => () => void
   category: string
 }
 
@@ -73,6 +73,7 @@ const skillLevels = [
     name: 'Advanced',
   },
 ]
+
 /**
  * Component not used in JEST tests
  * @param props 
@@ -82,57 +83,54 @@ function BlogCategoryTabs(props: Props) {
   const { catClick, category } = props
 
   return (
-    <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
+    <SimpleTabsProvider>
 
-      <SimpleTabsProvider>
-
-        <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-10 text-primary-400 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
-          <Tab
-            name={'topics'} className="flex-1 tablet:first:pr-7 tablet:flex-none">
-            <TabLabel
-              Svg={GridSvg}
-              iconFillType={'stroke'}
-              id="topics"
-              text="Search by category" />
-          </Tab>
-          <Tab name={'difficulty'} className="flex-1 tablet:flex-none">
-            <TabLabel
-              Svg={BarChartSvg}
-              id="difficulty"
-              text="Search by difficulty" />
-          </Tab>
-        </SimpleTabsHeader>
+      <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-10 text-primary-400 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
+        <Tab
+          name={'topics'} className="flex-1 tablet:first:pr-7 tablet:flex-none">
+          <TabLabel
+            Svg={GridSvg}
+            iconFillType={'stroke'}
+            id="topics"
+            text="Search by category" />
+        </Tab>
+        <Tab name={'difficulty'} className="flex-1 tablet:flex-none">
+          <TabLabel
+            Svg={BarChartSvg}
+            id="difficulty"
+            text="Search by difficulty" />
+        </Tab>
+      </SimpleTabsHeader>
 
 
-        <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
-          <TabContent id={'topics'} index={0}>
-            <div className="flex flex-row flex-wrap">
-              {categories.map(cat => (
-                <PillBase
-                  selected={category === cat.slug}
-                  key={cat.name}
-                  clickHandler={catClick(cat.slug)}>
-                  {cat.name}
-                </PillBase>
-              ))}
-            </div>
-          </TabContent>
-          <TabContent id={'difficulty'} index={1}>
-            <div className="flex flex-row flex-wrap">
-              {skillLevels.map(cat => (
-                <PillBase
-                  selected={category === cat.slug}
-                  key={cat.name}
-                  clickHandler={catClick(cat.slug)}>
-                  {cat.name}
-                </PillBase>
-              ))}
-            </div>
-          </TabContent>
-        </div>
+      <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
+        <TabContent id={'topics'} index={0}>
+          <div className="flex flex-row flex-wrap">
+            {categories.map(cat => (
+              <PillBase
+                selected={category === cat.slug}
+                key={cat.name}
+                clickHandler={catClick(cat.slug)}>
+                {cat.name}
+              </PillBase>
+            ))}
+          </div>
+        </TabContent>
+        <TabContent id={'difficulty'} index={1}>
+          <div className="flex flex-row flex-wrap">
+            {skillLevels.map(cat => (
+              <PillBase
+                selected={category === cat.slug}
+                key={cat.name}
+                clickHandler={catClick(cat.slug)}>
+                {cat.name}
+              </PillBase>
+            ))}
+          </div>
+        </TabContent>
+      </div>
 
-      </SimpleTabsProvider>
-    </div>
+    </SimpleTabsProvider>
   )
 }
 

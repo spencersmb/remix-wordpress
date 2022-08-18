@@ -262,7 +262,6 @@ function reshuffleBrushes(posts: IResourceItem[]) {
 
 const ResourceLibraryMembers = () => {
   const data = useLoaderData<ILoaderData>()
-  console.log('data', data);
 
   // const { cart } = useCartMatches()
   // console.log('match', cart);
