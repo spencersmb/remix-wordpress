@@ -89,7 +89,7 @@ export function getHtmlMetadataTags({
     metadataTags = {
       ...metadataTags,
       title: post.seo.title,
-      description: post.seo.metaDesc,
+      description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
       canonical: url,
       'og:title': post.seo.title,
       'og:type': 'article',

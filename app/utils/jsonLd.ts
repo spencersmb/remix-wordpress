@@ -1,37 +1,47 @@
 
+/**
+ * 
+ * @function jsonLdWebsite 
+ * @tested googleIndex - https://search.google.com/test/rich-results
+ */
 export function jsonLdWebsite(data: IjsonldWebProps): string{
   const {domain, description, siteTitle} = data
   return `{
-    '@context': 'https://schema.org',
-    '@graph': [{
-      '@type': 'WebSite',
-      '@id': '${domain}/#website',
-      'url': '${domain}',
-      'name': '${siteTitle}',
-      'description': ${description},
-      'potentialAction': [{
-        '@type': 'SearchAction',
-        'target': {
-          '@type': 'EntryPoint', 
-          'urlTemplate': '${domain}/?s={search_term_string}'
+    "@context": "https://schema.org",
+    "@graph": [{
+      "@type": "WebSite",
+      "@id": "${domain}/#website",
+      "url": "${domain}",
+      "name": "${siteTitle}",
+      "description": "${description}",
+      "potentialAction": [{
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint", 
+          "urlTemplate": "${domain}/?s={search_term_string}"
           },
-        'query-input': 'required name=search_term_string'
+        "query-input": "required name=search_term_string"
       }],
-      'inLanguage': 'en-US'
+      "inLanguage": "en-US"
+    }]
     }`
 }
 
 export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string {
 
-  return `{      
-        '@type': 'ImageObject',
-        '@id': '${pageUrl}#primaryimage',
-        'inLanguage': 'en-US',
-        'url': '${image.url}',
-        'contentUrl': '${image.url}',
-        'width': 1920,
-        'height': 928,
-        'caption': '${image.altText}'
+  return `{
+        "@context": "https://schema.org",      
+        "@type": "ImageObject",
+        "@id": "${pageUrl}#primaryimage",
+        "author": "Every Tuesday",
+        "inLanguage": "en-US",
+        "contentLocation": "Georgia, United States",
+        "url": "${image.url}",
+        "contentUrl": "${image.url}",
+        "width": "1920",
+        "height": "928",
+        "caption": "${image.altText}",
+        "description": "${image.altText}",
       }`
 }
 
@@ -39,14 +49,15 @@ export function jsonldWebpage (props: IjsonldWebpage) {
   const {pageUrl, publishTime, modifiedTime, title, domain, description} = props
 
   return `{
+        "@context": "https://schema.org", 
         "@type": "WebPage",
         "@id": "${pageUrl}#webpage",
         "url": "${pageUrl}",
         "name": "${title}",
         "isPartOf": {"@id": "${domain}#website"},
         "primaryImageOfPage": {"@id": "${pageUrl}#primaryimage"},
-        ${publishTime ? `"datePublished": "${publishTime}"` : '' }
-        ${modifiedTime ? `"dateModified": "${modifiedTime}"` : '' }
+        ${publishTime ? `"datePublished": "{${publishTime}"},` : '' }
+        ${modifiedTime ? `"dateModified": "{${modifiedTime}"},` : '' }
         "author": {"@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb"},
         "description": "${description}",
         "breadcrumb": {"@id": "${pageUrl}#breadcrumb"},
@@ -70,7 +81,7 @@ export function jsonldBlog (props: IJsonldBlog): string{
       "@id": "${url}"
     },
     "headline": "${title}",
-    "image": ${images},
+    "image": "${images}",
     "datePublished": "${dateModified}",
     "dateModified": "${datePublished}",
     "author": {"@type": "Person","name": "Teela"},

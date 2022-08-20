@@ -42,10 +42,10 @@ function ProductCard__sm(props: Props) {
         </div>
 
         {/* PRODUCT SELECT */}
-        {/* TEST FOR NO LICENSES! */}
-        {product.productDetails.licences?.length > 0 && <LicenseSelectSection
-          product={product}
-        />}
+        {product.productDetails.licences
+          && product.productDetails.licences.length > 0
+          && <LicenseSelectSection product={product}
+          />}
 
       </div>
     </div>

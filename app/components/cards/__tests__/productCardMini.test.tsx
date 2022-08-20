@@ -8,7 +8,12 @@ describe('Product Card Mini', () => {
   it('Should have correct gumroad url', () => {
     const { getByTestId } = setup()
     const gumroadLink = getByTestId('test-gumroadLink')
+    if (!mockPaidProduct.productDetails.licences) {
+      expect(false).toBe(true)
+      return
+    }
     expect(gumroadLink.getAttribute('href')).toBe(mockPaidProduct.productDetails.licences[0].url)
+
   })
 
   it('Should have correct image url', () => {
