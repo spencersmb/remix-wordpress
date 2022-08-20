@@ -30,18 +30,27 @@ export function jsonLdWebsite(data: IjsonldWebProps): string{
 export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string {
 
   return `{
-        "@context": "https://schema.org",      
-        "@type": "ImageObject",
-        "@id": "${pageUrl}#primaryimage",
-        "author": "Every Tuesday",
-        "inLanguage": "en-US",
-        "contentLocation": "Georgia, United States",
-        "url": "${image.url}",
-        "contentUrl": "${image.url}",
-        "width": "1920",
-        "height": "928",
-        "caption": "${image.altText}",
-        "description": "${image.altText}",
+          "@context": "https://schema.org",
+          "@type": "ImageObject",
+
+          "@id": "${pageUrl}#primaryimage",
+
+          "author": "Every Tuesday",
+          "contentLocation": "Georgia, United States",
+          "contentUrl": "${image.url}",
+
+          "url": "${image.url}",
+          "caption": "${image.altText}",
+
+          "description": "${image.altText}",
+          
+          "width": "1920",
+          "height": "928",
+
+          "name": "${image.altText}"
+        }
+        
+
       }`
 }
 
@@ -49,23 +58,26 @@ export function jsonldWebpage (props: IjsonldWebpage) {
   const {pageUrl, publishTime, modifiedTime, title, domain, description} = props
 
   return `{
-        "@context": "https://schema.org", 
+        "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "${pageUrl}#webpage",
-        "url": "${pageUrl}",
         "name": "${title}",
-        "isPartOf": {"@id": "${domain}#website"},
+        "url": "${pageUrl}",
         "primaryImageOfPage": {"@id": "${pageUrl}#primaryimage"},
         ${publishTime ? `"datePublished": "{${publishTime}"},` : '' }
         ${modifiedTime ? `"dateModified": "{${modifiedTime}"},` : '' }
         "author": {"@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb"},
         "description": "${description}",
         "breadcrumb": {"@id": "${pageUrl}#breadcrumb"},
-        "inLanguage": "en-US",
         "potentialAction": [{
           "@type": "ReadAction",
           "target": ["${pageUrl}"]
-        }]
+        }],
+        "publisher": {
+            "@type": "Organization",
+            "name": "Every Tuesday",
+            "url": "https://every-tuesday.com",
+        },
+        "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
       }`
 }
 

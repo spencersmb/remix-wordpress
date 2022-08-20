@@ -41,7 +41,8 @@ const JsonLd = () => {
     url: defaultFeaturedImage.sourceUrl,
     altText: defaultFeaturedImage.altText,
     width: 1920,
-    height: 928
+    height: 928,
+    name: "Every Tuesday iPad Art"
   }
   let jsonWebpageSettings: IjsonldWebpage = {
     title: metadata.title,
@@ -55,6 +56,7 @@ const JsonLd = () => {
       ...image,
       url: post.featuredImage?.sourceUrl || image.url, // need default image
       altText: post.featuredImage?.altText || image.altText,
+      name: post.title,
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
@@ -78,6 +80,7 @@ const JsonLd = () => {
       ...image,
       url: page.featuredImage?.sourceUrl || image.url, // need default image
       altText: page.featuredImage?.altText || image.altText,
+      name: page.title,
     }
     jsonWebpageSettings = {
       ...jsonWebpageSettings,
