@@ -21,16 +21,16 @@ const SelectRadio = ({ checked, index, name, license, handleSelected }: IRadioPr
     })
   }
   return (
-    <div className="flex flex-row items-center mb-2 form-check last:mb-0" onClick={onChange}>
+    <div className="flex flex-row items-center px-4 py-1 transition-all duration-300 cursor-pointer radio form-check group" onClick={onChange}>
       <input
         aria-label={`${license.licenseType} $${license.price}`}
         role={'button'}
-        className="float-left w-4 h-4 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border-2 border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-success-500 checked:border-success-500 focus:outline-none"
+        className="float-left w-4 h-4 mr-2 align-top transition-all duration-300 bg-white bg-center bg-no-repeat bg-contain border-2 border-gray-300 rounded-full appearance-none cursor-pointer form-check-input group-hover:border-success-500 checked:bg-success-500 checked:border-success-500 focus:outline-none"
         type="radio" name={`radio-${name}`} id={`box1-${name}`} checked={checked} readOnly />
       <label
-        className="flex flex-row justify-between flex-1 text-lg text-gray-800 first-letter:uppercase form-check-label" htmlFor={`box1-${name}`}>
-        <span className="first-letter:uppercase">{license.licenseType} </span>
-        <span className="text-[22px] font-sentinel__SemiBoldItal text-slate-800">${license.price}</span>
+        className="flex flex-row justify-between flex-1 text-lg text-gray-800 cursor-pointer first-letter:uppercase form-check-label" htmlFor={`box1-${name}`}>
+        <span className="transition-all duration-300 first-letter:uppercase group-hover:text-success-600 ">{license.licenseType} </span>
+        <span className="text-[22px] font-sentinel__SemiBoldItal text-slate-800 group-hover:text-success-600 transition-all duration-300 ">${license.price}</span>
       </label>
     </div>
   )

@@ -17,12 +17,18 @@ interface IPillProps {
 const PillBase = (props: IPillProps) => {
   const { children, clickHandler, selected } = props
   return (
+    // <div
+    //   data-testid="pill"
+    //   className={classNames(selected
+    //     ? 'pill_selected_state bg-sage-600 text-white ring ring-sage-600 hover:ring-sage-600'
+    //     : 'text-neutral-800 bg-neutral-200 hover:ring-neutral-400 active:bg-neutral-400',
+    //     'cursor-pointer font-medium flex flex-row items-center px-5 py-2.5 justify-center rounded-2xl mr-5 mb-5 last:mr-0 hover:ring  ring-offset-neutral-50 focus:ring ring-offset-4 focus:ring-primary-300 duration-200 ease-in-out active:scale-[.97]')} onClick={clickHandler}>
     <div
       data-testid="pill"
       className={classNames(selected
-        ? 'pill_selected_state bg-sage-600 text-white ring ring-sage-600 hover:ring-sage-600'
-        : 'text-neutral-800 bg-neutral-200 hover:ring-neutral-400 active:bg-neutral-400',
-        'cursor-pointer font-medium flex flex-row items-center px-5 py-2.5 justify-center rounded-2xl mr-5 mb-5 last:mr-0 hover:ring  ring-offset-neutral-50 focus:ring ring-offset-4 focus:ring-primary-300 duration-200 ease-in-out active:scale-[.97]')} onClick={clickHandler}>
+        ? 'pill_selected_state btn-outlineFill--sage'
+        : '',
+        'btn btn-outlineFill')} onClick={clickHandler}>
       {/* @ts-ignore */}
       <AnimatePresence>
         {selected &&
@@ -44,7 +50,7 @@ const PillBase = (props: IPillProps) => {
               width: 0,
             }}
             className="max-w-[18px]">
-            <CheckmarkSvg fill="var(--neutral-50)" />
+            <CheckmarkSvg fill="currentColor" />
           </motion.span>
         }
       </AnimatePresence>

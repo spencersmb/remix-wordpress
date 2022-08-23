@@ -102,7 +102,7 @@ export const scrollPageTo = (elementRef: MutableRefObject<null | HTMLElement>) =
     })
   }
 }
-// TODO: TEST THIS
+//TODO: CREATE COMPONENTS
 function ThingsILove() {
   const data = useLoaderData<TIL_LoaderData>()
   consoleHelper('data', data, '/routes/products/index.tsx');

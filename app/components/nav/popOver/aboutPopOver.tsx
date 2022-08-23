@@ -12,7 +12,10 @@ import YoutubeSvg from '@App/components/svgs/social/youtubeSvg'
 import { useOutsideAlerter } from '@App/hooks/popOverOutsideElementClick'
 
 
-// TODO: TEST THIS
+/**
+ * @function AboutPopOver
+ * @tested - 08/22/2022
+ */
 export default function AboutPopOver() {
   const { state: { metadata: { social } } } = useSite()
   const transition = useTransition();
@@ -45,7 +48,7 @@ export default function AboutPopOver() {
             <Popover.Button
               ref={wrapperRef}
               onClick={handleButtonClick}
-              data-testid="tuesday-makers-btn"
+              data-testid="aboutNav-btn"
               className={`
                 ${visible ? 'bg-grey-100 hover:bg-grey-100 hover:opacity-100' : 'hover:bg-grey-100 border-white'} border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300`}
             >
@@ -101,6 +104,7 @@ export default function AboutPopOver() {
                     ))}
                   </div>
 
+                  {/* SOCIAL MEDIA SIDEBAR */}
                   <div
                     data-testid="panel-sidbar"
                     className={`p-5 py-8 bg-[#f8f8f8] flex flex-col w-full self-stretch`}>

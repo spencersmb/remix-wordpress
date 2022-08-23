@@ -37,7 +37,7 @@ export function formatRawProduct(products: {node: IProduct}[]): IProduct[]{
 
 export function formatePriceClient(price: number, removeZeros: boolean = false): string {
   if (removeZeros) {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price).replace(/(\.0*|(?<=(\..*))0*)$/, '');
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price).slice(0, -3);
   }
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
 }

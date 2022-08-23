@@ -107,7 +107,7 @@ export const staticImages = {
   profiles:{
     teela: {
       vertical:{
-        src: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format',
+        src: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg',
         placeholder: 'https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=20&fit=clip',
           width:800,
           height:1367,

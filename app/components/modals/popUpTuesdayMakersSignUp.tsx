@@ -31,7 +31,7 @@ const TuesdayMakersSignUpModal = ({ closeModal }: IProps) => {
             initial={{ height: 0 }}
             animate={{ height: 'auto' }}
             exit={{ height: 0 }}
-            className="relative flex flex-col items-center px-3 mt-12">
+            className="relative flex flex-col items-center mt-12">
 
             {/* ICON */}
             <div className="relative rounded-xl bg-navy-100 w-[57px] h-[58px] px-3 flex justify-center items-center mb-2">
@@ -47,27 +47,29 @@ const TuesdayMakersSignUpModal = ({ closeModal }: IProps) => {
             </div>
 
             {/* CONTENT */}
-            <div className="max-w-[300px] text-center mb-8">
-              <h2 className="mb-4 text-5xl text-navy-700 font-sentinel__SemiBoldItal">
+            <div className="max-w-[330px] text-center mb-8">
+              <h2 className="mb-4 text-5xl text-grey-600 font-sentinel__SemiBoldItal">
                 Success!
               </h2>
-              <p className="text-navy-900">
+              <p className="text-lg text-grey-600">
                 Check your email and click the link inside to confirm your new account.
               </p>
             </div>
 
             <div>
-              <button className="btn" onClick={closeModal}>Got it!</button>
+              <button className="btn btn-primary btn-xl" onClick={closeModal}>
+                Got it!
+              </button>
             </div>
 
           </motion.div>}
         {!showConfirmation &&
           <>
             <div className="max-w-[372px] text-center mb-8">
-              <h2 className="mt-8 max-w-[360px] mx-auto mb-4 text-5xl text-navy-700 font-sentinel__SemiBoldItal">
-                Join the Tuesday Makers
+              <h2 className="mt-8 max-w-[360px] mx-auto mb-4 text-5xl text-grey-600 font-sentinel__SemiBoldItal">
+                Join Tuesday Makers
               </h2>
-              <p className="text-navy-900 max-w-[360px]">
+              <p className="text-grey-600 max-w-[360px] text-lg">
                 Get access to all the tutorial downloads for free. Plus, access our incredible library with over 200 assets!
               </p>
             </div>

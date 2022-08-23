@@ -1,4 +1,5 @@
 import SubmitFetcherBtn from '@App/components/buttons/submitFetchBtn'
+import { spinnerColors } from '@App/components/spinners/spinnerColors'
 import type { FormProps } from '@remix-run/react'
 import { useEffect, useRef } from 'react'
 import InputBase from '../input/inputBase'
@@ -35,7 +36,6 @@ const MakersSignUpFetcherForm = (props: IProps) => {
         <div className='flex-1 mb-5'>
           {/* <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
-            className={inputCss}
             type="email"
             name="email"
             placeholder='Enter Email'
@@ -52,12 +52,13 @@ const MakersSignUpFetcherForm = (props: IProps) => {
             </p>
           ) : null}
         </div>
-        <div className='hidden'>
+        <div className='hidden bg-grey-100'>
           <input type="text" name='type' value='landing-page' readOnly className='hidden' />
         </div>
         <div className='flex'>
           <SubmitFetcherBtn
-            className='btn ring-offset-white'
+            className='btn btn-primary btn-lg btn-primary-ring btn-flex'
+            spinnerColors={spinnerColors.sageSolid}
             state={state}
             btnText={`${btnText || 'Send the Goods!'}`}
           />

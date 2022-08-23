@@ -84,7 +84,6 @@ export function rearrangeLicenses(licenses: ILicense[]): ILicense[] {
  * @function mapPostData
  * @tested - 6/7/2022
  * @description Map over POST data, filter and return a clean object
- * TODO: TEST CHECK NEW RESOURCES MAPPER
  *
  **/
 export function mapPostData(post: IPostRaw | {} = {}): IPost {
@@ -125,19 +124,12 @@ export function mapPostData(post: IPostRaw | {} = {}): IPost {
     })
   }
 
-  // if(data.downloadManager?.downloads){
-  //   modifiedData.downloadManager = data.downloadManager?.downloads.map(download => {
-  //     return download.downloadDetails
-  //   })
-  // }
-
   if (data.tutorialManager) {
     modifiedData.tutorialManager = {
       ...data.tutorialManager,
       resources: data.tutorialManager.resources ? mapPostResources(data.tutorialManager.resources) : []
     }
   }
-
 
   if (data.comments) {
     modifiedData.comments = {
@@ -485,8 +477,19 @@ export function removeLastItemFromArray(array: any[] | undefined) {
   }
 }
 
-// TODO: TEST THIS
-export function getResource({ resources, resourceName }: { resources: IPostResource[], resourceName: string }): IPostResource | null {
+export enum POST_RESOURCE_ENUMS {
+  PRODUCT = 'product',
+  COURSE = 'course',
+  DOWNLOAD = 'download',
+  SWATCH = 'colorSwatch'
+}
+
+/**
+ * 
+ * @function getResource 
+ * @tested - 08/22/2022 
+ */
+export function getResource({ resources, resourceName }: { resources: IPostResource[], resourceName: POST_RESOURCE_ENUMS }): IPostResource | null {
   let foundResource = null
   resources.forEach(resource => {
     const keys = Object.keys(resource)
@@ -497,7 +500,11 @@ export function getResource({ resources, resourceName }: { resources: IPostResou
   return foundResource
 }
 
-//TODO: TEST THIS
+/**
+ * 
+ * @function mapPostResources 
+ * @tested - 08/22/2022 
+ */
 export function mapPostResources(resources: IPostResource[]) {
   return resources.map((resource, index) => {
     const keys = Object.keys(resource)

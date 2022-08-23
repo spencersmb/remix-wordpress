@@ -13,7 +13,7 @@ describe('TuesdayMakers SignUp Modal', () => {
     const { queryByText, parent } = renderUi(
       <TuesdayMakersSignUpModal {...props} />
     )
-    expect(parent).toHaveTextContent('Join the Tuesday Makers')
+    expect(parent).toHaveTextContent('Join Tuesday Makers')
     expect(parent).toHaveTextContent('Get access to all the tutorial downloads for free. Plus, access our incredible library with over 200 assets!')
   })
   it('Should Show Confirmation Text + call testAnimation fn + call closeModal', () => {

@@ -35,27 +35,30 @@ const css = {
     height: 0,
     width: 0,
     zIndex: -1
-    }
+    },
+  '.btn-flex':{
+    flex: '1 1 0%',
+  }
 }
 const underlined = {
   ".underlineAnimation": {
-        content: "''",
-        height: '2px',
-        transform: 'scaleX(0)',
-        transitionDuration: '0.25s',
-        transitionTimingFunction: ' ease',
-        transformOrigin: 'left',
-        left: 0,
-        bottom: '-4px',
-        width: '100%',
-        display: 'block',
-        position: 'absolute',
+      content: "''",
+      height: '2px',
+      transform: 'scaleX(0)',
+      transitionDuration: '0.25s',
+      transitionTimingFunction: ' ease',
+      transformOrigin: 'left',
+      left: 0,
+      bottom: '-4px',
+      width: '100%',
+      display: 'block',
+      position: 'absolute',
+      backgroundColor: 'currentColor',
+      '&:hover':{
         backgroundColor: 'currentColor',
-        '&:hover':{
-          backgroundColor: 'currentColor',
-          transform: 'scaleX(1)',
-          display: 'inline-block'
-        }
+        transform: 'scaleX(1)',
+        display: 'inline-block'
+      }
   },
   ".underlined-active":{
     backgroundColor: 'currentColor',

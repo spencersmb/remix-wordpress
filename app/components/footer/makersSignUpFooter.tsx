@@ -20,7 +20,7 @@ const MakersFooterSignUp = () => {
     <div className="bg-sage-600 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto py-9 px-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
 
       {/* CONTENT */}
-      <div className="flex flex-col mt-[80%] ml-auto text-primary-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[53%] mb-[10px] laptop:mt-0 relative">
+      <div className="flex flex-col mt-[80%] ml-auto text-sage-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[53%] mb-[10px] laptop:mt-0 relative">
 
         {/* IMAGE */}
         <div className="absolute w-full top-[-60vw] left-[0px] max-w-[600px] mobileWide:top-[-360px] tablet:top-[-400px] tablet:left-[20px] laptop:max-w-[90%] laptop:top-[20px] laptop:left-[-96%] desktop:left-[-630px] desktop:top-[-69px] desktop:max-w-[600px] transform rotate-[349deg]">

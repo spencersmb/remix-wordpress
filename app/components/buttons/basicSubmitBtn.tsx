@@ -1,35 +1,33 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { classNames } from '@App/utils/appUtils'
+import { AnimatePresence, motion } from 'framer-motion'
+import React from 'react'
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 
 interface Props {
-  clickHandler: () => Promise<void> | void
   loading: boolean
-  text: string
-  loadingText: string
-  className?: string,
+  text?: string
   spinnerColors?: {
     bg: string
     fg: string
   },
+  loadingText?: string
+  className?: string
 }
-
 /**
- * Basic Outlined Button
  * 
- * @tested - 5/27/2022 
- *
+ * @function BasicSubmitBtn
+ * @tested - 8/22/2022
  */
-function OutlinedButton(props: Props) {
-  const { clickHandler, loading, text, loadingText = 'loading', className, spinnerColors } = props
+function BasicSubmitBtn(props: Props) {
+  const { loading, spinnerColors, className, text = 'Submit', loadingText = 'Loading' } = props
+
   return (
     <button
-      data-testid="button"
-      className={classNames(className ? className : 'btn btn-outline btn-lg mx-auto', '')}
-      aria-disabled={loading}
+      data-testid="submit-btn"
       disabled={loading}
-      onClick={clickHandler}>
-      {/* @ts-ignore */}
+      aria-disabled={loading}
+      type='submit'
+      className={classNames(className ? className : '', 'btn btn-primary btn-lg')}>
       <AnimatePresence>
         {loading &&
           <motion.span
@@ -57,4 +55,4 @@ function OutlinedButton(props: Props) {
   )
 }
 
-export default OutlinedButton
+export default BasicSubmitBtn

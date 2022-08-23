@@ -2,6 +2,7 @@
 /**
  * 
  * @function jsonLdWebsite 
+ * @tested - 08/22/2022
  * @tested googleIndex - https://search.google.com/test/rich-results
  */
 export function jsonLdWebsite(data: IjsonldWebProps): string{
@@ -27,33 +28,34 @@ export function jsonLdWebsite(data: IjsonldWebProps): string{
     }`
 }
 
+/**
+ * 
+ * @function jsonldImageObject 
+ * @tested - 08/22/2022
+ */
 export function jsonldImageObject ({pageUrl, image}: IjsonldImageProps): string {
 
   return `{
           "@context": "https://schema.org",
           "@type": "ImageObject",
-
           "@id": "${pageUrl}#primaryimage",
-
           "author": "Every Tuesday",
           "contentLocation": "Georgia, United States",
           "contentUrl": "${image.url}",
-
           "url": "${image.url}",
           "caption": "${image.altText}",
-
           "description": "${image.altText}",
-          
           "width": "1920",
           "height": "928",
-
           "name": "${image.altText}"
-        }
-        
-
       }`
 }
 
+/**
+ * 
+ * @function jsonldWebpage 
+ * @tested - 08/22/2022
+ */
 export function jsonldWebpage (props: IjsonldWebpage) {
   const {pageUrl, publishTime, modifiedTime, title, domain, description} = props
 
@@ -81,11 +83,15 @@ export function jsonldWebpage (props: IjsonldWebpage) {
       }`
 }
 
+/**
+ * 
+ * @function jsonldBlog 
+ * @tested - 08/22/2022
+ */
 export function jsonldBlog (props: IJsonldBlog): string{
   const {url, title, dateModified, datePublished, description} = props
   const images = props.images
-  return `
-  {
+  return `{
     "@context": "https://schema.org",
     "@type": "Blog",
     "mainEntityOfPage": {
@@ -98,36 +104,46 @@ export function jsonldBlog (props: IJsonldBlog): string{
     "dateModified": "${datePublished}",
     "author": {"@type": "Person","name": "Teela"},
     "description": "${description}"
-  }
-  `
+  }`
 }
 
+/**
+ * 
+ * @function jsonldProduct 
+ * @tested - 08/22/2022
+ */
 export function jsonldProduct (props: IJsonldProduct): string{
   const {url, product} = props
   const price = product.productDetails.licences && product.productDetails.licences.length >0 ? product.productDetails.licences[0].price : ''
   return `{
-  "@context": "http://schema.org/",
-  "@type": "Product",
-  "@id": "${product.slug}",
-  "url": "${url}",
-  "name": "${product.title}",
-  "image": "${product.featuredImage.node.sourceUrl}",
-  "description": "${product.seo.metaDesc}",
-  "brand": {
-    "name": "Every Tuesday"
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": ${price},
-     "availability": "http://schema.org/InStock",
-    "seller": {
-      "@type": "Organization",
-      "name": "Every Tuesday Shop"
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "@id": "${product.slug}",
+    "url": "${url}",
+    "name": "${product.title}",
+    "image": "${product.featuredImage.node.sourceUrl}",
+    "description": "${product.seo.metaDesc}",
+    "brand": {
+      "name": "Every Tuesday"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": ${price},
+      "availability": "http://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Every Tuesday Shop"
+      }
     }
   }`
 }
 
+/**
+ * 
+ * @function jsonldPerson 
+ * @tested - 08/22/2022
+ */
 export function jsonldPerson (props: IjsonldPersonProps) {
   const {author, domain, description} = props
   return `{
@@ -147,6 +163,11 @@ export function jsonldPerson (props: IjsonldPersonProps) {
       }`
 }
 
+/**
+ * 
+ * @function jsonBreadcrumbsList 
+ * @tested - 08/22/2022
+ */
 export function jsonBreadcrumbsList({breadcrumbList}: IBreadcrumbList): string{
   const itemListElements = breadcrumbList.map(breadcrumb => `{
     "@type": "ListItem",

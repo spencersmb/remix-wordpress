@@ -116,7 +116,7 @@ export const getImageSize = (postFeaturedImage: IFeaturedImage, name: string) =>
 
 /**
  * @function loadImageSrc 
- * @tested - TODO: TEST THiS added disableSrcSet
+ * @tested - 08/22/2022
  * Primary way to get a readable image object from the WP IMAGE OBJECT sent from the server to be used in the lazyImagebase component.
  * Default fallback image size to look for is LARGE and if that fallback is not found, it will load a grey placeholder image.
  * 
@@ -169,7 +169,7 @@ export const loadImageSrc = ({
 
   return {
     ...image,
-    srcSet: !disableSrcSet ? imageObject.srcSet : '',
+    srcSet: disableSrcSet ? '' : imageObject.srcSet,
     altTitle: imageObject.altText,
     sizes: imageObject.sizes,
     placeholder: !isEmpty(placeholder) ? placeholder.sourceUrl : fallbackImage.placeholder
@@ -283,7 +283,14 @@ export function checkWidthHeight(width: string | number, height: string | number
   }
 }
 
-//TODO: TEST THIS
+/**
+ * @function createImgixSizes
+ * @tested - 8/22/2022
+ * 
+ * @description Primary helepr function that is used for Imgix images to create the sizes and srcset attributes for either staticImages or manual image entry.
+ * 
+ * 
+ */
 export function createImgixSizes(image : CreateImgixParams ): 
 CreateImgixReturn {
   const {src, mobileSize, width, height, alt, staticImage, compress = false} = image
@@ -301,8 +308,8 @@ CreateImgixReturn {
     width: 1000,
     height: 888,
     alt,
-    src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
-    placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
+    src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
+    placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
   }
 
   if(staticImage){
@@ -311,8 +318,8 @@ CreateImgixReturn {
       width: staticImage.width,
       height: staticImage.height,
       alt,
-      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
-      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
     }
   }
 
@@ -323,11 +330,10 @@ CreateImgixReturn {
       width,
       height,
       alt,
-      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : null}`,
-      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : null}`
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
     }
   }
-
 
   return {
     image: newImage,

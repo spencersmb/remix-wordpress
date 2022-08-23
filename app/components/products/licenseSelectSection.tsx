@@ -54,7 +54,7 @@ function LicenseSelectSection(props: Props) {
         {licenseState && metadata.serverSettings.productPlatform === 'gumroad' &&
           <GumroadBtn
             text={buttonText}
-            className='py-[13px] font-normal text-center btn'
+            className=''
             url={licenseState.url} />
         }
 

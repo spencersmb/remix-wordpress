@@ -1,7 +1,6 @@
 import { siteInitialState } from "@App/hooks/useSite";
 import { fireEvent } from "@testing-library/react";
-import { renderUseSiteProviderUi, withTransitionsRender } from "@TestUtils/providerUtils";
-import { MemoryRouter } from "react-router";
+import { withTransitionsRender } from "@TestUtils/providerUtils";
 import TuesdayMakersPrimary from "../popOver/tuesdayMakersPrimary";
 import popOverMenuItems from "../popOver/popOverMenuItems";
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider";

@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react'
 import { defaultImages, loadImageSrc, loadThumbnailSrc } from '@App/utils/imageHelpers'
-import { findSkillLevel, formatDate, getResource } from '@App/utils/posts'
+import { findSkillLevel, formatDate, getResource, POST_RESOURCE_ENUMS } from '@App/utils/posts'
 import CircularStrokeBtn, { CircularStrokeLink } from '../buttons/circularStrokeBtn'
 import LazyImageBase from '../images/lazyImage-base'
 import BarChartSvg from '../svgs/barChartSvg'
@@ -38,7 +38,7 @@ function BlogFeaturedPost(props: Props) {
 
   const colorSwatch = getResource({
     resources: featuredPost.tutorialManager.resources,
-    resourceName: 'colorSwatch'
+    resourceName: POST_RESOURCE_ENUMS.SWATCH
   })
 
 
@@ -139,9 +139,15 @@ function BlogFeaturedPost(props: Props) {
 
         {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
 
-        <div className='mt-12'>
+        <div className='flex mt-5'>
 
-          <CircularStrokeLink href={`/${featuredPost.slug}`} text='View Post' classes="font-semibold py-[21px] px-[30px]" />
+          {/* <CircularStrokeLink href={`/${featuredPost.slug}`} text='View Post' classes="font-semibold py-[21px] px-[30px]" /> */}
+          <Link
+            data-testid="test-CircularStrokeBtn"
+            to={`/${featuredPost.slug}`}
+            className={`relative btn btn-primary btn-lg`}>
+            View Post
+          </Link>
 
         </div>
       </div>

@@ -117,4 +117,21 @@ describe('InputBase Component', () => {
     expect(input).toHaveProperty('required', true)
   })
 
+  test('Should have default value', () => {
+    const required = {
+      id: 'test-id',
+      name: 'test-name',
+      type: 'text',
+      placeholder: 'spencer',
+      className: 'custom-class',
+      onChange: handleChange,
+      invalid: false,
+      label: 'Test Label',
+      defaultValue: 'Star Wars'
+    }
+    const { getByLabelText } = renderUi(<InputBase {...required} />)
+    const input = getByLabelText(/Test Label/i)
+    expect(input).toHaveValue('Star Wars')
+  })
+
 })

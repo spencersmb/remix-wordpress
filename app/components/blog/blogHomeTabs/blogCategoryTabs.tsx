@@ -85,9 +85,9 @@ function BlogCategoryTabs(props: Props) {
   return (
     <SimpleTabsProvider>
 
-      <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-10 text-primary-400 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
+      <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
         <Tab
-          name={'topics'} className="flex-1 tablet:first:pr-7 tablet:flex-none">
+          name={'topics'} className="flex-1 first:pr-3 tablet:first:pr-7 tablet:flex-none">
           <TabLabel
             Svg={GridSvg}
             iconFillType={'stroke'}
@@ -105,7 +105,7 @@ function BlogCategoryTabs(props: Props) {
 
       <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
         <TabContent id={'topics'} index={0}>
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap gap-2">
             {categories.map(cat => (
               <PillBase
                 selected={category === cat.slug}
@@ -117,7 +117,7 @@ function BlogCategoryTabs(props: Props) {
           </div>
         </TabContent>
         <TabContent id={'difficulty'} index={1}>
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap gap-2">
             {skillLevels.map(cat => (
               <PillBase
                 selected={category === cat.slug}

@@ -1,9 +1,10 @@
 import { LicenseEnum } from "@App/enums/products"
 import { mockPostCommentRaw } from "@TestUtils/mock-data/comments"
 import { mockCourse, mockCourseRaw } from "@TestUtils/mock-data/courses"
-import { mockCategories_skill_adv, mockCategories_skill_int, mockCategories_skill_none, mockPostRaw, mockPostRawFormatted } from "@TestUtils/mock-data/posts"
-import { mockExtendedLicense, mockServerLicense, mockStandardLicense } from "@TestUtils/mock-data/products"
-import { checkTitleForBrackets, filterCategories, filterNodeFromTags, findSkillLevel, findString, flattenAllCourses, flattenAllPosts, formatDate, getLicense, mapCourseData, mapPostData, parseComment, parseStringForSpecialCharacters, rearrangeLicenses, removeLastItemFromArray, splitProgramNameInTitle } from "../posts"
+import { mockFeaturedImage } from "@TestUtils/mock-data/images"
+import { mockCategories_skill_adv, mockCategories_skill_int, mockCategories_skill_none, mockPostRaw, mockPostRawFormatted, mockPostResources, mockPostResource__ColorSwatch, mockPostResource__Course, mockPostResource__Download, mockPostResource__Product } from "@TestUtils/mock-data/posts"
+import { mockExtendedLicense, mockPaidProduct, mockServerLicense, mockStandardLicense } from "@TestUtils/mock-data/products"
+import { checkTitleForBrackets, filterCategories, filterNodeFromTags, findSkillLevel, findString, flattenAllCourses, flattenAllPosts, formatDate, getLicense, getResource, mapCourseData, mapPostData, mapPostResources, parseComment, parseStringForSpecialCharacters, POST_RESOURCE_ENUMS, rearrangeLicenses, removeLastItemFromArray, splitProgramNameInTitle } from "../posts"
 
 describe('Utils: Post Utilities', () => {
 
@@ -267,5 +268,82 @@ describe('Utils: Post Utilities', () => {
       const result = removeLastItemFromArray(undefined)
       expect(result.modifiedArray).toEqual(null)
       expect(result.lastElement).toEqual(null)
+  })
+
+  it('getResource() Should return PRODUCT resourceItem', () => {
+    const result = getResource({
+      resources: mockPostResources,
+      resourceName: POST_RESOURCE_ENUMS.PRODUCT
+    })
+    expect(result).toEqual(mockPostResource__Product)
+  })
+
+  it('getResource() Should return COURSE resourceItem', () => {
+    const result = getResource({
+      resources: mockPostResources,
+      resourceName: POST_RESOURCE_ENUMS.COURSE
+    })
+    expect(result).toEqual(mockPostResource__Course)
+  })
+
+  it('getResource() Should return DOWNLOAD resourceItem', () => {
+    const result = getResource({
+      resources: mockPostResources,
+      resourceName: POST_RESOURCE_ENUMS.DOWNLOAD
+    })
+    expect(result).toEqual(mockPostResource__Download)
+  })
+
+  it('getResource() Should return SWATCH resourceItem', () => {
+    const result = getResource({
+      resources: mockPostResources,
+      resourceName: POST_RESOURCE_ENUMS.SWATCH
+    })
+    expect(result).toEqual(mockPostResource__ColorSwatch)
+  })
+
+  it('mapPostResources()', () => {
+    const result = mapPostResources(mockPostResources)
+    const answer = [      {
+        description: mockPostResource__Product.description,
+        product: {
+          ...mockPaidProduct,
+          productDetails: {
+            font:{
+              name: "Arial",
+            },
+            title: "Beautiful Lettering Brush Set",
+            productContent:{
+              description: null,
+              productfeatureimage: {
+                ...mockFeaturedImage
+              },
+              subtitle:null,
+            },
+            youtube:{
+              url: ''
+            },
+            licences: [
+              {
+                licenseType: LicenseEnum.STANDARD,
+                price: 15,
+                url: "https://gum.co/beautiful-lettering"
+              },
+              {
+                licenseType: LicenseEnum.EXTENDED,
+                price: 30,
+                url: "https://gum.co/beautiful-lettering-extended"
+              },
+
+            ]
+          }
+        }
+      },
+      mockPostResource__Course,
+      mockPostResource__ColorSwatch,
+      mockPostResource__Download,
+
+    ]
+    expect(result).toEqual(answer)
   })
 })

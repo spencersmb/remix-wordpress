@@ -1,8 +1,9 @@
 import { ImageSizeEnums } from "@App/enums/imageEnums"
+import { staticImages } from "@App/lib/imgix/data"
 import { cleanup } from "@testing-library/react"
 import { mockFeatureImageComplete } from "@TestUtils/mock-data/images"
 import { mockTutorailManager__default } from "@TestUtils/mock-data/posts"
-import { checkForPx, checkWidthHeight, defaultImages, getImageSize, loadImageSrc, loadThumbnailSrc } from "../imageHelpers"
+import { checkForPx, checkWidthHeight, createImgixSizes, defaultImages, getImageSize, loadImageSrc, loadThumbnailSrc } from "../imageHelpers"
 
 /**
  * @jest-environment node
@@ -112,6 +113,28 @@ describe('Utils: Image Helpers', () => {
       sizes: '',
       name: 'fallback',
       placeholder: 'https://et-website.imgix.net/defaultImages/default-featured.jpg?w=20&h=20&fit=crop&crop=faces&auto=compress&q=80'
+    }
+    expect(imageSource).toEqual(result)
+  })
+
+  it('loadImageSrc() should disable srcSet on Image Return Object', () => {
+    const imageSource = loadImageSrc({
+      imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+      imageObject: mockFeatureImageComplete, // the featured image object,
+      fallbackSize: ImageSizeEnums.SMALL, // fallback size to use if the image name doesn't exist
+      disableSrcSet: true, // disable the srcSet on the image return object
+    })
+    const result: ImageLookupReturn = {
+      width: '1440',
+      height: '810',
+      altTitle: 'Create Candy Cane Lettering in Procreate',
+      sourceUrl: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1440x810.jpg",
+      srcSet: '',
+      file: "create-candy-cane-lettering-in-procreate-hero-1440x810.jpg",
+      sizes: "(max-width: 500px) 100vw, 500px",
+      name: 'headless_post_feature_image',
+      mimeType: "image/jpeg",
+      placeholder: "https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg"
     }
     expect(imageSource).toEqual(result)
   })
@@ -241,6 +264,68 @@ describe('Utils: Image Helpers', () => {
     expect(image).toEqual(result)
   })
 
+  it('createImgixSizes() Should return a imgix object for manually', () => {
+    const imgix = createImgixSizes({
+      width: 1400,
+      height: 1049,
+      alt: `Every Tuesday IPad Art`,
+      src: 'https://et-teachable.imgix.net/procreate601/class-projects.jpg',
+      mobileSize: 800
+    })
+
+    const keys = Object.keys(imgix)
+    expect(keys.length).toEqual(2)
+    expect(keys).toContain('image')
+    expect(keys).toContain('defaultSrc')
+    expect(imgix.image.alt).toEqual(`Every Tuesday IPad Art`)
+    expect(imgix.image.src).toEqual('https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=800&fit=clip')
+    expect(imgix.defaultSrc).toEqual('https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format')
+    expect(imgix.image.width).toEqual(1400)
+    expect(imgix.image.height).toEqual(1049)
+    expect(imgix.image.placeholder).toEqual('https://et-teachable.imgix.net/procreate601/class-projects.jpg?auto=format&w=20&fit=clip')
+  })
+
+  it('createImgixSizes() Should return a imgix object for STATICIMAGE DATA', () => {
+    const imgix = createImgixSizes({
+      width: 800,
+      height: 1367,
+      alt: `Every Tuesday: Teelas profile picture`,
+      src: staticImages.profiles.teela.vertical.src,
+      mobileSize: 600,
+    })
+
+    const keys = Object.keys(imgix)
+    expect(keys.length).toEqual(2)
+    expect(keys).toContain('image')
+    expect(keys).toContain('defaultSrc')
+    expect(imgix.image.alt).toEqual(`Every Tuesday: Teelas profile picture`)
+    expect(imgix.image.src).toEqual('https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=600&fit=clip')
+    expect(imgix.defaultSrc).toEqual('https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format')
+    expect(imgix.image.width).toEqual(800)
+    expect(imgix.image.height).toEqual(1367)
+    expect(imgix.image.placeholder).toEqual('https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=20&fit=clip')
+  })
+
+  it('createImgixSizes() Should return a DEFAULT imgix object ', () => {
+    const imgix = createImgixSizes({
+      alt: `Every Tuesday: Teelas profile picture`,
+      mobileSize: 600,
+    })
+
+    const keys = Object.keys(imgix)
+    expect(keys.length).toEqual(2)
+    expect(keys).toContain('image')
+    expect(keys).toContain('defaultSrc')
+    expect(imgix.image.alt).toEqual(`Every Tuesday: Teelas profile picture`)
+    expect(imgix.image.src).toEqual('https://et-website.imgix.net/defaultImages/default-thumb.jpg?auto=format&w=600&fit=clip')
+    expect(imgix.defaultSrc).toEqual('https://et-website.imgix.net/defaultImages/default-thumb.jpg?auto=format')
+    expect(imgix.image.width).toEqual(1000)
+    expect(imgix.image.height).toEqual(888)
+    expect(imgix.image.placeholder).toEqual('https://et-website.imgix.net/defaultImages/default-thumb.jpg?auto=format&w=20&fit=clip')
+  })
+
+
+
   // MUST BE AT THE END BECAUSE FUNCTION USES DELETE TO REMOVE A KEY
   it('loadThumbnailSrc() Should load correct Post thumbnail preview', () => {
     const imageSource = loadImageSrc({
@@ -274,6 +359,7 @@ describe('Utils: Image Helpers', () => {
     }
     expect(image).toEqual(result)
   })
+
 
 
 })

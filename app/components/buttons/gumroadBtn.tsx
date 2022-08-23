@@ -1,5 +1,5 @@
 import { classNames } from '@App/utils/appUtils'
-import { formatePrice } from '@App/utils/priceUtils.server'
+import { formatePrice as formatePriceServer } from '@App/utils/priceUtils.server'
 import { formatePriceClient } from '@App/utils/productPageUtils'
 
 interface Props {
@@ -19,32 +19,31 @@ interface Props {
 function GumroadBtn(props: Props) {
   const { price, url, className, text } = props
 
-  const formatPrice = price ? formatePriceClient(price, true) : null
+  // function format(localPrice: number, removeZeros: boolean = false) {
+  //   if (removeZeros) {
+  //     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(localPrice).replace(/(\.0*|(?<=(\..*))0*)$/, '');
+  //   }
+  //   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(localPrice)
+  // }
+
+  const formatPrice = price
+    ? formatePriceClient(price, true)
+    : null
 
   return (
     <a
       data-testid='test-GumroadBtn'
-      className={classNames(className ? className : 'btn btn-teal font-normal justify-between', 'flex text-lg px-5')}
+      className={classNames(className ? className : 'btn btn-xl btn-primary btn-flex', 'flex')}
       href={url}>
       <span>{text ? text : 'Buy Now'}</span>
       {formatPrice &&
         <span
           data-testid="price"
-          className="text-2xl font-sentinel__SemiBoldItal">
+          className="ml-4 text-2xl font-sentinel__SemiBoldItal leading-[1]">
           {formatPrice}
         </span>
       }
     </a>
-    // <a
-    //   data-testid='test-GumroadBtn'
-    //   className={classNames(className ? className : 'btn btn-teal font-normal justify-between', 'flex text-lg px-5')}
-    //   href={url}>
-    //   <span>{text ? text : 'Buy Now'}</span>
-    //   {price &&
-    //     <span
-    //       data-testid="price"
-    //       className="text-2xl font-sentinel__SemiBoldItal">{formatePrice(price, true)}</span>}
-    // </a>
   )
 }
 export default GumroadBtn

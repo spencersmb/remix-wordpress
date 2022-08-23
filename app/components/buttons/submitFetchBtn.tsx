@@ -3,16 +3,21 @@ interface IProps {
   btnText?: string
   className?: string
   state: FetcherState
+  spinnerColors?: {
+    bg: string
+    fg: string
+  }
 }
 
 /**
  * Submit Fetcher Form Button with a spinner
  * 
  * @tested - 5/27/2022 
- *
+ *  
  */
+
 function SubmitFetcherBtn(props: IProps) {
-  const { className, state, btnText = 'My Button' } = props
+  const { className, state, spinnerColors, btnText = 'My Button' } = props
   // console.log('transition', transition);
   if (!state) {
     return null;
@@ -30,7 +35,7 @@ function SubmitFetcherBtn(props: IProps) {
       aria-disabled={state === "submitting" || state === "loading"}
       type='submit'
       className={` ${className ? className : 'btn'}`}>
-      {(state === "submitting" || state === "loading") && <TwSpinnerOne />}
+      {(state === "submitting" || state === "loading") && <TwSpinnerOne loaderColors={spinnerColors} />}
       {text}
     </button>
   )

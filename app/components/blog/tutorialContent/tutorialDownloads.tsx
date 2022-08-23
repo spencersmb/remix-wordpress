@@ -82,7 +82,7 @@ function TutorialDownloads(props: Props) {
           </p>
           <div className='flex flex-row items-center mt-3 mb-6 button_container'>
             <div className='mr-4'>
-              <button data-testid="subscribe-btn" type='button' onClick={handleSignupClick} className='btn btn-secondary hover:ring-offset-sage-700 active:ring-offset-primary-600'>Subscribe</button>
+              <button data-testid="subscribe-btn" type='button' onClick={handleSignupClick} className='btn btn-secondary btn-secondary-ring btn-lg'>Subscribe</button>
             </div>
             <div>
               <p className='text-sm italic'>

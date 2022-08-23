@@ -1,3 +1,4 @@
+import { spinnerColors } from "@App/components/spinners/spinnerColors"
 import type { Transition } from "@remix-run/react/transition"
 import { render, screen } from "@testing-library/react"
 import SubmitBtn from "../submitBtn"
@@ -13,6 +14,7 @@ describe('Submit Btn Component', () => {
     transition: idleTransition,
   }
   const submittingState = {
+    spinnerColors: spinnerColors.sageOutline,
     transition: {
       state: "submitting",
       type: "actionSubmission",
@@ -55,6 +57,11 @@ describe('Submit Btn Component', () => {
     expect(btn).toBeDisabled()
     expect(btn).toHaveTextContent('Processing...')
     expect(spinner).toBeInTheDocument()
+
+    const children = spinner?.children
+    expect(children?.length).toBe(2)
+    expect(children?.[0]).toHaveAttribute('stroke', 'var(--sage-200)')
+    expect(children?.[1]).toHaveAttribute('fill', 'var(--sage-700)')
 
   })
   it('Should show completed state', () => {

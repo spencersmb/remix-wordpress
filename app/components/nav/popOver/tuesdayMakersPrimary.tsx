@@ -113,13 +113,13 @@ export default function TuesdayMakersPopOver() {
                       <Link
                         to={'/tuesday-makers'}
                         prefetch={'intent'}
-                        className="px-3 py-3 transition duration-300 ease-in-out btn btn-sage-600 bg-sage-500 ring-offset-0 ring-0 hover:ring-0 hover-ring-offset-0 hover-ring-0">
+                        className="btn btn-primary btn-flex">
                         Sign Up
                       </Link>
                       <Link
                         prefetch={'intent'}
                         to={'/tuesday-makers/login'}
-                        className="py-2 transition duration-300 border-3 text-grey-600 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-grey-300 hover:ring-0 hover:ring-offset-0 hover:border-grey-600 bg-grey-100 hover:text-sage-700 hover:border-3 hover:bg-grey-100">
+                        className="btn btn-outlineFill btn-flex">
                         Login
                       </Link>
                     </>}

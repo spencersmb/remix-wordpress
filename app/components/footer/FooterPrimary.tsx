@@ -6,7 +6,11 @@ interface IProps {
   hideSignUp?: boolean
 }
 
-// TODO: TEST NEW SIGNUP PROP
+/**
+ * 
+ * @function FooterPrimary 
+ * @tested - 8/22/2022 
+ */
 function FooterPrimary({ hideSignUp = false }: IProps) {
   const { state: { user: { resourceUser } } } = useSite()
 

@@ -4,6 +4,7 @@ import type { Transition } from '@remix-run/react/transition'
 import type { FormProps } from '@remix-run/react'
 import InputBase from '../input/inputBase'
 import SubmitBtn from '@App/components/buttons/submitBtn'
+import { spinnerColors } from '@App/components/spinners/spinnerColors'
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
@@ -75,7 +76,8 @@ function MakersSignUpForm(props: Props) {
         </div>
         <div className='flex'>
           <SubmitBtn
-            className='btn ring-offset-sage-600'
+            spinnerColors={spinnerColors.yellowSolid}
+            className='btn btn-secondary btn-lg btn-secondary-ring'
             transition={transition}
             btnText='Send the Goods!'
           />

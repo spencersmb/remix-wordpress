@@ -1,7 +1,7 @@
 import { ShopPlatformEnum } from "@App/enums/products"
 import type { Location } from "history"
 import { mockFeaturedImage, mockFeatureImageComplete } from "./images"
-import { mockGenericProduct, mockPaidProduct } from "./products"
+import { mockExtendedLicense, mockGenericProduct, mockPaidProduct, mockStandardLicense } from "./products"
 
 export const mockTutorailManager__default: ITutorialManager = {
   resources:[],
@@ -2894,3 +2894,40 @@ export const mockSearchPost: SearchPostResult = {
     tutorialManager: mockTutorailManager__default
 }
 
+export const mockPostResource__Product = {
+  description: "Get ready to elevate your lettering with this single set (24 brushes total!)",
+  product: mockPaidProduct
+}
+
+export const mockPostResource__Course = {
+  description: "Learn how to digitally paint and print messy watercolor artwork in Procreate",
+  course: {
+    link: "https://etheadless.local/courses/watercolor-florals-in-procreate/",
+    slug: "watercolor-florals-in-procreate",
+    title: "Watercolor Florals in Procreate",
+    details: {
+      courseUrl: "https://learn.etheadlessdev.wpengine.com/watercolor-florals-in-procreate/"
+    }
+  }
+}
+
+export const mockPostResource__Download = {
+  download: {
+    description: 'Download',
+    name: "Test",
+    url: 'https://etheadless.local/downloads/test'
+  }
+}
+
+export const mockPostResource__ColorSwatch = {
+  colorSwatch: {
+    url: "https://dribbble.com/haloweb"
+  }
+}
+
+export const mockPostResources = [
+  mockPostResource__Product,
+  mockPostResource__Course,
+  mockPostResource__ColorSwatch,
+  mockPostResource__Download
+]

@@ -1,4 +1,6 @@
+import BasicSubmitBtn from '@App/components/buttons/basicSubmitBtn';
 import SignUpSuccess from '@App/components/modals/signUpSuccess';
+import { spinnerColors } from '@App/components/spinners/spinnerColors';
 import useSite from '@App/hooks/useSite';
 import { classNames } from '@App/utils/appUtils';
 import { Form, useActionData, useTransition } from '@remix-run/react';
@@ -96,15 +98,23 @@ function TmSignupForm(props: Props) {
               placeholder="Your last name here" />
           </label>
 
-          <button
+          <BasicSubmitBtn
+            loading={transition.state !== 'idle' && transition.state === 'submitting'}
+            loadingText="Submitting..."
+            text='Sign Up'
+            spinnerColors={spinnerColors.sageSolid}
+            className={flexRow
+              ? `btn-primary-ring btn-flex tablet:ml-4` : `btn-primary-ring btn-flex`}
+          />
+          {/* <button
             disabled={transition.state !== 'idle'}
             aria-disabled={transition.state !== 'idle'}
             type='submit'
             className={classNames(flexRow
               ? 'tablet:ml-4'
-              : '', 'btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 tablet:max-h-[56px] tablet:flex-1')}>
+              : '', 'btn btn-primary btn-lg btn-primary-ring')}>
             {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
-          </button>
+          </button> */}
 
         </Form>
       </div>

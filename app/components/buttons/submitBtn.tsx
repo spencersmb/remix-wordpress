@@ -4,16 +4,20 @@ interface IProps {
   transition: Transition
   btnText?: string
   className?: string
+  spinnerColors?: {
+    bg: string
+    fg: string
+  },
 }
 
 /**
  * Submit Button with a spinner
  * 
- * @tested - 5/27/2022 
+ * @tested - 8/22/2022
  *
  */
 function SubmitBtn(props: IProps) {
-  const { className, transition, btnText = 'My Button' } = props
+  const { className, transition, spinnerColors, btnText = 'My Button' } = props
   // console.log('transition', transition);
   if (!transition) {
     return null;
@@ -26,7 +30,6 @@ function SubmitBtn(props: IProps) {
   const isPending =
     transition.state === "loading" &&
     transition.location
-
   const text =
     transition.state === "submitting"
       ? 'Processing...'
@@ -41,8 +44,10 @@ function SubmitBtn(props: IProps) {
       aria-disabled={transition.state === "submitting" || transition.state === "loading"}
       type='submit'
       className={` ${className ? className : 'btn'}`}>
-      {(transition.state === "submitting" && Boolean(!isPending)) && <TwSpinnerOne />}
-      {text}
+      {(transition.state === "submitting" && Boolean(!isPending)) && <TwSpinnerOne loaderColors={spinnerColors} />}
+      <span className={transition.state === "submitting" && Boolean(!isPending) ? 'ml-3' : ''}>
+        {text}
+      </span>
     </button>
   )
 }

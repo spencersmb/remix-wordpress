@@ -18,6 +18,7 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { HeadersFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { cacheControl } from "@App/lib/remix/loaders";
+import { spinnerColors } from "@App/components/spinners/spinnerColors";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -431,6 +432,7 @@ function BlogIndex() {
         <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {category === 'all' && state.pageInfo.hasNextPage &&
             <OutlinedButton
+              spinnerColors={spinnerColors.sageOutline}
               clickHandler={fetchMorePosts}
               text='View More'
               loadingText="Loading"
@@ -440,6 +442,7 @@ function BlogIndex() {
 
           {category !== 'all' && state.categories[category] && state.categories[category].pageInfo.hasNextPage &&
             <OutlinedButton
+              spinnerColors={spinnerColors.sageOutline}
               clickHandler={fetchMoreCategories}
               text='View More'
               loadingText="Loading"

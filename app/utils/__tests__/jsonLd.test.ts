@@ -17,22 +17,23 @@ describe('JSONLD tests', () => {
   }
   const jsonld = jsonLdWebsite(params)
   const result = `{
-    '@context': 'https://schema.org',
-    '@graph': [{
-      '@type': 'WebSite',
-      '@id': '${params.domain}/#website',
-      'url': '${params.domain}',
-      'name': '${params.siteTitle}',
-      'description': ${params.description},
-      'potentialAction': [{
-        '@type': 'SearchAction',
-        'target': {
-          '@type': 'EntryPoint', 
-          'urlTemplate': '${params.domain}/?s={search_term_string}'
+    "@context": "https://schema.org",
+    "@graph": [{
+      "@type": "WebSite",
+      "@id": "${params.domain}/#website",
+      "url": "${params.domain}",
+      "name": "${params.siteTitle}",
+      "description": "${params.description}",
+      "potentialAction": [{
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint", 
+          "urlTemplate": "${params.domain}/?s={search_term_string}"
           },
-        'query-input': 'required name=search_term_string'
+        "query-input": "required name=search_term_string"
       }],
-      'inLanguage': 'en-US'
+      "inLanguage": "en-US"
+    }]
     }`
 
   expect(jsonld).toEqual(result)
@@ -51,17 +52,21 @@ describe('JSONLD tests', () => {
     const jsonld = jsonldImageObject(params)
     const {image, pageUrl} = params
     const result = `{      
-        '@type': 'ImageObject',
-        '@id': '${pageUrl}#primaryimage',
-        'inLanguage': 'en-US',
-        'url': '${image.url}',
-        'contentUrl': '${image.url}',
-        'width': 1920,
-        'height': 928,
-        'caption': '${image.altText}'
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        "@id": "${pageUrl}#primaryimage",
+        "author": "Every Tuesday",
+        "contentLocation": "Georgia, United States",
+        "contentUrl": "${image.url}",
+        "url": "${image.url}",
+        "caption": "${image.altText}",
+        "description": "${image.altText}",
+        "width": "1920",
+        "height": "928",
+        "name": "${image.altText}"
       }`
 
-    expect(jsonld).toEqual(result)
+    expect(jsonld.replace(/ /g, '')).toEqual(result.replace(/ /g, '') )
   })
 
   it('Should load correct jsonldWebpage SEO', () => {
@@ -76,25 +81,29 @@ describe('JSONLD tests', () => {
     const jsonld = jsonldWebpage(params)
     const {pageUrl, publishTime, modifiedTime, title, domain, description} = params
     const result = `{
+        "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "${pageUrl}#webpage",
-        "url": "${pageUrl}",
         "name": "${title}",
-        "isPartOf": {"@id": "${domain}#website"},
+        "url": "${pageUrl}",
         "primaryImageOfPage": {"@id": "${pageUrl}#primaryimage"},
-        ${publishTime ? `"datePublished": "${publishTime}"` : '' }
-        ${modifiedTime ? `"dateModified": "${modifiedTime}"` : '' }
+        ${publishTime ? `"datePublished": "{${publishTime}"},` : '' }
+        ${modifiedTime ? `"dateModified": "{${modifiedTime}"},` : '' }
         "author": {"@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb"},
         "description": "${description}",
         "breadcrumb": {"@id": "${pageUrl}#breadcrumb"},
-        "inLanguage": "en-US",
         "potentialAction": [{
           "@type": "ReadAction",
           "target": ["${pageUrl}"]
-        }]
+        }],
+        "publisher": {
+            "@type": "Organization",
+            "name": "Every Tuesday",
+            "url": "https://every-tuesday.com",
+        },
+        "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
       }`
 
-    expect(jsonld).toEqual(result)
+    expect(jsonld.replace(/ /g, '')).toEqual(result.replace(/ /g, '') )
   })
 
   it('Should load correct JsonldBlog SEO', () => {
@@ -112,24 +121,22 @@ describe('JSONLD tests', () => {
     }
     const jsonld = jsonldBlog(params)
     const {author,dateModified,datePublished,description,images,title,url} = params
-    const result = `
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "${url}"
-    },
-    "headline": "${title}",
-    "image": ${images},
-    "datePublished": "${dateModified}",
-    "dateModified": "${datePublished}",
-    "author": {"@type": "Person","name": "Teela"},
-    "description": "${description}"
-  }
-  `
+    const result = `{
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "${url}"
+      },
+      "headline": "${title}",
+      "image": "${images}",
+      "datePublished": "${dateModified}",
+      "dateModified": "${datePublished}",
+      "author": {"@type": "Person","name": "Teela"},
+      "description": "${description}"
+    }`
 
-    expect(jsonld).toEqual(result)
+    expect(jsonld.replace(/ /g, '')).toEqual(result.replace(/ /g, '') )
   })
 
   it('Should load correct jsonldProduct SEO', () => {
@@ -148,11 +155,10 @@ describe('JSONLD tests', () => {
         seo: mockPaidProduct.seo,
         slug: mockPaidProduct.slug,
         title: mockPaidProduct.title,
-      
-
       }
     }
     const jsonld = jsonldProduct(params)
+    const price = params.product.productDetails.licences && params.product.productDetails.licences.length >0 ? params.product.productDetails.licences[0].price : ''
     const {images,url,shopPlatform,product} = params
     const result =  `{
       "@context": "http://schema.org/",
@@ -168,13 +174,14 @@ describe('JSONLD tests', () => {
       "offers": {
         "@type": "Offer",
         "priceCurrency": "USD",
-        "price": ${product.productDetails.licences[0].price},
+        "price": ${price},
         "availability": "http://schema.org/InStock",
         "seller": {
           "@type": "Organization",
           "name": "Every Tuesday Shop"
         }
-      }`
+      }
+    }`
 
     expect(jsonld.replace(/ /g, '')).toEqual(result.replace(/ /g, '') )
   })
