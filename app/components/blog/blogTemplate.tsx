@@ -121,7 +121,8 @@ function BlogTemplate(props: IProps) {
 
   // console.log('tutorialManagerObj', tutorialManagerObj.resources);
 
-  const [tutorialMin, tutorialSeconds] = post.tutorialManager.youtube.duration.split(':')
+  const [tutorialMin, tutorialSeconds] = post.tutorialManager.youtube.duration
+    ? post.tutorialManager.youtube.duration.split(':') : ['00', '00']
 
   const author = createImgixSizes({
     width: 200,
