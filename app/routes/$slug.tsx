@@ -87,11 +87,11 @@ query postBySlug($slug: String!) {
         slug
         isSticky
         seo{
-            title
-            opengraphPublishedTime
-            opengraphModifiedTime
-            metaDesc
-            readingTime
+          title
+          opengraphPublishedTime
+          opengraphModifiedTime
+          metaDesc
+          readingTime
         }
         author {
             node {
@@ -132,6 +132,7 @@ query postBySlug($slug: String!) {
         }
         tutorialManager {
           postExcerpt
+          quickSummary
           thumbnail {
             image {
               altText
@@ -155,8 +156,23 @@ query postBySlug($slug: String!) {
             }
           }
           youtube {
-              embedUrl
               id
+              addVideoMetadata
+              duration
+              videoObject {
+                description
+                uploadDate
+                thumbnailUrl
+                clipElements {
+                  name
+                  startOffset
+                  endOffset
+                }
+                potentialActions{
+                  name
+                  startOffset
+                }
+              }
           }
           downloads {
             ... on ResourceLibrary {

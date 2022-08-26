@@ -216,9 +216,18 @@ interface IPostResourceObject {
 // | IPostResourceCourse 
 // | IPostResourceColorSwatch 
 // | IPostResourceDownload
-
+interface IClipElements {
+  name: string
+  startOffset: string
+  endOffset: string
+}
+interface IPotentialActions {
+  name: string
+  startOffset: string
+}
 interface ITutorialManager {
   status: string
+  quickSummary: string
   thumbnail:{
     type: string
     image: IFeaturedImage | null
@@ -230,8 +239,16 @@ interface ITutorialManager {
     }
   }[] | null
   youtube: {
-    embedUrl: string
     id: string | undefined
+    addVideoMetadata: boolean | null
+    duration: string
+    videoObject: {
+      description: string
+      uploadDate: string
+      thumbnailUrl: string
+      clipElements: IClipElements[]
+      potentialActions: IPotentialActions[]
+    }
   }
   postExcerpt: string | null
   resources:IPostResource[]
@@ -355,4 +372,23 @@ interface ICommentResponse {
 interface IGQLError{
   message: string
   path: string[]
+}
+interface IVideoObject {
+  //required
+    description: string
+    name: string
+    thumbnailUrl: string
+    uploadDate: string
+
+    //Recommended
+    // contentUrl: string
+    duration: string //The duration of the video in ISO 8601 format. For example, PT00H30M5S represents a duration of "thirty minutes and five seconds".
+    embedUrl: string //The EMBED URL of the video.
+    url: string //The URL of the video.
+    clipElements: IClipElements[]
+    potentialActions: IPotentialActions[] | null
+}
+interface IJsonldVideo {
+  videoObject: IVideoObject,
+  person: string
 }

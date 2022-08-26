@@ -8,10 +8,11 @@ interface IEnv {
 
 declare interface Window {
   ENV: IEnv
+  GumroadOverlay: any
 }
 
 declare global {
-    interface Window { ENV: IEnv }
+    interface Window { ENV: IEnv, GumroadOverlay: any }
 }
 
 interface IRootData {

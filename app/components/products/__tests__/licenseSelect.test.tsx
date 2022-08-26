@@ -56,7 +56,7 @@ describe('License Select Component', () => {
   it('Should show License Radio Select + Gumroad Btn', () => {
     const { queryByTestId } = setup(mockPaidProduct)
     const licenseRadioSelect = queryByTestId('license-radio-select')
-    const gumroadBtn = queryByTestId('test-GumroadBtn')
+    const gumroadBtn = queryByTestId('test-GumroadBtn-buy')
     expect(licenseRadioSelect).toBeTruthy()
     expect(gumroadBtn).toBeTruthy()
   })

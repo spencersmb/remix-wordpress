@@ -1,7 +1,7 @@
 import { Scripts, useLoaderData, useLocation, useMatches } from "@remix-run/react";
 import type { IEnv } from "@App/interfaces/global";
 import type { ISelectedMatch } from "@App/interfaces/remix";
-import { jsonLdWebsite, jsonldImageObject, jsonldWebpage, jsonldPerson, jsonBreadcrumbsList, jsonldBlog, jsonldProduct } from "@App/utils/jsonLd";
+import { jsonLdWebsite, jsonldImageObject, jsonldWebpage, jsonldPerson, jsonBreadcrumbsList, jsonldBlog, jsonldProduct, jsonVideoObject } from "@App/utils/jsonLd";
 import { defaultFeaturedImage } from "@App/lib/wp/site";
 
 interface IRootData {
@@ -28,6 +28,7 @@ const JsonLd = () => {
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
   let product: any = selectedMatch?.data?.product
+  let videoObject: IVideoObject | null = null
 
   let breadcrumbList = [
     {
@@ -44,6 +45,7 @@ const JsonLd = () => {
     height: 928,
     name: "Every Tuesday iPad Art"
   }
+
   let jsonWebpageSettings: IjsonldWebpage = {
     title: metadata.title,
     domain: metadata.domain,
@@ -72,6 +74,25 @@ const JsonLd = () => {
         item: `${metadata.domain}${location.pathname}`
       }
     )
+
+    if (post.tutorialManager.youtube.addVideoMetadata) {
+      const id = post.tutorialManager.youtube.id
+      const youtube = {
+        ...post.tutorialManager.youtube.videoObject,
+        duration: post.tutorialManager.youtube.duration
+      }
+      videoObject = {
+        name: post.title,
+        description: youtube.description,
+        thumbnailUrl: 'https://i.ytimg.com/vi/4ewfn5Y8_Xs/maxresdefault.jpg',
+        duration: youtube.duration, // PT15M36S
+        embedUrl: `https://www.youtube.com/embed/${id}`,
+        uploadDate: youtube.uploadDate,
+        url: `https://www.youtube.com/watch?v=${id}`,
+        clipElements: youtube.clipElements,
+        potentialActions: youtube.potentialActions
+      }
+    }
   }
 
   if (page) {
@@ -127,17 +148,28 @@ const JsonLd = () => {
       }} />
 
       {/*JsonLd Blog*/}
-      {post && <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: jsonldBlog({
-          url: `${metadata.domain}${location.pathname}`,
-          images: [
-            `${post.featuredImage?.sourceUrl}` // need default image
-          ],
-          datePublished: post.seo.opengraphPublishedTime,
-          dateModified: post.seo.opengraphModifiedTime,
-          author: post.author.name,
-          description: post.seo.metaDesc,
-          title: post.seo.title,
+      {post &&
+        <>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{
+            __html: jsonldBlog({
+              url: `${metadata.domain}${location.pathname}`,
+              images: [
+                `${post.featuredImage?.sourceUrl}` // need default image
+              ],
+              datePublished: post.seo.opengraphPublishedTime,
+              dateModified: post.seo.opengraphModifiedTime,
+              author: post.author.name,
+              description: post.seo.metaDesc,
+              title: post.seo.title,
+            })
+          }} />
+        </>
+      }
+
+      {videoObject && <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: jsonVideoObject({
+          videoObject,
+          person: jsonldPerson(metadata)
         })
       }} />}
 

@@ -161,7 +161,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         'navMobile': 'minmax(50px, 1fr) minmax(50px, auto) minmax(50px, auto)',
-        'navDesktop': 'minmax(auto, 1fr) minmax(auto, 4fr) minmax(auto, 1fr)',
+        'navDesktop': 'minmax(auto, 1fr) minmax(auto, 3.25fr) minmax(auto, 1fr)',
         'navDesktopXl': 'minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr)',
         'mobile': 'minmax(0, 1fr) repeat(2, minmax(auto, calc((450px - (1 * 20px)) / 2))) minmax(0, 1fr)',
         'tablet': 'minmax(0,1fr) repeat(12,minmax(30px,72.5px)) minmax(0,1fr)',

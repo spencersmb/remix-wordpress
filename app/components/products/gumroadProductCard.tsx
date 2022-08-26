@@ -1,6 +1,8 @@
 import { ImageSizeEnums } from "@App/enums/imageEnums";
+import { useProductLicense } from "@App/hooks/useProductLicense";
 import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers";
 import LazyImageBase from "../images/lazyImage-base";
+import LicenseSelectControls from "./licenseSelectControls";
 import LicenseSelectSection from "./licenseSelectSection";
 
 interface IProps {
@@ -23,16 +25,37 @@ const GumroadProductCard = ({ product }: IProps) => {
     fallbackImage: defaultImages.featured
   })
 
+
   return (
     <div className={`z-20 flex flex-col col-span-2 col-start-1 mb-8 card_conainter tablet:col-start-auto tablet:col-auto desktop:mb-16`}>
       <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
-        <div className='mb-8 overflow-hidden rounded-lg'>
+        <div className="relative z-1">
           <LazyImageBase
             image={featuredImage}
             id={product.slug} />
         </div>
+        {/* <div className='relative mb-8 overflow-hidden rounded-lg'>
+          <a
+            data-testid='test-GumroadBtn'
+            className={'group'}
+            href={`${licenseState?.url}?wanted=true&locale=false`}>
+            <div className="absolute transition-all duration-300 -translate-x-1/2 opacity-0 -translate-y-1/4 top-1/2 left-1/2 z-3 group-hover:opacity-100 group-hover:-translate-y-1/2">
+              <div className="btn btn-outline-reverse btn-xl min-w-[130px]">
+                View
+              </div>
+            </div>
+
+            <div className="absolute top-0 left-0 w-full h-full transition-opacity duration-200 opacity-0 z-2 bg-grey-700 group-hover:opacity-70" />
+
+            <div className="relative z-1">
+              <LazyImageBase
+                image={featuredImage}
+                id={product.slug} />
+            </div>
+          </a> 
+      </div >*/}
 
         {/* PRODUCT title */}
         <div data-testid="gumroad-title" className="items-center mb-4 text-left product_header">
@@ -42,11 +65,12 @@ const GumroadProductCard = ({ product }: IProps) => {
         </div>
 
         {/* PRODUCT SELECT */}
-        <LicenseSelectSection
+        {/* <LicenseSelectSection
           product={product}
-        />
+        /> */}
+        <LicenseSelectControls product={product} />
       </div>
-    </div>
+    </div >
   )
 }
 

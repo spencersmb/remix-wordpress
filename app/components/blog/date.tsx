@@ -10,10 +10,9 @@ import { formatDate } from "@App/utils/posts"
 const BlogDateAuthor = (props: { date: string, author: string }) => {
   const { date, author } = props
   return (
-    <div data-testid="blog-date" className="flex flex-row">
-      <div>{formatDate(date)}</div>
-      <div className="mx-1">—</div>
-      <div>{author}</div>
+    <div data-testid="blog-date" className="flex flex-col">
+      <div className=''>{formatDate(date)}</div>
+      <div className='text-xl font-sentinel__SemiBoldItal'>{author}</div>
     </div>
   )
 }

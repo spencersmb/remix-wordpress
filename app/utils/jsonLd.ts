@@ -1,3 +1,4 @@
+import { countSeconds, countVideoTime } from "./timeUtils"
 
 /**
  * 
@@ -69,7 +70,9 @@ export function jsonldWebpage (props: IjsonldWebpage) {
         ${modifiedTime ? `"dateModified": "{${modifiedTime}"},` : '' }
         "author": {"@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb"},
         "description": "${description}",
-        "breadcrumb": {"@id": "${pageUrl}#breadcrumb"},
+        "breadcrumb": {
+          "@id": "${pageUrl}#breadcrumb"
+        },
         "potentialAction": [{
           "@type": "ReadAction",
           "target": ["${pageUrl}"]
@@ -151,15 +154,15 @@ export function jsonldPerson (props: IjsonldPersonProps) {
           "@type": "Person",
           "@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb",
           "name": "Teela",
+          "description": "${description}",
           "image": {
-          "@type": "ImageObject",
-          "@id": "${domain}/#personlogo",
-          "inLanguage": "en-US",
-          "url": "${author.avatar.url}",
-          "contentUrl": "${author.avatar.url}",
-          "caption": "Teela"
-        },
-        "description": "${description}"
+            "@type": "ImageObject",
+            "@id": "${domain}/#personlogo",
+            "inLanguage": "en-US",
+            "url": "${author.avatar.url}",
+            "contentUrl": "${author.avatar.url}",
+            "caption": "Teela"
+          }
       }`
 }
 
@@ -183,5 +186,49 @@ export function jsonBreadcrumbsList({breadcrumbList}: IBreadcrumbList): string{
     "itemListElement": [
       ${itemListElements}
     ]
+  }`
+}
+
+
+// &t=32s 
+export function jsonVideoObject({videoObject, person}: IJsonldVideo): string{
+  console.log('videoObject', videoObject);
+  
+  const hasClipElements = videoObject.clipElements?.map(clip => {
+    const startOffset = countSeconds(clip.startOffset)
+    const endOffset = countSeconds(clip.endOffset)
+    return `{
+    "@type": "Clip",
+    "name": "${clip.name}",
+    "startOffset": ${startOffset},
+    "endOffset": ${endOffset},
+    "url": "${videoObject.url}?t=${startOffset}s"
+  }`
+  }) || []
+  const potentialActions = videoObject.potentialActions?.map(element => {
+    const startOffset = countSeconds(element.startOffset)
+    return `{
+      "@type": "SeekToAction",
+      "target": "${videoObject.url}?t={seek_to_second_number}",
+      "startOffset": ${startOffset},
+      "startOffset-input": "required name=seek_to_second_number",
+      "name": "${element.name}"
+  }`
+  }) || []
+  return `{
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name" : "${videoObject.name}",
+    "author": ${person},
+    "creativeWorkStatus": "Published",
+    "description" : "${videoObject.description}",
+    "thumbnailUrl" : "${videoObject.thumbnailUrl}",
+    "uploadDate" : "${videoObject.uploadDate}",
+    "duration" : "${countVideoTime(videoObject.duration)}",
+    "embedUrl" : "${videoObject.embedUrl}",
+    "hasPart": [${hasClipElements}],
+    "potentialAction": [${potentialActions}],
+    "isFamilyFriendly":"true",
+    "inLanguage":"en-US"
   }`
 }

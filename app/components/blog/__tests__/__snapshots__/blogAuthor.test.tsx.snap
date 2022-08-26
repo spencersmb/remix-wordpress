@@ -14,30 +14,45 @@ exports[`Blog Author Tests Should render Blog Author Component  1`] = `
       <div
         className="overflow-hidden rounded-full max-w-none lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
       >
-        <span
-          className=" lazy-load-image-background blur"
+        <div
+          className="relative flex-1"
+          data-testid="imigx-padding-bot"
           style={
             Object {
-              "backgroundImage": "",
-              "backgroundSize": "",
-              "color": "transparent",
-              "display": "inline-block",
-              "height": "96px",
-              "width": "96px",
+              "paddingBottom": "100%",
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
-                "height": "96px",
-                "width": "96px",
+          <div
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+            data-testid="imigx-container"
+          >
+            <span
+              className=" lazy-load-image-background blur"
+              style={
+                Object {
+                  "backgroundImage": "url(https://et-website.imgix.net/et-website/images/teela-profile-square.jpg?auto=format&w=20&fit=clip)",
+                  "backgroundSize": "100% 100%",
+                  "color": "transparent",
+                  "display": "inline-block",
+                  "height": "200px",
+                  "width": "200px",
+                }
               }
-            }
-          />
-        </span>
+            >
+              <span
+                className=""
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "height": "200px",
+                    "width": "200px",
+                  }
+                }
+              />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +80,7 @@ exports[`Blog Author Tests Should render Blog Author Component  1`] = `
   >
     <a
       className="btn btn-outline"
-      href="/about"
+      href="/about/our-story"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}

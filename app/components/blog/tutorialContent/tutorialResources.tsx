@@ -12,7 +12,10 @@ function TutorialResources(props: Props) {
   }
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white p-7 border-t-[1px] border-grey-200'>
+
+      <h3 className="mb-3 text-2xl laptop:text-5xl font-sentinel__SemiBoldItal">Additional Resources</h3>
+
       {resources.map((resource, index) => {
 
         if (resource.colorSwatch) {

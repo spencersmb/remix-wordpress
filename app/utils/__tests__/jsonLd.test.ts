@@ -90,7 +90,9 @@ describe('JSONLD tests', () => {
         ${modifiedTime ? `"dateModified": "{${modifiedTime}"},` : '' }
         "author": {"@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb"},
         "description": "${description}",
-        "breadcrumb": {"@id": "${pageUrl}#breadcrumb"},
+        "breadcrumb": {
+          "@id": "${pageUrl}#breadcrumb"
+        },
         "potentialAction": [{
           "@type": "ReadAction",
           "target": ["${pageUrl}"]
@@ -199,16 +201,16 @@ describe('JSONLD tests', () => {
           "@type": "Person",
           "@id": "${domain}/#/schema/person/335aa8508f8baa38bcaf8be0a46d6ecb",
           "name": "Teela",
+          "description": "${description}",
           "image": {
-          "@type": "ImageObject",
-          "@id": "${domain}/#personlogo",
-          "inLanguage": "en-US",
-          "url": "${author.avatar.url}",
-          "contentUrl": "${author.avatar.url}",
-          "caption": "Teela"
-        },
-        "description": "${description}"
-      }`
+            "@type": "ImageObject",
+            "@id": "${domain}/#personlogo",
+            "inLanguage": "en-US",
+            "url": "${author.avatar.url}",
+            "contentUrl": "${author.avatar.url}",
+            "caption": "Teela"
+          }
+        }`
 
     expect(jsonld.replace(/ /g, '')).toEqual(result.replace(/ /g, '') )
   })

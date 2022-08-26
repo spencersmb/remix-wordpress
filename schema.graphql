@@ -1349,13 +1349,17 @@ type Course_Details_courseTags implements AcfFieldGroup {
 
 "Field Group"
 type Course_Tutorialmanager implements AcfFieldGroup {
-    "Select Freebies included in the tutorial"
+    "Select Freebies included in the tutorial that are located in the Tuesday Tribe Resource Library"
     downloads: [Course_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    "Short Summary of the tutorial in 280 characters or less"
+    quickSummary: String
+    "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Course_Tutorialmanager_Resources]
+    "Tall version of the thumbnail"
     thumbnail: Course_Tutorialmanager_Thumbnail
     youtube: Course_Tutorialmanager_Youtube
 }
@@ -1416,11 +1420,48 @@ type Course_Tutorialmanager_Thumbnail implements AcfFieldGroup {
 
 "Field Group"
 type Course_Tutorialmanager_Youtube implements AcfFieldGroup {
-    "Copy the Youtube Embed URL and paste it here"
-    embedUrl: String
+    addVideoMetadata: Boolean
+    "Duration of the video. Example 1 min 38 seconds should be entered in as 1:38"
+    duration: String
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
+    "Add Video Meta Data to the page"
+    videoObject: Course_Tutorialmanager_Youtube_VideoObject
+}
+
+"Field Group"
+type Course_Tutorialmanager_Youtube_VideoObject implements AcfFieldGroup {
+    clipElements: [Course_Tutorialmanager_Youtube_VideoObject_clipElements]
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "If the video doesn&#039;t have chapters, use this method as an alternate way."
+    potentialActions: [Course_Tutorialmanager_Youtube_VideoObject_potentialActions]
+    "Grab the URL of the highest rez thumbnail possible"
+    thumbnailUrl: String
+    "Video publish date"
+    uploadDate: String
+}
+
+"Field Group"
+type Course_Tutorialmanager_Youtube_VideoObject_clipElements implements AcfFieldGroup {
+    "Ex: 1 min 32 sec = 1:32"
+    endOffset: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 32 sec = 1:32"
+    startOffset: String
+}
+
+"Field Group"
+type Course_Tutorialmanager_Youtube_VideoObject_potentialActions implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 38 seconds should be entered in as 1:38"
+    startOffset: String
 }
 
 "CPT Tag Object"
@@ -1828,13 +1869,17 @@ type DownloadFreebie_Downloaddetails implements AcfFieldGroup {
 
 "Field Group"
 type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
-    "Select Freebies included in the tutorial"
+    "Select Freebies included in the tutorial that are located in the Tuesday Tribe Resource Library"
     downloads: [DownloadFreebie_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    "Short Summary of the tutorial in 280 characters or less"
+    quickSummary: String
+    "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [DownloadFreebie_Tutorialmanager_Resources]
+    "Tall version of the thumbnail"
     thumbnail: DownloadFreebie_Tutorialmanager_Thumbnail
     youtube: DownloadFreebie_Tutorialmanager_Youtube
 }
@@ -1895,11 +1940,48 @@ type DownloadFreebie_Tutorialmanager_Thumbnail implements AcfFieldGroup {
 
 "Field Group"
 type DownloadFreebie_Tutorialmanager_Youtube implements AcfFieldGroup {
-    "Copy the Youtube Embed URL and paste it here"
-    embedUrl: String
+    addVideoMetadata: Boolean
+    "Duration of the video. Example 1 min 38 seconds should be entered in as 1:38"
+    duration: String
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
+    "Add Video Meta Data to the page"
+    videoObject: DownloadFreebie_Tutorialmanager_Youtube_VideoObject
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Youtube_VideoObject implements AcfFieldGroup {
+    clipElements: [DownloadFreebie_Tutorialmanager_Youtube_VideoObject_clipElements]
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "If the video doesn&#039;t have chapters, use this method as an alternate way."
+    potentialActions: [DownloadFreebie_Tutorialmanager_Youtube_VideoObject_potentialActions]
+    "Grab the URL of the highest rez thumbnail possible"
+    thumbnailUrl: String
+    "Video publish date"
+    uploadDate: String
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Youtube_VideoObject_clipElements implements AcfFieldGroup {
+    "Ex: 1 min 32 sec = 1:32"
+    endOffset: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 32 sec = 1:32"
+    startOffset: String
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Youtube_VideoObject_potentialActions implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 38 seconds should be entered in as 1:38"
+    startOffset: String
 }
 
 "The DownloadGrid type"
@@ -3542,13 +3624,17 @@ type Post_Etsocialnav_PinterestMeta implements AcfFieldGroup {
 
 "Field Group"
 type Post_Tutorialmanager implements AcfFieldGroup {
-    "Select Freebies included in the tutorial"
+    "Select Freebies included in the tutorial that are located in the Tuesday Tribe Resource Library"
     downloads: [Post_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    "Short Summary of the tutorial in 280 characters or less"
+    quickSummary: String
+    "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Post_Tutorialmanager_Resources]
+    "Tall version of the thumbnail"
     thumbnail: Post_Tutorialmanager_Thumbnail
     youtube: Post_Tutorialmanager_Youtube
 }
@@ -3609,11 +3695,48 @@ type Post_Tutorialmanager_Thumbnail implements AcfFieldGroup {
 
 "Field Group"
 type Post_Tutorialmanager_Youtube implements AcfFieldGroup {
-    "Copy the Youtube Embed URL and paste it here"
-    embedUrl: String
+    addVideoMetadata: Boolean
+    "Duration of the video. Example 1 min 38 seconds should be entered in as 1:38"
+    duration: String
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
+    "Add Video Meta Data to the page"
+    videoObject: Post_Tutorialmanager_Youtube_VideoObject
+}
+
+"Field Group"
+type Post_Tutorialmanager_Youtube_VideoObject implements AcfFieldGroup {
+    clipElements: [Post_Tutorialmanager_Youtube_VideoObject_clipElements]
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "If the video doesn&#039;t have chapters, use this method as an alternate way."
+    potentialActions: [Post_Tutorialmanager_Youtube_VideoObject_potentialActions]
+    "Grab the URL of the highest rez thumbnail possible"
+    thumbnailUrl: String
+    "Video publish date"
+    uploadDate: String
+}
+
+"Field Group"
+type Post_Tutorialmanager_Youtube_VideoObject_clipElements implements AcfFieldGroup {
+    "Ex: 1 min 32 sec = 1:32"
+    endOffset: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 32 sec = 1:32"
+    startOffset: String
+}
+
+"Field Group"
+type Post_Tutorialmanager_Youtube_VideoObject_potentialActions implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 38 seconds should be entered in as 1:38"
+    startOffset: String
 }
 
 "PrettyLink Object"
@@ -3919,13 +4042,17 @@ type Product_Productdetails_licences implements AcfFieldGroup {
 
 "Field Group"
 type Product_Tutorialmanager implements AcfFieldGroup {
-    "Select Freebies included in the tutorial"
+    "Select Freebies included in the tutorial that are located in the Tuesday Tribe Resource Library"
     downloads: [Product_Tutorialmanager_Downloads]
     "The name of the ACF Field Group"
     fieldGroupName: String
     "Add post excerpt here. The part above the Read Me dotted line."
     postExcerpt: String
+    "Short Summary of the tutorial in 280 characters or less"
+    quickSummary: String
+    "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Product_Tutorialmanager_Resources]
+    "Tall version of the thumbnail"
     thumbnail: Product_Tutorialmanager_Thumbnail
     youtube: Product_Tutorialmanager_Youtube
 }
@@ -3986,11 +4113,48 @@ type Product_Tutorialmanager_Thumbnail implements AcfFieldGroup {
 
 "Field Group"
 type Product_Tutorialmanager_Youtube implements AcfFieldGroup {
-    "Copy the Youtube Embed URL and paste it here"
-    embedUrl: String
+    addVideoMetadata: Boolean
+    "Duration of the video. Example 1 min 38 seconds should be entered in as 1:38"
+    duration: String
     "The name of the ACF Field Group"
     fieldGroupName: String
     id: String
+    "Add Video Meta Data to the page"
+    videoObject: Product_Tutorialmanager_Youtube_VideoObject
+}
+
+"Field Group"
+type Product_Tutorialmanager_Youtube_VideoObject implements AcfFieldGroup {
+    clipElements: [Product_Tutorialmanager_Youtube_VideoObject_clipElements]
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    "If the video doesn&#039;t have chapters, use this method as an alternate way."
+    potentialActions: [Product_Tutorialmanager_Youtube_VideoObject_potentialActions]
+    "Grab the URL of the highest rez thumbnail possible"
+    thumbnailUrl: String
+    "Video publish date"
+    uploadDate: String
+}
+
+"Field Group"
+type Product_Tutorialmanager_Youtube_VideoObject_clipElements implements AcfFieldGroup {
+    "Ex: 1 min 32 sec = 1:32"
+    endOffset: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 32 sec = 1:32"
+    startOffset: String
+}
+
+"Field Group"
+type Product_Tutorialmanager_Youtube_VideoObject_potentialActions implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    "Ex: 1 min 38 seconds should be entered in as 1:38"
+    startOffset: String
 }
 
 "The reading setting type"

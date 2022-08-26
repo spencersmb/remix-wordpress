@@ -1,6 +1,9 @@
+import { staticImages } from '@App/lib/imgix/data'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { Link } from '@remix-run/react'
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import LazyImgix from '../images/lazyImgix'
 
 
 interface Props {
@@ -13,12 +16,15 @@ interface Props {
  * @tested - 5/26/2022
  * 
  * 
- * @param props 
- * @returns 
  */
-function BlogAuthor(props: Props) {
-  const { post } = props
-
+function BlogAuthor() {
+  const author = createImgixSizes({
+    width: 200,
+    height: 200,
+    alt: `Every Tuesday IPad Art`,
+    src: staticImages.profiles.teela.square.src,
+    mobileSize: 200
+  })
   return (
     <div data-testid="blogAuthor-test" className='flex flex-col flex-wrap items-center tablet:flex-row'>
 
@@ -26,16 +32,12 @@ function BlogAuthor(props: Props) {
       <div className='tablet:mr-2'>
         <div className='w-[100px]'>
           <div className='overflow-hidden rounded-full max-w-none lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>
-            <LazyLoadImage
-              height={`96px`}
-              width={`96px`}
-              alt="Teela Cunningham Author"
-              effect="blur"
-              src={post.author.avatar.url} // use normal <img> attributes as props
-            />
+            <LazyImgix
+              sizes="(max-width: 666px) 70vw, (max-width: 1023px) 75vw, (max-width: 1399px) 70vw, 1180px"
+              id={"iPadArt"}
+              image={author.image} />
           </div>
 
-          {/* <img className='rounded-full max-w-none' src={post.author.avatar.url} alt="Teela Cunningham Author" /> */}
         </div>
       </div>
 
@@ -48,7 +50,7 @@ function BlogAuthor(props: Props) {
 
       {/* BUTTON */}
       <div className='mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0'>
-        <Link to={'/about'} prefetch='intent' className='btn btn-outline' >About Me</Link>
+        <Link to={'/about/our-story'} prefetch='intent' className='btn btn-outline' >About Me</Link>
       </div>
     </div>
   )

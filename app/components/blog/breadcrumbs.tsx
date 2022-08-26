@@ -18,7 +18,7 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
 
   return (
     <div className="mt-8">
-      <ul className="flex flex-row text-xs text-sage-600 tablet:text-base">
+      <ul className="flex flex-row text-xs tablet:text-base">
         <li>
           <Link to={'/'} className='font-semibold'>Home </Link>
           <span className="mr-1">/</span></li>
@@ -31,10 +31,10 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
             </li>
           )
         })}
-        {lastElement &&
+        {/* {lastElement &&
           <li data-testid="last-element" className="">
             {lastElement.text}
-          </li>}
+          </li>} */}
       </ul>
     </div>
   )

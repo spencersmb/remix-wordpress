@@ -174,6 +174,21 @@ const classes = {
     }
     
   },
+  '.btn-outline-reverse':{
+    color: '#fff',
+    backgroundColor: 'transparent',
+    borderColor: '#fff',
+    '&:hover':{
+      color: 'var(--grey-700)',
+      backgroundColor: '#fff',
+    },
+    '&:active':{
+    },
+    '&:focus':{
+      
+    },
+    '&:disabled':{}
+  },
   '.btn-outline':{
     color: 'var(--sage-700)',
     backgroundColor: 'transparent',

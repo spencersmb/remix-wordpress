@@ -219,7 +219,7 @@ const Login = () => {
                   disabled={transition.state !== 'idle'}
                   aria-disabled={transition.state !== 'idle'}
                   type='submit'
-                  className="mt-4 btn btn-sage-600">
+                  className="mt-2 btn btn-primary btn-lg btn-flex btn-primary-ring">
                   {transition.state === 'idle' ? 'Log In' : '...Loading'}
                 </button>
               </Form>

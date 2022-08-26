@@ -5,14 +5,14 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 // * @teststed - 5/28/2022
 // */
 interface Props {
-  url: string
   id: string
   title: string
 }
 function YouTubeVideo(props: Props) {
-  const { url, title, id } = props
+  const { title, id } = props
+  // const url = `https://www.youtube.com/watch?v=${id}`
   return (
-    <div className='relative mb-8 overflow-hidden shadow-xs youtube_container rounded-2xl'>
+    <div className='relative overflow-hidden tablet:shadow-xs youtube_container'>
       <div className='relative embed-responsive'>
         <div data-testid="embed-parent" className='relative embed-responsive-item group hover:cursor-pointer z-2'>
           <LiteYouTubeEmbed

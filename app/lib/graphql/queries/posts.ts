@@ -347,8 +347,23 @@ export const QUERY_POST_BY_ID = gql`
                 }
               }
               youtube {
-                  embedUrl
-                  id
+                id
+                addVideoMetadata
+                duration
+                videoObject {
+                  description
+                  uploadDate
+                  thumbnailUrl
+                  clipElements {
+                    name
+                    startOffset
+                    endOffset
+                  }
+                  potentialActions{
+                    name
+                    startOffset
+                  }
+                }
               }
               downloads {
                   ... on ResourceLibrary {

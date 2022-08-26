@@ -16,6 +16,7 @@ import AccentHeaderText from "@App/components/layout/accentHeaderText";
 import BellSvg from "@App/components/svgs/bellSvg";
 import useSite from "@App/hooks/useSite";
 import GeneralMessageModal from "@App/components/modals/generalMessageModal";
+import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -186,8 +187,8 @@ const ResourceLibraryLogin = () => {
           <div className="flex flex-col items-center px-4">
 
             <div className="flex flex-col items-center mb-8 text-center">
-              <h1 className="relative flex flex-col text-5xl text-sage-700 font-sentinel__SemiBoldItal">
-                <span className="mb-4 font-sans text-[24px] italic font-light">Tuesday Makers</span>
+              <h1 className="relative flex flex-col text-3xl laptop:text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+                <span className="mb-4 text-[44px] laptop:text-[54px] italic font-light font-bonVivant">Tuesday Makers</span>
                 Login
               </h1>
             </div>
@@ -237,13 +238,12 @@ const ResourceLibraryLogin = () => {
                   onChange={handleInputChange}
                 />
 
-                <button
-                  disabled={transition.state !== 'idle' || usedOldPassword}
-                  aria-disabled={transition.state !== 'idle' || usedOldPassword}
-                  type='submit'
-                  className="btn btn-sage-600">
-                  {transition.state === 'idle' ? 'Sign In' : '...Loading'}
-                </button>
+                <BasicSubmitBtn
+                  loading={(transition.state !== 'idle' && transition.state === 'submitting') || usedOldPassword}
+                  loadingText={'Loading'}
+                  text={'Sign In'}
+                  className="btn-lg btn-primary-ring"
+                />
 
               </Form>
             </div>
@@ -258,7 +258,7 @@ const ResourceLibraryLogin = () => {
             <div className="flex flex-row relative z-[2] w-full">
               <Link
                 prefetch={'intent'}
-                className="btn btn-outline"
+                className="btn btn-outline btn-flex btn-lg"
                 to="/tuesday-makers">
                 Sign Up
               </Link>

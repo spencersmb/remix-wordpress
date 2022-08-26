@@ -15,7 +15,7 @@ export const PrimaryNav = () => {
   const primaryMenu = getPrimaryMenu(menu)
   const location = useLocation()
 
-  const selectedNav = 'bg-grey-100 text-grey-800'
+  const selectedNav = 'bg-sage-200 text-grey-800 hover:bg-sage-200'
   const unselectedNav = 'text-grey-700'
 
   return (

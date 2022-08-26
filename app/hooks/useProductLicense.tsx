@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { LicenseEnum } from "@App/enums/products";
 
 export function useProductLicense(productLicences: ILicense[] | null) {
 
@@ -13,15 +12,26 @@ export function useProductLicense(productLicences: ILicense[] | null) {
 
   // onLoad Select first license
   // useEffect(() => {
+  // const script = document.querySelector('#remix-gumroad-script');
+  // script?.addEventListener('load', function (e: any) {
+  //   console.log('loaded', window.GumroadOverlay);
+  // });
 
   // }, [])
 
-  const handleSelect = (item: { index: number, license: ILicense }) => {
+  const handleSelect = async (item: { index: number, license: ILicense }) => {
+    if (!window.GumroadOverlay) return
+    let lastItem = state
     setState({
       price: item.license.price,
       licenseType: item.license.licenseType,
       url: item.license.url
     })
+
+    // if (lastItem?.url !== item.license.url) {
+    //   await window.GumroadOverlay.resetLinks()
+    //   await window.GumroadOverlay.reload()
+    // }
   }
 
   return {

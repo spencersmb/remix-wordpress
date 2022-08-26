@@ -3,8 +3,6 @@ import ChatBoxQuoteSvg from "@App/components/svgs/chatboxQuote";
 import GestureSvg from "@App/components/svgs/gestureSvg";
 import HeartSvg from "@App/components/svgs/heartSvg";
 import PaletteSvg from "@App/components/svgs/paletteSvg";
-import IconOne from "@App/components/svgs/popOverMenu/iconOne";
-import IconTwo from "@App/components/svgs/popOverMenu/iconTwo";
 import TypeSvg from "@App/components/svgs/typeSvg";
 
 /**
