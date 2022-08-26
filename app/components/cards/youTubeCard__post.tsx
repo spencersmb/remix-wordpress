@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 // /**
@@ -10,9 +12,41 @@ interface Props {
 }
 function YouTubeVideo(props: Props) {
   const { title, id } = props
-  // const url = `https://www.youtube.com/watch?v=${id}`
+  // element.addIframe()
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+  const buttonRef = useRef<null | Element>(null)
+  const touchRef = useRef<boolean>(true)
+
+  useEffect(() => {
+    buttonRef.current = document.getElementsByClassName('lty-playbtn')[0]
+    window.addEventListener('mousemove', function mouseMoveDetector() {
+      touchRef.current = false;
+      window.removeEventListener('mousemove', mouseMoveDetector);
+    });
+
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      // touchscreen
+      console.log('TOUCH device');
+      alert('TOUCH device');
+
+    }
+  }, [])
+
+  useEffect(() => {
+    // is inVIEW, if there is a button EL, if its touch screen, and if its safari
+    if (inView && buttonRef.current && touchRef.current) {
+      // @ts-ignore
+      // buttonRef.current.click()
+    }
+
+  }, [inView])
+
+
   return (
-    <div className='relative overflow-hidden tablet:shadow-xs youtube_container'>
+    <div ref={ref} className='relative overflow-hidden tablet:shadow-xs youtube_container'>
       <div className='relative embed-responsive'>
         <div data-testid="embed-parent" className='relative embed-responsive-item group hover:cursor-pointer z-2'>
           <LiteYouTubeEmbed
@@ -27,7 +61,6 @@ function YouTubeVideo(props: Props) {
             poster="maxresdefault" // Defines the image size to call on first render as poster image. Possible values are "default","mqdefault",  "hqdefault", "sddefault" and "maxresdefault". Default value for this prop is "hqdefault". Please be aware that "sddefault" and "maxresdefault", high resolution images are not always avaialble for every video. See: https://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
             title={title} // a11y, always provide a title for iFrames: https://dequeuniversity.com/tips/provide-iframe-titles Help the web be accessible ;)
             noCookie={false} //Default false, connect to YouTube via the Privacy-Enhanced Mode using https://www.youtube-nocookie.com
-
           />
         </div>
         <div className='absolute top-0 left-0 w-full h-full bg-black z-1' />
