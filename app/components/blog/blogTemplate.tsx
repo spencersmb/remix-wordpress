@@ -143,12 +143,12 @@ function BlogTemplate(props: IProps) {
       <div className='col-span-full bg-sage-700 et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-2 laptop:col-span-5 desktop:col-start-2 desktop:col-span-4 desktopXl:ml-7'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-2 laptop:col-span-5 desktop:col-start-2 desktop:col-span-4'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 
         {/* TITLE */}
-        <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-0 laptop:col-start-2 laptop:col-span-8 laptop:row-start-2 laptop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6 desktopXl:ml-7' >
+        <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-0 laptop:col-start-2 laptop:col-span-8 laptop:row-start-2 laptop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6' >
           <h1 className='text-3xl text-sage-50 font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
             {post.title}
           </h1>
@@ -160,9 +160,9 @@ function BlogTemplate(props: IProps) {
         </div>
 
         {/* TAGS AND TIME */}
-        <div className='flex col-span-2 col-start-2 my-8 font-medium tablet:col-start-2 tablet:col-span-10 tablet:row-start-3 laptop:col-start-2 laptop:col-span-7 laptop:mt-0 desktop:col-start-2 desktop:col-span-6 desktop:row-start-4 desktopXl:ml-7'>
+        <div className='flex col-span-2 col-start-2 my-8 font-medium tablet:col-start-2 tablet:col-span-10 tablet:row-start-3 laptop:col-start-2 laptop:col-span-7 laptop:mt-0 desktop:col-start-2 desktop:col-span-6 desktop:row-start-4'>
 
-          <div className='flex flex-col p-4 rounded-lg bg-sage-600 tablet:flex-row tablet:items-center tablet:gap-7 laptop:w-full laptop:justify-between'>
+          <div className='flex flex-col w-full p-4 rounded-lg bg-sage-600 tablet:flex-row tablet:items-center tablet:gap-7 laptop:w-auto laptop:justify-between'>
             {/* TAGS */}
             <div className='flex flex-row items-center pb-4 tablet:pb-0'>
               <div className='max-w-[20px] w-full text-sage-200 mr-2'>
@@ -207,12 +207,12 @@ function BlogTemplate(props: IProps) {
         </div>
 
         {/* QUICK SUMMERY */}
-        <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-12 tablet:text-lg laptop:col-start-2 laptop:col-span-7 laptop:text-xl desktop:col-start-2 desktop:col-span-6 desktop:row-start-5 desktopXl:ml-7'>
+        <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-12 tablet:text-lg laptop:col-start-2 laptop:col-span-7 laptop:text-xl desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
           <span className='text-lg font-sentinel__SemiBoldItal text-secondary-400 tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
         </div>
 
         {/* AUTHOR */}
-        <div className='flex relative col-span-2 col-start-2 mt-12 mb-8 text-sage-50 tablet:ml-8 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:row-start-2 laptop:row-span-1 laptop:col-start-10 laptop:col-span-4 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
+        <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:row-start-2 laptop:row-span-1 laptop:col-start-10 laptop:col-span-4 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
 
           <div className='relative flex flex-row items-center desktop:mb-4'>
             <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>
@@ -249,67 +249,84 @@ function BlogTemplate(props: IProps) {
       {post.tutorialManager.youtube.id &&
         <div
           data-testid='blog-tutorialDownloads'
-          className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop bg-sage-200'>
+          className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
-          <div className='col-span-2 col-start-2 tablet:col-span-full laptop:col-start-3 laptop:col-span-10 desktop:col-span-full'>
+          <div className='outer-wrapper col-span-full'>
             <StickyContainer>
 
               <div className={classNames(
                 post.tutorialManager.downloads
                   ? 'desktop:px-8'
                   : '',
-                'relative flex pt-8 pb-8 tablet:py-16 laptop:flex-row items-start max-w-[1475px] mx-auto desktop:py-0')}>
+                'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-200')}>
 
-                <div className='relative flex-none my-20 desktop:flex-1'>
-                  {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <Sticky topOffset={-20} bottomOffset={184}>
-                    {({
-                      style,
+                <div className='max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
 
-                      // the following are also available but unused in this example
-                      isSticky,
-                      wasSticky,
-                      distanceFromTop,
-                      distanceFromBottom,
-                      calculatedHeight
-                    }) => {
+                  {/* TUTORIAL DOWNLOADS */}
+                  <div className='relative flex-none my-20 desktop:flex-1'>
+                    {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
+                      <Sticky topOffset={-20} bottomOffset={184}>
+                        {({
+                          style,
 
-                      // topOffset = 104(size of the nav minus size of margin)
-                      let top = 104 // size of nav
-                      return (
-                        <div style={{
-                          ...style,
-                          // @ts-ignore
-                          top: style && style.top ? style.top + top : top,
-                        }}>
-                          <TutorialDownloads post={post} style={style} />
-                        </div>
-                      )
-                    }}
-                  </Sticky>
-                  }
+                          // the following are also available but unused in this example
+                          isSticky,
+                          wasSticky,
+                          distanceFromTop,
+                          distanceFromBottom,
+                          calculatedHeight
+                        }) => {
 
-                </div>
+                          // topOffset = 104(size of the nav minus size of margin)
+                          let top = 104 // size of nav
+                          return (
+                            <div style={{
+                              ...style,
+                              // @ts-ignore
+                              top: style && style.top ? style.top + top : top,
+                            }}>
+                              <TutorialDownloads post={post} style={style} />
+                            </div>
+                          )
+                        }}
+                      </Sticky>
+                    }
 
-                <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
-                  <YouTubeVideo
-                    id={post.tutorialManager.youtube.id}
-                    title={post.title}
-                  />
+                  </div>
 
-                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+                  {/* YOUTUBE */}
+                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
+                    <YouTubeVideo
+                      id={post.tutorialManager.youtube.id}
+                      title={post.title}
+                    />
 
-                  {/* <PaidProducts post={post} /> */}
-                  <TutorialResources resources={post.tutorialManager.resources} />
+                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+
+                    {/* <PaidProducts post={post} /> */}
+                    <TutorialResources resources={post.tutorialManager.resources} />
+                  </div>
+
                 </div>
 
               </div>
+
+              {/* BLOG CONTENT */}
+              <div className='px-5 pt-8 mb-8 blog desktop:px-8 tablet:p-14 desktop:py-0'>
+
+                {post.tutorialManager.postExcerpt &&
+                  <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
+                }
+
+                <div className='blog-content' dangerouslySetInnerHTML={{ __html: post.content }} />
+
+              </div>
+
+
             </StickyContainer>
           </div>
+
         </div>}
-
-
-      {/* BLOG CONTENT */}
-      <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
 
       {/* PINTEREST */}
       <PinterestBlock

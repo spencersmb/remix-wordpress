@@ -18,35 +18,47 @@ function YouTubeVideo(props: Props) {
     threshold: 0,
   });
   const buttonRef = useRef<null | Element>(null)
-  const touchRef = useRef<boolean>(true)
+  const touchRef = useRef<boolean>(false)
+  const safariRef = useRef<boolean>(false)
 
   useEffect(() => {
     buttonRef.current = document.getElementsByClassName('lty-playbtn')[0]
-    window.addEventListener('mousemove', function mouseMoveDetector() {
-      touchRef.current = false;
-      window.removeEventListener('mousemove', mouseMoveDetector);
-    });
+    // window.addEventListener('mousemove', function mouseMoveDetector() {
+    //   touchRef.current = false;
+    //   window.removeEventListener('mousemove', mouseMoveDetector);
+    // });
+
+    if (navigator.userAgent.search("Safari") >= 0
+      && navigator.userAgent.search("Chrome") < 0
+      && navigator.vendor === "Apple Computer, Inc.") {
+      // alert("Browser is Safari");
+      safariRef.current = true
+    }
 
     if (window.matchMedia("(pointer: coarse)").matches) {
       // touchscreen
-      console.log('TOUCH device');
-      alert('TOUCH device');
+      // console.log('TOUCH device');
+      // alert('TOUCH device');
+      touchRef.current = true;
 
     }
   }, [])
 
   useEffect(() => {
     // is inVIEW, if there is a button EL, if its touch screen, and if its safari
-    if (inView && buttonRef.current && touchRef.current) {
+    if (inView && buttonRef.current && (touchRef.current || safariRef.current)) {
+      console.log('touchRef.current', touchRef.current);
+      console.log('safariRef.current', safariRef.current);
+
       // @ts-ignore
-      // buttonRef.current.click()
+      buttonRef.current.click()
     }
 
   }, [inView])
 
 
   return (
-    <div ref={ref} className='relative overflow-hidden tablet:shadow-xs youtube_container'>
+    <div ref={ref} className='relative overflow-hidden tablet:shadow-xs tablet:mb-8 desktop:mb-0 youtube_container'>
       <div className='relative embed-responsive'>
         <div data-testid="embed-parent" className='relative embed-responsive-item group hover:cursor-pointer z-2'>
           <LiteYouTubeEmbed
@@ -54,7 +66,7 @@ function YouTubeVideo(props: Props) {
             activatedClass={`lty-activated`}
             id={id} // Default none, id of the video or playlist
             adNetwork={true} // Default true, to preconnect or not to doubleclick addresses called by YouTube iframe (the adnetwork from Google)
-            params="" // any params you want to pass to the URL, assume we already had '&' and pass your parameters string
+            params="autoplay=0" // any params you want to pass to the URL, assume we already had '&' and pass your parameters string
             playlist={false} // Use  true when your ID be from a playlist
             // playlistCoverId="L2vS_050c-M" 
             // The ids for playlists did not bring the cover in a pattern to render so you'll need pick up a video from the playlist (or in fact, whatever id) and use to render the cover. There's a programmatic way to get the cover from YouTube API v3 but the aim of this component is do not make any another call and reduce requests and bandwidth usage as much as possibe

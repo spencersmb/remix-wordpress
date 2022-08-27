@@ -5840,6 +5840,12 @@ video {
   .tablet\:p-\[15px\] {
     padding: 15px;
   }
+  .tablet\:p-16 {
+    padding: 4rem;
+  }
+  .tablet\:p-14 {
+    padding: 3.5rem;
+  }
   .tablet\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -6236,6 +6242,9 @@ video {
   }
   .laptop\:col-span-12 {
     grid-column: span 12 / span 12;
+  }
+  .laptop\:col-span-full {
+    grid-column: 1 / -1;
   }
   .laptop\:col-start-3 {
     grid-column-start: 3;
