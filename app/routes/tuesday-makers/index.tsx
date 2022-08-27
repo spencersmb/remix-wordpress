@@ -200,9 +200,9 @@ const ResourceLibraryHome = () => {
           <div className='relative z-1 left-20 tablet:left-40'>
 
             {/* TOP QUOTE */}
-            <div className='absolute top-[-100px] right-[80px] w-[150px] z-1 tablet:right-[50%]'>
-              <div className='-rotate-12'>Free Procreate color palettes</div>
-              <div className='absolute top-[30px] right-[10px] w-[42px] rotate-[45deg] laptop:w-[50px]'>
+            <div className='absolute top-[-110px] right-[75px] w-[200px] z-1 tablet:right-[50%]'>
+              <div className='text-4xl -rotate-12 font-bonVivant'>Free Procreate color palettes</div>
+              <div className='absolute top-[30px] right-[-10px] w-[42px] rotate-[45deg] laptop:w-[50px]'>
                 <LfmArrowSvg />
               </div>
             </div>
@@ -215,8 +215,8 @@ const ResourceLibraryHome = () => {
             <IpadLongShadow imigixArt={iPadArt} />
 
             {/* BOTTOM QUOTE */}
-            <div className='hidden absolute bottom-[-32px] right-[80px] w-[150px] z-1 tablet:bottom-[-32px] laptop:block tablet:right-[26%] laptop:right-[36%] desktop:bottom-0'>
-              <div className='rotate-[15deg]'>Free Procreate color palettes</div>
+            <div className='hidden absolute bottom-[-32px] right-[80px] w-[200px] z-1 tablet:bottom-[-82px] laptop:block tablet:right-[29%] laptop:right-[36%]'>
+              <div className='rotate-[15deg] text-4xl font-bonVivant'>Free Procreate color palettes</div>
               <div className='absolute top-[-50px] left-[-28px] w-[42px] rotate-[-118deg] laptop:w-[50px]'>
                 <LfmArrowSvg />
               </div>

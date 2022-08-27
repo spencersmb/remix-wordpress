@@ -44,9 +44,9 @@ describe('Breadcrumbs Component', () => {
     expect(links[1]).toHaveTextContent('Blog')
     expect(links[1]).toHaveAttribute('href', '/blog')
   })
-  it('Should show last item with correct title and', () => {
-    setup(defaultLinks)
-    const lastElement = screen.getByTestId('last-element')
-    expect(lastElement).toHaveTextContent(mockPostDataComplete.title)
-  })
+  // it('Should show last item with correct title and', () => {
+  //   setup(defaultLinks)
+  //   const lastElement = screen.getByTestId('last-element')
+  //   expect(lastElement).toHaveTextContent(mockPostDataComplete.title)
+  // })
 })

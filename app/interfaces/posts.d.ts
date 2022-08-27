@@ -14,7 +14,27 @@ interface IBreadCrumb {
   url: string
   text: string
 }
-
+interface IClipElements {
+  name: string
+  startOffset: string
+  endOffset: string
+}
+interface IPotentialActions {
+  name: string
+  startOffset: string
+}
+interface IYoutubeData {
+  id: string | undefined
+  addVideoMetadata: boolean | null
+  duration: string
+  videoObject: {
+    description: string
+    uploadDate: string
+    thumbnailUrl: string
+    clipElements: IClipElements[]
+    potentialActions: IPotentialActions[]
+  }
+}
 interface IFeaturedImage {
   altText: string
   id: string
@@ -77,12 +97,10 @@ interface ITutorialManagerRaw {
         downloadLink: string
     }
   }[] | null
-  youtube: {
-    embedUrl: string,
-    id: string
-  }
+  youtube: IYoutubeData
   resources: IPostResource[] | null
   postExcerpt: string
+  quickSummary: string
 
 
 }
@@ -216,15 +234,7 @@ interface IPostResourceObject {
 // | IPostResourceCourse 
 // | IPostResourceColorSwatch 
 // | IPostResourceDownload
-interface IClipElements {
-  name: string
-  startOffset: string
-  endOffset: string
-}
-interface IPotentialActions {
-  name: string
-  startOffset: string
-}
+
 interface ITutorialManager {
   status: string
   quickSummary: string
@@ -238,18 +248,7 @@ interface ITutorialManager {
         downloadLink: string
     }
   }[] | null
-  youtube: {
-    id: string | undefined
-    addVideoMetadata: boolean | null
-    duration: string
-    videoObject: {
-      description: string
-      uploadDate: string
-      thumbnailUrl: string
-      clipElements: IClipElements[]
-      potentialActions: IPotentialActions[]
-    }
-  }
+  youtube: IYoutubeData
   postExcerpt: string | null
   resources:IPostResource[]
 }

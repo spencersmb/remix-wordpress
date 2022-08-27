@@ -8,7 +8,7 @@ describe('Blog Author Tests', () => {
     const tree = renderer
       .create(
         <MemoryRouter>
-          <BlogAuthor post={mockPostData} />
+          <BlogAuthor />
         </MemoryRouter>
       )
       .toJSON();

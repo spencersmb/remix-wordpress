@@ -46,7 +46,7 @@ function DoubleBgImageLayout({ form }: Props) {
 
         {/* SIGN UP */}
         <div className='flex flex-col items-center p-8'>
-          <div className='text-4xl text-center font-sentinel__SemiBoldItal max-w-[200px] mx-auto mt-8 mb-8 relative laptop:text-5xl'>
+          <div className='text-4xl text-center font-sentinel__SemiBoldItal max-w-[150px] mx-auto mt-8 mb-8 relative laptop:text-5xl laptop:max-w-[196px]'>
             <AccentHeaderText text='Join' />
             Tuesday Makers
           </div>

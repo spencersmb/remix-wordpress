@@ -24,7 +24,7 @@ const TextImageTall = (props: TextImageProps) => {
       {/* IMAGE */}
       <div className='relative'>
 
-        <div className='text-5xl italic absolute top-[-20px] left-[5px] z-1 tablet:text-3xl laptop:text-5xl laptop:left-[15px]'>
+        <div className='text-[5.5rem] leading-[1px] italic absolute top-[-20px] left-[25px] z-1 tablet:text-6xl tablet:top-[-42px] laptop:text-7xl laptop:top-[-52px] font-bonVivant'>
           0{index + 1}
         </div>
 

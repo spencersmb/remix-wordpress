@@ -1,3 +1,4 @@
+import BasicSubmitBtn from '@App/components/buttons/basicSubmitBtn';
 import useRemixFormReset from '@App/hooks/useRemixFormReset';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Form, useActionData, useTransition } from '@remix-run/react';
@@ -137,19 +138,27 @@ function ContactUsForm(props: Props) {
 
           {!actionData?.sendEmail?.sent && (
             <motion.div
+              className="flex w-full "
               key={'email-message'}
               initial={buttonVarients.initial}
               animate={buttonVarients.animate}
               exit={buttonVarients.exit}
             >
-              <button
+              <BasicSubmitBtn
+                key={'email-btn'}
+                loading={transition.state !== 'idle' && transition.state === 'submitting'}
+                className="max-w-[126px] mt-7 btn-flex ml-auto"
+                text={'Send'}
+                loadingText={'Sending...'}
+              />
+              {/* <button
                 key={'email-btn'}
                 disabled={transition.state !== 'idle'}
                 aria-disabled={transition.state !== 'idle'}
                 type='submit'
                 className="btn btn-sage-600 max-w-[86px] mt-7" >
                 {transition.state === 'idle' ? 'Submit' : '...Sending'}
-              </button>
+              </button> */}
             </motion.div>
           )}
         </AnimatePresence>

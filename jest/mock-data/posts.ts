@@ -3,6 +3,30 @@ import type { Location } from "history"
 import { mockFeaturedImage, mockFeatureImageComplete } from "./images"
 import { mockExtendedLicense, mockGenericProduct, mockPaidProduct, mockStandardLicense } from "./products"
 
+export const defaultYoutubeData = {
+    id: '',
+    addVideoMetadata: null,
+    duration: '',
+    videoObject: {
+      description: '',
+      uploadDate: '',
+      clipElements: [],
+      potentialActions: [],
+      thumbnailUrl: ''
+    }
+  }
+export const mockYoutubeData = {
+  id:"tZce1wvLzDE",
+  addVideoMetadata: true,
+  duration: '5:24',
+  videoObject:{
+    description: 'youtube description',
+    thumbnailUrl : 'https://i.ytimg.com/vi/tZce1wvLzDE/hqdefault.jpg',
+    uploadDate: '2020-11-20',
+    clipElements: [],
+    potentialActions: []
+  }
+}
 export const mockTutorailManager__default: ITutorialManager = {
   resources:[],
   downloads: [
@@ -14,15 +38,13 @@ export const mockTutorailManager__default: ITutorialManager = {
     },
   ],
   postExcerpt: 'EXCERPT',
+  quickSummary: 'QUICK SUMMARY',
   status: 'PUBLISHED',
   thumbnail: {
     type: '',
     image: null
   },
-  youtube: {
-    embedUrl: '',
-    id: ''
-  }
+  youtube: defaultYoutubeData
 }
 
 const paidProduct: IProduct = {
@@ -206,15 +228,13 @@ export const mockTutorailManager__withPaidProducts: ITutorialManager = {
     }
   ],
   postExcerpt: 'EXCERPT',
+  quickSummary: 'SUMMARY',
   status: 'PUBLISHED',
   thumbnail: {
     type: '',
     image: null
   },
-  youtube: {
-    embedUrl: '',
-    id: ''
-  }
+  youtube: defaultYoutubeData
 }
 
 const mockTags: Itag[] = [
@@ -1302,15 +1322,13 @@ export const mockPostData: IPost = {
     resources:[],
     downloads: [],
     postExcerpt: 'EXCERPT',
+    quickSummary: 'QUICK SUMMARY',
     status: 'PUBLISHED',
     thumbnail: {
       type: '',
       image: mockFeaturedImage,
     },
-    youtube: {
-      embedUrl: '',
-      id:''
-    }
+    youtube: defaultYoutubeData
   },
   tags: [],
   id: '',
@@ -1569,6 +1587,7 @@ export const mockPostDataComplete: IPost = {
     tutorialManager: {
       status: "success",
       postExcerpt: "<p>Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.</p>\n",
+      quickSummary: "This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.",
       thumbnail: {
         type: 'make',
         image: {
@@ -1643,10 +1662,7 @@ export const mockPostDataComplete: IPost = {
         }
       },
       resources:[],
-      youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
-        id:"tZce1wvLzDE",
-      },
+      youtube: mockYoutubeData,
       downloads: mockTutorialManagerDownloads
     },
     comments: {
@@ -2069,6 +2085,7 @@ export const mockPostDataComplete_2: IPost = {
     tutorialManager: {
       status: "success",
       postExcerpt: "<p>Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.</p>\n",
+      quickSummary: "This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.",
       thumbnail: {
         type: 'make',
         image: {
@@ -2143,10 +2160,7 @@ export const mockPostDataComplete_2: IPost = {
         }
       },
       resources:[],
-      youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
-        id: "tZce1wvLzDE"
-      },
+      youtube: mockYoutubeData,
       downloads: mockTutorialManagerDownloads
     },
     comments: {
@@ -2569,6 +2583,7 @@ export const mockPostDataComplete_3: IPost = {
     tutorialManager: {
       status: "success",
       postExcerpt: "<p>Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.</p>\n",
+      quickSummary: "This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.",
       thumbnail: {
         type: 'make',
         image: {
@@ -2643,10 +2658,7 @@ export const mockPostDataComplete_3: IPost = {
         }
       },
       resources:[],
-      youtube: {
-        embedUrl: "https://www.youtube.com/embed/tZce1wvLzDE",
-        id: "tZce1wvLzDE"
-      },
+      youtube: mockYoutubeData,
       downloads: mockTutorialManagerDownloads
     },
     comments: {
@@ -2738,15 +2750,13 @@ export const mockPostRaw: IPostRaw = {
   },
   tutorialManager: {
       status: 'published',
+      quickSummary: "Quick Summary",
       thumbnail:{
         type: 'make',
         image: null
       },
       downloads: null,
-      youtube: {
-        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
-        id: 'tZce1wvLzDE'
-      },
+      youtube: mockYoutubeData,
       resources:[],
       postExcerpt: 'string'
   },
@@ -2806,11 +2816,9 @@ export const mockPostRawFormatted: IPost = {
       },
       resources:[],
       downloads: null,
-      youtube: {
-        embedUrl: 'https://www.youtube.com/embed/tZce1wvLzDE',
-        id: 'tZce1wvLzDE'
-      },
-      postExcerpt: 'string'
+      youtube: mockYoutubeData,
+      postExcerpt: 'string',
+      quickSummary: 'Quick Summary'
   },
   etSocialNav: mockEtSocialNav
 }

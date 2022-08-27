@@ -50,7 +50,7 @@ const WygSubscribeItem = (item: itemProps) => {
 
   return (
     <div data-testid='wygSubscriberItem' className={classNames('flex flex-row mb-6', containerCss)}>
-      <div className='mr-2 text-3xl italic laptop:mr-5'>
+      <div className='mr-3 text-6xl italic laptop:mr-5 font-bonVivant leading-[20px]'>
         0{item.index + 1}
       </div>
       <div>

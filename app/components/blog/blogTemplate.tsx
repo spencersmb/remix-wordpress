@@ -40,10 +40,10 @@ function BlogTemplate(props: IProps) {
   consoleHelper('post', post, 'blogTemplate.tsx')
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth"
+    // });
 
     // openSearch()
     // handleCommentsClick()
@@ -312,15 +312,24 @@ function BlogTemplate(props: IProps) {
               </div>
 
               {/* BLOG CONTENT */}
-              <div className='px-5 pt-8 mb-8 blog desktop:px-8 tablet:p-14 desktop:py-0'>
+              <div className='px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 desktop:px-8'>
+                <div className='max-w-[1475px] mx-auto w-full relative flex'>
 
-                {post.tutorialManager.postExcerpt &&
-                  <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
-                }
+                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20 desktop:ml-auto'>
+                    <div className='p-7'>
+                      {post.tutorialManager.postExcerpt &&
+                        <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
+                      }
 
-                <div className='blog-content' dangerouslySetInnerHTML={{ __html: post.content }} />
+                      <div className='blog-content' dangerouslySetInnerHTML={{ __html: post.content }} />
+                    </div>
+                  </div>
 
+
+
+                </div>
               </div>
+
 
 
             </StickyContainer>
