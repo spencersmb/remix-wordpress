@@ -215,6 +215,29 @@ export const POST_RESOURCE_FIELDS = gql`
           details {
             courseUrl
           }
+          featuredImage {
+            node {
+              mimeType
+              mediaDetails {
+                height
+                width
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
+                }
+              }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+            }
+          }
         }
       }
       description

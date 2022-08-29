@@ -5,6 +5,7 @@ export enum ImageSizeEnums {
   FULL = 'full',
   PLACEHOLDER = 'placeholder',
   THUMBNAIL = 'headless_post_thumbnail',
+  WP_THUMBNAIL = 'thumbnail',
 //THUMBNAIL_SM = 'headless_post_thumbnail_small', // Used only for pinterest
   FEATURE = 'headless_post_feature_image',
   RESOURCE = 'headless_resource_image',

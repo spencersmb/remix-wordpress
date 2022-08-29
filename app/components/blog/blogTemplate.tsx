@@ -192,24 +192,27 @@ function BlogTemplate(props: IProps) {
             </div>
 
             {/* TIME */}
-            <div className='flex flex-row items-center'>
-              <div className='max-w-[18px] w-full text-sage-200 mr-2'>
-                <ClockSvg fill='currentColor' />
+            {tutorialMin && tutorialMin !== '00' &&
+              <div className='flex flex-row items-center'>
+                <div className='max-w-[18px] w-full text-sage-200 mr-2'>
+                  <ClockSvg fill='currentColor' />
+                </div>
+                <div className='flex flex-row gap-1 text-sage-50'>
+                  {tutorialMin} min tutorial
+                </div>
               </div>
-              <div className='flex flex-row gap-1 text-sage-50'>
-                {tutorialMin} min tutorial
-              </div>
-            </div>
+            }
+
           </div>
-
-
 
         </div>
 
         {/* QUICK SUMMERY */}
-        <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-12 tablet:text-lg laptop:col-start-2 laptop:col-span-7 laptop:text-xl desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
-          <span className='text-lg font-sentinel__SemiBoldItal text-secondary-400 tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
-        </div>
+        {post.tutorialManager.quickSummary &&
+          <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-12 tablet:text-lg laptop:col-start-2 laptop:col-span-7 laptop:text-xl desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
+            <span className='text-lg font-sentinel__SemiBoldItal text-secondary-400 tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
+          </div>
+        }
 
         {/* AUTHOR */}
         <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:row-start-2 laptop:row-span-1 laptop:col-start-10 laptop:col-span-4 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
@@ -241,7 +244,9 @@ function BlogTemplate(props: IProps) {
         </div>
 
         {/* GREY BG FILLER */}
-        <div className='relative hidden row-span-1 row-start-6 z-1 bg-sage-200 tablet:block tablet:col-span-full desktop:row-start-6 desktop:row-span-1' />
+        <div className={classNames(post.tutorialManager.youtube.id
+          ? 'bg-sage-200'
+          : 'bg-neutral-50', 'relative hidden row-span-1 row-start-6 z-1  tablet:block tablet:col-span-full desktop:row-start-6 desktop:row-span-1')} />
 
       </div>
 
@@ -304,7 +309,9 @@ function BlogTemplate(props: IProps) {
                     {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
 
                     {/* <PaidProducts post={post} /> */}
-                    <TutorialResources resources={post.tutorialManager.resources} />
+                    {/* RESOURCES */}
+                    <TutorialResources
+                      resources={post.tutorialManager.resources} />
                   </div>
 
                 </div>
@@ -331,11 +338,18 @@ function BlogTemplate(props: IProps) {
               </div>
 
 
-
             </StickyContainer>
           </div>
 
         </div>}
+
+      {/* BLOG CONTENT WHEN USING THE OLD STYLE */}
+      {!post.tutorialManager.youtube.id && post.tutorialManager.postExcerpt &&
+        <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
+      }
+      {!post.tutorialManager.youtube.id &&
+        <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
+      }
 
       {/* PINTEREST */}
       <PinterestBlock

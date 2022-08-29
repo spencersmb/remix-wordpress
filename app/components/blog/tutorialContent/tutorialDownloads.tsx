@@ -82,7 +82,7 @@ function TutorialDownloads(props: Props) {
           </p>
           <div className='flex flex-row items-center mt-3 mb-6 button_container'>
             <div className='mr-4'>
-              <button data-testid="subscribe-btn" type='button' onClick={handleSignupClick} className='btn btn-secondary btn-secondary-ring btn-lg'>Subscribe</button>
+              <button data-testid="subscribe-btn" type='button' onClick={handleSignupClick} className='btn btn-secondary btn-secondary-ring btn-lg ring-offset-sage-700'>Subscribe</button>
             </div>
             <div>
               <p className='text-sm italic'>
@@ -122,7 +122,7 @@ function TutorialDownloads(props: Props) {
                 <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outline` : `btn btn-outline`, 'btn btn-small')} onClick={handleDownload(index)}>
+                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outline` : `btn btn-outline`, 'btn btn-sm')} onClick={handleDownload(index)}>
                   {!resourceUser ? 'Locked' : 'Download'}
                 </button>
               </div>

@@ -217,6 +217,9 @@ type IPostResource = {
     link: string
     slug: string
     title: string
+    featuredImage: {
+      node: IFeaturedImage
+    }
     details:{
       courseUrl: string
     }

@@ -1,0 +1,111 @@
+import { classNames } from '@App/utils/appUtils'
+import { ChevronDownIcon } from '@heroicons/react/solid'
+import { motion } from 'framer-motion'
+import React from 'react'
+
+interface Props {
+  index: number
+  product: IProduct
+  description?: string
+  selected?: boolean
+  handleClick: ({ index, product }: { index: number | null, product: IProduct | null }) => void
+}
+
+function ResourceProduct(props: Props) {
+  const { description, index, product, selected, handleClick } = props
+
+  const handleButtonClick = (e: any) => {
+    if (!selected) {
+      handleClick({ index, product })
+    }
+  }
+
+  const close = () => {
+    if (selected) {
+      handleClick({ index: null, product: null })
+    }
+  }
+
+  const handleSecond = (e: any) => {
+    e.stopPropagation();
+    console.log('click');
+  }
+
+  return (
+
+    <div
+      onClick={handleButtonClick}
+      className={classNames(selected ? 'bg-grey-100 hover:bg-grey-100' : 'hover:bg-grey-100 hover:cursor-pointer', 'group tr-wrapper tablet:!items-start')}>
+
+      <div className='tr-index font-bonVivant'>
+        0{index + 1}
+      </div>
+
+      {/* CONTENT */}
+      <div className='flex-[2] flex-col flex tablet:flex-row tablet:items-center tablet:max-w-[400px] laptop:max-w-[450px]'>
+
+        {/* IMAGE */}
+        <div className='tr-imageWrapper'>
+          <div className='tr-imageWrapper--inner'>
+            {/* <LazyImgix
+        image={imgix.image}
+        id={`resource-${props.index}`}
+      /> */}
+          </div>
+        </div>
+
+        {/* TITLE */}
+        <div className='flex flex-col tablet:flex-[1.5]'>
+          <div className='tr-title font-sentinel__SemiBoldItal laptop:text-2xl'>
+            {product.title}
+          </div>
+          <p className='text-sm laptop:text-base'>
+            {description}
+          </p>
+        </div>
+
+      </div>
+
+      {/* BUTTON */}
+      <div className='flex tablet:flex-[1] tablet:justify-end tablet:items-center tablet:mt-0 tablet:ml-0 '>
+        <button onClick={close} className={classNames(selected ? '' : ' group-hover:border-gray-600', 'btn btn-sm btn-outlineFill')}>
+          <ChevronDownIcon
+            className={`${selected ? 'rotate-180' : ''}
+                  h-5 w-5 text-success-700 group-hover:fill-sage-700 transition ease-in-out duration-300`}
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+
+      <motion.div
+        className='flex flex-[1_0_100%] bg-grey-100 overflow-hidden'
+        key={`product-${index}`}
+        variants={variants}
+        animate={selected ? "visible" : "hidden"}
+      >
+        <button onClick={handleSecond}>
+          Test
+        </button>
+      </motion.div>
+
+    </div>
+
+  )
+}
+
+export default ResourceProduct
+
+const variants = {
+  initial: {
+    opacity: 0,
+    height: 0,
+  },
+  hidden: {
+    opacity: 0,
+    height: 0,
+  },
+  visible: {
+    opacity: 1,
+    height: '100px',
+  }
+}
