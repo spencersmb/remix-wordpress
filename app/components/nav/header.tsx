@@ -40,7 +40,7 @@ interface Props {
  */
 function Header(props: Props) {
   const { alternateNav } = props
-  const { state: { metadata: { serverSettings } } } = useSite()
+  const { state: { metadata: { serverSettings }, commentsModal } } = useSite()
   const { openSearch, state: { isOpen } } = useSearch()
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
@@ -95,7 +95,7 @@ function Header(props: Props) {
   return (
     <header
       ref={navRef}
-      className={`fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`}>
+      className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`)}>
       <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl">
 
         {/* ET LOGO */}

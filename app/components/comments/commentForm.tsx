@@ -9,6 +9,7 @@ import InputBase from "../forms/input/inputBase";
 import CommentsSvg from "../svgs/commentsSvg";
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne";
 import { consoleHelper } from "@App/utils/windowUtils";
+import { spinnerColors } from "../spinners/spinnerColors";
 
 interface ICommentResponse {
   createComment: {
@@ -27,6 +28,7 @@ interface IProps {
   primary?: boolean
   btnText?: string
   subForm?: boolean
+  index: number
   // onError: () => void
 }
 interface InputError {
@@ -102,6 +104,10 @@ const CommentForm = (props: IProps) => {
   const [globalFormState, setGlobalFormState] = useState<IState>(initFormState)
   const buttonText = 'Post Comment'
   const { submitting, form, pendingComment, commentError, hideForm } = globalFormState
+  const type = props.primary
+    ? 'primary'
+    : props.replyToComment ? 'reply' : 'secondary'
+  // name-input-{primary, reg, reply}-{index}
 
   function handleNameChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
     const isValid = validateName(event.target.value);
@@ -163,14 +169,25 @@ const CommentForm = (props: IProps) => {
   }
 
   function handleCommentChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+    const isValid = event.target.value.length > 0;
+    let error = undefined;
+
+    if (!isValid) {
+      error = {
+        name: 'comment',
+        message: 'Comment must be at least 2 characters long'
+      }
+    }
+
     setGlobalFormState({
       ...globalFormState,
       form: {
         ...globalFormState.form,
+        error,
         comment: {
           value: event.target.value,
           touched: true,
-          isValid: true
+          isValid
         }
       }
     })
@@ -219,7 +236,7 @@ const CommentForm = (props: IProps) => {
 
       consoleHelper('fetch result', result, '/components/comments/commentForm.tsx')
 
-      // If three is no comment, then the user is not authorized to update the comment right away
+      // If there is no comment, then the user is not authorized to update the comment right away
       if (!result.createComment.comment) {
 
         setGlobalFormState({
@@ -318,93 +335,11 @@ const CommentForm = (props: IProps) => {
       >
         <form
           data-testid="comment-form"
-          className={`${props.subForm ? 'px-2 py-6' : 'px-6 py-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmitUpdated}>
+          className={`${props.subForm ? 'px-6 my-2' : 'px-6 pb-8 tablet:px-12 laptop:pr-10'}`} onSubmit={handleSubmitUpdated}>
 
           {/* INPUTS */}
-          <fieldset>
-            <legend>Create Comment</legend>
-            <div className="flex flex-col tablet:flex-row tablet:flex-wrap">
-              {/* NAME */}
-              <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
-                <InputBase
-                  placeholder="Enter Name"
-                  className={`input-basic ${form.name.isValid && form.name.touched
-                    ? 'input-success'
-                    : form.name.isValid === false && form.name.touched ? 'input-error' : ''}`}
-                  id="name-input"
-                  type="text"
-                  name='name'
-                  label="Comment Name"
-                  onChange={handleNameChange}
-                  value={form.name.value}
-                  invalid={form.name.isValid === false || form.name.value.length < 4}
-                  disabled={submitting}
-                />
-              </div>
-
-              {/* EMAIL */}
-              <div className="flex-auto tablet:flex-[0_1_50%]">
-                <InputBase
-                  placeholder="email@gmail.com"
-                  className={`input-basic ${form.email.isValid && form.email.touched
-                    ? 'input-success'
-                    : form.email.isValid === false && form.email.touched ? 'input-error' : ''}`}
-                  id="email-input"
-                  type="email"
-                  name='email'
-                  label="Comment Email"
-                  onChange={handleEmailChange}
-                  value={form.email.value}
-                  required
-                  invalid={form.email.isValid === false}
-                  disabled={submitting}
-                />
-              </div>
-
-              {/* TEXTAREA */}
-              <div className=" flex-[0_1_100%] mb-2.5">
-                <textarea
-                  id="comment-input"
-                  className="textarea-basic"
-                  name="comment"
-                  required
-                  aria-label="Comment Body"
-                  placeholder="Leave comment here..."
-                  onChange={handleCommentChange}
-                  rows={4}
-                  disabled={submitting}
-                  value={form.comment.value}
-                  // TODO: Fix Invalid status on all inputs
-                  aria-invalid={
-                    Boolean(
-                      form.comment.isValid
-                    ) || undefined
-                  }
-                  aria-describedby={
-                    form.comment.isValid
-                      ? "comment-error"
-                      : undefined
-                  }
-                />
-              </div>
-            </div>
-          </fieldset>
-
-          {/* END INPUTS */}
-
-          {/* SUBMIT BUTTON */}
-          <div className="flex flex-col-reverse tablet:items-end">
-            <div>
-              <button
-                disabled={submitting || !form.name.isValid || !form.email.isValid || !form.comment.isValid}
-                data-testid="submit-comment-button"
-                type='submit'
-                className={`w-full text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-200 disabled:text-neutral-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 active:scale-[.98] ${'bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white focus:ring-secondary-400 active:bg-secondary-500 active:scale-[.98]'} tablet:w-auto`}>
-                {(submitting) && <TwSpinnerOne />}
-                {submitting ? '...processing' : buttonText}
-              </button>
-            </div>
-
+          <fieldset className="mt-4">
+            <legend className="hidden mb-4 text-lg font-semibold text-sage-700">Add Comment</legend>
             {/* Error MESSAGE */}
             <div>
               {/* @ts-ignore */}
@@ -443,6 +378,94 @@ const CommentForm = (props: IProps) => {
                 }
               </AnimatePresence>
             </div>
+
+            <div className="flex flex-col tablet:flex-row tablet:flex-wrap">
+              {/* NAME */}
+              <div className="flex-auto tablet:flex-[0_1_50%] tablet:pr-5">
+                <InputBase
+                  placeholder="Enter Name"
+                  className={`input-basic ${props.subForm ? 'input-basic-reverse' : ''} mt-2 ${form.name.isValid && form.name.touched
+                    ? 'input-success'
+                    : form.name.isValid === false && form.name.touched ? 'input-error' : ''}`}
+                  id={`name-input-${type}-${props.index}`}
+                  type="text"
+                  name='name'
+                  label="Comment Name"
+                  onChange={handleNameChange}
+                  value={form.name.value}
+                  invalid={form.name.isValid === false || form.name.value.length < 4}
+                  disabled={submitting}
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div className="flex-auto tablet:flex-[0_1_50%]">
+                <InputBase
+                  placeholder="email@gmail.com"
+                  className={`input-basic ${props.subForm ? 'input-basic-reverse' : ''} mt-2 ${form.email.isValid && form.email.touched
+                    ? 'input-success'
+                    : form.email.isValid === false && form.email.touched ? 'input-error' : ''}`}
+                  id={`email-input-${type}-${props.index}`}
+                  type="email"
+                  name='email'
+                  label="Comment Email"
+                  onChange={handleEmailChange}
+                  value={form.email.value}
+                  required
+                  invalid={form.email.isValid === false}
+                  disabled={submitting}
+                />
+              </div>
+
+              {/* TEXTAREA */}
+              <div className=" flex-[0_1_100%] mb-2.5 ">
+                <label htmlFor={`comment-input-${type}-${props.index}`} className={''}>
+                  <span className={''}>Leave a message</span>
+                  <textarea
+                    id={`comment-input-${type}-${props.index}`}
+                    className={`mt-2 textarea-basic ${props.subForm ? 'textarea-basic-reverse' : ''} ${form.comment.isValid && form.comment.touched
+                      ? 'input-success'
+                      : form.comment.isValid === false && form.comment.touched ? 'input-error' : ''}`}
+                    name="comment"
+                    required
+                    aria-label="Comment Body"
+                    placeholder="Leave comment here..."
+                    onChange={handleCommentChange}
+                    rows={4}
+                    disabled={submitting}
+                    value={form.comment.value}
+                    // TODO: Fix Invalid status on all inputs
+                    aria-invalid={
+                      Boolean(
+                        form.comment.isValid
+                      ) || undefined
+                    }
+                    aria-describedby={
+                      form.comment.isValid
+                        ? "comment-error"
+                        : undefined
+                    }
+                  />
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          {/* END INPUTS */}
+
+          {/* SUBMIT BUTTON */}
+          <div className="flex flex-col-reverse mt-2 tablet:items-end">
+            <div>
+              <button
+                disabled={submitting || !form.name.isValid || !form.email.isValid || !form.comment.isValid}
+                data-testid="submit-comment-button"
+                type='submit'
+                className={`w-full text-sage-50 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:text-grey-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 bg-sage-700 hover:ring-sage-500 hover:bg-sage-500 ring-offset-white focus:ring-sage-700 focus:hover:ring-sage-500 active:bg-sage-500 active:scale-[.98] tablet:w-auto ${props.subForm ? 'ring-offset-sage-100 disabled:bg-sage-200' : 'disabled:bg-sage-100'}`}>
+                {(submitting) && <TwSpinnerOne loaderColors={spinnerColors.sageSolid} />}
+                {submitting ? '...sending' : buttonText}
+              </button>
+            </div>
+
           </div>
 
         </form>

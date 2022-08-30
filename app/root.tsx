@@ -16,7 +16,7 @@ import { json } from "@remix-run/node";
 import deleteMeRemixStyles from "@App/styles/demos/remix.css";
 import globalStylesUrl from "@App/styles/global-old.css";
 import darkStylesUrl from "@App/styles/dark.css";
-import { siteInitialState } from './hooks/useSite'
+import useSite, { siteInitialState } from './hooks/useSite'
 import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
@@ -242,13 +242,16 @@ export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
   useWindowResize()
   const { state: { isOpen } } = useSearch()
+  const { state: { commentsModal } } = useSite()
+
   // Dealy the animation so it doesn't show double scroll bars
   // const { openAnimationDone } = useSearchScrollFix(isOpen)
 
   return (
     <html
       lang="en"
-      className={classNames(isOpen ? 'laptop:animate-addPadding ' : '', "")}>
+      className={classNames(isOpen || commentsModal.show ? 'laptop:animate-addPadding ' : '', "")}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

@@ -211,7 +211,7 @@ module.exports = {
       },
       animation: {
         fadeIn: 'fadeIn 300ms ease-in-out',
-        addPadding: 'addPadding 300ms 150ms ease-in-out forwards',
+        addPadding: 'addPadding 0ms 150ms ease-in-out forwards',
       },
       zIndex:{
         '1': '1',

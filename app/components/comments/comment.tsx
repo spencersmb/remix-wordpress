@@ -1,19 +1,22 @@
 import { useState } from "react"
 import { formatDate } from "@App/utils/posts"
 import CommentForm from "./commentForm"
+import { AnimatePresence, motion } from "framer-motion"
+import { classNames } from "@App/utils/appUtils"
 
 interface ICommentProps {
   comment: IPostComment
   postId: number
   isReply?: boolean
+  index: number
 }
 
 /**
-* @Component Comment - Ued on BLOG article
+* @Component Comment - Used on BLOG article
 * @teststed - 5/28/2022
 */
 const Comment = (props: ICommentProps) => {
-  const { comment, postId, isReply = false } = props
+  const { comment, postId, index, isReply = false } = props
 
   const [showReplyForm, setShowReplyForm] = useState(false)
 
@@ -42,10 +45,10 @@ const Comment = (props: ICommentProps) => {
   }
   const testID = `comment${isReply ? '-reply' : ""}`
   return (
-    <div data-testid={testID} key={comment.id} className={`mb-12`}>
+    <div data-testid={testID} key={comment.id} className={`mb-6`}>
 
       {/* IMAGE, NAME, DATE */}
-      <div className="flex flex-row justify-between mb-3 comment_header">
+      <div className={classNames(isReply ? 'px-3 tablet:px-6' : 'px-6 tablet:px-12', 'flex flex-row justify-between mb-3 comment_header')}>
         <div className="flex flex-row items-center justify-center">
           {/* IMAGE */}
           <div className="w-[54px] h-[54px] rounded-full overflow-hidden mr-3">
@@ -57,8 +60,8 @@ const Comment = (props: ICommentProps) => {
 
           {/* NAME/DATE */}
           <div className="flex flex-col">
-            <div className="comment_authorName font-sentinel__SemiBoldItal text-primary-500 text-h5">{comment.author.name}</div>
-            <div className="text-sm comment_date text-neutral-500">{formatDate(comment.date)}</div>
+            <div className="comment_authorName font-sentinel__SemiBoldItal text-sage-600 text-h5">{comment.author.name}</div>
+            <div className="text-sm comment_date text-grey-500">{formatDate(comment.date)}</div>
           </div>
         </div>
 
@@ -66,27 +69,57 @@ const Comment = (props: ICommentProps) => {
         {<div className="text-sm hover:cursor-pointer">
           <button
             data-testid="comment-reply-button"
-            className="outline-none underlined underline-offset-4 text-primary-600 focus:border-0" onClick={handleReplyClick}>Reply</button>
+            className="font-semibold outline-none underlined underline-offset-4 text-sage-700 focus:border-0 after:underlineAnimation"
+            onClick={handleReplyClick}>
+            Reply
+          </button>
         </div>}
       </div>
 
       {/* COMMENT */}
-      <div data-testid="comment-body" className="comment_body text-neutral-700" dangerouslySetInnerHTML={{ __html: comment.content }} />
+      <div data-testid="comment-body" className="px-6 comment_body text-grey-700 tablet:px-12" dangerouslySetInnerHTML={{ __html: comment.content }} />
 
       {/* REPLY FORM */}
-      {showReplyForm &&
-        <div className="">
-          <CommentForm
-            subForm={true}
-            btnText="Reply"
-            postId={postId}
-            onComplete={commentOnCompelte}
-            replyToComment={comment} />
-        </div>}
+      <AnimatePresence>
+        {showReplyForm &&
+          <motion.div
+            variants={{
+              enter: { height: "auto" },
+              exit: { height: 0 },
+              initial: { height: 0 },
+            }}
+            key="content"
+            initial={'initial'}
+            exit={'exit'}
+            animate={'enter'}
+            id="form-motion"
+            className="overflow-hidden"
+          >
+            <div className="mt-4">
+              <div className="px-6 py-4 bg-grey-100">
+                <CommentForm
+                  subForm={true}
+                  btnText="Reply"
+                  postId={postId}
+                  onComplete={commentOnCompelte}
+                  index={index}
+                  replyToComment={comment} />
+              </div>
+            </div>
+          </motion.div>}
+      </AnimatePresence>
 
       {/* COMMENT REPLIES */}
-      <div aria-label="comment-replies" className="pl-8 mt-8 border-l-4 border-neutral-300">
-        {comment.replies?.map((reply) => <Comment isReply={true} key={reply.id} comment={reply} postId={postId} />).reverse()}
+      <div aria-label="comment-replies" className="ml-6 tablet:ml-12">
+        {comment.replies?.map((reply) =>
+          <div key={postId} className='mt-8 border-l-4 border-grey-300'>
+            <Comment
+              index={index}
+              isReply={true}
+              comment={reply}
+              postId={postId} />
+          </div>
+        ).reverse()}
       </div>
 
 

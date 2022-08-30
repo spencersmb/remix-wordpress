@@ -27,7 +27,7 @@ function BasicSubmitBtn(props: Props) {
       disabled={loading}
       aria-disabled={loading}
       type='submit'
-      className={classNames(className ? className : '', 'btn btn-primary btn-lg')}>
+      className={classNames(className ? className : 'btn btn-primary btn-lg', '')}>
       <AnimatePresence>
         {loading &&
           <motion.span
@@ -45,7 +45,7 @@ function BasicSubmitBtn(props: Props) {
               opacity: 0,
               width: 0,
             }}
-            className="max-w-[18px]">
+            className="max-w-[18px] overflow-hidden">
             <TwSpinnerOne loaderColors={spinnerColors} />
           </motion.span>
         }

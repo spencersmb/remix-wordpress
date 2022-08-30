@@ -48,12 +48,12 @@ function PinterestBlock(props: IProps) {
               rel="nofollow noreferrer"
               target="_blank"
               href={`https://pinterest.com/pin/create/button/?url=${postUrl}&media=${pinterestImage.sourceUrl}&description=${description}`}>
-              <div className="bg-primary-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
+              <div className="bg-sage-500 rounded-full w-[42px] h-[42px] flex justify-center items-center mb-4 shadow-xl">
                 <div>
                   <PinterestSvg fill={'#fff'} width={'24px'} height={'24px'} />
                 </div>
               </div>
-              <div className="mb-2 font-sentinel__SemiBoldItal text-primary-500 text-h4">Save for later</div>
+              <div className="mb-2 font-sentinel__SemiBoldItal text-sage-700 text-h4">Save for later</div>
               <p className="mb-8 text-center">Create your own personal library of my tutorials you love!</p>
 
               <CircularStrokeBtn text='Pin It' classes="py-[21px] px-[38px]" />

@@ -8,6 +8,8 @@ import gql from 'graphql-tag';
 import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { parseComment } from '@App/utils/posts'
+import BasicSubmitBtn from '../buttons/basicSubmitBtn'
+import { spinnerColors } from '../spinners/spinnerColors'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -45,12 +47,12 @@ const CommentModal = () => {
         })
       })
     const { data } = await body.json()
-    console.log('data', data);
 
     fetchMoreComments({
       comments: data.comments.edges.map(({ node }: any) => parseComment(node)),
       pageInfo: data.comments.pageInfo
     })
+
     setLoading(false)
 
     // const filteredPosts = flattenAllPosts(data.posts) || []
@@ -76,8 +78,9 @@ const CommentModal = () => {
           <motion.div
             data-testid='commentModal'
             key='modalContainer'
-            className='bg-white fixed h-screen block z-[1100] opacity-0 translate-x-[0] top-0 right-0 left-auto  overflow-y-auto shadow-xl w-full laptop:max-w-[700px] '
+            className='bg-white fixed h-screen block z-[1100] overflow-y-scroll opacity-0 translate-x-[0] top-0 right-0 left-auto shadow-xl w-full laptop:max-w-[700px] '
             initial={containerMotion.closed}
+            // @ts-ignore
             animate={containerMotion.open}
             exit={containerMotion.closed}
           >
@@ -85,27 +88,32 @@ const CommentModal = () => {
 
               {/* COMMENT HEADER */}
               <div className="flex flex-row justify-between px-6 pt-6 comments_header tablet:px-12 laptop:pr-10">
-                <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-primary-700'>
+                <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-sage-500'>
                   Comments <span className='text-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
                 </div>
-                <div data-testid="comments-close-btn" className='w-[40px] hover:cursor-pointer' onClick={hideComments}>
-                  <CloseSvg fill={'var(--primary-plum-700)'} />
+                <div data-testid="comments-close-btn" className='w-[40px] hover:cursor-pointer group' onClick={hideComments}>
+                  <CloseSvg stroke={'var(--sage-700)'} className="transition-all duration-300 ease-in-out group-hover:rotate-180" />
                 </div>
               </div>
 
               {/* COMMENT FORM */}
               <div className=''>
-                <CommentForm postId={commentsModal.commentOn} primary={true} />
+                <CommentForm
+                  postId={commentsModal.commentOn}
+                  primary={true}
+                  index={0}
+                />
               </div>
 
               {/* COMMENTS */}
               {commentsModal.comments.length > 0 &&
-                <div className='px-6 tablet:px-12 laptop:pr-10' data-testid="comments-list">
-                  {commentsModal.comments.map((comment: IPostComment) =>
+                <div className='' data-testid="comments-list">
+                  {commentsModal.comments.map((comment: IPostComment, index: number) =>
                     <Comment
                       key={comment.id}
                       comment={comment}
                       postId={commentsModal.commentOn}
+                      index={index}
                     />
                   )
                   }
@@ -113,12 +121,12 @@ const CommentModal = () => {
 
               {/* LOAD MORE COMMENTS */}
               {commentsModal.pageInfo.hasNextPage &&
-                <div>
+                <div className='flex justify-center'>
                   <button
                     data-testid="comments-load-more"
                     onClick={fetchMore}
-                    className={`text-primary-600 font-semibold px-5 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:bg-neutral-500 disabled:ring disabled:ring-neutral-500 bg-secondary-400 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-white active:bg-secondary-500 active:scale-[.98]}`}>
-                    {(loading) && <TwSpinnerOne />}
+                    className={`btn btn-outline btn-lg`}>
+                    {(loading) && <span className='mr-2'><TwSpinnerOne loaderColors={spinnerColors.sageOutline} /></span>}
                     {loading ? 'Loading...' : 'Load More Comments'}
                   </button>
                 </div>
@@ -145,10 +153,8 @@ const CommentModal = () => {
 const containerMotion = {
   closed: {
     x: '100%',
-    right: 0,
-    left: 'auto',
-    top: 0,
     opacity: 1,
+    overflow: 'hidden',
     transition: {
       type: "spring",
       stiffness: 260,
@@ -159,7 +165,9 @@ const containerMotion = {
   open: {
     x: '0%',
     opacity: 1,
+    overflowY: 'scroll',
     transition: {
+      // delay: .1
       type: "spring",
       stiffness: 260,
       damping: 30
