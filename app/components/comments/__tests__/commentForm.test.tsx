@@ -98,7 +98,8 @@ describe('Comment Form Component', () => {
   it('should submit form with name/email/comment', async () => {
 
     const defaultProps = {
-      postId: 2
+      postId: 2,
+      index: 0
       // replyToComment?: IPostComment
       // onComplete?: (response: ICommentResponse) => void
       // primary ?: boolean
@@ -133,7 +134,7 @@ describe('Comment Form Component', () => {
     fireEvent.change(textarea, { target: { value: 'This is a test comment' } })
     fireEvent.click(button)
 
-    expect(button).toHaveTextContent('...processing')
+    expect(button).toHaveTextContent('...sending')
     expect(spinner).toBeDefined()
     expect(button).toHaveProperty('disabled', true)
     // expect(nameInput).toHaveProperty('disabled', true)
@@ -169,6 +170,7 @@ describe('Comment Form Component', () => {
     // jest.setTimeout(6000)
     const defaultProps = {
       postId: 2,
+      index: 0,
       // replyToComment?: IPostComment
       onComplete: optionalCallback
       // primary ?: boolean
@@ -220,7 +222,8 @@ describe('Comment Form Component', () => {
   it('should submit form with name/email/comment', async () => {
 
     const defaultProps = {
-      postId: 2
+      postId: 2,
+      index: 0
       // replyToComment?: IPostComment
       // onComplete?: (response: ICommentResponse) => void
       // primary ?: boolean
@@ -255,7 +258,7 @@ describe('Comment Form Component', () => {
     fireEvent.change(textarea, { target: { value: 'This is a test comment' } })
     fireEvent.click(button)
 
-    expect(button).toHaveTextContent('...processing')
+    expect(button).toHaveTextContent('...sending')
     expect(spinner).toBeDefined()
     expect(button).toHaveProperty('disabled', true)
     expect(nameInput).toHaveProperty('disabled', true)

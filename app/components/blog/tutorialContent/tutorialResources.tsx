@@ -36,11 +36,11 @@ function TutorialResources(props: Props) {
         if (resource.colorSwatch) {
           const colorSwatch = resource.colorSwatch
           const image = createImgixSizes({
-            width: 1400,
-            height: 1049,
+            width: 150,
+            height: 150,
             alt: `Every-Tuesday Free Color Swatches for Procreate`,
-            src: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg',
-            mobileSize: 800
+            src: 'https://et-website.imgix.net/et-website/images/swatch-small_1_1.jpg',
+            mobileSize: 150
           })
           return (
             <ResourceDownload
@@ -92,11 +92,11 @@ function TutorialResources(props: Props) {
         if (resource.download) {
           const download = resource.download
           const image = createImgixSizes({
-            width: 1400,
-            height: 1049,
+            width: 150,
+            height: 150,
             alt: `Every-Tuesday Free Color Swatches for Procreate`,
-            src: 'https://et-website.imgix.net/et-website/images/free-swatch-card.jpg',
-            mobileSize: 800
+            src: 'https://et-website.imgix.net/et-website/images/swatch-small_1_1.jpg',
+            mobileSize: 150
           })
           return (
             <ResourceDownload

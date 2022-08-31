@@ -195,7 +195,8 @@ const classes = {
     borderColor: 'var(--sage-700)',
     '&:hover':{
       color: 'var(--sage-50)',
-      backgroundColor: 'var(--sage-700)',
+      backgroundColor: 'var(--sage-500)',
+      borderColor: 'var(--sage-500)',
     },
     '&:active':{
     },

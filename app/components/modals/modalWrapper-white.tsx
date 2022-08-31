@@ -36,7 +36,7 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
       </div>
 
       <div data-testid="custom-class-mw" className={classNames(
-        "bg-white p-5 tablet:p-10 relative rounded-2.5xl overflow-hidden shadow-xxl-grey z-0",
+        "bg-white p-5 tablet:p-10 relative overflow-hidden shadow-xxl-grey z-0",
         className
       )}>
 

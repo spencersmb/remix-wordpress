@@ -30,7 +30,7 @@ const MakersLoginFetchForm = (props: Props) => {
     }
   }, [type, data]);
 
-  const inputCss = "bg-sage-100 transform text-sage-700 w-full px-5 py-4 rounded-lg hover:ring hover:ring-sage-300 ring-offset-white focus:ring ring-offset-4 focus:ring-sage-500 text-base outline-none duration-200 ease-in-out autofill:"
+  // const inputCss = "bg-sage-100 transform text-sage-700 w-full px-5 py-4 rounded-lg hover:ring hover:ring-sage-300 ring-offset-white focus:ring ring-offset-4 focus:ring-sage-500 text-base outline-none duration-200 ease-in-out autofill:"
 
   return (
     <div>
@@ -41,9 +41,8 @@ const MakersLoginFetchForm = (props: Props) => {
         action="/convertkit/tuesday-makers-login"
       >
         <div className='flex-1 mb-5'>
-          {/* <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
-            className={inputCss}
+            className={''}
             id="email-input"
             type="email"
             name="email"
@@ -66,7 +65,7 @@ const MakersLoginFetchForm = (props: Props) => {
         </div>
         <div className='flex'>
           <SubmitFetcherBtn
-            className='btn ring-offset-white'
+            className='btn btn-primary btn-lg btn-flex btn-primary-ring'
             state={state}
             btnText={`Login`}
           />

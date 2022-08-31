@@ -265,7 +265,7 @@ function BlogTemplate(props: IProps) {
                   : '',
                 'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-200')}>
 
-                <div className='max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
+                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
 
                   {/* TUTORIAL DOWNLOADS */}
                   <div className='relative flex-none my-20 desktop:flex-1'>
@@ -320,10 +320,10 @@ function BlogTemplate(props: IProps) {
 
               {/* BLOG CONTENT */}
               <div className='px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 desktop:px-8'>
-                <div className='max-w-[1475px] mx-auto w-full relative flex'>
+                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex'>
 
                   <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20 desktop:ml-auto'>
-                    <div className='p-7'>
+                    <div className=''>
                       {post.tutorialManager.postExcerpt &&
                         <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
                       }
@@ -377,8 +377,8 @@ function BlogTemplate(props: IProps) {
       {/* RELATED POSTS TITLE */}
       <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
         <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
-          <div className='flex flex-col col-span-2 col-start-2 text-4xl font-sentinel__SemiBoldItal mb-7 mt-14 tablet:col-start- tablet:col-span-3 tablet:text-5xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
-            <span className='text-primary-500'>You may also like...</span>
+          <div className='flex flex-col col-span-2 col-start-2 text-4xl font-sentinel__SemiBoldItal mb-7 mt-14 tablet:col-start- tablet:col-span-3 tablet:text-4xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
+            <span className='text-sage-600'>You may also like...</span>
           </div>
         </div>
       </div>

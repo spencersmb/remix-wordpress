@@ -40,13 +40,13 @@ function BlogComments(props: Props) {
     return !window.open(href, 'Facebook', 'width=640,height=580')
   }
 
-  useEffect(() => {
-    showComments({
-      commentOn: post.databaseId,
-      comments: post.comments.list,
-      pageInfo: post.comments.pageInfo
-    })
-  }, [])
+  // useEffect(() => {
+  //   showComments({
+  //     commentOn: post.databaseId,
+  //     comments: post.comments.list,
+  //     pageInfo: post.comments.pageInfo
+  //   })
+  // }, [])
   return (
     <div className='flex flex-row items-center justify-between'>
 

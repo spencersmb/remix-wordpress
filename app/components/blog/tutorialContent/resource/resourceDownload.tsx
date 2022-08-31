@@ -1,3 +1,4 @@
+import LazyImgix from '@App/components/images/lazyImgix'
 import React from 'react'
 
 interface Props {
@@ -17,6 +18,7 @@ function ResourceDownload(props: Props) {
       <a
         className='link-wrapper'
         href={props.url}>
+
         <div className='tr-index font-bonVivant'>
           0{index + 1}
         </div>
@@ -26,11 +28,11 @@ function ResourceDownload(props: Props) {
 
           {/* IMAGE */}
           <div className='tr-imageWrapper'>
-            <div className='tr-imageWrapper--inner'>
-              {/* <LazyImgix
-        image={imgix.image}
-        id={`resource-${props.index}`}
-      /> */}
+            <div className='transition-all duration-300 tr-imageWrapper--inner group-hover:border-gray-600'>
+              <LazyImgix
+                image={imgix.image}
+                id={`resource-${props.index}`}
+              />
             </div>
           </div>
 

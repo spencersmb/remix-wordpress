@@ -84,12 +84,12 @@ function PostCardOne(props: Props) {
       }}
       className='z-20 flex flex-col col-span-2 col-start-2 mb-8 card_conainter tablet:col-start-auto tablet:col-auto desktop:mb-16'>
 
-      <div className='flex rounded-xl overflow-hidden transform transition-all shadow-md duration-500 translate-y-0 laptop:hover:shadow-et_4 laptop:hover:translate-y-[-5px] relative flex-1 bg-white'>
+      <div className='flex overflow-hidden transform transition-all shadow-md duration-500 translate-y-0 laptop:hover:shadow-et_4 laptop:hover:translate-y-[-5px] relative flex-1 bg-white'>
         <Link className='flex flex-col justify-start' to={`../${post.slug}`} prefetch={'intent'}>
 
           <div data-testid="post-card-one-image-wrapper" className="wrapper">
             {/* Make This */}
-            {post.tutorialManager
+            {/* {post.tutorialManager
               && post.tutorialManager.thumbnail.image
               && post.tutorialManager.thumbnail.type === 'make'
               && (
@@ -110,12 +110,12 @@ function PostCardOne(props: Props) {
                     />
                   </div>
                 </div>
-              )}
+              )} */}
 
             {/* CARD IMAGE */}
             <div className={`relative ${marginBottom}`}>
-              <div className="rounded-t-2.5xl overflow-hidden flex h-full top-0 w-full">
-                <LazyImageBase testId="post-card-one-feature-image" image={postImage} id={post.id} scrollPosition={scrollPosition} disableSrcSet={true} />
+              <div className="top-0 flex w-full h-full overflow-hidden">
+                <LazyImageBase testId="post-card-one-feature-image" image={image} id={post.id} scrollPosition={scrollPosition} disableSrcSet={true} />
                 {/* <LazyLoadImage
                   key={post.id}
                   alt={postImage.altTitle}
@@ -136,7 +136,7 @@ function PostCardOne(props: Props) {
 
             {/* CARD TEXT */}
             <div className='flex flex-col items-center justify-center flex-1 px-3 pt-2 text-center pb-7 desktop:px-9'>
-              <div className='font-black tracking-widest text-h3 text-primary-700 desktop:text-h3'>
+              <div className='font-black tracking-widest text-h3 tablet:text-xl tablet:leading-[1.75rem] laptop:text-2xl text-primary-700 desktop:text-h3'>
                 <div className='mb-2'>
                   {postTitle.subTitle && <div aria-label="subTitle" style={{ textTransform: 'inherit' }} className='block mb-3 font-medium tracking-normal lowercase text-h5 font-sentinel__SemiBoldItal'>{postTitle.subTitle}</div>}
                   <span data-testid="post-card-one-title" className="uppercase">{postTitle.title}</span>

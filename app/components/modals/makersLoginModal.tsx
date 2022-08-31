@@ -37,10 +37,10 @@ const TuesdayMakersLoginModal = (props: IProps) => {
 
         {/* CONTENT */}
         <div className="max-w-[300px] text-center mb-4">
-          <h2 className="mb-4 text-5xl text-navy-700 font-sentinel__SemiBoldItal">
+          <h2 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
             Welcome Back!
           </h2>
-          <p className="text-navy-900">
+          <p className="text-grey-700">
             The Tuesday Makers Library is constantly growing with new assets uploaded weekly.
           </p>
         </div>
@@ -48,8 +48,8 @@ const TuesdayMakersLoginModal = (props: IProps) => {
 
       {process.env.NODE_ENV !== 'test' && <MakersLoginForm closeModal={props.closeModal} />}
 
-      <div className="mt-4 text-center text-navy-900">
-        Not a subscriber? <button className="font-semibold underline text-navy-700 underline-offset-4" type='button' onClick={createAccount}>Create an account!</button>
+      <div className="mt-4 text-center text-grey-700">
+        Not a subscriber? <button className="font-semibold underline text-sage-600 underline-offset-4 hover:text-sage-500" type='button' onClick={createAccount}>Create an account!</button>
       </div>
     </ModalLayoutWrapperWhite>
   )

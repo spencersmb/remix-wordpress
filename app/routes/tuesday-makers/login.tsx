@@ -242,7 +242,7 @@ const ResourceLibraryLogin = () => {
                   loading={(transition.state !== 'idle' && transition.state === 'submitting') || usedOldPassword}
                   loadingText={'Loading'}
                   text={'Sign In'}
-                  className="btn-lg btn-primary-ring"
+                  className="btn btn-primary btn-lg btn-primary-ring"
                 />
 
               </Form>

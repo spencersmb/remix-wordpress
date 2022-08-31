@@ -71,10 +71,11 @@
     border-radius: 9999px;
     width: 60px;
     height: 60px;
-    border-width: 1px;
+    border-width: 3px;
+    border-color: var(--sage-200);
     margin-right: 0.75rem;
     --tw-bg-opacity: 1;
-    background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+    background-color: var(--sage-200);
   }
 
   @media (min-width: 768px) {
@@ -88,7 +89,7 @@
   font-size: 3.75rem /* 60px */;
   line-height: 30px;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     display: flex;
     line-height: 40px;
     font-size: 4.5rem /* 72px */;

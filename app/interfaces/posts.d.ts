@@ -220,7 +220,7 @@ type IPostResource = {
     featuredImage: {
       node: IFeaturedImage
     }
-    details:{
+    details:{ 
       courseUrl: string
     }
   }

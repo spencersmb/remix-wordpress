@@ -1,4 +1,8 @@
+import LazyImageBase from '@App/components/images/lazyImage-base'
+import LicenseSelectSection from '@App/components/products/licenseSelectSection'
+import { ImageSizeEnums } from '@App/enums/imageEnums'
 import { classNames } from '@App/utils/appUtils'
+import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { motion } from 'framer-motion'
 import React from 'react'
@@ -31,6 +35,13 @@ function ResourceProduct(props: Props) {
     console.log('click');
   }
 
+  const productImage = loadImageSrc({
+    imageSizeName: ImageSizeEnums.WP_THUMBNAIL,
+    imageObject: product.featuredImage.node,
+    fallbackSize: ImageSizeEnums.MEDIUM,
+    fallbackImage: defaultImages.thumbnail
+  })
+
   return (
 
     <div
@@ -46,11 +57,15 @@ function ResourceProduct(props: Props) {
 
         {/* IMAGE */}
         <div className='tr-imageWrapper'>
-          <div className='tr-imageWrapper--inner'>
-            {/* <LazyImgix
-        image={imgix.image}
-        id={`resource-${props.index}`}
-      /> */}
+          <div className='relative transition-all duration-300 tr-imageWrapper--inner group-hover:border-gray-600'>
+            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[66px]'>
+              <LazyImageBase
+                testId='feature-image'
+                id={`resource-course-${props.index}`}
+                image={productImage}
+                disableSrcSet={true}
+              />
+            </div>
           </div>
         </div>
 
@@ -81,11 +96,12 @@ function ResourceProduct(props: Props) {
         className='flex flex-[1_0_100%] bg-grey-100 overflow-hidden'
         key={`product-${index}`}
         variants={variants}
+        initial='hidden'
         animate={selected ? "visible" : "hidden"}
       >
-        <button onClick={handleSecond}>
-          Test
-        </button>
+        <div className='flex flex-1 py-4 max-w-[450px] mx-auto'>
+          <LicenseSelectSection product={product} />
+        </div>
       </motion.div>
 
     </div>
@@ -106,6 +122,6 @@ const variants = {
   },
   visible: {
     opacity: 1,
-    height: '100px',
+    height: 'auto',
   }
 }

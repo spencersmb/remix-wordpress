@@ -195,6 +195,29 @@ export const POST_RESOURCE_FIELDS = gql`
         ... on Product {
           title
           slug
+          featuredImage {
+            node {
+              mimeType
+              mediaDetails {
+                height
+                width
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
+                }
+              }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+            }
+          }
           productDetails {
             licences {
               licenseType

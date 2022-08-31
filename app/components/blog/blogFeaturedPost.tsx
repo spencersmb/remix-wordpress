@@ -50,7 +50,8 @@ function BlogFeaturedPost(props: Props) {
       <div className="featured_image mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-end-8 tablet:row-span-3 tablet:row-start-1 desktop:col-start-2 max-w-[660px] ml-auto mr-0 desktop:mt-24 w-full">
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
 
-          <div className={`absolute top-[-20px] left-[15px] w-[167px] rotate-[352deg] z-10 laptop:w-[227px] desktop:w-[373px]`}>
+          {/* MAKE THIS TAG */}
+          {/* <div className={`absolute top-[-20px] left-[15px] w-[167px] rotate-[352deg] z-10 laptop:w-[227px] desktop:w-[373px]`}>
             <div className='relative z-10 lazy-load-image-full'>
               <LazyImgix
                 id={'make-this'}
@@ -75,21 +76,27 @@ function BlogFeaturedPost(props: Props) {
                 }}
               />
             </span>
-          </div>
+          </div> */}
 
-          <div className="relative pb-[92%]">
-            <div className="rounded-2.5xl overflow-hidden flex absolute h-full top-0 w-full">
+          {/* <div className="relative pb-[92%]"> */}
+          <div className="relative">
+            <LazyImageBase
+              visibleByDefault={true}
+              testId='feature-image'
+              id={featuredPost.id}
+              image={image} />
+            {/* <div className="absolute top-0 flex w-full h-full overflow-hidden">
               <LazyImageBase
                 visibleByDefault={true}
                 testId='feature-image'
                 id={featuredPost.id}
-                image={postImage} />
-            </div>
+                image={image} />
+            </div> */}
 
             {colorSwatch &&
               <div data-testid="color-swatch"
                 // style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }}
-                className="absolute rounded-full bottom-[-10px] tablet:bottom-[-10%] right-[30px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+                className="absolute rounded-full bottom-[-50px] tablet:bottom-[-10%] right-[10px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
                 <span
                   // style={{ color: featuredPost.tutorialManager.colorPalette.iconTextColor }} 
                   className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6 text-white">

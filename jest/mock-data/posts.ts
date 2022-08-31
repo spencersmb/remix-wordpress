@@ -2913,6 +2913,9 @@ export const mockPostResource__Course = {
     link: "https://etheadless.local/courses/watercolor-florals-in-procreate/",
     slug: "watercolor-florals-in-procreate",
     title: "Watercolor Florals in Procreate",
+    featuredImage: {
+      node: mockFeatureImageComplete
+    },
     details: {
       courseUrl: "https://learn.etheadlessdev.wpengine.com/watercolor-florals-in-procreate/"
     }

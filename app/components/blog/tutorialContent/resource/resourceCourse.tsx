@@ -30,9 +30,8 @@ function ResourceCourse(props: Props) {
 
           {/* IMAGE */}
           <div className='tr-imageWrapper'>
-            <div className='tr-imageWrapper--inner'>
+            <div className='tr-imageWrapper--inner group-hover:border-gray-600 transition-all duration-300'>
               <LazyImageBase
-                visibleByDefault={true}
                 testId='feature-image'
                 id={`resource-course-${props.index}`}
                 image={image} />
