@@ -17,28 +17,6 @@ async function getAllPosts(){
                   }
                   tutorialManager {
                     postExcerpt
-                    thumbnail {
-                      image {
-                        altText
-                        caption
-                        sourceUrl
-                        srcSet
-                        sizes
-                        id
-                        mediaDetails{
-                          width
-                          height
-                          sizes{
-                            width
-                            file
-                            height
-                            name
-                            sourceUrl
-                            mimeType
-                          }
-                        }
-                      }
-                    }
                   }
                     title
                     excerpt

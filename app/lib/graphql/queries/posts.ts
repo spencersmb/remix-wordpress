@@ -347,28 +347,6 @@ export const QUERY_POST_BY_ID = gql`
           }
           tutorialManager {
               postExcerpt
-              thumbnail {
-                image {
-                  altText
-                  caption
-                  sourceUrl
-                  srcSet
-                  sizes
-                  id
-                  mediaDetails{
-                    width
-                    height
-                    sizes{
-                      width
-                      file
-                      height
-                      name
-                      sourceUrl
-                      mimeType
-                    }
-                  }
-                }
-              }
               youtube {
                 id
                 addVideoMetadata

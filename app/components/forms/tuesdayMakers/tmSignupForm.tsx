@@ -104,17 +104,8 @@ function TmSignupForm(props: Props) {
             text='Sign Up'
             spinnerColors={spinnerColors.sageSolid}
             className={flexRow
-              ? `btn-primary-ring btn-flex tablet:ml-4` : `btn-primary-ring btn-flex`}
+              ? `btn btn-primary btn-flex btn-lg tablet:ml-4` : `btn btn-primary btn-lg btn-primary-ring btn-flex`}
           />
-          {/* <button
-            disabled={transition.state !== 'idle'}
-            aria-disabled={transition.state !== 'idle'}
-            type='submit'
-            className={classNames(flexRow
-              ? 'tablet:ml-4'
-              : '', 'btn btn-primary btn-lg btn-primary-ring')}>
-            {transition.state === 'idle' ? 'Sign Up' : '...Loading'}
-          </button> */}
 
         </Form>
       </div>

@@ -176,8 +176,8 @@ const LockePageLogin = () => {
                   disabled={transition.state !== 'idle'}
                   aria-disabled={transition.state !== 'idle'}
                   type='submit'
-                  className="btn btn-sage-600">
-                  {transition.state === 'idle' ? 'Log In' : '...Loading'}
+                  className="btn btn-primary btn-lg">
+                  {transition.state === 'idle' ? 'Log In' : '... Loading'}
                 </button>
 
               </Form>

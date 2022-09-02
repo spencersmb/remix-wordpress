@@ -288,27 +288,6 @@ const query = `
         id
         tutorialManager {
           postExcerpt
-          thumbnail {
-            type
-            image {
-              altText
-              caption
-              sourceUrl
-              srcSet
-              sizes
-              id
-              mediaDetails{
-                sizes{
-                  width
-                  file
-                  height
-                  name
-                  sourceUrl
-                  mimeType
-                }
-              }
-            }
-          }
         }
         categories {
           edges {

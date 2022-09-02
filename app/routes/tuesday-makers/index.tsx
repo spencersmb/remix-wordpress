@@ -177,16 +177,18 @@ const ResourceLibraryHome = () => {
           <IpadHeader1>
 
             <div className='w-full tablet:max-w-[678px] tablet:mx-auto'>
+
               {/* SIGNUP FORM */}
               <TmSignupForm formName={'tm-landing-page'} inputBg={'bg-white hover:ring-offset-cream-100'} />
 
               {/* LOGIN LINK */}
-              <div className='flex flex-row justify-center mt-6 signup_wrapper'>
+              <div className='flex flex-row items-center justify-center mt-6 signup_wrapper'>
                 <div className='mr-3'>Already a member?</div>
-                <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outlined p-0 text-xs uppercase px-2 rounded-md flex-none ring-offset-1 leading-none ring-offset-transparent ring-1 hover:ring-offset-transparent hover:ring-1 border-0'} >
+                <Link prefetch='intent' to={'/tuesday-makers/login'} className={'btn btn-primary btn-outline text-xs uppercase px-2 rounded-md flex-none leading-none'}>
                   Login
                 </Link>
               </div>
+
             </div>
 
           </IpadHeader1>
