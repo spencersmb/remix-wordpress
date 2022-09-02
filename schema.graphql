@@ -1359,8 +1359,6 @@ type Course_Tutorialmanager implements AcfFieldGroup {
     quickSummary: String
     "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Course_Tutorialmanager_Resources]
-    "Tall version of the thumbnail"
-    thumbnail: Course_Tutorialmanager_Thumbnail
     youtube: Course_Tutorialmanager_Youtube
 }
 
@@ -1408,14 +1406,6 @@ type Course_Tutorialmanager_Resources_PaidProduct implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     product: Course_Tutorialmanager_Resources_PaidProduct_Product
-}
-
-"Field Group"
-type Course_Tutorialmanager_Thumbnail implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    image: MediaItem
-    type: String
 }
 
 "Field Group"
@@ -1879,8 +1869,6 @@ type DownloadFreebie_Tutorialmanager implements AcfFieldGroup {
     quickSummary: String
     "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [DownloadFreebie_Tutorialmanager_Resources]
-    "Tall version of the thumbnail"
-    thumbnail: DownloadFreebie_Tutorialmanager_Thumbnail
     youtube: DownloadFreebie_Tutorialmanager_Youtube
 }
 
@@ -1928,14 +1916,6 @@ type DownloadFreebie_Tutorialmanager_Resources_PaidProduct implements AcfFieldGr
     "The name of the ACF Field Group"
     fieldGroupName: String
     product: DownloadFreebie_Tutorialmanager_Resources_PaidProduct_Product
-}
-
-"Field Group"
-type DownloadFreebie_Tutorialmanager_Thumbnail implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    image: MediaItem
-    type: String
 }
 
 "Field Group"
@@ -3634,8 +3614,6 @@ type Post_Tutorialmanager implements AcfFieldGroup {
     quickSummary: String
     "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Post_Tutorialmanager_Resources]
-    "Tall version of the thumbnail"
-    thumbnail: Post_Tutorialmanager_Thumbnail
     youtube: Post_Tutorialmanager_Youtube
 }
 
@@ -3683,14 +3661,6 @@ type Post_Tutorialmanager_Resources_PaidProduct implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     product: Post_Tutorialmanager_Resources_PaidProduct_Product
-}
-
-"Field Group"
-type Post_Tutorialmanager_Thumbnail implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    image: MediaItem
-    type: String
 }
 
 "Field Group"
@@ -4052,8 +4022,6 @@ type Product_Tutorialmanager implements AcfFieldGroup {
     quickSummary: String
     "Extra Resources in the tutorial that need to be clickable - ie courses, free PDFS, or paid product links"
     resources: [Product_Tutorialmanager_Resources]
-    "Tall version of the thumbnail"
-    thumbnail: Product_Tutorialmanager_Thumbnail
     youtube: Product_Tutorialmanager_Youtube
 }
 
@@ -4101,14 +4069,6 @@ type Product_Tutorialmanager_Resources_PaidProduct implements AcfFieldGroup {
     "The name of the ACF Field Group"
     fieldGroupName: String
     product: Product_Tutorialmanager_Resources_PaidProduct_Product
-}
-
-"Field Group"
-type Product_Tutorialmanager_Thumbnail implements AcfFieldGroup {
-    "The name of the ACF Field Group"
-    fieldGroupName: String
-    image: MediaItem
-    type: String
 }
 
 "Field Group"

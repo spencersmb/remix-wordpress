@@ -133,28 +133,6 @@ query postBySlug($slug: String!) {
         tutorialManager {
           postExcerpt
           quickSummary
-          thumbnail {
-            image {
-              altText
-              caption
-              sourceUrl
-              srcSet
-              sizes
-              id
-              mediaDetails{
-                width
-                height
-                sizes{
-                  width
-                  file
-                  height
-                  name
-                  sourceUrl
-                  mimeType
-                }
-              }
-            }
-          }
           youtube {
               id
               addVideoMetadata

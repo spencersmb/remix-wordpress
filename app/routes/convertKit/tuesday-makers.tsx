@@ -18,12 +18,20 @@ export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();
   let email = form.get('email')
   let formType = form.get('type') as string
+  let honeyPot = form.get('firstName') as string
   const ckId = getCKFormId(formType)
 
   if (
     typeof email !== "string"
   ) {
     return { formError: `Form not submitted correctly.` };
+  }
+
+  if (
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
+  ) {
+    return { formError: `First name not filled out properly.` };
   }
 
   let fields = { email };

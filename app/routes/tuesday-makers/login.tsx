@@ -76,10 +76,13 @@ type ActionData = {
 export let action: ActionFunction = async ({ request }): Promise<ActionData | Response> => {
   let form = await request.formData();
   let email = form.get('email')
+  let honeyPot = form.get('password')
   // we do this type check to be extra sure and to make TypeScript happy
-  // we'll explore validation next!
+  // we'll explore validation next! 
   if (
-    typeof email !== "string"
+    typeof email !== "string" ||
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
   ) {
     return { formError: `Form not submitted correctly.` };
   }
@@ -237,6 +240,17 @@ const ResourceLibraryLogin = () => {
                   placeholder='Enter your email'
                   onChange={handleInputChange}
                 />
+
+                {/* HONEYPOT */}
+                <label className="inpot" htmlFor="password"></label>
+                <input
+                  tabIndex={-1}
+                  className="inpot"
+                  autoComplete="off"
+                  type="text"
+                  id="password"
+                  name="password"
+                  placeholder="Enter Password" />
 
                 <BasicSubmitBtn
                   loading={(transition.state !== 'idle' && transition.state === 'submitting') || usedOldPassword}

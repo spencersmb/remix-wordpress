@@ -56,11 +56,14 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
   let form = await request.formData();
   let password = form.get('password')
   let username = form.get('username')
+  let honeyPot = form.get('email')
   // we do this type check to be extra sure and to make TypeScript happy
   // we'll explore validation next!
   if (
     typeof password !== "string" ||
-    typeof username !== "string"
+    typeof username !== "string" ||
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
   ) {
     return { formError: `Form not submitted correctly.` };
   }
@@ -200,6 +203,17 @@ const Login = () => {
                   required={true}
                   placeholder='Username'
                 />
+
+                {/* HONEYPOT */}
+                <label className="inpot" htmlFor="email"></label>
+                <input
+                  tabIndex={-1}
+                  className="inpot"
+                  autoComplete="off"
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Enter Email" />
 
                 <InputBase
                   name="password"

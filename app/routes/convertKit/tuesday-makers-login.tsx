@@ -11,6 +11,9 @@ export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();
   let email = form.get('email')
   let redirectPage: string | null = form.get('url') as string
+  let honeyPot = form.get('firstName') as string
+
+
   const session = await getSession(
     request.headers.get('Cookie')
   )
@@ -19,6 +22,13 @@ export let action: ActionFunction = async ({ request, params }) => {
     typeof email !== "string"
   ) {
     return { formError: `Form not submitted correctly.` };
+  }
+
+  if (
+    typeof honeyPot !== "string" ||
+    honeyPot.length !== 0
+  ) {
+    return { formError: `First name not filled out properly.` };
   }
 
   let fields = { email };

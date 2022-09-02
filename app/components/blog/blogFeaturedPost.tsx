@@ -33,7 +33,7 @@ function BlogFeaturedPost(props: Props) {
     fallbackSize: ImageSizeEnums.MEDIUM,
     fallbackImage: defaultImages.thumbnail
   })
-  let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
+  // let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
   // console.log('featuredPost', featuredPost);
 
   const colorSwatch = getResource({

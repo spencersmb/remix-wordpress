@@ -9,7 +9,7 @@ import { json } from '@remix-run/node';
 /**
  * 
  * @function MakersSignupAction 
- * @tested 8/6/2022 
+ * @tested 8/6/2022  
  */
 export async function MakersSignupAction<T>(request: Request): Promise<Response> {
   const customHeaders = new Headers()

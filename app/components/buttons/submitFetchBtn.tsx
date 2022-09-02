@@ -35,7 +35,9 @@ function SubmitFetcherBtn(props: IProps) {
       aria-disabled={state === "submitting" || state === "loading"}
       type='submit'
       className={` ${className ? className : 'btn'}`}>
-      {(state === "submitting" || state === "loading") && <TwSpinnerOne loaderColors={spinnerColors} />}
+      {(state === "submitting" || state === "loading") && <span className="mr-2">
+        <TwSpinnerOne loaderColors={spinnerColors} />
+      </span>}
       {text}
     </button>
   )

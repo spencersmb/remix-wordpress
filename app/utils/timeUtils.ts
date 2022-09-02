@@ -1,3 +1,4 @@
+//TODO: TEST THIS
 export function countVideoTime (time: string | undefined): any {
   console.log('time', time);
   if(!time) return 'PT0M0S';

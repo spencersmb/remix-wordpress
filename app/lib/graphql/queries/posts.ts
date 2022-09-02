@@ -121,29 +121,6 @@ export const RELEATED_POSTS_FIELDS = gql`
       ...featuredImageFields
       title
       slug
-      tutorialManager {
-       thumbnail {
-        type
-        image {
-          altText
-          caption
-          sourceUrl
-          srcSet
-          sizes
-          id
-          mediaDetails{
-            sizes{
-              width
-              file
-              height
-              name
-              sourceUrl
-              mimeType
-            }
-          }
-        }
-       }
-      }
       categories {
         edges {
           node {

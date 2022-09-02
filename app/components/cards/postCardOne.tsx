@@ -28,39 +28,39 @@ function PostCardOne(props: Props) {
   })
 
   let postTitle = checkTitleForBrackets(splitTitle.title)
-  let postImage = loadThumbnailSrc(post.tutorialManager, image)
-  const paddingBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
-    ? "pb-[92%]"
-    : "pb-[48.25%]"
-  const marginBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
-    ? "mb-0"
-    : "mb-4"
+  // let postImage = loadThumbnailSrc(post.tutorialManager, image)
+  // const paddingBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
+  //   ? "pb-[92%]"
+  //   : "pb-[48.25%]"
+  // const marginBottom = post.tutorialManager && post.tutorialManager.thumbnail.image
+  //   ? "mb-0"
+  //   : "mb-4"
 
-  const makeThisImage: ImageLookupReturn = {
-    altTitle: `Make this tutorial: ${post.title}`,
-    height: '373',
-    width: '162',
-    sourceUrl: "/images/make-this.png",
-    srcSet: '',
-    sizes: '',
-    placeholder: '/images/make-this.png',
-    file: 'make-this.png',
-    mimeType: 'image/png',
-    name: 'make-this',
-  }
-  const makeThisArrow: ImageLookupReturn = {
-    altTitle: `Make this tutorial: ${post.title}`,
-    height: '340',
-    width: '272',
-    sourceUrl: "/images/make-this-arrow-1.png",
-    srcSet: '',
-    sizes: '',
-    placeholder: '/images/make-this-arrow-1.png',
-    file: 'make-this-arrow-1.png',
-    mimeType: 'image/png',
-    name: 'make-this-arrow-1',
+  // const makeThisImage: ImageLookupReturn = {
+  //   altTitle: `Make this tutorial: ${post.title}`,
+  //   height: '373',
+  //   width: '162',
+  //   sourceUrl: "/images/make-this.png",
+  //   srcSet: '',
+  //   sizes: '',
+  //   placeholder: '/images/make-this.png',
+  //   file: 'make-this.png',
+  //   mimeType: 'image/png',
+  //   name: 'make-this',
+  // }
+  // const makeThisArrow: ImageLookupReturn = {
+  //   altTitle: `Make this tutorial: ${post.title}`,
+  //   height: '340',
+  //   width: '272',
+  //   sourceUrl: "/images/make-this-arrow-1.png",
+  //   srcSet: '',
+  //   sizes: '',
+  //   placeholder: '/images/make-this-arrow-1.png',
+  //   file: 'make-this-arrow-1.png',
+  //   mimeType: 'image/png',
+  //   name: 'make-this-arrow-1',
 
-  }
+  // }
 
   return (
     <motion.div
@@ -113,7 +113,7 @@ function PostCardOne(props: Props) {
               )} */}
 
             {/* CARD IMAGE */}
-            <div className={`relative ${marginBottom}`}>
+            <div className={`relative`}>
               <div className="top-0 flex w-full h-full overflow-hidden">
                 <LazyImageBase testId="post-card-one-feature-image" image={image} id={post.id} scrollPosition={scrollPosition} disableSrcSet={true} />
                 {/* <LazyLoadImage

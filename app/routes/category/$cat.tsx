@@ -227,28 +227,6 @@ const query = gql`
         node {
           ...postBasicFields
           ...featuredImageFields
-          tutorialManager {
-            thumbnail {
-              image {
-                altText
-                caption
-                sourceUrl
-                srcSet
-                sizes
-                id
-                mediaDetails{
-                  sizes{
-                    width
-                    file
-                    height
-                    name
-                    sourceUrl
-                    mimeType
-                  }
-                }
-              }            
-            }
-          }
         }
       }
     }
