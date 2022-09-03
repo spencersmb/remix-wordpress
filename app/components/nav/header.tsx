@@ -18,7 +18,7 @@ function whenAvailable(name: string, callback: any) {
   window.setTimeout(function () {
     // const el = document.getElementsByClassName('.gumroad-scroll-container')
     const el = document.getElementsByClassName(name)
-    console.log('el', el);
+    // console.log('el', el);
 
     if (el.length > 0) {
       callback(el);

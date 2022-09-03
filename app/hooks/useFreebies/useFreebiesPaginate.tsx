@@ -85,6 +85,7 @@ function useFreebiesLocal<TData = any>({
   const [filter, setFilter] = useState<{ name: string, slug: string }>(defaultFilter)
   const [page, setPage] = useState(1)
   const handleFilterClick: IhandleFilterClick = (filterTag) => () => {
+    if (filterTag.slug === filter.slug) return
     setFilter(filterTag)
   }
   const handlePageClick: IhandlePageClick = () => {

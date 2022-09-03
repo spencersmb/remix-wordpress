@@ -74,7 +74,7 @@ function CardDownload(props: Props) {
           </button>
         </div>
         <div className='hidden desktop:flex'>
-          <button data-testid="download-btn" onClick={handleButtonClick} className='flex flex-row items-center btn btn-sage-600'>
+          <button data-testid="download-btn" onClick={handleButtonClick} className='btn btn-primary '>
             <span>Download</span>
             <span className='w-[21px] ml-4'>
               <UploadSvg stroke={'currentColor'} />

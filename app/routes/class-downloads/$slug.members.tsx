@@ -14,6 +14,9 @@ import { lockedPagesMeta } from '@App/lib/lockedPages/classDownloads';
 import { consoleHelper } from '@App/utils/windowUtils';
 import GridItems from '@App/components/gridDownloads/gridItems';
 import useFreebiesLocal from '@App/hooks/useFreebies/useFreebiesPaginate';
+import { classNames } from '@App/utils/appUtils';
+import OutlinedButton from '@App/components/buttons/outlinedButton';
+import { spinnerColors } from '@App/components/spinners/spinnerColors';
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData, { membersPage: true }))
 
@@ -84,23 +87,44 @@ const LockedMembersPage = () => {
 
   return (
     <Layout>
-      <div className='py-16 bg-neutral-50 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
-        <div className='col-span-2 col-start-2 mt-8 mb-8 text-center tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12'>
+      <div className='py-16 bg-cream-100 grid-container grid-resource-header laptop:pb-16 laptop:pt-0'>
+
+        {/* TITLE */}
+        <div className='col-span-2 col-start-2 mt-8 mb-16 text-center tablet:col-start-2 tablet:col-span-12 tablet:mt-10 tablet:mb-12 desktop:col-start-2 desktop:mt-20 desktop:col-span-12 laptop:mb-20'>
           <h1 className='text-5xl font-sentinel__SemiBoldItal'>{data.title}</h1>
           <h2 className='mt-4 text-2xl'>Members Area</h2>
         </div>
-        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+
+        {/* FILTER */}
+        <div className='relative col-span-2 col-start-2 row-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:mb-3 desktop:col-start-2 desktop:col-span-12'>
           <FreebieFilter
             setFilter={setFilter}
             filterTags={mobileFilterTags}
             selectedFilter={filter}
             handleClick={handleFilterClick}
+            position={'center'}
           />
         </div>
-        <GridItems gridItems={posts} />
-        <div>
-          {pagination.hasNextPage && <button onClick={handlePageClick}>Show More</button>}
+
+        {/* FILTER BACKGROUND */}
+        <div className={`row-start-2 bg-white col-span-full`} />
+
+        {/* GRID ITEMS */}
+        <div className='col-span-2 col-start-2 mt-8 tablet:col-start-2 tablet:col-span-12'>
+          <GridItems gridItems={posts} />
         </div>
+
+        {/* <div>
+          {!pagination.hasNextPage && 
+          <OutlinedButton
+            className='mx-auto bg-transparent btn btn-outline'
+            clickHandler={handlePageClick}
+            text={'Show More'} loading={state.loading}
+            loadingText={'Loading...'}
+            spinnerColors={spinnerColors.sageOutline}
+              />
+          }
+        </div> */}
       </div>
     </Layout>
   )

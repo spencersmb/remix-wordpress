@@ -10,11 +10,11 @@ describe('Utils: PageUtils', () => {
       slug: 'test-slug',
     }
     const metadata = getStaticPageMeta(testData)
-    const date = new Date().getDate.toString()
+    const date = new Date(Date.now()).toISOString()
     const response: IPage = {
       author:siteAuthor.author,
       content:'',
-      date: new Date().getDate.toString(),
+      date,
       title: `${testData.title}`,
       id:'',
       slug:'test-slug',

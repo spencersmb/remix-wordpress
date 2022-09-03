@@ -107,7 +107,7 @@ export default function TuesdayMakersPopOver() {
                     className={`grid grid-flow-row gap-4 p-5 bg-gray-100 ${user.resourceUser ? 'grid-cols-1' : 'grid-cols-2'}`}>
                     {user.resourceUser && <Link
                       prefetch={'intent'}
-                      className="px-3 py-3 transition duration-300 border-3 text-success-500 btn btn-outlined-teal-600 ring-offset-0 ring-0 border-success-400 hover:ring-0 hover:ring-offset-0 hover:border-success-600 hover:bg-gray-100 hover:text-success-600 hover:border-2"
+                      className="btn btn-outline"
                       to={'/tuesday-makers/members'}>
                       Makers Dashboard
                     </Link>}

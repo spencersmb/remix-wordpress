@@ -30,25 +30,13 @@ describe('Post Card One Component', () => {
     expect(link).toHaveAttribute('href', `/${mockPostDataComplete.slug
       }`)
   })
-  it('Should not show Make This image', () => {
-    const { card, imageWrapper } = setup({
-      post: mockPostData
-    })
-    expect(card).toBeInTheDocument()
-    expect(imageWrapper).toBeInTheDocument()
-    expect(imageWrapper.children.length).toBe(2)
-  })
-  it('Should show Make This image', () => {
-    const { card, imageWrapper } = setup()
-    expect(card).toBeInTheDocument()
-    expect(imageWrapper).toBeInTheDocument()
-    expect(imageWrapper.children.length).toBe(3)
-  })
+
   it('Should show Primary image', () => {
     const { card, imageWrapper } = setup()
     const primaryImage = screen.getByTestId('post-card-one-feature-image')
     expect(primaryImage).toBeInTheDocument()
   })
+
   it('Should show correct title + split title', () => {
     const { card } = setup()
     const title = screen.getByTestId('post-card-one-title')
@@ -57,6 +45,7 @@ describe('Post Card One Component', () => {
     expect(spliteTitle).toBeDefined()
     expect(spliteTitle).toHaveTextContent('in Procreate')
   })
+
   it('Should show correct sub title', () => {
     const { card } = setup({
       post: {

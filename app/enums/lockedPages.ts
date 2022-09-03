@@ -3,7 +3,11 @@ export enum lockedPageEnumSlugs {
   threeDLettering = '3d-skillshare',
   procreate5x = '5x-bonuses',
   procreateFlorals = 'florals-bonuses',
-  procreateWatercolors = 'procreate-watercolor-bonuses',
   etAffiliates = 'et-affiliates',
   lfmAffiliates = 'lfm-affiliates',
+  messyBonuses = 'messy-bonuses',
+  
+  procreateWatercolors = 'procreate-watercolor-bonuses', // no PW
+  procreateBonuses = 'procreate-bonuses', // no PW
+
 }

@@ -29,6 +29,7 @@ import { consoleHelper } from '@App/utils/windowUtils'
 import { AnimatePresence, motion } from 'framer-motion'
 import CircleSpinner from '@App/components/spinners/circleSpinner'
 import { createImgixSizes } from '@App/utils/imageHelpers'
+import { spinnerColors } from '@App/components/spinners/spinnerColors'
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -445,7 +446,7 @@ const ResourceLibraryMembers = () => {
         {/* Check tags on user example for paid Resource Library License */}
         <ExtendedLicenseUpsell visible={!data.user.tags.includes('Tuesday Makers Extended License')} />
 
-        <div className='relative z-[5] col-span-2 col-start-2 my-12 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-12'>
+        <div className='relative z-[5] mb-8 row-start-4 col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:row-start-5 laptop:row-start-4 laptop:col-start-3 laptop:col-span-4 desktop:col-start-2 desktop:col-span-12'>
           <FreebieFilter
             setFilter={setFilter}
             filterTags={filterTags}
@@ -454,7 +455,12 @@ const ResourceLibraryMembers = () => {
           />
         </div>
 
-        <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:min-h-[600px]'>
+        {/* FILTER BACKGROUND */}
+        <div className={`row-start-4 col-span-full tablet:row-start-5 laptop:row-start-4 laptop:col-start-1 laptop:col-span-7 desktop:col-start-1 desktop:col-span-11`}>
+          <div className='w-full h-full bg-white'></div>
+        </div>
+
+        <div className='mt-8 col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:min-h-[600px]'>
 
           <CircleSpinner
             visible={state.loading
@@ -475,6 +481,7 @@ const ResourceLibraryMembers = () => {
                 clickHandler={handleFetchMorePosts}
                 text={'Show More'} loading={state.loading}
                 loadingText={'Loading...'}
+                spinnerColors={spinnerColors.sageOutline}
               />
             </div>
           </div>

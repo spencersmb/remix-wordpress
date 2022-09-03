@@ -86,4 +86,16 @@ export const lockedPagesMeta: ILockedPage = {
       slug: lockedPageEnumSlugs.lfmAffiliates,
     })
   },
+  [lockedPageEnumSlugs.procreateBonuses]: {
+    page: getStaticPageMeta({
+      title: `Procreate Bonuses Page`,
+      desc: `Procreate Bonuses Page`,
+      slug: lockedPageEnumSlugs.procreateBonuses,
+    }),
+    membersPage: getStaticPageMeta({
+      title: `Procreate Bonuses Page`,
+      desc: `Procreate Bonuses Page`,
+      slug: lockedPageEnumSlugs.procreateBonuses,
+    })
+  },
 }

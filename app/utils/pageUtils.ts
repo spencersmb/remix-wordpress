@@ -15,7 +15,7 @@ interface StaticPageProps {
  *
  **/
 export const getStaticPageMeta = ({title, slug, desc }:StaticPageProps): IPage => {
-  const date = new Date().getDate.toString()
+  const date = new Date(Date.now()).toISOString()
   return {
     author: siteAuthor.author,
     content: '',

@@ -26,6 +26,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
+  // Look up PAGE META DATA by slug parameter on the URL
   const lockedMeta = lockedPagesMeta[lookUpSlug]
 
   if (!lockedMeta) {
@@ -35,6 +36,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
     }
   }
 
+  // FETCH PAGE DATA FROM WP PRE-LOAD (OPTIONAL)
   let { downloadGridBy } = await fetchAPI(getGraphQLString(query), {
     variables: {
       slug: lookUpSlug
@@ -47,15 +49,34 @@ export let loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
+  // CREATE A COOKIE BY NAME SET IN WP BACKEND
   const getCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
 
+  // CHECK IF A COOKIE HAS BEEN SET ALREADY BY THE USER BEFORE
   const { hasCookie } = await findCookie(request, getCookie)
 
   if (hasCookie) {
     return redirect(getLockedPageRedirectMembersPath(lookUpSlug))
   }
 
-  // PAGE coming from the server needs to be renamed so that JSONLD doesn't get crossed with wrong data
+  // CHECK IF PAGE HAS NO PASSWORD OPTION
+  const noPWPage = downloadGridBy.page.password === null
+  if (noPWPage) {
+
+    const customHeaders = new Headers()
+    const createPageCookie = createLockedPageCookie(downloadGridBy.page.cookie.name)
+
+    customHeaders.append('Set-Cookie', await createPageCookie.serialize({
+      [downloadGridBy.page.cookie.key]: true
+    }))
+
+    const membersPath = getLockedPageRedirectMembersPath(lookUpSlug)
+    return redirect(membersPath, {
+      headers: customHeaders,
+    })
+
+  }
+
   const response = {
     ...downloadGridBy,
     serverPage: downloadGridBy.page,
@@ -113,8 +134,8 @@ export let action: ActionFunction = async ({ request, params }) => {
 
 const LockePageLogin = () => {
   let data = useLoaderData();
-  let { page } = data;
-  consoleHelper('locked page data', data);
+  let { page, title } = data;
+  consoleHelper('data', data);
   let transition = useTransition()
   let actionData = useActionData<PasswordActionData | undefined>();
 
@@ -127,7 +148,7 @@ const LockePageLogin = () => {
             {/* HEADER */}
             <div className="flex flex-col items-center mb-8 text-center">
               <h1 className="mb-4 text-5xl text-sage-700 font-sentinel__SemiBoldItal">
-                {page.title}
+                {title}
               </h1>
               <h2 className="text-lg text-grey-500">Login below using the password provided to you in the class.</h2>
             </div>

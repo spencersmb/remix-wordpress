@@ -56,7 +56,7 @@ function CardSmall(props: Props) {
       </div>
       <h3 className='my-2 mt-4 text-2xl font-sentinel__SemiBoldItal text-primary-900'>{title}</h3>
       <p className='flex-1 mb-8'>{excerpt}</p>
-      <button data-testid='card-button' className='flex flex-row items-center justify-center flex-none text-lg font-medium btn btn-sage-600' onClick={handleButtonClick}>
+      <button data-testid='card-button' className='btn btn-primary' onClick={handleButtonClick}>
         <span>{buttonText}</span>
         <span className='max-w-[24px] ml-4'><UploadSvg stroke={'currentColor'} /></span>
       </button>

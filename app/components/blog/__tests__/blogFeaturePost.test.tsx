@@ -50,11 +50,6 @@ describe('BlogFeature Post Component', () => {
         }} />
       </MemoryRouter>
     )
-    const image = screen.getByTestId("lazy-load-image-make-this")
-    const arrow = screen.getByTestId("lazy-load-image-make-this-arrow")
-    expect(arrow).toBeVisible()
-    expect(image).toBeVisible()
-
     const featureImage = screen.getByTestId("feature-image")
     expect(featureImage).toBeVisible()
   })

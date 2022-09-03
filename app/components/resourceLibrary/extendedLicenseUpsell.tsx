@@ -40,7 +40,7 @@ function ExtendedLicenseUpsell(props: Props) {
 
   return (
     <>
-      <div className='relative bg-cream-300 col-span-full tablet:row-span-2 z-[4]'>
+      <div className='relative mb-20 bg-cream-300 col-span-full tablet:row-span-2 z-[4]'>
         <div className='mt-16 mb-28 laptop:mt-20 laptop:mb-20 desktop:mt-20'>
           <div className="grid-container">
 
@@ -102,7 +102,7 @@ function ExtendedLicenseUpsell(props: Props) {
                       <>
                         <a
                           data-testid="gumroad-btn"
-                          href="https://everytuesday.gumroad.com/l/freebie-license" className="flex flex-row items-center justify-center flex-none px-6 font-medium btn rounded-2xl btn-sage-600">
+                          href="https://everytuesday.gumroad.com/l/freebie-license" className="btn btn-primary btn-lg">
                           <span className="flex-1 mr-9">
                             Buy Now!
                           </span>

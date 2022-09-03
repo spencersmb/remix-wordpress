@@ -1,6 +1,8 @@
 import { classNames } from '@App/utils/appUtils'
+import { motion } from 'framer-motion'
 import { consoleHelper } from '../../utils/windowUtils'
 import SelectDropdown from '../forms/dropdown/selectDropdown'
+import CheckmarkSvg from '../svgs/checkmarkSvg'
 
 /**
  * @Component FreebieFilter
@@ -13,27 +15,26 @@ import SelectDropdown from '../forms/dropdown/selectDropdown'
 
 interface IProps {
   filterTags: IFilterTag[]
+  position?: 'left' | 'center'
   selectedFilter: { name: string, slug: string }
   setFilter: (filter: { name: string, slug: string }) => void
   handleClick: (filter: { name: string, slug: string }) => any
 }
 
-const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all' }, handleClick, setFilter }: IProps) => {
-  const selectedCss = 'selected-tag bg-sage-600 py-2 px-3 rounded-full text-white'
-  const defaultCss = 'py-2 px-3 bold-hover-fix inline-block transistion-all duration-100 w-full cursor-pointer laptop:mb-0'
+const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all' }, handleClick, setFilter, position = 'left' }: IProps) => {
+
   return (
     <>
-
-      <div className='flex flex-col items-center justify-center tablet:flex-row'>
-        <h4 className='mb-3 text-sm leading-none text-center uppercase text-neutral-700 tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop:'>
+      <div className={classNames(position === 'center' ? '' : 'rotate-[-6deg] laptop:left-[90px] desktopXl:left-[45px]', 'absolute top-[-19px] left-1/2 -translate-x-1/2 w-[220px] laptop:top-[-30px]')}>
+        <h4 className='mb-3 text-3xl leading-none text-center font-bonVivant tablet:mb-0 laptop:mr-0 laptop:mb-4 laptop:left-[90px] laptop:text-4xl'>
           Filter by category
         </h4>
 
       </div>
 
       {/* MOBILE FILTER */}
-      <div className='flex flex-col items-center justify-center'>
-        <div className='relative z-10 laptop:hidden'>
+      <div className={classNames(position === 'center' ? '' : 'laptop:items-start', 'flex flex-col justify-center items-center pt-8 mobile_filter laptop:pt-12')}>
+        <div className='relative z-10 desktop:hidden'>
           <SelectDropdown
             setFilter={setFilter}
             selected={selectedFilter}
@@ -42,20 +43,30 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
       </div>
 
       {/* DESKTOP FILTER */}
-      <div className='flex items-center justify-center laptop:border-grey-300 laptop:border-b-[1px] laptop:pb-4'>
+      <div className={classNames(position === 'center' ? 'justify-center' : '', 'relative flex items-center desktop:pb-4')}>
         <ul
           data-testid="filterTags"
-          className='items-center hidden w-full text-sm capitalize laptop:grid gap-x-2 text-neutral-900 laptop:grid-flow-col laptop:w-auto laptop:gap-x-1'>
+          className='items-center hidden w-full text-sm capitalize desktop:grid gap-x-2 text-neutral-900 laptop:grid-flow-col laptop:w-auto laptop:gap-x-2'>
           {filterTags
             .map(filter => {
               return (
                 <li
                   key={filter.slug}
-                  className='inline-block'
+                  className={classNames(selectedFilter.slug === filter.slug ? 'bg-sage-200 border-sage-200 text-sage-700 hover:bg-sage-200 hover:border-sage-200 hover:text-sage-700' : 'bg-grey-100 border-grey-100', 'btn btn-primary btn-sm text-grey-600')}
                   onClick={handleClick(filter)}>
+                  <motion.span
+                    animate={selectedFilter.slug === filter.slug
+                      ? 'show'
+                      : 'hide'
+                    }
+                    initial='hide'
+                    variants={varients}
+                    className={selectedFilter.slug === filter.slug ? 'selected-tag' : ''}>
+                    <CheckmarkSvg fill={'var(--sage-700'} className={'w-[20px] mr-1'} />
+                  </motion.span>
                   <span
                     title={filter.name}
-                    className={classNames(selectedFilter.slug === filter.slug ? selectedCss : '', defaultCss)}>
+                    className={''}>
                     {filter.name}
                   </span>
                 </li>
@@ -68,3 +79,14 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
 }
 
 export default FreebieFilter
+
+const varients = {
+  show: {
+    opacity: 1,
+    width: 'auto'
+  },
+  hide: {
+    opacity: 0,
+    width: 0
+  }
+}
