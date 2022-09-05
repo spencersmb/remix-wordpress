@@ -99,13 +99,6 @@ describe('BlogFeature Post Component', () => {
     expect(screen.getByTestId('blog-title')).toHaveTextContent(mockPostDataComplete.title)
   })
 
-  // it('should show blog date', () => {
-  //   setup({
-  //     featuredPost: mockPostDataComplete
-  //   })
-  //   expect(screen.getByTestId('blog-date')).toHaveTextContent(formatDate(mockPostDataComplete.date))
-  // })
-
   it('should show blog author title', () => {
     setup({
       featuredPost: mockPostDataComplete
@@ -145,5 +138,11 @@ describe('BlogFeature Post Component', () => {
     expect(screen.getByTestId('blog-skill')).toHaveTextContent("Intermediate")
   })
 
+  // it('should show blog date', () => {
+  //   setup({
+  //     featuredPost: mockPostDataComplete
+  //   })
+  //   expect(screen.getByTestId('blog-date')).toHaveTextContent(formatDate(mockPostDataComplete.date))
+  // })
 
 })

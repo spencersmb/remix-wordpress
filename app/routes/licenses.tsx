@@ -18,6 +18,8 @@ import ContactUsV1 from '@App/components/layout/contactUsV1'
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { cacheControl } from '@App/lib/remix/loaders'
+import { DesktopComputerIcon, UserGroupIcon } from '@heroicons/react/solid'
+import { CurrencyDollarIcon, TagIcon, UserIcon } from '@heroicons/react/outline'
 
 
 export let meta: MetaFunction = (metaData): any => {
@@ -62,7 +64,10 @@ export let loader: LoaderFunction = async () => {
     }
   })
 };
-
+const BankNotesOutline = (props: any) => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" {...props}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+</svg>
+)
 /**
  * 
  * @component LicensesPage 
@@ -94,14 +99,19 @@ function LicensesPage(props: Props) {
 
           {/* LICENSE Options Box Wrapper */}
           <div className='flex flex-col items-center col-span-2 col-start-2 px-3 py-16 mb-16 bg-white shadow-lg tablet:px-12 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:px-24 desktop:mx-10 rounded-xl'>
-            <h2 className='mb-8 text-2xl font-semibold text-sage-800'>License Options</h2>
+            <h2 className='mb-8 text-lg font-semibold text-sage-800'>License Options</h2>
 
             {/* LICENSE TOGGLE */}
-            <SimpleTabsHeader className="flex flex-row bg-[#F7F6F7] p-2 tablet:p-3 w-full max-w-[311px] tablet:max-w-[564px] rounded-2.5xl relative mb-4 tablet:mb-6">
+            <SimpleTabsHeader
+              startPosition={1}
+              className="flex flex-row bg-[#F7F6F7] p-2 tablet:p-3 w-full max-w-[311px] tablet:max-w-[564px] rounded-2.5xl relative mb-4 tablet:mb-6">
 
               {licenseData.map((license, index) => {
                 return (
-                  <Tab key={license.type} name={license.type} className="relative z-10 p-3 tablet:p-6 flex-[0_1_50%] hover:cursor-pointer">
+                  <Tab
+                    key={license.type}
+                    name={license.type}
+                    className="relative z-10 p-3 tablet:p-6 flex-[0_1_50%] hover:cursor-pointer">
                     <LicenseTabContent type={license.type} />
                   </Tab>
                 )
@@ -134,7 +144,7 @@ function LicensesPage(props: Props) {
                       key={license.type}
                       id={license.type}
                       index={index}
-                      className=''>
+                      className='flex flex-col'>
                       <LicenseTabLayout {...license} />
                     </TabContent>
                   )
@@ -173,6 +183,7 @@ interface ILicenseRequirement {
 interface ILicense {
   type: LicenseEnum,
   requirements: ILicenseRequirement[]
+  rights: string
   description: string
   usedFor: string[]
   cannotBeUsedFor: string[]
@@ -182,22 +193,23 @@ const licenseData: ILicense[] = [
     type: LicenseEnum.FREE,
     requirements: [
       {
-        icon: <CloseSvg stroke={'#000000'} />,
+        icon: <DesktopComputerIcon fill={'var(--sage-500)'} />,
         title: 'One license per computer',
         description: 'If you have two computers, you need two licenses'
       },
       {
-        icon: <CloseSvg stroke={'#000000'} />,
+        icon: <UserIcon stroke={'var(--sage-500)'} />,
         title: 'For personal use only',
-        description: 'If you have two computers, you need two licenses'
+        description: 'No limit for personal work or work which is offered for free'
       },
       {
-        icon: <CloseSvg stroke={'#000000'} />,
+        icon: <CurrencyDollarIcon stroke={'var(--sage-500)'} />,
         title: 'Business usage not permitted',
-        description: 'If you have two computers, you need two licenses'
+        description: 'Can not be redistributed or sold as if they are your own'
       },
     ],
     description: 'This type grants you ongogin permission to use the item to create personal use end products that are not intended to be sold.',
+    rights: 'The Standard License grants you ongoing permission to use the Item to create personal use end products that are not intended to be sold. For the purposes of this Standard License, ‘sold’ means you plan to sell, license, sub-license or distribute the end product for any type of fee or charge.',
     usedFor: [
       'Can be used without limit for personal work, or work which is offered for free.',
       'Can be used without limit for personal work, or work which is offered for free.',
@@ -215,11 +227,22 @@ const licenseData: ILicense[] = [
     type: LicenseEnum.STANDARD,
     requirements: [
       {
-        icon: '',
+        icon: <DesktopComputerIcon fill={'var(--sage-500)'} />,
         title: 'One license per computer',
         description: 'If you have two computers, you need two licenses'
-      }
+      },
+      {
+        icon: <UserIcon stroke={'var(--sage-500)'} />,
+        title: 'For personal use only',
+        description: 'No limit for personal work or work which is offered for free'
+      },
+      {
+        icon: <CurrencyDollarIcon stroke={'var(--sage-500)'} />,
+        title: 'Business usage not permitted',
+        description: 'Can not be redistributed or sold as if they are your own'
+      },
     ],
+    rights: 'The Standard License grants you ongoing permission to use the Item to create personal use end products that are not intended to be sold. For the purposes of this Standard License, ‘sold’ means you plan to sell, license, sub-license or distribute the end product for any type of fee or charge.',
     description: 'This type grants you ongogin permission to use the item to create personal use end products that are not intended to be sold.',
     usedFor: [
       'Can be used without limit for personal work, or work which is offered for free.',
@@ -238,12 +261,23 @@ const licenseData: ILicense[] = [
     type: LicenseEnum.EXTENDED,
     requirements: [
       {
-        icon: '',
+        icon: <DesktopComputerIcon fill={'var(--sage-500)'} />,
         title: 'One license per computer',
         description: 'If you have two computers, you need two licenses'
-      }
+      },
+      {
+        icon: <TagIcon stroke={'var(--sage-500)'} />,
+        title: 'Making something to sell?',
+        description: 'Then you\'ll need an extended license'
+      },
+      {
+        icon: <BankNotesOutline stroke={'var(--sage-500)'} />,
+        title: 'Are you freelancing or an owner?',
+        description: 'You still need an extended license'
+      },
     ],
-    description: 'This type grants you ongogin permission to use the item to create personal use end products that are not intended to be sold.',
+    rights: 'An Extended License certificate comes with every Extended License purchase from Every Tuesday. For the purposes of this Extended License, ‘sold’ means you plan to sell, license, sub-license or distribute the end product for any type of fee or charge.',
+    description: 'The Extended License grants you ongoing permission to use the Item to create end products that are intended to be sold or used for business purposes (e.g. advertising, promotions, packaging, etc.).',
     usedFor: [
       'Can be used without limit for personal work, or work which is offered for free.',
       'Can be used without limit for personal work, or work which is offered for free.',
@@ -258,3 +292,4 @@ const licenseData: ILicense[] = [
     ]
   }
 ]
+

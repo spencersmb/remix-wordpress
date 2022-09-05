@@ -50,7 +50,7 @@ describe('License Select Component', () => {
     const { queryByText } = setup(mockPaidProduct)
     const link = queryByText(/What are these?/i)
     expect(link).toBeTruthy()
-    expect(link).toHaveAttribute('href', '/license-types')
+    expect(link).toHaveAttribute('href', '/licenses')
   })
 
   it('Should show License Radio Select + Gumroad Btn', () => {

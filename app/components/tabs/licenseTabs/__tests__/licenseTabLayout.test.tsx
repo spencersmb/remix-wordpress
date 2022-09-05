@@ -22,6 +22,7 @@ describe('LicenseTabContent Test and be unselected', () => {
         description: '2nd description'
       },
     ],
+    rights: 'rights',
     description: 'Description test',
     usedFor: [
       'usedFor test',
@@ -53,6 +54,12 @@ describe('LicenseTabContent Test and be unselected', () => {
     const { getByTestId } = setup(defaultSetup)
     const description = getByTestId('description')
     expect(description).toHaveTextContent('Description test')
+  })
+
+  it('Should have correct Rights', () => {
+    const { queryByText } = setup(defaultSetup)
+    const rights = queryByText('rights')
+    expect(rights).toBeVisible()
   })
 
   it('Should have correct usedFor Items lenght and content', () => {

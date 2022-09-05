@@ -31,6 +31,6 @@ describe('LicenseTabContent Test and be unselected', () => {
     const pill = standard.nextSibling
 
     expect(standard).toHaveClass('text-sage-800')
-    expect(pill).toHaveClass('bg-success-500')
+    expect(pill).toHaveClass('bg-sage-500')
   })
 })

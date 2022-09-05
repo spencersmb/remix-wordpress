@@ -101,7 +101,7 @@ function Header(props: Props) {
         {/* ET LOGO */}
         <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
           <Link to="/" title="Every Tuesday" prefetch="intent" className="">
-            <EveryTuesdayLogo fill={`var(${cssColors.primaryPlum700})`} aria-label='Every Tuesday Logo' />
+            <EveryTuesdayLogo fill={`var(--sage-700)`} aria-label='Every Tuesday Logo' />
           </Link>
         </div>
 

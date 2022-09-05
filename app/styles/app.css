@@ -1609,6 +1609,9 @@ video {
 .m-3 {
   margin: 0.75rem;
 }
+.m-0 {
+  margin: 0px;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -2234,6 +2237,12 @@ video {
 .w-\[80px\] {
   width: 80px;
 }
+.w-\[13px\] {
+  width: 13px;
+}
+.w-\[16px\] {
+  width: 16px;
+}
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -2851,6 +2860,9 @@ video {
 .gap-0 {
   gap: 0px;
 }
+.gap-8 {
+  gap: 2rem;
+}
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
@@ -2973,6 +2985,9 @@ video {
 }
 .border-b {
   border-bottom-width: 1px;
+}
+.border-t {
+  border-top-width: 1px;
 }
 .border-grey-300 {
   --tw-border-opacity: 1;
@@ -3419,6 +3434,10 @@ video {
   padding-top: .82rem;
   padding-bottom: .82rem;
 }
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -3550,6 +3569,9 @@ video {
 }
 .pr-8 {
   padding-right: 2rem;
+}
+.pt-0 {
+  padding-top: 0px;
 }
 .text-left {
   text-align: left;
@@ -5507,6 +5529,9 @@ video {
   .tablet\:mb-2 {
     margin-bottom: 0.5rem;
   }
+  .tablet\:mr-\[10\%\] {
+    margin-right: 10%;
+  }
   .tablet\:block {
     display: block;
   }
@@ -5605,6 +5630,9 @@ video {
   }
   .tablet\:w-\[180px\] {
     width: 180px;
+  }
+  .tablet\:w-\[23px\] {
+    width: 23px;
   }
   .tablet\:min-w-\[753px\] {
     min-width: 753px;
@@ -5824,6 +5852,12 @@ video {
   }
   .tablet\:items-center {
     align-items: center;
+  }
+  .tablet\:items-baseline {
+    align-items: baseline;
+  }
+  .tablet\:items-stretch {
+    align-items: stretch;
   }
   .tablet\:justify-end {
     justify-content: flex-end;
@@ -6655,6 +6689,15 @@ video {
   .laptop\:w-\[600px\] {
     width: 600px;
   }
+  .laptop\:w-\[43px\] {
+    width: 43px;
+  }
+  .laptop\:w-\[38px\] {
+    width: 38px;
+  }
+  .laptop\:w-\[33px\] {
+    width: 33px;
+  }
   .laptop\:min-w-\[1009px\] {
     min-width: 1009px;
   }
@@ -6762,6 +6805,9 @@ video {
   }
   .laptop\:max-w-\[1440px\] {
     max-width: 1440px;
+  }
+  .laptop\:max-w-\[200px\] {
+    max-width: 200px;
   }
   .laptop\:flex-\[0_1_50\%\] {
     flex: 0 1 50%;
@@ -7591,6 +7637,9 @@ video {
   .desktop\:w-\[311px\] {
     width: 311px;
   }
+  .desktop\:w-\[43px\] {
+    width: 43px;
+  }
   .desktop\:min-w-\[1265px\] {
     min-width: 1265px;
   }
@@ -7802,6 +7851,9 @@ video {
   }
   .desktop\:pb-32 {
     padding-bottom: 8rem;
+  }
+  .desktop\:pt-6 {
+    padding-top: 1.5rem;
   }
   .desktop\:text-9xl {
     font-size: 8rem;

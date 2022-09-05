@@ -49,7 +49,7 @@ const FeaturedProduct = ({ product }: IProps) => {
       {/* PRODUCT CARD */}
       <div className={`relative z-20 flex flex-col col-span-2 col-start-2 mb-8 card_conainter tablet:col-start-3 tablet:col-span-10 laptop:col-start-9 laptop:col-span-5 laptop:mt-0 desktop:col-start-9 desktop:col-span-5 desktop:mb-16`}>
 
-        <div className="mobile_wrapper bg-white rounded-2.5xl shadow-xs px-6 pb-6 pt-14 laptop:bg-transparent laptop:shadow-none laptop:p-0">
+        <div className="bg-white shadow-xs mobile_wrapper pt-14 laptop:bg-transparent laptop:shadow-none laptop:p-0">
 
           {/* MOBILE FEATURE IMAGE ONE*/}
           {breakpointConvertPX(breakpoint) < BPPX.LAPTOP &&

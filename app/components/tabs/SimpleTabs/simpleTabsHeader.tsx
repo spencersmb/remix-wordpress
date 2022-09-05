@@ -12,10 +12,11 @@ import { useSimpleTabs } from './simpleTabsContext'
  */
 
 interface IProps {
+  startPosition?: number
   children: any
   className?: string
 }
-const SimpleTabsHeader = ({ children, className }: IProps) => {
+const SimpleTabsHeader = ({ children, className, startPosition = 0 }: IProps) => {
   const { setState } = useSimpleTabs()
 
 
@@ -43,7 +44,7 @@ const SimpleTabsHeader = ({ children, className }: IProps) => {
     setState((state: ITabsState) => {
       return {
         ...state,
-        selectedTab: elements.tabs[0],
+        selectedTab: elements.tabs[startPosition],
         tabs: elements.tabs
       }
     })

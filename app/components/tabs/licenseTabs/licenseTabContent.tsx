@@ -23,7 +23,7 @@ const LicenseTabContent = ({ type }: ITabContent) => {
         {type}
       </div>
       <span className={classNames(state.selectedTab === type
-        ? 'bg-success-500'
+        ? 'bg-sage-500'
         : 'bg-grey-300',
         'w-[40px] h-[14px] tablet:w-[73px] tablet:h-[28px] rounded-lg flex transition-all')}></span>
     </div>

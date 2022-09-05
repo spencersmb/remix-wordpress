@@ -19,9 +19,10 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
     <div className="relative max-w-[1000px] z-20">
 
       {/* APPLE PENCIL */}
-      <div className="absolute top-[30%] left-[70%] z-30 w-[43px] rotate-[52deg] origin-center laptop:translate-y-[35%]">
+      <div className="absolute top-[30%] left-[70%] z-30 w-[16px] rotate-[52deg] origin-center tablet:w-[23px] laptop:w-[33px] laptop:translate-y-[35%] desktop:w-[43px]">
         <LazyImgix
           id={"applePencil"}
+          visibleByDefault={true}
           image={{
             width: 43,
             height: 518,
