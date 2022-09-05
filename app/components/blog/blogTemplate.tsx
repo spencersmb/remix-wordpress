@@ -23,12 +23,13 @@ import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
 import { useSearch } from '@App/hooks/useSearch';
 import TutorialResources from './tutorialContent/tutorialResources';
-import { getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
+import { findSkillLevel, getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
 import { TagIcon } from '@heroicons/react/solid';
 import { Link } from '@remix-run/react';
 import ClockSvg from '../svgs/clockSvg';
 import LazyImgix from '../images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
+import BarChartSvg from '../svgs/barChartSvg';
 
 interface IProps {
   post: IPost
@@ -36,6 +37,7 @@ interface IProps {
 function BlogTemplate(props: IProps) {
   const { post } = props
   const { openSearch } = useSearch()
+  const skill = findSkillLevel(post.categories);
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   consoleHelper('post', post, 'blogTemplate.tsx')
 
@@ -143,26 +145,26 @@ function BlogTemplate(props: IProps) {
       <div className='col-span-full bg-sage-700 et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-2 laptop:col-span-5 desktop:col-start-2 desktop:col-span-4'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-3 laptop:col-span-5 desktop:col-start-2 desktop:col-span-4'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 
         {/* TITLE */}
-        <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 tablet:mb-0 laptop:col-start-2 laptop:col-span-8 laptop:row-start-2 laptop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6' >
+        <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-11 tablet:mb-0 laptop:col-start-3 laptop:col-span-10 desktop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6' >
           <h1 className='text-3xl text-sage-50 font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
             {post.title}
           </h1>
         </div>
 
         {/* FEATURED IMAGE */}
-        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-9 laptop:col-span-6 laptop:row-start-3 laptop:row-span-4 desktop:col-start-9 desktop:col-span-5 desktopXl:mr-7 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
+        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktopXl:mr-7 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
           <LazyImageBase image={featuredImage} id={post.id} />
         </div>
 
         {/* TAGS AND TIME */}
-        <div className='flex col-span-2 col-start-2 my-8 font-medium tablet:col-start-2 tablet:col-span-10 tablet:row-start-3 laptop:col-start-2 laptop:col-span-7 laptop:mt-0 desktop:col-start-2 desktop:col-span-6 desktop:row-start-4'>
+        <div className='flex col-span-2 col-start-2 my-8 font-medium tablet:col-start-2 tablet:col-span-12 tablet:row-start-3 laptop:col-start-3 laptop:col-span-11 desktop:mt-0 desktop:col-start-2 desktop:col-span-7 desktop:row-start-4'>
 
-          <div className='flex flex-col w-full p-4 rounded-lg bg-sage-600 tablet:flex-row tablet:items-center tablet:gap-7 laptop:w-auto laptop:justify-between'>
+          <div className='flex flex-col w-full p-4 rounded-lg bg-sage-600 tablet:flex-row tablet:items-center tablet:gap-7 tablet:w-auto tablet:px-5 laptop:justify-between'>
             {/* TAGS */}
             <div className='flex flex-row items-center pb-4 tablet:pb-0'>
               <div className='max-w-[20px] w-full text-sage-200 mr-2'>
@@ -191,6 +193,20 @@ function BlogTemplate(props: IProps) {
               </div>
             </div>
 
+
+            {skill && <div className='flex flex-row items-center pb-4 tablet:pb-0'>
+              <div className='max-w-[20px] w-full text-sage-200 mr-2'>
+                <BarChartSvg fill={'currentColor'} />
+              </div>
+              <div className='flex flex-row gap-1 text-sage-50'>
+                <div className='font-semibold'>
+                  {skill.name} Skill
+                </div>
+              </div>
+            </div>}
+
+
+
             {/* TIME */}
             {tutorialMin && tutorialMin !== '00' &&
               <div className='flex flex-row items-center'>
@@ -209,13 +225,13 @@ function BlogTemplate(props: IProps) {
 
         {/* QUICK SUMMERY */}
         {post.tutorialManager.quickSummary &&
-          <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-12 tablet:text-lg laptop:col-start-2 laptop:col-span-7 laptop:text-xl desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
+          <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-8 tablet:text-lg laptop:text-xl laptop:col-start-3 laptop:col-span-8 desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
             <span className='text-lg font-sentinel__SemiBoldItal text-secondary-400 tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
           </div>
         }
 
         {/* AUTHOR */}
-        <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:row-start-2 laptop:row-span-1 laptop:col-start-10 laptop:col-span-4 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
+        <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:just laptop:items-start laptop:col-start-3 laptop:col-span-3 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
 
           <div className='relative flex flex-row items-center desktop:mb-4'>
             <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>

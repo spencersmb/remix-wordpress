@@ -38,6 +38,7 @@ describe('PaidProducts Pop Up', () => {
     )
     expect(queryByText('Sample Freebie')).toBeTruthy()
   })
+
   it('Should call closeModal fn', () => {
     const { queryByTestId } = renderUi(
       <UseSiteProvider defaultState={siteInitialState} >
@@ -70,20 +71,24 @@ describe('PaidProducts Pop Up', () => {
         <PaidProductPopUp {...props} />
       </UseSiteProvider>
     )
-    const button = getByText('Free Download')
+    const button = getByText('Continue with free download')
     expect(button).not.toBeNull()
     fireEvent.click(button)
     expect(window.open).toHaveBeenCalledTimes(1)
   })
-  it('It should show gumorad Buy Button', () => {
-    const { getByText } = renderUi(
+
+  it('It should show gumorad Buy Buttons', () => {
+    const { queryByText } = renderUi(
       <UseSiteProvider defaultState={siteInitialState} >
         <PaidProductPopUp {...props} />
       </UseSiteProvider>
     )
-    const button = getByText('Quick View')
+    const button = queryByText('View')
+    const buyButton = queryByText('Buy Now')
     expect(button).not.toBeNull()
+    expect(buyButton).not.toBeNull()
   })
+
   it('It should not show gumorad Buy Button', () => {
     const { queryByText } = renderUi(
       <UseSiteProvider defaultState={{
@@ -98,7 +103,9 @@ describe('PaidProducts Pop Up', () => {
         <PaidProductPopUp {...props} />
       </UseSiteProvider>
     )
-    const button = queryByText('Quick View')
+    const button = queryByText('View')
+    const buyButton = queryByText('Buy Now')
     expect(button).toBeNull()
+    expect(buyButton).toBeNull()
   })
 })

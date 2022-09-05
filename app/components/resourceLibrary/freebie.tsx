@@ -26,11 +26,12 @@ const Freebie = (props: Props) => {
   const { resource, scrollPosition } = props
   const { openModal, closeModal } = useSite()
 
-  useEffect(() => {
-    if (resource.freebie.licenseRequired) {
-      popUpDownload()
-    }
-  }, [])
+  // load popup on mount for CSS editing
+  // useEffect(() => {
+  //   if (resource.freebie.licenseRequired) {
+  //     popUpDownload()
+  //   }
+  // }, [])
 
   // consoleHelper('resource', resource)
   const image = loadImageSrc({

@@ -47,7 +47,7 @@ function BlogFeaturedPost(props: Props) {
     <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       {/* FEATURED IMAGE */}
-      <div className="featured_image mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-end-8 tablet:row-span-3 tablet:row-start-1 desktop:col-start-2 max-w-[660px] ml-auto mr-0 desktop:mt-24 w-full">
+      <div className="featured_image mx-auto mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-start-3 tablet:col-span-10 laptop:col-start-2 laptop:col-end-8 laptop:row-span-3 laptop:row-start-1 desktop:col-start-2 max-w-[660px] desktop:mr-0 desktop:mt-24 w-full">
         <Link to={`/${featuredPost.slug}`} prefetch="intent">
 
           {/* MAKE THIS TAG */}
@@ -96,10 +96,10 @@ function BlogFeaturedPost(props: Props) {
             {colorSwatch &&
               <div data-testid="color-swatch"
                 // style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }}
-                className="absolute rounded-full bottom-[-50px] tablet:bottom-[-10%] right-[10px] w-[100px] h-[100px] laptop:bottom-[-6%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-10px] flex justify-center items-center">
+                className="absolute rounded-full top-[126px] tablet:top-auto tablet:bottom-[-10%] right-[10px] w-[80px] h-[80px] tablet:w-[100px] tablet:h-[100px] laptop:bottom-[-16%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-70px] flex justify-center items-center">
                 <span
                   // style={{ color: featuredPost.tutorialManager.colorPalette.iconTextColor }} 
-                  className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal tablet:leading-4 desktop:text-xl desktop:leading-6 text-white">
+                  className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal text-sm tablet:leading-4 tablet:text-base desktop:text-xl desktop:leading-6 text-white">
                   Free Color Swatches
                 </span>
               </div>}
@@ -109,42 +109,42 @@ function BlogFeaturedPost(props: Props) {
       </div>
 
       {/* CONTENT */}
-      <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:col-span-6 tablet:col-start-8 tablet:row-start-1 tablet:mt-12 tablet:ml-6 desktop:ml-12 desktop:col-span-5 desktop:col-start-8 desktop:mt-24 ">
+      <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:mb-2 tablet:col-start-4 tablet:col-span-8 tablet:mt-8 laptop:flex-col laptop:col-span-6 laptop:col-start-8 laptop:row-start-1 laptop:mt-12 laptop:ml-6 laptop:mb-5 desktop:ml-12 desktop:col-span-5 desktop:col-start-8 desktop:mt-24 ">
 
-        <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span>
+        {/* <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span> */}
 
-        <h2 className="mb-6 font-sentinel__SemiBoldItal text-heading-3 text-primary-600 laptop:text-5xl laptop:mb-8">
+        <h2 className="mb-4 font-sentinel__SemiBoldItal text-heading-3 text-sage-700 laptop:text-4xl laptop:mb-5 desktop:text-5xl">
           <Link data-testid="blog-title" to={`/${featuredPost.slug}`} prefetch="intent">
             {featuredPost.title}
           </Link>
         </h2>
 
-        <div className="flex flex-row flex-wrap items-start mb-6 text-base text-primary-600 tablet:mb-3 laptop:mb-6">
+        <div className="flex flex-row flex-wrap items-start mb-3 text-base text-sage-600 tablet:mb-0 tablet:flex-row tablet:gap-6 tablet:justify-between">
 
-          {skill && <div data-testid="blog-skill-level" className="flex flex-row items-center mb-2 mr-4 tablet:mr-12">
-            <span className="mr-1 max-w-[15px]"><BarChartSvg fill={'var(--warning-700)'} /></span>
+          {skill && <div data-testid="blog-skill" className="flex flex-row items-center mb-2 laptop:mb-0">
+            <span className="mr-1 max-w-[15px]"><BarChartSvg fill={'currentColor'} /></span>
             <div>
               <span className='mr-1'>Skill Level:</span>
               <span className='font-semibold'>{skill.name}</span>
             </div>
           </div>}
 
-          <div data-testid="blog-date" className="flex flex-row items-center flex-auto mb-2">
-            <span className="mr-2 max-w-[12px]"><ClockSvg fill={'var(--warning-700)'} /></span>
+          {/* <div data-testid="blog-date" className="flex flex-row items-center flex-auto mb-2">
+            <span className="mr-2 max-w-[12px]"><ClockSvg fill={'currentColor'} /></span>
             {formatDate(featuredPost.date)}
-          </div>
+          </div> */}
 
-          <div data-testid="blog-author" className="mb-2 flex flex-row flex-[0_1_100%] items-center">
-            <span className="mr-2 max-w-[12px]"><EditSvg fill={'var(--warning-700)'} /></span>
+          <div data-testid="blog-author" className="flex flex-row items-center mb-2 laptop:mb-0">
+            <span className="mr-2 max-w-[12px]"><EditSvg fill={'currentColor'} /></span>
             by Teela Cunningham</div>
 
         </div>
       </div>
 
       {/* DESCRIPTIOM */}
-      <div className="relative z-10 col-span-2 col-start-2 row-start-3 featured-content tablet:col-span-6 tablet:col-start-8 tablet:row-start-2 desktop:col-span-5 desktop:col-start-8 tablet:mt-5 tablet:ml-6 laptop:mt-7 desktop:ml-12">
+      <div className="relative z-10 col-span-2 col-start-2 row-start-3 featured-content tablet:col-start-4 tablet:col-span-8 laptop:col-span-6 laptop:col-start-8 laptop:row-start-2 desktop:col-span-5 desktop:col-start-8 laptop:mt-5 laptop:ml-6 desktop:ml-12">
 
-        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='text-lg' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
+        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='text-lg text-sage-800' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
 
         <div className='flex mt-5'>
 
@@ -160,7 +160,7 @@ function BlogFeaturedPost(props: Props) {
       </div>
 
       {/* BACKGROUND */}
-      <div className="relative z-0 col-span-4 col-start-1 row-span-2 row-start-1 featured-content-bg tablet:bg-neutral-100 tablet:col-span-full tablet:row-end-2"></div>
+      <div className="relative z-0 col-span-4 col-start-1 row-span-2 row-start-1 featured-content-bg feature-blog-spacer tablet:bg-neutral-100 tablet:col-span-full tablet:row-end-2"></div>
     </div>
   )
 }
