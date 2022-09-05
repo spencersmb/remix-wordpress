@@ -4,6 +4,7 @@ import { getLicense } from "@App/utils/posts";
 import GumroadBtn from "../buttons/gumroadBtn";
 import CloseSvg from "../svgs/closeSvg";
 import useSite from "@App/hooks/useSite";
+import { ArrowRightIcon } from "@heroicons/react/solid";
 
 interface IProps {
   closeModal: () => void
@@ -32,31 +33,41 @@ const PaidProductPopUp = ({ download_link, product, closeModal }: IProps) => {
   const extendedLicense = getLicense(product.productDetails.licences, LicenseEnum.EXTENDED)
 
   return (
-    <div data-testid="paid-product-popup" className="bg-primary-800 shadow-et_4 rounded-2.5xl p-10 max-w-[500px]">
+    <div data-testid="paid-product-popup" className="bg-sage-100 w-[100vw] mx-auto shadow-et_4 py-10 px-5 tablet:p-10 max-w-[500px]">
       {/* TOP HEADER */}
       <div className="relative flex">
         <div className="flex-1">
-          <p className="text-lg text-secondary-400">Sample Freebie</p>
+          <p className="text-sm font-semibold text-sage-700">Sample Freebie</p>
         </div>
-        <div className="absolute top-[-20px] right-[-20px]">
-          <div data-testid="close-modal" onClick={closeModal} className="w-[38px] h-[38px] bg-neutral-700 rounded-full cursor-pointer p-1">
-            <CloseSvg stroke="#A1929A" strokeWidth='4' />
+        <div className="absolute top-[-20px] right-[-10px] tablet:right-[-20px]">
+          <div data-testid="close-modal" onClick={closeModal} className="w-[38px] h-[38px] bg-sage-400 rounded-full cursor-pointer p-1">
+            <CloseSvg stroke="var(--sage-50" strokeWidth='4' />
           </div>
         </div>
       </div>
-      <div className="pr-5 mt-10">
-        <h2 className="text-4xl font-sentinel__SemiBoldItal text-neutral-50 mb-7">{product.title}</h2>
+      <div className="mt-10 tablet:pr-5">
+        <h2 className="text-4xl font-sentinel__SemiBoldItal text-sage-800 mb-7">{product.title}</h2>
       </div>
-      <p className="mb-8 text-neutral-50">This item is part of a full set that can be purchased if you want to take full advantage of all it’s elements.</p>
-      <div className="flex flex-row">
-        <button className="mr-4 btn btn-primary-300 ring-offset-primary-800" onClick={download}>Free Download</button>
+      <p className="mb-8 text-lg text-sage-700">This item is part of a full set that can be purchased if you want to take full advantage of all it’s elements.</p>
+      <div className="flex flex-col">
         {(metadata.serverSettings.productPlatform === 'gumroad' && extendedLicense) &&
-          <GumroadBtn
-            className="font-semibold btn ring-offset-primary-800"
-            price={extendedLicense.price}
-            url={extendedLicense.url}
-            text='Quick View'
-          />}
+          <div className="mb-4">
+            <GumroadBtn
+              stackOnMobile={true}
+              price={extendedLicense.price}
+              url={extendedLicense.url}
+              text='Buy Now'
+              viewBtnClassName='btn btn-xl bg-sage-400 hover:bg-sage-500 text-sage-50 btn-flex border-sage-400 hover:border-sage-500'
+            />
+          </div>
+        }
+        <div className="mt-4">
+          <button className="flex flex-row items-center justify-center mx-auto font-semibold text-sage-700 hover:text-sage-500" onClick={download}>
+            <span>Continue with free download</span>
+            <span className="w-[20px] ml-2"><ArrowRightIcon /></span>
+          </button>
+        </div>
+
       </div>
     </div>
   )

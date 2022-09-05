@@ -135,8 +135,8 @@ function PostCardOne(props: Props) {
             </div>
 
             {/* CARD TEXT */}
-            <div className='flex flex-col items-center justify-center flex-1 px-3 pt-2 text-center pb-7 desktop:px-9'>
-              <div className='font-black tracking-widest text-h3 tablet:text-xl tablet:leading-[1.75rem] laptop:text-2xl text-primary-700 desktop:text-h3'>
+            <div className='flex flex-col items-center justify-center flex-1 px-3 text-center py-7 desktop:px-9'>
+              <div className='font-black tracking-widest text-2xl tablet:text-2xl tablet:leading-[1.75rem] laptop:text-2xl text-grey-700 desktop:text-h3'>
                 <div className='mb-2'>
                   {postTitle.subTitle && <div aria-label="subTitle" style={{ textTransform: 'inherit' }} className='block mb-3 font-medium tracking-normal lowercase text-h5 font-sentinel__SemiBoldItal'>{postTitle.subTitle}</div>}
                   <span data-testid="post-card-one-title" className="uppercase">{postTitle.title}</span>
@@ -145,8 +145,8 @@ function PostCardOne(props: Props) {
               </div>
               {skill
                 ?
-                <div aria-label="post-card-skill-level" className='flex flex-row items-center justify-center my-3 text-warning-700'>
-                  <div className='w-[24px] mr-1'><BarChartSvg fill={'var(--warning-700)'} /></div>
+                <div aria-label="post-card-skill-level" className='flex flex-row items-center justify-center my-3 text-sage-600'>
+                  <div className='w-[24px] mr-1'><BarChartSvg fill={'currentColor'} /></div>
                   <div className='mr-1'>Skill Level:</div>
                   <div className='font-semibold capitalize'>{skill.name}</div>
                 </div>

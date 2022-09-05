@@ -8,6 +8,8 @@ interface Props {
   price?: number
   text?: string
   doubleBtn?: boolean
+  viewBtnClassName?: string
+  stackOnMobile?: boolean
 }
 /**
  * Gumroad Button
@@ -18,7 +20,7 @@ interface Props {
 
 
 function GumroadBtn(props: Props) {
-  const { price, url, className, text, doubleBtn = true } = props
+  const { price, url, className, text, viewBtnClassName, stackOnMobile, doubleBtn = true } = props
 
   // function format(localPrice: number, removeZeros: boolean = false) {
   //   if (removeZeros) {
@@ -32,10 +34,10 @@ function GumroadBtn(props: Props) {
     : null
 
   return (
-    <div className='flex flex-row w-full gap-4'>
+    <div className={classNames(stackOnMobile ? 'flex-col tablet:flex-row' : '', 'flex flex-row w-full gap-4')}>
       {doubleBtn && <a
         data-testid='test-GumroadBtn-view'
-        className={classNames('btn btn-xl btn-outlineFill btn-flex', 'gumroad-btn-view flex')}
+        className={classNames(viewBtnClassName ? viewBtnClassName : 'btn btn-xl btn-outlineFill btn-flex', 'gumroad-btn-view')}
         href={url}>
         <span>{'View'}</span>
       </a>}

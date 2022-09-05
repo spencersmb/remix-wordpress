@@ -23,7 +23,7 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
   return (
     <div
       {...extras}
-      className="relative">
+      className="relative w-[100vw] max-w-[440px] mx-auto">
       {/* BLACK PIN */}
       <div className="w-[100px] absolute top-[-4%] left-[47%] translate-x-[-50%] z-[1]">
         <LazyLoadImage
@@ -41,9 +41,9 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
       )}>
 
         {/* CLOSE BUTTON */}
-        {closeModal && <div className="closeBtn w-[38px] h-[38px] rounded-full absolute top-4 right-4 bg-navy-500 p-1">
+        {closeModal && <div className="closeBtn w-[38px] h-[38px] rounded-full absolute top-4 right-4 bg-sage-500 p-1">
           <button data-testid="close-btn-mw" name="close-modal" onClick={closeModal}>
-            <CloseSvg className="text-navy-50" stroke={'var(--navy-50)'} strokeWidth={3} />
+            <CloseSvg stroke={'var(--sage-50)'} strokeWidth={3} />
           </button>
         </div>}
 

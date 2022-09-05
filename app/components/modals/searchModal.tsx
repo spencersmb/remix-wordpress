@@ -63,7 +63,7 @@ const SearchModal = () => {
           >
             <div className='flex flex-col'>
               <div
-                className="absolute top-2 right-2 w-full max-w-[38px] tablet:max-w-[46px]"
+                className="absolute top-2 right-2 w-full max-w-[38px] tablet:max-w-[46px] hover:cursor-pointer hover:rotate-180 transition-all duration-300"
                 onClick={closeSearch}>
                 <CloseSvg stroke='#151213' />
               </div>

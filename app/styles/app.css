@@ -2225,6 +2225,12 @@ video {
 .w-\[220px\] {
   width: 220px;
 }
+.w-\[440px\] {
+  width: 440px;
+}
+.w-\[100vw\] {
+  width: 100vw;
+}
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -2455,6 +2461,9 @@ video {
 }
 .max-w-\[220px\] {
   max-width: 220px;
+}
+.max-w-\[440px\] {
+  max-width: 440px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -2741,6 +2750,9 @@ video {
 }
 .list-decimal {
   list-style-type: decimal;
+}
+.list-disc {
+  list-style-type: disc;
 }
 .appearance-none {
   -webkit-appearance: none;
@@ -3223,6 +3235,9 @@ video {
 .bg-success-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(79 113 113 / var(--tw-bg-opacity));
+}
+.bg-sage-400 {
+  background-color: var(--sage-400);
 }
 .bg-contain {
   background-size: contain;
@@ -4549,6 +4564,10 @@ video {
   --tw-translate-y: -0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.hover\:rotate-180:hover {
+  --tw-rotate: 180deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .hover\:scale-\[1\.2\]:hover {
   --tw-scale-x: 1.2;
   --tw-scale-y: 1.2;
@@ -4569,6 +4588,9 @@ video {
 }
 .hover\:border-sage-200:hover {
   border-color: var(--sage-200);
+}
+.hover\:border-sage-500:hover {
+  border-color: var(--sage-500);
 }
 .hover\:bg-sage-400:hover {
   background-color: var(--sage-400);
@@ -5306,6 +5328,9 @@ video {
   .tablet\:top-\[-40px\] {
     top: -40px;
   }
+  .tablet\:right-\[-20px\] {
+    right: -20px;
+  }
   .tablet\:z-20 {
     z-index: 20;
   }
@@ -5338,6 +5363,9 @@ video {
   }
   .tablet\:col-span-9 {
     grid-column: span 9 / span 9;
+  }
+  .tablet\:col-span-11 {
+    grid-column: span 11 / span 11;
   }
   .tablet\:col-start-3 {
     grid-column-start: 3;
@@ -5667,6 +5695,9 @@ video {
   }
   .tablet\:w-\[180px\] {
     width: 180px;
+  }
+  .tablet\:w-\[440px\] {
+    width: 440px;
   }
   .tablet\:min-w-\[753px\] {
     min-width: 753px;
@@ -7452,6 +7483,10 @@ video {
     margin-top: 8rem;
     margin-bottom: 8rem;
   }
+  .desktop\:my-12 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
   .desktop\:mt-\[-60px\] {
     margin-top: -60px;
   }
@@ -7815,6 +7850,10 @@ video {
   .desktop\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
+  }
+  .desktop\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   .desktop\:pl-8 {
     padding-left: 2rem;

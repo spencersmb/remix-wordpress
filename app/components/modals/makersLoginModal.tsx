@@ -30,6 +30,7 @@ const TuesdayMakersLoginModal = (props: IProps) => {
 
   return (
     <ModalLayoutWrapperWhite
+      closeModal={props.closeModal}
       data-testid="test-tuesdayMakersLoginModal"
       className="bg-white">
 

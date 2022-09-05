@@ -33,10 +33,17 @@ function BlogPostGrid(props: IProps) {
 
   return (
     <div data-testid="post-grid" className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
+
       {/* @ts-ignore */}
       <AnimatePresence>
-        {category === 'all' && posts.map((post: any) => {
-          return (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
+        {category === 'all' && posts.map((post: any, index: any) => {
+          return (
+            <PostCardOne
+              key={post.slug}
+              post={post}
+              scrollPosition={scrollPosition}
+            />
+          )
         }).slice(1) // Remove first time because its the featured post
         }
 

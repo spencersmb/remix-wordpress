@@ -103,7 +103,7 @@ function BlogCategoryTabs(props: Props) {
       </SimpleTabsHeader>
 
 
-      <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-full desktop:col-start-2 desktop:col-span-8">
+      <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-8">
         <TabContent id={'topics'} index={0}>
           <div className="flex flex-row flex-wrap gap-2">
             {categories.map(cat => (

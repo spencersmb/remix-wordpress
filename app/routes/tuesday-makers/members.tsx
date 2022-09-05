@@ -77,8 +77,8 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
   }
   const defaultCategory = {
-    name: 'Style Studies',
-    slug: 'style-studies'
+    name: 'Procreate Brushes',
+    slug: 'procreate-brushes'
   }
 
   let variables: {

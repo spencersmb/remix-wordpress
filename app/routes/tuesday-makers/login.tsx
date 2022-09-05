@@ -17,6 +17,7 @@ import BellSvg from "@App/components/svgs/bellSvg";
 import useSite from "@App/hooks/useSite";
 import GeneralMessageModal from "@App/components/modals/generalMessageModal";
 import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
+import BackgroundImage from "@App/components/images/backgroundImage";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -182,11 +183,16 @@ const ResourceLibraryLogin = () => {
 
   return (
     <div className={classNames('', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)]')}>
-      <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+      <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop desktop:py-12'>
+
+        {/* <BackgroundImage
+          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&w=100&fit=clip&auto=compress'
+          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&auto=compress'
+        /> */}
 
 
         {/* FORM */}
-        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-12 mt-8 mb-4 tablet:mt-8 tablet:mb-8 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
+        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-12 mt-8 mb-4 tablet:mt-8 tablet:mb-8 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-8 laptop:col-span-6 laptop:row-start-1 desktop:col-start-8 desktop:col-span-5 max-w-[525px] w-full mx-auto rounded-lg">
           <div className="flex flex-col items-center px-4">
 
             <div className="flex flex-col items-center mb-8 text-center">
@@ -274,7 +280,7 @@ const ResourceLibraryLogin = () => {
                 prefetch={'intent'}
                 className="btn btn-outline btn-flex btn-lg"
                 to="/tuesday-makers">
-                Sign Up
+                Sign Up For Free
               </Link>
             </div>
 
@@ -287,31 +293,40 @@ const ResourceLibraryLogin = () => {
         </div>
 
         {/* ALERT */}
-        <div className="bg-sage-200 p-4 max-w-[725px] mx-auto mb-8 col-span-2 col-start-2 tablet:p-8 tablet:mb-16 tablet:col-start-2 tablet:col-span-12 laptop:col-start-4 laptop:col-span-8 desktop:col-start-5 desktop:col-span-6">
-          <div className="flex flex-row items-start justify-center">
-            {/* ICON BELL */}
-            <div className="flex items-center justify-center mb-5 mr-4 tablet:mr-8 tablet:mb-0">
-              <div className="rounded-full bg-sage-100 p-[9px] w-[39px] h-[39px] tablet:w-[66px] tablet:h-[66px] tablet:p-[15px]">
-                <BellSvg fill="var(--sage-500)" />
+        <div className="col-span-2 col-start-2 my-4 tablet:mb-8 tablet:col-start-3 tablet:col-span-10 laptop:my-0 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-10">
+          <div className="bg-sage-200 p-4 max-w-[725px] mx-auto tablet:p-8 ">
+            <div className="flex flex-col items-start justify-center my-4 tablet:mx-4">
+
+              <div>
+                <div className="mb-4 text-3xl text-center text-sage-800 font-sentinel__SemiBoldItal tablet:mb-8">
+                  No more passwords!
+                </div>
+
+                <p className="text-lg tablet:text-xl">
+                  A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every Tuesday.
+                </p>
               </div>
-            </div>
 
-            {/* MESSAGE */}
-            <div className="flex flex-col">
-              <p className="mb-4 text-sage-600 tablet:text-xl">
-                An active Tuesday Makers account is required to login. If you don’t have an account, signup for one today.
-              </p>
+              {/* MESSAGE */}
+              <div className="flex flex-col mt-4">
 
-              <div className="flex flex-row tablet:text-xl">
-                <Link to={"/contact"} className="font-semibold underline text-sage-800">
-                  Help
-                </Link>
-                <Link to={"/contact"} className="ml-4 font-semibold underline text-sage-800">
-                  Sign Up
-                </Link>
+                <ul className="ml-4 text-lg">
+                  <li className="mb-4 list-disc">
+                    If you don’t have an active email account with Every Tuesday, you’ll need to <Link to={"/tuesday-makers"} className="font-semibold underline text-sage-800">
+                      Sign up for free
+                    </Link>.
+                  </li>
+
+                  <li className="mb-4 list-disc last:mb-0">
+                    Still having issues? <Link to={"/contact"} className="font-semibold underline text-sage-800">
+                      Contact us for help
+                    </Link>!
+                  </li>
+                </ul>
+
               </div>
-            </div>
 
+            </div>
           </div>
         </div>
 

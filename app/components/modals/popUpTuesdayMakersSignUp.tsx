@@ -23,6 +23,7 @@ const TuesdayMakersSignUpModal = ({ closeModal }: IProps) => {
   return (
     <ModalLayoutWrapperWhite
       data-testid="test-tuesdayMakersSignUpModal"
+      closeModal={closeModal}
       className="bg-white">
       {/* @ts-ignore */}
       <AnimatePresence>

@@ -43,6 +43,7 @@ function TutorialDownloads(props: Props) {
     openModal({
       template: <TuesdayMakersSignUpModal
         closeModal={closeModal}
+
       />
     })
   }
@@ -122,7 +123,7 @@ function TutorialDownloads(props: Props) {
                 <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
                   {item.title}
                 </div>
-                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outline` : `btn btn-outline`, 'btn btn-sm')} onClick={handleDownload(index)}>
+                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outlineFill` : `btn btn-outlineFill`, 'btn btn-sm')} onClick={handleDownload(index)}>
                   {!resourceUser ? 'Locked' : 'Download'}
                 </button>
               </div>

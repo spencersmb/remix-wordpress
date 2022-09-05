@@ -26,6 +26,12 @@ const Freebie = (props: Props) => {
   const { resource, scrollPosition } = props
   const { openModal, closeModal } = useSite()
 
+  useEffect(() => {
+    if (resource.freebie.licenseRequired) {
+      popUpDownload()
+    }
+  }, [])
+
   // consoleHelper('resource', resource)
   const image = loadImageSrc({
     imageSizeName: ImageSizeEnums.MEDIUM, // image name to try and get
