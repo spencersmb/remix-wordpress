@@ -3,12 +3,13 @@ node_modules
 /.cache
 /server/build
 /public/build
+/public/wp-search.json
+/public/wp-prettyLinks.json
 /build
 **/.DS_Store
 
 
-/public/wp-search.json
-/public/wp-prettyLinks.json
+
 /.env
 /.env.test
 /app/.tailwind.css
