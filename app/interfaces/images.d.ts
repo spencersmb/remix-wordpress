@@ -19,6 +19,7 @@ interface CreateImgixParams {
   height?: number, 
   alt: string,
   compress?: boolean
+  params?: string
 }
 
 interface CreateImgixReturn {image: ImgixImageType, defaultSrc: string}

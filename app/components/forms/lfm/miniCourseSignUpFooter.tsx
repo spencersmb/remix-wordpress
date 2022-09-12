@@ -1,4 +1,6 @@
+import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
 import SignUpSuccess from "@App/components/modals/signUpSuccess";
+import { spinnerColors } from "@App/components/spinners/spinnerColors";
 import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
 import { AnimatePresence } from "framer-motion";
@@ -8,6 +10,7 @@ import FormErrorMessage from "../messages/ErrorMessage";
 
 interface Props {
 }
+// TODO: TRY TESTING WITH NEW WRAPPER
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
 const LfmMiniCourseSignUpFormFooter = (props: Props) => {
   let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
@@ -91,14 +94,13 @@ const LfmMiniCourseSignUpFormFooter = (props: Props) => {
               placeholder="Your last name here" />
           </label>
 
-
-          <button
-            disabled={transition.state !== 'idle'}
-            aria-disabled={transition.state !== 'idle'}
-            type='submit'
-            className="btn btn-sage-600 bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:ring-4 active:bg-lfm-blue-700 desktop:max-h-[56px] desktop:ml-4 desktop:flex-1 ring-offset-lfm-pink-200">
-            {transition.state === 'idle' ? 'Start Now' : '...Loading'}
-          </button>
+          <BasicSubmitBtn
+            loading={transition.state !== 'idle'}
+            loadingText='Submitting...'
+            text="Start Now"
+            className="text-white btn btn-primary btn-lg btn-primary-ring bg-lfm-blue-700 hover:bg-lfm-blue-700 hover:ring-lfm-blue-700 active:bg-lfm-blue-700 active:ring-lfm-blue-700 focus:bg-lfm-blue-700 focus:ring-lfm-blue-700 ring-offset-lfm-pink-200 disabled:bg-lfm-blue-700 disabled:ring-lfm-blue-700 disabled:hover:bg-lfm-blue-700 disabled:text-navy-500 disabled:hover:text-navy-500 desktop:ml-4"
+            spinnerColors={spinnerColors.lfmBlueSolid}
+          />
         </Form>
       </div>
     </>

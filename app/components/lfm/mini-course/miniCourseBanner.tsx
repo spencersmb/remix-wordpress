@@ -16,6 +16,7 @@ interface Props {
  * @component MiniCourseBanner
  * @tested - 7/09/2022 
  */
+// TODO: REDO IMAGES WITH IMGIX AND REMOVE THE USE IN VIEW OPTION
 function MiniCourseBanner(props: Props) {
   const { children, showForm } = props
   const miniCourseTextImg = {

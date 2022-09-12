@@ -1,5 +1,5 @@
 
-import { flattenAllPosts } from '../utils/posts'
+import { flattenAllCourses, flattenAllPosts } from '../utils/posts'
 import { fetchAPI, fetchFontPreviewFileServer } from '../utils/fetch.server'
 import { getHtmlMetadataTags } from '../utils/seo'
 import { useContext, useEffect, useRef, useState } from 'react'
@@ -16,6 +16,12 @@ import Layout from "@App/components/layoutTemplates/layout";
 import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import TransformSkillsHeader from '@App/components/headers/transformSkillsHeader'
+import gql from 'graphql-tag'
+import { getGraphQLString } from '@App/utils/graphqlUtils'
+import StartHere from '@App/components/homePage/startHere'
+import FeatureCourses from '@App/components/homePage/featureCourses'
+import LfmMiniCourse from '@App/components/homePage/lfmMiniCourse'
+import ProcreateBrushes from '@App/components/homePage/procreateBrushes'
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
@@ -50,49 +56,43 @@ type IndexData = {
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
 export let loader: LoaderFunction = async ({ request }) => {
-  let data: IndexData = {
-    resources: [
-      {
-        name: "Remix Docs",
-        url: "https://remix.run/docs"
-      },
-      {
-        name: "React Router Docs",
-        url: "https://reactrouter.com/docs"
-      },
-      {
-        name: "Remix Discord",
-        url: "https://discord.gg/VBePs6d"
-      }
-    ],
-    demos: [
-      {
-        to: "demos/actions",
-        name: "Actions"
-      },
-      {
-        to: "demos/about",
-        name: "Nested Routes, CSS loading/unloading"
-      },
-      {
-        to: "demos/params",
-        name: "URL Params and Error Boundaries"
-      }
-    ]
-  };
+
   let wpAPI
+  const courseListDev: number[] = [
+    7699, // LFM
+    10049, // Beautiful Lettering
+    8936, // Watercolor Lettering In Procreate
+    9639, // Gouache Botanicals in Procreate
+    9197, // Watercolor Florals in Procreate
+    8339, // 3D Lettering in Procreate
+
+  ]
+  const courseListProd: number[] = [
+    7699, // LFM
+    10049, // Beautiful Lettering
+    8936, // Watercolor Lettering In Procreate
+
+    9639, // Gouache Botanicals in Procreate
+    9197, // Watercolor Florals in Procreate
+    10440 // Messy Watercolors in Procreate
+  ]
+  let coursesIdList = process.env.NODE_ENV === "production"
+    ? courseListProd
+    : courseListDev
+
   try {
-    wpAPI = await fetchAPI(query, {
+    wpAPI = await fetchAPI(getGraphQLString(query), {
       variables: {
-        after: null
+        after: null,
+        courses: coursesIdList
       }
     })
   } catch (e) {
     console.log('error', e)
-
   }
-  const pageInfo = wpAPI?.posts.pageInfo
+  const pageInfo = wpAPI?.posts?.pageInfo
   const posts = flattenAllPosts(wpAPI?.posts) || []
+  const courses = flattenAllCourses(wpAPI?.courses) || []
 
   // const fontPreview = await fetchFontPreviewFileServer('skinny')
   // console.log('fontPreview', fontPreview);
@@ -100,8 +100,8 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   // https://remix.run/api/remix#json
   return {
-    ...data,
     posts,
+    courses,
     pageInfo,
   }
 };
@@ -157,8 +157,14 @@ function TestModal() {
   )
 }
 // https://remix.run/guides/routing#index-routes
+interface LoaderData {
+  courses: ICourse[]
+  pageInfo: IwpPageInfo
+  posts: IPost[]
+}
 export default function Index() {
-  let data = useLoaderData<any>();
+  let data = useLoaderData<LoaderData>();
+  let courses = data.courses
   console.log('index data', data);
 
 
@@ -166,7 +172,7 @@ export default function Index() {
     posts: data.posts,
     pageInfo: {
       ...data.pageInfo,
-      page: data.page
+      page: 1
     }
   })
   const { openModal, closeModal } = useSite()
@@ -268,65 +274,113 @@ export default function Index() {
   return (
     <Layout>
       <div className='remix__page'>
+
         <TransformSkillsHeader />
+
+        <StartHere />
+
+        <FeatureCourses courses={courses} />
+
+        <LfmMiniCourse />
+
+        <ProcreateBrushes />
+
       </div>
     </Layout>
   );
 }
 
-const query = `
-    query GetNextPosts($after: String) {
-        posts(first: 10, after: $after) {
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-    edges {
-      node {
-        id
-        tutorialManager {
-          postExcerpt
-        }
-        categories {
-          edges {
-                            node {
-              databaseId
-              id
-              name
-              slug
-            }
-          }
-        }
-        date
-        excerpt
-        featuredImage {
+const query = gql`
+    query HomePageQuery($after: String, $courses: [ID]) {
+      courses(where: {in: $courses}) {
+        edges {
           node {
-            mediaDetails {
-              sizes{
-                width
-                file
-                height
-                name
-                sourceUrl
+            id
+            title
+            slug
+            details{
+              courseTags{
+                tag
+              }
+              courseUrl
+            }
+            featuredImage {
+              node {
                 mimeType
+                mediaDetails {
+                  height
+                  width
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
+                  altText
+                  caption
+                  sourceUrl
+                  srcSet
+                  sizes
+                  id
               }
             }
-            altText
-            caption
-            sourceUrl
-            srcSet
-            sizes
-            id
           }
         }
-        modified
-        title
-        slug
-        isSticky
       }
-    }
-  }
+      posts(first: 4, after: $after) {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+        edges {
+          node {
+            id
+            tutorialManager {
+              postExcerpt
+            }
+            categories {
+              edges {
+                                node {
+                  databaseId
+                  id
+                  name
+                  slug
+                }
+              }
+            }
+            date
+            excerpt
+            featuredImage {
+              node {
+                mediaDetails {
+                  sizes{
+                    width
+                    file
+                    height
+                    name
+                    sourceUrl
+                    mimeType
+                  }
+                }
+                altText
+                caption
+                sourceUrl
+                srcSet
+                sizes
+                id
+              }
+            }
+            modified
+            title
+            slug
+            isSticky
+          }
+        }
+      }
     }
 `

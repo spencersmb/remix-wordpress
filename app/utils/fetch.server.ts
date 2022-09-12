@@ -51,7 +51,9 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
-
+  console.log(JSON.stringify({
+      variables,
+    }))
   const res = await fetch(api_url, {
     method: 'POST',
     mode: 'cors',

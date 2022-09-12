@@ -96,7 +96,7 @@ function CmGrid(props: Props) {
 
       {/* BUTTON */}
       <div className="items-center justify-center col-span-full cmGrid__button">
-        <button className='mx-auto btn btn-outline' onClick={toggleOpen}>
+        <button className='mx-auto btn btn-outline btn-xl' onClick={toggleOpen}>
           {isOpen ? "Close" : "View More!"}
         </button>
       </div>

@@ -7,11 +7,12 @@ import { formatDate } from '@App/utils/posts'
 import { getBasicPageMetaTags } from '@App/utils/seo';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useNavigate } from '@remix-run/react';
+import { useEffect } from 'react';
 import gridItemsJson from '../../server/fonts/gridItems.json'
 
-
 export let meta: MetaFunction = (metaData): any => {
+
 
   /*
   rootData gets passed in from the root metadata function
@@ -34,7 +35,8 @@ export let meta: MetaFunction = (metaData): any => {
   })
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
+export let loader: LoaderFunction = async ({ request, params }) => {
+
   const page = {
     title: `Learn Font Making: Mini-Course SignUp`,
     slug: 'learn-font-making',
@@ -69,7 +71,9 @@ function formatAMPM(date: Date) {
 
 function LfmLandingPage(props: Props) {
   let data = useLoaderData<any>();
-  console.log('data', data);
+  let navigate = useNavigate();
+
+  // console.log('data', data);
 
 
   const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
@@ -77,16 +81,22 @@ function LfmLandingPage(props: Props) {
   const testDate = lfmBanner.nextLaunchDate ? new Date(lfmBanner.nextLaunchDate) : new Date()
 
   // can compare dates
-  console.log('getTimeString', testDate.getTime());
+  // console.log('getTimeString', testDate.getTime());
 
   // foratted readble date July 14, 2022
-  console.log('getDate', formatDate(testDate.toDateString()));
+  // console.log('getDate', formatDate(testDate.toDateString()));
 
   // can compare dates
-  console.log('getHours', formatAMPM(testDate));
+  // console.log('getHours', formatAMPM(testDate));
 
   const nextLaunchDate = lfmBanner.nextLaunchDate ? formatDate(lfmBanner.nextLaunchDate) : ''
   const isClassOpen = lfmBanner.showBanner === "true"
+
+  useEffect(() => {
+    if (isClassOpen && window) {
+      window.open('https://courses.every-tuesday.com/p/learn-font-making', '_self')
+    }
+  }, [])
 
   return (
     <Layout>

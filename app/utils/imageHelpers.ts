@@ -1,8 +1,11 @@
 import { fallBackImageEnum, ImageSizeEnums } from "@App/enums/imageEnums"
 import { isEmpty } from "lodash"
 
-
-
+export const imgixServerRoot = {
+  images: `https://et-website.imgix.net/et-website/images`,
+  textures: `https://et-website.imgix.net/et-website/textures`,
+  defaultImages: `https://et-website.imgix.net/et-website/defaultImages`,
+}
 type IDefaultImage = {
   [id: string]: ImageLookupReturn
 }
@@ -293,7 +296,7 @@ export function checkWidthHeight(width: string | number, height: string | number
  */
 export function createImgixSizes(image : CreateImgixParams ): 
 CreateImgixReturn {
-  const {src, mobileSize, width, height, alt, staticImage, compress = false} = image
+  const {src, mobileSize, width, height, alt, staticImage, compress = false, params} = image
 
   let imageUrl = src 
     ? src 
@@ -308,8 +311,8 @@ CreateImgixReturn {
     width: 1000,
     height: 888,
     alt,
-    src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
-    placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
+    src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}${params}`,
+    placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}${params}`
   }
 
   if(staticImage){
@@ -318,8 +321,8 @@ CreateImgixReturn {
       width: staticImage.width,
       height: staticImage.height,
       alt,
-      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
-      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}${params}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}${params}`
     }
   }
 

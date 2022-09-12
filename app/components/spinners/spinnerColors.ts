@@ -3,6 +3,10 @@ export const spinnerColors = {
     bg: 'var(--sage-50)',
     fg: 'var(--sage-600)',
   },
+  lfmBlueSolid:{
+    bg: 'var(--navy-50)',
+    fg: 'var(--lfm-blue-700)',
+  },
   sageOutline:{
     bg: 'var(--sage-700)',
     fg: 'var(--sage-200)',

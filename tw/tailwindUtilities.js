@@ -38,6 +38,16 @@ const css = {
     },
   '.btn-flex':{
     flex: '1 1 0%',
+  },
+  '.video-objectFit':{
+    '& video':{
+      objectFit: 'cover',
+      width: '100%',
+      height: '100%',
+      top: '0px',
+      left: '0px',
+      position: 'absolute',
+    }
   }
 }
 const underlined = {

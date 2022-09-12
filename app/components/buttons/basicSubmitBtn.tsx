@@ -45,7 +45,7 @@ function BasicSubmitBtn(props: Props) {
               opacity: 0,
               width: 0,
             }}
-            className="max-w-[18px] overflow-hidden">
+            className="max-w-[20px] overflow-hidden">
             <TwSpinnerOne loaderColors={spinnerColors} />
           </motion.span>
         }

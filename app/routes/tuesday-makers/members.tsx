@@ -93,6 +93,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
 
   try {
     // GRAPHQL BULK QUERY EXAMPLE
+    // MULTIPLE GRAPHQL QUERIES IN ONE REQUEST
     let data = await fetchAPIBatch([
       {
         query: getGraphQLString(GetFreebiesQuery),
