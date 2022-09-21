@@ -296,7 +296,7 @@ export function checkWidthHeight(width: string | number, height: string | number
  */
 export function createImgixSizes(image : CreateImgixParams ): 
 CreateImgixReturn {
-  const {src, mobileSize, width, height, alt, staticImage, compress = false, params} = image
+  const {src, mobileSize, width, height, alt, staticImage, compress = false, params = ''} = image
 
   let imageUrl = src 
     ? src 
@@ -333,8 +333,8 @@ CreateImgixReturn {
       width,
       height,
       alt,
-      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}`,
-      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}`
+      src: `${defaultSrc}&w=${mobileSize}&fit=clip${compress ? '&auto=compress' : ''}${params}`,
+      placeholder: `${defaultSrc}&w=20&fit=clip${compress ? '&auto=compress' : ''}${params}`
     }
   }
 

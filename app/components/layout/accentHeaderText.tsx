@@ -15,7 +15,7 @@ function AccentHeaderText(props: Props) {
   const { text, cssOverride } = props
 
   return (
-    <div className={classNames(cssOverride ? cssOverride : '', 'absolute font-bonVivant text-xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]')}>
+    <div className={classNames(cssOverride ? cssOverride : '', 'absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]')}>
       {text}
     </div>
   )

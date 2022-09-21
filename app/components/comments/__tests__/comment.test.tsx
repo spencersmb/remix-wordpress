@@ -31,7 +31,7 @@ describe('Comment Component', () => {
   it('Should show comment name & date', () => {
     const { comment } = setup()
     expect(comment).toHaveTextContent(`${defualtProps.comment.author.name}`)
-    expect(comment).toHaveTextContent(`January 27, 2022`)
+    expect(comment).toHaveTextContent(`Jan 27, 2022`)
   })
 
   it('Should show comment reply button', () => {

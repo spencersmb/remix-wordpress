@@ -297,7 +297,6 @@ function BlogTemplate(props: IProps) {
                           distanceFromBottom,
                           calculatedHeight
                         }) => {
-
                           // topOffset = 104(size of the nav minus size of margin)
                           let top = 104 // size of nav
                           return (

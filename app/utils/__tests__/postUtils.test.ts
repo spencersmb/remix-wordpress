@@ -105,7 +105,7 @@ describe('Utils: Post Utilities', () => {
   it('formatDate() Should return a readable date string', () => {
     const date = "2016-11-10T01:13:36"
     const result = formatDate(date)
-    expect(result).toBe('November 10, 2016')
+    expect(result).toBe('Nov 10, 2016')
   })
 
   it('parseComment() Should format the comment object from WP', () => {

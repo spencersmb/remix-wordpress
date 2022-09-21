@@ -181,18 +181,18 @@ export function formatDate(date: string): string {
   const day: number = blogDate.getDate()
 
   const months: string[] = [
-    'January',
-    'February',
+    'Jan',
+    'Feb',
     'March',
     'April',
     'May',
     'June',
     'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
   ]
   return `${months[monthIndex]} ${day}, ${blogDate.getFullYear()}`
 }

@@ -20,7 +20,11 @@ function TutorialDownloads(props: Props) {
 
   useEffect(() => {
     // first time
-    if (!loaded && (!isEmpty(style) || style?.position)) {
+    // if (!loaded && (!isEmpty(style) || style?.position)) {
+    //   setLoaded(true);
+    //   return
+    // }
+    if (!loaded) {
       setLoaded(true);
       return
     }
@@ -57,9 +61,6 @@ function TutorialDownloads(props: Props) {
     })
   }
 
-  if (!post.tutorialManager.downloads || post.tutorialManager.downloads.length === 0) {
-    return null
-  }
 
   return (
     <div
@@ -102,35 +103,37 @@ function TutorialDownloads(props: Props) {
       </div>
 
       {/* LOCKED CONTENT */}
-      <div className='flex-1 bg-white'>
-
-        {!resourceUser && <div className='flex flex-row items-center border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300 text-sage-700'>
-          <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-sage-200 rounded-lg p-2.5 mr-4">
-            <div className='w-[30px]'>
-              <LockedSvg fill={`var(--sage-700)`} />
-            </div>
-          </div>
-          <div>
-            Free Downloads in the video
-          </div>
-        </div>}
-
-        {/* LOCKED ITEMS LIST */}
-        <div className='py-6 locked_items_list'>
-          {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
-            return (
-              <div data-testid='test-downloadItem' key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
-                <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
-                  {item.title}
-                </div>
-                <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outlineFill` : `btn btn-outlineFill`, 'btn btn-sm')} onClick={handleDownload(index)}>
-                  {!resourceUser ? 'Locked' : 'Download'}
-                </button>
+      {post.tutorialManager.downloads && post.tutorialManager.downloads.length > 0 &&
+        <div data-testid="downloads-list" className='flex-1 bg-white'>
+          {!resourceUser && <div className='flex flex-row items-center border-b font-sentinel__SemiBoldItal text-h5 p-7 border-neutral-300 text-sage-700'>
+            <div className="locked_icon flex flex-col justify-center items-center border-[1px] border-sage-200 rounded-lg p-2.5 mr-4">
+              <div className='w-[30px]'>
+                <LockedSvg fill={`var(--sage-700)`} />
               </div>
-            )
-          })}
+            </div>
+            <div>
+              Free Downloads in the video
+            </div>
+          </div>}
+
+          {/* LOCKED ITEMS LIST */}
+          <div className='py-6 locked_items_list'>
+            {post.tutorialManager.downloads && post.tutorialManager.downloads.map((item, index) => {
+              return (
+                <div data-testid='test-downloadItem' key={index} className="px-6 flex flex-row items-center justify-between mb-5 text-left downloadItem locked_item border-b-[1px] border-sage-200 pb-4 last:mb-0 last:border-0 last:pb-0">
+                  <div className={`flex-1 text-base font-semibold pr-4 ${!resourceUser ? 'text-grey-500' : 'text-sage-600'}`}>
+                    {item.title}
+                  </div>
+                  <button data-testid='download-btn' disabled={!resourceUser} className={classNames(!resourceUser ? `btn btn-outlineFill` : `btn btn-outlineFill`, 'btn btn-sm')} onClick={handleDownload(index)}>
+                    {!resourceUser ? 'Locked' : 'Download'}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      }
+
     </div>
 
 

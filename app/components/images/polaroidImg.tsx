@@ -1,8 +1,10 @@
 import React from 'react'
+import LazyImageBase from './lazyImage-base'
 import LazyImgix from './lazyImgix'
 
 interface Props {
   imgixImage?: ImgixImageType
+  wpImage?: ImageLookupReturn
   imgOptions?: {
     sizes: string
     srcSet: string
@@ -17,7 +19,7 @@ interface Props {
  */
 
 function PolaroidImg(props: Props) {
-  const { imgixImage, children, imgOptions, rotate = 'none' } = props
+  const { wpImage, imgixImage, children, imgOptions, rotate = 'none' } = props
   const spacing = 64
   function getRotation() {
     switch (rotate) {
@@ -42,6 +44,15 @@ function PolaroidImg(props: Props) {
             srcSet={imgOptions ? imgOptions.srcSet : ''}
           />
         </div>}
+
+      {wpImage && <div>
+        <LazyImageBase
+          disableSrcSet={true}
+          visibleByDefault={true}
+          testId='feature-image'
+          id={'polaroidImg'}
+          image={wpImage} />
+      </div>}
 
       <div className={`relative`}>
         <div className='pb-[18%]'>

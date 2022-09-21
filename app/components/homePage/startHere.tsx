@@ -31,7 +31,7 @@ export default function StartHere() {
       </div>
 
       {/* CARD CONTENT */}
-      <div className='relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white pt-28 z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-8 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center' >
+      <div className='relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white pt-28 z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-2 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center desktopXl:col-start-3 desktopXl:col-span-5' >
 
         {/* PIN */}
         <div className='absolute top-[-23px] left-1/2 -translate-x-1/2 w-[65px]'>

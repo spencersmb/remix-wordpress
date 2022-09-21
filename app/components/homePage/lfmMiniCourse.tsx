@@ -50,7 +50,6 @@ function LfmMiniCourse(props: Props) {
         </div>
       </div>
 
-      {/* CONTENT */}
       {/* CARD CONTENT */}
       <div className='relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-8 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center'>
 
@@ -97,11 +96,6 @@ function LfmMiniCourse(props: Props) {
         {!isClassOpen && <Link to={'/learn-font-making'} className={'mt-3 btn btn-primary btn-xl'} prefetch={'intent'}>
           View Mini Course
         </Link>}
-      </div>
-
-      {/* BG2 */}
-      <div className='relative z-0 row-span-2 row-start-3 overflow-hidden bg-sage-300 col-span-full tablet:row-start-1 tablet:col-start-9 tablet:col-end-full tablet:row-span-1 tablet:h-auto laptop:col-start-10 laptop:col-end-full'>
-
       </div>
 
     </section>

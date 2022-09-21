@@ -22,6 +22,8 @@ import StartHere from '@App/components/homePage/startHere'
 import FeatureCourses from '@App/components/homePage/featureCourses'
 import LfmMiniCourse from '@App/components/homePage/lfmMiniCourse'
 import ProcreateBrushes from '@App/components/homePage/procreateBrushes'
+import FeaturedBlogPosts from '@App/components/homePage/featuredBlogPosts'
+import AboutMeFeature from '@App/components/homePage/aboutMeFeature'
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
@@ -164,7 +166,7 @@ interface LoaderData {
 }
 export default function Index() {
   let data = useLoaderData<LoaderData>();
-  let courses = data.courses
+  let { courses, posts } = data
   console.log('index data', data);
 
 
@@ -284,6 +286,10 @@ export default function Index() {
         <LfmMiniCourse />
 
         <ProcreateBrushes />
+
+        <FeaturedBlogPosts posts={posts} />
+
+        <AboutMeFeature />
 
       </div>
     </Layout>

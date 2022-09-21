@@ -9,7 +9,7 @@ import TutorialDownloads from "../tutorialContent/tutorialDownloads"
 
 describe('Tutorial Downloads Component', () => {
 
-  it('Should render no component', () => {
+  it('Should not render Downloads list', () => {
 
     const stateProps: ISiteContextState = {
       ...mockUseSiteData_default
@@ -33,7 +33,7 @@ describe('Tutorial Downloads Component', () => {
       , { props: stateProps })
 
 
-    expect(screen.getByTestId('parent')).toBeEmptyDOMElement()
+    expect(screen.queryByTestId('downloads-list')).toBeNull()
   })
 
   it('Should render Login Header', () => {

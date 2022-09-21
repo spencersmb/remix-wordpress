@@ -112,7 +112,7 @@ function FeatureCourses(props: Props) {
 
       {/* BTN VIEW ALL */}
       <div className='flex justify-center col-span-2 col-start-2 mb-12 tablet:col-start-5 tablet:col-span-6'>
-        <Link to='/courses' className='btn btn-primary btn-lg' prefetch='intent'>
+        <Link to='/courses' className='btn btn-primary btn-xl' prefetch='intent'>
           View All Courses
         </Link>
       </div>
