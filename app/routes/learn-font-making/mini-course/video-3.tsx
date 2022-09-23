@@ -13,7 +13,7 @@ import MiniCourseSupplies from '@App/components/lfm/mini-course/miniCourseSuppli
 
 const videoPage = {
   title: 'The tools I use to make hand lettered fonts: Learn Font Making',
-  slug: 'learn-font-making/mini-course/video3',
+  slug: 'learn-font-making/mini-course/video-3',
   description: 'Over the last year and a half, I’ve had the opportunity to teach the basics of typography to undergraduate graphic design students. During this time, I’ve noticed some common mistakes that my students make when first learning how to work with type.',
   seo: {
     title: 'The tools I use to make hand lettered fonts: Learn Font Making',

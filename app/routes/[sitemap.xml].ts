@@ -40,6 +40,14 @@ interface IGenerateSiteMapFunction{
   }[]
   homepage: string
 }
+
+/**
+ * 
+ * @function generateXmlIndex
+ * @returns  XML STRING
+ * 
+ * Pulls posts from CMS and PAGES from a custom Object (sitemapPages) and generates a sitemap.xml file
+ */
 async function generateXmlIndex({pages, posts, homepage}: IGenerateSiteMapFunction) {
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -48,23 +56,24 @@ async function generateXmlIndex({pages, posts, homepage}: IGenerateSiteMapFuncti
         <loc>HOMEPAGE</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
       </url>
-      ${sitemapPages
+  ${sitemapPages
     .map((page: any) => {
       return `
         <url>
           <loc>${homepage}/${page.slug}</loc>
-          <priority>0.3</priority>
+          <priority>0.4</priority>
           <lastmod>${page.modifiedTime}</lastmod>
         </url>
       `;
     }).join('')
   }
-      ${posts
+  ${posts
     .map((data) => {
       const post = data.node
       return `
             <url>
               <loc>${homepage}/${post.slug}</loc>
+              <priority>0.3</priority>
               <lastmod>${post.seo.opengraphModifiedTime}</lastmod>
             </url>
           `;

@@ -31,11 +31,22 @@ type IndexData = {
 //     ...cacheControl
 //   }
 // }
-
+const description = `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`;
+const title = 'Blog'
+const pageMetaData = {
+  title,
+  slug: 'blog',
+  description,
+  seo: {
+    title,
+    opengraphModifiedTime: '',
+    metaDesc: description
+  }
+}
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: `Blog`,
-  desc: `Get the most up-to-date content on Procreate`,
-  slug: `blog`,
+  title,
+  desc: pageMetaData.description,
+  slug: pageMetaData.slug,
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
@@ -97,6 +108,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
   // https://remix.run/api/remix#json
   return json({
+    page: pageMetaData,
     posts,
     pageInfo,
     categories,

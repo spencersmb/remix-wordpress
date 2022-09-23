@@ -24,7 +24,7 @@ export let meta: MetaFunction = (metaData): any => {
   return getBasicPageMetaTags(metaData, {
     title: `Terms & Conditions`,
     desc: `Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms`,
-    slug: `privacy-and-cookies`
+    slug: `terms-and-conditions`
   })
 };
 
@@ -32,7 +32,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   const page = {
     title: 'Terms & Conditions',
-    slug: 'privacy-and-cookies',
+    slug: 'terms-and-conditions',
     description: 'Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms',
     seo: {
       title: 'Terms & Conditions',
@@ -92,7 +92,7 @@ const TermsConditionsPage = () => {
               Purchases
             </h4>
             <p>
-              All Every Tuesday <Link to='/products' prefetch="intent">digital products</Link> are offered with two different kinds of licenses: standard or extended. Please view the complete guide to those licenses <Link to='/licenses' prefetch="intent">here</Link>. If you would like to upgrade your license from standard to extended, <Link to='/contact' prefetch="intent">get in touch</Link> for a pro-rated extended license listing. If you’re purchasing 10 or more extended licenses, a bulk discount may be made available. Please <Link to='/contact' prefetch="intent">get in touch</Link> for more info. If you need additional permissions that are not listed under the standard or extended license, please <Link to='/contact' prefetch="intent">contact us</Link>. Since there is no way to ‘return’ a digital product, we do not offer refunds. The items delivered are exactly as described – if you are unhappy for any reason, please <Link to='/contact' prefetch="intent">contact us</Link> and we will work hard to make all parties satisfied.
+              All Every Tuesday <Link to='/products' prefetch="intent">digital products</Link> are offered with two different kinds of licenses: standard or extended. Please view the complete guide to those licenses here: <Link to='/licenses' prefetch="intent">View Licenses</Link>. If you would like to upgrade your license from standard to extended, <Link to='/contact' prefetch="intent">get in touch</Link> for a pro-rated extended license listing. If you’re purchasing 10 or more extended licenses, a bulk discount may be made available. Please <Link to='/contact' prefetch="intent">get in touch</Link> for more info. If you need additional permissions that are not listed under the standard or extended license, please <Link to='/contact' prefetch="intent">contact us</Link>. Since there is no way to ‘return’ a digital product, we do not offer refunds. The items delivered are exactly as described – if you are unhappy for any reason, please <Link to='/contact' prefetch="intent">contact us</Link> and we will work hard to make all parties satisfied.
             </p>
             <p>
               All Every Tuesday courses come with a 30 day money back guarantee. The first day of the guarantee begins the day the course is purchased. If you would like to request a refund, you must <Link to='/contact' prefetch="intent">email Every Tuesday</Link> within the 30 day money back guarantee period. Please note: Exceeding two refund requests by the same student within a twelve month period will be considered an abuse of this policy and will therefore not be granted. Every Tuesday courses were created to help build skillsets and advance creative careers. If any course purchased is being used to create a competitive course of the same or similar topic, Every Tuesday reserves the right to terminate your enrollment and remove access to certain course bonuses (i.e. access to private facebook groups). This is a community over competition space and respect for our offerings and those of other creatives is paramount.

@@ -12,7 +12,7 @@ import VideoPageTemplate from '@App/components/lfm/mini-course/videoPageTemplate
 
 const videoPage = {
   title: '3 Steps to choosing a font style that sells: Learn Font Making',
-  slug: 'learn-font-making/mini-course/video1',
+  slug: 'learn-font-making/mini-course/video-1',
   description: 'Learn the 3 steps to choosing fonts that look good and make a lot of money.',
   seo: {
     title: '3 Steps to choosing a font style that sells: Learn Font Making',

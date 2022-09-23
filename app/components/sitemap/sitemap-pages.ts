@@ -37,11 +37,11 @@ export const sitemapPages: ISitemapPage[] = [
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
   },
   {
-    slug: 'terms-conditions',
+    slug: 'terms-and-conditions',
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
   },
   {
-    slug: 'privacy-policy',
+    slug: 'privacy-and-cookies',
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
   },
   {
@@ -103,6 +103,6 @@ export const sitemapPages: ISitemapPage[] = [
   {
     slug: 'tuesday-makers',
     modifiedTime: new Date('December 11, 2021 022:39:00').toISOString()
-  },
+  }, 
 ]
 

@@ -14,11 +14,22 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import { cacheControl } from '@App/lib/remix/loaders';
 import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
 import { ClientOnly } from "remix-utils";
-
+const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
+const title = 'Courses'
+const pageMetaData = {
+  title,
+  slug: 'courses',
+  description,
+  seo: {
+    title,
+    opengraphModifiedTime: '',
+    metaDesc: description
+  }
+}
 export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: `Courses`,
-  desc: `Tons of Procreate Brushes, textures, and highrez assets to choose from`,
-  slug: `courses`,
+  title,
+  desc: pageMetaData.description,
+  slug: pageMetaData.slug,
 }))
 
 export let loader: LoaderFunction = async ({ request, }) => {
@@ -32,6 +43,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
     )
 
     return json({
+      page: pageMetaData,
       courses: flattenAllCourses(data.courses),
     }, {
       headers: {

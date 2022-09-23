@@ -18,7 +18,7 @@ function TabLabel(props: Props) {
   const { id, text, Svg, iconFillType = 'fill' } = props
   const { state } = useSimpleTabs()
 
-  const svgColor = state.selectedTab === id ? '--sage-600' : '--sage-400'
+  const svgColor = state.selectedTab === id ? '--sage-700' : '--sage-600'
 
   let iconProps = {}
 
@@ -37,7 +37,7 @@ function TabLabel(props: Props) {
       data-testid="tab"
       className={classNames(state.selectedTab === id
         ? 'after:underlined-active text-sage-700'
-        : 'text-sage-400 after:!bg-sage-700',
+        : 'text-sage-600 after:!bg-sage-700',
         'tabName flex flex-row items-center tablet:items-end font-sentinel__SemiBoldItal transition-colors leading-5 tablet:leading-none tablet:text-2xl after:underlineAnimation underlined cursor-pointer pb-2')
       }
     >

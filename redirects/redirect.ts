@@ -79,5 +79,10 @@ export const manualRedirectLinks = {
         redirectTo: 'tuesday-makers',
         status: 301
       },
+      'unsubscribe':{
+        title: 'Resource Library: Unsubscribe',
+        redirectTo: 'tuesday-makers/unsubscribe',
+        status: 301
+      },
   }
 };

@@ -13,7 +13,7 @@ import { miniCourseVideoData } from '@App/utils/lfmUtils';
 
 const videoPage = {
   title: '5 Font Making Rookie Mistakes: Learn Font Making',
-  slug: 'learn-font-making/mini-course/video2',
+  slug: 'learn-font-making/mini-course/video-2',
   description: 'Over the last year and a half, I’ve had the opportunity to teach the basics of typography to undergraduate graphic design students. During this time, I’ve noticed some common mistakes that my students make when first learning how to work with type.',
   seo: {
     title: '5 Font Making Rookie Mistakes: Learn Font Making',

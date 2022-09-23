@@ -5,6 +5,7 @@ import LazyImageBase from '../images/lazyImage-base'
 import HeyTeela from '../svgs/heyTeela'
 import LazyImgix from '../images/lazyImgix'
 import useSite from '@App/hooks/useSite'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 
 /**
  * @component CourseHeader
@@ -13,6 +14,22 @@ import useSite from '@App/hooks/useSite'
 function CourseHeader() {
 
   const { state: { breakpoint } } = useSite()
+
+  const greenTexture = createImgixSizes({
+    width: 895,
+    height: 893,
+    alt: 'Large green watercolor texture by Teela',
+    src: `${staticImages.textures.greenLarge.src}?w=895&fit=clip`,
+    mobileSize: 400,
+  })
+
+  const profilePic = createImgixSizes({
+    width: 350,
+    height: 598,
+    alt: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
+    src: headerData.profileImage.src,
+    mobileSize: 350,
+  })
 
   return (
     <div className='grid grid-flow-row grid-rows-[auto_auto_1fr_1fr_1fr] bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(60px,auto)_1fr_1fr_minmax(60px,auto)_minmax(60px,auto)] desktop:grid-cols-desktop'>
@@ -57,11 +74,8 @@ function CourseHeader() {
             <LazyImgix
               id={'black-pin'}
               image={{
-                width: staticImages.assets.pins.black_1.width,
-                height: staticImages.assets.pins.black_1.height,
+                ...staticImages.assets.pins.black_1,
                 alt: 'Every Tuesday Hand Made Black Pin',
-                src: staticImages.assets.pins.black_1.src,
-                placeholder: staticImages.assets.pins.black_1.placeholder
               }}
             />
           </div>
@@ -69,21 +83,28 @@ function CourseHeader() {
           <div className='relative z-10 '>
             <LazyImgix
               id={'teela-profile'}
-              image={{
-                width: 350,
-                height: 598,
-                alt: 'Every Tuesday: Hey I\'m Teela, your course instructor.',
-                src: headerData.profileImage.src,
-                placeholder: headerData.profileImage.placeholder
-              }}
+              visibleByDefault={true}
+              image={profilePic.image}
             />
           </div>
         </div>
 
         {/* GREEN TEXTURE */}
         <div className='absolute top-[-30px] left-auto right-[-30px] w-[300px] z-0 rotate-[-175deg] tablet:w-[500px] tablet:right-[-220px] tablet:rotate-[45deg] laptop:top-[-50px] laptop:right-[-90px] laptop:w-[400px] desktop:w-[545px]'>
+          <LazyImgix
+            id={'green-desktop'}
+            image={greenTexture.image}
+            visibleByDefault={true}
+            sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
+            srcSet={
+              `
+            ${greenTexture.defaultSrc}&w=400&fit=clip 400w,
+            ${greenTexture.defaultSrc}&w=900&fit=clip 900w,
+            ${greenTexture.defaultSrc}&w=1200&fit=clip 1200w,
+            `}
+          />
 
-          {breakpoint !== 'mobile' && <LazyImgix
+          {/* {breakpoint !== 'mobile' && <LazyImgix
             id={'green-desktop'}
             image={{
               width: 895,
@@ -103,7 +124,7 @@ function CourseHeader() {
               src: `${staticImages.textures.greenLarge.src}?w=400&fit=clip`,
               placeholder: staticImages.textures.greenLarge.placeholder
             }}
-          />}
+          />} */}
 
         </div>
       </div>
