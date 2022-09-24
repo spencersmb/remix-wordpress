@@ -12,8 +12,7 @@ import { flattenAllCourses } from "@App/utils/posts";
 import { getBasicPageMetaTags } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 import { cacheControl } from '@App/lib/remix/loaders';
-import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
-import { ClientOnly } from "remix-utils";
+
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
 const pageMetaData = {
@@ -69,11 +68,6 @@ const Courses = () => {
     <Layout>
       <CourseHeader />
       <CourseHighQuality />
-
-
-      <ClientOnly fallback={<p>Loading...</p>}>
-        {() => <IpadVerticalAnimation />}
-      </ClientOnly>
 
       {/* COURSES LIST */}
 

@@ -87,14 +87,17 @@ function BlogCategoryTabs(props: Props) {
 
       <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
         <Tab
-          name={'topics'} className="flex-1 first:pr-3 tablet:first:pr-7 tablet:flex-none">
+          name={'topics'}
+          className="flex-1 first:pr-3 tablet:first:pr-7 tablet:flex-none">
           <TabLabel
             Svg={GridSvg}
             iconFillType={'stroke'}
             id="topics"
             text="Search by category" />
         </Tab>
-        <Tab name={'difficulty'} className="flex-1 tablet:flex-none">
+        <Tab
+          name={'difficulty'}
+          className="flex-1 tablet:flex-none">
           <TabLabel
             Svg={BarChartSvg}
             id="difficulty"

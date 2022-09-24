@@ -263,7 +263,6 @@ function BlogIndex() {
   useEffect(() => {
 
     if (!state.categories[category]) {
-      console.log('fetching new cat in useEffect');
       fetchMoreCategories()
     }
   }, [category])

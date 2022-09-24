@@ -73,12 +73,10 @@ const FeaturedProduct = ({ product }: IProps) => {
                 className="w-[100px] absolute top-[-4%] left-[50%] translate-x-[-50%] z-[1]">
                 <LazyImgix
                   id={'black-pin'}
+                  visibleByDefault={true}
                   image={{
-                    width: staticImages.assets.pins.black_1.width,
-                    height: staticImages.assets.pins.black_1.height,
+                    ...staticImages.assets.pins.black_1,
                     alt: 'Every Tuesday Hand Made Black Pin',
-                    src: staticImages.assets.pins.black_1.src,
-                    placeholder: staticImages.assets.pins.black_1.placeholder
                   }}
                 />
               </div>}

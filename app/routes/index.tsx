@@ -24,6 +24,9 @@ import LfmMiniCourse from '@App/components/homePage/lfmMiniCourse'
 import ProcreateBrushes from '@App/components/homePage/procreateBrushes'
 import FeaturedBlogPosts from '@App/components/homePage/featuredBlogPosts'
 import AboutMeFeature from '@App/components/homePage/aboutMeFeature'
+import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
+import { ClientOnly } from "remix-utils";
+
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "Cache-Control": "public, max-age=300, stale-while-revalidate"
@@ -278,6 +281,11 @@ export default function Index() {
       <div className='remix__page'>
 
         <TransformSkillsHeader />
+
+
+        <ClientOnly fallback={<p>Loading...</p>}>
+          {() => <IpadVerticalAnimation />}
+        </ClientOnly>
 
         <StartHere />
 

@@ -17,13 +17,16 @@ import { useSimpleTabs } from './simpleTabsContext'
 
 const Tab = ({ name, children, onClick, className }: { name: string, children: ReactChild, onClick?: any, className?: string }) => {
   const { state, getTabsProps } = useSimpleTabs()
-  return <div className={className} data-name={name} {...getTabsProps({
-    onClick: onClick || null,
-    'aria-controls': name,
-    'role': 'tab',
-    'tab-index': state.selectedTab === name ? 0 : -1,
-    'aria-selected': state.selectedTab === name ? 'true' : "false"
-  })}>
+  return <div
+    className={className}
+    data-name={name}
+    {...getTabsProps({
+      onClick: onClick || null,
+      'aria-controls': name,
+      'role': 'tab',
+      'tab-index': state.selectedTab === name ? 0 : -1,
+      'aria-selected': state.selectedTab === name ? 'true' : "false"
+    })}>
     {children}
   </div>
 }
