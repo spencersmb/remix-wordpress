@@ -102,6 +102,7 @@ export const scrollPageTo = (elementRef: MutableRefObject<null | HTMLElement>) =
     })
   }
 }
+
 //TODO: CREATE COMPONENTS
 function ThingsILove() {
   const data = useLoaderData<TIL_LoaderData>()
@@ -116,8 +117,8 @@ function ThingsILove() {
   const authorScribble = createImgixSizes({
     src: staticImages.scribbles.stroke_2.src,
     alt: `Every Tuesday: Teela's scribble`,
-    width: 288,
-    height: 310,
+    width: 600,
+    height: 628,
     mobileSize: 288,
   })
   const brushFan = createImgixSizes({
@@ -172,7 +173,13 @@ function ThingsILove() {
           <div className='w-[200px] top-[210px] left-[40px] absolute z-1 tablet:left-[160px] tablet:top-[-30px] desktop:w-[300px]'>
             <LazyImgix
               id={`scribble`}
+              visibleByDefault={true}
               image={authorScribble.image}
+              sizes="(max-width: 666px) 30vw, (max-width: 1024px) 10vw, 535px"
+              srcSet={
+                `${authorScribble.defaultSrc}?auto=format&w=600&fit=clip 1024w,
+              `
+              }
             />
 
           </div>

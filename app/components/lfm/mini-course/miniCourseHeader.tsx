@@ -1,6 +1,7 @@
 import LazyImgix from '@App/components/images/lazyImgix'
 import LfmArrowSvg from '@App/components/svgs/lfmArrowSvg'
 import useSite from '@App/hooks/useSite'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 
 interface Props {
   fontLoadingState: string
@@ -19,40 +20,60 @@ function MiniCourseHeader(props: Props) {
 
   const introImages = [
     {
-      src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/whiskey-bite.jpeg',
-      alt: "Learn Font Making Project by: Paperly Studio",
-      width: 400,
-      height: 267,
-      placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/whiskey-bite.jpeg?w=20&fit=clip',
+      element: createImgixSizes({
+        src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/whiskey-bite.jpeg',
+        alt: "Learn Font Making Project by: Paperly Studio",
+        width: 400,
+        height: 267,
+        mobileSize: 400
+      }),
+      sizes: "(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px",
+      srcSet: "&w=586&fit=clip&auto=compress 1024w"
     },
     {
-      src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/bonjour-mon-ami.jpeg',
-      alt: "Font Project by: Laura Bolter Design",
-      width: 400,
-      height: 267,
-      placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/bonjour-mon-ami.jpeg?w=20&fit=clip',
+      element: createImgixSizes({
+        src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/bonjour-mon-ami.jpeg',
+        alt: "Font Project by: Laura Bolter Design",
+        width: 400,
+        height: 267,
+        mobileSize: 400
+      }),
+      sizes: "(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px",
+      srcSet: "&w=586&fit=clip&auto=compress 1024w"
     },
     {
-      src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/sweet-boy.jpeg',
-      alt: "Learn Font Making Project by: Modest Designary",
-      width: 400,
-      height: 267,
-      placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/sweet-boy.jpeg?w=20&fit=clip',
+      element: createImgixSizes({
+        src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/sweet-boy.jpeg',
+        alt: "Learn Font Making Project by: Modest Designary",
+        width: 400,
+        height: 267,
+        mobileSize: 400
+      }),
+      sizes: "(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px",
+      srcSet: "&w=586&fit=clip&auto=compress 1024w"
     },
     {
-      src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/honey-font.jpeg',
-      alt: "Learn Font Making Project by: Dansie Design",
-      width: 400,
-      height: 267,
-      placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/honey-font.jpeg?w=20&fit=clip',
+      element: createImgixSizes({
+        src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/honey-font.jpeg',
+        alt: "Learn Font Making Project by: Dansie Design",
+        width: 400,
+        height: 267,
+        mobileSize: 400
+      }),
+      sizes: "(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 704px",
+      srcSet: "&w=704&fit=clip&auto=compress 1024w"
     },
     {
-      src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/gingerbread.jpeg',
-      alt: "Learn Font Making Project by: Studio Denmark",
-      width: 400,
-      height: 267,
-      placeholder: 'https://et-website.imgix.net/et-website/images/lfm/fonts/gingerbread.jpeg?w=20&fit=clip',
-    }
+      element: createImgixSizes({
+        src: 'https://et-website.imgix.net/et-website/images/lfm/fonts/gingerbread.jpeg',
+        alt: "Learn Font Making Project by: Studio Denmark",
+        width: 400,
+        height: 267,
+        mobileSize: 400
+      }),
+      sizes: "(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px",
+      srcSet: "&w=586&fit=clip&auto=compress 1024w"
+    },
   ]
 
   return (
@@ -65,13 +86,19 @@ function MiniCourseHeader(props: Props) {
         <div
           data-testid="intro-header-fonts"
           className="lfm-intro__cardsContent">
-          {introImages.map((image, index) => {
+          {introImages.map((item, index) => {
+
             return (
               <div key={index} className="lfm-intro__font">
                 <LazyImgix
                   key={index}
-                  image={image}
+                  image={item.element.image}
                   id={index}
+                  sizes={item.sizes}
+                  srcSet={`
+                    ${item.element.defaultSrc}${item.srcSet},
+                `}
+
                 />
               </div>
             )

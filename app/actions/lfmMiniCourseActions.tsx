@@ -5,7 +5,7 @@ import { json } from "@remix-run/node";
 /**
  * 
  * @function lfmMiniCourseSignUpAction 
- * @tested  
+ * @tested   
  */
 export async function lfmMiniCourseSignUpAction(request: Request): Promise<Response> {
 

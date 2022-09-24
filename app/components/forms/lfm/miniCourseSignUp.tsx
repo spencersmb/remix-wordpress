@@ -85,14 +85,14 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             value={lfmBanner.minicourseSignup ? 'true' : 'false'} />
 
           {/* HONEYPOT */}
-          <label className="inpot" htmlFor="lastName">
+          <label className="inpot" htmlFor={`lastName-${type}`}>
             <span className="text-sm font-semibold text-grey-600">LastName</span>
             <input
               tabIndex={-1}
               className="inpot"
               autoComplete="off"
               type="text"
-              id="lastName"
+              id={`lastName-${type}`}
               name="lastName"
               placeholder="Your last name here" />
           </label>

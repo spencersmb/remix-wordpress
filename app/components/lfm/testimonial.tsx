@@ -122,6 +122,7 @@ function LfmTestimonial(props: Props) {
                 href={testimonial.fontLink}
                 target="_blank"
                 data-testid='lfm-testimonial-font-link'
+                aria-label={`View ${testimonial.name.first}'s Font`}
                 rel="noopener noreferrer">
                 <LazyImgix
                   id={`${testimonial.instagramHandle}-font`}

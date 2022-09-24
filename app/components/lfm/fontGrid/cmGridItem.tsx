@@ -16,6 +16,7 @@ function CmGridItem(props: Props) {
       <div className='cm-grid__item--shadow rounded-md transition-all duration-300 cursor-pointer shadow-et_1 overflow-hidden bg-white min-h-[91px] tablet:min-h-[113.08px] laptop:min-h-[151.77px] desktop:min-h-[185.13px]'>
         <a
           data-testid={`cm-grid-item-${index}`}
+          aria-label={`View ${gridItem.alt} Font`}
           href={gridItem.link} target='_blank' rel="noopener noreferrer">
           <LazyImgix
             id={`cmGrid-${index}`}
