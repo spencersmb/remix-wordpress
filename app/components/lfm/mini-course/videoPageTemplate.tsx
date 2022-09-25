@@ -74,9 +74,9 @@ function VideoPageTemplate(props: Props) {
         </div>
 
         {/* TITLE */}
-        <div className='mb-4 text-3xl font-sentinel__SemiBoldItal'>
+        <h4 className='mb-4 text-3xl font-sentinel__SemiBoldItal'>
           {video.title}
-        </div>
+        </h4>
 
         {/* DESCRIPTION */}
         <p className='text-lg tablet:text-xl'>

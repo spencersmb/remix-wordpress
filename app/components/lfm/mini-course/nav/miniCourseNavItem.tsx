@@ -60,9 +60,9 @@ function MiniCourseNavItem(props: Props) {
           </div>
 
           {/* TEXT */}
-          <div className='flex-1 font-semibold text-sage-700 max-w-[220px]'>
+          <h3 className='flex-1 font-semibold text-sage-700 max-w-[220px]'>
             {video.title}
-          </div>
+          </h3>
         </div>
       </div>
 

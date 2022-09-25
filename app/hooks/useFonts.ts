@@ -46,7 +46,6 @@ export function useFonts(initialFont?: string){
   useEffect(() => {
     if(!state.fontName) return 
     
-    console.log('Start')
     let myFonts: FontFace[] = []
       async function loadFonts() {
         try {
@@ -65,7 +64,7 @@ export function useFonts(initialFont?: string){
             const fontUrl = `.${file.url}`
             myFonts.push(new FontFace(file.family, `url(${fontUrl})`))
           })
-          console.log('myFonts', myFonts);
+          consoleHelper('myFonts', myFonts);
           
           myFonts.forEach(async (item) => {
             

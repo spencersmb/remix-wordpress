@@ -12,7 +12,7 @@ export let loader: LoaderFunction = async ({request}) => {
       customHeaders.append('Set-Cookie', await lfmMiniCourseCookie.serialize({
         video1: true
       }))
-      return redirect('/learn-font-making/mini-course/video1', {
+      return redirect('/learn-font-making/mini-course/video-1', {
         headers: customHeaders
       })
     case '2':
@@ -20,7 +20,7 @@ export let loader: LoaderFunction = async ({request}) => {
         video1: true,
         video2: true
       }))
-      return redirect('/learn-font-making/mini-course/video2', {
+      return redirect('/learn-font-making/mini-course/video-2', {
         headers: customHeaders
       })
     case '3':
@@ -29,7 +29,7 @@ export let loader: LoaderFunction = async ({request}) => {
         video2: true,
         video3: true
       }))
-      return redirect('/learn-font-making/mini-course/video3', {
+      return redirect('/learn-font-making/mini-course/video-3', {
         headers: customHeaders
       })
     default:

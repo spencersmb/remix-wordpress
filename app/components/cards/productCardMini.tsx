@@ -2,6 +2,7 @@ import { ImageSizeEnums } from '@App/enums/imageEnums'
 import { useProductLicense } from '@App/hooks/useProductLicense'
 import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
 import LazyImageBase from '../images/lazyImage-base'
+import LicenseSelectSection from '../products/licenseSelectSection'
 
 interface Props {
   product: IProduct
@@ -17,14 +18,14 @@ function ProductCardMini(props: Props) {
     fallbackImage: defaultImages.featured
   })
 
-  const { licenseState } = useProductLicense(product.productDetails.licences)
+  // const { licenseState } = useProductLicense(product.productDetails.licences)
 
   return (
-    <div className='bg-white rounded-2.5xl p-4 transition-all duration-300 translate-y-0 shadow-xs hover:cursor-pointer hover:shadow-et_4 hover:-translate-y-2 mb-4'>
+    <div className='bg-white rounded-2.5xl p-4 transition-all duration-300 translate-y-0 shadow-xs hover:shadow-et_4 hover:-translate-y-2 mb-4 flex flex-col'>
 
-      <a
-        data-testid='test-gumroadLink'
-        href={licenseState?.url}>
+      <div
+        className='flex flex-col flex-1'
+      >
 
         {/* PRODUCT IMG */}
         <div className='mb-4 overflow-hidden rounded-lg'>
@@ -34,13 +35,19 @@ function ProductCardMini(props: Props) {
         </div>
 
         {/* PRODUCT title */}
-        <div className="items-center text-center product_header">
+        <div className="items-center mb-8 text-center product_headerm">
           <h5 className={`text-2xl font-sentinel__SemiBoldItal laptop:text-h5 max-w-[250px] mx-auto`}>
             {product.title}
           </h5>
         </div>
 
-      </a>
+        {/* PRODUCT SELECT */}
+        {product.productDetails.licences
+          && product.productDetails.licences.length > 0
+          && <LicenseSelectSection product={product}
+          />}
+
+      </div>
 
     </div>
   )

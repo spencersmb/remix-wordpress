@@ -25,7 +25,7 @@ function LicenseSelectSection(props: Props) {
     <div data-testid="licenseSelection" className='flex flex-col flex-1 LicenseSelectSection__wrapper'>
 
       {/* License Select options */}
-      <div className='flex-1 mb-4'>
+      <div className='flex flex-col flex-1 mb-4'>
 
         {/* View Licenses */}
         <div className='flex flex-row mb-1 ml-2'>

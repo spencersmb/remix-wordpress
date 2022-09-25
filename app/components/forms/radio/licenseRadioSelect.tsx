@@ -24,7 +24,7 @@ const LicenseRadioSelect = ({ state, product, handleSelected }: IProps) => {
   return (
     <div
       data-testid="license-radio-select"
-      className="flex flex-col rounded-xl border-[1px] border-sage-200 py-4">
+      className="flex flex-col rounded-xl border-[1px] border-sage-200 py-2">
       {product.productDetails.licences.map((license, index) => {
         return (
           <SelectRadio
