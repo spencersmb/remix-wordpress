@@ -63,8 +63,8 @@ export const GetFirstFreebiesQuery = gql`
     query GetFirstFreebie {
         resourceLibraries(first: 1, where: {
           orderby: {
-            field:MENU_ORDER
-            order: ASC
+            field: DATE
+            order: DESC
           }
        }
   ) {
