@@ -20,7 +20,7 @@ interface Props {
 function CardDownload(props: Props) {
   const { featuredImage, title, buttonText, freebie } = props
   const image = loadImageSrc({
-    imageSizeName: ImageSizeEnums.RD_FEATURE, // image name to try and get
+    imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
     imageObject: featuredImage, // the featured image object
     fallbackSize: ImageSizeEnums.WPRP, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured

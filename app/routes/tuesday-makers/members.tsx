@@ -50,7 +50,7 @@ export let meta: MetaFunction = (metaData): any => {
   return getBasicPageMetaTags(metaData, {
     title: `Tuesday Makers: Members`,
     desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
-    slug: `tuesday-makers/members`
+    slug: `tuesday-makers/members`,
   })
 };
 
@@ -116,7 +116,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
         page: 1
       },
       selectedCategory: defaultCategory,
-      featured: isArray(featuredFreebie) && featuredFreebie.length > 0
+      featuredFreebie: isArray(featuredFreebie) && featuredFreebie.length > 0
         ? featuredFreebie[0]
         : null,
       user: {
@@ -269,7 +269,7 @@ const ResourceLibraryMembers = () => {
   // console.log('match', cart);
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
-  // console.log('data', data);
+  console.log('data', data);
 
 
   /*
@@ -364,7 +364,11 @@ const ResourceLibraryMembers = () => {
     state
   }, 'members.tsx', { bg: '#ffd321', text: '#000' })
 
-  const featuredDownload = reshuffledPosts[0]
+
+
+  const featuredDownload = data.featuredFreebie
+    ? data.featuredFreebie
+    : reshuffledPosts[0]
 
   const bgPaintStrokes = {
     width: 2000,
