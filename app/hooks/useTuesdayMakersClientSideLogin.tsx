@@ -1,3 +1,4 @@
+import { consoleHelper } from "@App/utils/windowUtils";
 import { useEffect } from "react"
 import useSite from "./useSite"
 
@@ -22,7 +23,7 @@ const useTuesdayMakersClientSideLogin = (newUser: IResourceUser, status: number)
   useEffect(() => {
 
     if (!user.resourceUser && status === 200) {
-      console.log('no user locally so manually add them');
+      consoleHelper('no user locally so manually add them');
       setMakersStorage()
       resourecLibraryLogin({ user: newUser })
     }

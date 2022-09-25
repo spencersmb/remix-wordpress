@@ -12,6 +12,7 @@ export enum ImageSizeEnums {
   WPRP = 'wp_rp_thumbnail',
   SOURCE = 'source',
   BLOCK_MEDIUM = 'headless_block_medium',
+  RD_FEATURE = 'readanddigest_post_feature_image',
 }
 
 export enum fallBackImageEnum {

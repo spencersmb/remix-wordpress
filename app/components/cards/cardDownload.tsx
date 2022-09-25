@@ -20,11 +20,14 @@ interface Props {
 function CardDownload(props: Props) {
   const { featuredImage, title, buttonText, freebie } = props
   const image = loadImageSrc({
-    imageSizeName: ImageSizeEnums.MEDIUM, // image name to try and get
+    imageSizeName: ImageSizeEnums.RD_FEATURE, // image name to try and get
     imageObject: featuredImage, // the featured image object
     fallbackSize: ImageSizeEnums.WPRP, // fallback size to use if the image name doesn't exist
     fallbackImage: defaultImages.featured
   })
+
+  console.log('image', featuredImage);
+
 
   const { openModal, closeModal } = useSite()
   function popUpDownload() {
@@ -52,9 +55,13 @@ function CardDownload(props: Props) {
   return (
     <div
       data-testid="card-download"
-      className='p-5 bg-white shadow-xxl-grey w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
+      className='p-3 bg-white shadow-xxl-grey w-full max-w-[547px] mx-auto desktop:max-w-[652px]'>
       <div className='overflow-hidden'>
-        <LazyImageBase testId='download-image' id={'tuesdayMakersFeaturedImage'} image={image} />
+        <LazyImageBase
+          testId='download-image'
+          id={'tuesdayMakersFeaturedImage'}
+          disableSrcSet={true}
+          image={image} />
       </div>
       <div className='pt-5 pr-[12%] laptop:pr-[20%] desktop:pr-0 desktop:flex desktop:flex-row desktop:justify-between desktop:items-center'>
         <div>
