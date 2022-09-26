@@ -21,7 +21,7 @@ function ResourceCourse(props: Props) {
         rel='noopener noreferrer'
         className='link-wrapper'>
 
-        <div className='tr-index font-bonVivant font-swap'>
+        <div className='tr-index font-bonVivant'>
           0{index + 1}
         </div>
 

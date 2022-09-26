@@ -48,7 +48,7 @@ function ResourceProduct(props: Props) {
       onClick={handleButtonClick}
       className={classNames(selected ? 'bg-grey-100 hover:bg-grey-100' : 'hover:bg-grey-100 hover:cursor-pointer', 'group tr-wrapper tablet:!items-start')}>
 
-      <div className='tr-index font-bonVivant font-swap'>
+      <div className='tr-index font-bonVivant'>
         0{index + 1}
       </div>
 

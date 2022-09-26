@@ -12,6 +12,7 @@ import { CREATE_COMMENT } from '@App/lib/graphql/mutations/comments';
 
 const api_url = 'https://api.every-tuesday.com/graphql' as string
 const root_url = 'https://api.every-tuesday.com/' as string
+
 if (!api_url || !root_url) {
   throw new Error("APP_ROOT_URL and PUBLIC_WP_API_URL must be set");
 }

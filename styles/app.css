@@ -82,6 +82,7 @@
   font-style: normal;
   font-weight: 400;
   src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
+  font-display: swap;
 }
 html {
 }

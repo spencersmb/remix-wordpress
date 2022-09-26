@@ -22,7 +22,7 @@ function ResourceLink(props: Props) {
         aria-label='View resource'
         href={props.url}>
 
-        <div className='tr-index font-bonVivant font-swap'>
+        <div className='tr-index font-bonVivant'>
           0{index + 1}
         </div>
 

@@ -4396,9 +4396,6 @@ video {
   left: 0px;
   position: absolute;
 }
-.font-swap {
-  font-display: swap;
-}
 .rest-link {
   --tw-text-opacity: 1;
   color: rgb(141 92 92 / var(--tw-text-opacity));
@@ -9011,6 +9008,7 @@ video {
   font-style: normal;
   font-weight: 400;
   src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
+  font-display: swap;
 }
 html {
 }

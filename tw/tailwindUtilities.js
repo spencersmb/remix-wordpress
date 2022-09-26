@@ -49,9 +49,6 @@ const css = {
       position: 'absolute',
     }
   },
-  '.font-swap':{
-    fontDisplay: 'swap'
-  }
 }
 const underlined = {
   ".underlineAnimation": {

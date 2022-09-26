@@ -234,7 +234,7 @@ function BlogTemplate(props: IProps) {
         <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:just laptop:items-start laptop:col-start-3 laptop:col-span-3 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
 
           <div className='relative flex flex-row items-center desktop:mb-4'>
-            <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px] font-swap'>
+            <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>
               Written by
             </div>
             {/* IMAGE */}

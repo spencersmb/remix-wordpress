@@ -21,7 +21,7 @@ function ResourceDownload(props: Props) {
         className='link-wrapper'
         href={props.url}>
 
-        <div className='tr-index font-bonVivant font-swap'>
+        <div className='tr-index font-bonVivant'>
           0{index + 1}
         </div>
 
