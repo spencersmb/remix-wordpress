@@ -4396,6 +4396,9 @@ video {
   left: 0px;
   position: absolute;
 }
+.font-swap {
+  font-display: swap;
+}
 .rest-link {
   --tw-text-opacity: 1;
   color: rgb(141 92 92 / var(--tw-text-opacity));

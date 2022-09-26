@@ -3,6 +3,8 @@ import type { IEnv } from "@App/interfaces/global";
 import type { ISelectedMatch } from "@App/interfaces/remix";
 import { jsonLdWebsite, jsonldImageObject, jsonldWebpage, jsonldPerson, jsonBreadcrumbsList, jsonldBlog, jsonldProduct, jsonVideoObject } from "@App/utils/jsonLd";
 import { defaultFeaturedImage } from "@App/lib/wp/site";
+import { defaultImages, loadImageSrc } from "@App/utils/imageHelpers";
+import { ImageSizeEnums } from "@App/enums/imageEnums";
 
 interface IRootData {
   ENV: IEnv
@@ -54,6 +56,14 @@ const JsonLd = () => {
   }
 
   if (post) {
+
+    const featuredImage = loadImageSrc({
+      imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+      imageObject: post.featuredImage, // the featured image object
+      fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+      fallbackImage: defaultImages.featured
+    })
+
     image = {
       ...image,
       url: post.featuredImage?.sourceUrl || image.url, // need default image
@@ -66,6 +76,7 @@ const JsonLd = () => {
       publishTime: post.seo.opengraphPublishedTime,
       modifiedTime: post.seo.opengraphModifiedTime,
       description: post.seo.metaDesc,
+      featuredImage: featuredImage,
     }
     breadcrumbList.push(
       {
@@ -163,6 +174,13 @@ const JsonLd = () => {
               title: post.seo.title,
             })
           }} />
+          {/* Preload the LCP image with a high fetchpriority so it starts loading with the stylesheet.*/}
+
+          {jsonWebpageSettings.featuredImage && <>
+            {/* @ts-ignore */}
+            <link rel="preload" fetchriority="high" as="image" href={jsonWebpageSettings.featuredImage.sourceUrl} type="image/jpg" />
+          </>}
+
         </>
       }
 

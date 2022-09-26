@@ -19,9 +19,10 @@ function ResourceLink(props: Props) {
         rel='noopener noreferrer'
         className='link-wrapper'
         target={'_blank'}
+        aria-label='View resource'
         href={props.url}>
 
-        <div className='tr-index font-bonVivant'>
+        <div className='tr-index font-bonVivant font-swap'>
           0{index + 1}
         </div>
 
@@ -40,9 +41,9 @@ function ResourceLink(props: Props) {
 
           {/* TITLE */}
           <div className='flex flex-col tablet:flex-[1.5]'>
-            <div className='tr-title font-sentinel__SemiBoldItal'>
+            <h4 className='tr-title font-sentinel__SemiBoldItal'>
               {title}
-            </div>
+            </h4>
             <p className='text-sm laptop:text-base'>
               {description}
             </p>

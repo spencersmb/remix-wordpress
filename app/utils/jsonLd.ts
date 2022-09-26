@@ -192,7 +192,7 @@ export function jsonBreadcrumbsList({breadcrumbList}: IBreadcrumbList): string{
 
 // &t=32s 
 export function jsonVideoObject({videoObject, person}: IJsonldVideo): string{
-  console.log('videoObject', videoObject);
+  // console.log('videoObject', videoObject);
   
   const hasClipElements = videoObject.clipElements?.map(clip => {
     const startOffset = countSeconds(clip.startOffset)

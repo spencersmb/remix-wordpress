@@ -48,6 +48,9 @@ const css = {
       left: '0px',
       position: 'absolute',
     }
+  },
+  '.font-swap':{
+    fontDisplay: 'swap'
   }
 }
 const underlined = {

@@ -34,6 +34,7 @@ interface IjsonldWebpage {
   publishTime?: string
   modifiedTime?: string
   description: string
+  featuredImage?: ImageLookupReturn
 }
 
 interface IjsonldPersonProps {

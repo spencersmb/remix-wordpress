@@ -16,11 +16,12 @@ function ResourceDownload(props: Props) {
 
     <div className='hover:bg-grey-100 hover:cursor-pointer group tr-wrapper'>
       <a
+        aria-label='Download Resource'
         rel='noopener noreferrer'
         className='link-wrapper'
         href={props.url}>
 
-        <div className='tr-index font-bonVivant'>
+        <div className='tr-index font-bonVivant font-swap'>
           0{index + 1}
         </div>
 
@@ -39,9 +40,9 @@ function ResourceDownload(props: Props) {
 
           {/* TITLE */}
           <div className='flex flex-col tablet:flex-[1.5]'>
-            <div className='tr-title font-sentinel__SemiBoldItal'>
+            <h4 className='tr-title font-sentinel__SemiBoldItal'>
               {title}
-            </div>
+            </h4>
             <p className='text-sm laptop:text-base'>
               {description}
             </p>

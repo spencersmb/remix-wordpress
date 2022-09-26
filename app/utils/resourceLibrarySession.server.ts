@@ -89,7 +89,13 @@ export async function getConvertKitUserByID(id: number): Promise<IGetConvertKitU
 interface IGetConvertKitUserByEmail {
   email: string
 }
-export async function getConvertKitUserIdByEmail(email: string): Promise<number | null> {
+function wait(milliseconds: number) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+export async function getConvertKitUserIdByEmail(email: string, milliseconds: number = 0): Promise<number | null> {
+
+  await wait(milliseconds);
+
   // Fetch Subscriber
   const url = `https://api.convertkit.com/v3/subscribers?api_secret=${process.env.CK_SECRET}&email_address=${email}`;
   const res = await fetch(url, {

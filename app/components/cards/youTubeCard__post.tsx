@@ -47,8 +47,8 @@ function YouTubeVideo(props: Props) {
   useEffect(() => {
     // is inVIEW, if there is a button EL, if its touch screen, and if its safari
     if (inView && buttonRef.current && (touchRef.current || safariRef.current)) {
-      console.log('touchRef.current', touchRef.current);
-      console.log('safariRef.current', safariRef.current);
+      // console.log('touchRef.current', touchRef.current);
+      // console.log('safariRef.current', safariRef.current);
 
       // @ts-ignore
       buttonRef.current.click()

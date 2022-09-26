@@ -48,7 +48,7 @@ function ResourceProduct(props: Props) {
       onClick={handleButtonClick}
       className={classNames(selected ? 'bg-grey-100 hover:bg-grey-100' : 'hover:bg-grey-100 hover:cursor-pointer', 'group tr-wrapper tablet:!items-start')}>
 
-      <div className='tr-index font-bonVivant'>
+      <div className='tr-index font-bonVivant font-swap'>
         0{index + 1}
       </div>
 
@@ -83,7 +83,10 @@ function ResourceProduct(props: Props) {
 
       {/* BUTTON */}
       <div className='flex tablet:flex-[1] tablet:justify-end tablet:items-center tablet:mt-0 tablet:ml-0 '>
-        <button onClick={close} className={classNames(selected ? '' : ' group-hover:border-gray-600', 'btn btn-sm btn-outlineFill')}>
+        <button
+          aria-label='toggle product details'
+          onClick={close}
+          className={classNames(selected ? '' : ' group-hover:border-gray-600', 'btn btn-sm btn-outlineFill')}>
           <ChevronDownIcon
             className={`${selected ? 'rotate-180' : ''}
                   h-5 w-5 text-success-700 group-hover:fill-sage-700 transition ease-in-out duration-300`}
