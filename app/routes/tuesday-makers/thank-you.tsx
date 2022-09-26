@@ -56,7 +56,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
 
   // If user data is expired then return error
-  console.log('cookie expired', expired);
+  // console.log('cookie expired', expired);
 
   if (expired) {
     return json({
@@ -66,7 +66,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     })
   }
 
-  console.log('cookie data', data);
+  // console.log('cookie data', data);
   // If found get the user data from it
   const { userID, email } = data // signup ID = 1743335665
 
@@ -76,13 +76,11 @@ export let loader: LoaderFunction = async ({ request }) => {
   if (subscriberID === null) {
 
     // try again
-    setTimeout(async () => {
-      console.log('-----------------');
-      console.log('attempt 2');
-      console.log('-----------------');
+    console.log('-----------------');
+    console.log('attempt 2');
+    console.log('-----------------');
 
-      subscriberID = await getConvertKitUserIdByEmail(email)
-    }, 600)
+    subscriberID = await getConvertKitUserIdByEmail(email, 600)
 
     if (subscriberID === null) {
       return json({
@@ -91,18 +89,13 @@ export let loader: LoaderFunction = async ({ request }) => {
         message: "No ConvertKit User Found or is inactive"
       })
     }
-    return json({
-      page,
-      status: 400,
-      message: "No ConvertKit User Found or is inactive"
-    })
   }
 
   // Get CK user Tags
   const ckUserTags = await getConvertKitUserTags(subscriberID)
 
-  console.log('ckUserID', subscriberID);
-  console.log('ckUserTags', ckUserTags);
+  // console.log('ckUserID', subscriberID);
+  // console.log('ckUserTags', ckUserTags);
 
   let user = {
     id: subscriberID,

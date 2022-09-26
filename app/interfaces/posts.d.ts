@@ -210,6 +210,11 @@ interface IPostResourceDownload {
   name: string
   description: string
 }
+interface IPostResourceLink {
+  url: string
+  name: string
+  description: string
+}
 type IPostResource = {
   description?: string
   product?: IProduct
@@ -226,6 +231,7 @@ type IPostResource = {
   }
   colorSwatch?: IPostResourceColorSwatch
   download?: IPostResourceDownload
+  link?: IPostResourceDownload
 }
 
 interface IPostResourceObject {

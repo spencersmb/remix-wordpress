@@ -72,11 +72,17 @@ export const manualRedirectLinks = {
       },
 
       /*
+       * Tuesday Makers:
        * Resource Library
        */
       'resource-library':{
         title: 'Resource Library',
         redirectTo: 'tuesday-makers',
+        status: 301
+      },
+      'success':{
+        title: 'Resource Library: Thank You',
+        redirectTo: 'tuesday-makers/thank-you',
         status: 301
       },
       'unsubscribe':{

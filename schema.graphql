@@ -425,7 +425,7 @@ union ContentRevisionUnion = Page | Post
 
 union Course_Tutorialmanager_Downloads = ResourceLibrary
 
-union Course_Tutorialmanager_Resources = Course_Tutorialmanager_Resources_ColorSwatch | Course_Tutorialmanager_Resources_Course | Course_Tutorialmanager_Resources_Download | Course_Tutorialmanager_Resources_PaidProduct
+union Course_Tutorialmanager_Resources = Course_Tutorialmanager_Resources_ColorSwatch | Course_Tutorialmanager_Resources_Course | Course_Tutorialmanager_Resources_Download | Course_Tutorialmanager_Resources_Link | Course_Tutorialmanager_Resources_PaidProduct
 
 union Course_Tutorialmanager_Resources_Course_Course = Course
 
@@ -433,7 +433,7 @@ union Course_Tutorialmanager_Resources_PaidProduct_Product = Product
 
 union DownloadFreebie_Tutorialmanager_Downloads = ResourceLibrary
 
-union DownloadFreebie_Tutorialmanager_Resources = DownloadFreebie_Tutorialmanager_Resources_ColorSwatch | DownloadFreebie_Tutorialmanager_Resources_Course | DownloadFreebie_Tutorialmanager_Resources_Download | DownloadFreebie_Tutorialmanager_Resources_PaidProduct
+union DownloadFreebie_Tutorialmanager_Resources = DownloadFreebie_Tutorialmanager_Resources_ColorSwatch | DownloadFreebie_Tutorialmanager_Resources_Course | DownloadFreebie_Tutorialmanager_Resources_Download | DownloadFreebie_Tutorialmanager_Resources_Link | DownloadFreebie_Tutorialmanager_Resources_PaidProduct
 
 union DownloadFreebie_Tutorialmanager_Resources_Course_Course = Course
 
@@ -446,7 +446,7 @@ union MenuItem_Featured_Courses = Course
 
 union Post_Tutorialmanager_Downloads = ResourceLibrary
 
-union Post_Tutorialmanager_Resources = Post_Tutorialmanager_Resources_ColorSwatch | Post_Tutorialmanager_Resources_Course | Post_Tutorialmanager_Resources_Download | Post_Tutorialmanager_Resources_PaidProduct
+union Post_Tutorialmanager_Resources = Post_Tutorialmanager_Resources_ColorSwatch | Post_Tutorialmanager_Resources_Course | Post_Tutorialmanager_Resources_Download | Post_Tutorialmanager_Resources_Link | Post_Tutorialmanager_Resources_PaidProduct
 
 union Post_Tutorialmanager_Resources_Course_Course = Course
 
@@ -454,7 +454,7 @@ union Post_Tutorialmanager_Resources_PaidProduct_Product = Product
 
 union Product_Tutorialmanager_Downloads = ResourceLibrary
 
-union Product_Tutorialmanager_Resources = Product_Tutorialmanager_Resources_ColorSwatch | Product_Tutorialmanager_Resources_Course | Product_Tutorialmanager_Resources_Download | Product_Tutorialmanager_Resources_PaidProduct
+union Product_Tutorialmanager_Resources = Product_Tutorialmanager_Resources_ColorSwatch | Product_Tutorialmanager_Resources_Course | Product_Tutorialmanager_Resources_Download | Product_Tutorialmanager_Resources_Link | Product_Tutorialmanager_Resources_PaidProduct
 
 union Product_Tutorialmanager_Resources_Course_Course = Course
 
@@ -1401,6 +1401,22 @@ type Course_Tutorialmanager_Resources_Download_Download implements AcfFieldGroup
 }
 
 "Group within the flex field"
+type Course_Tutorialmanager_Resources_Link implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    link: Course_Tutorialmanager_Resources_Link_Link
+}
+
+"Field Group"
+type Course_Tutorialmanager_Resources_Link_Link implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    url: String
+}
+
+"Group within the flex field"
 type Course_Tutorialmanager_Resources_PaidProduct implements AcfFieldGroup {
     description: String
     "The name of the ACF Field Group"
@@ -1903,6 +1919,22 @@ type DownloadFreebie_Tutorialmanager_Resources_Download implements AcfFieldGroup
 
 "Field Group"
 type DownloadFreebie_Tutorialmanager_Resources_Download_Download implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    url: String
+}
+
+"Group within the flex field"
+type DownloadFreebie_Tutorialmanager_Resources_Link implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    link: DownloadFreebie_Tutorialmanager_Resources_Link_Link
+}
+
+"Field Group"
+type DownloadFreebie_Tutorialmanager_Resources_Link_Link implements AcfFieldGroup {
     description: String
     "The name of the ACF Field Group"
     fieldGroupName: String
@@ -3656,6 +3688,22 @@ type Post_Tutorialmanager_Resources_Download_Download implements AcfFieldGroup {
 }
 
 "Group within the flex field"
+type Post_Tutorialmanager_Resources_Link implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    link: Post_Tutorialmanager_Resources_Link_Link
+}
+
+"Field Group"
+type Post_Tutorialmanager_Resources_Link_Link implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    url: String
+}
+
+"Group within the flex field"
 type Post_Tutorialmanager_Resources_PaidProduct implements AcfFieldGroup {
     description: String
     "The name of the ACF Field Group"
@@ -4056,6 +4104,22 @@ type Product_Tutorialmanager_Resources_Download implements AcfFieldGroup {
 
 "Field Group"
 type Product_Tutorialmanager_Resources_Download_Download implements AcfFieldGroup {
+    description: String
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    name: String
+    url: String
+}
+
+"Group within the flex field"
+type Product_Tutorialmanager_Resources_Link implements AcfFieldGroup {
+    "The name of the ACF Field Group"
+    fieldGroupName: String
+    link: Product_Tutorialmanager_Resources_Link_Link
+}
+
+"Field Group"
+type Product_Tutorialmanager_Resources_Link_Link implements AcfFieldGroup {
     description: String
     "The name of the ACF Field Group"
     fieldGroupName: String
@@ -7604,6 +7668,8 @@ enum MediaItemSizeEnum {
     PLACEHOLDER
     "MediaItem with the post-thumbnail size"
     POST_THUMBNAIL
+    "MediaItem with the readanddigest_post_feature_image size"
+    READANDDIGEST_POST_FEATURE_IMAGE
     "MediaItem with the thumbnail size"
     THUMBNAIL
     "MediaItem with the 1536x1536 size"

@@ -16,6 +16,7 @@ function ResourceDownload(props: Props) {
 
     <div className='hover:bg-grey-100 hover:cursor-pointer group tr-wrapper'>
       <a
+        rel='noopener noreferrer'
         className='link-wrapper'
         href={props.url}>
 

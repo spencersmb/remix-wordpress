@@ -13,6 +13,8 @@ interface Props {
   transition: Transition
   type: FetcherTypes
 }
+
+// TODO: Move this to a component and finish design
 const MakersPopUp = () => {
   return (
     <div>

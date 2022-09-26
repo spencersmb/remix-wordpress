@@ -26,9 +26,6 @@ function CardDownload(props: Props) {
     fallbackImage: defaultImages.featured
   })
 
-  console.log('image', featuredImage);
-
-
   const { openModal, closeModal } = useSite()
   function popUpDownload() {
     openModal({

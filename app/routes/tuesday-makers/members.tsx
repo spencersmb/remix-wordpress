@@ -269,7 +269,7 @@ const ResourceLibraryMembers = () => {
   // console.log('match', cart);
   // const { cart, addItemToCart } = useCart()
   // console.log('cart', cart);
-  console.log('data', data);
+  // console.log('data', data);
 
 
   /*

@@ -254,6 +254,13 @@ export const POST_RESOURCE_FIELDS = gql`
         url
       }
     }
+    ... on Post_Tutorialmanager_Resources_Link {
+      link {
+        name
+        url
+        description
+      }
+    }
   }
 }
 `

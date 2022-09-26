@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import ResourceCourse from './resource/resourceCourse'
 import ResourceDownload from './resource/resourceDownload'
 import ResourceColorSwatch from './resource/resourceDownload'
+import ResourceLink from './resource/resourceLink'
 import ResourceProduct from './resource/resourceProduct'
 import ResourceTemplate from './resource/resourceTemplate'
 
@@ -106,6 +107,27 @@ function TutorialResources(props: Props) {
               index={index}
               imgix={image}
               url={download.url}
+            />
+          )
+        }
+
+        if (resource.link) {
+          const { description, name, url } = resource.link
+          const image = createImgixSizes({
+            width: 150,
+            height: 150,
+            alt: `Every-Tuesday Free Color Swatches for Procreate`,
+            src: 'https://et-website.imgix.net/et-website/images/swatch-small_1_1.jpg',
+            mobileSize: 150
+          })
+          return (
+            <ResourceLink
+              title={name}
+              description={description}
+              key={index}
+              index={index}
+              imgix={image}
+              url={url}
             />
           )
         }

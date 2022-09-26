@@ -1,40 +1,40 @@
-import LazyImageBase from '@App/components/images/lazyImage-base'
+import LazyImgix from '@App/components/images/lazyImgix'
 import React from 'react'
 
 interface Props {
   index: number
-  image: ImageLookupReturn
+  imgix: CreateImgixReturn
   title: string
-  description?: string
+  description: string
   url: string
 }
 
-function ResourceCourse(props: Props) {
-  const { image, title, description, index } = props
+function ResourceLink(props: Props) {
+  const { imgix, title, description, index } = props
 
   return (
 
     <div className='hover:bg-grey-100 hover:cursor-pointer group tr-wrapper'>
       <a
-        href={props.url}
-        target='_blank'
         rel='noopener noreferrer'
-        className='link-wrapper'>
+        className='link-wrapper'
+        target={'_blank'}
+        href={props.url}>
 
         <div className='tr-index font-bonVivant'>
           0{index + 1}
         </div>
 
         {/* CONTENT */}
-        <div className='flex-[2] items-start tablet:flex-row flex flex-row tablet:items-center tablet:max-w-[400px] laptop:max-w-[450px]'>
+        <div className='flex-[2] tablet:flex-row flex flex-row items-center tablet:max-w-[400px] laptop:max-w-[450px]'>
 
           {/* IMAGE */}
           <div className='tr-imageWrapper'>
             <div className='transition-all duration-300 tr-imageWrapper--inner group-hover:border-gray-600'>
-              <LazyImageBase
-                testId='feature-image'
-                id={`resource-course-${props.index}`}
-                image={image} />
+              <LazyImgix
+                image={imgix.image}
+                id={`resource-${props.index}`}
+              />
             </div>
           </div>
 
@@ -53,15 +53,17 @@ function ResourceCourse(props: Props) {
         {/* BUTTON */}
         <div className='tr-button--wrapper'>
 
-          <button className='btn btn-xs btn-outlineFill tablet:btn-sm group-hover:border-gray-600'>
-            View Course
+          <button
+            className='btn btn-xs btn-outlineFill tablet:btn-sm group-hover:border-gray-600'>
+            Visit
           </button>
 
         </div>
       </a>
+
     </div>
 
   )
 }
 
-export default ResourceCourse
+export default ResourceLink
