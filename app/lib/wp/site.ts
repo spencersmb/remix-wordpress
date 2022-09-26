@@ -248,7 +248,32 @@ export async function createSiteMetaData(domain: string): Promise<ISiteMetaDataM
   let social = mapSocialMetaData(seo.social)
 
   // Grab Data from actaul WP backend
-  const dynamicData = await getDynamicSiteMetadata()
+  let dynamicData: IDynamicMetaData = {
+    courseLaunchBanners: {
+      basicBanner: {
+        color: '#000000',
+        endDate: '',
+        showBanner: 'false',
+        title: '',
+        url: '',
+      },
+      lfmBanner: {
+        endDate: '',
+        showBanner: 'false',
+        minicourseSignup: null,
+        nextLaunchDate: '',
+      }
+    },
+    serverSettings:{
+      productPlatform: ShopPlatformEnum.GUMROAD,
+    }
+  }
+
+  try {
+    dynamicData = await getDynamicSiteMetadata()
+  }catch(e:any){
+    console.error('Failed to fetch dynamic site metadata', e)
+  }
 
   return {
     title: decodeHtmlEntities(title),
