@@ -1,6 +1,5 @@
 //TODO: TEST THIS
 export function countVideoTime (time: string | undefined): any {
-  console.log('time', time);
   if(!time) return 'PT0M0S';
   const [mins, seconds] = time.split(':').map(parseFloat)
   let secondsLeft = (mins * 60) + seconds

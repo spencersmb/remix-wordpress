@@ -320,43 +320,47 @@ function BlogIndex() {
       after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
       catName: category
     }
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(catQuery),
-          variables
+    try {
+      const body = await fetch(url,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: getGraphQLString(catQuery),
+            variables
+          })
         })
-      })
-    const response = await body.json()
-    const { data } = response
+      const response = await body.json()
+      const { data } = response
 
-    const filteredPosts = flattenAllPosts(response.data.posts) || []
-    let updatedPosts = []
-    if (state.categories[category]) {
-      updatedPosts = [
-        // ...state.categories[category].posts,
-        ...filteredPosts
-      ]
-    } else {
-      updatedPosts = [
-        ...filteredPosts
-      ]
-    }
+      const filteredPosts = flattenAllPosts(response.data.posts) || []
+      let updatedPosts = []
+      if (state.categories[category]) {
+        updatedPosts = [
+          // ...state.categories[category].posts,
+          ...filteredPosts
+        ]
+      } else {
+        updatedPosts = [
+          ...filteredPosts
+        ]
+      }
 
-    addCategoriAction({
-      category,
-      pageInfo: {
-        page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: filteredPosts
+      addCategoriAction({
+        category,
+        pageInfo: {
+          page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
+          endCursor: data.posts.pageInfo.endCursor,
+          hasNextPage: data.posts.pageInfo.hasNextPage,
+        },
+        posts: filteredPosts
+      }
+      )
+    } catch (e: any) {
+      console.error('Post Categroy Fetch Error', e)
     }
-    )
   }
 
   return (

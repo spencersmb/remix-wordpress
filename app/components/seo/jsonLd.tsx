@@ -81,6 +81,11 @@ const JsonLd = () => {
     breadcrumbList.push(
       {
         position: 2,
+        name: "Blog",
+        item: `${metadata.domain}/blog`
+      },
+      {
+        position: 3,
         name: `${post.title}`,
         item: `${metadata.domain}${location.pathname}`
       }
