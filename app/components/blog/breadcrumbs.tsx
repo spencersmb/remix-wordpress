@@ -31,10 +31,10 @@ function Breadcrumbs(props: { links?: IBreadCrumb[] }) {
             </li>
           )
         })}
-        {/* {lastElement &&
+        {lastElement &&
           <li data-testid="last-element" className="">
             {lastElement.text}
-          </li>} */}
+          </li>}
       </ul>
     </div>
   )

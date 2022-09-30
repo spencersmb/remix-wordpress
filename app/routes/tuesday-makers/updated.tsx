@@ -6,11 +6,11 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-const description = `Every-Tuesday is sad to see you go. We hope you enjoyed the content and found it useful. If you have any feedback, please let us know.`;
-const title = 'Every-Tuesday Unsubscribe'
+const description = `Your preferences have been updated on Every-Tuesday.com`;
+const title = 'Preferences updated'
 const pageInfo = {
   title,
-  slug: 'tuesday-makers/unsubscribe',
+  slug: 'tuesday-makers/updated',
   description,
   seo: {
     title,
@@ -46,7 +46,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({ page: pageInfo }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
 };
 
-export default function Unsubscribe() {
+export default function Updated() {
 
   return (
     <NavPaddingLayout bgColor='bg-cream-100'>
@@ -58,10 +58,10 @@ export default function Unsubscribe() {
 
           {/* TEXT */}
           <div className='mb-4 text-5xl font-sentinel__SemiBoldItal text-sage-700'>
-            Sorry to see you go.
+            Preferences Updated
           </div>
           <div className='mb-10 text-xl text-sage-700'>
-            You’ve been successfully removed from our list.
+            You’re preferences been successfully updated.
           </div>
 
           {/* BUTTON */}

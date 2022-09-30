@@ -20,6 +20,7 @@ const useTuesdayMakersClientSideLogin = (newUser: IResourceUser, status: number)
     localStorage.setItem('makers_login', 'login' + Math.random());
   }
   const { state: { user }, resourecLibraryLogin } = useSite()
+
   useEffect(() => {
 
     if (!user.resourceUser && status === 200) {

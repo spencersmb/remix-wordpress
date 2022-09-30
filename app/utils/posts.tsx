@@ -469,6 +469,14 @@ export function removeLastItemFromArray(array: any[] | undefined) {
   if (!array) {
     return { lastElement: null, modifiedArray: null }
   }
+
+  if (array.length === 1) {
+    return {
+      modifiedArray: [],
+      lastElement: array[0]
+    }
+  }
+
   const newArray = [...array]
   const lastElement = newArray.pop()
   return {

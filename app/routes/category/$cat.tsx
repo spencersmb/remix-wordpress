@@ -13,6 +13,8 @@ import PostsGrid from "@App/components/blog/postsGrid";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { spinnerColors } from '@App/components/spinners/spinnerColors';
+import OutlinedButton from '@App/components/buttons/outlinedButton';
 
 // headers for the entire DOC when someone refreshes the page or types in the url directly
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -190,13 +192,14 @@ export default function CategoryPage() {
 
         <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {state.categories[category].pageInfo.hasNextPage &&
-            <button
-              className="mx-auto btn btn-primary"
-              aria-disabled={state.loading}
-              disabled={state.loading}
-              onClick={fetchMorePosts}>
-              {state.loading ? 'Loading...' : 'Load More Posts'}
-            </button>}
+            <OutlinedButton
+              spinnerColors={spinnerColors.sageOutline}
+              clickHandler={fetchMorePosts}
+              text='View More'
+              loadingText="Loading"
+              loading={state.loading}
+            />
+          }
         </div>
       </div>
     </Layout>

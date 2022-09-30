@@ -6,6 +6,9 @@ import { findCookie } from "@App/utils/loaderHelpers";
 import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
 import { getBasicPageMetaTags } from "@App/utils/seo";
+import Layout from "@App/components/layoutTemplates/layout";
+import ThankyouSuccessMessage from "@App/components/resourceLibrary/thankyou-success-message";
+import ThankyouErrorMessage from "@App/components/resourceLibrary/thankyou-error-message";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -47,11 +50,12 @@ export let loader: LoaderFunction = async ({ request }) => {
   // check for Signup Cookie
   //If not found return error {msg: , status}
   const { hasCookie, data, expired } = await findCookie<{ userID: number, email: string }>(request, ckSignUpCookie)
+
   if (!hasCookie) {
     return json({
       page,
       status: 400,
-      message: "No Signup Cookie Found"
+      message: "Signup session has expired. Please try again."
     })
   }
 
@@ -98,6 +102,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   // console.log('ckUserTags', ckUserTags);
 
   let user = {
+    email,
     id: subscriberID,
     tags: ckUserTags
   }
@@ -111,28 +116,31 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   return json({
     status: 200,
-    message: "Loggin Successful",
+    message: "Login Successful",
     page,
     user
   }, {
     headers: customHeaders
   })
 
-  // If not successful then return error
-
-
 }
 
 const TuesdayMakersThankYou = () => {
 
   const data = useLoaderData()
+
   useTuesdayMakersClientSideLogin(data.user, data.status)
+  const fakeUser = {
+    email: 'spencer.bigum@gmail.com',
+    id: 123456,
+    tags: ['tuesdaymakers', 'procreate']
+  }
 
   return (
-    <div>
-      <p>Status: {data.status}</p>
-      <p>Msg: {data.message}</p>
-    </div>
+    <>
+      {data.status === 200 && <ThankyouSuccessMessage user={data.user} />}
+      {data.status !== 200 && <ThankyouErrorMessage message={data.message} />}
+    </>
   )
 
 }

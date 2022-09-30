@@ -125,7 +125,6 @@ const classes = {
     '--tw-border-opacity': '1', 
    
     backgroundColor: 'rgb(242 192 102 / var(--tw-bg-opacity))',
-    
     color: 'rgb(101 76 31 / var(--tw-text-opacity))',
     borderColor: 'rgb(242 192 102 / var(--tw-border-opacity))',
     '&:hover':{
@@ -233,6 +232,34 @@ const classes = {
     backgroundColor: 'var(--sage-200)',
     '&:hover':{
       borderColor: 'var(--sage-300)',
+    }
+  },
+  '.btn-cinnamon':{
+    '--tw-bg-opacity': '1',
+    '--tw-text-opacity': '1', 
+    '--tw-border-opacity': '1', 
+    backgroundColor: 'var(--lfm-cinnamon-700)',
+    color: '#fff',
+    borderColor: 'var(--lfm-cinnamon-700)',
+
+    '&:hover':{
+      borderColor: 'var(--lfm-cinnamon-500)',
+      backgroundColor: 'var(--lfm-cinnamon-500)',
+      color: 'rgb(255 255 255 / var(--tw-text-opacity))'
+    },
+    '&:focus':{
+      borderColor: 'var(--lfm-cinnamon-500)',
+      backgroundColor: 'var(--lfm-cinnamon-500)',
+      color: 'rgb(255 255 255 / var(--tw-text-opacity))'
+    },
+    '&:disabled':{
+      borderColor: 'var(--lfm-cinnamon-100)',
+      backgroundColor: 'var(--lfm-cinnamon-100)',
+      color: 'var(--lfm-cinnamon-50)',
+      '&:hover':{
+        color: 'var(--lfm-cinnamon-50)',
+        backgroundColor: 'var(--lfm-cinnamon-100)',
+      }
     }
   },
 

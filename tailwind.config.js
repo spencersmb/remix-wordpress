@@ -150,6 +150,10 @@ module.exports = {
       'lfm-blue':{
         700: '#35546d'
       },
+      'lfm-cinnamon':{
+        700: 'var(--lfm-cinnamon-700)',
+        // 700: '#934826'
+      },
       'cream':{
         100: '#F7F6F7',
         300: '#F3ECE6'

@@ -195,7 +195,7 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
           }
       })
 
-      console.log('updated Comments', updatedComments)
+      // console.log('updated Comments', updatedComments)
       return{
         ...state,
         commentsModal:{
