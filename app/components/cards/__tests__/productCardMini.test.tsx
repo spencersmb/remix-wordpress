@@ -1,18 +1,32 @@
+import { siteInitialState } from "@App/hooks/useSite"
 import { mockPaidProduct } from "@TestUtils/mock-data/products"
+import { renderUseSiteProviderUi } from "@TestUtils/providerUtils"
 import { renderUi } from "@TestUtils/renderUtils"
+import { MemoryRouter } from "react-router"
 import ProductCardMini from "../productCardMini"
 
 describe('Product Card Mini', () => {
-  const setup = () => (renderUi(<ProductCardMini index={0} product={mockPaidProduct} />))
 
-  it('Should have correct gumroad url', () => {
-    const { getByTestId } = setup()
-    const gumroadLink = getByTestId('test-gumroadLink')
+  const setup = () => renderUseSiteProviderUi(
+    <MemoryRouter>
+      <ProductCardMini index={0} product={mockPaidProduct} />
+    </MemoryRouter>,
+    {
+      providerProps: {
+        ...siteInitialState,
+      }
+    }
+  )
+
+  it('Should have license Component', () => {
+    const { queryByTestId } = setup()
+    const licenseComponent = queryByTestId('licenseSelection')
     if (!mockPaidProduct.productDetails.licences) {
       expect(false).toBe(true)
       return
     }
-    expect(gumroadLink.getAttribute('href')).toBe(mockPaidProduct.productDetails.licences[0].url)
+
+    expect(licenseComponent).toBeVisible()
 
   })
 

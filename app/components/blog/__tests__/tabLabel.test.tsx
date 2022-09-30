@@ -32,7 +32,7 @@ describe('TabLabel', () => {
       text: 'test-text',
       Svg: () => <div>Svg</div>,
     }
-    const css = 'text-sage-400'
+    const css = 'text-sage-600'
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerDefaultProps })
     expect(screen.getByTestId('tab')).toHaveClass(css)
   })
@@ -56,7 +56,7 @@ describe('TabLabel', () => {
     }
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerDefaultProps })
     const svgElement = screen.getByTestId('test-svg')
-    const svgcolor = 'var(--sage-400)'
+    const svgcolor = 'var(--sage-600)'
 
     expect(svgElement).toHaveAttribute('fill', svgcolor)
   })
@@ -69,7 +69,7 @@ describe('TabLabel', () => {
     }
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerSelectedProps })
     const svgElement = screen.getByTestId('test-svg')
-    const svgcolor = 'var(--sage-600)'
+    const svgcolor = 'var(--sage-700)'
 
     expect(svgElement).toHaveAttribute('fill', svgcolor)
   })
@@ -83,7 +83,7 @@ describe('TabLabel', () => {
     }
     TabsProviderRender(<TabLabel {...tabProps} />, { props: providerSelectedProps })
     const svgElement = screen.getByTestId('test-svg')
-    const svgcolor = 'var(--sage-600)'
+    const svgcolor = 'var(--sage-700)'
 
     expect(svgElement).toHaveAttribute('stroke', svgcolor)
   })

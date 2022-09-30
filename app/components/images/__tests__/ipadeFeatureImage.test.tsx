@@ -27,9 +27,9 @@ describe('IpadFeatureImage Component', () => {
         providerProps: siteInitialState
       }
     )
-    const applePencil = queryByAltText('Every Tuesday Apple 2 Pencil')
+    const applePencil = queryByAltText('Apple Pencil')
     expect(applePencil).toBeTruthy()
-    expect(applePencil).toHaveAttribute('src', staticImages.assets.applePencil.flat.src + '?h=518&fit=clip')
+    expect(applePencil).toHaveAttribute('src', 'https://et-website.imgix.net/et-website/images/apple-pencil-flat-min.png?auto=format&w=28&fit=clip')
   })
 
   it('Should show apple iPad device', () => {
@@ -39,9 +39,9 @@ describe('IpadFeatureImage Component', () => {
         providerProps: siteInitialState
       }
     )
-    const applePencil = queryByAltText(`Every Tuesday New Product: ${props.product.title}`)
+    const applePencil = queryByAltText('Every Tuesday iPad Pro')
     expect(applePencil).toBeTruthy()
-    expect(applePencil).toHaveAttribute('src', staticImages.assets.ipad.flat.src)
+    expect(applePencil).toHaveAttribute('src', 'https://et-website.imgix.net/et-website/images/ipad-blank-min.png?auto=format&w=400&fit=clip')
   })
 
   it('Should show apple iPad art', () => {

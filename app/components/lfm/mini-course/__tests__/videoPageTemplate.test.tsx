@@ -3,13 +3,16 @@ import { siteInitialState } from "@App/hooks/useSite"
 import { miniCourseVideoData } from "@App/utils/lfmUtils"
 import { mockPaidProduct } from "@TestUtils/mock-data/products"
 import { renderUseSiteProviderUi } from "@TestUtils/providerUtils"
+import { MemoryRouter } from "react-router"
 import VideoPageTemplate from "../videoPageTemplate"
 
 describe('LFM: Video Page Template', () => {
   const video1 = miniCourseVideoData[0]
   it('Should have correct video ID', () => {
     const { getByTestId } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1} />,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} />
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,
@@ -22,7 +25,9 @@ describe('LFM: Video Page Template', () => {
 
   it('Should show 2 Alphabet images on desktop size', () => {
     const { queryAllByTestId } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1} />,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} />
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,
@@ -36,7 +41,9 @@ describe('LFM: Video Page Template', () => {
 
   it('Should have correct video title', () => {
     const { queryByText } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1} />,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} />
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,
@@ -49,7 +56,9 @@ describe('LFM: Video Page Template', () => {
   it('Should have correct video description', () => {
 
     const { queryByText } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1} />,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} />
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,
@@ -62,9 +71,11 @@ describe('LFM: Video Page Template', () => {
 
   it('Should show children div', () => {
     const { queryByText } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1}>
-        <div>Hello</div>
-      </VideoPageTemplate>,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} >
+          <div>Hello</div>
+        </VideoPageTemplate>
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,
@@ -75,7 +86,9 @@ describe('LFM: Video Page Template', () => {
 
   it('Should show single product card', () => {
     const { queryByText } = renderUseSiteProviderUi(
-      <VideoPageTemplate video={video1} products={[mockPaidProduct]} />,
+      <MemoryRouter>
+        <VideoPageTemplate video={video1} products={[mockPaidProduct]} />
+      </MemoryRouter>,
       {
         providerProps: {
           ...siteInitialState,

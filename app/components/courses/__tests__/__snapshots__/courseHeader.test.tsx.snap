@@ -150,30 +150,16 @@ exports[`CourseHeader component renders correctly 1`] = `
             className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
             data-testid="imigx-container"
           >
-            <span
-              className=" lazy-load-image-background blur"
-              style={
-                Object {
-                  "backgroundImage": "url(https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=20&fit=clip)",
-                  "backgroundSize": "100% 100%",
-                  "color": "transparent",
-                  "display": "inline-block",
-                  "height": "598px",
-                  "width": "350px",
-                }
-              }
-            >
-              <span
-                className=""
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "height": "598px",
-                    "width": "350px",
-                  }
-                }
-              />
-            </span>
+            <img
+              alt="Every Tuesday: Hey I'm Teela, your course instructor."
+              aria-label="Image"
+              data-testid="lazy-load-image-teela-profile"
+              height="598px"
+              onLoad={[Function]}
+              src="https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?w=350&fit=clip?auto=format&w=350&fit=clip"
+              srcSet=""
+              width="350px"
+            />
           </div>
         </div>
       </div>
@@ -186,7 +172,7 @@ exports[`CourseHeader component renders correctly 1`] = `
         data-testid="imigx-padding-bot"
         style={
           Object {
-            "paddingBottom": "99.75%",
+            "paddingBottom": "99.77653631284916%",
           }
         }
       >
@@ -194,30 +180,21 @@ exports[`CourseHeader component renders correctly 1`] = `
           className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
           data-testid="imigx-container"
         >
-          <span
-            className=" lazy-load-image-background blur"
-            style={
-              Object {
-                "backgroundImage": "url(https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=20&fit=clip)",
-                "backgroundSize": "100% 100%",
-                "color": "transparent",
-                "display": "inline-block",
-                "height": "399px",
-                "width": "400px",
-              }
-            }
-          >
-            <span
-              className=""
-              style={
-                Object {
-                  "display": "inline-block",
-                  "height": "399px",
-                  "width": "400px",
-                }
-              }
-            />
-          </span>
+          <img
+            alt="Large green watercolor texture by Teela"
+            aria-label="Image"
+            data-testid="lazy-load-image-green-desktop"
+            height="893px"
+            onLoad={[Function]}
+            sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
+            src="https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=895&fit=clip?auto=format&w=400&fit=clip"
+            srcSet="
+            https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=895&fit=clip?auto=format&w=400&fit=clip 400w,
+            https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=895&fit=clip?auto=format&w=900&fit=clip 900w,
+            https://et-website.imgix.net/et-website/textures/green-texture-min.png?w=895&fit=clip?auto=format&w=1200&fit=clip 1200w,
+            "
+            width="895px"
+          />
         </div>
       </div>
     </div>
