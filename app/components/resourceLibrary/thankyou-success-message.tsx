@@ -16,7 +16,7 @@ interface Props {
     tags: string[]
   }
 }
-
+// TODO: TEST THIS
 function ThankyouSuccessMessage(props: Props) {
   const { user } = props
   const canvasRef = useRef(null)

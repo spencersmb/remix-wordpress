@@ -18,6 +18,8 @@ import useSite from "@App/hooks/useSite";
 import GeneralMessageModal from "@App/components/modals/generalMessageModal";
 import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
 import BackgroundImage from "@App/components/images/backgroundImage";
+import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
+import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -182,22 +184,37 @@ const ResourceLibraryLogin = () => {
 
 
   return (
-    <div className={classNames('', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)]')}>
-      <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop desktop:py-12'>
 
-        {/* <BackgroundImage
-          placeholder='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&w=100&fit=clip&auto=compress'
-          source='https://et-website.imgix.net/et-website/images/tuesday-makers/tm-2_1.jpg?auto=format&auto=compress'
-        /> */}
+    <NavPaddingLayout >
+      <div className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop desktop:py-12'>
 
+
+        <div className="relative p-4 py-8 pb-12 col-span-full bg-sage-600 et-grid-basic z-3 tablet:pb-12">
+          <div className="col-span-2 col-start-2 text-white bg-sage-600 tablet:col-start-3 tablet:col-span-10">
+            <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-3xl">
+              No More Passwords!
+            </div>
+
+            <p className="text-lg tablet:text-base">
+              A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every-Tuesday.
+            </p>
+
+          </div>
+        </div>
 
         {/* FORM */}
-        <div className="col-span-2 col-start-2 px-3 py-8 tablet:py-12 mt-8 mb-4 tablet:mt-8 tablet:mb-8 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-8 laptop:col-span-6 laptop:row-start-1 desktop:col-start-8 desktop:col-span-5 max-w-[525px] w-full mx-auto rounded-lg">
-          <div className="flex flex-col items-center px-4">
+        <div className="relative col-span-2 col-start-2 px-3 py-8 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-8 laptop:col-span-6 laptop:row-start-1 desktop:col-start-8 desktop:col-span-5 max-w-[525px] w-full mx-auto rounded-lg">
 
-            <div className="flex flex-col items-center mb-8 text-center">
+          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2">
+            <RedWreathSvg />
+          </div>
+
+
+          <div className="relative flex flex-col items-center z-3">
+
+            <div className="flex flex-col w-full text-left">
               <h1 className="relative flex flex-col text-3xl laptop:text-5xl text-sage-700 font-sentinel__SemiBoldItal">
-                <span className="mb-4 text-[44px] laptop:text-[54px] italic font-light font-bonVivant">Tuesday Makers</span>
+                {/* <span className="mb-4 text-[44px] laptop:text-[54px] italic font-light font-bonVivant">Tuesday Makers</span> */}
                 Login
               </h1>
             </div>
@@ -235,7 +252,7 @@ const ResourceLibraryLogin = () => {
                 <InputBase
                   label="Email"
                   labelCss="text-sm text-grey-600 font-semibold"
-                  className="mt-2 mb-5 bg-grey-100"
+                  className="mt-2 mb-5 bg-white ring ring-offset-0 ring-offset-cream ring-grey-300 hover:ring-blue-300 hover:ring-offset-4 focus:ring-blue-300 focus:ring-offset-4"
                   invalid={Boolean(
                     actionData?.fieldErrors?.email
                   ) || undefined}
@@ -271,7 +288,7 @@ const ResourceLibraryLogin = () => {
             <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">
               <div className="italic">
                 <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
-                <div className="p-4 bg-white relative z-[2]">Don’t have an account?</div>
+                <div className="p-4 bg-cream-100 relative z-[2]">Don’t have an account?</div>
               </div>
             </div>
 
@@ -284,6 +301,13 @@ const ResourceLibraryLogin = () => {
               </Link>
             </div>
 
+            <p className="mt-4">
+              Having issues?
+            </p>
+            <p className="">
+              <Link className="font-bold underline underline-offset-4" to={'/contact'} prefetch={'intent'}>Contact us for help</Link>.
+            </p>
+
             {/* <div className={'text-center'}>
               <h3 className={'font-semibold'}>Having trouble?</h3>
               <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
@@ -293,7 +317,7 @@ const ResourceLibraryLogin = () => {
         </div>
 
         {/* ALERT */}
-        <div className="col-span-2 col-start-2 my-4 tablet:mb-8 tablet:col-start-3 tablet:col-span-10 laptop:my-0 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-10">
+        {/* <div className="col-span-2 col-start-2 my-4 tablet:mb-8 tablet:col-start-3 tablet:col-span-10 laptop:my-0 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-10">
           <div className="bg-sage-200 p-4 max-w-[725px] mx-auto tablet:p-8 ">
             <div className="flex flex-col items-start justify-center my-4 tablet:mx-4">
 
@@ -307,7 +331,6 @@ const ResourceLibraryLogin = () => {
                 </p>
               </div>
 
-              {/* MESSAGE */}
               <div className="flex flex-col mt-4">
 
                 <ul className="ml-4 text-lg">
@@ -328,10 +351,10 @@ const ResourceLibraryLogin = () => {
 
             </div>
           </div>
-        </div>
+        </div> */}
 
       </div>
-    </div>
+    </NavPaddingLayout>
   )
 }
 

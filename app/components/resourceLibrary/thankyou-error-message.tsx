@@ -6,7 +6,7 @@ import RedWreathSvg from '../svgs/redWreathSvg'
 interface Props {
   message: string
 }
-
+// TODO: TEST THIS
 function ThankyouErrorMessage(props: Props) {
   const { message } = props
 

@@ -13,6 +13,8 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import InputBase from "@App/components/forms/input/inputBase";
 import { AnimatePresence } from "framer-motion";
 import FormErrorMessage from "@App/components/forms/messages/ErrorMessage";
+import FloralSvgOneTop from "@App/components/svgs/florals/floralSimpleTopSvg";
+import FloralSvgOneBot from "@App/components/svgs/florals/floralSimeplBottomSvg";
 
 export let meta: MetaFunction = (rootData) => (getlockedPageMetaTags(rootData))
 
@@ -142,8 +144,21 @@ const LockePageLogin = () => {
   return (
     <Layout>
       <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
-        <div className="col-span-2 col-start-2 px-3 py-16 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-5 laptop:col-span-6 max-w-[525px] w-full mx-auto rounded-lg">
-          <div className="flex flex-col items-center">
+
+        <div className="relative col-span-2 col-start-2 px-4 py-4 pt-8 my-16 bg-white shadow-et_2_lg tablet:px-12 tablet:py-12 tablet:col-start-4 tablet:col-span-8 tablet:my-36 laptop:col-start-5 laptop:col-span-6 max-w-[445px] w-full mx-auto rounded-lg">
+
+          {/* SVG TOP */}
+          <div className="absolute z-1 top-[-80px] right-[-70px] w-[150px] tablet:top-[-140px] tablet:right-[-40px] tablet:w-[200px] tablet:rotate-[-14deg]">
+            <FloralSvgOneBot />
+          </div>
+
+          {/* SVG TOP */}
+          <div className="absolute z-1 bottom-[-80px] left-[-70px] w-[150px] tablet:bottom-[-120px] tablet:left-[-100px] tablet:w-[280px]">
+            <FloralSvgOneTop />
+          </div>
+
+          {/* CONTENT */}
+          <div className="relative flex flex-col items-center z-2">
 
             {/* HEADER */}
             <div className="flex flex-col items-center mb-8 text-center">
@@ -206,6 +221,7 @@ const LockePageLogin = () => {
 
           </div>
         </div>
+
       </div>
     </Layout>
   )
