@@ -31,7 +31,7 @@ const MakersFooterSignUp = () => {
           />
         </div>
 
-        <p className="pb-4 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2">
+        <p className="relative pb-4 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2 laptop:z-2">
           Grab 50+ Design and Lettering Files!
         </p>
         <p className="text-lg pb-11">

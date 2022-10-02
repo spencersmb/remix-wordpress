@@ -12,6 +12,7 @@ import SearchSvg from '../svgs/searchSvg'
 import { PrimaryNav } from './primaryNav'
 import { useSearch } from '@App/hooks/useSearch'
 import useSearchScrollFix from '@App/hooks/useSearch/useSearchScrollFix'
+import MasterLoginPopOver from './popOver/masterLogin'
 
 function whenAvailable(name: string, callback: any) {
   var interval = 10; // ms
@@ -133,9 +134,11 @@ function Header(props: Props) {
           className={'hidden items-center justify-end laptop:flex'}>
 
           {/* COURSE LOGIN */}
-          <div className="">
+          {/* <div className="">
             <a className={'normal-link mr-2 underlined after:underlined-active hover:bg-grey-100 border-white border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300'} href="https://teachable.com">Course Login</a>
-          </div>
+          </div> */}
+
+          <MasterLoginPopOver />
 
           {/* DESKTOP SEARCH ICON */}
           <div

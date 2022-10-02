@@ -6,7 +6,7 @@ import { createResourceUserSession, getResourceUser } from "@App/utils/resourceL
 import { getBasicPageMetaTags } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import InputBase from "@App/components/forms/input/inputBase";
-import { XCircleIcon } from "@heroicons/react/solid";
+import { ArrowRightIcon, XCircleIcon } from "@heroicons/react/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { cacheControl } from "@App/lib/remix/loaders";
 import Layout from "@App/components/layoutTemplates/layout";
@@ -20,6 +20,7 @@ import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
 import BackgroundImage from "@App/components/images/backgroundImage";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
+import { siteLoginUrls } from "@App/lib/wp/site";
 
 export let meta: MetaFunction = (metaData): any => {
 
@@ -186,26 +187,70 @@ const ResourceLibraryLogin = () => {
   return (
 
     <NavPaddingLayout >
-      <div className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop desktop:py-12'>
+      <div className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop'>
 
 
-        <div className="relative p-4 py-8 pb-12 col-span-full bg-sage-600 et-grid-basic z-3 tablet:pb-12">
-          <div className="col-span-2 col-start-2 text-white bg-sage-600 tablet:col-start-3 tablet:col-span-10">
-            <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-3xl">
-              No More Passwords!
+        <div className="relative p-4 px-6 py-8 pb-12 col-span-full bg-sage-600 z-3 tablet:pb-12 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center laptop:px-16">
+          <div className="flex flex-row gap-8 mx-auto text-white bg-sage-600 tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[407px] desktop:max-w-[650px]">
+
+            {/* NO PASSWORDS */}
+            <div className="flex-[1_0_50%]">
+              <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-3xl laptop:text-5xl">
+                No More Passwords!
+              </div>
+
+              <p className="text-lg tablet:text-base laptop:text-xl">
+                A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every-Tuesday.
+              </p>
             </div>
 
-            <p className="text-lg tablet:text-base">
-              A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every-Tuesday.
-            </p>
+            {/* ALT LOGIN */}
+            <div className="laptop:mt-16 laptop:flex laptop:flex-col desktop:max-w-[405px] desktop:ml-0">
+              <p className="mb-4 text-lg laptop:text-2xl font-sentinel__SemiBoldItal">
+                Looking for another login?
+              </p>
+
+              {/* LINKS */}
+              <div className="grid grid-cols-2 gap-4">
+
+                {/* COURSES */}
+                <div className="flex flex-col">
+                  <div className="text-lg font-semibold laptop:text-xl">
+                    Teach:able
+                  </div>
+                  <p>
+                    Access the courses you’re enrolled in
+                  </p>
+
+                  <a href={siteLoginUrls.teachable}
+                    rel={'noreferrer noopener'}
+                    target={'_blank'}
+                    className="flex flex-row items-center mt-4 font-semibold text-white">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
+                </div>
+
+                {/* GUMROAD */}
+                <div>
+                  <div className="text-lg font-semibold laptop:text-xl">
+                    Gumroad
+                  </div>
+                  <p>
+                    Access your digital product purchases.
+                  </p>
+
+                  <a href={siteLoginUrls.gumroad}
+                    rel={'noreferrer noopener'}
+                    target={'_blank'} className="flex flex-row items-center mt-4 font-semibold text-white">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
 
         {/* FORM */}
-        <div className="relative col-span-2 col-start-2 px-3 py-8 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-8 laptop:col-span-6 laptop:row-start-1 desktop:col-start-8 desktop:col-span-5 max-w-[525px] w-full mx-auto rounded-lg">
+        <div className="relative col-span-2 col-start-2 px-3 py-8 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 desktop:pb-[100px] max-w-[475px] w-full mx-auto rounded-lg">
 
-          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2">
+          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2 desktop:top-1/2 desktop:-translate-y-1/2 desktop:left-[-80%] desktopXl:left-[-134%] desktopXl:w-[1220px]">
             <RedWreathSvg />
           </div>
 
@@ -213,9 +258,9 @@ const ResourceLibraryLogin = () => {
           <div className="relative flex flex-col items-center z-3">
 
             <div className="flex flex-col w-full text-left">
-              <h1 className="relative flex flex-col text-3xl laptop:text-5xl text-sage-700 font-sentinel__SemiBoldItal">
+              <h1 className="relative flex flex-col text-3xl laptop:text-4xl text-sage-700 font-sentinel__SemiBoldItal">
                 {/* <span className="mb-4 text-[44px] laptop:text-[54px] italic font-light font-bonVivant">Tuesday Makers</span> */}
-                Login
+                Tuesday Makers Login
               </h1>
             </div>
 

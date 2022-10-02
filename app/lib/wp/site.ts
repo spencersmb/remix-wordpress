@@ -322,3 +322,9 @@ export async function getDynamicSiteMetadata(): Promise<IDynamicMetaData> {
   }
 }
 
+export const siteLoginUrls = {
+  tuesdayMakers: '/tuesday-makers/login',
+  teachable: "http://courses.every-tuesday.com/sign_in",
+  gumroad: "https://app.gumroad.com/login",
+}
+
