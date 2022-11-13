@@ -1,7 +1,7 @@
 import { staticImages } from '@App/lib/imgix/data'
 import { createImgixSizes } from '@App/utils/imageHelpers'
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'remix'
+import { Link } from '@remix-run/react'
 import LazyImgix from '../images/lazyImgix'
 import Layout from '../layoutTemplates/layout'
 import NavPaddingLayout from '../layoutTemplates/navPaddingLayout'

@@ -3,7 +3,7 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { getBasicPageMetaTags } from "@App/utils/seo";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link } from "remix"
+import { Link } from "@remix-run/react"
 
 export let meta: MetaFunction = (metaData): any => {
 

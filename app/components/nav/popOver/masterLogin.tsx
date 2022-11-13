@@ -5,7 +5,7 @@ import { siteLoginUrls } from "@App/lib/wp/site";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import { useState, useRef, useEffect } from "react";
-import { Link, useTransition } from "remix";
+import { Link, useTransition } from "@remix-run/react";
 import LinkItem from "./linkItem";
 
 const menuItems = [

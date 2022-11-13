@@ -3,7 +3,7 @@ import { staticImages } from '@App/lib/imgix/data';
 import { defaultImages, loadImageSrc } from '@App/utils/imageHelpers';
 import { findSkillLevel, formatDate } from '@App/utils/posts';
 import React from 'react'
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import LazyImgix from '../images/lazyImgix';
 import PolaroidImg from '../images/polaroidImg';
 import AccentHeaderText from '../layout/accentHeaderText';
