@@ -33,8 +33,9 @@ function promiseToWriteFile(location, content) {
   });
 }
 
-function generateIndexSearch({ posts }) {
-
+function generateIndexSearch(data) {
+  console.log('searchData', data)
+  const { posts } = data
   const index = posts.edges.map((edge = {}) => {
 
     // We need to decode the title because we're using the
@@ -141,7 +142,7 @@ async function fetchAPI(query, params = {}) {
       variables
     }),
   })
-
+  console.log('res', res.status);
   try{
     const json = await res.json()
     if (json.errors) {
