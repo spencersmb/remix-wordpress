@@ -145,7 +145,7 @@ function BlogTemplate(props: IProps) {
       <div className='col-span-full bg-sage-700 et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-3 laptop:col-span-5 desktop:col-start-2 desktop:col-span-4'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 
@@ -267,6 +267,7 @@ function BlogTemplate(props: IProps) {
       </div>
 
       {/* TUTORIAL DOWNLOADS */}
+      {/* ex youtube ID 4ewfn5Y8_Xs */}
       {post.tutorialManager.youtube.id &&
         <div
           data-testid='blog-tutorialDownloads'
@@ -358,11 +359,100 @@ function BlogTemplate(props: IProps) {
 
         </div>}
 
+      {(!post.tutorialManager.youtube.id || post.tutorialManager.youtube.id === '') &&
+        <div
+          data-testid='blog-tutorialDownloads'
+          className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+
+          <div className='outer-wrapper col-span-full'>
+            <StickyContainer>
+
+              <div className={classNames(
+                post.tutorialManager.downloads
+                  ? 'desktop:px-8'
+                  : '',
+                'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0')}>
+
+                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
+
+                  {/* ADDITIONAL RESOURCES */}
+                  <div className='relative flex-none my-20 desktop:flex-1'>
+                    {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
+                      <Sticky topOffset={-20} bottomOffset={184}>
+                        {({
+                          style,
+
+                          // the following are also available but unused in this example
+                          isSticky,
+                          wasSticky,
+                          distanceFromTop,
+                          distanceFromBottom,
+                          calculatedHeight
+                        }) => {
+                          // topOffset = 104(size of the nav minus size of margin)
+                          let top = 104 // size of nav
+                          return (
+                            <div style={{
+                              ...style,
+                              // @ts-ignore
+                              top: style && style.top ? style.top + top : top,
+                            }}>
+                              <TutorialDownloads post={post} style={style} />
+                            </div>
+                          )
+                        }}
+                      </Sticky>
+                    }
+
+                  </div>
+
+                  {/* BLOG CONTENT */}
+                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20 desktop:mb-0'>
+                    <div className=''>
+                      {post.tutorialManager.postExcerpt &&
+                        <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
+                      }
+
+                      <div className='blog-content' dangerouslySetInnerHTML={{ __html: post.content }} />
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div className={classNames(
+                post.tutorialManager.downloads
+                  ? 'desktop:px-8'
+                  : '',
+                'px-5 pb-8 tablet:py-16 desktop:py-0 bg-sage-200')}>
+
+                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
+
+                  {/* ADDITIONAL RESOURCES */}
+                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:mb-20 desktop:ml-auto'>
+
+                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+
+                    {/* RESOURCES */}
+                    <TutorialResources
+                      resources={post.tutorialManager.resources} />
+                  </div>
+
+                </div>
+
+              </div>
+
+            </StickyContainer>
+          </div>
+
+        </div>}
+
       {/* BLOG CONTENT WHEN USING THE OLD STYLE */}
       {!post.tutorialManager.youtube.id && post.tutorialManager.postExcerpt &&
         <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
       }
-      {!post.tutorialManager.youtube.id &&
+      {!post.tutorialManager.youtube.id && post.tutorialManager.resources.length === 0 &&
         <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
       }
 

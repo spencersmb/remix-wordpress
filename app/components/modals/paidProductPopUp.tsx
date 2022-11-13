@@ -5,6 +5,8 @@ import GumroadBtn from "../buttons/gumroadBtn";
 import CloseSvg from "../svgs/closeSvg";
 import useSite from "@App/hooks/useSite";
 import { ArrowRightIcon } from "@heroicons/react/solid";
+import FloralSvgOneBot from "../svgs/florals/floralSimeplBottomSvg";
+import FloralSvgOneTop from "../svgs/florals/floralSimpleTopSvg";
 
 interface IProps {
   closeModal: () => void
@@ -33,23 +35,34 @@ const PaidProductPopUp = ({ download_link, product, closeModal }: IProps) => {
   const extendedLicense = getLicense(product.productDetails.licences, LicenseEnum.EXTENDED)
 
   return (
-    <div data-testid="paid-product-popup" className="bg-sage-100 w-[100vw] mx-auto shadow-et_4 py-10 px-5 tablet:p-10 max-w-[500px]">
+    <div data-testid="paid-product-popup" className="bg-white w-[100vw] mx-auto shadow-et_4 py-10 px-5 tablet:p-10 max-w-[500px]">
+
+      {/* SVG TOP */}
+      <div className="absolute z-1 top-[-80px] right-[-70px] w-[150px] tablet:top-[-110px] tablet:right-[-100px] tablet:w-[200px] tablet:rotate-[-14deg]">
+        <FloralSvgOneBot />
+      </div>
+
+      {/* SVG TOP */}
+      <div className="absolute z-1 bottom-[-80px] left-[-70px] w-[150px] tablet:bottom-[-120px] tablet:left-[-100px] tablet:w-[280px]">
+        <FloralSvgOneTop />
+      </div>
+
       {/* TOP HEADER */}
       <div className="relative flex">
         <div className="flex-1">
           <p className="text-sm font-semibold text-sage-700">Sample Freebie</p>
         </div>
-        <div className="absolute top-[-20px] right-[-10px] tablet:right-[-20px]">
+        {/* <div className="absolute top-[-20px] right-[-10px] tablet:right-[-20px]">
           <div data-testid="close-modal" onClick={closeModal} className="w-[38px] h-[38px] bg-sage-400 rounded-full cursor-pointer p-1">
             <CloseSvg stroke="var(--sage-50" strokeWidth='4' />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="mt-10 tablet:pr-5">
         <h2 className="text-4xl font-sentinel__SemiBoldItal text-sage-800 mb-7">{product.title}</h2>
       </div>
       <p className="mb-8 text-lg text-sage-700">This item is part of a full set that can be purchased if you want to take full advantage of all it’s elements.</p>
-      <div className="flex flex-col">
+      <div className="relative flex flex-col z-2">
         {(metadata.serverSettings.productPlatform === 'gumroad' && extendedLicense) &&
           <div className="mb-4">
             <GumroadBtn

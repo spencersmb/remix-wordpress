@@ -16,22 +16,31 @@ interface IRootData {
 }
 const JsonLd = () => {
   let data = useLoaderData<IRootData>();
-  let matches = useMatches();
-  let location = useLocation();
+  // let matches = useMatches();
+  // let location = useLocation();
 
   if (!data) {
     return (
-      <Scripts />
+      // <Scripts />
+      null
     )
   }
+  // console.log('data', data)
 
-  let { metadata } = data
-  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
-  let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
-  let page: any = selectedMatch?.data?.page
-  let product: any = selectedMatch?.data?.product
+  let metadata = data.metadata
+
+  if (!metadata) {
+    throw new Error('No metadata found')
+  }
+
+  // let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
+  // let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
+  // let page: any = selectedMatch?.data?.page
+  // let product: any = selectedMatch?.data?.product
   let videoObject: IVideoObject | null = null
-
+  // console.log('page', page)
+  // console.log('post', post)
+  // console.log('metadata', metadata)
   let breadcrumbList = [
     {
       position: 1,
@@ -40,133 +49,132 @@ const JsonLd = () => {
     }
   ]
 
-  let image = {
-    url: defaultFeaturedImage.sourceUrl,
-    altText: defaultFeaturedImage.altText,
-    width: 1920,
-    height: 928,
-    name: "Every Tuesday iPad Art"
-  }
+  // let image = {
+  //   url: defaultFeaturedImage.sourceUrl,
+  //   altText: defaultFeaturedImage.altText,
+  //   width: 1920,
+  //   height: 928,
+  //   name: "Every Tuesday iPad Art"
+  // }
 
-  let jsonWebpageSettings: IjsonldWebpage = {
-    title: metadata.title,
-    domain: metadata.domain,
-    description: metadata.description,
-    pageUrl: `${metadata.domain}${location.pathname}`,
-  }
+  // let jsonWebpageSettings: IjsonldWebpage = {
+  //   title: metadata.title,
+  //   domain: metadata.domain,
+  //   description: metadata.description,
+  //   pageUrl: `${metadata.domain}${location.pathname}`,
+  // }
+  // if (post) {
+  // console.log('POST triggered HERE')
+  // const featuredImage = loadImageSrc({
+  //   imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
+  //   imageObject: post.featuredImage, // the featured image object
+  //   fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
+  //   fallbackImage: defaultImages.featured
+  // })
 
-  if (post) {
+  // image = {
+  //   ...image,
+  //   url: post.featuredImage?.sourceUrl || image.url, // need default image
+  //   altText: post.featuredImage?.altText || image.altText,
+  //   name: post.title,
+  // }
+  // jsonWebpageSettings = {
+  //   ...jsonWebpageSettings,
+  //   title: post.seo.title,
+  //   publishTime: post.seo.opengraphPublishedTime,
+  //   modifiedTime: post.seo.opengraphModifiedTime,
+  //   description: post.seo.metaDesc,
+  //   featuredImage: featuredImage,
+  // }
+  // breadcrumbList.push(
+  //   {
+  //     position: 2,
+  //     name: "Blog",
+  //     item: `${metadata.domain}/blog`
+  //   },
+  //   {
+  //     position: 3,
+  //     name: `${post.title}`,
+  //     item: `${metadata.domain}${location.pathname}`
+  //   }
+  // )
 
-    const featuredImage = loadImageSrc({
-      imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
-      imageObject: post.featuredImage, // the featured image object
-      fallbackSize: ImageSizeEnums.LARGE, // fallback size to use if the image name doesn't exist
-      fallbackImage: defaultImages.featured
-    })
+  // if (post.tutorialManager.youtube.addVideoMetadata) {
+  //   const id = post.tutorialManager.youtube.id
+  //   const youtube = {
+  //     ...post.tutorialManager.youtube.videoObject,
+  //     duration: post.tutorialManager.youtube.duration
+  //   }
+  //   videoObject = {
+  //     name: post.title,
+  //     description: youtube.description,
+  //     thumbnailUrl: 'https://i.ytimg.com/vi/4ewfn5Y8_Xs/maxresdefault.jpg',
+  //     duration: youtube.duration, // PT15M36S
+  //     embedUrl: `https://www.youtube.com/embed/${id}`,
+  //     uploadDate: youtube.uploadDate,
+  //     url: `https://www.youtube.com/watch?v=${id}`,
+  //     clipElements: youtube.clipElements,
+  //     potentialActions: youtube.potentialActions
+  //   }
+  // }
+  // }
 
-    image = {
-      ...image,
-      url: post.featuredImage?.sourceUrl || image.url, // need default image
-      altText: post.featuredImage?.altText || image.altText,
-      name: post.title,
-    }
-    jsonWebpageSettings = {
-      ...jsonWebpageSettings,
-      title: post.seo.title,
-      publishTime: post.seo.opengraphPublishedTime,
-      modifiedTime: post.seo.opengraphModifiedTime,
-      description: post.seo.metaDesc,
-      featuredImage: featuredImage,
-    }
-    breadcrumbList.push(
-      {
-        position: 2,
-        name: "Blog",
-        item: `${metadata.domain}/blog`
-      },
-      {
-        position: 3,
-        name: `${post.title}`,
-        item: `${metadata.domain}${location.pathname}`
-      }
-    )
+  // if (page) {
 
-    if (post.tutorialManager.youtube.addVideoMetadata) {
-      const id = post.tutorialManager.youtube.id
-      const youtube = {
-        ...post.tutorialManager.youtube.videoObject,
-        duration: post.tutorialManager.youtube.duration
-      }
-      videoObject = {
-        name: post.title,
-        description: youtube.description,
-        thumbnailUrl: 'https://i.ytimg.com/vi/4ewfn5Y8_Xs/maxresdefault.jpg',
-        duration: youtube.duration, // PT15M36S
-        embedUrl: `https://www.youtube.com/embed/${id}`,
-        uploadDate: youtube.uploadDate,
-        url: `https://www.youtube.com/watch?v=${id}`,
-        clipElements: youtube.clipElements,
-        potentialActions: youtube.potentialActions
-      }
-    }
-  }
+  //   image = {
+  //     ...image,
+  //     url: page.featuredImage?.sourceUrl || image.url, // need default image
+  //     altText: page.featuredImage?.altText || image.altText,
+  //     name: page.title,
+  //   }
+  //   jsonWebpageSettings = {
+  //     ...jsonWebpageSettings,
+  //     title: `${page.seo.title}`, // Every-Tuesday is added in getStaticPageMeta for static pages
+  //     publishTime: page.seo.opengraphPublishedTime,
+  //     modifiedTime: page.seo.opengraphModifiedTime,
+  //     description: page.seo.metaDesc,
+  //   }
+  //   breadcrumbList.push(
+  //     {
+  //       position: 2,
+  //       name: `${page.title}`,
+  //       item: `${metadata.domain}${location.pathname}`
+  //     }
+  //   )
 
-  if (page) {
-
-    image = {
-      ...image,
-      url: page.featuredImage?.sourceUrl || image.url, // need default image
-      altText: page.featuredImage?.altText || image.altText,
-      name: page.title,
-    }
-    jsonWebpageSettings = {
-      ...jsonWebpageSettings,
-      title: `${page.seo.title}`, // Every-Tuesday is added in getStaticPageMeta for static pages
-      publishTime: page.seo.opengraphPublishedTime,
-      modifiedTime: page.seo.opengraphModifiedTime,
-      description: page.seo.metaDesc,
-    }
-    breadcrumbList.push(
-      {
-        position: 2,
-        name: `${page.title}`,
-        item: `${metadata.domain}${location.pathname}`
-      }
-    )
-
-  }
+  // }
 
   return (
     <>
       {/* Basic JsonLd Website */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdWebsite(metadata) }} /> */}
 
       {/*Basic JsonLd Image*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldImageObject({
           pageUrl: location.pathname,
           image
         })
-      }} />
+      }} /> */}
 
       {/*Basic JsonLd Webpage*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldWebpage(jsonWebpageSettings) }} /> */}
 
       {/*Basic JsonLd Person*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} />
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonldPerson(metadata) }} /> */}
 
       {/*Basic JsonLd Breadcrumbs*/}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonBreadcrumbsList({
           domain: metadata.domain,
           breadcrumbList
         })
-      }} />
+      }} /> */}
 
       {/*JsonLd Blog*/}
-      {post &&
-        <>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {post &&
+        <> */}
+      {/* <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: jsonldBlog({
               url: `${metadata.domain}${location.pathname}`,
               images: [
@@ -178,26 +186,26 @@ const JsonLd = () => {
               description: post.seo.metaDesc,
               title: post.seo.title,
             })
-          }} />
-          {/* Preload the LCP image with a high fetchpriority so it starts loading with the stylesheet.*/}
+          }} /> */}
+      {/* Preload the LCP image with a high fetchpriority so it starts loading with the stylesheet.*/}
 
-          {jsonWebpageSettings.featuredImage && <>
-            {/* @ts-ignore */}
-            <link rel="preload" fetchriority="high" as="image" href={jsonWebpageSettings.featuredImage.sourceUrl} type="image/jpg" />
-          </>}
+      {/* {jsonWebpageSettings.featuredImage && <> */}
+      {/* @ts-ignore */}
+      {/* <link rel="preload" fetchriority="high" as="image" href={jsonWebpageSettings.featuredImage.sourceUrl} type="image/jpg" /> */}
+      {/* </>}
 
         </>
-      }
+      } */}
 
-      {videoObject && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {videoObject && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonVideoObject({
           videoObject,
           person: jsonldPerson(metadata)
         })
-      }} />}
+      }} />} */}
 
       {/*JsonLd Product*/}
-      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldProduct({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -206,7 +214,7 @@ const JsonLd = () => {
           product,
           shopPlatform: metadata.serverSettings.productPlatform
         })
-      }} />}
+      }} />} */}
 
     </>
   )

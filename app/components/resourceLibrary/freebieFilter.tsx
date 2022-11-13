@@ -61,7 +61,7 @@ const FreebieFilter = ({ filterTags, selectedFilter = { name: 'All', slug: 'all'
                     }
                     initial='hide'
                     variants={varients}
-                    className={selectedFilter.slug === filter.slug ? 'selected-tag' : ''}>
+                    className={selectedFilter.slug === filter.slug ? 'selected-tag overflow-hidden' : 'overflow-hidden'}>
                     <CheckmarkSvg fill={'var(--sage-700'} className={'w-[20px] mr-1'} />
                   </motion.span>
                   <span

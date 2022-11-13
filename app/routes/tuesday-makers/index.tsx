@@ -112,6 +112,12 @@ const ResourceLibraryHome = () => {
       await fetchAPIClientSide(getGraphQLString(GetAllFreebiesQuery))
     }
     prefetchData().catch()
+
+    openModal({
+      template: <SignUpInstructionsPopUp
+        closeModal={closeModal}
+      />
+    })
   }, [])
 
   const formRef: any = React.useRef()

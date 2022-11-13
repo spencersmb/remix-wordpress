@@ -102,7 +102,7 @@ function ExtendedLicenseUpsell(props: Props) {
                       <>
                         <a
                           data-testid="gumroad-btn"
-                          href="https://everytuesday.gumroad.com/l/freebie-license" className="btn btn-primary btn-lg">
+                          href="https://gum.co/freebie-license?wanted=true&locale=false" className="btn btn-primary btn-lg gumroad-btn-view">
                           <span className="flex-1 mr-9">
                             Buy Now!
                           </span>

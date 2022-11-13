@@ -185,6 +185,7 @@ function setWindowUrlParams(props: {
 
   window.history.replaceState(pageTitle, tabTitle, url.href);
 }
+
 function BlogIndex() {
   let loaderData = useLoaderData<IBlogIndexProps>();
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
@@ -362,10 +363,11 @@ function BlogIndex() {
       console.error('Post Categroy Fetch Error', e)
     }
   }
-
+  const errorPost = {}
   return (
     <Layout>
 
+      {/* @ts-ignore */}
       <BlogFeaturedPost featuredPost={posts[0]} />
 
       <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
@@ -461,7 +463,7 @@ query GetMorePosts($first: Int, $after: String) {
         }
         categories {
           edges {
-                            node {
+            node {
               databaseId
               id
               name

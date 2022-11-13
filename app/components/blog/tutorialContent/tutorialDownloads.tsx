@@ -35,6 +35,16 @@ function TutorialDownloads(props: Props) {
     }
   }, [style, loaded, isMobile])
 
+  // OPEN MODAL ON LOAD TESTING
+  // useEffect(() => {
+  //   openModal({
+  //     template: <TuesdayMakersLoginModal
+  //       closeModal={closeModal}
+  //       openSignUpModal={handleSignupClick}
+  //     />
+  //   })
+  // }, [])
+
   function handleDownload(index: number) {
     return () => {
       if (resourceUser && post.tutorialManager.downloads) {

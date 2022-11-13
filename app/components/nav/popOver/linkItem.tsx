@@ -6,6 +6,7 @@ interface Props {
   url: string;
   externalLink: boolean;
 }
+//TODO: Test this component
 const LinkItem = ({ title, description }: Props) => {
   return (
     <div className="p-4 transition-colors duration-200 rounded-lg hover:bg-sage-100 group">

@@ -166,8 +166,8 @@ const ResourceLibraryLogin = () => {
       openModal({
         template: <GeneralMessageModal
           closeModal={closeModal}
-          header={'Old password'}
-          message={'You\'re trying to use the old password. Please use your email associated with Every-Tuesday. If you don\'t have one create a new account. If you need help please email us.'}
+          header={'No More Passwords'}
+          message={'Please use your email associated with Every-Tuesday. If you don\'t have one, create a new account. If you need help please email us.'}
         />
       })
 
@@ -181,8 +181,6 @@ const ResourceLibraryLogin = () => {
 
     }
   }, [inputVaue, formRef])
-
-
 
   return (
 
@@ -321,7 +319,7 @@ const ResourceLibraryLogin = () => {
                   placeholder="Enter Password" />
 
                 <BasicSubmitBtn
-                  loading={(transition.state !== 'idle' && transition.state === 'submitting') || usedOldPassword}
+                  loading={(transition.state !== 'idle' && !!inputVaue) || usedOldPassword}
                   loadingText={'Loading'}
                   text={'Sign In'}
                   className="btn btn-primary btn-lg btn-primary-ring"

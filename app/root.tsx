@@ -1,6 +1,7 @@
 import * as React from "react";
 import Fuse from 'fuse.js';
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -334,7 +335,6 @@ export function CatchBoundary() {
   );
 }
 export function ErrorBoundary({ error }: any) {
-  console.error(error);
   return (
     <html>
       <head>
@@ -344,7 +344,18 @@ export function ErrorBoundary({ error }: any) {
       </head>
       <body>
         {/* add the UI you want your users to see */}
-        You found an error!
+        <div className="h-[100vh] bg-sage-100 justify-center items-center flex">
+          <div>
+            <div>
+              This is awkward. Something went wrong.
+            </div>
+            <div>
+              <Link
+                className="btn btn-lg btn-primary"
+                to={'/'}>Home</Link>
+            </div>
+          </div>
+        </div>
         <Scripts />
       </body>
     </html>

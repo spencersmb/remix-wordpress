@@ -32,6 +32,7 @@ const TuesdayMakersLoginModal = (props: IProps) => {
     <ModalLayoutWrapperWhite
       closeModal={props.closeModal}
       data-testid="test-tuesdayMakersLoginModal"
+      showFlorals={true}
       className="bg-white">
 
       <div className="relative flex flex-col items-center px-3 mt-12">

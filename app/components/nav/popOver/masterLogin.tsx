@@ -36,9 +36,9 @@ export default function MasterLoginPopOver() {
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
 
-  useEffect(() => {
-    setVisible(true)
-  }, [])
+  // useEffect(() => {
+  //   setVisible(true)
+  // }, [])
 
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
@@ -86,7 +86,7 @@ export default function MasterLoginPopOver() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              {visible && <div ref={panelRef} className="absolute z-10 w-screen max-w-sm mt-2 transform right-[-50px] sm:px-0 tablet:max-w-[700px]">
+              {visible && <div ref={panelRef} className="absolute z-10 w-screen max-w-sm mt-2 transform right-[-20px] sm:px-0 tablet:max-w-[750px]">
                 <div className="relative overflow-hidden bg-white rounded-lg shadow-xxl-grey">
 
                   {/* INSERT SVG */}
@@ -96,7 +96,7 @@ export default function MasterLoginPopOver() {
 
                   <div className="relative grid grid-cols-2 gap-0 py-7 ">
 
-                    <div className="flex flex-col justify-end pb-[14px] px-7">
+                    <div className="flex flex-col justify-end pb-[14px] px-9 pl-11">
                       <div className="mb-5 text-4xl font-sentinel__SemiBoldItal">
                         Resources
                       </div>
@@ -105,7 +105,7 @@ export default function MasterLoginPopOver() {
                       </p>
                     </div>
 
-                    <div className="pr-7">
+                    <div className="pr-11">
                       {menuItems.map((item, i) => {
 
                         if (item.externalLink) {

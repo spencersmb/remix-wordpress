@@ -193,6 +193,7 @@ export function jsonBreadcrumbsList({breadcrumbList}: IBreadcrumbList): string{
 // &t=32s 
 export function jsonVideoObject({videoObject, person}: IJsonldVideo): string{
   // console.log('videoObject', videoObject);
+  // https://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
   
   const hasClipElements = videoObject.clipElements?.map(clip => {
     const startOffset = countSeconds(clip.startOffset)

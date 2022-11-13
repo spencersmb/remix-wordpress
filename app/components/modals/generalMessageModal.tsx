@@ -13,6 +13,7 @@ function SignUpSuccess(props: Props) {
   return (
     <ModalLayoutWrapperWhite
       data-testid="test-tuesdayMakersSignUpModal"
+      showFlorals={true}
       className="bg-white w-[330px] tablet:w-full">
       <div
         className="relative flex flex-col items-center px-3 mt-12">
@@ -28,7 +29,7 @@ function SignUpSuccess(props: Props) {
         </div>
 
         <div>
-          <button className="btn" onClick={closeModal}>Got it!</button>
+          <button className="btn btn-lg btn-primary" onClick={closeModal}>Got it!</button>
         </div>
 
       </div>
