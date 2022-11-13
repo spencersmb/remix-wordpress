@@ -129,7 +129,11 @@ async function fetchAPI(query, params = {}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
-
+  const body = JSON.stringify({
+      query,
+      variables
+    })
+  console.log('body', body);
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
@@ -137,10 +141,7 @@ async function fetchAPI(query, params = {}) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      query,
-      variables
-    }),
+    body
   })
   console.log('res', res.status);
   try{
