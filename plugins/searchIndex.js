@@ -65,7 +65,7 @@ async function getAllPosts(){
             }
         }
     }
-`
+  `
   return await utils.fetchAPI(allPostsQuery, {
     variables:{
       count: parseInt(env.postCount, 10)

@@ -53,7 +53,7 @@ function generateIndexSearch({ posts }) {
       tutorialManager: post.tutorialManager,
     };
   });
-  console.log('index.length', index.length);
+  console.log('search index.length', index.length);
   
   return JSON.stringify({
     generated: Date.now(),
@@ -118,12 +118,11 @@ function mkdirp(directory) {
   });
 }
 
-async function fetchAPI(query, { variables } = {}) {
+async function fetchAPI(query, params = {}) {
   const env = envConfig()
   const api_url = env.url
+  const {variables} = params
   console.log('api_url', api_url);
-  
-
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
@@ -138,16 +137,20 @@ async function fetchAPI(query, { variables } = {}) {
     },
     body: JSON.stringify({
       query,
-      variables,
+      variables
     }),
   })
 
-  const json = await res.json()
-  if (json.errors) {
-    console.error(json.errors)
-    throw new Error('WP QUERY FETCH' + json.errors)
+  try{
+    const json = await res.json()
+    if (json.errors) {
+      console.error(json.errors)
+      throw new Error('WP QUERY FETCH' + json.errors)
+    }
+    return json.data
+  }catch(e){
+    throw new Error('fetch AIP ERROR ' + e)
   }
-  return json.data
 }
 
 function lowercaseFirstChar (text) {

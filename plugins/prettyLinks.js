@@ -12,7 +12,7 @@ async function getAllPrettyLinks(){
       }
     }
 `
-  return await utils.fetchAPI(allPrettyLinksQuery, )
+  return await utils.fetchAPI(allPrettyLinksQuery)
 }
 
 module.exports = {
