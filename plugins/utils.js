@@ -34,7 +34,6 @@ function promiseToWriteFile(location, content) {
 }
 
 function generateIndexSearch(data) {
-  console.log('searchData', data)
   const { posts } = data
   const index = posts.edges.map((edge = {}) => {
 
@@ -125,22 +124,56 @@ async function fetchAPI(query, params = {}) {
   const {variables} = params
   console.log('api_url', api_url);
   console.log('variables', variables);
-  const https = require("https");
-  const agent = new https.Agent({
-    rejectUnauthorized: false
-  })
-  const body = JSON.stringify({
-      query,
-      variables
-    })
+  // const https = require("https");
+  // const agent = new https.Agent({
+  //   rejectUnauthorized: false
+  // })
+
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
-    agent,
+    // agent,
     headers: {
       'Content-Type': 'application/json',
     },
-    body
+    body: JSON.stringify({
+      query
+    }),
+  })
+  console.log('res', res.status);
+  try{
+    const json = await res.json()
+    if (json.errors) {
+      console.error(json.errors)
+      throw new Error('WP QUERY FETCH' + json.errors)
+    }
+    return json.data
+  }catch(e){
+    throw new Error('fetch AIP ERROR ' + e)
+  }
+}
+
+async function fetchAPIGQL(query, params = {}) {
+  const env = envConfig()
+  const api_url = env.url
+  const {variables} = params
+  console.log('api_url', api_url);
+  console.log('variables', variables);
+  // const https = require("https");
+  // const agent = new https.Agent({
+  //   rejectUnauthorized: false
+  // })
+
+  const res = await fetch(api_url, {
+    method: 'POST',
+    // @ts-ignore
+    // agent,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query
+    }),
   })
   console.log('res', res.status);
   try{
@@ -165,6 +198,10 @@ function filterCategories(categories) {
   })
 }
 
+function getGraphQLString(query){
+  return query.loc?.source.body
+}
+
 function envConfig() {
   const noDef = process.env.NODE_ENV === undefined
   const production = process.env.NODE_ENV === "production"
@@ -180,6 +217,8 @@ function envConfig() {
 
 module.exports = {
   envConfig,
+  getGraphQLString,
+  fetchAPIGQL,
   createFile,
   lowercaseFirstChar,
   fetchAPI,
