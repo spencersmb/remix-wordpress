@@ -3,9 +3,9 @@ const utils = require('./utils')
 async function getAllPosts(){
   const env = utils.envConfig()
   const allPostsQuery = `
-    query AllPosts($count: Int)
+    query AllPosts
     {
-        posts(first: $count) {
+        posts(first: 1000) {
             edges {
                 node { 
                   tags(first: 100){

@@ -133,7 +133,6 @@ async function fetchAPI(query, params = {}) {
       query,
       variables
     })
-  console.log('body', body);
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
