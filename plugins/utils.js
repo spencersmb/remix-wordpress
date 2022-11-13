@@ -123,6 +123,7 @@ async function fetchAPI(query, params = {}) {
   const api_url = env.url
   const {variables} = params
   console.log('api_url', api_url);
+  console.log('variables', variables);
   const https = require("https");
   const agent = new https.Agent({
     rejectUnauthorized: false
