@@ -12,8 +12,6 @@ const useWindowResize = () => {
 
       if(typeof window === 'undefined') return
 
-      console.log('useWindowResize init');
-      
       function checkBreakPoint(windowWidth: number) {
         const hasScrollbar = window.scrollbars.visible
         const w = windowWidth + (hasScrollbar ? 15 : 0) // 15px buffer for scrollbar
@@ -50,7 +48,9 @@ const useWindowResize = () => {
 
 
       return () => {
-        ResizeRef.current.disconnect()
+        if(ResizeRef.current) {
+          ResizeRef.current.disconnect()
+        }
       }
     },[])
 

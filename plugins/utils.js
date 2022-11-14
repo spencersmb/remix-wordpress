@@ -159,15 +159,15 @@ async function fetchAPIGQL(query, params = {}) {
   const {variables} = params
   console.log('api_url', api_url);
   console.log('variables', variables);
-  // const https = require("https");
-  // const agent = new https.Agent({
-  //   rejectUnauthorized: false
-  // })
+  const https = require("https");
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
 
   const res = await fetch(api_url, {
     method: 'POST',
     // @ts-ignore
-    // agent,
+    agent,
     headers: {
       'Content-Type': 'application/json',
     },

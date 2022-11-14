@@ -4,7 +4,7 @@ import { flattenResourceData, getCKFormId, mapResourceData } from "../resourceLi
 
 describe('Utils: Resource Library', () => {
   it('getCKFormId() Should get CK default Form Id', () => {
-    expect(getCKFormId(null)).toBe(ckFormIds.resourceLibrary.homePage)
+    expect(getCKFormId(null)).toBe(ckFormIds.resourceLibrary.landingPage)
   })
   
   it('getCKFormId() Should get CK Form Id', () => {

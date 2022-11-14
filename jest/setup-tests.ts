@@ -1,5 +1,7 @@
 import { installGlobals } from "@remix-run/node";
 import dotenv from 'dotenv';
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
 installGlobals();
 
 dotenv.config({ path: './.env.test' });

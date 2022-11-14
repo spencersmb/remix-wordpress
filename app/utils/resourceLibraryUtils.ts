@@ -47,6 +47,6 @@ export function getCKFormId(type: string | null): string {
     case 'tm-landing-page':
       return ckFormIds.resourceLibrary.sellPage
     default:
-      return ckFormIds.resourceLibrary.homePage
+      return ckFormIds.resourceLibrary.landingPage
   }
 }

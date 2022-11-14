@@ -112,7 +112,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   customHeaders.append('Set-Cookie', await sessionStorage)
 
   // Delete signup cookie
-  customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({ ...data }, { maxAge: 0 }))
+  customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({ ...data }, { maxAge: 0, expires: new Date(0) }))
 
   return json({
     status: 200,

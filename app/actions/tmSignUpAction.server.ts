@@ -89,6 +89,8 @@ export async function MakersSignupAction<T>(request: Request): Promise<Response>
     customHeaders.append('Set-Cookie', await ckSignUpCookie.serialize({
       userID: fetch.subscription.subscriber.id,
       email,
+    },{
+      expires: new Date(Date.now() + 60 * 60),
     }))
 
     return json({

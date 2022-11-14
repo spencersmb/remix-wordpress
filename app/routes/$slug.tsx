@@ -62,7 +62,7 @@ export let meta: MetaFunction = (metaData): any => {
 };
 
 export default function PostSlug() {
-  let { post } = useLoaderData<{ post: IPost, url: any }>();
+  let { post } = useLoaderData<typeof loader>();
 
   return (
     <Layout>

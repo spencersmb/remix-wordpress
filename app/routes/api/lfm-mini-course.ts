@@ -11,6 +11,8 @@ export let loader: LoaderFunction = async ({request}) => {
     case '1':
       customHeaders.append('Set-Cookie', await lfmMiniCourseCookie.serialize({
         video1: true
+      },{
+        expires: new Date(Date.now() + 60 * 60 * 24 * 360)
       }))
       return redirect('/learn-font-making/mini-course/video-1', {
         headers: customHeaders
@@ -19,6 +21,8 @@ export let loader: LoaderFunction = async ({request}) => {
       customHeaders.append('Set-Cookie', await lfmMiniCourseCookie.serialize({
         video1: true,
         video2: true
+      },{
+        expires: new Date(Date.now() + 60 * 60 * 24 * 360)
       }))
       return redirect('/learn-font-making/mini-course/video-2', {
         headers: customHeaders
@@ -28,6 +32,8 @@ export let loader: LoaderFunction = async ({request}) => {
         video1: true,
         video2: true,
         video3: true
+      },{
+        expires: new Date(Date.now() + 60 * 60 * 24 * 360)
       }))
       return redirect('/learn-font-making/mini-course/video-3', {
         headers: customHeaders

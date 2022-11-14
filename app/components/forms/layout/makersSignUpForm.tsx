@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import useSite from '@App/hooks/useSite'
-import type { Transition } from '@remix-run/react/transition'
+import type { Transition } from "@remix-run/react/dist/transition"
 import type { FormProps } from '@remix-run/react'
 import InputBase from '../input/inputBase'
 import SubmitBtn from '@App/components/buttons/submitBtn'

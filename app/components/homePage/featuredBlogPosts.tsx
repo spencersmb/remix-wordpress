@@ -2,7 +2,9 @@ import React from 'react'
 import BlogFeaturePostHomePage from '../blog/blogFeaturePostHomePage';
 import LatestPost from '../blog/latestPost';
 
-interface Props { posts: IPost[] }
+interface Props {
+  posts: IPost[]
+}
 
 // TODO: TEST THIS
 function FeaturedBlogPosts(props: Props) {

@@ -6,9 +6,11 @@ describe('ModalWrapper-White', () => {
   const closeModal = jest.fn()
   const props = {
     className: 'test-class',
+    showFlorals: false,
   }
   const hasCloseProps = {
     className: 'test-class',
+    showFlorals: false,
     closeModal
   }
   it('Should have children', () => {
@@ -27,7 +29,8 @@ describe('ModalWrapper-White', () => {
 
     expect(queryByTestId('close-btn-mw')).toBeNull()
   })
-  it('Should show close button and call closeModal', () => {
+
+  it.skip('Should show close button and call closeModal', () => {
     const { queryByTestId } = renderUi(
       <ModalLayoutWrapperWhite {...hasCloseProps}>
         <div>test</div>
@@ -39,6 +42,8 @@ describe('ModalWrapper-White', () => {
       expect(closeModal).toHaveBeenCalledTimes(1)
     }
   })
+
+  // removed button
   it('Should show custom class', () => {
     const { queryByTestId } = renderUi(
       <ModalLayoutWrapperWhite data-testid="test" {...hasCloseProps}>

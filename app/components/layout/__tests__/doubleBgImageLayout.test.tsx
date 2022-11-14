@@ -1,8 +1,12 @@
+/**
+ * @jest-environment jsdom
+*/
 import { render, screen } from "@testing-library/react"
 import { renderUi } from "@TestUtils/renderUtils";
 import DoubleBgImageLayout from "../doubleBgImageLayout"
 
 describe('DoubleBgImageLayout', () => {
+
   beforeEach(() => {
     // IntersectionObserver isn't available in test environment
     const mockIntersectionObserver = jest.fn();

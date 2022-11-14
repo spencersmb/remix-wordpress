@@ -1,9 +1,9 @@
-import type { RouteData } from "@remix-run/react/routeData";
 import type { Params } from "react-router";
 import { getHtmlMetadataTags } from "./seo";
 import type { Location } from "history";
-import type { AppData } from "@remix-run/react/data";
 import { lockedPagesMeta } from "@App/lib/lockedPages/classDownloads";
+import type { AppData } from "@remix-run/react/dist/data";
+import type { RouteData } from "@remix-run/react/dist/routeData";
 
 
 type MetaMembers = (args: {

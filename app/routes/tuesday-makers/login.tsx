@@ -204,7 +204,7 @@ const ResourceLibraryLogin = () => {
 
             {/* ALT LOGIN */}
             <div className="laptop:mt-16 laptop:flex laptop:flex-col desktop:max-w-[405px] desktop:ml-0">
-              <p className="mb-4 text-lg laptop:text-2xl font-sentinel__SemiBoldItal">
+              <p className="mb-4 text-lg laptop:text-base font-sentinel__SemiBoldItal">
                 Looking for another login?
               </p>
 

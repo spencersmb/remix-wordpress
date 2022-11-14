@@ -1,5 +1,5 @@
 import { spinnerColors } from "@App/components/spinners/spinnerColors"
-import type { Transition } from "@remix-run/react/transition"
+import type { Transition } from "@remix-run/react/dist/transition"
 import { render, screen } from "@testing-library/react"
 import SubmitBtn from "../submitBtn"
 

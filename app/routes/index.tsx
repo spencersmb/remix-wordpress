@@ -169,8 +169,10 @@ interface LoaderData {
 }
 export default function Index() {
   let data = useLoaderData<LoaderData>();
-  let { courses, posts } = data
-  console.log('index data', data);
+  // let { courses, posts } = data
+  let posts = data.posts as IPost[]
+  let courses = data.courses
+  // console.log('index data', data);
 
 
   const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
@@ -295,7 +297,8 @@ export default function Index() {
 
         <ProcreateBrushes />
 
-        <FeaturedBlogPosts posts={posts} />
+        <FeaturedBlogPosts
+          posts={posts} />
 
         <AboutMeFeature />
 

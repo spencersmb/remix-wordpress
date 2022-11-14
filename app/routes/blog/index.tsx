@@ -49,6 +49,10 @@ export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaDat
   slug: pageMetaData.slug,
 }))
 
+type IBlogIndexProps = IPageInfo & {
+  pageUrlParams: number; //currentPage
+  categories: ICategoryArgs | null;
+}
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables: {
     first: number;
@@ -73,7 +77,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
   let wpAPI
   let wpCatAPI
-
   try {
     wpAPI = await fetchAPI(getGraphQLString(postQuery), {
       variables
@@ -133,10 +136,7 @@ interface ICategoryArgs {
     }
   }
 }
-type IBlogIndexProps = IPageInfo & {
-  pageUrlParams: number; //currentPage
-  categories: ICategoryArgs | null;
-}
+
 
 function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any, page: number }, categorysArgs: ICategoryArgs | null) {
   let { posts, pageInfo, page } = postsArgs
@@ -187,7 +187,7 @@ function setWindowUrlParams(props: {
 }
 
 function BlogIndex() {
-  let loaderData = useLoaderData<IBlogIndexProps>();
+  let loaderData = useLoaderData<typeof loader>();
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
   consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
 

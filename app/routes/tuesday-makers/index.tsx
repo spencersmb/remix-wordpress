@@ -113,11 +113,11 @@ const ResourceLibraryHome = () => {
     }
     prefetchData().catch()
 
-    openModal({
-      template: <SignUpInstructionsPopUp
-        closeModal={closeModal}
-      />
-    })
+    // openModal({
+    //   template: <SignUpInstructionsPopUp
+    //     closeModal={closeModal}
+    //   />
+    // })
   }, [])
 
   const formRef: any = React.useRef()

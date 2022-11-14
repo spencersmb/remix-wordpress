@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import { LicenseEnum } from "@App/enums/products";
 import { getLicense } from "@App/utils/posts";
 import GumroadBtn from "../buttons/gumroadBtn";

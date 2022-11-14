@@ -52,6 +52,6 @@ describe('Extended License Upsell Component', () => {
     const { queryByTestId } = setup(true)
     const gumroadBtn = queryByTestId('gumroad-btn')
     expect(gumroadBtn).toHaveTextContent('Buy Now!$30')
-    expect(gumroadBtn).toHaveAttribute('href', 'https://everytuesday.gumroad.com/l/freebie-license')
+    expect(gumroadBtn).toHaveAttribute('href', 'https://gum.co/freebie-license?wanted=true&locale=false')
   })
 })

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { MakersSignupAction } from "../tmSignUpAction.server"
 
 
@@ -7,6 +10,7 @@ describe('Tuesday Makers Signup Actions', () => {
     // @ts-ignore jest.spyOn adds this functionallity
     console.error.mockImplementation(() => null);
   });
+
   it('MakersSignupAction: Action should return status 200 with correct formID', async () => {
     let formData = new FormData()
     let formName = 'default'
@@ -14,7 +18,7 @@ describe('Tuesday Makers Signup Actions', () => {
     formData.append('_action', formName)
     formData.append('lastName', '') //HONEYPOT
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });
@@ -32,7 +36,7 @@ describe('Tuesday Makers Signup Actions', () => {
       name: "Sergio",
     });
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body,
     });
@@ -52,7 +56,7 @@ describe('Tuesday Makers Signup Actions', () => {
     formData.append('_action', 'test')
     formData.append('lastName', 'Bigum')
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });
@@ -72,7 +76,7 @@ describe('Tuesday Makers Signup Actions', () => {
     formData.append('_action', 'test')
     formData.append('lastName', 'Bigum')
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });

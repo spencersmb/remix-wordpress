@@ -7,8 +7,8 @@ import { mockPostData, mockTutorailManager__default, mockTutorailManager__withPa
 describe('paidProduct Test', () => {
 
   /**
- * @jest-environment jsdom
- */
+   * @jest-environment jsdom
+   */
 
   test.skip('PaidProducts component renders correctly', () => {
     const tree = renderer

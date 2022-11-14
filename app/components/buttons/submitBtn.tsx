@@ -1,4 +1,4 @@
-import type { Transition } from "@remix-run/react/transition"
+import type { Transition } from "@remix-run/react/dist/transition"
 import TwSpinnerOne from "../svgs/spinners/twSpinnerOne"
 interface IProps {
   transition: Transition

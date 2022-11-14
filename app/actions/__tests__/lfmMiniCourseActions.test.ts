@@ -1,4 +1,8 @@
+/**
+ * @jest-environment node
+ */
 import { ckFormIds } from "@App/lib/convertKit/formIds";
+import { Request } from "@remix-run/node";
 import { lfmMiniCourseSignUpAction } from "../lfmMiniCourseActions";
 
 
@@ -16,7 +20,7 @@ describe('LFM: utils', () => {
       name: "Sergio",
     });
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body,
     });
@@ -37,7 +41,7 @@ describe('LFM: utils', () => {
     formData.append('_openstatus', 'true')
     formData.append('lastName', '')
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });
@@ -57,7 +61,7 @@ describe('LFM: utils', () => {
     formData.append('_openstatus', 'false')
     formData.append('lastName', 'Bigum')
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });
@@ -78,7 +82,7 @@ describe('LFM: utils', () => {
     formData.append('_openstatus', 'false')
     formData.append('lastName', '')
 
-    let request = new Request("/path", {
+    let request = new Request("http://localhost:3000/tuesday-makers", {
       method: "POST",
       body: formData,
     });

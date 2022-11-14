@@ -39,7 +39,8 @@ describe('PaidProducts Pop Up', () => {
     expect(queryByText('Sample Freebie')).toBeTruthy()
   })
 
-  it('Should call closeModal fn', () => {
+  // REMOVED BUTTON
+  it.skip('Should call closeModal fn', () => {
     const { queryByTestId } = renderUi(
       <UseSiteProvider defaultState={siteInitialState} >
         <PaidProductPopUp {...props} />
