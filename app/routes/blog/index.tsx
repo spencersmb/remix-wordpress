@@ -194,63 +194,63 @@ function BlogIndex() {
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
   // Create initializing state for Context
-  const initializePostsFromServer = createInitializingFetchState({
-    posts,
-    pageInfo,
-    page: pageUrlParams
-  }, categories)
+  // const initializePostsFromServer = createInitializingFetchState({
+  //   posts,
+  //   pageInfo,
+  //   page: pageUrlParams
+  // }, categories)
 
-  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
+  // const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
 
   // console.log('Blog Cat data', categories)
   // consoleHelper('cat posts', posts.length)
   // consoleHelper('cat pageInfo', pageInfo)
   // consoleHelper('state', state)
 
-  useEffect(() => {
-    if (state.pageInfo.page === 1 || !state.pageInfo.page) {
-      return
-    }
+  // useEffect(() => {
+  //   if (state.pageInfo.page === 1 || !state.pageInfo.page) {
+  //     return
+  //   }
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', state.pageInfo.page.toString())
-    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+  //   const url = new URL(window.location.href);
+  //   url.searchParams.set('page', state.pageInfo.page.toString())
+  //   window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
 
-    // if page = 4 - means get the first 40 items
-  }, [state.pageInfo.page])
+  //   // if page = 4 - means get the first 40 items
+  // }, [state.pageInfo.page])
 
-  useEffect(() => {
-    if (category === 'all') {
-      setWindowUrlParams({
-        setParams: [
-          { name: 'page', value: state.pageInfo && state.pageInfo.page ? state.pageInfo.page.toString() : '1' },
-        ],
-        deleteParams: ['cat'],
-        pageTitle: `Page: ${state.pageInfo.page}`,
-        tabTitle: 'Blog - Every-Tuesday'
-      })
-      return
-    }
-    if (!state.categories[category]) {
-      return
-    }
+  // useEffect(() => {
+  //   if (category === 'all') {
+  //     setWindowUrlParams({
+  //       setParams: [
+  //         { name: 'page', value: state.pageInfo && state.pageInfo.page ? state.pageInfo.page.toString() : '1' },
+  //       ],
+  //       deleteParams: ['cat'],
+  //       pageTitle: `Page: ${state.pageInfo.page}`,
+  //       tabTitle: 'Blog - Every-Tuesday'
+  //     })
+  //     return
+  //   }
+  //   if (!state.categories[category]) {
+  //     return
+  //   }
 
-    const setParams = [
-      {
-        name: 'page',
-        value: state.categories[category].pageInfo.page.toString()
-      },
-      {
-        name: 'cat',
-        value: category
-      },
-    ]
-    setWindowUrlParams({
-      setParams,
-      pageTitle: `Category - ${category} / Page: ${state.categories[category].pageInfo.page}`,
-      tabTitle: 'Blog - Every-Tuesday'
-    })
-  }, [state.categories[category]])
+  //   const setParams = [
+  //     {
+  //       name: 'page',
+  //       value: state.categories[category].pageInfo.page.toString()
+  //     },
+  //     {
+  //       name: 'cat',
+  //       value: category
+  //     },
+  //   ]
+  //   setWindowUrlParams({
+  //     setParams,
+  //     pageTitle: `Category - ${category} / Page: ${state.categories[category].pageInfo.page}`,
+  //     tabTitle: 'Blog - Every-Tuesday'
+  //   })
+  // }, [state.categories[category]])
 
 
   useEffect(() => {
@@ -261,107 +261,107 @@ function BlogIndex() {
     }
   }, [])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (!state.categories[category]) {
-      fetchMoreCategories()
-    }
-  }, [category])
+  //   if (!state.categories[category]) {
+  //     fetchMoreCategories()
+  //   }
+  // }, [category])
 
-  const handleCatClick = (cat: string) => () => {
-    if (state.loading) {
-      return
-    }
-    setCategory(cat)
-  }
+  // const handleCatClick = (cat: string) => () => {
+  //   if (state.loading) {
+  //     return
+  //   }
+  //   setCategory(cat)
+  // }
 
   async function fetchMorePosts() {
-    loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-    const variables = {
-      first: 12,
-      after: state.pageInfo.endCursor
-    }
+    // loadingPosts()
+    // const url = window.ENV.PUBLIC_WP_API_URL as string
+    // const variables = {
+    //   first: 12,
+    //   after: state.pageInfo.endCursor
+    // }
 
-    consoleHelper('variables', variables, 'fetchMorePosts() /routes/blog/index.tsx');
-    consoleHelper('postQuery', postQuery, 'fetchMorePosts() /routes/blog/index.tsx');
+    // consoleHelper('variables', variables, 'fetchMorePosts() /routes/blog/index.tsx');
+    // consoleHelper('postQuery', postQuery, 'fetchMorePosts() /routes/blog/index.tsx');
 
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(postQuery),
-          variables
-        })
-      })
-    const { data } = await body.json()
-    const filteredPosts = flattenAllPosts(data.posts) || []
-    addPostsAction({
-      pageInfo: {
-        page: state.pageInfo.page + 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: [
-        ...state.posts,
-        ...filteredPosts
-      ]
-    })
+    // const body = await fetch(url,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       query: getGraphQLString(postQuery),
+    //       variables
+    //     })
+    //   })
+    // const { data } = await body.json()
+    // const filteredPosts = flattenAllPosts(data.posts) || []
+    // addPostsAction({
+    //   pageInfo: {
+    //     page: state.pageInfo.page + 1,
+    //     endCursor: data.posts.pageInfo.endCursor,
+    //     hasNextPage: data.posts.pageInfo.hasNextPage,
+    //   },
+    //   posts: [
+    //     ...state.posts,
+    //     ...filteredPosts
+    //   ]
+    // })
   }
 
   async function fetchMoreCategories() {
-    loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
+    // loadingPosts()
+    // const url = window.ENV.PUBLIC_WP_API_URL as string
 
-    const variables = {
-      first: 12,
-      after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
-      catName: category
-    }
-    try {
-      const body = await fetch(url,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: getGraphQLString(catQuery),
-            variables
-          })
-        })
-      const response = await body.json()
-      const { data } = response
+    // const variables = {
+    //   first: 12,
+    //   after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
+    //   catName: category
+    // }
+    // try {
+    //   const body = await fetch(url,
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         query: getGraphQLString(catQuery),
+    //         variables
+    //       })
+    //     })
+    //   const response = await body.json()
+    //   const { data } = response
 
-      const filteredPosts = flattenAllPosts(response.data.posts) || []
-      let updatedPosts = []
-      if (state.categories[category]) {
-        updatedPosts = [
-          // ...state.categories[category].posts,
-          ...filteredPosts
-        ]
-      } else {
-        updatedPosts = [
-          ...filteredPosts
-        ]
-      }
+    //   const filteredPosts = flattenAllPosts(response.data.posts) || []
+    //   let updatedPosts = []
+    //   if (state.categories[category]) {
+    //     updatedPosts = [
+    //       // ...state.categories[category].posts,
+    //       ...filteredPosts
+    //     ]
+    //   } else {
+    //     updatedPosts = [
+    //       ...filteredPosts
+    //     ]
+    //   }
 
-      addCategoriAction({
-        category,
-        pageInfo: {
-          page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
-          endCursor: data.posts.pageInfo.endCursor,
-          hasNextPage: data.posts.pageInfo.hasNextPage,
-        },
-        posts: filteredPosts
-      }
-      )
-    } catch (e: any) {
-      console.error('Post Categroy Fetch Error', e)
-    }
+    //   addCategoriAction({
+    //     category,
+    //     pageInfo: {
+    //       page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
+    //       endCursor: data.posts.pageInfo.endCursor,
+    //       hasNextPage: data.posts.pageInfo.hasNextPage,
+    //     },
+    //     posts: filteredPosts
+    //   }
+    //   )
+    // } catch (e: any) {
+    //   console.error('Post Categroy Fetch Error', e)
+    // }
   }
   const errorPost = {}
   return (
@@ -371,7 +371,7 @@ function BlogIndex() {
       <BlogFeaturedPost featuredPost={posts[0]} />
 
       <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
-        <BlogCategoryTabs catClick={handleCatClick} category={category} />
+        {/* <BlogCategoryTabs catClick={handleCatClick} category={category} /> */}
       </div>
 
       <div className='grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
@@ -379,7 +379,7 @@ function BlogIndex() {
         <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
 
           {/* @ts-ignore */}
-          <AnimatePresence>
+          {/* <AnimatePresence>
             {state.loading
               && category !== 'all'
               && !state.categories[category]
@@ -410,11 +410,11 @@ function BlogIndex() {
             }
           </AnimatePresence>
 
-          <BlogPostGrid posts={state.posts} category={category} categories={state.categories} />
+          <BlogPostGrid posts={state.posts} category={category} categories={state.categories} /> */}
 
         </div>
 
-        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
+        {/* <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
           {category === 'all' && state.pageInfo.hasNextPage &&
             <OutlinedButton
               spinnerColors={spinnerColors.sageOutline}
@@ -434,7 +434,7 @@ function BlogIndex() {
               loading={state.loading}
             />
           }
-        </div>
+        </div> */}
 
       </div>
 

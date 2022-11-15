@@ -14,7 +14,7 @@ function FeatureCourses(props: Props) {
   const { courses } = props
 
   // get the first 3 courses
-  const letteringCourse = courses.slice(0, 3)
+  const letteringCourses = courses.slice(0, 3)
   const illustrationCourses = courses.slice(3, 6)
   const shortStrokes = createImgixSizes({
     staticImage: staticImages.scribbles.shortStrokes,
@@ -46,7 +46,7 @@ function FeatureCourses(props: Props) {
         <div className='flex flex-col mb-8 text-center tablet:text-left'>
 
           <div className='text-3xl font-sentinel__SemiBoldItal'>
-            Lettering
+            Illustration Courses
           </div>
 
           <p>
@@ -57,7 +57,7 @@ function FeatureCourses(props: Props) {
 
         {/* COURSES */}
         <div className='flex flex-col'>
-          {letteringCourse.map((course, index) => {
+          {illustrationCourses.map((course, index) => {
             return (
               <CourseCardSmall course={course} key={index} />
             )
@@ -79,7 +79,7 @@ function FeatureCourses(props: Props) {
         <div className='flex flex-col mb-8 text-center tablet:text-left'>
 
           <div className='text-3xl font-sentinel__SemiBoldItal'>
-            Illustration
+            Lettering
           </div>
 
           <p>
@@ -90,7 +90,7 @@ function FeatureCourses(props: Props) {
 
         {/* COURSES */}
         <div className='flex flex-col'>
-          {illustrationCourses.map((course, index) => {
+          {letteringCourses.map((course, index) => {
             return (
               <CourseCardSmall course={course} key={index} />
             )

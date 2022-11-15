@@ -284,7 +284,6 @@ export default function Index() {
 
         <TransformSkillsHeader />
 
-
         <ClientOnly fallback={<p>Loading...</p>}>
           {() => <IpadVerticalAnimation />}
         </ClientOnly>

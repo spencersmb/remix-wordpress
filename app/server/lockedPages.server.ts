@@ -30,7 +30,7 @@ export function createLockedPageCookie (name: string){
   return createCookie(name, {
         maxAge: 60 * 60 * 24 * 360, // one week
         path: '/',
-        expires: new Date(Date.now() + 60 * 60 * 24 * 360),
+        // expires: new Date(Date.now() + 60 * 60 * 24 * 360),
         httpOnly: true,
         sameSite: "lax",
         secrets: [sessionSecret],

@@ -347,6 +347,9 @@ export function ErrorBoundary({ error }: any) {
               This is awkward. Something went wrong.
             </div>
             <div>
+              {error.message}
+            </div>
+            <div>
               <Link
                 className="btn btn-lg btn-primary"
                 to={'/'}>Home</Link>

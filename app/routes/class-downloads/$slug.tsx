@@ -70,6 +70,8 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 
     customHeaders.append('Set-Cookie', await createPageCookie.serialize({
       [downloadGridBy.page.cookie.key]: true
+    }, {
+      expires: new Date(Date.now() + 60 * 60 * 24 * 360),
     }))
 
     const membersPath = getLockedPageRedirectMembersPath(lookUpSlug)
