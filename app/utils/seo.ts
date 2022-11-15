@@ -1,9 +1,10 @@
 import { getStaticPageMeta } from './pageUtils'
 import { getProductStdPrice } from './productPageUtils'
-import { formatePrice } from './priceUtils.server'
 import { defaultFeaturedImage } from '@App/lib/wp/site'
 import type { IgetBasicPageMetaTags, IgetHtmlMetadataTags } from '@App/interfaces/seo-exported'
 import { isEmpty } from 'lodash'
+import { consoleHelper } from './windowUtils'
+import { formatePriceClient } from '@App/utils/productPageUtils'
 
 
 /**
@@ -142,34 +143,36 @@ export function getHtmlMetadataTags({
     }
   }
 
-  if(product){
-    const price = getProductStdPrice(product, metadata.serverSettings.productPlatform)
-    metadataTags = {
-      ...metadataTags,
-      title: product.seo.title,
-      description: product.seo.metaDesc,
-      canonical: url,
-      'og:title': product.seo.title,
-      'og:description': product.seo.metaDesc,
-      ...createOgImages({
-        altText: product.featuredImage?.node.altText || defaultFeaturedImage.altText,
-        url: product.featuredImage?.node.sourceUrl || defaultFeaturedImage.sourceUrl,
-        width:'1920',
-        height: '1080'
-      }),
-      // TODO: Replace with getter fn to get images and check if we are doing shopify or internal
-      // 'og:image:secure_url': [
-      //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-1_1200x1200.jpg?v=1622432040',
-      //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-2_1200x1200.jpg?v=1622432054'
-      // ],
-      'og:image:secure_url':[
-        product.featuredImage?.node.sourceUrl
-      ],
-      'og:price:currency': 'USD',
-      'og:price:amount': price,
-      'og:price:amount_currency': formatePrice(price)
-    }
-  }
+  // Will be used for Shopify
+  // if(product){
+  //   const price = getProductStdPrice(product, metadata.serverSettings.productPlatform)
+  //   console.log('price', price)
+  //   metadataTags = {
+  //     ...metadataTags,
+  //     title: product.seo.title,
+  //     description: product.seo.metaDesc,
+  //     canonical: url,
+  //     'og:title': product.seo.title,
+  //     'og:description': product.seo.metaDesc,
+  //     ...createOgImages({
+  //       altText: product.featuredImage?.node.altText || defaultFeaturedImage.altText,
+  //       url: product.featuredImage?.node.sourceUrl || defaultFeaturedImage.sourceUrl,
+  //       width:'1920',
+  //       height: '1080'
+  //     }),
+  //     // TODO: Replace with getter fn to get images and check if we are doing shopify or internal
+  //     // 'og:image:secure_url': [
+  //     //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-1_1200x1200.jpg?v=1622432040',
+  //     //   'https://cdn.shopify.com/s/files/1/0570/8880/3023/products/watercolor-illustration-brushes-2_1200x1200.jpg?v=1622432054'
+  //     // ],
+  //     'og:image:secure_url':[
+  //       product.featuredImage?.node.sourceUrl
+  //     ],
+  //     'og:price:currency': 'USD',
+  //     'og:price:amount': price,
+  //     // 'og:price:amount_currency': formatePriceClient(price)
+  //   }
+  // }
 
   return {
     ...metadataTags
@@ -185,11 +188,13 @@ export function getHtmlMetadataTags({
  *
  *
  **/
+// @ts-ignore
 export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
   metaData, 
   {title, desc, slug}, 
   follow = {googleIndex: true}
   ) => {
+
     const { data, location, parentsData } = metaData
   if (!data || !parentsData || isEmpty(parentsData) || !location) {
     return {
@@ -197,12 +202,19 @@ export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
       description: 'error: No metaData or Parents Data',
     }
   }
+    consoleHelper('META', {
+      title,
+      desc,
+      slug,
+    })
 
   const page = getStaticPageMeta({
     title,
     desc,
     slug
   })
+
+      consoleHelper('Page', page)
 
   return getHtmlMetadataTags({
     follow: follow.googleIndex,

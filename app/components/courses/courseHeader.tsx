@@ -13,7 +13,7 @@ import { createImgixSizes } from '@App/utils/imageHelpers'
  */
 function CourseHeader() {
 
-  const { state: { breakpoint } } = useSite()
+  // const { state: { breakpoint } } = useSite()
 
   const greenTexture = createImgixSizes({
     width: 895,
