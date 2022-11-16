@@ -73,41 +73,65 @@ export function getHtmlMetadataTags({
     title: metadata.title,
     description: metadata.description,
     canonical: url,
-    // 'og:locale': 'en_US',
-    // 'og:title': metadata.title,
-    // 'og:site_name': `${metadata.siteTitle}.com`,
-    // 'og:type': 'website',
-    // 'og:description': metadata.description,
-    // ...createOgImages(defaultImage),
-    // 'twitter:card': `@${metadata.social.twitter.username}`,
-    // 'twitter:site': `@${metadata.social.twitter.username}`,
-    // 'twitter:creator': 'summary_large_image',
-    // 'twitter:label1': `Est. reading time`,
-    // 'twitter:data1': `1 minute`,
+    'og:locale': 'en_US',
+    'og:title': metadata.title,
+    'og:site_name': `${metadata.siteTitle}.com`,
+    'og:type': 'website',
+    'og:description': metadata.description,
+    ...createOgImages(defaultImage),
+    'twitter:card': `@${metadata.social.twitter.username}`,
+    'twitter:site': `@${metadata.social.twitter.username}`,
+    'twitter:creator': 'summary_large_image',
+    'twitter:label1': `Est. reading time`,
+    'twitter:data1': `1 minute`,
   }
 
-  if(post){
-    metadataTags = {
-      ...metadataTags,
-      title: post.seo.title,
-      description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
+  // if(post){
+  //   metadataTags = {
+  //     ...metadataTags,
+  //     title: post.seo.title,
+  //     description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
+  //     canonical: url,
+  //     'og:title': post.seo.title,
+  //     'og:type': 'article',
+  //     'og:description': post.seo.metaDesc,
+  //     ...createOgArticle({
+  //       publishedTime:post.seo.opengraphPublishedTime,
+  //       modifiedTime: post.seo.opengraphPublishedTime,
+  //       author: `${metadata.domain}${post.author.uri}`,
+  //       tags: post.tags
+  //     }),
+  //     ...createOgImages({
+  //       altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
+  //       url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+  //       width:'1920',
+  //       height: '1080'
+  //     }),
+
+  //     'twitter:card': `@${metadata.social.twitter.username}`,
+  //     'twitter:site': `@${metadata.social.twitter.username}`,
+  //     'twitter:creator': 'summary_large_image',
+  //     'twitter:label1': `Written by`,
+  //     'twitter:data1': `Teela`,
+  //     'twitter:label2': `Est. reading time`,
+  //     'twitter:data2': `1 minute`,
+  //   }
+  // }
+
+  if(page){
+    const pageMetadataTags = {
+      title: page.seo.title,
+      description: page.seo.metaDesc,
       canonical: url,
-      'og:title': post.seo.title,
+      'og:title': page.seo.title,
       'og:type': 'article',
-      'og:description': post.seo.metaDesc,
-      ...createOgArticle({
-        publishedTime:post.seo.opengraphPublishedTime,
-        modifiedTime: post.seo.opengraphPublishedTime,
-        author: `${metadata.domain}${post.author.uri}`,
-        tags: post.tags
-      }),
+      'og:description': page.seo.metaDesc,
       ...createOgImages({
-        altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
-        url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+        altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
+        url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
         width:'1920',
         height: '1080'
       }),
-
       'twitter:card': `@${metadata.social.twitter.username}`,
       'twitter:site': `@${metadata.social.twitter.username}`,
       'twitter:creator': 'summary_large_image',
@@ -116,32 +140,7 @@ export function getHtmlMetadataTags({
       'twitter:label2': `Est. reading time`,
       'twitter:data2': `1 minute`,
     }
-  }
-
-  if(page){
-    console.log('meta', metadataTags)
-    // metadataTags = {
-    //   ...metadataTags,
-    //   title: page.seo.title,
-    //   description: page.seo.metaDesc,
-    //   canonical: url,
-    //   'og:title': page.seo.title,
-    //   'og:type': 'article',
-    //   'og:description': page.seo.metaDesc,
-    //   ...createOgImages({
-    //     altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
-    //     url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
-    //     width:'1920',
-    //     height: '1080'
-    //   }),
-    //   'twitter:card': `@${metadata.social.twitter.username}`,
-    //   'twitter:site': `@${metadata.social.twitter.username}`,
-    //   'twitter:creator': 'summary_large_image',
-    //   'twitter:label1': `Written by`,
-    //   'twitter:data1': `Teela`,
-    //   'twitter:label2': `Est. reading time`,
-    //   'twitter:data2': `1 minute`,
-    // }
+    return Object.assign(metadataTags, pageMetadataTags)
   }
 
   // Will be used for Shopify
@@ -180,6 +179,111 @@ export function getHtmlMetadataTags({
   };
 }
 
+export function mdxPageMeta({page, post}:{page?: IPage, post?: IPost}){
+  return function({
+  data,
+  parentsData,
+  location
+}: {
+  data: {page: any} | null
+  parentsData: {root: any}
+  location: any
+}) {
+    if (!data || !parentsData || isEmpty(parentsData)) {
+      return {
+        title: '404',
+        description: 'error: No metaData or Parents Data',
+      }
+    }
+    const metadata = parentsData.root.metadata
+    let defaultImage = {
+      altText: defaultFeaturedImage.altText,
+      url: defaultFeaturedImage.sourceUrl,
+      height: '1920',
+      width: '1080'
+    }
+    let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    // let googleNoFollow = 'noindex,nofollow'
+    const url = `${metadata.domain}${location.pathname}`
+    let metadataTags: any = {
+      'robots': googleFollow,
+      title: metadata.title,
+      description: metadata.description,
+      canonical: url,
+      'og:locale': 'en_US',
+      'og:title': metadata.title,
+      'og:site_name': `${metadata.siteTitle}.com`,
+      'og:type': 'website',
+      'og:description': metadata.description,
+      ...createOgImages(defaultImage),
+      'twitter:card': `@${metadata.social.twitter.username}`,
+      'twitter:site': `@${metadata.social.twitter.username}`,
+      'twitter:creator': 'summary_large_image',
+      'twitter:label1': `Est. reading time`,
+      'twitter:data1': `1 minute`,
+    }
+    if(page){
+      const pageMetadataTags = {
+        title: page.seo.title,
+        description: page.seo.metaDesc,
+        canonical: url,
+        'og:title': page.seo.title,
+        'og:type': 'article',
+        'og:description': page.seo.metaDesc,
+        ...createOgImages({
+          altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
+          url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+          width:'1920',
+          height: '1080'
+        }),
+        'twitter:card': `@${metadata.social.twitter.username}`,
+        'twitter:site': `@${metadata.social.twitter.username}`,
+        'twitter:creator': 'summary_large_image',
+        'twitter:label1': `Written by`,
+        'twitter:data1': `Teela`,
+        'twitter:label2': `Est. reading time`,
+        'twitter:data2': `1 minute`,
+      }
+      return Object.assign(metadataTags, pageMetadataTags)
+    }
+
+     if(post){
+    let postMetadataTags = {
+      title: post.seo.title,
+      description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
+      canonical: url,
+      'og:title': post.seo.title,
+      'og:type': 'article',
+      'og:description': post.seo.metaDesc,
+      ...createOgArticle({
+        publishedTime:post.seo.opengraphPublishedTime,
+        modifiedTime: post.seo.opengraphPublishedTime,
+        author: `${metadata.domain}${post.author.uri}`,
+        tags: post.tags
+      }),
+      ...createOgImages({
+        altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
+        url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+        width:'1920',
+        height: '1080'
+      }),
+
+      'twitter:card': `@${metadata.social.twitter.username}`,
+      'twitter:site': `@${metadata.social.twitter.username}`,
+      'twitter:creator': 'summary_large_image',
+      'twitter:label1': `Written by`,
+      'twitter:data1': `Teela`,
+      'twitter:label2': `Est. reading time`,
+      'twitter:data2': `1 minute`,
+    }
+    return Object.assign(metadataTags, postMetadataTags)
+  }
+
+    return metadataTags
+
+  }
+}
+
 /**
  * @function getBasicPageMetaTags
  * @tested - 6/8/2022
@@ -190,29 +294,53 @@ export function getHtmlMetadataTags({
  *
  **/
 // @ts-ignore
-export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
-  metaData, 
-  {title, desc, slug}, 
-  follow = {googleIndex: true}
-  ) => {
+// export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
+//   metaData, 
+//   {title, desc, slug}, 
+//   follow = {googleIndex: true}
+//   ) => {
 
+//     const { data, location, parentsData } = metaData
+//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
+//     return {
+//       title: '404',
+//       description: 'error: No metaData or Parents Data',
+//     }
+//   }
+//   const page = getStaticPageMeta({
+//     title,
+//     desc,
+//     slug
+//   })
+
+//   return getHtmlMetadataTags({
+//     follow: follow.googleIndex,
+//     metadata: parentsData.root.metadata,
+//     page,
+//     location
+//   })
+// }
+
+export function getBasicPageMetaTags(metaData: any, newPage:{title: any, desc:any, slug: any}, follow = {googleIndex: true}){
+  return function(){
     const { data, location, parentsData } = metaData
-  if (!data || !parentsData || isEmpty(parentsData) || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
+    if (!data || !parentsData || isEmpty(parentsData) || !location) {
+      return {
+        title: '404',
+        description: 'error: No metaData or Parents Data',
+      }
     }
-  }
-  const page = getStaticPageMeta({
-    title,
-    desc,
-    slug
-  })
+    const page = getStaticPageMeta({
+      title: newPage.title,
+      desc: newPage.desc,
+      slug: newPage.slug
+    })
 
-  return getHtmlMetadataTags({
-    follow: follow.googleIndex,
-    metadata: parentsData.root.metadata,
-    page,
-    location
-  })
+    return getHtmlMetadataTags({
+      follow: follow.googleIndex,
+      metadata: parentsData.root.metadata,
+      page,
+      location
+    })
+  }
 }

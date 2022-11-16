@@ -4,7 +4,7 @@ import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
+import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import FeaturedProduct from "@App/components/products/featureProduct";
 import GumroadProductCard from "@App/components/products/gumroadProductCard";
 import { metaDataMatches } from "@App/hooks/remixHooks";
@@ -20,6 +20,8 @@ import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
 import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
+
 
 const page = {
   title: 'Products',
@@ -31,28 +33,57 @@ const page = {
     metaDesc: 'Every-Tuesday.com digital products for sale using the Procreate app.'
   }
 }
-
+const pageMeta = getStaticPageMeta({
+  title: page.title,
+  desc: page.description,
+  slug: page.slug,
+})
 // export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
 //   title: page.title,
 //   desc: page.description,
 //   slug: page.slug,
 // }))
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || isEmpty(parentsData) || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
+// export let meta: MetaFunction = (metaData): any => {
+//   const { data, location, parentsData } = metaData
+//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
+//     return {
+//       title: '404',
+//       description: 'error: No metaData or Parents Data',
+//     }
+//   }
+//   const metadata = parentsData.root.metadata
+//   let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+//   const url = `${metadata.domain}${location.pathname}`
+//   console.log('META')
+//   return {
+//     'robots': googleFollow,
+//     canonical: url,
+//     'og:locale': 'en_US',
+//     'og:site_name': `${metadata.siteTitle}.com`,
+//     'og:type': 'website',
+//     title: pageMeta.seo.title,
+//     description: pageMeta.seo.metaDesc,
+//     'og:title': pageMeta.seo.title,
+//     'og:description': pageMeta.seo.metaDesc,
+//     ...createOgImages({
+//       altText: pageMeta.featuredImage?.altText || 'defaultFeaturedImage.altText',
+//       url: pageMeta.featuredImage?.sourceUrl || 'defaultFeaturedImage.sourceUrl',
+//       width: '1920',
+//       height: '1080'
+//     }),
+//     'twitter:card': `@${metadata.social.twitter.username}`,
+//     'twitter:site': `@${metadata.social.twitter.username}`,
+//     'twitter:creator': 'summary_large_image',
+//     'twitter:label1': `Written by`,
+//     'twitter:data1': `Teela`,
+//     'twitter:label2': `Est. reading time`,
+//     'twitter:data2': `1 minute`,
+//   }
+// }
 
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page: data.page,
-    location
-  })
-}
+export let meta = mdxPageMeta({
+  page: pageMeta
+})
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
