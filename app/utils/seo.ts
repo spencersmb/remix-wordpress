@@ -189,6 +189,7 @@ export function mdxPageMeta({page, post}:{page?: IPage, post?: IPost}){
   parentsData: {root: any}
   location: any
 }) {
+    console.log('RENDER MDX PAGE META')
     if (!data || !parentsData || isEmpty(parentsData)) {
       return {
         title: '404',

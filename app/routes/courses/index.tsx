@@ -113,8 +113,8 @@ const Courses = () => {
 
   return (
     <Layout>
-      <CourseHeader />
-      <CourseHighQuality />
+      {/* <CourseHeader />
+      <CourseHighQuality /> */}
 
       {/* COURSES LIST */}
 

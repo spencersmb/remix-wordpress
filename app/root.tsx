@@ -208,22 +208,23 @@ export default function App() {
   return (
     // <Provider store={store}>
     // <UseCartProvider defaultState={defaultCart}>
-    <UseSiteProvider defaultState={value}>
-      <UseSearchProvider defaultState={{
-        ...siteSearchState,
-        status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-        data: searchData,
-        // client,
-      }}>
-        <UseFetchPaginateProvider defaultState={defaultState}>
-          <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
-            <Document>
-              <Outlet />
-            </Document>
-          </UseMakersLibraryProvider>
-        </UseFetchPaginateProvider>
-      </UseSearchProvider>
-    </UseSiteProvider>
+    <Document>
+      {/* <UseSiteProvider defaultState={value}>
+        <UseSearchProvider defaultState={{
+          ...siteSearchState,
+          status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
+          data: searchData,
+          // client,
+        }}>
+          <UseFetchPaginateProvider defaultState={defaultState}>
+            <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}> */}
+      <Outlet />
+      {/* </UseMakersLibraryProvider>
+          </UseFetchPaginateProvider>
+        </UseSearchProvider>
+      </UseSiteProvider> */}
+    </Document>
+
     // </UseCartProvider>
     // </Provider>
   );
@@ -250,9 +251,9 @@ export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
   let matches = useMatches();
   // let location = useLocation();
-  useWindowResize()
-  const { state: { isOpen } } = useSearch()
-  const { state: { commentsModal } } = useSite()
+  // useWindowResize()
+  // const { state: { isOpen } } = useSearch()
+  // const { state: { commentsModal } } = useSite()
 
   // Dealy the animation so it doesn't show double scroll bars
   // const { openAnimationDone } = useSearchScrollFix(isOpen)
@@ -260,7 +261,7 @@ export function Document({ children, title }: IDocument) {
   return (
     <html
       lang="en"
-      className={classNames(isOpen || commentsModal.show ? 'animate-addPadding ' : '', "")}
+    // className={classNames(isOpen || commentsModal.show ? 'animate-addPadding ' : '', "")}
     >
       <head>
         <meta charSet="utf-8" />
@@ -275,11 +276,11 @@ export function Document({ children, title }: IDocument) {
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <Meta />
         <Links />
-        <JsonLd data={data} matches={matches} />
+        {/* <JsonLd data={data} matches={matches} /> */}
 
       </head>
       <body
-        className={classNames(isOpen ? 'overflow-y-hidden' : '', "selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden")}
+      // className={classNames(isOpen ? 'overflow-y-hidden' : '', "selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden")}
       >
         {/* <!-- Insert Your Facebook Pixel ID below. --> */}
         <noscript>
@@ -306,9 +307,9 @@ export function Document({ children, title }: IDocument) {
             )}`
           }}
         />}
-        <BasicModal />
+        {/* <BasicModal />
         <CommentModal />
-        <SearchModal />
+        <SearchModal /> */}
 
         {/* FOOTER SCRIPTS */}
         {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}

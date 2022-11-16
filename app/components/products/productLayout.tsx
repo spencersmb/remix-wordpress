@@ -28,20 +28,21 @@ function createNewProductsArray(products: IProduct[]) {
 
 const ProductLayout = ({ products, metadata }: IProps) => {
   const { productsArray, featuredProduct } = createNewProductsArray(products)
-  const { fontPreviewState } = useFontPreview()
-  const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
+  // const { fontPreviewState } = useFontPreview()
+  // const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
 
   return (
     <div>
-      <FeaturedProduct
+      <h1>PRODUCT PAGE</h1>
+      {/* <FeaturedProduct
         product={featuredProduct}
-      />
+      /> */}
       {/* parent grid wrapper to match blog index layout */}
       <div className="grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop">
 
         <div className="col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 desktop:pt-9">
           <div className="grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 ">
-            {posts.map((product: IProduct) => {
+            {/* {posts.map((product: IProduct) => {
 
               if (metadata?.serverSettings?.productPlatform === ShopPlatformEnum.GUMROAD) {
 
@@ -54,12 +55,12 @@ const ProductLayout = ({ products, metadata }: IProps) => {
               }
 
             })
-            }
+            } */}
           </div>
 
         </div>
 
-        <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
+        {/* <div className='col-span-2 col-start-2 my-2 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 tablet:mb-12 desktop:col-start-2 desktop:col-span-12'>
           {pagination.hasNextPage &&
             <>
               <OutlinedButton
@@ -75,7 +76,7 @@ const ProductLayout = ({ products, metadata }: IProps) => {
           {!pagination.hasNextPage && pagination.currentPage > 1 &&
             <div>No More Products</div>
           }
-        </div>
+        </div> */}
 
       </div>
 
@@ -87,9 +88,9 @@ const ProductLayout = ({ products, metadata }: IProps) => {
           })
         } */}
 
-      {fontPreviewState.previewerOpen && <div>
+      {/* {fontPreviewState.previewerOpen && <div>
         Preview Page
-      </div>}
+      </div>} */}
 
     </div>
   );
