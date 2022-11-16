@@ -15,10 +15,8 @@ export const fetchInitialState:IFetchPaginationState = {
   init: false
 }
 
-export const FetchPaginateContext = createContext<IFetchPaginateContextType>({
-  state: fetchInitialState,
-  dispatch: () => null
-})
+export const FetchPaginateContext = createContext<IFetchPaginateContextType | undefined>(undefined)
+
 FetchPaginateContext.displayName = 'FetchPaginateContext'
 
 interface updateContext {
@@ -54,6 +52,10 @@ const useFetchPaginateContent = (newData?:updateContext) => {
   // Only do this on first Render load to getData in from Server
   // Check if the new data has posts because of how we map the data in from the server. We also check for page info and check that state has 0 posts. If it does we set the state to the new data.
   
+  if (!context) {
+    throw new Error('usePaginateFetch must be used within a FetchPaginate Provider component')
+  }
+
   // Have to check for context.state.posts because if it's just a page link click instead of a page refresh, it should already have data in it.
   if((newData?.posts && newData.pageInfo) && context.state.posts.length === 0){
     context.state.init = true
@@ -70,9 +72,7 @@ const useFetchPaginateContent = (newData?:updateContext) => {
   // console.log('skip');
   context.state.init = true
   
-  if (!context) {
-    throw new Error('usePaginateFetch must be used within a FetchPaginate Provider component')
-  }
+ 
   return context
 }
 

@@ -249,11 +249,7 @@ interface IDocument {
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
-  let matches = useMatches();
   // let location = useLocation();
-  // useWindowResize()
-  // const { state: { isOpen } } = useSearch()
-  // const { state: { commentsModal } } = useSite()
 
   // Dealy the animation so it doesn't show double scroll bars
   // const { openAnimationDone } = useSearchScrollFix(isOpen)
@@ -270,17 +266,15 @@ export function Document({ children, title }: IDocument) {
         <meta name="application-name" content="Every-Tuesday" />
         <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
+        <Meta />
+        <Links />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <Meta />
-        <Links />
-        {/* <JsonLd data={data} matches={matches} /> */}
-
       </head>
       <body
-      // className={classNames(isOpen ? 'overflow-y-hidden' : '', "selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden")}
+        className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
       >
         {/* <!-- Insert Your Facebook Pixel ID below. --> */}
         <noscript>
@@ -289,12 +283,7 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
-        {children}
-        {/* <RouteChangeAnnouncement /> */}
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Outlet />
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
@@ -303,17 +292,15 @@ export function Document({ children, title }: IDocument) {
               //   PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
               //   APP_ROOT_URL: 'http://localhost:3000'
               // }
-
             )}`
           }}
         />}
-        {/* <BasicModal />
-        <CommentModal />
-        <SearchModal /> */}
 
-        {/* FOOTER SCRIPTS */}
-        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+        <ScrollRestoration />
 
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );

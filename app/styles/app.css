@@ -1800,6 +1800,9 @@ video {
 .mt-5 {
   margin-top: 1.25rem;
 }
+.mt-20 {
+  margin-top: 5rem;
+}
 .ml-4 {
   margin-left: 1rem;
 }
@@ -1868,9 +1871,6 @@ video {
 }
 .ml-10 {
   margin-left: 2.5rem;
-}
-.mt-20 {
-  margin-top: 5rem;
 }
 .mb-36 {
   margin-bottom: 9rem;
@@ -1980,6 +1980,9 @@ video {
 .h-\[80px\] {
   height: 80px;
 }
+.h-\[60px\] {
+  height: 60px;
+}
 .h-\[42px\] {
   height: 42px;
 }
@@ -2030,9 +2033,6 @@ video {
 }
 .h-\[28px\] {
   height: 28px;
-}
-.h-\[60px\] {
-  height: 60px;
 }
 .h-4 {
   height: 1rem;
@@ -2139,6 +2139,9 @@ video {
 .w-\[80px\] {
   width: 80px;
 }
+.w-\[60px\] {
+  width: 60px;
+}
 .w-\[50px\] {
   width: 50px;
 }
@@ -2180,9 +2183,6 @@ video {
 }
 .w-\[5\%\] {
   width: 5%;
-}
-.w-\[60px\] {
-  width: 60px;
 }
 .w-\[301px\] {
   width: 301px;
@@ -2838,6 +2838,14 @@ video {
 .animate-addPadding {
   animation: addPadding 0ms 150ms ease-in-out forwards;
 }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0%;
@@ -2848,14 +2856,6 @@ video {
 }
 .animate-fadeIn {
   animation: fadeIn 300ms ease-in-out;
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.animate-spin {
-  animation: spin 1s linear infinite;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -3190,6 +3190,9 @@ video {
 .bg-sage-500 {
   background-color: var(--sage-500);
 }
+.bg-primary-50 {
+  background-color: var(--primary-plum-50);
+}
 .bg-neutral-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 250 251 / var(--tw-bg-opacity));
@@ -3275,9 +3278,6 @@ video {
 .bg-grey-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(157 163 175 / var(--tw-bg-opacity));
-}
-.bg-primary-50 {
-  background-color: var(--primary-plum-50);
 }
 .bg-transparent {
   background-color: transparent;
@@ -3382,6 +3382,9 @@ video {
 .p-\[5px\] {
   padding: 5px;
 }
+.p-1 {
+  padding: 0.25rem;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -3391,17 +3394,14 @@ video {
 .p-0 {
   padding: 0px;
 }
+.p-\[11px\] {
+  padding: 11px;
+}
 .p-12 {
   padding: 3rem;
 }
 .p-5 {
   padding: 1.25rem;
-}
-.p-1 {
-  padding: 0.25rem;
-}
-.p-\[11px\] {
-  padding: 11px;
 }
 .p-\[35px\] {
   padding: 35px;
@@ -3439,6 +3439,10 @@ video {
 .px-\[30px\] {
   padding-left: 30px;
   padding-right: 30px;
+}
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -3511,10 +3515,6 @@ video {
 .px-\[14px\] {
   padding-left: 14px;
   padding-right: 14px;
-}
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 }
 .px-12 {
   padding-left: 3rem;
@@ -4122,17 +4122,17 @@ video {
 .opacity-70 {
   opacity: 0.7;
 }
-.opacity-100 {
-  opacity: 1;
-}
-.opacity-0 {
-  opacity: 0;
-}
 .opacity-25 {
   opacity: 0.25;
 }
 .opacity-75 {
   opacity: 0.75;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.opacity-0 {
+  opacity: 0;
 }
 .opacity-80 {
   opacity: 0.8;
@@ -7827,6 +7827,9 @@ video {
   .desktop\:ml-12 {
     margin-left: 3rem;
   }
+  .desktop\:mt-32 {
+    margin-top: 8rem;
+  }
   .desktop\:mb-8 {
     margin-bottom: 2rem;
   }
@@ -7874,9 +7877,6 @@ video {
   }
   .desktop\:mb-40 {
     margin-bottom: 10rem;
-  }
-  .desktop\:mt-32 {
-    margin-top: 8rem;
   }
   .desktop\:mt-\[550px\] {
     margin-top: 550px;

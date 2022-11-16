@@ -38,11 +38,11 @@ const pageMeta = getStaticPageMeta({
   desc: page.description,
   slug: page.slug,
 })
-// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-//   title: page.title,
-//   desc: page.description,
-//   slug: page.slug,
-// }))
+export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
+  title: page.title,
+  desc: page.description,
+  slug: page.slug,
+}))
 // export let meta: MetaFunction = (metaData): any => {
 //   const { data, location, parentsData } = metaData
 //   if (!data || !parentsData || isEmpty(parentsData) || !location) {
@@ -81,9 +81,9 @@ const pageMeta = getStaticPageMeta({
 //   }
 // }
 
-export let meta = mdxPageMeta({
-  page: pageMeta
-})
+// export let meta = mdxPageMeta({
+//   page: pageMeta
+// })
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

@@ -42,7 +42,6 @@ const useSearchContext = () => {
 
 export function useSearch(){
   const {state, dispatch} = useSearchContext()
-
   const openSearch = () => {
     dispatch({
       type: ISearchTypes.SHOW_SEARCH,

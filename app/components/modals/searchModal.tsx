@@ -29,6 +29,27 @@ const SearchModal = () => {
   const [animationCompleted, setAnimationCompleted] = useState(false)
   const containerRef = useRef<null | HTMLDivElement>(null)
   const transition = useTransition();
+  const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
+
+  // set REFS on load
+  useEffect(() => {
+    htmlDomRef.current = document.querySelector('html')
+  }, [])
+
+  // Scroll bar adjustment
+  useEffect(() => {
+    if (isOpen && htmlDomRef.current) {
+      const body = htmlDomRef.current.children[1]
+      htmlDomRef.current.classList.add('animate-addPadding')
+      body.classList.add('overflow-y-hidden')
+    }
+
+    if (!isOpen && htmlDomRef.current) {
+      const body = htmlDomRef.current.children[1]
+      htmlDomRef.current.classList.remove('animate-addPadding')
+      body.classList.remove('overflow-y-hidden')
+    }
+  }, [isOpen])
 
   // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
   useEffect(() => {

@@ -32,14 +32,14 @@ const pageMeta = getStaticPageMeta({
   desc: page.description,
   slug: page.slug,
 })
-export let meta = mdxPageMeta({
-  page: pageMeta
-})
-// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-//   title,
-//   desc: page.description,
-//   slug: page.slug,
-// }))
+// export let meta = mdxPageMeta({
+//   page: pageMeta
+// })
+export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
+  title,
+  desc: page.description,
+  slug: page.slug,
+}))
 // export let meta: MetaFunction = (metaData): any => {
 //   const { data, location, parentsData } = metaData
 //   if (!data || !parentsData || isEmpty(parentsData) || !location) {
@@ -109,12 +109,12 @@ const Courses = () => {
 
   const data = useLoaderData<ILoaderData>()
   // const test = useSimpleTabs()
-  consoleHelper('data', data, 'routes/courses/index.tsx');
+  // consoleHelper('data', data, 'routes/courses/index.tsx');
 
   return (
     <Layout>
-      {/* <CourseHeader />
-      <CourseHighQuality /> */}
+      <CourseHeader />
+      <CourseHighQuality />
 
       {/* COURSES LIST */}
 
