@@ -65,5 +65,10 @@ export const mockUseSiteData_default: ISiteContextState = {
       endCursor: ''
     }
   },
-  breakpoint: BreakpointEnums.mobile
+  breakpoint: BreakpointEnums.mobile,
+  nav: {
+    mobileNav: {
+      isOpen: false
+    }
+  }
 }

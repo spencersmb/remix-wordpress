@@ -4,7 +4,7 @@ import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
 import FeaturedProduct from "@App/components/products/featureProduct";
 import GumroadProductCard from "@App/components/products/gumroadProductCard";
 import { metaDataMatches } from "@App/hooks/remixHooks";
@@ -19,6 +19,7 @@ import { useLoaderData } from "@remix-run/react";
 import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
 import { cacheControl } from '@App/lib/remix/loaders';
+import { isEmpty } from 'lodash';
 
 const page = {
   title: 'Products',
@@ -31,11 +32,27 @@ const page = {
   }
 }
 
-export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: page.title,
-  desc: page.description,
-  slug: page.slug,
-}))
+// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
+//   title: page.title,
+//   desc: page.description,
+//   slug: page.slug,
+// }))
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || isEmpty(parentsData) || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page: data.page,
+    location
+  })
+}
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

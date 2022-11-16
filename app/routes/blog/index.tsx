@@ -3,7 +3,7 @@ import useFetchPaginate from "@App/hooks/useFetchPagination";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { flattenAllPosts } from "@App/utils/posts";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
 import { consoleHelper } from "@App/utils/windowUtils";
 import BlogFeaturedPost from "@App/components/blog/blogFeaturedPost";
 import type { IPageInfo } from "@App/hooks/useFetchPagination/useFetchPaginationReducer";
@@ -19,6 +19,7 @@ import { HeadersFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { cacheControl } from "@App/lib/remix/loaders";
 import { spinnerColors } from "@App/components/spinners/spinnerColors";
+import { isEmpty } from "lodash";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -43,11 +44,22 @@ const pageMetaData = {
     metaDesc: description
   }
 }
-export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title,
-  desc: pageMetaData.description,
-  slug: pageMetaData.slug,
-}))
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || isEmpty(parentsData) || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page: data.page,
+    location
+  })
+}
 
 type IBlogIndexProps = IPageInfo & {
   pageUrlParams: number; //currentPage

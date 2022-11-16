@@ -10,6 +10,8 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
+  useLocation,
+  useMatches,
   useTransition
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/node";
@@ -235,17 +237,19 @@ export default function App() {
 // }
 
 
-export let meta: MetaFunction = () => {
-  return {
-    title: `Home - Every Tuesday`
-  }
-}
+// export let meta: MetaFunction = () => {
+//   return {
+//     title: `Home - Every Tuesday`
+//   }
+// }
 interface IDocument {
   children: React.ReactNode
   title?: string
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
+  let matches = useMatches();
+  // let location = useLocation();
   useWindowResize()
   const { state: { isOpen } } = useSearch()
   const { state: { commentsModal } } = useSite()
@@ -256,7 +260,7 @@ export function Document({ children, title }: IDocument) {
   return (
     <html
       lang="en"
-      className={classNames(isOpen || commentsModal.show ? 'laptop:animate-addPadding ' : '', "")}
+      className={classNames(isOpen || commentsModal.show ? 'animate-addPadding ' : '', "")}
     >
       <head>
         <meta charSet="utf-8" />
@@ -271,7 +275,7 @@ export function Document({ children, title }: IDocument) {
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <Meta />
         <Links />
-        <JsonLd />
+        <JsonLd data={data} matches={matches} />
 
       </head>
       <body

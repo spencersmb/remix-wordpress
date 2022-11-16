@@ -9,9 +9,10 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
-import { getBasicPageMetaTags } from "@App/utils/seo"
+import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 import { cacheControl } from '@App/lib/remix/loaders';
+import { isEmpty } from 'lodash';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
@@ -25,11 +26,27 @@ const pageMetaData = {
     metaDesc: description
   }
 }
-export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title,
-  desc: pageMetaData.description,
-  slug: pageMetaData.slug,
-}))
+// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
+//   title,
+//   desc: pageMetaData.description,
+//   slug: pageMetaData.slug,
+// }))
+export let meta: MetaFunction = (metaData): any => {
+  const { data, location, parentsData } = metaData
+  if (!data || !parentsData || isEmpty(parentsData) || !location) {
+    return {
+      title: '404',
+      description: 'error: No metaData or Parents Data',
+    }
+  }
+
+  return getHtmlMetadataTags({
+    metadata: parentsData.root.metadata,
+    post: data.post,
+    page: data.page,
+    location
+  })
+}
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

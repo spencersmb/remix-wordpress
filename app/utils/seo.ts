@@ -69,21 +69,21 @@ export function getHtmlMetadataTags({
   let googleNoFollow = 'noindex,nofollow'
   const url = `${metadata.domain}${location.pathname}`
   let metadataTags: any = {
-    'robots:': follow ? googleFollow : googleNoFollow,
+    'robots': follow ? googleFollow : googleNoFollow,
     title: metadata.title,
     description: metadata.description,
     canonical: url,
-    'og:locale': 'en_US',
-    'og:title': metadata.title,
-    'og:site_name': `${metadata.siteTitle}.com`,
-    'og:type': 'website',
-    'og:description': metadata.description,
-    ...createOgImages(defaultImage),
-    'twitter:card': `@${metadata.social.twitter.username}`,
-    'twitter:site': `@${metadata.social.twitter.username}`,
-    'twitter:creator': 'summary_large_image',
-    'twitter:label1': `Est. reading time`,
-    'twitter:data1': `1 minute`,
+    // 'og:locale': 'en_US',
+    // 'og:title': metadata.title,
+    // 'og:site_name': `${metadata.siteTitle}.com`,
+    // 'og:type': 'website',
+    // 'og:description': metadata.description,
+    // ...createOgImages(defaultImage),
+    // 'twitter:card': `@${metadata.social.twitter.username}`,
+    // 'twitter:site': `@${metadata.social.twitter.username}`,
+    // 'twitter:creator': 'summary_large_image',
+    // 'twitter:label1': `Est. reading time`,
+    // 'twitter:data1': `1 minute`,
   }
 
   if(post){
@@ -119,28 +119,29 @@ export function getHtmlMetadataTags({
   }
 
   if(page){
-    metadataTags = {
-      ...metadataTags,
-      title: page.seo.title,
-      description: page.seo.metaDesc,
-      canonical: url,
-      'og:title': page.seo.title,
-      'og:type': 'article',
-      'og:description': page.seo.metaDesc,
-      ...createOgImages({
-        altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
-        url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
-        width:'1920',
-        height: '1080'
-      }),
-      'twitter:card': `@${metadata.social.twitter.username}`,
-      'twitter:site': `@${metadata.social.twitter.username}`,
-      'twitter:creator': 'summary_large_image',
-      'twitter:label1': `Written by`,
-      'twitter:data1': `Teela`,
-      'twitter:label2': `Est. reading time`,
-      'twitter:data2': `1 minute`,
-    }
+    console.log('meta', metadataTags)
+    // metadataTags = {
+    //   ...metadataTags,
+    //   title: page.seo.title,
+    //   description: page.seo.metaDesc,
+    //   canonical: url,
+    //   'og:title': page.seo.title,
+    //   'og:type': 'article',
+    //   'og:description': page.seo.metaDesc,
+    //   ...createOgImages({
+    //     altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
+    //     url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+    //     width:'1920',
+    //     height: '1080'
+    //   }),
+    //   'twitter:card': `@${metadata.social.twitter.username}`,
+    //   'twitter:site': `@${metadata.social.twitter.username}`,
+    //   'twitter:creator': 'summary_large_image',
+    //   'twitter:label1': `Written by`,
+    //   'twitter:data1': `Teela`,
+    //   'twitter:label2': `Est. reading time`,
+    //   'twitter:data2': `1 minute`,
+    // }
   }
 
   // Will be used for Shopify
@@ -202,19 +203,11 @@ export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
       description: 'error: No metaData or Parents Data',
     }
   }
-    consoleHelper('META', {
-      title,
-      desc,
-      slug,
-    })
-
   const page = getStaticPageMeta({
     title,
     desc,
     slug
   })
-
-      consoleHelper('Page', page)
 
   return getHtmlMetadataTags({
     follow: follow.googleIndex,

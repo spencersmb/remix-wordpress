@@ -53,7 +53,7 @@ describe('Header Component', () => {
     expect(mobileHamburger).toHaveTextContent('Hamburger Nav')
   })
 
-  it('It should show <Primary Nav />', () => {
+  it('It should not show <Primary Nav />', () => {
     const { queryByLabelText } = withTransitionsRender(
       <UseSiteProvider defaultState={siteInitialState}>
         <div data-testid="parent">
@@ -63,10 +63,10 @@ describe('Header Component', () => {
         </div>
       </UseSiteProvider>)
     const primaryNav = queryByLabelText('desktop navigation')
-    expect(primaryNav).toBeInTheDocument()
+    expect(primaryNav).toBeNull()
   })
 
-  it('It should show alternate Nav', () => {
+  it('It should not show alternate Nav', () => {
     const { queryByText } = withTransitionsRender(
       <UseSiteProvider defaultState={siteInitialState}>
         <div data-testid="parent">
@@ -77,7 +77,7 @@ describe('Header Component', () => {
       </UseSiteProvider>)
 
     const alternateNav = queryByText('alternate nav')
-    expect(alternateNav).toBeInTheDocument()
+    expect(alternateNav).toBeNull()
   })
 
   // TODO: REDO TO REFLECT NEW LOGIN MASTER BUTTON
@@ -96,7 +96,7 @@ describe('Header Component', () => {
 
   })
 
-  it('It should have Search Button desktop', () => {
+  it('It should not have Search Button desktop', () => {
     const { queryByTestId } = withTransitionsRender(
       <UseSiteProvider defaultState={siteInitialState}>
         <div data-testid="parent">
@@ -106,7 +106,7 @@ describe('Header Component', () => {
         </div>
       </UseSiteProvider>)
     const searchBtn = queryByTestId('search-icon-desktop')
-    expect(searchBtn).toBeInTheDocument()
+    expect(searchBtn).toBeNull()
 
   })
 })

@@ -17,6 +17,7 @@ export enum ISiteTypes {
   FETCH_MORE_COMMENTS = 'FETCH_MORE_COMMENTS',
 
   UPDATE_BREAKPOINT = 'UPDATE_BREAKPOINT',
+  TOGGLE_MOBILE_NAV = 'TOGGLE_MOBILE_NAV',
 }
 interface IOpenModal {
   type: ISiteTypes.MODAL_OPEN,
@@ -80,6 +81,10 @@ interface IUpdateBreakpoint{
   }
 }
 
+interface IToggleMobileNav{
+  type: ISiteTypes.TOGGLE_MOBILE_NAV
+}
+
 
 export type ISiteAction =
 | IOpenModal
@@ -92,6 +97,7 @@ export type ISiteAction =
 | IFetchMoreComments
 | IUpdateBreakpoint
 | ILogoutResourceUser
+| IToggleMobileNav
 
 
 export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): ISiteContextState => {
@@ -224,6 +230,19 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
       return{
         ...state,
         breakpoint: action.payload.breakpoint
+      }
+    }
+
+    case ISiteTypes.TOGGLE_MOBILE_NAV:{
+      return{
+        ...state,
+        nav: {
+          ...state.nav,
+          mobileNav:{
+            ...state.nav.mobileNav,
+            isOpen: !state.nav.mobileNav.isOpen
+          }
+        }
       }
     }
 

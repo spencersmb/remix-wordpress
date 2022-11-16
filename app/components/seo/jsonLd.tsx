@@ -14,21 +14,23 @@ interface IRootData {
   metadata: ISiteMetaDataMapped
   user: IUser
 }
-const JsonLd = () => {
-  let data = useLoaderData<IRootData>();
-  let matches = useMatches();
-  let location = useLocation();
+const JsonLd = ({ data, matches }: { data: any, matches: any }) => {
 
   if (!data) {
     return null
   }
+  // let matches = data.matches
+
 
   let { metadata } = data
-  let selectedMatch: undefined | ISelectedMatch = matches.find(match => match.data?.post || match.data?.page || match.data?.product)
+  let selectedMatch: undefined | ISelectedMatch = matches.find((match: any) => match.data?.post || match.data?.page || match.data?.product)
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
   let product: any = selectedMatch?.data?.product
   let videoObject: IVideoObject | null = null
+  let location = {
+    pathname: selectedMatch?.pathname || '/',
+  }
 
   let breadcrumbList = [
     {

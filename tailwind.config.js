@@ -160,6 +160,9 @@ module.exports = {
       }
     },
     extend:{
+      transformOrigin:{
+        'top-center': 'top center',
+      },
       minHeight: {
         'fullBot': 'calc(100vh - env(safe-area-inset-bottom))'
       },
@@ -188,7 +191,8 @@ module.exports = {
         'xs': '0px 4px 8px rgba(0, 0, 0, 0.1)',
         'xxl-teal': '27px 28px 43px 13px rgba(131, 176, 171, 0.24)',
         'xxl-red': '27px 28px 43px 13px rgba(176, 131, 131, 0.24)',
-        'xxl-grey': '27px 28px 43px 13px rgba(19, 15, 15, 0.34)'
+        'xxl-grey': '27px 28px 43px 13px rgba(19, 15, 15, 0.34)',
+        'cody-sm': '0 0.3px 0.4px hsla(0, 0%, 0%, 0.025),0 0.9px 1.5px hsla(0, 0%, 0%, 0.05),0 3.5px 6px hsla(0, 0%, 0%, 0.1);'
       },
       borderRadius: {
         '2.5xl': '1.25rem'

@@ -1,11 +1,11 @@
-import { Link } from '@remix-run/react'
-import { calcLength, motion, useReducedMotion } from 'framer-motion'
+import { Link, useTransition } from '@remix-run/react'
+import { AnimatePresence, calcLength, motion, useReducedMotion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { cssColors } from '@App/enums/colors'
 import { ShopPlatformEnum } from '@App/enums/products'
 import useSite from '@App/hooks/useSite'
 import useTopNav from '@App/hooks/useTopNav'
-import { classNames } from '@App/utils/appUtils'
+import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
 import EveryTuesdayLogo from '../svgs/everyTuesdayLogo'
 import HamburgerSvg from '../svgs/hamburger'
 import SearchSvg from '../svgs/searchSvg'
@@ -13,6 +13,7 @@ import { PrimaryNav } from './primaryNav'
 import { useSearch } from '@App/hooks/useSearch'
 import useSearchScrollFix from '@App/hooks/useSearch/useSearchScrollFix'
 import MasterLoginPopOver from './popOver/masterLogin'
+import MobileNav from './mobileNav'
 
 function whenAvailable(name: string, callback: any) {
   var interval = 10; // ms
@@ -41,14 +42,15 @@ interface Props {
  */
 function Header(props: Props) {
   const { alternateNav } = props
-  const { state: { metadata: { serverSettings }, commentsModal } } = useSite()
+  const { state: { breakpoint, nav: { mobileNav }, metadata: { serverSettings }, commentsModal }, toggleMobileNav } = useSite()
   const { openSearch, state: { isOpen } } = useSearch()
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()
   const { navRef } = useTopNav() // Nav slide in and out
   const [gumroadCartOpen, setGumroadCartOpen] = useState(false)
-
+  const breakPointWidth = breakpointConvertPX(breakpoint)
+  const transition = useTransition();
   // ON load listen to when gumroad cart is available and observe it for style changes
   useEffect(() => {
     // openSearch()
@@ -93,11 +95,19 @@ function Header(props: Props) {
 
   }, [])
 
+  useEffect(() => {
+    if (transition.state === 'loading' && mobileNav.isOpen) {
+      toggleMobileNav()
+    }
+  }, [transition, mobileNav.isOpen, toggleMobileNav])
+
   return (
     <header
+      id="header"
       ref={navRef}
       className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`)}>
-      <nav aria-label="Main navigation" className="grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl">
+
+      <div aria-label="Main navigation" className="z-2 grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl">
 
         {/* ET LOGO */}
         <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
@@ -106,14 +116,16 @@ function Header(props: Props) {
           </Link>
         </div>
 
-        {/* HAMBURGER / SEARCH ICON FOR MOBILE */}
+        {/* SEARCH ICON FOR MOBILE */}
         <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
           <div className="max-w-[20px]">
             <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
           </div>
         </div>
 
+        {/* HAMBURGER  */}
         <div data-testid="hamburger"
+          onClick={toggleMobileNav}
           className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
             ? 'mr-16'
             : '',
@@ -124,61 +136,72 @@ function Header(props: Props) {
         </div>
 
         {/* PRIMARY NAV */}
-        {alternateNav ? alternateNav : <PrimaryNav />}
+        {breakPointWidth >= 1024 &&
+          <>
+            {alternateNav ? alternateNav : <PrimaryNav />}
+          </>}
 
         {/* DESKTOP SEARCH AND COURSE LOGIN */}
-        <motion.div
-          animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
-          variants={gumroadVarients}
-          data-testid="desktop-col-3"
-          className={'hidden items-center justify-end laptop:flex'}>
+        {breakPointWidth >= 1024 &&
+          <motion.div
+            animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
+            variants={gumroadVarients}
+            data-testid="desktop-col-3"
+            className={'hidden items-center justify-end laptop:flex'}>
 
-          {/* COURSE LOGIN */}
-          {/* <div className="">
+            {/* COURSE LOGIN */}
+            {/* <div className="">
             <a className={'normal-link mr-2 underlined after:underlined-active hover:bg-grey-100 border-white border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300'} href="https://teachable.com">Course Login</a>
           </div> */}
 
-          <MasterLoginPopOver />
+            <MasterLoginPopOver />
 
-          {/* DESKTOP SEARCH ICON */}
-          <div
-            data-testid="search-icon-desktop"
-            onClick={openSearch}
-            className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
-            <div className="absolute text-gray-200 cursor-pointer dark:text-gray-600">
-              <svg width="56" height="56" >
-                <motion.circle
-                  stroke="var(--sage-600)"
-                  strokeWidth="2"
-                  fill="transparent"
-                  r="26"
-                  cx="28"
-                  cy="28"
-                  style={{ strokeDasharray, rotate: -90 }}
-                  initial={{ strokeDashoffset: circumference }}
-                  whileHover={'hover'}
-                  variants={{
-                    initial: { strokeDashoffset: circumference },
-                    hover: { strokeDashoffset: 0 },
-                    focus: { strokeDashoffset: 0 },
-                    active: { strokeDashoffset: 0 },
-                  }}
-                  transition={{
-                    damping: 0,
-                    ...(shouldReduceMotion ? { duration: 0 } : null),
-                  }}
-                />
-              </svg>
-            </div>
-            <div className="transition-colors border rounded-full cursor-pointer bg-sage-700 group-hover:bg-sage-500">
-              <div className="w-[20px] h-[20px] m-3">
-                <SearchSvg fill={'#ffffff'} />
+            {/* DESKTOP SEARCH ICON */}
+            <div
+              data-testid="search-icon-desktop"
+              onClick={openSearch}
+              className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
+              <div className="absolute text-gray-200 cursor-pointer dark:text-gray-600">
+                <svg width="56" height="56" >
+                  <motion.circle
+                    stroke="var(--sage-600)"
+                    strokeWidth="2"
+                    fill="transparent"
+                    r="26"
+                    cx="28"
+                    cy="28"
+                    style={{ strokeDasharray, rotate: -90 }}
+                    initial={{ strokeDashoffset: circumference }}
+                    whileHover={'hover'}
+                    variants={{
+                      initial: { strokeDashoffset: circumference },
+                      hover: { strokeDashoffset: 0 },
+                      focus: { strokeDashoffset: 0 },
+                      active: { strokeDashoffset: 0 },
+                    }}
+                    transition={{
+                      damping: 0,
+                      ...(shouldReduceMotion ? { duration: 0 } : null),
+                    }}
+                  />
+                </svg>
+              </div>
+              <div className="transition-colors border rounded-full cursor-pointer bg-sage-700 group-hover:bg-sage-500">
+                <div className="w-[20px] h-[20px] m-3">
+                  <SearchSvg fill={'#ffffff'} />
+                </div>
               </div>
             </div>
-          </div>
 
-        </motion.div>
-      </nav>
+          </motion.div>}
+      </div>
+
+      {/* MOBILE NAV */}
+      <AnimatePresence>
+        {/* {mobileNav.isOpen && <MobileNav />} */}
+        {mobileNav.isOpen && breakPointWidth < 1024 &&
+          <MobileNav openSearch={openSearch} />}
+      </AnimatePresence>
     </header>
   )
 }

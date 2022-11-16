@@ -31,6 +31,11 @@ export interface ISiteContextState {
     }
   },
   breakpoint: BreakpointEnums
+  nav: {
+    mobileNav: {
+      isOpen: boolean
+    }
+  }
 }
 
 interface ISiteContextType {
@@ -93,6 +98,11 @@ export const siteInitialState: ISiteContextState  = {
     }
   },
   breakpoint: BreakpointEnums.mobile,
+  nav: {
+    mobileNav: {
+      isOpen: false
+    }
+  }
 }
 // export const SiteContext = createContext<ISiteContextType>({
 //   state: siteInitialState,
@@ -202,7 +212,14 @@ const useSite = () => {
     })
   }
 
+  const toggleMobileNav = () => {
+     dispatch({
+      type: ISiteTypes.TOGGLE_MOBILE_NAV
+    })
+  }
+
   return {
+    toggleMobileNav,
     openModal,
     closeModal,
     resourecLibraryLogin,

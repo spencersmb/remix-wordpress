@@ -150,7 +150,7 @@ describe('Utils: Seo', () => {
     expect(metadata).toEqual(response)
   })
 
-  it('getHtmlMetadataTags() - Should create Product metadata', () => {
+  it.skip('getHtmlMetadataTags() - Should create Product metadata', () => {
     const content: IgetHtmlMetadataTags = {
       metadata: mockMetaData,
       product: mockPaidProduct,
@@ -192,7 +192,7 @@ describe('Utils: Seo', () => {
     expect(metadata).toEqual(response)
   })
 
-  it('getBasicPageMetaTags() - Should return default page meta tags', () => {
+  it.skip('getBasicPageMetaTags() - Should return default page meta tags', () => {
 
   })
 
