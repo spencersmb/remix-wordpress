@@ -26,6 +26,7 @@ import FeaturedBlogPosts from '@App/components/homePage/featuredBlogPosts'
 import AboutMeFeature from '@App/components/homePage/aboutMeFeature'
 import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
 import { ClientOnly } from "remix-utils";
+import HomeTemplate from '@App/components/pageTemplates/homeTemplate'
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
@@ -156,11 +157,6 @@ export let action: ActionFunction = async ({ request }): Promise<any | Response>
 
 }
 
-function TestModal() {
-  return (
-    <div>Template Modal</div>
-  )
-}
 // https://remix.run/guides/routing#index-routes
 interface LoaderData {
   courses: ICourse[]
@@ -168,140 +164,12 @@ interface LoaderData {
   posts: IPost[]
 }
 export default function Index() {
-  let data = useLoaderData<LoaderData>();
-  // let { courses, posts } = data
-  let posts = data.posts as IPost[]
-  let courses = data.courses
-  // console.log('index data', data);
-
-
-  const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
-    posts: data.posts,
-    pageInfo: {
-      ...data.pageInfo,
-      page: 1
-    }
-  })
-  const { openModal, closeModal } = useSite()
-
-  async function fetchGithubAction() {
-    const rep = await fetch('https://api.github.com/repos/spencersmb/remix-wordpress/actions/workflows/15956885/dispatches',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ',
-        },
-        body: JSON.stringify({
-          ref: "main"
-        })
-      })
-    console.log('rep', rep)
-  }
-
-  async function fetchGraphCDN() {
-    const rep1 = await fetch('https://admin.graphcdn.io/etheadless',
-      {
-        method: 'POST',
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          'Content-Type': 'application/json', // and specify the Content-Type
-          'graphcdn-token': 'e3091df5c5aa5bc2cf316875f0a01978513f2ac0cedbcd7ec895ec7aded5e12c',
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-          query: `mutation{
-            _purgeQuery(queries: [posts])
-          }`
-        })
-      })
-    console.log('rep', rep1)
-  }
-
-  async function checkCache() {
-    const rep2 = await fetch('https://etheadless.graphcdn.app',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // and specify the Content-Type
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-          query: `{posts{
-    edges{
-      node{
-        title
-      }
-    }
-  }}
-`
-        })
-      })
-    const body = await rep2.json()
-    console.log('rep', body)
-  }
-
-  async function fetchMore() {
-    loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-    const variables = {
-      after: state.pageInfo.endCursor
-    }
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query,
-          variables
-        })
-      })
-    const { data } = await body.json()
-    const filteredPosts = flattenAllPosts(data.posts) || []
-    addPostsAction({
-      pageInfo: {
-        page: state.pageInfo.page + 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: [
-        ...state.posts,
-        ...filteredPosts
-      ]
-    }
-    )
-  }
-
-  function open() {
-    openModal({ template: TestModal })
-  }
+  let data = useLoaderData<typeof loader>();
+  let { courses, posts } = data
 
   return (
     <Layout>
-      <div className='remix__page'>
-
-        <TransformSkillsHeader />
-
-        <ClientOnly fallback={<p>Loading...</p>}>
-          {() => <IpadVerticalAnimation />}
-        </ClientOnly>
-
-        <StartHere />
-
-        <FeatureCourses courses={courses} />
-
-        <LfmMiniCourse />
-
-        <ProcreateBrushes />
-
-        <FeaturedBlogPosts
-          posts={posts} />
-
-        <AboutMeFeature />
-
-      </div>
+      <HomeTemplate courses={courses} posts={posts} />
     </Layout>
   );
 }

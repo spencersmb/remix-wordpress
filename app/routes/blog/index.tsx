@@ -174,7 +174,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
     pageUrlParams: page && !cat ? parseInt(page, 10) : 1
   }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 };

@@ -43,7 +43,7 @@ describe('Utils: Seo', () => {
     }
     const metadata = getHtmlMetadataTags(content)
     const response = {
-    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'robots': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     title: mockMetaData.title,
     description: mockMetaData.description,
     canonical: "etheadless.local/",
@@ -78,7 +78,7 @@ describe('Utils: Seo', () => {
     }
     const metadata = getHtmlMetadataTags(content)
     const response = {
-    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'robots': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     title: mockPostDataComplete.seo.title,
     description: mockPostDataComplete.seo.metaDesc,
     canonical: `etheadless.local/${mockPostDataComplete.slug}`,
@@ -122,7 +122,7 @@ describe('Utils: Seo', () => {
     }
     const metadata = getHtmlMetadataTags(content)
     const response = {
-    'robots:': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'robots': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     title: mockPage.seo.title,
     description: mockPage.seo.metaDesc,
     canonical: `etheadless.local/${mockPage.slug}`,
@@ -192,10 +192,6 @@ describe('Utils: Seo', () => {
     expect(metadata).toEqual(response)
   })
 
-  it.skip('getBasicPageMetaTags() - Should return default page meta tags', () => {
-
-  })
-
   it('getBasicPageMetaTags() - Should return 404 title for metaTag with no Data', () => {
     const page = {
       title: 'Page Title',
@@ -220,8 +216,8 @@ describe('Utils: Seo', () => {
         }
       }
     
-    }, page)
-
+    }, page)()
+    
     expect(response.title)
     .toBe('404')
   })
@@ -244,7 +240,7 @@ describe('Utils: Seo', () => {
       params:{},
       parentsData:{}
     
-    }, page)
+    }, page)()
 
     expect(response.title)
     .toBe('404')
@@ -273,7 +269,7 @@ describe('Utils: Seo', () => {
         }
       }
     
-    }, page)
+    }, page)()
 
     expect(response.title)
     .toBe('Page Title - Every Tuesday')

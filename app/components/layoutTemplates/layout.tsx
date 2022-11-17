@@ -16,6 +16,7 @@ import CommentModal from '../modals/commentModal';
 import SearchModal from '../modals/searchModal';
 import Header from '../nav/header';
 import ContextLoader from './contextLoader';
+import GlobalEvents from './globalHooks';
 interface ILayoutProps {
   alternateNav?: ReactNode
   loadEcommerce?: boolean
@@ -23,41 +24,20 @@ interface ILayoutProps {
 }
 
 export default function Layout({ children, alternateNav, bgColor }: React.PropsWithChildren<{}> & ILayoutProps) {
-  const data = useMatchesLookup('/')
-  if (!data) {
-    throw new Error('No data found for route')
-  }
-  const { menus, metadata, user, searchData } = data
 
-  const value = {
-    ...siteInitialState,
-    menu: menus,
-    metadata, // merge from Server-side Metadata response from WP
-    user,
-  }
   return (
     <>
-      <UseSiteProvider defaultState={value}>
-        <UseSearchProvider defaultState={{
-          ...siteSearchState,
-          status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-          data: searchData,
-          // client,
-        }}>
-          <UseFetchPaginateProvider defaultState={fetchInitialState}>
-            <ContextLoader>
-              <Header alternateNav={alternateNav} />
-              <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content flex flex-col min-h-fullBot')}>
-                {children}
-              </main>
-              <FooterPrimary />
-              <BasicModal />
-              <CommentModal />
-              <SearchModal />
-            </ContextLoader>
-          </UseFetchPaginateProvider>
-        </UseSearchProvider>
-      </UseSiteProvider>
+      <ContextLoader>
+        <GlobalEvents />
+        <Header alternateNav={alternateNav} />
+        <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content flex flex-col min-h-fullBot')}>
+          {children}
+        </main>
+        <FooterPrimary />
+        <BasicModal />
+        <CommentModal />
+        <SearchModal />
+      </ContextLoader>
     </>
   );
 }
