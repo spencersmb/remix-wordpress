@@ -16,14 +16,6 @@ import { isEmpty } from 'lodash';
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
 
-// headers for the entire DOC when someone refreshes the page or types in the url directly
-// export const headers: HeadersFunction = ({ loaderHeaders }) => {
-//   return {
-//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
-//   }
-// }
-// export let meta = mdxPageMeta()
-
 export let loader: LoaderFunction = async ({ params, request }) => {
   const url = new URL(request.url)
   let wpAPI = await fetchAPI(getGraphQLString(query), {
@@ -47,66 +39,7 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   })
 };
 
-// https://remix.run/api/conventions#meta
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    location
-  })
-};
-// export let meta: MetaFunction = (metaData): any => {
-//   const { data, location, parentsData } = metaData
-//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
-//     return {
-//       title: '404',
-//       description: 'error: No metaData or Parents Data',
-//     }
-//   }
-//   const post = data.post
-//   const metadata = parentsData.root.metadata
-//   let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-//   const url = `${metadata.domain}${location.pathname}`
-
-//   return {
-//     'robots': googleFollow,
-//     canonical: url,
-//     'og:locale': 'en_US',
-//     'og:site_name': `${metadata.siteTitle}.com`,
-//     title: post.seo.title,
-//     description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
-//     'og:title': post.seo.title,
-//     'og:type': 'article',
-//     'og:description': post.seo.metaDesc,
-//     ...createOgArticle({
-//       publishedTime: post.seo.opengraphPublishedTime,
-//       modifiedTime: post.seo.opengraphPublishedTime,
-//       author: `${metadata.domain}${post.author.uri}`,
-//       tags: post.tags
-//     }),
-//     ...createOgImages({
-//       altText: post.featuredImage?.altText || 'defaultFeaturedImage.altText',
-//       url: post.featuredImage?.sourceUrl || 'defaultFeaturedImage.sourceUrl',
-//       width: '1920',
-//       height: '1080'
-//     }),
-
-//     'twitter:card': `@${metadata.social.twitter.username}`,
-//     'twitter:site': `@${metadata.social.twitter.username}`,
-//     'twitter:creator': 'summary_large_image',
-//     'twitter:label1': `Written by`,
-//     'twitter:data1': `Teela`,
-//     'twitter:label2': `Est. reading time`,
-//     'twitter:data2': `1 minute`,
-//   }
-// }
+export let meta = mdxPageMeta
 
 export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();

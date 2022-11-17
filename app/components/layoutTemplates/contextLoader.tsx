@@ -6,7 +6,6 @@ import { siteSearchState } from '@App/hooks/useSearch'
 import UseSearchProvider from '@App/hooks/useSearch/useSearchProvider'
 import { siteInitialState } from '@App/hooks/useSite'
 import UseSiteProvider from '@App/hooks/useSite/useSiteProvider'
-import useWindowResize from '@App/hooks/useWindowResize'
 
 interface Props {
   children: React.ReactNode

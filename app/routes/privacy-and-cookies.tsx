@@ -1,46 +1,25 @@
 import Breadcrumbs from '@App/components/blog/breadcrumbs';
 import Layout from '@App/components/layoutTemplates/layout'
-import { getBasicPageMetaTags } from '@App/utils/seo';
-import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { cacheControl } from '@App/lib/remix/loaders';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { mdxPageMeta } from '@App/utils/seo';
+import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Link } from '@remix-run/react';
 
-export let meta: MetaFunction = (metaData): any => {
-
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title: `Privacy Page`,
-    desc: `Full transparency about the privacy practices implemented here at Every-Tuesday.com`,
-    slug: `privacy-and-cookies`
-  })
-};
+const page = getStaticPageMeta({
+  title: `Privacy Page`,
+  desc: `Full transparency about the privacy practices implemented here at Every-Tuesday.com`,
+  slug: `privacy-and-cookies`,
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
-
-  const page = {
-    title: 'Privacy Page',
-    slug: 'privacy-and-cookies',
-    description: 'Full transparency about the privacy practices implemented here at Every-Tuesday.com',
-    seo: {
-      title: 'Privacy Page',
-      opengraphModifiedTime: '',
-      metaDesc: 'Full transparency about the privacy practices implemented here at Every-Tuesday.com'
+  return json({ page }, {
+    headers: {
+      ...cacheControl
     }
-  }
-  return json({ page }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  })
 };
 const PrivacyPage = () => {
   const breadcrumbLinks = [

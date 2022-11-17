@@ -17,66 +17,12 @@ import { getStaticPageMeta } from '@App/utils/pageUtils';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
-const page = {
+const page = getStaticPageMeta({
   title,
+  desc: description,
   slug: 'courses',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-const pageMeta = getStaticPageMeta({
-  title: page.title,
-  desc: page.description,
-  slug: page.slug,
 })
-// export let meta = mdxPageMeta({
-//   page: pageMeta
-// })
-export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title,
-  desc: page.description,
-  slug: page.slug,
-}))
-// export let meta: MetaFunction = (metaData): any => {
-//   const { data, location, parentsData } = metaData
-//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
-//     return {
-//       title: '404',
-//       description: 'error: No metaData or Parents Data',
-//     }
-//   }
-//   const metadata = parentsData.root.metadata
-//   let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-//   const url = `${metadata.domain}${location.pathname}`
-
-//   return {
-//     'robots': googleFollow,
-//     canonical: url,
-//     'og:locale': 'en_US',
-//     'og:site_name': `${metadata.siteTitle}.com`,
-//     'og:type': 'website',
-//     title: pageMeta.seo.title,
-//     description: pageMeta.seo.metaDesc,
-//     'og:title': pageMeta.seo.title,
-//     'og:description': pageMeta.seo.metaDesc,
-//     ...createOgImages({
-//       altText: pageMeta.featuredImage?.altText || 'defaultFeaturedImage.altText',
-//       url: pageMeta.featuredImage?.sourceUrl || 'defaultFeaturedImage.sourceUrl',
-//       width: '1920',
-//       height: '1080'
-//     }),
-//     'twitter:card': `@${metadata.social.twitter.username}`,
-//     'twitter:site': `@${metadata.social.twitter.username}`,
-//     'twitter:creator': 'summary_large_image',
-//     'twitter:label1': `Written by`,
-//     'twitter:data1': `Teela`,
-//     'twitter:label2': `Est. reading time`,
-//     'twitter:data2': `1 minute`,
-//   }
-// }
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

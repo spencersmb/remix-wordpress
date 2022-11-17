@@ -197,8 +197,7 @@ export default function App() {
       }
     });
   }, [])
-  // const searchInit = useSearchState()
-  // consoleHelper('searchInit', searchInit, 'root', { bg: consoleColors.orange, text: '#fff' })
+
   const value = {
     ...siteInitialState,
     menu: menus,
@@ -206,59 +205,23 @@ export default function App() {
     user,
   }
   return (
-    // <Provider store={store}>
-    // <UseCartProvider defaultState={defaultCart}>
-    <Document>
-      {/* <UseSiteProvider defaultState={value}>
-        <UseSearchProvider defaultState={{
-          ...siteSearchState,
-          status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-          data: searchData,
-          // client,
-        }}>
-          <UseFetchPaginateProvider defaultState={defaultState}>
-            <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}> */}
-      <Outlet />
-      {/* </UseMakersLibraryProvider>
-          </UseFetchPaginateProvider>
-        </UseSearchProvider>
-      </UseSiteProvider> */}
-    </Document>
 
-    // </UseCartProvider>
-    // </Provider>
+    <Document>
+
+      <Outlet />
+
+    </Document>
   );
 }
-
-// interface ISelectedMatch {
-//   pathname: string;
-//   params: import("react-router").Params<string>;
-//   data: RouteData;
-//   handle: any;
-// }
-
-
-// export let meta: MetaFunction = () => {
-//   return {
-//     title: `Home - Every Tuesday`
-//   }
-// }
 interface IDocument {
   children: React.ReactNode
   title?: string
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
-  // let location = useLocation();
-
-  // Dealy the animation so it doesn't show double scroll bars
-  // const { openAnimationDone } = useSearchScrollFix(isOpen)
 
   return (
-    <html
-      lang="en"
-    // className={classNames(isOpen || commentsModal.show ? 'animate-addPadding ' : '', "")}
-    >
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -266,12 +229,15 @@ export function Document({ children, title }: IDocument) {
         <meta name="application-name" content="Every-Tuesday" />
         <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
-        <Meta />
-        <Links />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
+        <Meta />
+        <Links />
+        <JsonLd data={data} />
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}

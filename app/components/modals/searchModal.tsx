@@ -30,7 +30,6 @@ const SearchModal = () => {
   const containerRef = useRef<null | HTMLDivElement>(null)
   const transition = useTransition();
   const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
-
   // set REFS on load
   useEffect(() => {
     htmlDomRef.current = document.querySelector('html')
