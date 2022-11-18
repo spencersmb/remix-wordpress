@@ -78,8 +78,8 @@ function MiniCourseStep(props: Props) {
           <div className={imageClassName}>
             <LazyImgix
               blur={false}
-              id={'mini-course-title-1'}
-              key={'mini-course-title-1'}
+              id={`${stepId}`}
+              key={`${stepId}`}
               image={stepImgDesktop.image}
               srcSet={`${stepImgDesktop.defaultSrc}`}
             />
@@ -90,8 +90,8 @@ function MiniCourseStep(props: Props) {
           <div className={imageClassName}>
             <LazyImgix
               blur={false}
-              id={'mini-course-title-1'}
-              key={'mini-course-title-1'}
+              id={`${stepId}-mobile`}
+              key={`${stepId}-mobile`}
               image={stepImgMobile.image}
               srcSet={`${stepImgMobile.defaultSrc}`}
             />
@@ -101,8 +101,8 @@ function MiniCourseStep(props: Props) {
         {isStep2 && <div className="miniCourse-vids__courseVideo--watercolor absolute z-2 top-[50px] right-[-150px] left-auto w-[300px] laptop:w-[600px] laptop:left-auto laptop:right-[-240px] laptop:top-[180px] laptop:rotate-[-15deg]">
           <LazyImgix
             blur={false}
-            id={'mini-course-title-1'}
-            key={'mini-course-title-1'}
+            id={`${stepId}-watercolor-image`}
+            key={`${stepId}-watercolor-image`}
             image={texture.image}
             srcSet={`${texture.defaultSrc}`}
           />

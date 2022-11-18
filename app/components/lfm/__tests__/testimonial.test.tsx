@@ -25,7 +25,7 @@ describe('LFM: Testimonial', () => {
   it('Should have profile pic', () => {
     const { getByTestId } = setup(defaultProps)
     const profilePic = getByTestId('lazy-load-image-@beckmccormick')
-    expect(profilePic).toHaveAttribute('src', defaultProps.testimonial.profileImg)
+    expect(profilePic).toHaveAttribute('src', `${defaultProps.testimonial.profileImg}?auto=format&w=150&fit=clip`)
   })
 
   it('Should have user name + instagramHandle', () => {
@@ -81,7 +81,7 @@ describe('LFM: Testimonial', () => {
   it('Should correct font bg texture', () => {
     const { getByTestId } = setup(defaultProps)
     const img = getByTestId(`lazy-load-image-${lfmTestimonialData.beckM.name.first}-texture`)
-    expect(img).toHaveAttribute('src', `${lfmImgRoot.aws}/textures/red-texture.png`)
+    expect(img).toHaveAttribute('src', `${lfmImgRoot.aws}/textures/red-texture.png?auto=format&w=500&fit=clip`)
   })
 
   it('Should correct font scribble texture', () => {

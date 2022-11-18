@@ -51,8 +51,11 @@ function Header(props: Props) {
   const [gumroadCartOpen, setGumroadCartOpen] = useState(false)
   const breakPointWidth = breakpointConvertPX(breakpoint)
   const transition = useTransition();
+  const html = useRef<HTMLHtmlElement | null>(null)
   // ON load listen to when gumroad cart is available and observe it for style changes
   useEffect(() => {
+    html.current = document.querySelector('html')
+
     // openSearch()
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutationRecord) {
@@ -96,6 +99,13 @@ function Header(props: Props) {
   }, [])
 
   useEffect(() => {
+
+    if (mobileNav.isOpen && html.current) {
+      html.current.style.overflow = 'hidden'
+    } else if (!mobileNav.isOpen && html.current) {
+      html.current.style.overflow = 'auto'
+    }
+
     if (transition.state === 'loading' && mobileNav.isOpen) {
       toggleMobileNav()
     }
@@ -107,101 +117,103 @@ function Header(props: Props) {
       ref={navRef}
       className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`)}>
 
-      <div aria-label="Main navigation" className="z-2 grid items-center w-full mx-5 my-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl">
+      <div className='flex flex-1 h-full'>
+        <div aria-label="Main navigation" className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
 
-        {/* ET LOGO */}
-        <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
-          <Link to="/" title="Every Tuesday" prefetch="intent" className="">
-            <EveryTuesdayLogo fill={`var(--sage-700)`} aria-label='Every Tuesday Logo' />
-          </Link>
-        </div>
-
-        {/* SEARCH ICON FOR MOBILE */}
-        <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
-          <div className="max-w-[20px]">
-            <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
+          {/* ET LOGO */}
+          <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
+            <Link to="/" title="Every Tuesday" prefetch="intent" className="">
+              <EveryTuesdayLogo fill={`var(--sage-700)`} aria-label='Every Tuesday Logo' />
+            </Link>
           </div>
-        </div>
 
-        {/* HAMBURGER  */}
-        <div data-testid="hamburger"
-          onClick={toggleMobileNav}
-          className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
-            ? 'mr-16'
-            : '',
-            'flex justify-center px-2 py-4 laptop:hidden')}>
-          <div className="max-w-[20px]">
-            <HamburgerSvg fill={`var(${cssColors.primaryPlum700})`} />
+          {/* SEARCH ICON FOR MOBILE */}
+          <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
+            <div className="max-w-[20px]">
+              <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
+            </div>
           </div>
-        </div>
 
-        {/* PRIMARY NAV */}
-        {breakPointWidth >= 1024 &&
-          <>
-            {alternateNav ? alternateNav : <PrimaryNav />}
-          </>}
+          {/* HAMBURGER  */}
+          <div data-testid="hamburger"
+            onClick={toggleMobileNav}
+            className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
+              ? 'mr-16'
+              : '',
+              'flex justify-center px-2 py-4 laptop:hidden')}>
+            <div className="max-w-[20px]">
+              <HamburgerSvg fill={`var(${cssColors.primaryPlum700})`} />
+            </div>
+          </div>
 
-        {/* DESKTOP SEARCH AND COURSE LOGIN */}
-        {breakPointWidth >= 1024 &&
-          <motion.div
-            animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
-            variants={gumroadVarients}
-            data-testid="desktop-col-3"
-            className={'hidden items-center justify-end laptop:flex'}>
+          {/* PRIMARY NAV */}
+          {breakPointWidth >= 1024 &&
+            <>
+              {alternateNav ? alternateNav : <PrimaryNav />}
+            </>}
 
-            {/* COURSE LOGIN */}
-            {/* <div className="">
+          {/* DESKTOP SEARCH AND COURSE LOGIN */}
+          {breakPointWidth >= 1024 &&
+            <motion.div
+              animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
+              variants={gumroadVarients}
+              data-testid="desktop-col-3"
+              className={'hidden items-center justify-end laptop:flex'}>
+
+              {/* COURSE LOGIN */}
+              {/* <div className="">
             <a className={'normal-link mr-2 underlined after:underlined-active hover:bg-grey-100 border-white border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300'} href="https://teachable.com">Course Login</a>
           </div> */}
 
-            <MasterLoginPopOver />
+              <MasterLoginPopOver />
 
-            {/* DESKTOP SEARCH ICON */}
-            <div
-              data-testid="search-icon-desktop"
-              onClick={openSearch}
-              className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
-              <div className="absolute text-gray-200 cursor-pointer dark:text-gray-600">
-                <svg width="56" height="56" >
-                  <motion.circle
-                    stroke="var(--sage-600)"
-                    strokeWidth="2"
-                    fill="transparent"
-                    r="26"
-                    cx="28"
-                    cy="28"
-                    style={{ strokeDasharray, rotate: -90 }}
-                    initial={{ strokeDashoffset: circumference }}
-                    whileHover={'hover'}
-                    variants={{
-                      initial: { strokeDashoffset: circumference },
-                      hover: { strokeDashoffset: 0 },
-                      focus: { strokeDashoffset: 0 },
-                      active: { strokeDashoffset: 0 },
-                    }}
-                    transition={{
-                      damping: 0,
-                      ...(shouldReduceMotion ? { duration: 0 } : null),
-                    }}
-                  />
-                </svg>
-              </div>
-              <div className="transition-colors border rounded-full cursor-pointer bg-sage-700 group-hover:bg-sage-500">
-                <div className="w-[20px] h-[20px] m-3">
-                  <SearchSvg fill={'#ffffff'} />
+              {/* DESKTOP SEARCH ICON */}
+              <div
+                data-testid="search-icon-desktop"
+                onClick={openSearch}
+                className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
+                <div className="absolute text-gray-200 cursor-pointer dark:text-gray-600">
+                  <svg width="56" height="56" >
+                    <motion.circle
+                      stroke="var(--sage-600)"
+                      strokeWidth="2"
+                      fill="transparent"
+                      r="26"
+                      cx="28"
+                      cy="28"
+                      style={{ strokeDasharray, rotate: -90 }}
+                      initial={{ strokeDashoffset: circumference }}
+                      whileHover={'hover'}
+                      variants={{
+                        initial: { strokeDashoffset: circumference },
+                        hover: { strokeDashoffset: 0 },
+                        focus: { strokeDashoffset: 0 },
+                        active: { strokeDashoffset: 0 },
+                      }}
+                      transition={{
+                        damping: 0,
+                        ...(shouldReduceMotion ? { duration: 0 } : null),
+                      }}
+                    />
+                  </svg>
+                </div>
+                <div className="transition-colors border rounded-full cursor-pointer bg-sage-700 group-hover:bg-sage-500">
+                  <div className="w-[20px] h-[20px] m-3">
+                    <SearchSvg fill={'#ffffff'} />
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </motion.div>}
+            </motion.div>}
+        </div>
+
+        {/* MOBILE NAV */}
+        <AnimatePresence>
+          {/* {mobileNav.isOpen && <MobileNav />} */}
+          {mobileNav.isOpen && breakPointWidth < 1024 &&
+            <MobileNav openSearch={openSearch} />}
+        </AnimatePresence>
       </div>
-
-      {/* MOBILE NAV */}
-      <AnimatePresence>
-        {/* {mobileNav.isOpen && <MobileNav />} */}
-        {mobileNav.isOpen && breakPointWidth < 1024 &&
-          <MobileNav openSearch={openSearch} />}
-      </AnimatePresence>
     </header>
   )
 }

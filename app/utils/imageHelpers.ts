@@ -6,6 +6,7 @@ export const imgixServerRoot = {
   textures: `https://et-website.imgix.net/et-website/textures`,
   defaultImages: `https://et-website.imgix.net/et-website/defaultImages`,
 }
+export const imgixDir = imgixServerRoot
 type IDefaultImage = {
   [id: string]: ImageLookupReturn
 }

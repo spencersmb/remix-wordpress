@@ -4,12 +4,16 @@ import { siteInitialState } from "@App/hooks/useSite"
 import { withTransitionsRender } from "@TestUtils/providerUtils"
 import Header from "../header"
 import UseSiteProvider from "@App/hooks/useSite/useSiteProvider"
+import { BreakpointEnums } from "@App/enums/breakpointEnums"
 
 describe('Header Component', () => {
 
   it('Should have SVG logo on home link', () => {
     const { getByTestId, queryByLabelText } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header />
@@ -26,7 +30,10 @@ describe('Header Component', () => {
 
   it('Mobile Search', () => {
     const { getByTestId } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header />
@@ -41,7 +48,10 @@ describe('Header Component', () => {
 
   it('Mobile Hamburger', () => {
     const { getByTestId } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header />
@@ -53,9 +63,12 @@ describe('Header Component', () => {
     expect(mobileHamburger).toHaveTextContent('Hamburger Nav')
   })
 
-  it('It should not show <Primary Nav />', () => {
+  it('It should show <Primary Nav />', () => {
     const { queryByLabelText } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header />
@@ -63,12 +76,15 @@ describe('Header Component', () => {
         </div>
       </UseSiteProvider>)
     const primaryNav = queryByLabelText('desktop navigation')
-    expect(primaryNav).toBeNull()
+    expect(primaryNav).toBeVisible()
   })
 
-  it('It should not show alternate Nav', () => {
+  it('It should show alternate Nav', () => {
     const { queryByText } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header alternateNav={<div>alternate nav</div>} />
@@ -77,7 +93,7 @@ describe('Header Component', () => {
       </UseSiteProvider>)
 
     const alternateNav = queryByText('alternate nav')
-    expect(alternateNav).toBeNull()
+    expect(alternateNav).toBeVisible()
   })
 
   // TODO: REDO TO REFLECT NEW LOGIN MASTER BUTTON
@@ -96,9 +112,12 @@ describe('Header Component', () => {
 
   })
 
-  it('It should not have Search Button desktop', () => {
+  it('It should have Search Button desktop', () => {
     const { queryByTestId } = withTransitionsRender(
-      <UseSiteProvider defaultState={siteInitialState}>
+      <UseSiteProvider defaultState={{
+        ...siteInitialState,
+        breakpoint: BreakpointEnums.desktop
+      }}>
         <div data-testid="parent">
           <UseSearchProvider defaultState={siteSearchState} >
             <Header />
@@ -106,7 +125,7 @@ describe('Header Component', () => {
         </div>
       </UseSiteProvider>)
     const searchBtn = queryByTestId('search-icon-desktop')
-    expect(searchBtn).toBeNull()
+    expect(searchBtn).toBeVisible()
 
   })
 })

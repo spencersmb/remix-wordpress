@@ -247,7 +247,7 @@ const ResourceLibraryLogin = () => {
                   initial={containerMotion.closed}
                   animate={containerMotion.open}
                   exit={containerMotion.closed}
-                  className="overflow-hidden text-red-800 bg-red-200 rounded-xl">
+                  className="mt-3 overflow-hidden text-red-800 bg-red-200 rounded-xl">
                   <div className="flex flex-row items-center justify-center p-3 ">
                     <div className="max-w-[24px] w-full mr-2">
                       <XCircleIcon fill={'#7F1D1D'} />
@@ -270,7 +270,7 @@ const ResourceLibraryLogin = () => {
                 <InputBase
                   label="Email"
                   labelCss="text-sm text-grey-600 font-semibold"
-                  className="mt-2 mb-5 bg-white ring ring-offset-0 ring-offset-cream ring-grey-300 hover:ring-blue-300 hover:ring-offset-4 focus:ring-blue-300 focus:ring-offset-4"
+                  className="mt-2 mb-5 bg-white ring ring-offset-0 ring-offset-cream-100 ring-grey-300 hover:ring-blue-300 hover:ring-offset-4 focus:ring-blue-300 focus:ring-offset-4"
                   invalid={Boolean(
                     actionData?.fieldErrors?.email
                   ) || undefined}
@@ -297,7 +297,7 @@ const ResourceLibraryLogin = () => {
                   loading={(transition.state !== 'idle' && !!inputVaue) || usedOldPassword}
                   loadingText={'Loading'}
                   text={'Sign In'}
-                  className="btn btn-primary btn-lg btn-primary-ring"
+                  className="btn btn-primary btn-lg btn-primary-ring ring-offset-cream-100"
                 />
 
               </Form>

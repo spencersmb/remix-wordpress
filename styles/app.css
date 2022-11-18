@@ -16,278 +16,283 @@
 .root,
 :root,
 #docs-root {
-  --slateGreen: #486e65;
-  --primary-plum-50: #f2ecec;
-  --primary-plum-100: #f0e3dc;
-  --primary-plum-200: #f0d6c7;
-  --primary-plum-300: #cda7a7;
-  --primary-plum-500: #845c5c;
-  --primary-plum-400: #976969;
-  --primary-plum-600: #5f3d3d;
-  --primary-plum-700: #4c3434;
-  --secondary-500: #c59743;
-  --sage-50: #f3f5f6;
-  --sage-100: #edf0f1;
-  --sage-200: #d0d8d9;
-  --sage-300: #b3c0c1;
-  --sage-400: #95a7aa;
-  --sage-500: #788f92;
-  --sage-600: #596c6e;
-  --sage-700: #475658;
-  --sage-800: #354142;
-  --navy-50: #f7f8fa;
-  --neutral-50: #fcfafb;
-  --neutral-400: #d0c9cd;
-  --neutral-500: #a1929a;
-  --neutral-600: #8f7d87;
-  --warning-700: #b45309;
-  --grey-400: #9da3af;
-  --grey-600: #4d5561;
-  --grey-700: #384050;
-  --grey-800: #212837;
-  --lfm-pink-200: #fae7e7;
-  --lfm-blue-700: #35546d;
-  --lfm-cinnamon-700: #934826;
-  --lfm-cinnamon-500: #c6694c;
-  --lfm-cinnamon-100: #ccc7c5;
-  --lfm-cinnamon-50: #696464;
-  --nav-top-sm: 68px;
-  --nav-top-lg: 76px;
+ --slateGreen: #486e65;
+ --primary-plum-50: #f2ecec;
+ --primary-plum-100: #f0e3dc;
+ --primary-plum-200: #f0d6c7;
+ --primary-plum-300: #cda7a7;
+ --primary-plum-500: #845c5c;
+ --primary-plum-400: #976969;
+ --primary-plum-600: #5f3d3d;
+ --primary-plum-700: #4c3434;
+ --secondary-500: #c59743;
+ --sage-50: #f3f5f6;
+ --sage-100: #edf0f1;
+ --sage-200: #d0d8d9;
+ --sage-300: #b3c0c1;
+ --sage-400: #95a7aa;
+ --sage-500: #788f92;
+ --sage-600: #596c6e;
+ --sage-700: #475658;
+ --sage-800: #354142;
+ --navy-50: #f7f8fa;
+ --neutral-50: #fcfafb;
+ --neutral-400: #d0c9cd;
+ --neutral-500: #a1929a;
+ --neutral-600: #8f7d87;
+ --warning-700: #b45309;
+ --grey-400: #9da3af;
+ --grey-600: #4d5561;
+ --grey-700: #384050;
+ --grey-800: #212837;
+ --lfm-pink-200: #fae7e7;
+ --lfm-blue-700: #35546d;
+ --lfm-cinnamon-700: #934826;
+ --lfm-cinnamon-500: #c6694c;
+ --lfm-cinnamon-100: #ccc7c5;
+ --lfm-cinnamon-50: #696464;
+ --nav-top-sm: 68px;
+ --nav-top-lg: 76px;
 }
 
 @font-face {
-  font-family: "Sentinel Book";
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/sentinel/Sentinel-Book.woff") format("woff");
-  src: url("/fonts/sentinel/Sentinel-Book.woff2") format("woff2");
+ font-family: "Sentinel Book";
+ font-display: swap;
+ font-style: normal;
+ font-weight: 400;
+ src: url("/fonts/sentinel/Sentinel-Book.woff") format("woff");
+ src: url("/fonts/sentinel/Sentinel-Book.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Sentinel SemiBold";
-  font-display: swap;
-  font-style: normal;
-  font-weight: 600;
-  src: url("/fonts/sentinel/Sentinel-Semibold.woff") format("woff");
-  src: url("/fonts/sentinel/Sentinel-Semibold.woff2") format("woff2");
+ font-family: "Sentinel SemiBold";
+ font-display: swap;
+ font-style: normal;
+ font-weight: 600;
+ src: url("/fonts/sentinel/Sentinel-Semibold.woff") format("woff");
+ src: url("/fonts/sentinel/Sentinel-Semibold.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Sentinel SemiBoldItal";
-  font-display: swap;
-  font-weight: 600;
-  src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff") format("woff");
-  src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
+ font-family: "Sentinel SemiBoldItal";
+ font-display: swap;
+ font-weight: 600;
+ src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff") format("woff");
+ src: url("/fonts/sentinel/Sentinel-SemiboldItal.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Bon Vivant";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
-  font-display: swap;
+ font-family: "Bon Vivant";
+ font-style: normal;
+ font-weight: 400;
+ src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
+ font-display: swap;
 }
 html {
 }
 a {
-  transition: all 0.3s;
+ transition: all 0.3s;
 }
 button {
-  &:focus {
-    outline: none;
-  }
+ &:focus {
+  outline: none;
+ }
 }
 @layer components {
-  /* .btn {
+ /* .btn {
     @apply no-underline text-primary-600 font-semibold px-6 py-4 rounded-lg hover:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center bg-secondary-400 hover:text-primary-600 hover:ring-secondary-400 hover:bg-secondary-400 ring-offset-neutral-50 active:ring-secondary-500 active:ring active:bg-secondary-500 active:scale-[.97];
   } */
 
-  /* .btn-small {
+ /* .btn-small {
     @apply py-2 px-4 flex-initial;
   } */
 
-  /* 
+ /* 
   NOT USED
   .btn-disabled-outline {
     @apply disabled:ring disabled:ring-neutral-500 disabled:hover:bg-neutral-500 disabled:hover:ring-neutral-500 transform disabled:bg-neutral-500;
   } */
 
-  /* .btn-primary {
+ /* .btn-primary {
     @apply bg-primary-400 text-white hover:text-white hover:bg-primary-500 hover:ring-primary-500 active:ring-primary-600 active:ring active:bg-primary-600;
   } */
 
-  .btn-sage-200 {
-    @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-sage-600 active:ring active:bg-sage-600;
-  }
+ .btn-sage-200 {
+  @apply bg-sage-200 text-white hover:text-white hover:bg-sage-200 hover:ring-sage-200 active:ring-sage-600 active:ring active:bg-sage-600;
+ }
 
-  .btn-sage-300 {
-    @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
-  }
+ .btn-sage-300 {
+  @apply bg-sage-300 text-sage-700 hover:text-sage-700 hover:bg-sage-300 hover:ring-sage-300 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
+ }
 
-  /* .btn-sage-600 {
+ /* .btn-sage-600 {
     @apply bg-sage-600 text-sage-50 hover:text-sage-50 hover:bg-sage-600 hover:ring-sage-600 active:ring-sage-700 active:ring active:bg-sage-700 active:text-sage-50;
   } */
 
-  .btn-disabled-sage-200 {
-    @apply disabled:hover:bg-sage-200 disabled:hover:ring-0 transform disabled:bg-sage-200 disabled:hover:ring-offset-0;
-  }
+ .btn-disabled-sage-200 {
+  @apply disabled:hover:bg-sage-200 disabled:hover:ring-0 transform disabled:bg-sage-200 disabled:hover:ring-offset-0;
+ }
 
-  .btn-teal {
-    @apply bg-teal-500 text-white hover:text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
-  }
+ .btn-teal {
+  @apply bg-teal-500 text-white hover:text-white hover:bg-teal-500 hover:ring-teal-500 active:ring-teal-600 active:ring active:bg-teal-600;
+ }
 
-  .btn-teal-300 {
-    @apply bg-success-300 text-success-800 hover:text-success-800 hover:bg-success-300 hover:ring-success-300 active:ring-success-500 active:ring active:bg-success-500 active:text-success-900;
-  }
-  .btn-primary-300 {
-    @apply bg-primary-300 text-primary-800 hover:text-primary-800 hover:bg-primary-300 hover:ring-primary-300 active:ring-primary-500 active:ring active:bg-primary-500 active:text-primary-900;
-  }
-  .btn-teal-400 {
-    @apply bg-success-400 text-white hover:text-white hover:bg-success-400 hover:ring-success-400 active:ring-success-600 active:ring active:bg-success-600;
-  }
-  .btn-teal-600 {
-    @apply bg-success-600 text-white hover:text-white hover:bg-success-600 hover:ring-success-600 active:ring-success-700 active:ring active:bg-success-700;
-  }
-  .btn-underlined {
-    @apply underline underline-offset-4 uppercase;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .btn-outlined {
-    @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
-  }
-  /* .btn-outline-sage-600 {
+ .btn-teal-300 {
+  @apply bg-success-300 text-success-800 hover:text-success-800 hover:bg-success-300 hover:ring-success-300 active:ring-success-500 active:ring active:bg-success-500 active:text-success-900;
+ }
+ .btn-primary-300 {
+  @apply bg-primary-300 text-primary-800 hover:text-primary-800 hover:bg-primary-300 hover:ring-primary-300 active:ring-primary-500 active:ring active:bg-primary-500 active:text-primary-900;
+ }
+ .btn-teal-400 {
+  @apply bg-success-400 text-white hover:text-white hover:bg-success-400 hover:ring-success-400 active:ring-success-600 active:ring active:bg-success-600;
+ }
+ .btn-teal-600 {
+  @apply bg-success-600 text-white hover:text-white hover:bg-success-600 hover:ring-success-600 active:ring-success-700 active:ring active:bg-success-700;
+ }
+ .btn-underlined {
+  @apply underline underline-offset-4 uppercase;
+  font-size: 14px;
+  font-weight: 500;
+ }
+ .btn-outlined {
+  @apply ring bg-transparent ring-primary-500 text-primary-500 hover:text-neutral-50 hover:bg-primary-500 active:ring-primary-600 active:ring active:bg-primary-600 active:text-neutral-50 disabled:text-neutral-50;
+ }
+ /* .btn-outline-sage-600 {
     @apply max-h-[56px] h-full mt-[3px] py-[.82rem] transition duration-300 bg-white text-sage-600 ring ring-sage-600 hover:ring-sage-700 active:ring-sage-700 hover:bg-sage-700 hover:text-white ring-offset-0 hover:ring-offset-4;
   } */
-  .btn-outlined-teal-600 {
-    @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50 focus:bg-success-600 focus:text-neutral-50 focus:ring-success-600 focus:ring;
-  }
-  .container {
-    padding: 0 15px;
-    margin: 0 auto;
-    position: relative;
-    @apply laptop:max-w-[1440px];
-  }
-  .svgChildHover-color svg {
-    fill: #000;
-  }
+ .btn-outlined-teal-600 {
+  @apply ring bg-transparent ring-success-600 text-success-600 hover:text-neutral-50 hover:bg-success-600 active:ring-success-700 active:ring active:bg-success-700 active:text-neutral-50 disabled:text-neutral-50 focus:bg-success-600 focus:text-neutral-50 focus:ring-success-600 focus:ring;
+ }
+ .container {
+  padding: 0 15px;
+  margin: 0 auto;
+  position: relative;
+  @apply laptop:max-w-[1440px];
+ }
+ .svgChildHover-color svg {
+  fill: #000;
+ }
 }
 
 @layer utilities {
-  .rest-link {
-    @apply text-primary-500 hover:text-primary-500;
-  }
-  .underlined-md:after {
-    bottom: -4px;
-  }
-  .border-3 {
-    border-width: 3px;
-  }
-  .input-basic {
-    @apply text-grey-700 bg-sage-100 outline-none border-0 py-4 px-5 rounded-lg w-full mb-4 ring-offset-white ring-offset-4 transform transition-all;
+ .rest-link {
+  @apply text-primary-500 hover:text-primary-500;
+ }
+ .underlined-md:after {
+  bottom: -4px;
+ }
+ .border-3 {
+  border-width: 3px;
+ }
+ .input-basic {
+  @apply text-grey-700 bg-sage-100 outline-none border-0 py-4 px-5 rounded-lg w-full mb-4 ring-offset-white ring-offset-4 transform transition-all;
 
-    &.input-basic-reverse {
-      @apply bg-white text-sage-700 ring-offset-sage-100;
-    }
+  &.input-basic-reverse {
+   @apply bg-white text-sage-700 ring-offset-sage-100;
   }
+ }
 
-  .input-success {
-    @apply ring !ring-sage-500;
+ .input-success {
+  @apply ring !ring-sage-500;
+ }
+
+ .input-error {
+  @apply ring !ring-red-500;
+ }
+
+ .textarea-basic {
+  @apply text-grey-600 bg-sage-100 outline-none border-0 py-4 px-5 rounded-lg w-full ring-offset-white ring-offset-4 hover:ring hover:ring-blue-300 transform transition-all;
+
+  &.textarea-basic-reverse {
+   @apply bg-white text-sage-700 ring-offset-sage-100;
   }
-
-  .input-error {
-    @apply ring !ring-red-500;
+ }
+ .embed-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  &:before {
+   display: block;
+   content: "";
+   padding-top: 56.25%;
   }
+ }
 
-  .textarea-basic {
-    @apply text-grey-600 bg-sage-100 outline-none border-0 py-4 px-5 rounded-lg w-full ring-offset-white ring-offset-4 hover:ring hover:ring-blue-300 transform transition-all;
+ .embed-responsive-item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 
-    &.textarea-basic-reverse {
-      @apply bg-white text-sage-700 ring-offset-sage-100;
-    }
+  & iframe {
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   border: 0;
   }
-  .embed-responsive {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-    &:before {
-      display: block;
-      content: "";
-      padding-top: 56.25%;
-    }
-  }
+ }
 
-  .embed-responsive-item {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+ .grid-container {
+  @apply grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto;
+ }
 
-    & iframe {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-  }
-
-  .grid-container {
-    @apply grid grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop grid-flow-row row-auto;
-  }
-
-  .grid-resource-header {
-    grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
-  }
+ .grid-resource-header {
+  grid-template-rows: 1fr minMax(80px, auto) auto auto auto;
+ }
 }
 
 .lazy-load-wrapper {
-  & span {
-    width: 100% !important;
-    height: auto !important;
-  }
+ & span {
+  width: 100% !important;
+  height: auto !important;
+ }
 }
 .lazy-load-image-background {
-  height: 100%;
-  width: 100%;
+ height: 100%;
+ width: 100%;
 }
 .lazy-load-wrapper-block {
-  & span {
-    display: block !important;
-  }
+ & span {
+  display: block !important;
+ }
 }
 
 .lazy-load-image-full {
-  & img {
-    width: 100%;
-    max-width: none;
-  }
+ & img {
+  width: 100%;
+  max-width: none;
+ }
 }
 .bold-hover-fix {
-  &:after {
-    content: attr(title);
-    display: block;
-    font-weight: bold;
-    color: transparent;
-    overflow: hidden;
-    visibility: hidden;
-    height: 0;
-    font-weight: 700;
-  }
+ &:after {
+  content: attr(title);
+  display: block;
+  font-weight: bold;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+  height: 0;
+  font-weight: 700;
+ }
 }
 
 .form-check-input:checked[type="radio"] {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-4 -4 8 8%22%3E%3Ccircle r=%222%22 fill=%22%23fff%22/%3E%3C/svg%3E");
+ background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-4 -4 8 8%22%3E%3Ccircle r=%222%22 fill=%22%23fff%22/%3E%3C/svg%3E");
 }
 
 .search_results .renderIfVisible {
-  display: flex;
+ display: flex;
+}
+
+.mobileNav-height {
+ overflow-y: auto;
+ max-height: calc(100vh - 68px);
 }

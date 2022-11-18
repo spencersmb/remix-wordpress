@@ -14,10 +14,12 @@ function useTopNav(){
         return
       }
       if (scrollTop > lastScrollTop && Math.sign(scrollTop) > 0 ) {
-        // remove class
-        if(header && header.children.length > 1){
+
+        // checkS if Mobile Nav is OPEN so you cant remove nav and mess up viewport
+        if(header && header.children[0].children.length > 1){
           return
         }
+        // remove class
         toggleClass(navbar, 'inView', false)
       }
       else {
