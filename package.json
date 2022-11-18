@@ -66,6 +66,7 @@
     "react-lite-youtube-embed": "^2.2.2",
     "react-render-if-visible": "^2.1.0",
     "react-sticky": "^6.0.3",
+    "remix": "^1.7.6",
     "remix-utils": "3.3.0",
     "rss": "^1.2.2",
     "run-p": "^0.0.0",
