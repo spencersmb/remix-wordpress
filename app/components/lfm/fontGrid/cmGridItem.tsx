@@ -1,4 +1,5 @@
 import LazyImgix from '@App/components/images/lazyImgix'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
 
 interface Props {
@@ -9,7 +10,13 @@ interface Props {
 function CmGridItem(props: Props) {
   const { gridItem, index } = props
   const url = `${lfmImgRoot.aws}/cm-grid/images`
-
+  const gridImg = createImgixSizes({
+    width: 706,
+    height: 471,
+    mobileSize: 400,
+    alt: gridItem.alt,
+    src: `${url}/${gridItem.img}`,
+  })
   return (
     <div
       className='cm-grid__item px-[7.5px] pb-4 flex-[0_1_50%] tablet:flex-[1_0_33.33333%] tablet:max-w-[25%]'>
@@ -20,12 +27,9 @@ function CmGridItem(props: Props) {
           href={gridItem.link} target='_blank' rel="noopener noreferrer">
           <LazyImgix
             id={`cmGrid-${index}`}
-            image={{
-              width: 706,
-              height: 471,
-              alt: gridItem.alt,
-              src: `${url}/${gridItem.img}`,
-            }} />
+            image={gridImg.image}
+            srcSet={`${gridImg.defaultSrc}`}
+          />
         </a>
       </div>
     </div>

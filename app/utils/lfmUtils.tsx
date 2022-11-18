@@ -1,4 +1,5 @@
 import { TestimonialTexutreEnum } from "@App/enums/lfm"
+import { createImgixSizes } from "./imageHelpers"
 
 export const lfmImgRoot = {
   aws: `https://et-courses.s3.amazonaws.com/lfm`,
@@ -49,13 +50,7 @@ export const miniCourseVideoData: MiniCoureVideoItem[] = [
 
 interface LfmTextureReturn {
   class: string,
-  image: {
-    width: number
-    height: number
-    alt: string
-    src: string
-    placeholder?: string
-  }
+  image: CreateImgixReturn
 }
 
 /**
@@ -66,64 +61,72 @@ interface LfmTextureReturn {
 export const getLfmTexture = (type: TestimonialTexutreEnum): LfmTextureReturn => {
   switch (type) {
     case TestimonialTexutreEnum.Red:
+
       return {
         class: 'red-texture',
-        image: {
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/red-texture.png`,
+          alt: 'Red Texture',
           width: 800,
           height: 819,
-          alt: 'Red Texture',
-        }
+          mobileSize: 500
+        })
       }
     case TestimonialTexutreEnum.Blue:
       return {
-        class: 'blue-texture',
-        image: {
+        class: 'red-texture',
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/blue-texture.png`,
+          alt: 'Blue Texture',
           width: 800,
           height: 819,
-          alt: 'Blue Texture',
-        }
+          mobileSize: 500
+        })
       }
+
     case TestimonialTexutreEnum.Orange:
       return {
         class: 'orange-texture',
-        image: {
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/orange-texture.png`,
+          alt: 'Orange Texture',
           width: 800,
           height: 819,
-          alt: 'Orange Texture',
-        }
+          mobileSize: 500
+        })
       }
     case TestimonialTexutreEnum.Purple:
       return {
         class: 'red-texture',
-        image: {
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/purple-texture.png`,
+          alt: 'Purple Texture',
           width: 800,
           height: 819,
-          alt: 'Purple Texture',
-        }
+          mobileSize: 500
+        })
       }
     case TestimonialTexutreEnum.Pink:
       return {
         class: 'orange-texture',
-        image: {
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/pink-texture.png`,
+          alt: 'Pink Texture',
           width: 800,
           height: 819,
-          alt: 'Pink Texture',
-        }
+          mobileSize: 500
+        })
       }
     default:
       return {
         class: 'default-texture',
-        image: {
+        image: createImgixSizes({
           src: `${lfmImgRoot.aws}/textures/watercolor-03.png`,
+          alt: 'Watercolor Texture',
           width: 800,
           height: 819,
-          alt: 'Watercolor Texture',
-        }
+          mobileSize: 500
+        })
       }
 
   }

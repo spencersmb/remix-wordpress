@@ -14,13 +14,11 @@ interface IRootData {
   metadata: ISiteMetaDataMapped
   user: IUser
 }
-const JsonLd = ({ data, matches }: { data: any, matches: any }) => {
-
+const JsonLd = ({ data }: { data: any }) => {
+  const matches = useMatches()
   if (!data) {
     return null
   }
-  // let matches = data.matches
-
 
   let { metadata } = data
   let selectedMatch: undefined | ISelectedMatch = matches.find((match: any) => match.data?.post || match.data?.page || match.data?.product)

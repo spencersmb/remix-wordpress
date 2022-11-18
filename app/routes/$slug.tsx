@@ -1,26 +1,20 @@
 import { fetchAPI } from '../utils/fetch.server'
 import { mapPostData } from '../utils/posts'
 import Layout from "@App/components/layoutTemplates/layout"
-import { getHtmlMetadataTags } from '../utils/seo'
+import { createOgArticle, createOgImages, getHtmlMetadataTags, mdxPageMeta } from '../utils/seo'
 import gql from 'graphql-tag';
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
 import BlogTemplate from '@App/components/blog/blogTemplate'
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useMatches } from '@remix-run/react'
 import { cacheControl } from '@App/lib/remix/loaders';
+import { isEmpty } from 'lodash';
 // @ts-nocheck
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
-
-// headers for the entire DOC when someone refreshes the page or types in the url directly
-// export const headers: HeadersFunction = ({ loaderHeaders }) => {
-//   return {
-//     "Cache-Control": "public, max-age=300, stale-while-revalidate"
-//   }
-// }
 
 export let loader: LoaderFunction = async ({ params, request }) => {
   const url = new URL(request.url)
@@ -45,25 +39,10 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   })
 };
 
-// https://remix.run/api/conventions#meta
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    location
-  })
-};
+export let meta = mdxPageMeta
 
 export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();
-
   return (
     <Layout>
       <BlogTemplate post={post} />

@@ -50,6 +50,7 @@ import { useEffect } from "react";
 import useSearchScrollFix from "./hooks/useSearch/useSearchScrollFix";
 import UseMakersLibraryProvider from "./hooks/useFreebies/useFreebiesPaginateProvider";
 import { tuesdayMakersInitialState } from "./hooks/useFreebies";
+import NotFoundTemplate from "./components/pageTemplates/404Template";
 // import a plugin
 
 /**
@@ -197,8 +198,7 @@ export default function App() {
       }
     });
   }, [])
-  // const searchInit = useSearchState()
-  // consoleHelper('searchInit', searchInit, 'root', { bg: consoleColors.orange, text: '#fff' })
+
   const value = {
     ...siteInitialState,
     menu: menus,
@@ -206,62 +206,23 @@ export default function App() {
     user,
   }
   return (
-    // <Provider store={store}>
-    // <UseCartProvider defaultState={defaultCart}>
-    <UseSiteProvider defaultState={value}>
-      <UseSearchProvider defaultState={{
-        ...siteSearchState,
-        status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-        data: searchData,
-        // client,
-      }}>
-        <UseFetchPaginateProvider defaultState={defaultState}>
-          <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
-            <Document>
-              <Outlet />
-            </Document>
-          </UseMakersLibraryProvider>
-        </UseFetchPaginateProvider>
-      </UseSearchProvider>
-    </UseSiteProvider>
-    // </UseCartProvider>
-    // </Provider>
+
+    <Document>
+
+      <Outlet />
+
+    </Document>
   );
 }
-
-// interface ISelectedMatch {
-//   pathname: string;
-//   params: import("react-router").Params<string>;
-//   data: RouteData;
-//   handle: any;
-// }
-
-
-// export let meta: MetaFunction = () => {
-//   return {
-//     title: `Home - Every Tuesday`
-//   }
-// }
 interface IDocument {
   children: React.ReactNode
   title?: string
 }
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
-  let matches = useMatches();
-  // let location = useLocation();
-  useWindowResize()
-  const { state: { isOpen } } = useSearch()
-  const { state: { commentsModal } } = useSite()
-
-  // Dealy the animation so it doesn't show double scroll bars
-  // const { openAnimationDone } = useSearchScrollFix(isOpen)
 
   return (
-    <html
-      lang="en"
-      className={classNames(isOpen || commentsModal.show ? 'animate-addPadding ' : '', "")}
-    >
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -269,17 +230,18 @@ export function Document({ children, title }: IDocument) {
         <meta name="application-name" content="Every-Tuesday" />
         <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
         <Meta />
         <Links />
-        <JsonLd data={data} matches={matches} />
-
+        <JsonLd data={data} />
       </head>
       <body
-        className={classNames(isOpen ? 'overflow-y-hidden' : '', "selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden")}
+        className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
       >
         {/* <!-- Insert Your Facebook Pixel ID below. --> */}
         <noscript>
@@ -288,12 +250,7 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
-        {children}
-        {/* <RouteChangeAnnouncement /> */}
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Outlet />
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
@@ -302,23 +259,24 @@ export function Document({ children, title }: IDocument) {
               //   PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
               //   APP_ROOT_URL: 'http://localhost:3000'
               // }
-
             )}`
           }}
         />}
-        <BasicModal />
-        <CommentModal />
-        <SearchModal />
 
-        {/* FOOTER SCRIPTS */}
-        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+        <ScrollRestoration />
 
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );
 }
 export function CatchBoundary() {
   const caught = useCatch();
+  if (caught.status === 404) return (
+    <NotFoundTemplate />
+  )
   return (
     <html>
       <head>
@@ -330,6 +288,7 @@ export function CatchBoundary() {
         <h1>
           {caught.status} {caught.statusText}
         </h1>
+        <p>404 Page using CatchBoundry</p>
         <Scripts />
       </body>
     </html>

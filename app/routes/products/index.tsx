@@ -4,7 +4,7 @@ import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo";
+import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import FeaturedProduct from "@App/components/products/featureProduct";
 import GumroadProductCard from "@App/components/products/gumroadProductCard";
 import { metaDataMatches } from "@App/hooks/remixHooks";
@@ -20,39 +20,14 @@ import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
 import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
 
-const page = {
+const page = getStaticPageMeta({
   title: 'Products',
+  desc: 'Every-Tuesday.com digital products for sale using the Procreate app.',
   slug: 'products',
-  description: 'Every-Tuesday.com digital products for sale using the Procreate app.',
-  seo: {
-    title: 'Products',
-    opengraphModifiedTime: '',
-    metaDesc: 'Every-Tuesday.com digital products for sale using the Procreate app.'
-  }
-}
-
-// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-//   title: page.title,
-//   desc: page.description,
-//   slug: page.slug,
-// }))
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || isEmpty(parentsData) || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page: data.page,
-    location
-  })
-}
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
@@ -81,7 +56,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   const { metadata } = metaDataMatches()
-  consoleHelper('data', data, '/routes/products/index.tsx');
+  // consoleHelper('data', data, '/routes/products/index.tsx');
   // const { fontLoadingState, setFontClickHandler } = useFonts()
   // const { state } = useSite()
 

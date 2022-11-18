@@ -4,9 +4,10 @@ import SocialLinksList1 from "@App/components/social/socialLinksList1";
 import { cacheControl } from "@App/lib/remix/loaders";
 import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { mdxPageMeta } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
-import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import gql from "graphql-tag";
 
@@ -25,44 +26,15 @@ interface FieldErrors {
   body: string | undefined
 }
 
-const description = `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`;
-const title = 'Contact Teela'
-const pageInfo = {
-  title,
-  slug: 'contact',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-
-export let meta: MetaFunction = (metaData): any => {
-
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title,
-    desc: description,
-    slug: pageInfo.slug
-  })
-};
+const page = getStaticPageMeta({
+  title: `Contact Teela`,
+  desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+  slug: `design`,
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo }, { headers: { ...cacheControl } })
+  return json({ page }, { headers: { ...cacheControl } })
 };
 
 export let action: ActionFunction = async ({ request }): Promise<ContactActionData | Response> => {

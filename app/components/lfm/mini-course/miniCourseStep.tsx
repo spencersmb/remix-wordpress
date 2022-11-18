@@ -1,6 +1,7 @@
 import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
 import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
 
 interface Props {
@@ -42,6 +43,27 @@ function MiniCourseStep(props: Props) {
   }
 
   const stepId = formateID(stepModule.step)
+  const stepImgDesktop = createImgixSizes({
+    src: stepModule.image.desktop,
+    alt: stepModule.image.alt,
+    width: 1000,
+    height: 645,
+    mobileSize: 500
+  })
+  const stepImgMobile = createImgixSizes({
+    src: stepModule.image.mobile,
+    alt: stepModule.image.alt,
+    width: 280,
+    height: 181,
+    mobileSize: 200
+  })
+  const texture = createImgixSizes({
+    src: `${lfmImgRoot.aws}/textures/watercolor-03.png`,
+    width: 800,
+    height: 819,
+    alt: 'Watercolor Texture',
+    mobileSize: 400
+  })
 
   return (
     <div
@@ -56,15 +78,10 @@ function MiniCourseStep(props: Props) {
           <div className={imageClassName}>
             <LazyImgix
               blur={false}
-              id={`${stepId}`}
-              image={
-                {
-                  src: stepModule.image.desktop,
-                  alt: stepModule.image.alt,
-                  width: 1000,
-                  height: 645,
-                }
-              }
+              id={'mini-course-title-1'}
+              key={'mini-course-title-1'}
+              image={stepImgDesktop.image}
+              srcSet={`${stepImgDesktop.defaultSrc}`}
             />
           </div>
         }
@@ -73,15 +90,10 @@ function MiniCourseStep(props: Props) {
           <div className={imageClassName}>
             <LazyImgix
               blur={false}
-              id={`${stepId}-mobile`}
-              image={
-                {
-                  src: stepModule.image.mobile,
-                  alt: stepModule.image.alt,
-                  width: 280,
-                  height: 181,
-                }
-              }
+              id={'mini-course-title-1'}
+              key={'mini-course-title-1'}
+              image={stepImgMobile.image}
+              srcSet={`${stepImgMobile.defaultSrc}`}
             />
           </div>
         }
@@ -89,13 +101,10 @@ function MiniCourseStep(props: Props) {
         {isStep2 && <div className="miniCourse-vids__courseVideo--watercolor absolute z-2 top-[50px] right-[-150px] left-auto w-[300px] laptop:w-[600px] laptop:left-auto laptop:right-[-240px] laptop:top-[180px] laptop:rotate-[-15deg]">
           <LazyImgix
             blur={false}
-            id={`${stepId}-watercolor-image`}
-            image={{
-              src: `${lfmImgRoot.aws}/textures/watercolor-03.png`,
-              width: 800,
-              height: 819,
-              alt: 'Watercolor Texture',
-            }}
+            id={'mini-course-title-1'}
+            key={'mini-course-title-1'}
+            image={texture.image}
+            srcSet={`${texture.defaultSrc}`}
           />
         </div>}
 

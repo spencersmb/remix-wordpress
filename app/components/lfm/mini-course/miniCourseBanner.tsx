@@ -3,6 +3,7 @@ import LfmMiniCourseSignUpFormFooter from '@App/components/forms/lfm/miniCourseS
 import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
 import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
@@ -19,12 +20,13 @@ interface Props {
 // TODO: REDO IMAGES WITH IMGIX AND REMOVE THE USE IN VIEW OPTION
 function MiniCourseBanner(props: Props) {
   const { children, showForm } = props
-  const miniCourseTextImg = {
+  const miniCourseTextImg = createImgixSizes({
     src: `${lfmImgRoot.aws}/mini-course/mini-course-title--desktop.png`,
+    alt: 'Mini Course Title',
     width: 950,
     height: 446,
-    alt: 'Mini Course Title',
-  }
+    mobileSize: 500
+  })
 
   const [ref, inView] = useInView()
   const [loaded, setLoaded] = useState(false)
@@ -95,7 +97,10 @@ function MiniCourseBanner(props: Props) {
             {/* WEIRD ISSUE WITH TESTING AND THIS IMAGE NOT WORKING */}
             {process.env.NODE_ENV !== 'test' && <LazyImgix
               id={'mini-course-title-1'}
-              image={miniCourseTextImg}
+              key={'mini-course-title-1'}
+              image={miniCourseTextImg.image}
+              sizes={"(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px"}
+              srcSet={`${miniCourseTextImg.defaultSrc}&w=600&fit=clip&auto=compress 1024w`}
             />}
           </span>
         </h2>

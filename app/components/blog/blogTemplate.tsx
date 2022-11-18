@@ -137,6 +137,7 @@ function BlogTemplate(props: IProps) {
     src: staticImages.profiles.teela.square.src,
     mobileSize: 200
   })
+
   return (
 
     <article className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>

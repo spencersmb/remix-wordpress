@@ -1,6 +1,7 @@
 import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
 import { breakpointConvertPX } from '@App/utils/appUtils'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
 import { motion } from 'framer-motion'
 import React, { useRef } from 'react'
@@ -46,6 +47,21 @@ function CmGrid(props: Props) {
     }
   };
 
+  const hearts = createImgixSizes({
+    width: 400,
+    height: 283,
+    mobileSize: 200,
+    alt: 'Every-Tuesday hand drawn hearts',
+    src: `${lfmImgRoot.aws}/hearts.png`,
+  })
+  const alphabet = createImgixSizes({
+    width: 1461,
+    height: 833,
+    mobileSize: 500,
+    alt: 'Every Tuesday custom hand lettered alphabet font',
+    src: `${lfmImgRoot.aws}/sketch-alphabet-notes.jpeg`,
+  })
+
   return (
     <div ref={gridRef} className='et-grid-basic relative grid-rows-[auto_auto_auto] gap-y-0'>
 
@@ -64,12 +80,8 @@ function CmGrid(props: Props) {
           <div className="lfm-cmGrid__hearts absolute top-[-100px]  left-0 w-[188px]">
             <LazyImgix
               id={'cmGrid-hearts'}
-              image={{
-                width: 400,
-                height: 283,
-                alt: 'Every-Tuesday hand drawn hearts',
-                src: `${lfmImgRoot.aws}/hearts.png`,
-              }}
+              image={hearts.image}
+              srcSet={hearts.defaultSrc}
             />
           </div>
         }
@@ -109,12 +121,8 @@ function CmGrid(props: Props) {
         <div className="lfm-cmGrid__alphabet z-1 opacity-80 top-[140px] row-start-1 row-span-3 col-start-11 right-0 w-[800px] relative block">
           <LazyImgix
             id={'cmGrid-alphabet'}
-            image={{
-              width: 1461,
-              height: 833,
-              alt: 'Every Tuesday custom hand lettered alphabet font',
-              src: `${lfmImgRoot.aws}/sketch-alphabet-notes.jpeg`,
-            }}
+            image={alphabet.image}
+            srcSet={alphabet.defaultSrc}
           />
         </div>}
     </div>

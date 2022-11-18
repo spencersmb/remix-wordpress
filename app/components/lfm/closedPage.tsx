@@ -13,6 +13,7 @@ import MiniCourseHeader from "./mini-course/miniCourseHeader"
 import MiniCourseStep from "./mini-course/miniCourseStep"
 import LfmTestimonial from "./testimonial"
 import useSite from "@App/hooks/useSite"
+import { createImgixSizes } from "@App/utils/imageHelpers"
 
 interface Props {
   date: string
@@ -30,12 +31,13 @@ function LfmClosedPage(props: Props) {
   const assets = fontAssetsFile // have this line in the file to make sure the fonts are loaded
   const { fontLoadingState } = useFonts('skinny')
 
-  const getStartedImg = {
+  const getStartedImg = createImgixSizes({
     src: `${lfmImgRoot.aws}/mini-course/get-started.png`,
     width: 704,
     height: 240,
+    mobileSize: 500,
     alt: 'Get Started with the free font course today!',
-  }
+  })
 
   const step1 = {
     step: 'Video 1',
@@ -120,7 +122,8 @@ function LfmClosedPage(props: Props) {
                   <LazyImgix
                     id={'get-started-img'}
                     blur={false}
-                    image={getStartedImg}
+                    image={getStartedImg.image}
+                    srcSet={getStartedImg.defaultSrc}
                   />
                 </div>
                 <p className="mb-8 text-xl text-center">

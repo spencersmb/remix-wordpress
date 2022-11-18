@@ -1,9 +1,12 @@
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import FooterPrimary from "@App/components/footer/FooterPrimary";
-import ResourceLibraryNav from "@App/components/resourceLibrary/resourceNav";
 import Header from "@App/components/nav/header";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import ContextLoader from "@App/components/layoutTemplates/contextLoader";
+import GlobalEvents from "@App/components/layoutTemplates/globalHooks";
+import BasicModal from "@App/components/modals/BasicModal";
+import SearchModal from "@App/components/modals/searchModal";
 
 export let loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -16,9 +19,14 @@ const TuesdayMakers = (props: any) => {
 
   return (
     <>
-      <Header />
-      <Outlet />
-      <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
+      <ContextLoader>
+        <GlobalEvents />
+        <Header />
+        <Outlet />
+        <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
+        <BasicModal />
+        <SearchModal />
+      </ContextLoader>
     </>
   )
 }

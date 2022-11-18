@@ -7,12 +7,10 @@ import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
 import { ckSignUpCookie } from '@App/cookies.server'
 import { getCKFormId } from '@App/utils/resourceLibraryUtils';
+import { mdxPageMeta } from '@App/utils/seo';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
 
-/**
- * API END POINT 
- * CONVERITK SIGNUP AND SET SIGNUP COOKIE
- * 
- */
+
 export let action: ActionFunction = async ({ request, params }) => {
   const customHeaders = new Headers()
   let form = await request.formData();

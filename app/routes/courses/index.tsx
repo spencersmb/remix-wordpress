@@ -9,44 +9,20 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
-import { getBasicPageMetaTags, getHtmlMetadataTags } from "@App/utils/seo"
+import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
-const pageMetaData = {
+const page = getStaticPageMeta({
   title,
+  desc: description,
   slug: 'courses',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-// export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-//   title,
-//   desc: pageMetaData.description,
-//   slug: pageMetaData.slug,
-// }))
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || isEmpty(parentsData) || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page: data.page,
-    location
-  })
-}
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
@@ -59,12 +35,8 @@ export let loader: LoaderFunction = async ({ request, }) => {
     )
 
     return json({
-      page: pageMetaData,
+      page,
       courses: flattenAllCourses(data.courses),
-    }, {
-      headers: {
-        ...cacheControl
-      }
     })
   } catch (e) {
     console.error('error', e)
@@ -79,7 +51,7 @@ const Courses = () => {
 
   const data = useLoaderData<ILoaderData>()
   // const test = useSimpleTabs()
-  consoleHelper('data', data, 'routes/courses/index.tsx');
+  // consoleHelper('data', data, 'routes/courses/index.tsx');
 
   return (
     <Layout>

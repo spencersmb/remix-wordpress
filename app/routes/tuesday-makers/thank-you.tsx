@@ -5,47 +5,21 @@ import { ckSignUpCookie } from "@App/cookies.server";
 import { findCookie } from "@App/utils/loaderHelpers";
 import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import Layout from "@App/components/layoutTemplates/layout";
 import ThankyouSuccessMessage from "@App/components/resourceLibrary/thankyou-success-message";
 import ThankyouErrorMessage from "@App/components/resourceLibrary/thankyou-error-message";
+import { getStaticPageMeta } from "@App/utils/pageUtils";
 
-export let meta: MetaFunction = (metaData): any => {
-
-  /*
-  rootData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title: `Tuesday Makers: Thank You Page`,
-    desc: `Thank you for signing up for Tuesday Makers!`,
-    slug: `tuesday-makers/thank-you`
-  })
-};
+const page = getStaticPageMeta({
+  title: 'Tuesday Makers: Thank You for Signing Up',
+  slug: 'tuesday-makers/thank-you',
+  desc: 'Thank you for signing up for Tuesday Makers!',
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
   const customHeaders = new Headers()
-
-  const page = {
-    title: 'Tuesday Makers: Thank You for Signing Up',
-    slug: 'tuesday-makers/thank-you',
-    description: 'Thank you for signing up for Tuesday Makers!',
-    seo: {
-      title: 'Tuesday Makers: Thank You for Signing Up',
-      opengraphModifiedTime: '',
-      metaDesc: 'Thank you for signing up for Tuesday Makers!'
-    }
-  }
 
   // check for Signup Cookie
   //If not found return error {msg: , status}

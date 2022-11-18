@@ -28,7 +28,7 @@ function createNewProductsArray(products: IProduct[]) {
 
 const ProductLayout = ({ products, metadata }: IProps) => {
   const { productsArray, featuredProduct } = createNewProductsArray(products)
-  const { fontPreviewState } = useFontPreview()
+  // const { fontPreviewState } = useFontPreview()
   const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
 
   return (
@@ -87,9 +87,9 @@ const ProductLayout = ({ products, metadata }: IProps) => {
           })
         } */}
 
-      {fontPreviewState.previewerOpen && <div>
+      {/* {fontPreviewState.previewerOpen && <div>
         Preview Page
-      </div>}
+      </div>} */}
 
     </div>
   );
