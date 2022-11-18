@@ -1,5 +1,4 @@
 import * as React from "react";
-import Fuse from 'fuse.js';
 import {
   Link,
   Links,
@@ -10,48 +9,27 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-  useLocation,
-  useMatches,
   useTransition
 } from "@remix-run/react";
-import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import deleteMeRemixStyles from "@App/styles/demos/remix.css";
 import globalStylesUrl from "@App/styles/global-old.css";
 import darkStylesUrl from "@App/styles/dark.css";
-import useSite, { siteInitialState } from './hooks/useSite'
+import { siteInitialState } from './hooks/useSite'
 import { createSiteMetaData, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
-import UseSiteProvider from './hooks/useSite/useSiteProvider'
-import UseFetchPaginateProvider from './hooks/useFetchPagination/useFetchPaginateProvider'
 import { getResourceUser } from './utils/resourceLibrarySession.server'
 import { consoleColors, consoleHelper } from './utils/windowUtils'
-import BasicModal from './components/modals/BasicModal'
 import { commitSession, getSession } from '@App/sessions.server'
-import CommentModal from "./components/modals/commentModal";
-import { createCart, getUserCart } from "./utils/cartUtils";
-import { shopifyCartCookie } from "./cookies.server";
-import { fetchInitialState } from "./hooks/useFetchPagination";
 import JsonLd from "./components/seo/jsonLd";
-import { ShopPlatformEnum } from "./enums/products";
 import type { IRootData } from "./interfaces/global";
 import 'lazysizes';
-import useWindowResize from "./hooks/useWindowResize";
-import SearchModal from "./components/modals/searchModal";
-import UseSearchProvider from "./hooks/useSearch/useSearchProvider";
-import { siteSearchState, useSearch } from "./hooks/useSearch";
 import { getSearchData } from "./lib/search/searchApi";
-import { SEARCH_STATE_ENUMS } from "./enums/searchEnums";
-import { classNames } from "./utils/appUtils";
-import { useEffect } from "react";
-import useSearchScrollFix from "./hooks/useSearch/useSearchScrollFix";
-import UseMakersLibraryProvider from "./hooks/useFreebies/useFreebiesPaginateProvider";
-import { tuesdayMakersInitialState } from "./hooks/useFreebies";
 import NotFoundTemplate from "./components/pageTemplates/404Template";
-// import a plugin
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -170,9 +148,6 @@ export default function App() {
   //   ...cart,
   //   isOpen: false,
   // }
-
-
-  let defaultState = fetchInitialState
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
   let transition = useTransition();
