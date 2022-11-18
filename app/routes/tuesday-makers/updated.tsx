@@ -1,49 +1,20 @@
-import Layout from "@App/components/layoutTemplates/layout";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
-import { getBasicPageMetaTags } from "@App/utils/seo";
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { mdxPageMeta } from "@App/utils/seo";
+import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-const description = `Your preferences have been updated on Every-Tuesday.com`;
-const title = 'Preferences updated'
-const pageInfo = {
-  title,
+const page = getStaticPageMeta({
+  title: 'Preferences updated',
+  desc: `Your preferences have been updated on Every-Tuesday.com`,
   slug: 'tuesday-makers/updated',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-
-export let meta: MetaFunction = (metaData): any => {
-
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title,
-    desc: description,
-    slug: pageInfo.slug
-  })
-};
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page })
 };
 
 export default function Updated() {

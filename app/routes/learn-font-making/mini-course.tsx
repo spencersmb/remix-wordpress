@@ -17,12 +17,23 @@ import LazyImgix from '@App/components/images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
 import { breakpointConvertPX } from '@App/utils/appUtils';
 import useSite from '@App/hooks/useSite';
+import { mdxPageMeta } from '@App/utils/seo';
+import { getStaticPageMeta } from '@App/utils/pageUtils';
+import LfmMiniCourseTemplate from '@App/components/pageTemplates/lfm/lfmMiniCourseTemplate';
 
 export interface IlfmMiniCourseCookie {
   video1: boolean
   video2: boolean
   video3: boolean
 }
+
+const page = getStaticPageMeta({
+  title: 'Learn Font Making: Mini-Course',
+  desc: 'Watch the basics of hand lettered font making *and* selling in this 3 part free video series.',
+  slug: 'learn-font-making/mini-course',
+})
+export let meta = mdxPageMeta
+
 export let loader: LoaderFunction = async ({ request }) => {
   // TODO: GET COOKIE DATA FUNCTION
   // ADD IN TOP LEVEL
@@ -35,7 +46,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     }
   })
 
-  return json({ cookie, products: formatRawProduct(data.products?.edges) })
+  return json({ page, cookie, products: formatRawProduct(data.products?.edges) })
 }
 
 interface IDataType {
@@ -52,7 +63,6 @@ interface IDataType {
 
 function LfmMiniCourse(props: any) {
   const { cookie, products }: IDataType = useLoaderData()
-  const { state: { breakpoint } } = useSite()
   consoleHelper('minicourse home page', cookie)
   consoleHelper('minicourse products', products)
   const wistaScript2 = `https://fast.wistia.com/assets/external/E-v1.js`
@@ -66,33 +76,7 @@ function LfmMiniCourse(props: any) {
   return (
     <Layout>
 
-      <div className='bg-[#F7F6F7] flex flex-col'>
-
-        <div className='et-grid-basic'>
-
-          <div className='relative col-span-2 col-start-2 my-4 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 tablet:mt-8 tablet:pl-5 desktop:col-start-4 desktop:col-span-8'>
-            {breakpointConvertPX(breakpoint) >= 1024 &&
-              <div className='absolute top-[-170px] left-[-120px] w-full max-w-[120px]'>
-                <LazyImgix
-                  id={'scribble-5'} image={{
-                    width: staticImages.scribbles.scribble_5.width,
-                    height: staticImages.scribbles.scribble_5.height,
-                    alt: 'Learn Font Making: Free Mini Course',
-                    src: staticImages.scribbles.scribble_5.src,
-                    placeholder: staticImages.scribbles.scribble_5.placeholder
-                  }}
-                />
-              </div>}
-            <h1 className='font-semibold text-sage-600'>Learn Font Making</h1>
-            <h2 className='text-4xl font-sentinel__SemiBoldItal text-sage-800'>Mini Course</h2>
-          </div>
-        </div>
-
-        <LfmMiniCourseNavMobile {...cookie.data} />
-
-        <Outlet context={{ cookie: { ...cookie.data }, products }} />
-
-      </div>
+      <LfmMiniCourseTemplate cookie={cookie} products={products} />
 
     </Layout>
   )

@@ -1,4 +1,3 @@
-import BlogCategoryTabs from '@App/components/blog/blogHomeTabs/blogCategoryTabs'
 import BasicSubmitBtn from '@App/components/buttons/basicSubmitBtn'
 import GumroadBtn from '@App/components/buttons/gumroadBtn'
 import OutlinedButton from '@App/components/buttons/outlinedButton'
@@ -8,12 +7,23 @@ import InputBase from '@App/components/forms/input/inputBase'
 import Layout from '@App/components/layoutTemplates/layout'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
 import { classNames } from '@App/utils/appUtils'
+import { getStaticPageMeta } from '@App/utils/pageUtils'
+import { mdxPageMeta } from '@App/utils/seo'
+import { json } from '@remix-run/node'
 import { Link } from '@remix-run/react'
-import React from 'react'
 
-interface Props { }
+const page = getStaticPageMeta({
+  title: `Design`,
+  desc: `Graphic Design Tips, Tricks, Tutorials and Freebies`,
+  slug: `design`,
+})
+export let meta = mdxPageMeta
 
-function Design(props: Props) {
+export let loader = async () => {
+  return json({ page })
+}
+
+function Design(props: any) {
   const { } = props
 
   const mockClick = (cat: string) => () => {

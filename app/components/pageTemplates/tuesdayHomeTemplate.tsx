@@ -30,7 +30,6 @@ type MakersSignupActionData = {
   form?: string
 };
 function TuesdayHomeTemplate(props: Props) {
-  const { } = props
   const { openModal, closeModal } = useSite()
   const formRef: any = React.useRef()
   const transition = useTransition()

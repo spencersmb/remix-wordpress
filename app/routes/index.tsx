@@ -1,61 +1,25 @@
 
 import { flattenAllCourses, flattenAllPosts } from '../utils/posts'
-import { fetchAPI, fetchFontPreviewFileServer } from '../utils/fetch.server'
-import { getHtmlMetadataTags } from '../utils/seo'
-import { useContext, useEffect, useRef, useState } from 'react'
-import useFetchPaginate, { IFetchPaginationState } from '../hooks/useFetchPagination'
-import useSite from '../hooks/useSite'
+import { fetchAPI } from '../utils/fetch.server'
+import { mdxPageMeta } from '../utils/seo'
 import { validateEmail } from '@App/utils/validation'
 import { consoleHelper } from '@App/utils/windowUtils'
 import { ckFormIds } from '@App/lib/convertKit/formIds'
-import { getSession } from '@App/sessions.server'
-import { createCanvas, Image, registerFont } from "canvas";
-import tuesdayFont from '../server/fonts/tuesday/tuesdayscript-regular-webfont.ttf'
-// import { createAlphabetImages } from "@App/server/fonts/fontPreviewUtils";
 import Layout from "@App/components/layoutTemplates/layout";
-import type { ActionFunction, HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
-import TransformSkillsHeader from '@App/components/headers/transformSkillsHeader'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import gql from 'graphql-tag'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
-import StartHere from '@App/components/homePage/startHere'
-import FeatureCourses from '@App/components/homePage/featureCourses'
-import LfmMiniCourse from '@App/components/homePage/lfmMiniCourse'
-import ProcreateBrushes from '@App/components/homePage/procreateBrushes'
-import FeaturedBlogPosts from '@App/components/homePage/featuredBlogPosts'
-import AboutMeFeature from '@App/components/homePage/aboutMeFeature'
-import IpadVerticalAnimation from '@App/components/layout/ipadVerticalAnimation';
-import { ClientOnly } from "remix-utils";
 import HomeTemplate from '@App/components/pageTemplates/homeTemplate'
+import { getStaticPageMeta } from '@App/utils/pageUtils'
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
-  }
-}
-
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data'
-    }
-  }
-
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page: data.page,
-    location
-  })
-}
-
-type IndexData = {
-  resources: Array<{ name: string; url: string }>;
-  demos: Array<{ name: string; to: string }>;
-};
+const page = getStaticPageMeta({
+  title: `Home`,
+  desc: `Graphic Design Tips, Tricks, Tutorials and Freebies`,
+  slug: ``,
+})
+export let meta = mdxPageMeta
 
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next
@@ -105,11 +69,12 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 
   // https://remix.run/api/remix#json
-  return {
+  return json({
+    page,
     posts,
     courses,
     pageInfo,
-  }
+  })
 };
 
 export let action: ActionFunction = async ({ request }): Promise<any | Response> => {

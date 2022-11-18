@@ -7,32 +7,21 @@ import { cacheControl } from '@App/lib/remix/loaders'
 import { fetchAPI } from '@App/utils/fetch.server'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { createImgixSizes, defaultImages, loadImageSrc } from '@App/utils/imageHelpers'
-import { getBasicPageMetaTags } from '@App/utils/seo'
+import { getStaticPageMeta } from '@App/utils/pageUtils'
+import { getBasicPageMetaTags, mdxPageMeta } from '@App/utils/seo'
 import { consoleHelper } from '@App/utils/windowUtils'
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import gql from 'graphql-tag'
 import type { MutableRefObject } from 'react'
-// import animateScrollTo from 'animated-scroll-to';
 
-const description = 'Wonder what Teela Cunningham loves, paints with, uses, enjoys, recommends and subscribes to? Here\'s the Holy Grail of all things Teela! From amazing tech, business resources to social media solutions, courses, products, even online printing services! It\'s the home of all things Every Tuesday and it\'s about time you bookmark it!'
-const page = {
+const page = getStaticPageMeta({
   title: 'Things I love',
   slug: 'about/things-i-love',
-  description,
-  seo: {
-    title: 'Things I love',
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-
-export let meta: MetaFunction = (metaData): any => (getBasicPageMetaTags(metaData, {
-  title: page.title,
-  desc: page.description,
-  slug: page.slug,
-}))
+  desc: 'Wonder what Teela Cunningham loves, paints with, uses, enjoys, recommends and subscribes to? Here\'s the Holy Grail of all things Teela! From amazing tech, business resources to social media solutions, courses, products, even online printing services! It\'s the home of all things Every Tuesday and it\'s about time you bookmark it!'
+})
+export let meta = mdxPageMeta
 
 function mapThingsILoveData(data: ThingsILoveRawData[]) {
   return data.map((item) => {

@@ -6,7 +6,7 @@ import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllPosts } from "@App/utils/posts";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import { consoleHelper } from "@App/utils/windowUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
 import PostsGrid from "@App/components/blog/postsGrid";
@@ -15,26 +15,13 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { spinnerColors } from '@App/components/spinners/spinnerColors';
 import OutlinedButton from '@App/components/buttons/outlinedButton';
+import CategoryTemplate from '@App/components/pageTemplates/categoryTemplate';
 
-// headers for the entire DOC when someone refreshes the page or types in the url directly
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-  return {
-    "Cache-Control": "public, max-age=300, stale-while-revalidate"
-  }
-}
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  const category = capitalize(data.category)
-  return getBasicPageMetaTags(metaData, {
-    title: `${category} Archives`,
-    desc: `Every-Tuesday Category: ${category}`,
-    slug: `${data.category}`
-  })
-}
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   let variables = {
-    first: 10,
+    first: 12,
     after: null,
     catName: params.cat
   }
@@ -44,7 +31,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 
   if (pageParams) {
     variables = {
-      first: parseInt(pageParams, 10) * 10,
+      first: parseInt(pageParams, 10) * 12,
       after: null,
       catName: params.cat
     }
@@ -79,129 +66,23 @@ export let loader: LoaderFunction = async ({ request, params }) => {
   })
 };
 
-
+interface ILoaderData {
+  posts: IPost[],
+  pageInfo: {
+    endCursor: string
+    hasNextPage: boolean
+    hasPreviousPage: boolean
+  },
+  pageParams: number
+  category: string
+}
 export default function CategoryPage() {
-  let { posts, pageInfo, category, pageParams } = useLoaderData<{
-    posts: IPost[],
-    pageInfo: {
-      endCursor: string
-      hasNextPage: boolean
-      hasPreviousPage: boolean
-    },
-    pageParams: number
-    category: string
-  }>();
-  const { state, addCategoriAction, loadingPosts, clearCategory } = useFetchPaginate({
-    category: {
-      [category]: {
-        posts,
-        pageInfo: {
-          ...pageInfo,
-          page: pageParams
-        }
-      }
-    }
-  })
-  consoleHelper('cat posts', posts.length)
-  consoleHelper('cat pageInfo', pageInfo)
-  consoleHelper('cat state', state)
+  const data = useLoaderData<typeof loader>();
 
-  async function fetchMorePosts() {
-    loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-    const variables = {
-      first: 10,
-      after: state.categories[category].pageInfo.endCursor,
-      catName: category
-    }
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(query),
-          variables
-        })
-      })
-    const { data } = await body.json()
-
-    const filteredPosts = flattenAllPosts(data.posts) || []
-    let updatedPosts = []
-    if (!state.categories[category]) {
-      updatedPosts = [
-        ...posts,
-        ...filteredPosts
-      ]
-    } else {
-      updatedPosts = [
-        ...filteredPosts
-      ]
-    }
-    addCategoriAction({
-      category,
-      pageInfo: {
-        page: state.categories[category].pageInfo.page + 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: updatedPosts
-    }
-    )
-  }
-
-  // update page param in URL on pageChange
-  useEffect(() => {
-    if (state.categories[category].pageInfo.page === 1) {
-      return
-    }
-
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', state.categories[category].pageInfo.page.toString())
-
-    window.history.replaceState(
-      `page: ${state.categories[category].pageInfo.page}`,
-      'Title: ET',
-      url.href
-    );
-
-    // if page = 4 - means get the first 40 items
-  }, [state.categories[category].pageInfo.page])
-
-  // clear cat when leaving the page to always get most recent data
-  useEffect(() => {
-    return () => {
-      clearCategory()
-    }
-  }, [])
 
   return (
     <Layout>
-      <div className='grid grid-flow-row row-auto py-24 bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
-
-        {/* ARCHIVE TITLE */}
-        <div className='col-span-2 col-start-2 pb-16 mt-2 mb-8 text-center tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
-          <h2 className="flex flex-col text-display-2">
-            <span className="text-base font-normal text-primary-500">Category</span>
-            <span className="capitalize font-sentinel__SemiBoldItal">{category}</span>
-          </h2>
-        </div>
-
-        {state.categories[category] && <PostsGrid posts={state.categories[category].posts} />}
-
-        <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
-          {state.categories[category].pageInfo.hasNextPage &&
-            <OutlinedButton
-              spinnerColors={spinnerColors.sageOutline}
-              clickHandler={fetchMorePosts}
-              text='View More'
-              loadingText="Loading"
-              loading={state.loading}
-            />
-          }
-        </div>
-      </div>
+      <CategoryTemplate {...data} />
     </Layout>
   )
 }

@@ -1,4 +1,5 @@
 import { staticImages } from '@App/lib/imgix/data'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import React from 'react'
 import LazyImgix from '../images/lazyImgix'
 
@@ -12,6 +13,28 @@ interface Props { }
  */
 function MadeBy(props: Props) {
 
+  const brushes = createImgixSizes({
+    width: staticImages.assets.brushes.fan.width,
+    height: staticImages.assets.brushes.fan.height,
+    mobileSize: staticImages.assets.brushes.fan.width,
+    alt: 'Paint brushes by Teela from Every-Tuesday',
+    src: staticImages.assets.brushes.fan.src,
+  })
+  const orangeTexture = createImgixSizes({
+    width: 800,
+    height: 819,
+    mobileSize: 400,
+    alt: 'Every-Tuesday watercolor texture orange',
+    src: staticImages.textures.orangeWatercolor03.src,
+  })
+  const title = createImgixSizes({
+    width: 457,
+    height: 394,
+    mobileSize: 300,
+    alt: 'Made by Designers for Designers',
+    src: 'https://s3.amazonaws.com/et-courses/lfm/bydesingerfordesigners.png',
+  })
+
   return (
     <div className='py-10 lfmmc-about__container et-grid-basic tablet:py-20'>
       <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
@@ -23,25 +46,15 @@ function MadeBy(props: Props) {
               <div className='relative z-2'>
                 <LazyImgix
                   id={'madeByBrushes'}
-                  image={{
-                    width: staticImages.assets.brushes.fan.width,
-                    height: staticImages.assets.brushes.fan.height,
-                    alt: 'Paint brushes by Teela from Every-Tuesday',
-                    src: staticImages.assets.brushes.fan.src,
-                    placeholder: staticImages.assets.brushes.fan.placeholder,
-                  }}
+                  image={brushes.image}
+                  srcSet={`${brushes.defaultSrc}`}
                 />
               </div>
               <div className='watercolor z-1 absolute top-[-69px] left-[-140px] w-[390px]'>
                 <LazyImgix
                   id={'madeByOrangeTexture'}
-                  image={{
-                    width: 800,
-                    height: 819,
-                    alt: 'Every-Tuesday watercolor texture orange',
-                    src: staticImages.textures.orangeWatercolor03.src,
-                    placeholder: staticImages.textures.orangeWatercolor03.placeholder,
-                  }}
+                  image={orangeTexture.image}
+                  srcSet={`${orangeTexture.defaultSrc}`}
                 />
               </div>
             </div>
@@ -53,12 +66,8 @@ function MadeBy(props: Props) {
               <LazyImgix
                 id={'madeByTitle'}
                 blur={false}
-                image={{
-                  width: 457,
-                  height: 394,
-                  alt: 'Made by Designers for Designers',
-                  src: 'https://s3.amazonaws.com/et-courses/lfm/bydesingerfordesigners.png',
-                }}
+                image={title.image}
+                srcSet={`${title.defaultSrc}`}
               />
             </div>
             <p

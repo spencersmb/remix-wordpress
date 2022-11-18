@@ -1,25 +1,15 @@
-import { useEffect, useState } from "react";
-import useFetchPaginate from "@App/hooks/useFetchPagination";
+
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { flattenAllPosts } from "@App/utils/posts";
-import { createOgImages, getBasicPageMetaTags, getHtmlMetadataTags, mdxPageMeta } from "@App/utils/seo";
-import { consoleHelper } from "@App/utils/windowUtils";
-import BlogFeaturedPost from "@App/components/blog/blogFeaturedPost";
-import type { IPageInfo } from "@App/hooks/useFetchPagination/useFetchPaginationReducer";
+import { mdxPageMeta } from "@App/utils/seo";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
+import { POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
 import gql from 'graphql-tag';
-import BlogCategoryTabs from "@App/components/blog/blogHomeTabs/blogCategoryTabs";
-import { AnimatePresence, motion } from "framer-motion";
-import OutlinedButton from "@App/components/buttons/outlinedButton";
-import BlogPostGrid from "@App/components/blog/blogPostGrid";
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { HeadersFunction, json } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { cacheControl } from "@App/lib/remix/loaders";
-import { spinnerColors } from "@App/components/spinners/spinnerColors";
-import { isEmpty } from "lodash";
+
 import { getStaticPageMeta } from "@App/utils/pageUtils";
 import BlogMainIndex from "@App/components/blog/blogMain";
 
@@ -28,86 +18,12 @@ type IndexData = {
   demos: Array<{ name: string; to: string }>;
 };
 
-// headers for the entire DOC when someone refreshes the page or types in the url directly
-// export const headers: HeadersFunction = ({ loaderHeaders }) => {
-//   return {
-//     ...cacheControl
-//   }
-// }
-const description = `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`;
-const title = 'Blog'
-const pageMetaData = {
-  title,
+const page = getStaticPageMeta({
+  title: 'Blog',
   slug: 'blog',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-const pageMeta = getStaticPageMeta({
-  title: title,
-  desc: description,
-  slug: 'blog',
+  desc: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`
 })
-// export let meta = mdxPageMeta({
-//   page: pageMeta
-// })
-export let meta: MetaFunction = (metaData): any => {
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || isEmpty(parentsData) || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  return getHtmlMetadataTags({
-    metadata: parentsData.root.metadata,
-    post: data.post,
-    page: data.page,
-    location
-  })
-}
-// export let meta: MetaFunction = (metaData): any => {
-//   const { data, location, parentsData } = metaData
-//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
-//     return {
-//       title: '404',
-//       description: 'error: No metaData or Parents Data',
-//     }
-//   }
-//   const metadata = parentsData.root.metadata
-//   let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-//   const url = `${metadata.domain}${location.pathname}`
-
-//   return {
-//     'robots': googleFollow,
-//     canonical: url,
-//     'og:locale': 'en_US',
-//     'og:site_name': `${metadata.siteTitle}.com`,
-//     'og:type': 'website',
-//     title: pageMeta.seo.title,
-//     description: pageMeta.seo.metaDesc,
-//     'og:title': pageMeta.seo.title,
-//     'og:description': pageMeta.seo.metaDesc,
-//     ...createOgImages({
-//       altText: pageMeta.featuredImage?.altText || 'defaultFeaturedImage.altText',
-//       url: pageMeta.featuredImage?.sourceUrl || 'defaultFeaturedImage.sourceUrl',
-//       width: '1920',
-//       height: '1080'
-//     }),
-//     'twitter:card': `@${metadata.social.twitter.username}`,
-//     'twitter:site': `@${metadata.social.twitter.username}`,
-//     'twitter:creator': 'summary_large_image',
-//     'twitter:label1': `Written by`,
-//     'twitter:data1': `Teela`,
-//     'twitter:label2': `Est. reading time`,
-//     'twitter:data2': `1 minute`,
-//   }
-// }
-
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables: {
@@ -121,12 +37,12 @@ export let loader: LoaderFunction = async ({ request, }) => {
   // check URL for params to fetch the correct amount of items
   let url = new URL(request.url)
   let params = url.searchParams
-  let page = params.get('page')
+  let pageParam = params.get('page')
   let cat = params.get('cat')
 
-  if (page && !cat) {
+  if (pageParam && !cat) {
     variables = {
-      first: (parseInt(page, 10) * 12) + 1, // +1 is to account for the featured post
+      first: (parseInt(pageParam, 10) * 12) + 1, // +1 is to account for the featured post
       after: null,
     }
   }
@@ -138,9 +54,9 @@ export let loader: LoaderFunction = async ({ request, }) => {
       variables
     })
 
-    if (cat && page) {
+    if (cat && pageParam) {
       variables.catName = cat
-      variables.first = (parseInt(page, 10) * 12)
+      variables.first = (parseInt(pageParam, 10) * 12)
       wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
         variables
       })
@@ -158,7 +74,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
         posts: flattenAllPosts(wpCatAPI?.posts),
         pageInfo: {
           ...wpCatAPI?.posts.pageInfo,
-          page: page ? parseInt(page, 10) : 1,
+          page: pageParam ? parseInt(pageParam, 10) : 1,
         },
 
       }
@@ -167,15 +83,11 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
   // https://remix.run/api/remix#json
   return json({
-    page: pageMetaData,
+    page,
     posts,
     pageInfo,
     categories,
-    pageUrlParams: page && !cat ? parseInt(page, 10) : 1
-  }, {
-    headers: {
-      // ...cacheControl
-    }
+    pageUrlParams: pageParam && !cat ? parseInt(pageParam, 10) : 1
   })
 };
 

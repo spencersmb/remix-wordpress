@@ -1,5 +1,5 @@
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
-import { getBasicPageMetaTags, getHtmlMetadataTags } from '../../utils/seo'
+import { getBasicPageMetaTags, getHtmlMetadataTags, mdxPageMeta } from '../../utils/seo'
 import { fetchAPI, fetchAPIBatch } from '../../utils/fetch.server'
 import { GetAllFreebiesQuery, GetFirstFreebiesQuery, GetFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
@@ -30,29 +30,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 import CircleSpinner from '@App/components/spinners/circleSpinner'
 import { createImgixSizes } from '@App/utils/imageHelpers'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
+import { getStaticPageMeta } from '@App/utils/pageUtils'
 
-export let meta: MetaFunction = (metaData): any => {
 
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title: `Tuesday Makers: Members`,
-    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
-    slug: `tuesday-makers/members`,
-  })
-};
+const page = getStaticPageMeta({
+  title: `Tuesday Makers: Members`,
+  desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+  slug: `tuesday-makers/members`,
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   // get user, if no user redirect to login
@@ -109,6 +95,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
     const featuredFreebie = flattenResourceData(data[1].data.resourceLibraries)
 
     return json({
+      page,
       // filterTags: data.cptTags,
       freebies: flattenResourceData(data[0].data.resourceLibraries),
       pageInfo: {
@@ -125,8 +112,8 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
       },
     })
   } catch (e) {
-    console.error(`e in /tuesday-makers`, e)
-    return redirect('/tuesday-makers')
+    console.error(`e in /tuesday-makers/members`, e)
+    return redirect('/tuesday-makers/login')
   }
 }
 

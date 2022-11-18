@@ -464,33 +464,33 @@ function BlogTemplate(props: IProps) {
       />
 
       {/* CATEGORIES */}
-      {/* {post.categories.length > 0 &&
+      {post.categories.length > 0 &&
         <div className='col-span-2 col-start-2 mt-10 mb-8 tablet:col-start-3 tablet:col-span-10 desktop:mt-20 desktop:col-start-4 desktop:col-span-8'>
           <BlogCategories categories={post.categories} />
-        </div>} */}
+        </div>}
 
       {/* COMMENTS */}
-      {/* <div className='col-start-2 col-span-2 mb-8 pb-5 tablet:col-start-3 tablet:col-span-10 tablet:mb-8 desktop:col-start-4 desktop:col-span-8 tablet:border-b-[1px] tablet:border-b-neutral-300'>
+      <div className='col-start-2 col-span-2 mb-8 pb-5 tablet:col-start-3 tablet:col-span-10 tablet:mb-8 desktop:col-start-4 desktop:col-span-8 tablet:border-b-[1px] tablet:border-b-neutral-300'>
         <BlogComments post={post} />
-      </div> */}
+      </div>
 
       {/* AUTHOR */}
-      {/* <div className='col-span-2 col-start-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
+      <div className='col-span-2 col-start-2 tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8'>
         <BlogAuthor />
-      </div> */}
+      </div>
 
 
       {/* RELATED POSTS TITLE */}
-      {/* <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
+      <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12'>
         <div className='grid grid-flow-row row-auto col-span-full grid-cols-mobile gap-x-0 tablet:grid-cols-3 tablet:gap-x-5'>
           <div className='flex flex-col col-span-2 col-start-2 text-4xl font-sentinel__SemiBoldItal mb-7 mt-14 tablet:col-start- tablet:col-span-3 tablet:text-4xl laptop:text-display-2 laptop:mt-28 laptop:mb-14'>
             <span className='text-sage-600'>You may also like...</span>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* <MakersPostSignUp /> */}
-      {/* <PostsGrid posts={post.relatedPosts} tabletGrid3x={true} /> */}
+      <PostsGrid posts={post.relatedPosts} tabletGrid3x={true} />
 
     </article>
   )

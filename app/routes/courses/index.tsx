@@ -37,10 +37,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
     return json({
       page,
       courses: flattenAllCourses(data.courses),
-    }, {
-      headers: {
-        ...cacheControl
-      }
     })
   } catch (e) {
     console.error('error', e)

@@ -1,49 +1,21 @@
 import Layout from "@App/components/layoutTemplates/layout";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-const description = `Every-Tuesday is sad to see you go. We hope you enjoyed the content and found it useful. If you have any feedback, please let us know.`;
-const title = 'Every-Tuesday Unsubscribe'
-const pageInfo = {
-  title,
+const page = getStaticPageMeta({
+  title: 'Every-Tuesday Unsubscribe',
   slug: 'tuesday-makers/unsubscribe',
-  description,
-  seo: {
-    title,
-    opengraphModifiedTime: '',
-    metaDesc: description
-  }
-}
-
-export let meta: MetaFunction = (metaData): any => {
-
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title,
-    desc: description,
-    slug: pageInfo.slug
-  })
-};
+  desc: `Every-Tuesday is sad to see you go. We hope you enjoyed the content and found it useful. If you have any feedback, please let us know.`
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
-  return json({ page: pageInfo }, { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate" } })
+  return json({ page })
 };
 
 export default function Unsubscribe() {

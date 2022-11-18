@@ -50,6 +50,7 @@ import { useEffect } from "react";
 import useSearchScrollFix from "./hooks/useSearch/useSearchScrollFix";
 import UseMakersLibraryProvider from "./hooks/useFreebies/useFreebiesPaginateProvider";
 import { tuesdayMakersInitialState } from "./hooks/useFreebies";
+import NotFoundTemplate from "./components/pageTemplates/404Template";
 // import a plugin
 
 /**
@@ -273,6 +274,9 @@ export function Document({ children, title }: IDocument) {
 }
 export function CatchBoundary() {
   const caught = useCatch();
+  if (caught.status === 404) return (
+    <NotFoundTemplate />
+  )
   return (
     <html>
       <head>
@@ -284,6 +288,7 @@ export function CatchBoundary() {
         <h1>
           {caught.status} {caught.statusText}
         </h1>
+        <p>404 Page using CatchBoundry</p>
         <Scripts />
       </body>
     </html>

@@ -1,5 +1,6 @@
 import { staticImages } from '@App/lib/imgix/data'
 import { classNames } from '@App/utils/appUtils'
+import { createImgixSizes } from '@App/utils/imageHelpers'
 import { getLfmTexture } from '@App/utils/lfmUtils'
 import LazyImgix from '../images/lazyImgix'
 import LfmArrowSvg from '../svgs/lfmArrowSvg'
@@ -37,6 +38,14 @@ function LfmTestimonial(props: Props) {
 
   const fontArrowSvgCss = direction === 'right' ? 'laptop:right-[-40px] laptop:top-[35px] desktop:right-[0]' : 'laptop:right-auto laptop:left-[-55px] laptop:rotate-[320deg]'
 
+
+  const instagramProfileImg = createImgixSizes({
+    src: testimonial.profileImg,
+    alt: `${testimonial.instagramHandle} Instagram Profile`,
+    width: 150,
+    height: 150,
+    mobileSize: 150
+  })
   return (
     <>
       <div className="lfm-testimonial lfm-testimonial--alt et-grid-basic z-3 gap-x-0 grid-rows-[auto_minmax(50px,50px)_auto_auto] py-20 relative laptop:overflow-visible laptop:grid-rows-[auto]">
@@ -64,12 +73,11 @@ function LfmTestimonial(props: Props) {
             <div className="lfm-testimonial__avatar--img max-w-[72px] w-full mr-4 min-h-[72px] overflow-hidden rounded-full">
               <LazyImgix
                 id={`${testimonial.instagramHandle}`}
-                image={{
-                  width: 150,
-                  height: 150,
-                  alt: `${testimonial.instagramHandle} Instagram Profile`,
-                  src: testimonial.profileImg,
-                }} />
+                image={instagramProfileImg.image}
+                sizes={'150px'}
+                srcSet={`
+                    ${instagramProfileImg.defaultSrc},
+                `} />
             </div>
 
             {/* USER NAME + INSTAGRAM HANDLE */}
@@ -141,10 +149,13 @@ function LfmTestimonial(props: Props) {
             <div className={`lfm-testimonial__watercolor ${selectedTexture.class} absolute w-[450px] top-[-120px] left-1/2 -translate-x-1/2 rotate-[105deg] z-1 laptop:rotate-[455deg] laptop:top-[-70px] laptop:left-[40%] desktop:left-1/2 desktop:w-[677px] desktop:top-[-140px]`}>
               <div className='w-full laptop:scale-x-[-1]'>
                 <LazyImgix
-                  blur={false}
                   id={`${testimonial.name.first}-texture`}
-                  image={selectedTexture.image}
-                />
+                  image={selectedTexture.image.image}
+                  sizes={"(max-width: 666px) 60vw, (max-width: 1024px) 38vw, 586px"}
+                  blur={false}
+                  srcSet={`
+                    ${selectedTexture.image.defaultSrc},
+                `} />
               </div>
             </div>
 

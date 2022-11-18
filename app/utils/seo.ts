@@ -179,7 +179,8 @@ export function getHtmlMetadataTags({
   };
 }
 const noFollowRoutes = [
-  'login'
+  'login',
+  'design'
 ]
 
 export function mdxPageMeta({
@@ -194,8 +195,8 @@ export function mdxPageMeta({
 
   if (!data || !parentsData || isEmpty(parentsData)) {
     return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
+      title: 'Oops! Page Not Found',
+      description: 'We couldn\'t find the page you were looking for.',
     }
   }
   const metadata = parentsData.root.metadata

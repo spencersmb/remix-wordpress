@@ -2,38 +2,23 @@
 import { getResourceUser } from '../../utils/resourceLibrarySession.server'
 import { useEffect } from 'react'
 import { consoleHelper } from '../../utils/windowUtils'
-import { getBasicPageMetaTags } from '@App/utils/seo'
-import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
+import { mdxPageMeta } from '@App/utils/seo'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { cacheControl } from '@App/lib/remix/loaders'
 import { MakersSignupAction } from '@App/actions/tmSignUpAction.server'
 import TuesdayHomeTemplate from '@App/components/pageTemplates/tuesdayHomeTemplate'
+import { getStaticPageMeta } from '@App/utils/pageUtils';
 
-export let meta: MetaFunction = (metaData): any => {
+const page = getStaticPageMeta({
+  title: `Tuesday Makers: SignUp`,
+  desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
+  slug: `tuesday-makers`
+})
+export let meta = mdxPageMeta
 
-  /*
-  rootData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
 
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title: `Tuesday Makers: SignUp`,
-    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
-    slug: `tuesday-makers`
-  })
-};
-
-// REDO LOADER WITH NEW HELPERS
 export let loader: LoaderFunction = async ({ request }) => {
 
   // Check for Resource User Cookie
@@ -44,16 +29,6 @@ export let loader: LoaderFunction = async ({ request }) => {
     return redirect('/tuesday-makers/members')
   }
 
-  const page = {
-    title: 'Tuesday Makers',
-    slug: 'tuesday-makers',
-    description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
-    seo: {
-      title: 'Tuesday Makers',
-      opengraphModifiedTime: '',
-      metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
-    }
-  }
   return json({ page }, {
     headers: {
       ...cacheControl,

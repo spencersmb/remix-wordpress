@@ -3,7 +3,7 @@ import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/no
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 import { createResourceUserSession, getResourceUser } from "@App/utils/resourceLibrarySession.server";
-import { getBasicPageMetaTags } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import InputBase from "@App/components/forms/input/inputBase";
 import { ArrowRightIcon, XCircleIcon } from "@heroicons/react/solid";
@@ -21,29 +21,15 @@ import BackgroundImage from "@App/components/images/backgroundImage";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { siteLoginUrls } from "@App/lib/wp/site";
+import { getStaticPageMeta } from "@App/utils/pageUtils";
 
-export let meta: MetaFunction = (metaData): any => {
 
-  /*
-  metaData gets passed in from the root metadata function
-   */
-  const { data, location, parentsData } = metaData
-  if (!data || !parentsData || !location) {
-    return {
-      title: '404',
-      description: 'error: No metaData or Parents Data',
-    }
-  }
-
-  /*
-  Build Metadata tags for the page
-   */
-  return getBasicPageMetaTags(metaData, {
-    title: `Tuesday Makers: SignUp`,
-    desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
-    slug: `tuesday-makers`
-  })
-};
+const page = getStaticPageMeta({
+  title: `Tuesday Makers: Login`,
+  desc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
+  slug: `tuesday-makers/login`
+})
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
   const user = await getResourceUser(request)
@@ -51,18 +37,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   if (user) {
     return redirect('/tuesday-makers/members')
   }
-
-  const page = {
-    title: 'Tuesday Makers: Login',
-    slug: 'tuesday-makers/login',
-    description: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
-    seo: {
-      title: 'Tuesday Makers Login',
-      opengraphModifiedTime: '',
-      metaDesc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!'
-    }
-  }
-  return json({ page }, { headers: { ...cacheControl } })
+  return json({ page })
 };
 
 type ActionData = {
