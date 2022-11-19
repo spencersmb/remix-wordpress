@@ -11,7 +11,6 @@ import HamburgerSvg from '../svgs/hamburger'
 import SearchSvg from '../svgs/searchSvg'
 import { PrimaryNav } from './primaryNav'
 import { useSearch } from '@App/hooks/useSearch'
-import useSearchScrollFix from '@App/hooks/useSearch/useSearchScrollFix'
 import MasterLoginPopOver from './popOver/masterLogin'
 import MobileNav from './mobileNav'
 
@@ -20,7 +19,6 @@ function whenAvailable(name: string, callback: any) {
   window.setTimeout(function () {
     // const el = document.getElementsByClassName('.gumroad-scroll-container')
     const el = document.getElementsByClassName(name)
-    // console.log('el', el);
 
     if (el.length > 0) {
       callback(el);
@@ -115,24 +113,24 @@ function Header(props: Props) {
     <header
       id="header"
       ref={navRef}
-      className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0`)}>
+      className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0 laptop:h-[92px]`)}>
 
       <div className='flex flex-1 h-full'>
-        <div aria-label="Main navigation" className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
+        <div className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
 
           {/* ET LOGO */}
           <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
             <Link to="/" title="Every Tuesday" prefetch="intent" className="">
-              <EveryTuesdayLogo fill={`var(--sage-700)`} aria-label='Every Tuesday Logo' />
+              <EveryTuesdayLogo fill={`var(--sage-800)`} aria-label='Every Tuesday Logo' />
             </Link>
           </div>
 
           {/* SEARCH ICON FOR MOBILE */}
-          <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
+          {/* <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
             <div className="max-w-[20px]">
               <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
             </div>
-          </div>
+          </div> */}
 
           {/* HAMBURGER  */}
           <div data-testid="hamburger"
@@ -140,7 +138,7 @@ function Header(props: Props) {
             className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
               ? 'mr-16'
               : '',
-              'flex justify-center px-2 py-4 laptop:hidden')}>
+              'flex justify-center px-2 py-4 col-start-3 laptop:hidden')}>
             <div className="max-w-[20px]">
               <HamburgerSvg fill={`var(${cssColors.primaryPlum700})`} />
             </div>

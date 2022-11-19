@@ -7,6 +7,8 @@ import ContextLoader from "@App/components/layoutTemplates/contextLoader";
 import GlobalEvents from "@App/components/layoutTemplates/globalHooks";
 import BasicModal from "@App/components/modals/BasicModal";
 import SearchModal from "@App/components/modals/searchModal";
+import UseMakersLibraryProvider from "@App/hooks/useFreebies/useFreebiesPaginateProvider";
+import { tuesdayMakersInitialState } from "@App/hooks/useFreebies";
 
 export let loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -20,12 +22,16 @@ const TuesdayMakers = (props: any) => {
   return (
     <>
       <ContextLoader>
-        <GlobalEvents />
-        <Header />
-        <Outlet />
-        <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
-        <BasicModal />
-        <SearchModal />
+        <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
+          <>
+            <GlobalEvents />
+            <Header />
+            <Outlet />
+            <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
+            <BasicModal />
+            <SearchModal />
+          </>
+        </UseMakersLibraryProvider>
       </ContextLoader>
     </>
   )

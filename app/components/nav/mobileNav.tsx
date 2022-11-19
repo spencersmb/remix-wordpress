@@ -2,7 +2,7 @@ import useSite from '@App/hooks/useSite'
 import { getPrimaryMenu } from '@App/lib/wp/nav'
 import { Link } from '@remix-run/react'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 import SearchSvg from '../svgs/searchSvg'
 import FacebookSvg from '../svgs/social/facebookSvg'
 import InstagramSvg from '../svgs/social/instagramSvg'
@@ -21,7 +21,6 @@ function MobileNav(props: Props) {
   const { state: { menu, metadata } } = useSite()
   const socialkeys = Object.keys(metadata.social)
   const svgColor = 'var(--sage-800)'
-  const menuData = menu[0]
   const primaryMenu = getPrimaryMenu(menu)
 
 
@@ -36,7 +35,16 @@ function MobileNav(props: Props) {
       variants={variants}
       className={`absolute z-1 mt-[var(--nav-top-sm)] top-0 left-0 w-full bg-white shadow-cody-sm origin-top-center  opacity-0 `}>
 
-      <nav className='py-4 overflow-auto mobileNav-height'>
+      <nav aria-label="Mobile navigation" className='pb-4 overflow-auto mobileNav-height'>
+
+        {/* SEARCH */}
+        <div
+          onClick={openSearch}
+          className={`bg-grey-200 rounded-lg px-6 py-4 flex flex-row justify-between text-grey-500 items-center mx-4 mb-8 mt-4`}
+        >
+          <div className='font-semibold'>Search</div>
+          <div className='w-5'><SearchSvg fill={`currentColor`} /></div>
+        </div>
 
         {/* MAIN LINKS */}
         <div className='flex flex-col text-left'>
@@ -69,7 +77,7 @@ function MobileNav(props: Props) {
         </div>
 
         {/* Additional content wrapper  */}
-        <div className='flex flex-col px-4 mt-6 text-left gap-y-6'>
+        <div className='flex flex-col px-4 pb-16 mt-6 text-left gap-y-6'>
           <div>
             <div className='mb-2 text-sm font-semibold text-grey-400'>
               Members
@@ -83,15 +91,6 @@ function MobileNav(props: Props) {
           {/* TUESDAY MAKERS */}
           <div className=''>
             <TuesdayMakersNavAd />
-          </div>
-
-          {/* SEARCH */}
-          <div
-            onClick={openSearch}
-            className={`bg-grey-200 rounded-lg px-6 py-4 flex flex-row justify-between text-grey-500 items-center`}
-          >
-            <div className='font-semibold'>Search</div>
-            <div className='w-5'><SearchSvg fill={`currentColor`} /></div>
           </div>
 
           {/* SOCIAL MEDIA LIST */}
@@ -141,6 +140,10 @@ function MobileNav(props: Props) {
                 </Link>
               </li>
             </ul>
+          </div>
+
+          <div className='text-sm text-grey-400'>
+            © Copyright 2021 Every Tuesday, LLC
           </div>
 
         </div>

@@ -33,7 +33,7 @@ const SmallPostCard = ({ post }: CardProps) => {
   return (
     <Link
       data-testid="small-post-card"
-      className='bg-white transition-all translate-y-0 duration-300 rounded-2.5xl shadow-et_1 overflow-hidden hover:shadow-et_4 hover:-translate-y-1'
+      className='bg-white transition-all translate-y-0 duration-300 shadow-et_1 overflow-hidden hover:shadow-et_4 hover:-translate-y-1'
       to={`/${slug}`} prefetch='intent'
     >
       <div className='w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full'>

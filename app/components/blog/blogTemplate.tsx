@@ -146,7 +146,7 @@ function BlogTemplate(props: IProps) {
       <div className='col-span-full bg-sage-700 et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-10 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 

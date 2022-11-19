@@ -252,7 +252,7 @@ function BlogMainIndex({ loaderData }: Props) {
 
       <BlogFeaturedPost featuredPost={posts[0]} />
 
-      <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
+      <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-4 desktop:grid-cols-desktop'>
         <BlogCategoryTabs catClick={handleCatClick} category={category} />
       </div>
 

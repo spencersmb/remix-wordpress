@@ -225,7 +225,7 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
           {/* RESULTS LIST */}
           <div
             data-testid='resultsList'
-            className="grid grid-cols-1 col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 desktop:grid-cols-4 search_results"
+            className="grid grid-cols-1 col-span-2 col-start-2 mt-8 mb-8 gap-y-6 tablet:col-span-12 tablet:col-start-2 tablet:grid-cols-3 tablet:gap-6 laptop:mt-16 desktop:grid-cols-4 search_results"
             ref={listRef}>
             {pagination.pagedResults
               .map((result: SearchResult, index) => {

@@ -35,7 +35,7 @@ function SearchForm(props: Props) {
       data-search-is-active={!!query}
     >
       <fieldset className="flex flex-col">
-        <div className="flex flex-row items-baseline justify-between mt-2">
+        <div className="flex flex-col items-baseline justify-between mt-2 tablet:flex-row">
           <label
             aria-labelledby='search-input'
             className="text-xl font-semibold text-grey-800 laptop:text-2xl" htmlFor="search-input">Search</label>

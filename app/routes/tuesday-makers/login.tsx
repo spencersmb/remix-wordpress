@@ -160,15 +160,15 @@ const ResourceLibraryLogin = () => {
   return (
 
     <NavPaddingLayout >
-      <div className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop'>
+      <section className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop'>
 
 
-        <div className="relative p-4 px-6 py-8 pb-12 col-span-full bg-sage-600 z-3 tablet:pb-12 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center laptop:px-16">
-          <div className="flex flex-row gap-8 mx-auto text-white bg-sage-600 tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[407px] desktop:max-w-[650px]">
+        <div className="relative row-start-2 p-4 px-6 py-8 pb-12 col-span-full bg-sage-600 z-3 tablet:pb-12 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center laptop:px-16">
+          <div className="flex flex-col gap-8 mx-auto text-white bg-sage-600 tablet:flex-row tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[407px] desktop:max-w-[650px]">
 
             {/* NO PASSWORDS */}
-            <div className="flex-[1_0_50%]">
-              <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-3xl laptop:text-5xl">
+            <div className="flex-1 tablet:flex-[1_0_50%]">
+              <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-4xl  tablet:max-w-[300px] laptop:text-5xl laptop:max-w-none">
                 No More Passwords!
               </div>
 
@@ -198,7 +198,7 @@ const ResourceLibraryLogin = () => {
                   <a href={siteLoginUrls.teachable}
                     rel={'noreferrer noopener'}
                     target={'_blank'}
-                    className="flex flex-row items-center mt-4 font-semibold text-white">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
+                    className="flex flex-row items-center mt-4 font-semibold text-white underline underline-offset-4">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
                 </div>
 
                 {/* GUMROAD */}
@@ -212,7 +212,7 @@ const ResourceLibraryLogin = () => {
 
                   <a href={siteLoginUrls.gumroad}
                     rel={'noreferrer noopener'}
-                    target={'_blank'} className="flex flex-row items-center mt-4 font-semibold text-white">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
+                    target={'_blank'} className="flex flex-row items-center mt-4 font-semibold text-white underline underline-offset-4">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
                 </div>
               </div>
             </div>
@@ -221,12 +221,11 @@ const ResourceLibraryLogin = () => {
         </div>
 
         {/* FORM */}
-        <div className="relative col-span-2 col-start-2 px-3 py-8 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 desktop:pb-[100px] max-w-[475px] w-full mx-auto rounded-lg">
+        <div className="relative col-span-2 col-start-2 px-3 py-8 pb-5 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 desktop:pb-[100px] max-w-[475px] w-full mx-auto rounded-lg">
 
           <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2 desktop:top-1/2 desktop:-translate-y-1/2 desktop:left-[-80%] desktopXl:left-[-134%] desktopXl:w-[1220px]">
             <RedWreathSvg />
           </div>
-
 
           <div className="relative flex flex-col items-center z-3">
 
@@ -319,17 +318,13 @@ const ResourceLibraryLogin = () => {
               </Link>
             </div>
 
-            <p className="mt-4">
+            {/* HAVING ISSUES */}
+            {/* <p className="mt-4">
               Having issues?
             </p>
             <p className="">
               <Link className="font-bold underline underline-offset-4" to={'/contact'} prefetch={'intent'}>Contact us for help</Link>.
-            </p>
-
-            {/* <div className={'text-center'}>
-              <h3 className={'font-semibold'}>Having trouble?</h3>
-              <p className={'text-sm'}><Link prefetch={'intent'} to="/contact" className={'font-semibold underline underline-offset-4 text-primary-500'}>Contact Us</Link></p>
-            </div> */}
+            </p> */}
 
           </div>
         </div>
@@ -371,7 +366,7 @@ const ResourceLibraryLogin = () => {
           </div>
         </div> */}
 
-      </div>
+      </section>
     </NavPaddingLayout>
   )
 }

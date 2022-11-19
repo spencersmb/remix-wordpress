@@ -33,6 +33,8 @@ function BlogFeaturedPost(props: Props) {
     fallbackSize: ImageSizeEnums.MEDIUM,
     fallbackImage: defaultImages.thumbnail
   })
+  console.log('image', image);
+
   // let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
   // console.log('featuredPost', featuredPost);
 
@@ -44,7 +46,7 @@ function BlogFeaturedPost(props: Props) {
 
 
   return (
-    <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+    <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:min-h-[560px] desktop:grid-cols-desktop'>
 
       {/* FEATURED IMAGE */}
       <div className="featured_image mx-auto mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-start-3 tablet:col-span-10 laptop:col-start-2 laptop:col-end-8 laptop:row-span-3 laptop:row-start-1 desktop:col-start-2 max-w-[660px] desktop:mr-0 desktop:mt-24 w-full">

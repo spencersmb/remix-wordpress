@@ -4,7 +4,6 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link } from '@remix-run/react'
 import { motion } from 'framer-motion'
 import React from 'react'
-import UserSvg from '../svgs/userSvg'
 import { aboutMenuItems } from './popOver/popOverMenuItems'
 
 interface Props {
@@ -14,8 +13,6 @@ interface Props {
 function AboutMobileDropDown(props: Props) {
   const [open, setIsOpen] = React.useState(false)
   const handleClick = (e: any) => {
-    // console.log('click', e.target);
-    // console.log('click', e.currentTarget);
     setIsOpen(!open)
   }
 

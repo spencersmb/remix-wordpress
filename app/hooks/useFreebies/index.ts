@@ -125,8 +125,11 @@ export function useMakersLibraryAsync({
       const variables = {
         first: 12,
         after: state.categories[filter.slug] ? state.categories[filter.slug].pageInfo.endCursor : null,
-        catName: filter.name === 'All' ? null : filter.name
+        catName: filter.name === 'All' ? null : filter.slug
       }
+
+      console.log('variables', variables);
+      
 
       const body = await fetch(url,
         {
@@ -161,7 +164,6 @@ export function useMakersLibraryAsync({
     }
 
     useEffect(() => {
-      
       // If the category is empty, get it
       if (!state.categories[filter.slug]) {
         handleFetchMorePosts()

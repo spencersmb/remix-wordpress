@@ -18,11 +18,11 @@ function TuesdayMakersNavAd(props: Props) {
   console.log(flowers);
 
   return (
-    <div className='bg-[#191E01] text-white p-4 py-6 overflow-hidden rounded-lg flex flex-col items-start gap-y-4 relative'>
+    <div className='bg-[#182000] text-white p-4 py-6 overflow-hidden rounded-lg flex flex-col items-start gap-y-4 relative'>
       <div className='relative mt-16 text-3xl font-sentinel__SemiBoldItal z-2'>
         Tuesday Makers
       </div>
-      <p className='relative mb-4 text-sm z-2' >
+      <p className='relative mb-4 text-sm z-2 tablet:max-w-[400px]' >
         Receive special offers on courses + products and gain access to the Resource Library
       </p>
 
@@ -30,7 +30,7 @@ function TuesdayMakersNavAd(props: Props) {
         Sign Up
       </Link>
 
-      <div className='absolute top-[-380px] left-[30px] z-1 w-[500px]'>
+      <div className='absolute top-[-380px] left-[30px] z-1 w-[500px] tablet:left-[250px] tablet:top-[-330px]'>
         <LazyImgix
           id={'ff-project-5'}
           key={'ff-project-5'}
