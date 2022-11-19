@@ -162,7 +162,7 @@ const filterTags = [
   },
   {
     name: 'Fonts',
-    slug: "fonts-2",
+    slug: "fonts-2", // not sure about that tag name
   },
   {
     name: 'Patterns',

@@ -6,6 +6,10 @@ import LazyImgix from '../images/lazyImgix'
 
 interface Props { }
 
+/**
+ * @function TuesdayMakersNavAd
+ * @tested - 11/19/2022
+ */
 function TuesdayMakersNavAd(props: Props) {
   const { } = props
   const flowers = createImgixSizes({
@@ -15,7 +19,6 @@ function TuesdayMakersNavAd(props: Props) {
     width: 2000,
     height: 2422,
   })
-  console.log(flowers);
 
   return (
     <div className='bg-[#182000] text-white p-4 py-6 overflow-hidden rounded-lg flex flex-col items-start gap-y-4 relative'>

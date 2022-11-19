@@ -9,7 +9,10 @@ import { aboutMenuItems } from './popOver/popOverMenuItems'
 interface Props {
 }
 
-// TODO: TEST THIS
+/**
+ * @function AboutMobileDropDown
+ * @tested - 11/19/2022
+ */
 function AboutMobileDropDown(props: Props) {
   const [open, setIsOpen] = React.useState(false)
   const handleClick = (e: any) => {
@@ -42,7 +45,7 @@ function AboutMobileDropDown(props: Props) {
         className="h-0 overflow-hidden">
         <div className='px-6 py-4'>
           <div
-            data-testid="login-dropdown"
+            data-testid="dropdown"
             className='flex flex-col py-2 pb-4 gap-y-6'>
             {aboutMenuItems.map((item) => {
               return (

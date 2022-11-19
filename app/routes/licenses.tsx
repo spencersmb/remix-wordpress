@@ -10,7 +10,6 @@ import { AnimatePresence } from 'framer-motion'
 import { LicenseEnum } from '@App/enums/products'
 import CloseSvg from '@App/components/svgs/closeSvg'
 import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
-import type { MetaFunction } from 'remix'
 import LicenseTabContent from '@App/components/tabs/licenseTabs/licenseTabContent'
 import LicenseTabSlider from '@App/components/tabs/licenseTabs/licenseTabSlider'
 import LicenseTabLayout from '@App/components/tabs/licenseTabs/licenseTabLayout'

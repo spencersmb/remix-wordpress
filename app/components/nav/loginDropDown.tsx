@@ -9,7 +9,10 @@ import UserSvg from '../svgs/userSvg'
 interface Props {
 }
 
-// TODO: TEST THIS
+/**
+ * @function LoginDropDown
+ * @tested - 11/19/2022
+ */
 function LoginDropDown(props: Props) {
   const [open, setIsOpen] = React.useState(false)
   const handleClick = (e: any) => {

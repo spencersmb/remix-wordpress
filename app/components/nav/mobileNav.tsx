@@ -15,7 +15,13 @@ import TuesdayMakersNavAd from './tuesdayMakersNavAd'
 interface Props {
   openSearch: () => void
 }
-//TODO: TEST THIS
+/**
+ * 
+ * @function MobileNav 
+ * @description Mobile Nav
+ * @tested 11/19/2021
+ * 
+ */
 function MobileNav(props: Props) {
   const { openSearch } = props
   const { state: { menu, metadata } } = useSite()
@@ -47,7 +53,7 @@ function MobileNav(props: Props) {
         </div>
 
         {/* MAIN LINKS */}
-        <div className='flex flex-col text-left'>
+        <div data-testid="main-links" className='flex flex-col text-left'>
           <div className='px-4 text-sm font-semibold text-grey-400'>
             Menu
           </div>
@@ -103,7 +109,7 @@ function MobileNav(props: Props) {
                 switch (key) {
                   case 'youtube':
                     return (
-                      <li key={key} className='flex'>
+                      <li key={key} className='flex' data-testid={'social-item'}>
                         <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[32px] group'>
                           <YoutubeSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
                           <span className="sr-only">Every Tuesday on Youtube</span>
@@ -112,7 +118,7 @@ function MobileNav(props: Props) {
                     )
                   case 'facebook':
                     return (
-                      <li key={key} className='flex pl-9'>
+                      <li key={key} className='flex pl-9' data-testid={'social-item'}>
                         <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[32px] group'>
                           <FacebookSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
                           <span className="sr-only">Every Tuesday on Facebook</span>
@@ -121,10 +127,19 @@ function MobileNav(props: Props) {
                     )
                   case 'instagram':
                     return (
-                      <li key={key} className='flex pl-9'>
+                      <li key={key} className='flex pl-9' data-testid={'social-item'}>
                         <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[32px] group'>
                           <InstagramSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
                           <span className="sr-only">Every Tuesday on Instagram</span>
+                        </a>
+                      </li>
+                    )
+                  case 'pinterest':
+                    return (
+                      <li key={key} className='flex pl-9' data-testid={'social-item'}>
+                        <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[32px] group'>
+                          <PinterestSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
+                          <span className="sr-only">Every Tuesday on Pinterest</span>
                         </a>
                       </li>
                     )
@@ -133,12 +148,7 @@ function MobileNav(props: Props) {
                     return null
                 }
               })}
-              <li className='flex pl-9'>
-                <Link to={`/contact`} className='flex max-w-[32px] group'>
-                  <PinterestSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
-                  <span className="sr-only">Every Tuesday on Pinterest</span>
-                </Link>
-              </li>
+
             </ul>
           </div>
 
