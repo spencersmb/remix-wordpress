@@ -1,5 +1,9 @@
-//TODO: TEST THIS
-export function countVideoTime (time: string | undefined): any {
+/**
+ * @function countVideoTime
+ * @description - Converts time to PTMS format
+ * @tested - 11/20/2022
+ */
+export function countVideoTime (time?: string): any {
   if(!time) return 'PT0M0S';
   const [mins, seconds] = time.split(':').map(parseFloat)
   let secondsLeft = (mins * 60) + seconds
@@ -14,7 +18,12 @@ export function countVideoTime (time: string | undefined): any {
   return `PT${minutes}M${seconds}S`
 }
 
-export function countSeconds(time: string | undefined): number {
+/**
+ * @function countSeconds
+ * @description - Converts time into seconds
+ * @tested - 11/20/2022
+ */
+export function countSeconds(time?: string): number {
   if(!time) return 0;
   const [mins, seconds] = time.split(':').map(parseFloat)
   let secondsLeft = (mins * 60) + seconds

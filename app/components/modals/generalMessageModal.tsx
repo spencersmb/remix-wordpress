@@ -6,8 +6,11 @@ interface Props {
   message: string
   header: string
 }
-
-function SignUpSuccess(props: Props) {
+/**
+ * @function GeneralMessageModal
+ * @tested - 11/20/2022
+ */
+function GeneralMessageModal(props: Props) {
   const { closeModal, message, header } = props
 
   return (
@@ -37,4 +40,4 @@ function SignUpSuccess(props: Props) {
   )
 }
 
-export default SignUpSuccess
+export default GeneralMessageModal

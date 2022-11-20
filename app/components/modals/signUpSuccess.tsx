@@ -7,7 +7,10 @@ interface Props {
   message: string
 }
 
-// TODO: TEST THIS
+/**
+ * @function SignUpSuccess
+ * @tested - 11/20/2022
+ */
 function SignUpSuccess(props: Props) {
   const { closeModal, message } = props
 
@@ -36,7 +39,7 @@ function SignUpSuccess(props: Props) {
               Success!
             </h2>
             <p className="text-lg text-grey-600">
-              Check your email and click the link inside to confirm your new account.
+              {message}
             </p>
           </div>
 

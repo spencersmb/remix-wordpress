@@ -5,7 +5,6 @@ import TmSignupForm from '../forms/tuesdayMakers/tmSignupForm'
 import LazyImgix from '../images/lazyImgix'
 
 interface Props { }
-//TODO: TEST THIS
 function TransformSkillsHeader(props: Props) {
   const { } = props
   const transformSkillsImage = createImgixSizes({

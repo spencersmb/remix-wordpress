@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Thank you success message Should render Snapshot of Thank you success message layout 1`] = `
+<main
+  className="bg-cream-100 relative z-2 pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content"
+>
+  <div
+    className="et-grid-basic grid-rows-[minmax(auto,30px)_auto_1fr] tablet:grid-rows-[minmax(auto,60px)_auto_auto_auto_auto] relative"
+  >
+    <canvas
+      className="absolute w-[400px] h-[600px]  tablet:w-[768px] tablet:h-[800px] laptop:w-[1024px] desktop:w-[1800px] desktop:h-[1000px] top-0 left-1/2 -translate-x-1/2 z-10"
+    />
+    <div
+      className="relative col-span-2 col-start-2 row-span-2 row-start-1 text-3xl mt-9 z-2 rotate-[-15deg] tablet:col-start-3 tablet:col-span-8 tablet:rotate-0 tablet:flex tablet:items-center laptop:text-6xl laptop:my-[160px]"
+    >
+      These are a few of my favorite things.
+    </div>
+    <div
+      className="relative col-span-2 col-start-2 row-span-2 row-start-2 z-1 max-w-[191px] w-full ml-auto mr-0 h-[290px] tablet:col-start-8 tablet:col-span-6 tablet:max-w-none tablet:h-[400px] tablet:pr-[50px] laptop:h-full laptop:col-start-10 laptop:col-span-4 desktop:col-start-9 desktop:col-span-4 desktop:h-[469px] desktop:row-start-2 desktop:row-span-3 desktopXl:col-start-10 desktopXl:col-span-4 desktopXl:h-[500px] desktopXl:pr-[100px]"
+    >
+      <div
+        className="relative w-full h-full overflow-hidden z-2"
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] tablet:w-[300px] desktop:w-[350px]"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "170.875%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <img
+                alt="Every Tuesday: Teelas profile picture"
+                aria-label="Image"
+                data-testid="lazy-load-image-polaroidImg"
+                height="1367px"
+                onLoad={[Function]}
+                src="https://et-website.imgix.net/et-website/images/teela-profile-vertical.jpg?auto=format&w=600&fit=clip"
+                srcSet=""
+                width="800px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="w-[200px] top-[210px] left-[40px] absolute z-1 tablet:left-[160px] tablet:top-[-30px] desktop:w-[300px]"
+      >
+        <div
+          className="relative flex-1"
+          data-testid="imigx-padding-bot"
+          style={
+            Object {
+              "paddingBottom": "104.66666666666666%",
+            }
+          }
+        >
+          <div
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+            data-testid="imigx-container"
+          >
+            <img
+              alt="Every Tuesday: Teela's scribble"
+              aria-label="Image"
+              data-testid="lazy-load-image-scribble"
+              height="628px"
+              onLoad={[Function]}
+              sizes="(max-width: 666px) 30vw, (max-width: 1024px) 10vw, 535px"
+              src="https://et-website.imgix.net/et-website/images/stroke-02-min.png?auto=format&w=288&fit=clip"
+              srcSet="https://et-website.imgix.net/et-website/images/stroke-02-min.png?auto=format?auto=format&w=600&fit=clip 1024w,
+              "
+              width="600px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="hidden self-end bg-white col-span-full row-start-2 row-span-2 h-[28px] tablet:block desktop:row-start-3 desktop:row-span-2"
+    />
+    <div
+      className="relative py-20 bg-white col-span-full et-grid-basic"
+    >
+      <div
+        className="flex flex-col col-span-2 col-start-2 text-xl tablet:col-span-10 tablet:col-start-3 laptop:col-start-4 laptop:col-span-8"
+      >
+        <div
+          className="flex flex-col items-start mb-4"
+        >
+          <div
+            className="mb-2 text-sm"
+          >
+            Email Registered
+          </div>
+          <div
+            className="flex flex-col p-4 px-6 rounded-lg bg-sage-100"
+          >
+            <div
+              className="text-xl font-medium"
+            >
+              spencer.bigum@gmail.com
+            </div>
+          </div>
+        </div>
+        <h1
+          className="pt-6 pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800"
+        >
+          Welcome to the club!
+        </h1>
+        <p
+          className="mb-8 text-xl"
+        >
+          Thank you for confirming to become part of the Tuesday Makers community. Our club comes with some pretty sweet exclusive perks! You’ll now be the first to know about new courses, course and product discounts as well as new freebies (you’ll receive a new one every month)! More than anything, we’re so glad you’re here – start taking advantage of the Tribe right now by signing into the exclusive resource library and picking up some free goods – info below!
+        </p>
+        <h2
+          className="pt-4 text-3xl font-sentinel__SemiBoldItal"
+        >
+          Next Steps
+        </h2>
+        <p
+          className="mt-4 text-xl"
+        >
+          You’re all setup and ready to go. You should be logged in automatically and you can just close this window when you’re ready. If you ever need to log back in, just click on the Tuesday Makers button in the top navigation, then hit Login and just enter your email:
+        </p>
+        <p
+          className="mt-4 text-xl"
+        >
+          As long as you have an active email account with us, you will continue to have access to all the freebies + Resource Library.
+        </p>
+        <div
+          className="flex flex-col items-start mt-8"
+        >
+          <a
+            className="btn btn-primary btn-xl"
+            href="/tuesday-makers/members"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+          >
+            Take me to the Resource Library
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+`;

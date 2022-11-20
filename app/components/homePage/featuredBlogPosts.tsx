@@ -6,10 +6,14 @@ interface Props {
   posts: IPost[]
 }
 
-// TODO: TEST THIS
+/**
+ * @function FeaturedBlogPosts
+ * @description - Used on the Homepage as the Featured Blog section
+ * @tested - Snapshot 11/20/2022
+ */
 function FeaturedBlogPosts(props: Props) {
   const { posts } = props
-  console.log('posts', posts);
+  // console.log('posts', posts);
 
   // first post
   const firstPost = posts[0]

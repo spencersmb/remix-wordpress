@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Featured Blog posts Section for Homepage  1`] = `
+<section
+  className="bg-[#F7F6F7] et-grid-basic py-8 tablet:py-16 laptop:py-24"
+>
+  <div
+    className="col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 laptop:col-start-2 laptop:col-span-8 laptop:row-start-1 laptop:mb-0 desktop:col-start-2 desktop:col-span-8"
+  >
+    <div
+      className="flex flex-col tablet:flex-row tablet:gap-4 tablet:items-start laptop:flex-row-reverse laptop:items-center laptop:justify-end"
+    >
+      <div
+        className="relative max-w-[450px] w-full px-4 mb-[68px] tablet:max-w-[300px] tablet:mb-0 tablet:mt-8 laptop:w-[50%] desktop:max-w-[480px]"
+      >
+        <div
+          className="z-2 absolute top-[-48px] left-[45%] -translate-x-1/2 w-[95px] desktop:top-[-50px]"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "78.5997357992074%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/black-pin-min.png?auto=format&w=20&fit=clip)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "595px",
+                    "width": "757px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "595px",
+                      "width": "757px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="p-3 bg-white shadow-md -rotate-3 tablet:p-3 laptop:p-4"
+          data-testid="polaroid-container"
+        >
+          <div>
+            <div
+              className="relative flex-1"
+              data-testid="padding-bot"
+              style={
+                Object {
+                  "paddingBottom": "74.9%",
+                }
+              }
+            >
+              <div
+                className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+              >
+                <img
+                  alt="Create Candy Cane Lettering in Procreate"
+                  aria-label="Product Image"
+                  data-testid="feature-image"
+                  height="749px"
+                  onLoad={[Function]}
+                  sizes="(max-width: 500px) 100vw, 500px"
+                  src="https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-1000x749.jpg"
+                  srcSet=""
+                  width="1000px"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="relative"
+          >
+            <div
+              className="pb-[18%]"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex flex-col items-start flex-1 mb-12 tablet:mb-0 tablet:mt-14 laptop:max-w-[430px] laptop:w-full"
+      >
+        <a
+          className="group"
+          href="/create-candy-cane-lettering-procreate"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+        >
+          <h2
+            className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-sage-500"
+          >
+            <div
+              className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 laptop:group-hover:text-grey-800 text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
+            >
+              Latest Post
+            </div>
+            Create Candy Cane Lettering in Procreate
+          </h2>
+        </a>
+        <div
+          className="flex flex-row gap-8 mt-4 text-sm desktop:text-base"
+        >
+          <div>
+            Intermediate
+             Level
+          </div>
+          <div>
+            Nov 30, 2021
+          </div>
+        </div>
+        <div
+          className="mt-4 desktop:text-lg"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.</p>
+",
+            }
+          }
+        />
+        <a
+          className="mt-8 btn btn-xl btn-primary tablet:mt-6 tablet:btn-flex"
+          href="/create-candy-cane-lettering-procreate"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+        >
+          View the post
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-span-2 col-start-2 tablet:col-start-3 tablet:col-span-10 laptop:col-start-10 laptop:col-span-4 laptop:row-start-1 tablet:mb-0 laptop:mt-8 laptop:pr-4 laptop:flex laptop:flex-col laptop:justify-center"
+  >
+    <div>
+      <a
+        className="flex flex-col pb-10 mb-6 border-b border-grey-600 group"
+        href="/create-candy-cane-lettering-procreate"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="flex flex-row justify-between"
+        >
+          <div
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+          >
+            Create Candy Cane Lettering in Procreate
+          </div>
+          <div
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex flex-row gap-8"
+        >
+          <div
+            className="text-sm"
+          >
+            Intermediate
+             Level
+          </div>
+          <div
+            className="text-sm"
+          >
+            Nov 30, 2021
+          </div>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a
+        className="flex flex-col pb-10 mb-6 border-b border-grey-600 group"
+        href="/battling-self-doubt-graphic-designer"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="flex flex-row justify-between"
+        >
+          <div
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+          >
+            Battling Self Doubt as a Graphic Designer
+          </div>
+          <div
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex flex-row gap-8"
+        >
+          <div
+            className="text-sm"
+          >
+            beginner
+             Level
+          </div>
+          <div
+            className="text-sm"
+          >
+            Nov 30, 2021
+          </div>
+        </div>
+      </a>
+    </div>
+    <div>
+      <a
+        className="flex flex-col pb-10 mb-6 border-b border-grey-600 group"
+        href="/wrapped-flower-bouquet-procreate"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="flex flex-row justify-between"
+        >
+          <div
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+          >
+            Draw a Wrapped Flower Bouquet in Procreate
+          </div>
+          <div
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex flex-row gap-8"
+        >
+          <div
+            className="text-sm"
+          >
+            beginner
+             Level
+          </div>
+          <div
+            className="text-sm"
+          >
+            Nov 30, 2021
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+`;

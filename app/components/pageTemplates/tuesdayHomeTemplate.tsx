@@ -63,16 +63,6 @@ function TuesdayHomeTemplate(props: Props) {
   }, [transition])
   // consoleHelper('data.form !==', data.form, '/routes/tuesday-makers/index.tsx');
 
-  React.useEffect(() => {
-    if (actionData?.form === 'success') {
-      openModal({
-        template: <SignUpInstructionsPopUp
-          closeModal={closeModal}
-        />
-      })
-    }
-  }, [actionData])
-
   const iPadArt = createImgixSizes({
     width: 1400,
     height: 1049,

@@ -10,7 +10,11 @@ import LazyLoadVideo from '../video/lazyLoadVideo'
 
 interface Props { }
 
-// TODO: TEST THIS
+/**
+ * @function LfmMiniCourse
+ * @description - Used on the Homepage as the Video Teaser for LFM Mini-Course
+ * @tested - 11/20/2022
+ */
 function LfmMiniCourse(props: Props) {
   const { } = props
 
@@ -90,9 +94,12 @@ function LfmMiniCourse(props: Props) {
 
         {/* LINK */}
         {/* CHECK IF CLASS IS OPEN AND USE AN A TAG SO PEOPLE WHO CLICK ON THE LINK ARE REDIRECTED TO THE OPEN CLASS PAGE ON TEACHABLE */}
-        {isClassOpen && <a href={'https://courses.every-tuesday.com/p/learn-font-making'} className={'mt-3 btn btn-primary btn-xl'}>
+        {isClassOpen && <a
+          rel='noopener noreferrer'
+          href={'https://courses.every-tuesday.com/p/learn-font-making'} className={'mt-3 btn btn-primary btn-xl'}>
           View Course
         </a>}
+
         {!isClassOpen && <Link to={'/learn-font-making'} className={'mt-3 btn btn-primary btn-xl'} prefetch={'intent'}>
           View Mini Course
         </Link>}

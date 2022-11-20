@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LFM MiniCourse Homepage Section Should render Snapshot of lfm-mini-course homepage section 1`] = `
+<section
+  className="relative flex bg-grey-200 tablet:p-0 et-grid-basic"
+>
+  <div
+    className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[730px] overflow-hidden tablet:h-full tablet:w-full tablet:left-auto tablet:translate-x-0 tablet:relative tablet:col-start-1 tablet:col-end-full tablet:row-start-1"
+  >
+    <div
+      className="relative block w-full h-full p-0 overflow-hidden"
+    >
+      <div
+        className="relative h-full"
+      >
+        <video
+          autoPlay={true}
+          className="opacity-100 transition-opacity duration-600 ease-in-out delay-300"
+          data-testid="lazyLoadVideo"
+          loop={true}
+          muted={true}
+          playsInline={true}
+        >
+          <source
+            data-src="https://static.showit.co/file/E0ybNlpeQ8qUB00gPpkPEg/124817/bonnie_b_roll_1_-_web.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+    </div>
+  </div>
+  <div
+    className="relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-8 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center"
+  >
+    <div
+      className="absolute top-[-43px] left-[45%] -translate-x-1/2 w-[125px]"
+    >
+      <div
+        className="relative flex-1"
+        data-testid="imigx-padding-bot"
+        style={
+          Object {
+            "paddingBottom": "78.5997357992074%",
+          }
+        }
+      >
+        <div
+          className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+          data-testid="imigx-container"
+        >
+          <span
+            className=" lazy-load-image-background blur"
+            style={
+              Object {
+                "backgroundImage": "url(https://et-website.imgix.net/et-website/images/black-pin-min.png?auto=format&w=20&fit=clip)",
+                "backgroundSize": "100% 100%",
+                "color": "transparent",
+                "display": "inline-block",
+                "height": "595px",
+                "width": "757px",
+              }
+            }
+          >
+            <span
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                  "height": "595px",
+                  "width": "757px",
+                }
+              }
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="max-w-[270px] mx-auto relative text-5xl font-sentinel__SemiBoldItal text-sage-600 desktop:text-6xl pt-4"
+    >
+      Free Font Making
+      <div
+        className="max-w-[150px] mx-auto mt-2"
+      >
+        <div
+          className="relative flex-1"
+          data-testid="imigx-padding-bot"
+          style={
+            Object {
+              "paddingBottom": "46.94736842105263%",
+            }
+          }
+        >
+          <div
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+            data-testid="imigx-container"
+          >
+            <span
+              className=" lazy-load-image-background blur"
+              style={
+                Object {
+                  "backgroundImage": "url(https://et-website.imgix.net/images/lfm/mini-course/mini-course-title.png?auto=format&w=20&fit=clip)",
+                  "backgroundSize": "100% 100%",
+                  "color": "transparent",
+                  "display": "inline-block",
+                  "height": "446px",
+                  "width": "950px",
+                }
+              }
+            >
+              <span
+                className=""
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "height": "446px",
+                    "width": "950px",
+                  }
+                }
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p
+      className="text-lg font-semibold leading-7"
+    >
+      3 part free video series
+    </p>
+    <p
+      data-testid="desc"
+    >
+      Learn all the basics of what font making is. Find out the tools you’ll need and what sofware is required to get started making fonts in this free 3 part video series.
+    </p>
+    <a
+      className="mt-3 btn btn-primary btn-xl"
+      href="/learn-font-making"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      View Mini Course
+    </a>
+  </div>
+</section>
+`;

@@ -7,6 +7,14 @@ interface Props {
   message: string
 }
 // TODO: TEST THIS
+
+/**
+ * @function ThankyouErrorMessage
+ *
+ * @description - Display an error on the Tuesday Makers Thank you page if something goes wrong with the cookie or it has expired.
+ *
+ * @tested - 11/20/2022
+ */
 function ThankyouErrorMessage(props: Props) {
   const { message } = props
 
