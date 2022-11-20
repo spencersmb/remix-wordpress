@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Small Course Card Component  1`] = `
+<a
+  className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+  href="https://www.example.com"
+  rel="noreferrer"
+  target="_blank"
+>
+  <div
+    className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+  >
+    <div
+      className="relative flex-1"
+      data-testid="padding-bot"
+      style={
+        Object {
+          "paddingBottom": "100%",
+        }
+      }
+    >
+      <div
+        className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+      >
+        <span
+          className=" lazy-load-image-background blur"
+          style={
+            Object {
+              "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+              "backgroundSize": "100% 100%",
+              "color": "transparent",
+              "display": "inline-block",
+              "height": "150px",
+              "width": "150px",
+            }
+          }
+        >
+          <span
+            className=""
+            style={
+              Object {
+                "display": "inline-block",
+                "height": "150px",
+                "width": "150px",
+              }
+            }
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex flex-col flex-1 ml-4"
+  >
+    <div
+      className="text-xs font-semibold uppercase text-sage-600"
+    >
+      course
+    </div>
+    <div
+      className="text-xl font-semibold leading-7"
+    >
+      Course Title
+    </div>
+  </div>
+</a>
+`;

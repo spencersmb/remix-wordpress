@@ -9,7 +9,11 @@ interface Props {
   courses: ICourse[]
 }
 
-// TODO: TEST THIS
+/**
+ * @function FeatureCourses
+ * @description - Used on the Homepage as the Featured Courses section
+ * @tested - Snapshot 11/19/2022
+ */
 function FeatureCourses(props: Props) {
   const { courses } = props
 
@@ -46,7 +50,7 @@ function FeatureCourses(props: Props) {
         <div className='flex flex-col mb-8 text-center tablet:text-left'>
 
           <div className='text-3xl font-sentinel__SemiBoldItal'>
-            Illustration Courses
+            Illustration
           </div>
 
           <p>

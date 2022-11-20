@@ -6,7 +6,11 @@ import LazyImageBase from '../images/lazyImage-base'
 interface Props {
   course: ICourse
 }
-// TODO: TEST THIS
+/**
+ * @function CourseCardSmall
+ * @description - Used on the Homepage in the Featured Courses section
+ * @tested - Snapshot 11/19/2022
+ */
 function CourseCardSmall(props: Props) {
   const { course } = props
   const image = loadImageSrc({

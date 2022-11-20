@@ -4,7 +4,11 @@ import React from 'react'
 import IpadDevice from '../images/ipadDevice'
 import AccentHeaderText from '../layout/accentHeaderText'
 
-// TODO: TEST THIS
+/**
+ * @function ProcreateBrushes
+ * @description - Used on the Homepage as the Featured Procreate Brush section
+ * @tested - Snapshot 11/19/2022
+ */
 function ProcreateBrushes() {
 
   const iPadImage = createImgixSizes({

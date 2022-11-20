@@ -4,7 +4,11 @@ import AccentHeaderText from '../layout/accentHeaderText'
 import LazyLoadVideo from '../video/lazyLoadVideo'
 
 
-// TODO: TEST THIS
+/**
+ * @function StartHere
+ * @description - Intro to Procreate for beginners section on the Home Page
+ * @tested - 11/19/2022
+ */
 export default function StartHere() {
   return (
     <section className='relative flex bg-grey-200 tablet:p-0 et-grid-basic'>

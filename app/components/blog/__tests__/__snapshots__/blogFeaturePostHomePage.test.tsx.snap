@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Blog Feature Post Home Page Component  1`] = `
+<div
+  className="flex flex-col tablet:flex-row tablet:gap-4 tablet:items-start laptop:flex-row-reverse laptop:items-center laptop:justify-end"
+>
+  <div
+    className="relative max-w-[450px] w-full px-4 mb-[68px] tablet:max-w-[300px] tablet:mb-0 tablet:mt-8 laptop:w-[50%] desktop:max-w-[480px]"
+  >
+    <div
+      className="z-2 absolute top-[-48px] left-[45%] -translate-x-1/2 w-[95px] desktop:top-[-50px]"
+    >
+      <div
+        className="relative flex-1"
+        data-testid="imigx-padding-bot"
+        style={
+          Object {
+            "paddingBottom": "78.5997357992074%",
+          }
+        }
+      >
+        <div
+          className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+          data-testid="imigx-container"
+        >
+          <span
+            className=" lazy-load-image-background blur"
+            style={
+              Object {
+                "backgroundImage": "url(https://et-website.imgix.net/et-website/images/black-pin-min.png?auto=format&w=20&fit=clip)",
+                "backgroundSize": "100% 100%",
+                "color": "transparent",
+                "display": "inline-block",
+                "height": "595px",
+                "width": "757px",
+              }
+            }
+          >
+            <span
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                  "height": "595px",
+                  "width": "757px",
+                }
+              }
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="p-3 bg-white shadow-md -rotate-3 tablet:p-3 laptop:p-4"
+      data-testid="polaroid-container"
+    >
+      <div>
+        <div
+          className="relative flex-1"
+          data-testid="padding-bot"
+          style={
+            Object {
+              "paddingBottom": "88.8%",
+            }
+          }
+        >
+          <div
+            className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+          >
+            <img
+              alt="Every Tuesday Fallback Featured Thumbnail"
+              aria-label="Product Image"
+              data-testid="feature-image"
+              height="888px"
+              onLoad={[Function]}
+              sizes=""
+              src="https://et-website.imgix.net/defaultImages/default-thumb.jpg"
+              srcSet=""
+              width="1000px"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="relative"
+      >
+        <div
+          className="pb-[18%]"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex flex-col items-start flex-1 mb-12 tablet:mb-0 tablet:mt-14 laptop:max-w-[430px] laptop:w-full"
+  >
+    <a
+      className="group"
+      href="/test-slug"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <h2
+        className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-sage-500"
+      >
+        <div
+          className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 laptop:group-hover:text-grey-800 text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
+        >
+          Latest Post
+        </div>
+        test-title
+      </h2>
+    </a>
+    <div
+      className="flex flex-row gap-8 mt-4 text-sm desktop:text-base"
+    >
+      <div>
+        undefined NaN, NaN
+      </div>
+    </div>
+    <div
+      className="mt-4 desktop:text-lg"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "EXCERPT",
+        }
+      }
+    />
+    <a
+      className="mt-8 btn btn-xl btn-primary tablet:mt-6 tablet:btn-flex"
+      href="/test-slug"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      View the post
+    </a>
+  </div>
+</div>
+`;

@@ -2478,6 +2478,9 @@ video {
 .w-\[66px\] {
   width: 66px;
 }
+.w-\[75px\] {
+  width: 75px;
+}
 .min-w-\[320px\] {
   min-width: 320px;
 }
@@ -8803,6 +8806,9 @@ video {
   .desktop\:top-\[170px\] {
     top: 170px;
   }
+  .desktop\:top-\[-55px\] {
+    top: -55px;
+  }
   .desktop\:col-span-5 {
     grid-column: span 5 / span 5;
   }
@@ -9179,6 +9185,9 @@ video {
   }
   .desktop\:w-\[311px\] {
     width: 311px;
+  }
+  .desktop\:w-\[95px\] {
+    width: 95px;
   }
   .desktop\:min-w-\[1265px\] {
     min-width: 1265px;

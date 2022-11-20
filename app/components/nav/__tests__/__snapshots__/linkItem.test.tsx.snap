@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Procreate Brushes Component  1`] = `
+<div
+  className="p-4 transition-colors duration-200 rounded-lg hover:bg-sage-100 group"
+>
+  <div
+    className="relative flex flex-row items-center"
+  >
+    <div
+      className="flex-1 text-lg font-semibold"
+    >
+      Link Item
+    </div>
+    <div
+      className="relative transition-all duration-200 -translate-x-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
+    >
+      <svg
+        aria-hidden="true"
+        className="w-4 h-4 text-primary-600"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clipRule="evenodd"
+          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+          fillRule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+  <p
+    className="text-sm text-grey-500"
+  >
+    This is a link item
+  </p>
+</div>
+`;

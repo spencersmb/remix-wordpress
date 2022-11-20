@@ -10,7 +10,11 @@ import AccentHeaderText from '../layout/accentHeaderText';
 
 interface Props { post: IPost }
 
-//TODO: TEST THIS
+/**
+ * @function BlogFeaturePostHomePage
+ * @description - Used on the Homepage in the blog section
+ * @tested - Snapshot 11/19/2022
+ */
 function BlogFeaturePostHomePage(props: Props) {
   const { post } = props
   const skill = findSkillLevel(post.categories);
@@ -24,10 +28,10 @@ function BlogFeaturePostHomePage(props: Props) {
   return (
     <div className='flex flex-col tablet:flex-row tablet:gap-4 tablet:items-start laptop:flex-row-reverse laptop:items-center laptop:justify-end'>
 
-      {/* IMAGE */}
+      {/* BLOG IMAGE */}
       <div className="relative max-w-[450px] w-full px-4 mb-[68px] tablet:max-w-[300px] tablet:mb-0 tablet:mt-8 laptop:w-[50%] desktop:max-w-[480px]">
         {/* PIN */}
-        <div className='z-2 absolute top-[-48px] left-[45%] -translate-x-1/2 w-[95px] desktop:w-[120px] desktop:top-[-60px]'>
+        <div className='z-2 absolute top-[-48px] left-[45%] -translate-x-1/2 w-[95px] desktop:top-[-50px]'>
           <LazyImgix
             id={'tm-pin'}
             image={{

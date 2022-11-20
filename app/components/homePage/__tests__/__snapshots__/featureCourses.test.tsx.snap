@@ -1,0 +1,513 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Feature Courses Component  1`] = `
+<section
+  className="et-grid-basic bg-cream-300"
+>
+  <div
+    className="relative col-span-2 col-start-2 my-8 text-center tablet:col-start-2 tablet:col-span-7 tablet:text-left tablet:mt-16 laptop:col-start-3 desktop:col-start-4"
+  >
+    <div
+      className="relative text-5xl font-sentinel__SemiBoldItal z-2"
+    >
+      Find a Course
+    </div>
+    <div
+      className="z-1 max-w-[275px] w-full mt-6 left-[-80px] absolute bottom-[-40px]"
+    >
+      <div
+        className="relative flex-1"
+        data-testid="imigx-padding-bot"
+        style={
+          Object {
+            "paddingBottom": "26.200000000000003%",
+          }
+        }
+      >
+        <div
+          className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+          data-testid="imigx-container"
+        >
+          <span
+            className=" lazy-load-image-background blur"
+            style={
+              Object {
+                "backgroundImage": "url(https://et-website.imgix.net/et-website/images/short-strokes-01_1-min.png?auto=format&w=20&fit=clip&monochrome=7F5A3A)",
+                "backgroundSize": "100% 100%",
+                "color": "transparent",
+                "display": "inline-block",
+                "height": "131px",
+                "width": "500px",
+              }
+            }
+          >
+            <span
+              className=""
+              style={
+                Object {
+                  "display": "inline-block",
+                  "height": "131px",
+                  "width": "500px",
+                }
+              }
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="relative max-w-[315px] mx-auto flex flex-col col-span-2 col-start-2 mb-8 tablet:col-start-3 tablet:col-span-5 tablet:row-start-2 tablet:mt-20 tablet:ml-auto tablet:mr-0 laptop:col-start-4 laptop:col-span-4 desktop:col-start-5 desktop:col-span-3"
+  >
+    <div
+      className="flex flex-col mb-8 text-center tablet:text-left"
+    >
+      <div
+        className="text-3xl font-sentinel__SemiBoldItal"
+      >
+        Illustration
+      </div>
+      <p>
+        Starting out with Procreate
+      </p>
+    </div>
+    <div
+      className="flex flex-col"
+    >
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course Title
+          </div>
+        </div>
+      </a>
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example2.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course2 Title
+          </div>
+        </div>
+      </a>
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example3.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course3 Title
+          </div>
+        </div>
+      </a>
+    </div>
+    <div
+      className="hidden absolute font-bonVivant text-5xl w-[300px] top-1/2 -translate-y-1/2 left-[-250px] -rotate-6 desktop:block"
+    >
+      Free Procreate color palettes
+    </div>
+  </div>
+  <div
+    className="relative max-w-[315px] mx-auto flex flex-col col-span-2 col-start-2 mb-8 tablet:col-start-8 tablet:col-span-5 tablet:row-start-2 tablet:ml-0 laptop:col-span-4 desktop:col-start-8 desktop:col-span-3"
+  >
+    <div
+      className="flex flex-col mb-8 text-center tablet:text-left"
+    >
+      <div
+        className="text-3xl font-sentinel__SemiBoldItal"
+      >
+        Lettering
+      </div>
+      <p>
+        Starting out with Procreate
+      </p>
+    </div>
+    <div
+      className="flex flex-col"
+    >
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course Title
+          </div>
+        </div>
+      </a>
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example2.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course2 Title
+          </div>
+        </div>
+      </a>
+      <a
+        className="relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1"
+        href="https://www.example3.com"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div
+          className="rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="padding-bot"
+            style={
+              Object {
+                "paddingBottom": "100%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://etheadless.local/wp-content/uploads/2021/11/create-candy-cane-lettering-in-procreate-hero-20x20.jpg)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "150px",
+                    "width": "150px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "150px",
+                      "width": "150px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="flex flex-col flex-1 ml-4"
+        >
+          <div
+            className="text-xs font-semibold uppercase text-sage-600"
+          >
+            course
+          </div>
+          <div
+            className="text-xl font-semibold leading-7"
+          >
+            Course3 Title
+          </div>
+        </div>
+      </a>
+    </div>
+    <div
+      className="hidden absolute text-5xl w-[250px] top-1/2 -translate-y-1/2 right-[-275px] rotate-6 desktop:block"
+    >
+      <div
+        className="mb-2 text-xl leading-6 font-sentinel__SemiBoldItal"
+      >
+        Free Procreate Brushes with course purchase
+      </div>
+      <div
+        className="text-sm"
+      >
+        Each course comes with a special set of brushes designed specially for that course.
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex justify-center col-span-2 col-start-2 mb-12 tablet:col-start-5 tablet:col-span-6"
+  >
+    <a
+      className="btn btn-primary btn-xl"
+      href="/courses"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      View All Courses
+    </a>
+  </div>
+</section>
+`;

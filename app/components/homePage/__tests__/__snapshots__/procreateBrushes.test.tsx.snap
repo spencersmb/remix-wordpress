@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render Procreate Brushes Component  1`] = `
+<section
+  className="et-grid-basic overflow-hidden tablet:grid-row-[auto_auto]"
+>
+  <div
+    className="relative col-span-2 col-start-2 h-[350px] mt-8 tablet:col-start-2 tablet:col-span-8 tablet:row-start-2 tablet:h-[200px] laptop:mt-16 desktop:h-[350px] desktopXl:col-start-2 desktopXl:col-span-7 desktopXl:mr-16"
+  >
+    <div
+      className="absolute top-0 left-0 tablet:left-auto tablet:right-0 w-[530px] desktop:w-[882px] desktopXl:w-[1002px]"
+    >
+      <div
+        className="relative max-w-[1000px] z-20"
+      >
+        <div
+          className="absolute top-[-4.5%] left-[-5.6%] scale-[.82] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "74.92857142857143%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-align.jpg?auto=format&w=20&fit=clip&auto=compress)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "1049px",
+                    "width": "1400px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "1049px",
+                      "width": "1400px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="relative z-10 ipad"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "73.3%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-device-1_3-min.png?auto=format?auto=format&w=20&fit=clip)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "733px",
+                    "width": "1000px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "733px",
+                      "width": "1000px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="hidden relative col-span-2 col-start-2 h-[350px] mt-8 tablet:col-start-10 tablet:col-span-4 tablet:row-start-2 tablet:h-[200px] tablet:block laptop:mt-16 desktop:h-[350px] desktopXl:col-start-8 desktopXl:col-span-4 desktopXl:ml-16"
+  >
+    <div
+      className="absolute top-0 left-0 w-[530px] desktop:w-[882px] desktopXl:w-[1002px]"
+    >
+      <div
+        className="relative max-w-[1000px] z-20"
+      >
+        <div
+          className="absolute top-[-4.5%] left-[-5.6%] scale-[.82] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "74.92857142857143%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-align.jpg?auto=format&w=20&fit=clip&auto=compress)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "1049px",
+                    "width": "1400px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "1049px",
+                      "width": "1400px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="relative z-10 ipad"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "73.3%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-device-1_3-min.png?auto=format?auto=format&w=20&fit=clip)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "733px",
+                    "width": "1000px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "733px",
+                      "width": "1000px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="hidden relative col-span-2 col-start-2 h-[350px] tablet:col-start-9 tablet:col-span-5 tablet:row-start-1 tablet:h-[400px] tablet:block"
+  >
+    <div
+      className="absolute top-[-40px] left-[-110px] w-[580px] rotate-90 scale-y-[-1] desktop:w-[882px] desktop:top-[-225px] desktopXl:w-[1002px] desktopXl:top-[-305px]"
+    >
+      <div
+        className="relative max-w-[1000px] z-20"
+      >
+        <div
+          className="absolute top-[-4.5%] left-[-5.6%] scale-[.82] w-full overflow-hidden rounded-md tablet:rounded-xl art z-20"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "74.92857142857143%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-align.jpg?auto=format&w=20&fit=clip&auto=compress)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "1049px",
+                    "width": "1400px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "1049px",
+                      "width": "1400px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="relative z-10 ipad"
+        >
+          <div
+            className="relative flex-1"
+            data-testid="imigx-padding-bot"
+            style={
+              Object {
+                "paddingBottom": "73.3%",
+              }
+            }
+          >
+            <div
+              className="absolute w-full lazy-load-wrapper lazy-load-wrapper-block lazy-load-image-full transition-all duration-300"
+              data-testid="imigx-container"
+            >
+              <span
+                className=" lazy-load-image-background blur"
+                style={
+                  Object {
+                    "backgroundImage": "url(https://et-website.imgix.net/et-website/images/ipad-device-1_3-min.png?auto=format?auto=format&w=20&fit=clip)",
+                    "backgroundSize": "100% 100%",
+                    "color": "transparent",
+                    "display": "inline-block",
+                    "height": "733px",
+                    "width": "1000px",
+                  }
+                }
+              >
+                <span
+                  className=""
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "height": "733px",
+                      "width": "1000px",
+                    }
+                  }
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex flex-col items-start col-span-2 col-start-2 py-16 tablet:row-start-1 tablet:col-start-3 tablet:col-span-6 tablet:mt-32 tablet:pb-8 desktop:col-start-3 desktop:col-span-5"
+  >
+    <h3
+      className="relative mt-8 mb-8 text-4xl font-sentinel__SemiBoldItal desktop:text-6xl"
+    >
+      <div
+        className="left-[-22px] tablet:!top-[-59px] text-4xl tablet:left-[-52px] absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
+      >
+        Brand New!
+      </div>
+      Make inspiring art using custom procreate brushses!
+    </h3>
+    <a
+      className="btn btn-primary btn-xl"
+      href="/products"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      View my brushes
+    </a>
+  </div>
+</section>
+`;

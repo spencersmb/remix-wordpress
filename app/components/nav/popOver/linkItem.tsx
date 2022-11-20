@@ -6,7 +6,12 @@ interface Props {
   url: string;
   externalLink: boolean;
 }
-//TODO: Test this component
+
+/**
+ * @function LinkItem
+ * @description - Used in the Login Popover
+ * @tested - Snapshot 11/19/2022
+ */
 const LinkItem = ({ title, description }: Props) => {
   return (
     <div className="p-4 transition-colors duration-200 rounded-lg hover:bg-sage-100 group">
@@ -16,6 +21,7 @@ const LinkItem = ({ title, description }: Props) => {
         <div className="flex-1 text-lg font-semibold">
           {title}
         </div>
+
         <div className="relative transition-all duration-200 -translate-x-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-0">
           <ArrowRightIcon className="w-4 h-4 text-primary-600" />
         </div>

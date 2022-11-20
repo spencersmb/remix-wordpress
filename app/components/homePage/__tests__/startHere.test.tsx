@@ -1,4 +1,3 @@
-import { screen } from "@testing-library/react";
 import { renderUi } from "@TestUtils/renderUtils"
 import StartHere from "../startHere";
 
