@@ -6,11 +6,11 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import { AnimatePresence, motion } from "framer-motion";
 import gql from "graphql-tag";
 import { useEffect, useState } from "react";
-import OutlinedButton from "../buttons/outlinedButton";
-import { spinnerColors } from "../spinners/spinnerColors";
 import BlogFeaturedPost from "../blog/blogFeaturedPost";
 import BlogCategoryTabs from "../blog/blogHomeTabs/blogCategoryTabs";
 import BlogPostGrid from "../blog/blogPostGrid";
+import OutlinedButton from "../buttons/outlinedButton";
+import { spinnerColors } from "../spinners/spinnerColors";
 
 interface Props {
   loaderData: any
@@ -77,9 +77,8 @@ function setWindowUrlParams(props: {
   window.history.replaceState(pageTitle, tabTitle, url.href);
 }
 
-function BlogHomeTemplate({ loaderData }: Props) {
+function BlogIndexTemplate({ loaderData }: Props) {
   let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  console.log('server Posts', posts)
   consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
   consoleHelper('pageUrlParams', pageUrlParams, '/routes/blog/index.tsx');
 
@@ -253,7 +252,7 @@ function BlogHomeTemplate({ loaderData }: Props) {
 
       <BlogFeaturedPost featuredPost={posts[0]} />
 
-      <div className='grid grid-flow-row row-auto mt-20 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-32 desktop:grid-cols-desktop'>
+      <div className='grid grid-flow-row row-auto mt-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-16 desktop:grid-cols-desktop'>
         <BlogCategoryTabs catClick={handleCatClick} category={category} />
       </div>
 
@@ -325,7 +324,7 @@ function BlogHomeTemplate({ loaderData }: Props) {
   )
 }
 
-export default BlogHomeTemplate
+export default BlogIndexTemplate
 
 const postQuery = gql`
  ${POST_RESOURCE_FIELDS}

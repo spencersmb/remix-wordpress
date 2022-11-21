@@ -5,13 +5,12 @@ import { createOgArticle, createOgImages, getHtmlMetadataTags, mdxPageMeta } fro
 import gql from 'graphql-tag';
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
-import BlogTemplate from '@App/components/blog/blogTemplate'
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { useLoaderData, useMatches } from '@remix-run/react'
 import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
-// @ts-nocheck
+import BlogSlugTemplate from '@App/components/pageTemplates/blugSlugTemplate';
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
@@ -45,7 +44,7 @@ export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();
   return (
     <Layout>
-      <BlogTemplate post={post} />
+      <BlogSlugTemplate post={post} />
     </Layout>
   );
 }

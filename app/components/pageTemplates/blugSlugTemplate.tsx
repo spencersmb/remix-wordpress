@@ -10,19 +10,10 @@ import { addClass } from '@App/utils/pageUtils';
 import { consoleHelper } from '@App/utils/windowUtils';
 import YouTubeVideo from '../cards/youTubeCard__post';
 import LazyImageBase from '../images/lazyImage-base';
-import BlogAuthor from './blogAuthor';
-import BlogCategories from './blogCategories';
-import BlogComments from './blogComments';
-import Breadcrumbs from './breadcrumbs';
-import BlogDateAuthor from './date';
-import PinterestBlock from './pinterestBlock';
-import PostsGrid from './postsGrid';
-import PaidProducts from './tutorialContent/paidProducts';
-import TutorialDownloads from './tutorialContent/tutorialDownloads';
+
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
 import { useSearch } from '@App/hooks/useSearch';
-import TutorialResources from './tutorialContent/tutorialResources';
 import { findSkillLevel, getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
 import { TagIcon } from '@heroicons/react/solid';
 import { Link } from '@remix-run/react';
@@ -30,16 +21,25 @@ import ClockSvg from '../svgs/clockSvg';
 import LazyImgix from '../images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
 import BarChartSvg from '../svgs/barChartSvg';
+import BlogAuthor from '../blog/blogAuthor';
+import BlogCategories from '../blog/blogCategories';
+import BlogComments from '../blog/blogComments';
+import Breadcrumbs from '../blog/breadcrumbs';
+import BlogDateAuthor from '../blog/date';
+import PinterestBlock from '../blog/pinterestBlock';
+import PostsGrid from '../blog/postsGrid';
+import TutorialDownloads from '../blog/tutorialContent/tutorialDownloads';
+import TutorialResources from '../blog/tutorialContent/tutorialResources';
 
 interface IProps {
   post: IPost
 }
-function BlogTemplate(props: IProps) {
+function BlogSlugTemplate(props: IProps) {
   const { post } = props
   const { openSearch } = useSearch()
   const skill = findSkillLevel(post.categories);
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
-  consoleHelper('post', post, 'blogTemplate.tsx')
+  consoleHelper('post', post, 'BlogSlugTemplate.tsx')
 
   useEffect(() => {
     // window.scrollTo({
@@ -496,4 +496,4 @@ function BlogTemplate(props: IProps) {
   )
 }
 
-export default BlogTemplate
+export default BlogSlugTemplate

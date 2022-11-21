@@ -11,7 +11,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { getStaticPageMeta } from "@App/utils/pageUtils";
-import BlogMainIndex from "@App/components/blog/blogMain";
+import BlogIndexTemplate from "@App/components/pageTemplates/blogIndexTemplate";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -97,7 +97,7 @@ function BlogIndex() {
   return (
     <Layout>
 
-      <BlogMainIndex loaderData={loaderData} />
+      <BlogIndexTemplate loaderData={loaderData} />
 
     </Layout>
   )
@@ -121,6 +121,10 @@ query GetMorePosts($first: Int, $after: String) {
       node {
         id
         tutorialManager {
+          youtube {
+              id
+              duration
+          }
           ...postResourceFields
           postExcerpt
         }

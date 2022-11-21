@@ -9,6 +9,7 @@ import EditSvg from '../svgs/editSvg'
 import { ImageSizeEnums } from '@App/enums/imageEnums'
 import LazyImgix from '../images/lazyImgix'
 import { staticImages } from '@App/lib/imgix/data'
+import { CalendarIcon } from '@heroicons/react/outline'
 interface Props {
   featuredPost: IPost | undefined
 }
@@ -33,7 +34,9 @@ function BlogFeaturedPost(props: Props) {
     fallbackSize: ImageSizeEnums.MEDIUM,
     fallbackImage: defaultImages.thumbnail
   })
-  console.log('image', image);
+
+  const [tutorialMin] = featuredPost.tutorialManager.youtube.duration
+    ? featuredPost.tutorialManager.youtube.duration.split(':') : ['00', '00']
 
   // let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)
   // console.log('featuredPost', featuredPost);
@@ -46,11 +49,12 @@ function BlogFeaturedPost(props: Props) {
 
 
   return (
-    <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:min-h-[560px] desktop:grid-cols-desktop'>
+    <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(50px,auto)_auto_1fr_minmax(50px,auto)] desktop:grid-cols-desktop desktopXl:grid-rows-[minmax(70px,auto)_auto_1fr_minmax(70px,auto)]'>
 
       {/* FEATURED IMAGE */}
-      <div className="featured_image mx-auto mt-12 row-start-1 col-span-2 col-start-2 relative z-10 tablet:col-start-3 tablet:col-span-10 laptop:col-start-2 laptop:col-end-8 laptop:row-span-3 laptop:row-start-1 desktop:col-start-2 max-w-[660px] desktop:mr-0 desktop:mt-24 w-full">
-        <Link to={`/${featuredPost.slug}`} prefetch="intent">
+      <div className="relative z-10 w-full col-span-2 col-start-2 row-start-1 mx-auto mt-8 featured_image tablet:col-start-3 tablet:col-span-10 laptop:flex laptop:items-center laptop:col-start-7 laptop:col-span-7 laptop:row-start-2 laptop:row-span-2 laptop:my-0 laptop:mr-[-30px]
+      desktop:mr-0 desktop:max-w-[720px] desktop:col-start-8 desktop:col-span-6 desktopXl:col-start-7 desktopXl:col-span-7">
+        <Link className='w-full' to={`/${featuredPost.slug}`} prefetch="intent">
 
           {/* MAKE THIS TAG */}
           {/* <div className={`absolute top-[-20px] left-[15px] w-[167px] rotate-[352deg] z-10 laptop:w-[227px] desktop:w-[373px]`}>
@@ -87,15 +91,8 @@ function BlogFeaturedPost(props: Props) {
               testId='feature-image'
               id={featuredPost.id}
               image={image} />
-            {/* <div className="absolute top-0 flex w-full h-full overflow-hidden">
-              <LazyImageBase
-                visibleByDefault={true}
-                testId='feature-image'
-                id={featuredPost.id}
-                image={image} />
-            </div> */}
 
-            {colorSwatch &&
+            {/* {colorSwatch &&
               <div data-testid="color-swatch"
                 // style={{ backgroundColor: featuredPost.tutorialManager.colorPalette.iconBackgroundColor }}
                 className="absolute rounded-full top-[126px] tablet:top-auto tablet:bottom-[-10%] right-[10px] w-[80px] h-[80px] tablet:w-[100px] tablet:h-[100px] laptop:bottom-[-16%] desktop:w-[138px] desktop:h-[138px] bg-sage-500 desktop:top-auto desktop:bottom-[-70px] flex justify-center items-center">
@@ -104,53 +101,69 @@ function BlogFeaturedPost(props: Props) {
                   className="transform rotate-[-8deg] text-center font-sentinel__SemiBoldItal text-sm tablet:leading-4 tablet:text-base desktop:text-xl desktop:leading-6 text-white">
                   Free Color Swatches
                 </span>
-              </div>}
+              </div>} */}
 
           </div>
         </Link>
       </div>
 
       {/* CONTENT */}
-      <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:mb-2 tablet:col-start-4 tablet:col-span-8 tablet:mt-8 laptop:flex-col laptop:col-span-6 laptop:col-start-8 laptop:row-start-1 laptop:mt-12 laptop:ml-6 laptop:mb-5 desktop:ml-12 desktop:col-span-5 desktop:col-start-8 desktop:mt-24 ">
+      <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:mb-2 tablet:col-start-4 tablet:col-span-8 tablet:mt-8 laptop:col-start-2 laptop:col-span-5 laptop:row-start-2 laptop:mt-0 desktop:col-start-2 desktop:col-span-6">
 
-        {/* <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span> */}
+        <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span>
 
-        <h2 className="mb-4 font-sentinel__SemiBoldItal text-heading-3 text-sage-700 laptop:text-4xl laptop:mb-5 desktop:text-5xl">
+        <h2 className="mb-4 font-sentinel__SemiBoldItal text-heading-3 text-sage-700 tablet:text-4xl laptop:text-5xl desktop:text-6xl desktop:text-[64px]">
           <Link data-testid="blog-title" to={`/${featuredPost.slug}`} prefetch="intent">
             {featuredPost.title}
           </Link>
         </h2>
 
-        <div className="flex flex-row flex-wrap items-start mb-3 text-base text-sage-600 tablet:mb-0 tablet:flex-row tablet:gap-6 tablet:justify-between">
+        <div className="flex flex-row flex-wrap items-start mb-3 text-base text-sage-600 tablet:mb-4 tablet:flex-row tablet:gap-x-6 tablet:content-start laptop:gap-y-1 laptop:gap-x-0 desktop:gap-x-8">
 
-          {skill && <div data-testid="blog-skill" className="flex flex-row items-center mb-2 laptop:mb-0">
+          <div data-testid="blog-date" className="flex flex-row items-center flex-auto mb-2  tablet:mb-0 font-semibold tablet:flex-none laptop:flex-[1_0_50%] desktop:flex-none">
+            <span className="mr-1 max-w-[18px]">
+              <CalendarIcon path={'currentColor'} />
+              {/* <ClockSvg fill={'currentColor'} /> */}
+            </span>
+            {formatDate(featuredPost.date)}
+          </div>
+
+          {skill && <div data-testid="blog-skill" className="flex flex-row items-center mb-2 tablet:mb-0   laptop:flex-[1_0_50%] desktop:flex-none">
             <span className="mr-1 max-w-[15px]"><BarChartSvg fill={'currentColor'} /></span>
             <div>
-              <span className='mr-1'>Skill Level:</span>
+              <span className='mr-1'>Skill </span>
               <span className='font-semibold'>{skill.name}</span>
             </div>
           </div>}
 
-          {/* <div data-testid="blog-date" className="flex flex-row items-center flex-auto mb-2">
-            <span className="mr-2 max-w-[12px]"><ClockSvg fill={'currentColor'} /></span>
-            {formatDate(featuredPost.date)}
-          </div> */}
+          {/* TIME */}
+          {tutorialMin && tutorialMin !== '00' &&
+            <div className='flex flex-row items-center tablet:flex-1 laptop:flex-[1_0_50%]desktop:flex-1'>
+              <div className='max-w-[14px] w-full mr-2'>
+                <ClockSvg fill='currentColor' />
+              </div>
+              <div className='flex flex-row gap-1 font-semibold'>
+                {tutorialMin} min tutorial
+              </div>
+            </div>
+          }
 
-          <div data-testid="blog-author" className="flex flex-row items-center mb-2 laptop:mb-0">
+
+
+          {/* <div data-testid="blog-author" className="flex flex-row items-center mb-2 laptop:mb-0">
             <span className="mr-2 max-w-[12px]"><EditSvg fill={'currentColor'} /></span>
-            by Teela Cunningham</div>
+            by Teela Cunningham</div>*/}
 
         </div>
       </div>
 
       {/* DESCRIPTIOM */}
-      <div className="relative z-10 col-span-2 col-start-2 row-start-3 featured-content tablet:col-start-4 tablet:col-span-8 laptop:col-span-6 laptop:col-start-8 laptop:row-start-2 desktop:col-span-5 desktop:col-start-8 laptop:mt-5 laptop:ml-6 desktop:ml-12">
+      <div className="relative z-10 col-span-2 col-start-2 row-start-3 mb-8 featured-content tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-5 laptop:row-start-3 laptop:mb-0">
 
-        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='text-lg text-sage-800' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
+        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='overflow-hidden text-lg text-sage-800 blog-preview-text' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
 
         <div className='flex mt-5'>
 
-          {/* <CircularStrokeLink href={`/${featuredPost.slug}`} text='View Post' classes="font-semibold py-[21px] px-[30px]" /> */}
           <Link
             data-testid="test-CircularStrokeBtn"
             to={`/${featuredPost.slug}`}
@@ -162,7 +175,7 @@ function BlogFeaturedPost(props: Props) {
       </div>
 
       {/* BACKGROUND */}
-      <div className="relative z-0 col-span-4 col-start-1 row-span-2 row-start-1 featured-content-bg feature-blog-spacer tablet:bg-neutral-100 tablet:col-span-full tablet:row-end-2"></div>
+      <div className="bg-[#F7F6F7] relative z-0 col-start-1 row-span-4 row-start-1 col-span-full laptop:row-start-1 laptop:row-span-4"></div>
     </div>
   )
 }
