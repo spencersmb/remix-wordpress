@@ -56,7 +56,22 @@ const Courses = () => {
   return (
     <Layout>
       <CourseHeader />
-      <CourseHighQuality />
+
+      <div className='flex flex-col items-center'>
+        <h3 className="text-sage-800 mt-12 mb-4 text-5xl font-sentinel__SemiBoldItal desktop:text-6xl desktop:max-w-[500px] desktop:mx-auto text-center tablet:mt-32">Course Collection</h3>
+
+        <div className='grid grid-cols-1 p-8 font-semibold text-center rounded-lg bg-sage-100 tablet:grid-cols-3 tablet:gap-x-4 tablet:p-4'>
+          <div className='mb-4 tablet:mb-0'>
+            Pre-recorded videos
+          </div>
+          <div className='mb-4 tablet:mb-0'>
+            Step-by-step instructions
+          </div>
+          <div className=''>
+            Project Based Tutorials
+          </div>
+        </div>
+      </div>
 
       {/* COURSES LIST */}
 

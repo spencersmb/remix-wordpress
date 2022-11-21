@@ -1,14 +1,4 @@
-import { SEARCH_STATE_ENUMS } from '@App/enums/searchEnums';
-import { fetchInitialState } from '@App/hooks/useFetchPagination';
-import UseFetchPaginateProvider from '@App/hooks/useFetchPagination/useFetchPaginateProvider';
-import { useMatchesLookup } from '@App/hooks/useMatchesLookup';
-import { siteSearchState } from '@App/hooks/useSearch';
-import UseSearchProvider from '@App/hooks/useSearch/useSearchProvider';
-import { siteInitialState } from '@App/hooks/useSite';
-import UseSiteProvider from '@App/hooks/useSite/useSiteProvider';
 import { classNames } from '@App/utils/appUtils';
-import { Link, useMatches } from '@remix-run/react';
-import { motion, useReducedMotion, useMotionValue, Variant } from 'framer-motion'
 import type { ReactNode } from "react";
 import FooterPrimary from "../footer/FooterPrimary";
 import BasicModal from '../modals/BasicModal';
