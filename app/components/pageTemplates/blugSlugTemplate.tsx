@@ -36,7 +36,6 @@ interface IProps {
 }
 function BlogSlugTemplate(props: IProps) {
   const { post } = props
-  const { openSearch } = useSearch()
   const skill = findSkillLevel(post.categories);
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   consoleHelper('post', post, 'BlogSlugTemplate.tsx')
@@ -100,7 +99,7 @@ function BlogSlugTemplate(props: IProps) {
       text: post.title
     }
   ]
-  // const featuredImage = getImageSizeUrl(post.featuredImage, 'headless_post_feature_image')
+
   const featuredImage = loadImageSrc({
     imageSizeName: ImageSizeEnums.FEATURE, // image name to try and get
     imageObject: post.featuredImage, // the featured image object
@@ -110,22 +109,6 @@ function BlogSlugTemplate(props: IProps) {
 
   const postUrl = `${metadata.domain}/${post.slug}`
 
-  // // rewrite data example
-  // const tutorialManager: ITutorialManager = {
-  //   ...post.tutorialManager,
-  //   resources: mapPostResources(post.tutorialManager.resources)
-  // }
-
-  // const tutorialManagerObj = {
-  //   ...post.tutorialManager,
-  //   resources: reducePostResourceData(post.tutorialManager.resources)
-  // }
-
-  // get specific instance example
-  // const colorSwatch = getResource({ resources: tutorialManager.resources, resourceName: 'colorSwatch' })
-  // console.log('colorSwatch', colorSwatch);
-
-  // console.log('tutorialManagerObj', tutorialManagerObj.resources);
 
   const [tutorialMin] = post.tutorialManager.youtube.duration
     ? post.tutorialManager.youtube.duration.split(':') : ['00', '00']

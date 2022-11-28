@@ -23,7 +23,7 @@ const page = getStaticPageMeta({
   slug: 'blog',
   desc: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`
 })
-// export let meta = mdxPageMeta
+export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables: {

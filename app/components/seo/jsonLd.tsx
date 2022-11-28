@@ -20,7 +20,7 @@ const JsonLd = ({ data }: { data: any }) => {
     return null
   }
 
-  let { metadata } = data
+  let metadata = data.metadata
   let selectedMatch: undefined | ISelectedMatch = matches.find((match: any) => match.data?.post || match.data?.page || match.data?.product)
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
@@ -29,7 +29,7 @@ const JsonLd = ({ data }: { data: any }) => {
   let location = {
     pathname: selectedMatch?.pathname || '/',
   }
-
+  console.log('metadata', metadata)
   let breadcrumbList = [
     {
       position: 1,
@@ -181,7 +181,7 @@ const JsonLd = ({ data }: { data: any }) => {
 
           {jsonWebpageSettings.featuredImage && <>
             {/* @ts-ignore */}
-            <link rel="preload" fetchriority="high" as="image" href={jsonWebpageSettings.featuredImage.sourceUrl} type="image/jpg" />
+            <link rel="preload" fetchpriority="high" as="image" href={jsonWebpageSettings.featuredImage.sourceUrl} type="image/jpg" />
           </>}
 
         </>
@@ -195,7 +195,7 @@ const JsonLd = ({ data }: { data: any }) => {
       }} />}
 
       {/*JsonLd Product*/}
-      {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
+      {/* {product && <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: jsonldProduct({
           url: `${metadata.domain}${location.pathname}`,
           images: [
@@ -204,7 +204,7 @@ const JsonLd = ({ data }: { data: any }) => {
           product,
           shopPlatform: metadata.serverSettings.productPlatform
         })
-      }} />}
+      }} />} */}
 
     </>
   )

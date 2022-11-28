@@ -122,8 +122,14 @@ function Header(props: Props) {
       id="header"
       ref={navRef}
       className={`${commentsModal.show ? 'laptop:animate-addPadding' : ''} fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full ${isTuesdayMakersPage ? 'bg-[#0C2427]' : 'bg-white'} duration-600 inView pr-0 laptop:h-[92px]`}
-    // className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0 laptop:h-[92px]`)}
     >
+
+      {/* <Link to={'/'}>
+        Home
+      </Link>
+      <Link to={'/blog'}>
+        Blog
+      </Link> */}
 
       <div className='flex flex-1 h-full'>
         <div className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
