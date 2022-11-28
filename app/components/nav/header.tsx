@@ -1,4 +1,4 @@
-import { Link, useTransition } from '@remix-run/react'
+import { Link, useLocation, useTransition } from '@remix-run/react'
 import { AnimatePresence, calcLength, motion, useReducedMotion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { cssColors } from '@App/enums/colors'
@@ -45,11 +45,13 @@ function Header(props: Props) {
   const circumference = 28 * 2 * Math.PI
   const strokeDasharray = `${circumference} ${circumference}`
   const shouldReduceMotion = useReducedMotion()
-  const { navRef } = useTopNav() // Nav slide in and out
   const [gumroadCartOpen, setGumroadCartOpen] = useState(false)
   const breakPointWidth = breakpointConvertPX(breakpoint)
   const transition = useTransition();
   const html = useRef<HTMLHtmlElement | null>(null)
+  const location = useLocation()
+  const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
+  const { navRef } = useTopNav() // Nav slide in and out
   // ON load listen to when gumroad cart is available and observe it for style changes
   useEffect(() => {
     html.current = document.querySelector('html')
@@ -109,11 +111,19 @@ function Header(props: Props) {
     }
   }, [transition, mobileNav.isOpen, toggleMobileNav])
 
+
+  useEffect(() => {
+    if (mobileNav.isOpen && breakPointWidth > 1024) {
+      toggleMobileNav()
+    }
+  }, [breakPointWidth, breakpoint, mobileNav.isOpen])
   return (
     <header
       id="header"
       ref={navRef}
-      className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0 laptop:h-[92px]`)}>
+      className={`${commentsModal.show ? 'laptop:animate-addPadding' : ''} fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full ${isTuesdayMakersPage ? 'bg-[#0C2427]' : 'bg-white'} duration-600 inView pr-0 laptop:h-[92px]`}
+    // className={classNames(commentsModal.show ? 'laptop:animate-addPadding' : '', `fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full bg-white duration-600 inView pr-0 laptop:h-[92px]`)}
+    >
 
       <div className='flex flex-1 h-full'>
         <div className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
@@ -121,7 +131,7 @@ function Header(props: Props) {
           {/* ET LOGO */}
           <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
             <Link to="/" title="Every Tuesday" prefetch="intent" className="">
-              <EveryTuesdayLogo fill={`var(--sage-800)`} aria-label='Every Tuesday Logo' />
+              <EveryTuesdayLogo fill={isTuesdayMakersPage ? `var(--peach-300)` : `var(--sage-800)`} aria-label='Every Tuesday Logo' />
             </Link>
           </div>
 
@@ -140,14 +150,15 @@ function Header(props: Props) {
               : '',
               'flex justify-center px-2 py-4 col-start-3 laptop:hidden')}>
             <div className="max-w-[20px]">
-              <HamburgerSvg fill={`var(${cssColors.primaryPlum700})`} />
+              <HamburgerSvg fill={isTuesdayMakersPage ? 'var(--sage-50)' : 'var(--sage-800)'} />
             </div>
           </div>
 
           {/* PRIMARY NAV */}
           {breakPointWidth >= 1024 &&
             <>
-              {alternateNav ? alternateNav : <PrimaryNav />}
+              {/* {isTuesdayMakersPage ? alternateNav : <PrimaryNav />} */}
+              <PrimaryNav />
             </>}
 
           {/* DESKTOP SEARCH AND COURSE LOGIN */}
@@ -170,10 +181,12 @@ function Header(props: Props) {
                 data-testid="search-icon-desktop"
                 onClick={openSearch}
                 className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
-                <div className="absolute text-gray-200 cursor-pointer dark:text-gray-600">
+                <div className={`${isTuesdayMakersPage
+                  ? 'text-emerald-400'
+                  : 'text-sage-600 dark:text-gray-600'} absolute  cursor-pointer `}>
                   <svg width="56" height="56" >
                     <motion.circle
-                      stroke="var(--sage-600)"
+                      stroke="currentColor"
                       strokeWidth="2"
                       fill="transparent"
                       r="26"
@@ -195,9 +208,11 @@ function Header(props: Props) {
                     />
                   </svg>
                 </div>
-                <div className="transition-colors border rounded-full cursor-pointer bg-sage-700 group-hover:bg-sage-500">
+                <div className={`${isTuesdayMakersPage
+                  ? 'border border-transparent bg-emerald-500 group-hover:bg-emerald-400'
+                  : 'border bg-sage-700 group-hover:bg-sage-500'} transition-colors rounded-full cursor-pointer `}>
                   <div className="w-[20px] h-[20px] m-3">
-                    <SearchSvg fill={'#ffffff'} />
+                    <SearchSvg fill={isTuesdayMakersPage ? 'var(--sage-50)' : '#ffffff'} />
                   </div>
                 </div>
               </div>

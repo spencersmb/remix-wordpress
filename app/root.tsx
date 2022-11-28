@@ -30,6 +30,14 @@ import type { IRootData } from "./interfaces/global";
 import 'lazysizes';
 import { getSearchData } from "./lib/search/searchApi";
 import NotFoundTemplate from "./components/pageTemplates/404Template";
+import ContextLoader from "./components/layoutTemplates/contextLoader";
+import GlobalEvents from "./components/layoutTemplates/globalHooks";
+import Header from "./components/nav/header";
+import FooterPrimary from "./components/footer/FooterPrimary";
+import BasicModal from "./components/modals/BasicModal";
+import CommentModal from "./components/modals/commentModal";
+import SearchModal from "./components/modals/searchModal";
+import { ShopPlatformEnum } from "./enums/products";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -225,7 +233,15 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
-        <Outlet />
+        <ContextLoader>
+          <GlobalEvents />
+          <Header />
+          <Outlet />
+          <FooterPrimary />
+          <BasicModal />
+          <CommentModal />
+          <SearchModal />
+        </ContextLoader>
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
@@ -243,6 +259,9 @@ export function Document({ children, title }: IDocument) {
         <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
         <Scripts />
         <LiveReload />
+        {/* FOOTER SCRIPTS */}
+        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+
       </body>
     </html>
   );

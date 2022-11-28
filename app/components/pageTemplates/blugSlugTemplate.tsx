@@ -143,35 +143,35 @@ function BlogSlugTemplate(props: IProps) {
     <article className='grid grid-flow-row row-auto bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
 
       {/* Header */}
-      <div className='col-span-full bg-sage-700 et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
+      <div className='col-span-full bg-white et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-sage-50 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-emerald-500 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 
         {/* TITLE */}
         <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-11 tablet:mb-0 laptop:col-start-3 laptop:col-span-10 desktop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6' >
-          <h1 className='text-3xl text-sage-50 font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
+          <h1 className='text-3xl text-[#344C4F] font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
             {post.title}
           </h1>
         </div>
 
         {/* FEATURED IMAGE */}
-        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktopXl:mr-7 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
+        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktop:mt-2 desktopXl:mr-7 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
           <LazyImageBase image={featuredImage} id={post.id} />
         </div>
 
         {/* TAGS AND TIME */}
         <div className='flex col-span-2 col-start-2 my-8 font-medium tablet:col-start-2 tablet:col-span-12 tablet:row-start-3 laptop:col-start-3 laptop:col-span-11 desktop:mt-0 desktop:col-start-2 desktop:col-span-7 desktop:row-start-4'>
 
-          <div className='flex flex-col w-full p-4 rounded-lg bg-sage-600 tablet:flex-row tablet:items-center tablet:gap-7 tablet:w-auto tablet:px-5 laptop:justify-between'>
+          <div className='flex flex-col w-full p-4 rounded-lg bg-sage-50 tablet:flex-row tablet:items-center tablet:gap-7 tablet:w-auto tablet:px-5 laptop:justify-between'>
             {/* TAGS */}
             <div className='flex flex-row items-center pb-4 tablet:pb-0'>
-              <div className='max-w-[20px] w-full text-sage-200 mr-2'>
+              <div className='max-w-[20px] w-full text-[#344C4F] mr-2'>
                 <TagIcon />
               </div>
-              <div className='flex flex-row gap-1 text-sage-50'>
+              <div className='flex flex-row gap-1 text-[#344C4F]'>
                 {post.categories.map((category, index) => {
                   const lastItem = 3 === index + 1
                   if (index > 2) {
@@ -196,10 +196,10 @@ function BlogSlugTemplate(props: IProps) {
 
 
             {skill && <div className='flex flex-row items-center pb-4 tablet:pb-0'>
-              <div className='max-w-[20px] w-full text-sage-200 mr-2'>
+              <div className='max-w-[20px] w-full text-[#344C4F] mr-1'>
                 <BarChartSvg fill={'currentColor'} />
               </div>
-              <div className='flex flex-row gap-1 text-sage-50'>
+              <div className='flex flex-row gap-1 text-[#344C4F]'>
                 <div className='font-semibold'>
                   {skill.name} Skill
                 </div>
@@ -211,10 +211,10 @@ function BlogSlugTemplate(props: IProps) {
             {/* TIME */}
             {tutorialMin && tutorialMin !== '00' &&
               <div className='flex flex-row items-center'>
-                <div className='max-w-[18px] w-full text-sage-200 mr-2'>
+                <div className='max-w-[18px] w-full text-[#344C4F] mr-1'>
                   <ClockSvg fill='currentColor' />
                 </div>
-                <div className='flex flex-row gap-1 text-sage-50'>
+                <div className='flex flex-row gap-1 text-[#344C4F] font-semibold'>
                   {tutorialMin} min tutorial
                 </div>
               </div>
@@ -226,13 +226,13 @@ function BlogSlugTemplate(props: IProps) {
 
         {/* QUICK SUMMERY */}
         {post.tutorialManager.quickSummary &&
-          <div className='col-span-2 col-start-2 mb-8 text-sage-50 tablet:row-start-4 tablet:col-start-2 tablet:col-span-8 tablet:text-lg laptop:text-xl laptop:col-start-3 laptop:col-span-8 desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
-            <span className='text-lg font-sentinel__SemiBoldItal text-secondary-400 tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
+          <div className='col-span-2 col-start-2 mb-8 text-[#344C4F] tablet:row-start-4 tablet:col-start-2 tablet:col-span-8 tablet:text-lg laptop:text-xl laptop:col-start-3 laptop:col-span-8 desktop:col-start-2 desktop:col-span-6 desktop:row-start-5'>
+            <span className='text-lg font-sentinel__SemiBoldItal text-[#C04828] tablet:text-xl laptop:text-2xl'>Quick Summary</span> ~ {post.tutorialManager.quickSummary}
           </div>
         }
 
         {/* AUTHOR */}
-        <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-sage-50 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:just laptop:items-start laptop:col-start-3 laptop:col-span-3 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
+        <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-emerald-600 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:just laptop:items-start laptop:col-start-3 laptop:col-span-3 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
 
           <div className='relative flex flex-row items-center desktop:mb-4'>
             <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>
@@ -253,7 +253,6 @@ function BlogSlugTemplate(props: IProps) {
 
             {/* AUTHOR INFO */}
             <div className='flex flex-col flex-[1] tablet:my-0 tablet:text-left'>
-
               <BlogDateAuthor date={post.date} author={post.author.name} />
             </div>
           </div>
@@ -262,8 +261,8 @@ function BlogSlugTemplate(props: IProps) {
 
         {/* GREY BG FILLER */}
         <div className={classNames(post.tutorialManager.youtube.id
-          ? 'bg-sage-200'
-          : 'bg-neutral-50', 'relative hidden row-span-1 row-start-6 z-1  tablet:block tablet:col-span-full desktop:row-start-6 desktop:row-span-1')} />
+          ? 'bg-sage-100'
+          : 'bg-white', 'relative hidden row-span-1 row-start-6 z-1  tablet:block tablet:col-span-full desktop:row-start-6 desktop:row-span-1')} />
 
       </div>
 
@@ -281,7 +280,7 @@ function BlogSlugTemplate(props: IProps) {
                 post.tutorialManager.downloads
                   ? 'desktop:px-8'
                   : '',
-                'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-200')}>
+                'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100')}>
 
                 <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
 
@@ -377,7 +376,7 @@ function BlogSlugTemplate(props: IProps) {
                 <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
 
                   {/* ADDITIONAL RESOURCES */}
-                  <div className='relative flex-none my-20 desktop:flex-1'>
+                  <div className='relative flex-none my-20 additional-resources desktop:flex-1'>
                     {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
                       <Sticky topOffset={-20} bottomOffset={184}>
                         {({
@@ -408,7 +407,7 @@ function BlogSlugTemplate(props: IProps) {
                   </div>
 
                   {/* BLOG CONTENT */}
-                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20 desktop:mb-0'>
+                  <div className='blog-content flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20 desktop:mb-0'>
                     <div className=''>
                       {post.tutorialManager.postExcerpt &&
                         <div className='mb-8 text-xl ' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
@@ -422,40 +421,11 @@ function BlogSlugTemplate(props: IProps) {
 
               </div>
 
-              <div className={classNames(
-                post.tutorialManager.downloads
-                  ? 'desktop:px-8'
-                  : '',
-                'px-5 pb-8 tablet:py-16 desktop:py-0 bg-sage-200')}>
-
-                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
-
-                  {/* ADDITIONAL RESOURCES */}
-                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:mb-20 desktop:ml-auto'>
-
-                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
-
-                    {/* RESOURCES */}
-                    <TutorialResources
-                      resources={post.tutorialManager.resources} />
-                  </div>
-
-                </div>
-
-              </div>
-
             </StickyContainer>
           </div>
 
         </div>}
 
-      {/* BLOG CONTENT WHEN USING THE OLD STYLE */}
-      {!post.tutorialManager.youtube.id && post.tutorialManager.postExcerpt &&
-        <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />
-      }
-      {!post.tutorialManager.youtube.id && post.tutorialManager.resources.length === 0 &&
-        <div className='col-span-2 col-start-2 mt-16 mb-8 blog-content tablet:col-start-3 tablet:col-span-10 desktop:col-start-4 desktop:col-span-8' dangerouslySetInnerHTML={{ __html: post.content }} />
-      }
 
       {/* PINTEREST */}
       <PinterestBlock

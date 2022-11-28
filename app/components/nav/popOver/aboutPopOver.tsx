@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/solid'
-import { Link } from '@remix-run/react'
+import { Link, useLocation } from '@remix-run/react'
 import { useEffect, useRef, useState } from 'react'
 import useSite from '@App/hooks/useSite'
 import { useTransition } from '@remix-run/react'
@@ -22,6 +22,8 @@ export default function AboutPopOver() {
   const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
+  const location = useLocation()
+  const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
   });
@@ -39,6 +41,17 @@ export default function AboutPopOver() {
     }
   }, [transition, visible])
 
+  const buttonStylesLight = {
+    visible: 'bg-grey-100 hover:bg-grey-100 hover:opacity-100',
+    hidden: 'hover:bg-grey-100 border-white'
+  }
+  const buttonStylesDark = {
+    visible: 'bg-emerald-500 hover:bg-emerald-500 hover:opacity-100 text-opacity-70',
+    hidden: 'hover:bg-emerald-500'
+  }
+
+  console.log('isTuesdayMakersPage', isTuesdayMakersPage)
+
   return (
     <div className="mx-2 text-sm normal-links text-grey-700 laptop:font-medium desktop:text-base">
       <Popover className="relative" >
@@ -50,12 +63,26 @@ export default function AboutPopOver() {
               onClick={handleButtonClick}
               data-testid="aboutNav-btn"
               className={`
-                ${visible ? 'bg-grey-100 hover:bg-grey-100 hover:opacity-100' : 'hover:bg-grey-100 border-white'} border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300`}
+                ${visible && !isTuesdayMakersPage
+                  ? buttonStylesLight.visible
+                  : buttonStylesLight.hidden} 
+                ${isTuesdayMakersPage
+                  ? visible
+                    ? buttonStylesDark.visible
+                    : buttonStylesDark.hidden
+                  : ''} 
+                ${isTuesdayMakersPage
+                  ? 'text-sage-50'
+                  : 'text-grey-700'} 
+                  border-0  group px-4 pr-3 py-[13px] rounded-xl inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300`}
             >
               <span>About</span>
               <ChevronDownIcon
-                className={`${visible ? '' : 'text-opacity-70'}
-                  ml-1 h-5 w-5 text-success-700 group-hover:fill-sage-700 transition ease-in-out duration-150`}
+                className={`${visible ? 'text-opacity-70' : ''}
+                  ${isTuesdayMakersPage
+                    ? 'text-sage-50'
+                    : 'text-grey-700 group-hover:fill-grey-700'}
+                  ml-1 h-5 w-5 transition ease-in-out duration-150`}
                 aria-hidden="true"
               />
             </Popover.Button>

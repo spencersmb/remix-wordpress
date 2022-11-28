@@ -3,7 +3,6 @@ import SignUpSuccess from "@App/components/modals/signUpSuccess";
 import { spinnerColors } from "@App/components/spinners/spinnerColors";
 import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
-import type { Transition } from "@remix-run/react/transition";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
 import InputBase from "../input/inputBase";

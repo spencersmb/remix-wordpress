@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/solid'
-import { Link, useNavigate, useTransition } from '@remix-run/react'
+import { Link, useLocation, useNavigate, useTransition } from '@remix-run/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import useSite from '@App/hooks/useSite'
 import popOverMenuItems from './popOverMenuItems'
@@ -19,6 +19,8 @@ export default function TuesdayMakersPopOver() {
   const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
+  const location = useLocation()
+  const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
   });
@@ -35,7 +37,7 @@ export default function TuesdayMakersPopOver() {
   }, [transition, visible])
 
   return (
-    <div className="mx-2 text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
+    <div className="text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">
       <Popover className="relative">
         {({ open, close }) => (
           <>
@@ -45,15 +47,27 @@ export default function TuesdayMakersPopOver() {
               onClick={handleButtonClick}
               data-testid="tuesday-makers-btn"
               className={`
-                ${visible ? 'bg-sage-300 border-sage-300 border-[3px]' : 'bg-white border-sage-200 border-[3px] hover:bg-sage-100 hover:border-sage-300'} border-0  text-success-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
-            // className={`
-            //   ${visible ? 'bg-sage-300 hover:bg-sage-300 border-sage-300 hover:opacity-100' : 'bg-sage-200 border-white'} border-0  text-success-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
+              ${isTuesdayMakersPage
+                  ? visible
+                    ? 'text-sage-50 border-emerald-500 bg-emerald-500 border-[3px] hover:bg-emerald-400 hover:border-emerald-400 text-opacity-70'
+                    : 'text-sage-50 border-emerald-500 bg-emerald-500 border-[3px] hover:bg-emerald-400 hover:border-emerald-400'
+                  : visible
+                    ? 'bg-sage-300 border-sage-300 border-[3px]'
+                    : 'bg-white text-success-700 border-sage-200 border-[3px] hover:bg-sage-100 hover:border-sage-300'}
+                border-0 group px-4 pr-3 py-[13px] rounded-xl inline-flex items-center text-base font-semibold transition-all duration-300 `}
             >
-              <span className='px-2 py-1 text-xs font-extrabold text-white bg-sage-600 mr-2 rounded-[6px]'>Popular</span>
+              <span className={`
+                ${isTuesdayMakersPage
+                  ? 'text-[#5B1F28] bg-peach-600'
+                  : 'text-white bg-sage-600'}
+                  px-2 py-1 text-xs font-extrabold mr-2 rounded-[6px]`}>Popular</span>
               <span className='text-sm desktop:text-base'>Tuesday Makers</span>
               <ChevronDownIcon
-                className={`${visible ? '' : 'text-opacity-70'}
-                  ml-1 h-5 w-5 text-success-700 group-hover:fill-sage-700 transition ease-in-out duration-150`}
+                className={`${visible ? 'text-opacity-70' : ''}
+                ${isTuesdayMakersPage
+                    ? 'text-sage-50'
+                    : 'text-success-700 group-hover:fill-sage-700'}
+                  ml-1 h-5 w-5  transition ease-in-out duration-150`}
                 aria-hidden="true"
               />
             </Popover.Button>

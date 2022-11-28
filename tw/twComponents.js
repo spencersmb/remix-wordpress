@@ -10,10 +10,10 @@ const classes = {
     justifyContent: 'center',
     alignItems: 'center',
     textDecorationLine: 'none',
-    padding: '.5625rem .75rem',
-    borderRadius: '.5rem',
+    padding: '.6875rem .9rem',
+    borderRadius: '.75rem',
     borderWidth: '3px',
-    fontWeight: '600',
+    fontWeight: '500',
     fontSize: '1rem',
     lineHeight: '1.5rem',
     transitionDuration: '200ms',
@@ -48,16 +48,18 @@ const classes = {
     lineHeight: '1.55rem',/* 24px */
   },
   '.btn-lg': {
-    fontWeight: '600',
-    padding: '0.788rem', /* 56px */
+    fontWeight: '500',
+    padding: '.7255rem 1rem', /* 54px */
     fontSize: '1rem', /* 16px */
     lineHeight: '1.55rem',/* 24px */
+    
   },
   '.btn-xl': {
-    fontWeight: '600',
-    padding: '.9375rem', /* 64px */
+    fontWeight: '500',
+    padding: '1rem 1.5rem', /* 66px */
     fontSize: '1.125rem', /* 18px */
     lineHeight: '1.75rem',/* 28px */
+    borderRadius: '1rem',
   },
 
   // BTN COLORS
@@ -296,6 +298,10 @@ const classes = {
       boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)'
     }
 
+  },
+  '.input-field-xl':{
+     borderRadius: '1rem',/* 16px */
+     padding: '1.3125rem 1.65rem'
   },
   '.input-onSage':{
 

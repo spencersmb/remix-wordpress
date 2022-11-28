@@ -192,7 +192,8 @@ export function mdxPageMeta({
   parentsData: {root: any}
   location: any
 }) {  
-
+  console.log('MDX', {data, parentsData, location});
+  
   if (!data || !parentsData || isEmpty(parentsData)) {
     return {
       title: 'Oops! Page Not Found',
@@ -231,7 +232,6 @@ export function mdxPageMeta({
   }
   let page = data.page || null
   let post = data.post || null
-  console.log('post', post)
   if(page){
     const pageMetadataTags = {
       title: page.seo.title,

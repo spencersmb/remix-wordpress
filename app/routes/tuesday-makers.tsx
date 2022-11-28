@@ -21,18 +21,18 @@ const TuesdayMakers = (props: any) => {
 
   return (
     <>
-      <ContextLoader>
-        <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
-          <>
-            <GlobalEvents />
-            <Header />
-            <Outlet />
-            <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
+      {/* <ContextLoader> */}
+      <UseMakersLibraryProvider defaultState={tuesdayMakersInitialState}>
+        <>
+          {/* <GlobalEvents /> */}
+          {/* <Header /> */}
+          <Outlet />
+          {/* <FooterPrimary hideSignUp={url === "/tuesday-makers"} />
             <BasicModal />
-            <SearchModal />
-          </>
-        </UseMakersLibraryProvider>
-      </ContextLoader>
+            <SearchModal /> */}
+        </>
+      </UseMakersLibraryProvider>
+      {/* </ContextLoader> */}
     </>
   )
 }

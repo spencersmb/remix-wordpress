@@ -11,8 +11,8 @@ const BlogDateAuthor = (props: { date: string, author: string }) => {
   const { date, author } = props
   return (
     <div data-testid="blog-date" className="flex flex-col">
-      <div className=''>{formatDate(date)}</div>
-      <div className='text-xl font-sentinel__SemiBoldItal'>{author}</div>
+      <div className='mb-2 text-xl leading-3 font-sentinel__SemiBoldItal'>{author}</div>
+      <div className='text-sm font-semibold text-grey-500'>{formatDate(date)}</div>
     </div>
   )
 }

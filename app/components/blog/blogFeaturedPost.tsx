@@ -110,7 +110,7 @@ function BlogFeaturedPost(props: Props) {
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col col-span-2 col-start-2 row-start-2 mt-4 ml-0 featured-content tablet:mb-2 tablet:col-start-4 tablet:col-span-8 tablet:mt-8 laptop:col-start-2 laptop:col-span-5 laptop:row-start-2 laptop:mt-0 desktop:col-start-2 desktop:col-span-6">
 
-        <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-7 laptop:pt-2">LATEST POST</span>
+        <span className="py-4 text-sm font-medium leading-none text-sage-700 tablet:pt-0 laptop:pb-3 laptop:pt-2">LATEST POST</span>
 
         <h2 className="mb-4 font-sentinel__SemiBoldItal text-heading-3 text-sage-700 tablet:text-4xl laptop:text-5xl desktop:text-6xl desktop:text-[64px]">
           <Link data-testid="blog-title" to={`/${featuredPost.slug}`} prefetch="intent">
@@ -160,14 +160,14 @@ function BlogFeaturedPost(props: Props) {
       {/* DESCRIPTIOM */}
       <div className="relative z-10 col-span-2 col-start-2 row-start-3 mb-8 featured-content tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-5 laptop:row-start-3 laptop:mb-0">
 
-        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='overflow-hidden text-lg text-sage-800 blog-preview-text' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
+        {featuredPost.tutorialManager.postExcerpt && <div data-testid="blog-desc" className='overflow-hidden text-lg text-grey-600 blog-preview-text' dangerouslySetInnerHTML={{ __html: featuredPost.tutorialManager.postExcerpt }} />}
 
-        <div className='flex mt-5'>
+        <div className='flex mt-7'>
 
           <Link
             data-testid="test-CircularStrokeBtn"
             to={`/${featuredPost.slug}`}
-            className={`relative btn btn-primary btn-lg`}>
+            className={`relative btn btn-primary btn-xl`}>
             View Post
           </Link>
 

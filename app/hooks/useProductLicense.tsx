@@ -20,7 +20,9 @@ export function useProductLicense(productLicences: ILicense[] | null) {
   // }, [])
 
   const handleSelect = async (item: { index: number, license: ILicense }) => {
-    if (!window.GumroadOverlay) return
+    console.log('handleSelect', window.GumroadOverlay);
+
+    // if (!window.GumroadOverlay) return
     let lastItem = state
     setState({
       price: item.license.price,

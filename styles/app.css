@@ -35,6 +35,20 @@
  --sage-600: #596c6e;
  --sage-700: #475658;
  --sage-800: #354142;
+
+ --emerald-50: #e2f6f9;
+ --emerald-100: #a3d4d9;
+ --emerald-200: #80b9bf;
+ --emerald-300: #558e94;
+ --emerald-400: #366d73;
+ --emerald-500: #245257;
+ --emerald-600: #163539;
+ --emerald-700: #0c2427;
+ --emerald-800: #071316;
+
+ --peach-300: #ffd9cb;
+ --peach-600: #e98663;
+
  --navy-50: #f7f8fa;
  --neutral-50: #fcfafb;
  --neutral-400: #d0c9cd;
@@ -295,4 +309,8 @@ button {
 .mobileNav-height {
  overflow-y: auto;
  max-height: calc(100vh - 68px);
+}
+
+.header-white {
+ background-color: #fff;
 }

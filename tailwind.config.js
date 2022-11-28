@@ -102,6 +102,21 @@ module.exports = {
         700: 'var(--sage-700)',
         800: 'var(--sage-800)',
       },
+      'emerald':{
+        50: 'var(--emerald-50)',
+        100: 'var(--emerald-100)',
+        200: 'var(--emerald-200)',
+        300: 'var(--emerald-300)',
+        400: 'var(--emerald-400)',
+        500: 'var(--emerald-500)',
+        600: 'var(--emerald-600)',
+        700: 'var(--emerald-700)',
+        800: 'var(--emerald-800)',
+      },
+      'peach':{
+        300: 'var(--peach-300)',
+        600: 'var(--peach-600)',
+      },
       'navy':{
         50: '#F7F8FA',
         100: '#EEF1F6',

@@ -32,12 +32,12 @@ const ProductLayout = ({ products, metadata }: IProps) => {
   const { filter, handleFilterClick, handlePageClick, posts, pagination, setFilter } = useFreebiesLocal<IProduct[]>({ items: productsArray, itemsPerPage: 12 })
 
   return (
-    <div>
+    <>
       <FeaturedProduct
         product={featuredProduct}
       />
       {/* parent grid wrapper to match blog index layout */}
-      <div className="grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop">
+      <section className="grid grid-flow-row row-auto py-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop">
 
         <div className="col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 desktop:pt-9">
           <div className="grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 ">
@@ -77,7 +77,7 @@ const ProductLayout = ({ products, metadata }: IProps) => {
           }
         </div>
 
-      </div>
+      </section>
 
       {/* {
           fontLoadingState.status === 'completed' && fontLoadingState.font?.files.map(font => {
@@ -91,7 +91,7 @@ const ProductLayout = ({ products, metadata }: IProps) => {
         Preview Page
       </div>} */}
 
-    </div>
+    </>
   );
 }
 

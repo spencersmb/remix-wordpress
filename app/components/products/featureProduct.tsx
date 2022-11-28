@@ -32,7 +32,7 @@ const FeaturedProduct = ({ product }: IProps) => {
   })
 
   return (
-    <div className='grid grid-flow-row row-auto bg-sage-200 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop pt-[80px]'>
+    <section className='grid grid-flow-row row-auto bg-sage-200 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop pt-[80px]'>
 
       {/* DESKTOP FEATURE IMAGE */}
       {breakpointConvertPX(breakpoint) > BPPX.TABLET &&
@@ -117,7 +117,7 @@ const FeaturedProduct = ({ product }: IProps) => {
         </div>
       </div>
 
-    </div>
+    </section>
   )
 
 }

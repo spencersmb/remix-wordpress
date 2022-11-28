@@ -49,8 +49,8 @@ function BlogAuthor() {
       </div>
 
       {/* BUTTON */}
-      <div className='mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0 laptop:self-auto'>
-        <Link to={'/about/our-story'} prefetch='intent' className='btn btn-outline' >About Me</Link>
+      <div className='mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0 tablet:pb-0'>
+        <Link to={'/about/our-story'} prefetch='intent' className='btn btn-outline btn-xl' >About Me</Link>
       </div>
     </div>
   )

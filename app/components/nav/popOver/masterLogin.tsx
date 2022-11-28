@@ -5,7 +5,7 @@ import { siteLoginUrls } from "@App/lib/wp/site";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import { useState, useRef, useEffect } from "react";
-import { Link, useTransition } from "@remix-run/react";
+import { Link, useLocation, useTransition } from "@remix-run/react";
 import LinkItem from "./linkItem";
 
 const menuItems = [
@@ -35,6 +35,8 @@ export default function MasterLoginPopOver() {
   const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
+  const location = useLocation()
+  const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
 
   // useEffect(() => {
   //   setVisible(true)
@@ -66,14 +68,22 @@ export default function MasterLoginPopOver() {
               onClick={handleButtonClick}
               data-testid="tuesday-makers-btn"
               className={`
-                ${visible ? 'bg-sage-300 border-sage-300 border-[3px]' : 'bg-white border-sage-200 border-[3px] hover:bg-sage-100 hover:border-sage-300'} border-0  text-success-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
+              ${isTuesdayMakersPage
+                  ? visible
+                    ? 'text-sage-50 bg-emerald-500 border-emerald-500'
+                    : 'bg-transparent text-sage-50 border-emerald-400  hover:bg-emerald-500 hover:border-emerald-500'
+                  : visible
+                    ? 'bg-sage-300 border-sage-300'
+                    : 'bg-white text-success-700 border-sage-200 hover:bg-sage-100 hover:border-sage-300'}
+                group px-4 pr-3 py-[13px] border-[3px] rounded-xl inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
             // className={`
             //   ${visible ? 'bg-sage-300 hover:bg-sage-300 border-sage-300 hover:opacity-100' : 'bg-sage-200 border-white'} border-0  text-success-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
             >
               <span className='text-sm desktop:text-base'>Login</span>
               <ChevronDownIcon
-                className={`${visible ? '' : 'text-opacity-70'}
-                  ml-1 h-5 w-5 text-success-700 group-hover:fill-sage-700 transition ease-in-out duration-150`}
+                className={`${visible ? 'text-opacity-70' : ''}
+                ${isTuesdayMakersPage ? 'text-sage-50' : ' text-success-700 group-hover:fill-sage-700'}
+                  ml-1 h-5 w-5 transition ease-in-out duration-150`}
                 aria-hidden="true"
               />
             </Popover.Button>

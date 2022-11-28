@@ -63,6 +63,11 @@ function Design(props: any) {
               <span className="text-2xl leading-[1] font-sentinel__SemiBoldItal">$30</span>
             </a>
           </div>
+          <div className='flex flex-row items-end gap-4 mt-4'>
+            <button className='btn btn-xl btn-primary'>XL Button</button>
+            <button className='btn btn-lg btn-primary'>Lg Button</button>
+            <button className='btn btn-primary'>Medium Button</button>
+          </div>
         </div>
         <div className='col-span-10 col-start-3 mb-16'>
           <h3 className='mb-8'>Blog IndexTabs</h3>
@@ -348,6 +353,28 @@ function Design(props: any) {
               label="Email"
               labelCss="text-sm text-grey-600 font-semibold"
               className="mt-2 mb-5 bg-grey-100"
+              invalid={Boolean(
+                false
+              ) || undefined}
+              id='email-input'
+              name='email'
+              type='email'
+              required={true}
+              placeholder='Enter your email'
+              onChange={mockLoad}
+            />
+
+          </div>
+        </div>
+
+
+        <div className='col-span-10 col-start-3 mb-16'>
+          <h3 className='mb-8'>Login XL</h3>
+          <div className='max-w-[400px]'>
+            <InputBase
+              label="Email"
+              labelCss="text-sm text-grey-600 font-semibold"
+              className="mt-2 mb-5 bg-grey-100 input-field-xl"
               invalid={Boolean(
                 false
               ) || undefined}

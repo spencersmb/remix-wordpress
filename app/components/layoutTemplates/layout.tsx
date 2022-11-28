@@ -18,17 +18,9 @@ export default function Layout({ children, alternateNav, bgColor }: React.PropsW
   // min-h-fullBot was on main - not sure why 
   return (
     <>
-      <ContextLoader>
-        <GlobalEvents />
-        <Header alternateNav={alternateNav} />
-        <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content flex flex-col ')}>
-          {children}
-        </main>
-        <FooterPrimary />
-        <BasicModal />
-        <CommentModal />
-        <SearchModal />
-      </ContextLoader>
+      <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content flex flex-col ')}>
+        {children}
+      </main>
     </>
   );
 }

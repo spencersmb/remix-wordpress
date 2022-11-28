@@ -3,7 +3,7 @@ export const manualRedirectLinks = {
       /*
        * LOCKED PAGES
         Step 1: Edit lockedPageEnumSlugs in app/enums/lockedPages
-        Step 2: Edit utils/lockedPagesUtils for metaData
+        Step 2: Edit lockedPagesMeta for metaData
         Step 3: add DownloadGrid in wp Backend
        */
       'bl': {
