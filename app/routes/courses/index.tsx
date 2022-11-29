@@ -55,7 +55,7 @@ const Courses = () => {
 
   return (
     <Layout>
-      <CourseHeader />
+      {/* <CourseHeader /> */}
 
       <div className='flex flex-col items-center'>
         <h3 className="text-sage-800 mt-12 mb-4 text-5xl font-sentinel__SemiBoldItal desktop:text-6xl desktop:max-w-[500px] desktop:mx-auto text-center tablet:mt-32">Course Collection</h3>

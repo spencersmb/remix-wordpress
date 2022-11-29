@@ -107,14 +107,17 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   // pass in the APP URL to see the correct urls on metaData
   // async function that also returns dynamic metaData from WP
-  let metadata = await createSiteMetaData(process.env.APP_ROOT_URL || 'no url found')
+  if (!process.env.APP_ROOT_URL) {
+    throw new Error('APP_ROOT_URL is not set')
+  }
+  let metadata = createSiteMetaData(process.env.APP_ROOT_URL)
 
-  // consoleHelper('Admin user', wpAdminSession.has('userId'))
-  // consoleHelper('resourceUser', resourceUser)
-  const ses = session.get("globalMessage")
-  const message = ses || null;
-  // consoleHelper('session message', message, '/root')
-  consoleHelper('resourceUser', resourceUser, '/root', { bg: consoleColors.purple, text: '#fff' });
+  // // consoleHelper('Admin user', wpAdminSession.has('userId'))
+  // // consoleHelper('resourceUser', resourceUser)
+  // const ses = session.get("globalMessage")
+  // const message = ses || null;
+  // // consoleHelper('session message', message, '/root')
+  // consoleHelper('resourceUser', resourceUser, '/root', { bg: consoleColors.purple, text: '#fff' });
 
   customHeaders.append('Set-Cookie', await commitSession(session))
 
@@ -127,7 +130,7 @@ export let loader: LoaderFunction = async ({ request }) => {
   }
 
   return json({
-    message,
+    // message,
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
     metadata,
     user: {
@@ -183,12 +186,12 @@ export default withSentry(function App() {
     });
   }, [])
 
-  const value = {
-    ...siteInitialState,
-    menu: menus,
-    metadata, // merge from Server-side Metadata response from WP
-    user,
-  }
+  // const value = {
+  //   ...siteInitialState,
+  //   menu: menus,
+  //   metadata, // merge from Server-side Metadata response from WP
+  //   user,
+  // }
   return (
 
     <Document>
@@ -197,6 +200,11 @@ export default withSentry(function App() {
 
     </Document>
   );
+}, {
+  wrapWithErrorBoundary: true,
+  errorBoundaryOptions: {
+    fallback: <NotFoundTemplate />
+  }
 });
 interface IDocument {
   children: React.ReactNode
@@ -222,7 +230,7 @@ export function Document({ children, title }: IDocument) {
 
         <Meta />
         <Links />
-        <JsonLd data={data} />
+        {/* <JsonLd data={data} /> */}
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
@@ -235,13 +243,13 @@ export function Document({ children, title }: IDocument) {
           />
         </noscript>
         <ContextLoader>
-          <GlobalEvents />
+          {/* <GlobalEvents /> */}
           <Header />
           <Outlet />
-          <FooterPrimary />
+          {/* <FooterPrimary />
           <BasicModal />
           <CommentModal />
-          <SearchModal />
+          <SearchModal /> */}
         </ContextLoader>
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
@@ -261,7 +269,7 @@ export function Document({ children, title }: IDocument) {
         <Scripts />
         <LiveReload />
         {/* FOOTER SCRIPTS */}
-        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+        {/* {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />} */}
 
       </body>
     </html>

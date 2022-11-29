@@ -44,7 +44,8 @@ export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();
   return (
     <Layout>
-      <BlogSlugTemplate post={post} />
+      Blog post
+      {/* <BlogSlugTemplate post={post} /> */}
     </Layout>
   );
 }

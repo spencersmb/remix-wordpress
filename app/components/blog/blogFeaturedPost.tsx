@@ -35,7 +35,7 @@ function BlogFeaturedPost(props: Props) {
     fallbackImage: defaultImages.thumbnail
   })
 
-  const [tutorialMin] = featuredPost.tutorialManager.youtube.duration
+  const [tutorialMin] = featuredPost.tutorialManager.youtube.duration && typeof featuredPost.tutorialManager.youtube.duration === 'string'
     ? featuredPost.tutorialManager.youtube.duration.split(':') : ['00', '00']
 
   // let postImage = loadThumbnailSrc(featuredPost.tutorialManager, image)

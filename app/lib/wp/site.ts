@@ -240,7 +240,7 @@ function mapSocialMetaData(social: ISiteSocialStarter): ISocialSettings{
 }
 
 // simulate a server-side metadata response and merge into default initialState of useSite value for metaData
-export async function createSiteMetaData(domain: string): Promise<ISiteMetaDataMapped> {
+export function createSiteMetaData(domain: string): ISiteMetaDataMapped {
   const { generalSettings, seo } = metadata;
 
   let { title, description, language, author} = generalSettings;
@@ -269,14 +269,15 @@ export async function createSiteMetaData(domain: string): Promise<ISiteMetaDataM
     }
   }
 
-  try {
-    dynamicData = await getDynamicSiteMetadata()
-  }catch(e:any){
-    console.error('Failed to fetch dynamic site metadata', e)
-  }
+  // try {
+  //   dynamicData = await getDynamicSiteMetadata()
+  // }catch(e:any){
+  //   console.error('Failed to fetch dynamic site metadata', e)
+  // }
 
   return {
-    title: decodeHtmlEntities(title),
+    // title: decodeHtmlEntities(title),
+    title,
     siteTitle: title,
     description,
     domain,

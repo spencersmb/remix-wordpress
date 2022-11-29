@@ -97,7 +97,7 @@ function BlogIndex() {
 
   return (
     <Layout>
-
+      {/* Blog index */}
       <BlogIndexTemplate loaderData={loaderData} />
 
     </Layout>
