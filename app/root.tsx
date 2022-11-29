@@ -230,7 +230,7 @@ export function Document({ children, title }: IDocument) {
 
         <Meta />
         <Links />
-        {/* <JsonLd data={data} /> */}
+        <JsonLd data={data} />
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
@@ -243,13 +243,13 @@ export function Document({ children, title }: IDocument) {
           />
         </noscript>
         <ContextLoader>
-          {/* <GlobalEvents /> */}
+          <GlobalEvents />
           <Header />
           <Outlet />
-          {/* <FooterPrimary />
+          <FooterPrimary />
           <BasicModal />
           <CommentModal />
-          <SearchModal /> */}
+          <SearchModal />
         </ContextLoader>
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
