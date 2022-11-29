@@ -6,6 +6,7 @@ import { siteSearchState } from '@App/hooks/useSearch'
 import UseSearchProvider from '@App/hooks/useSearch/useSearchProvider'
 import { siteInitialState } from '@App/hooks/useSite'
 import UseSiteProvider from '@App/hooks/useSite/useSiteProvider'
+import { createSiteMetaData, getWPMenu } from '@App/lib/wp/site'
 
 interface Props {
   children: React.ReactNode
@@ -14,17 +15,19 @@ interface Props {
 function ContextLoader(props: Props) {
   const { children } = props
   const data = useMatchesLookup('/')
-  if (!data) {
-    throw new Error('No data found for route')
+  const fallbackUser = {
+    wpAdmin: false,
+    resourceUser: null
   }
-  const { menus, metadata, user, searchData } = data
-
-  const value = {
+  const fallbackMenu = getWPMenu(null)
+  let value = {
     ...siteInitialState,
-    menu: menus,
-    metadata, // merge from Server-side Metadata response from WP
-    user,
+    menu: !data ? fallbackMenu.menus : data.menus,
+    metadata: !data ? createSiteMetaData('https://every-tuesday.com') : data.metadata, // merge from Server-side Metadata response from WP
+    user: !data ? fallbackUser : data.user,
   }
+  let searchData = !data ? {} : data.searchData
+
   return (
     <>
       <UseSiteProvider defaultState={value}>

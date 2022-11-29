@@ -1847,14 +1847,14 @@ video {
 .m-6 {
   margin: 1.5rem;
 }
+.m-3 {
+  margin: 0.75rem;
+}
 .m-auto {
   margin: auto;
 }
 .m-0 {
   margin: 0px;
-}
-.m-3 {
-  margin: 0.75rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -2098,6 +2098,9 @@ video {
 .mb-\[2px\] {
   margin-bottom: 2px;
 }
+.mr-16 {
+  margin-right: 4rem;
+}
 .mt-\[var\(--nav-top-sm\)\] {
   margin-top: var(--nav-top-sm);
 }
@@ -2145,9 +2148,6 @@ video {
 }
 .mt-\[3px\] {
   margin-top: 3px;
-}
-.mr-16 {
-  margin-right: 4rem;
 }
 .block {
   display: block;
@@ -2689,6 +2689,9 @@ video {
 .max-w-\[38px\] {
   max-width: 38px;
 }
+.max-w-\[144px\] {
+  max-width: 144px;
+}
 .max-w-\[32px\] {
   max-width: 32px;
 }
@@ -2784,9 +2787,6 @@ video {
 }
 .max-w-\[220px\] {
   max-width: 220px;
-}
-.max-w-\[144px\] {
-  max-width: 144px;
 }
 .flex-1 {
   -webkit-box-flex: 1;
@@ -3423,11 +3423,11 @@ video {
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
 .grid-cols-navMobile {
   grid-template-columns: minmax(50px, 1fr) minmax(50px, auto) minmax(50px, auto);
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-rows-\[auto_auto_minmax\(60px\2c auto\)_auto\] {
   grid-template-rows: auto auto minmax(60px,auto) auto;
@@ -3709,6 +3709,13 @@ video {
 .border-sage-400 {
   border-color: var(--sage-400);
 }
+.border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+.border-transparent {
+  border-color: transparent;
+}
 .border-sage-200 {
   border-color: var(--sage-200);
 }
@@ -3736,10 +3743,6 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(157 163 175 / var(--tw-border-opacity));
 }
-.border-white {
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
 .border-emerald-500 {
   border-color: var(--emerald-500);
 }
@@ -3748,9 +3751,6 @@ video {
 }
 .border-sage-300 {
   border-color: var(--sage-300);
-}
-.border-transparent {
-  border-color: transparent;
 }
 .bg-sage-100 {
   background-color: var(--sage-100);
@@ -3863,6 +3863,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(12 36 39 / var(--tw-bg-opacity));
 }
+.bg-emerald-500 {
+  background-color: var(--emerald-500);
+}
 .bg-\[\#182000\] {
   --tw-bg-opacity: 1;
   background-color: rgb(24 32 0 / var(--tw-bg-opacity));
@@ -3919,9 +3922,6 @@ video {
 .bg-lfm-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(53 84 109 / var(--tw-bg-opacity));
-}
-.bg-emerald-500 {
-  background-color: var(--emerald-500);
 }
 .bg-\[\#f8f8f8\] {
   --tw-bg-opacity: 1;
@@ -4109,6 +4109,14 @@ video {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.py-\[13px\] {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -4124,10 +4132,6 @@ video {
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
-}
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 .py-1 {
   padding-top: 0.25rem;
@@ -4164,10 +4168,6 @@ video {
 .px-\[10px\] {
   padding-left: 10px;
   padding-right: 10px;
-}
-.py-\[13px\] {
-  padding-top: 13px;
-  padding-bottom: 13px;
 }
 .py-\[\.82rem\] {
   padding-top: .82rem;
@@ -4617,6 +4617,9 @@ video {
   --tw-text-opacity: 1;
   color: rgb(30 30 33 / var(--tw-text-opacity));
 }
+.text-emerald-400 {
+  color: var(--emerald-400);
+}
 .text-grey-400 {
   --tw-text-opacity: 1;
   color: rgb(157 163 175 / var(--tw-text-opacity));
@@ -4739,9 +4742,6 @@ video {
 .text-primary-800 {
   --tw-text-opacity: 1;
   color: rgb(60 38 38 / var(--tw-text-opacity));
-}
-.text-emerald-400 {
-  color: var(--emerald-400);
 }
 .text-opacity-70 {
   --tw-text-opacity: 0.7;
@@ -5548,15 +5548,15 @@ video {
 .hover\:bg-sage-500:hover {
   background-color: var(--sage-500);
 }
+.hover\:bg-grey-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 247 / var(--tw-bg-opacity));
+}
 .hover\:bg-sage-200:hover {
   background-color: var(--sage-200);
 }
 .hover\:bg-emerald-500:hover {
   background-color: var(--emerald-500);
-}
-.hover\:bg-grey-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 247 / var(--tw-bg-opacity));
 }
 .hover\:bg-indigo-600:hover {
   --tw-bg-opacity: 1;
@@ -6064,6 +6064,12 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
+.group:hover .group-hover\:bg-emerald-400 {
+  background-color: var(--emerald-400);
+}
+.group:hover .group-hover\:bg-sage-500 {
+  background-color: var(--sage-500);
+}
 .group:hover .group-hover\:bg-sage-200 {
   background-color: var(--sage-200);
 }
@@ -6082,12 +6088,6 @@ video {
 .group:hover .group-hover\:bg-success-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(217 229 229 / var(--tw-bg-opacity));
-}
-.group:hover .group-hover\:bg-emerald-400 {
-  background-color: var(--emerald-400);
-}
-.group:hover .group-hover\:bg-sage-500 {
-  background-color: var(--sage-500);
 }
 .group:hover .group-hover\:fill-grey-700 {
   fill: #384050;
@@ -7838,6 +7838,10 @@ video {
     margin-left: 0px;
     margin-right: 0px;
   }
+  .laptop\:my-\[10px\] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
   .laptop\:my-60 {
     margin-top: 15rem;
     margin-bottom: 15rem;
@@ -7853,10 +7857,6 @@ video {
   .laptop\:my-20 {
     margin-top: 5rem;
     margin-bottom: 5rem;
-  }
-  .laptop\:my-\[10px\] {
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
   .laptop\:mt-0 {
     margin-top: 0px;
@@ -9431,14 +9431,14 @@ video {
   .desktop\:grid-cols-desktop {
     grid-template-columns: minmax(0,1fr) repeat(12,minmax(30px,102.5px)) minmax(0,1fr);
   }
+  .desktop\:grid-cols-navDesktopXl {
+    grid-template-columns: minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr);
+  }
   .desktop\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .desktop\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .desktop\:grid-cols-navDesktopXl {
-    grid-template-columns: minmax(auto, 1fr) minmax(auto, 3fr) minmax(auto, 1fr);
   }
   .desktop\:grid-rows-\[auto_auto_minmax\(120px\2c auto\)_auto\] {
     grid-template-rows: auto auto minmax(120px,auto) auto;

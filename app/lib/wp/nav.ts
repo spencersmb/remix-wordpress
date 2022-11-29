@@ -1,6 +1,7 @@
 import type { IWPMenu, IWpMenuItem } from "./site"
 
 export function getPrimaryMenu(menus: IWPMenu[]): IWpMenuItem[]{
+  
   const mainMenu = menus.find(menu => menu.slug === 'primary')
 
   if(!mainMenu) return []

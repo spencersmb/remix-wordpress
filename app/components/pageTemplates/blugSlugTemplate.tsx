@@ -82,7 +82,6 @@ function BlogSlugTemplate(props: IProps) {
 
   // solve for older blog posts and the iframe issue
   function checkOldIframes() {
-    console.log('checkOldIframes')
     if (post.tutorialManager.youtube.id) {
       return null
     }

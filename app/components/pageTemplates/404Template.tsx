@@ -1,3 +1,5 @@
+import { useMatchesLookup } from '@App/hooks/useMatchesLookup'
+import { consoleHelper } from '@App/utils/windowUtils'
 import { Links, Meta, Scripts, useLocation, useMatches } from '@remix-run/react'
 import FooterPrimary from '../footer/FooterPrimary'
 import ContextLoader from '../layoutTemplates/contextLoader'
@@ -12,7 +14,7 @@ interface IMetaTagsProps {
 }
 
 const MetaTags = (props: IMetaTagsProps) => {
-  const { pathName, domain } = props
+  const { pathName, domain = 'local.co' } = props
   return (
     <>
       <meta name="robots" content="noindex,nofollow"></meta>
@@ -32,9 +34,8 @@ const MetaTags = (props: IMetaTagsProps) => {
 
 export default function NotFoundTemplate() {
   const location = useLocation()
-  const matches = useMatches()
-  // const domain = matches[0].data.ENV.APP_ROOT_URL
-  console.log('matches', matches)
+  const rootMetadata = useMatchesLookup('/')
+  consoleHelper('matches', rootMetadata, '404Template.tsx')
   return (
     <html>
       <head>
@@ -46,7 +47,7 @@ export default function NotFoundTemplate() {
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
         <Meta />
         <Links />
-        <MetaTags domain={'domain'} pathName={location.pathname} />
+        <MetaTags domain={rootMetadata?.ENV.APP_ROOT_URL} pathName={location.pathname} />
       </head>
       <body>
         <ContextLoader>
