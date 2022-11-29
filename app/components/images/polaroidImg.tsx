@@ -20,6 +20,11 @@ interface Props {
 
 function PolaroidImg(props: Props) {
   const { wpImage, imgixImage, children, imgOptions, rotate = 'none' } = props
+  const rotateClass = rotate === 'left'
+    ? '-rotate-3'
+    : rotate === 'right'
+      ? 'rotate-3'
+      : 'rotate-0'
   const spacing = 64
   function getRotation() {
     switch (rotate) {
@@ -33,7 +38,7 @@ function PolaroidImg(props: Props) {
   }
 
   return (
-    <div data-testid="polaroid-container" className={`p-3 bg-white shadow-md ${getRotation()} tablet:p-3 laptop:p-4`}>
+    <div data-testid="polaroid-container" className={`p-3 bg-white shadow-md ${rotateClass} tablet:p-3 laptop:p-4`}>
 
       {imgixImage &&
         <div>

@@ -33,7 +33,7 @@ export let loader: LoaderFunction = async ({ params, request }) => {
     url
   }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 };

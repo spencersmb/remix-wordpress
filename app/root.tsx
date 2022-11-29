@@ -159,14 +159,14 @@ export default withSentry(function App() {
   // }
 
   // https://sergiodxa.com/articles/use-nprogress-in-a-remix-app
-  let transition = useTransition();
-  React.useEffect(() => {
-    // when the state is idle then we can to complete the progress bar
-    if (transition.state === "idle") NProgress.done();
-    // and when it's something else it means it's either submitting a form or
-    // waiting for the loaders of the next location so we start it
-    else NProgress.start();
-  }, [transition.state]);
+  // let transition = useTransition();
+  // React.useEffect(() => {
+  //   // when the state is idle then we can to complete the progress bar
+  //   if (transition.state === "idle") NProgress.done();
+  //   // and when it's something else it means it's either submitting a form or
+  //   // waiting for the loaders of the next location so we start it
+  //   else NProgress.start();
+  // }, [transition.state]);
 
   // Window localStorage listener to refresh tabs if User Logs In/Out
   React.useEffect(() => {
