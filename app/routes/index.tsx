@@ -134,8 +134,8 @@ export default function Index() {
 
   return (
     <Layout>
-      Home
-      {/* <HomeTemplate courses={courses} posts={posts} /> */}
+      {/* Home */}
+      <HomeTemplate courses={courses} posts={posts} />
     </Layout>
   );
 }

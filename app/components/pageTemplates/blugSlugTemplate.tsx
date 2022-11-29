@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Sticky, StickyContainer } from 'react-sticky';
 import { ClientOnly } from 'remix-utils';
@@ -16,7 +16,7 @@ import { ImageSizeEnums } from '@App/enums/imageEnums';
 import { useSearch } from '@App/hooks/useSearch';
 import { findSkillLevel, getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
 import { TagIcon } from '@heroicons/react/solid';
-import { Link } from '@remix-run/react';
+import { Link, useLocation } from '@remix-run/react';
 import ClockSvg from '../svgs/clockSvg';
 import LazyImgix from '../images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
@@ -37,6 +37,9 @@ interface IProps {
 function BlogSlugTemplate(props: IProps) {
   const { post } = props
   const skill = findSkillLevel(post.categories);
+  const location = useLocation();
+  const locationPrevRef = useRef(location.pathname);
+  console.log('location', location)
   const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
   consoleHelper('post', post, 'BlogSlugTemplate.tsx')
 
@@ -66,8 +69,20 @@ function BlogSlugTemplate(props: IProps) {
     }
   }, [])
 
+  useEffect(() => {
+
+    if (location.pathname !== locationPrevRef.current) {
+      // location changed
+      console.log('location changed')
+      checkOldIframes()
+    }
+    locationPrevRef.current = location.pathname
+  }, [location.pathname, post.tutorialManager.youtube.id])
+
+
   // solve for older blog posts and the iframe issue
   function checkOldIframes() {
+    console.log('checkOldIframes')
     if (post.tutorialManager.youtube.id) {
       return null
     }

@@ -17,7 +17,7 @@ import deleteMeRemixStyles from "@App/styles/demos/remix.css";
 import globalStylesUrl from "@App/styles/global-old.css";
 import darkStylesUrl from "@App/styles/dark.css";
 import { siteInitialState } from './hooks/useSite'
-import { createSiteMetaData, getWPMenu } from './lib/wp/site'
+import { createSiteMetaData, getDynamicSiteMetadata, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
 import styles from "./styles/app.css";
@@ -123,8 +123,11 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   //
   let searchData
+  let dynamicMetaData = {}
+
   try {
     searchData = await getSearchData(url.origin);
+    dynamicMetaData = await getDynamicSiteMetadata()
   } catch (e: any) {
     searchData = null
   }
@@ -132,7 +135,10 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({
     // message,
     ...getWPMenu(resourceUser), // pass in resourceUser to show or hide logout button on resource member page
-    metadata,
+    metadata: {
+      ...metadata,
+      ...dynamicMetaData
+    },
     user: {
       wpAdmin: Boolean(wpAdminUser),
       resourceUser: resourceUser
