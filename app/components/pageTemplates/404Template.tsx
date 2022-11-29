@@ -33,8 +33,8 @@ const MetaTags = (props: IMetaTagsProps) => {
 export default function NotFoundTemplate() {
   const location = useLocation()
   const matches = useMatches()
-  const domain = matches[0].data.ENV.APP_ROOT_URL
-
+  // const domain = matches[0].data.ENV.APP_ROOT_URL
+  console.log('matches', matches)
   return (
     <html>
       <head>
@@ -46,7 +46,7 @@ export default function NotFoundTemplate() {
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
         <Meta />
         <Links />
-        <MetaTags domain={domain} pathName={location.pathname} />
+        <MetaTags domain={'domain'} pathName={location.pathname} />
       </head>
       <body>
         <ContextLoader>
