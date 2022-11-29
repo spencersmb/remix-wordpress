@@ -24,7 +24,7 @@ const JsonLd = ({ data }: { data: any }) => {
   let selectedMatch: undefined | ISelectedMatch = matches.find((match: any) => match.data?.post || match.data?.page || match.data?.product)
   let post: IPost | null = selectedMatch ? selectedMatch?.data?.post : null
   let page: any = selectedMatch?.data?.page
-  let product: any = selectedMatch?.data?.product
+  // let product: any = selectedMatch?.data?.product
   let videoObject: IVideoObject | null = null
   let location = {
     pathname: selectedMatch?.pathname || '/',

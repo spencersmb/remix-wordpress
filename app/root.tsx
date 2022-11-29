@@ -38,6 +38,7 @@ import BasicModal from "./components/modals/BasicModal";
 import CommentModal from "./components/modals/commentModal";
 import SearchModal from "./components/modals/searchModal";
 import { ShopPlatformEnum } from "./enums/products";
+import { withSentry } from "@sentry/remix";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -148,7 +149,7 @@ export let loader: LoaderFunction = async ({ request }) => {
  * route via the `<Outlet />` component. Think of this as the global layout
  * component for your app.
  */
-export default function App() {
+export default withSentry(function App() {
   let { menus, user, metadata, message, cart, searchData } = useLoaderData<IRootData>();
   consoleHelper('user', user, '/root', { bg: consoleColors.purple, text: '#fff' })
 
@@ -196,7 +197,7 @@ export default function App() {
 
     </Document>
   );
-}
+});
 interface IDocument {
   children: React.ReactNode
   title?: string

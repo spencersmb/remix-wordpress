@@ -5,7 +5,14 @@ import { redirect } from "@remix-run/node";
 import type { EntryContext } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { renderToString } from "react-dom/server";
+import * as Sentry from "@sentry/remix";
 
+Sentry.init({
+  dsn: "https://affa575cf95946718b6d1e9af49eeea1:83293292d3754426b2e1e95c0cf85b5c@o4504238968274944.ingest.sentry.io/4504238969978880",
+  tracesSampleRate: 1,
+  integrations: [],
+  debug: process.env.NODE_ENV !== "production",
+});
 
 interface IPrettyLink {
   redirectTo: string
@@ -37,7 +44,7 @@ export default function handleRequest(
   const redirects = Object.assign(data.links, manualRedirectLinks.links);
   const foundRoute = redirects[`${removeSlashAtBegining}`]
 
-  if (!!foundRoute) {
+  if (foundRoute) {
     return redirect(foundRoute.redirectTo, {
       status: parseInt(foundRoute.status)
     })

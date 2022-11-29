@@ -9,8 +9,9 @@ import { spinnerColors } from '@App/components/spinners/spinnerColors'
 import { classNames } from '@App/utils/appUtils'
 import { getStaticPageMeta } from '@App/utils/pageUtils'
 import { mdxPageMeta } from '@App/utils/seo'
+import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
-import { Link } from '@remix-run/react'
+import { Form, Link } from '@remix-run/react'
 
 const page = getStaticPageMeta({
   title: `Design`,
@@ -22,6 +23,11 @@ export let meta = mdxPageMeta
 export let loader = async () => {
   return json({ page })
 }
+
+
+export const action: ActionFunction = async () => {
+  throw new TypeError("Sentry Error");
+};
 
 function Design(props: any) {
   const { } = props
@@ -39,6 +45,23 @@ function Design(props: any) {
   return (
     <Layout >
       <div className='mb-16 et-grid-basic'>
+
+
+        <div className='col-span-10 col-start-3 mb-6'>
+          <button
+            type="button"
+            onClick={() => {
+              throw new Error("Sentry Frontend Error");
+            }}
+          >
+            Throw error
+          </button>
+
+          <Form method="post">
+            <button type="submit">Throw error on Action</button>
+          </Form>
+        </div>
+
         <div className='col-span-10 col-start-3 mb-6'>
           <h2 className='text-2xl'>BUTTONS</h2>
         </div>

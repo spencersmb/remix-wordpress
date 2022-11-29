@@ -134,6 +134,7 @@ export default function Index() {
 
   return (
     <Layout>
+
       <HomeTemplate courses={courses} posts={posts} />
     </Layout>
   );
