@@ -248,15 +248,15 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
-        {/* <ContextLoader>
+        <ContextLoader>
           <GlobalEvents />
-          <Header /> */}
-        <Outlet />
-        {/* <FooterPrimary />
+          <Header />
+          <Outlet />
+          <FooterPrimary />
           <BasicModal />
           <CommentModal />
           <SearchModal />
-        </ContextLoader> */}
+        </ContextLoader>
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(

@@ -50,8 +50,6 @@ export default function AboutPopOver() {
     hidden: 'hover:bg-emerald-500'
   }
 
-  console.log('isTuesdayMakersPage', isTuesdayMakersPage)
-
   return (
     <div className="mx-2 text-sm normal-links text-grey-700 laptop:font-medium desktop:text-base">
       <Popover className="relative" >

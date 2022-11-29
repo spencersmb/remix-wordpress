@@ -29,7 +29,6 @@ const JsonLd = ({ data }: { data: any }) => {
   let location = {
     pathname: selectedMatch?.pathname || '/',
   }
-  console.log('metadata', metadata)
   let breadcrumbList = [
     {
       position: 1,
