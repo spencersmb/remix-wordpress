@@ -206,6 +206,13 @@ export function mdxPageMeta({
     height: '1920',
     width: '1080'
   }
+  console.log('parents', parentsData.root.metadata)
+  console.log('parents', parentsData.root.metadata)
+  console.log('root', parentsData.root)
+  console.log('location', location)
+  if(!metadata.domain){
+    throw new Error('No domain set in metadata')
+  }
 
   // const noFollow = noFollowRoutes.includes(location.pathname.split('/')[1])
   const noFollow = false
@@ -240,12 +247,12 @@ export function mdxPageMeta({
       'og:title': page.seo.title,
       'og:type': 'article',
       'og:description': page.seo.metaDesc,
-      // ...createOgImages({
-      //   altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
-      //   url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
-      //   width:'1920',
-      //   height: '1080'
-      // }),
+      ...createOgImages({
+        altText: page.featuredImage?.altText || defaultFeaturedImage.altText,
+        url: page.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+        width:'1920',
+        height: '1080'
+      }),
       'twitter:card': `@${metadata.social.twitter.username}`,
       'twitter:site': `@${metadata.social.twitter.username}`,
       'twitter:creator': 'summary_large_image',
@@ -265,18 +272,18 @@ export function mdxPageMeta({
     'og:title': post.seo.title,
     'og:type': 'article',
     'og:description': post.seo.metaDesc,
-    // ...createOgArticle({
-    //   publishedTime:post.seo.opengraphPublishedTime,
-    //   modifiedTime: post.seo.opengraphPublishedTime,
-    //   author: `${metadata.domain}${post.author.uri}`,
-    //   tags: post.tags
-    // }),
-    // ...createOgImages({
-    //   altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
-    //   url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
-    //   width:'1920',
-    //   height: '1080'
-    // }),
+    ...createOgArticle({
+      publishedTime:post.seo.opengraphPublishedTime,
+      modifiedTime: post.seo.opengraphPublishedTime,
+      author: `${metadata.domain}${post.author.uri}`,
+      tags: post.tags
+    }),
+    ...createOgImages({
+      altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
+      url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
+      width:'1920',
+      height: '1080'
+    }),
 
     'twitter:card': `@${metadata.social.twitter.username}`,
     'twitter:site': `@${metadata.social.twitter.username}`,
