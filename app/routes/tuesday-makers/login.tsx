@@ -8,7 +8,6 @@ import { validateEmail } from "@App/utils/validation";
 import InputBase from "@App/components/forms/input/inputBase";
 import { ArrowRightIcon, XCircleIcon } from "@heroicons/react/solid";
 import { AnimatePresence, motion } from "framer-motion";
-import { cacheControl } from "@App/lib/remix/loaders";
 import Layout from "@App/components/layoutTemplates/layout";
 import { classNames } from "@App/utils/appUtils";
 import { useEffect, useRef, useState } from "react";

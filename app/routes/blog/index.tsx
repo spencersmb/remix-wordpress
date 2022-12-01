@@ -94,7 +94,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
 function BlogIndex() {
   let loaderData = useLoaderData<typeof loader>();
-
+  console.log('loaderData', loaderData)
   return (
     <Layout>
       {/* Blog index */}
@@ -191,6 +191,14 @@ const catQuery = gql`
       edges {
         node {
           id
+          tutorialManager {
+            youtube {
+                id
+                duration
+            }
+            ...postResourceFields
+            postExcerpt
+          }
           content
           date
           dateGmt

@@ -8,7 +8,6 @@ import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS, PRODUCT_F
 import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { useLoaderData, useMatches } from '@remix-run/react'
-import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
 import BlogSlugTemplate from '@App/components/pageTemplates/blugSlugTemplate';
 

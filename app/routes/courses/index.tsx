@@ -11,7 +11,6 @@ import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
 import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
-import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 

@@ -6,7 +6,6 @@ import { mdxPageMeta } from '@App/utils/seo'
 import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { cacheControl } from '@App/lib/remix/loaders'
 import { MakersSignupAction } from '@App/actions/tmSignUpAction.server'
 import TuesdayHomeTemplate from '@App/components/pageTemplates/tuesdayHomeTemplate'
 import { getStaticPageMeta } from '@App/utils/pageUtils';
@@ -31,7 +30,6 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   return json({ page }, {
     headers: {
-      ...cacheControl,
     }
   })
 };

@@ -58,7 +58,7 @@ export default function TuesdayMakersPopOver() {
             >
               <span className={`
                 ${isTuesdayMakersPage
-                  ? 'text-[#5B1F28] bg-peach-600'
+                  ? 'text-[#5B1F28] bg-tangerine-600'
                   : 'text-white bg-sage-600'}
                   px-2 py-1 text-xs font-extrabold mr-2 rounded-[6px]`}>Popular</span>
               <span className='text-sm desktop:text-base'>Tuesday Makers</span>

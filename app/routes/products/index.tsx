@@ -18,7 +18,6 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
-import { cacheControl } from '@App/lib/remix/loaders';
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 
@@ -44,7 +43,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
       products: formatRawProduct(data.products?.edges),
     }, {
       headers: {
-        ...cacheControl
       }
     })
   } catch (e) {

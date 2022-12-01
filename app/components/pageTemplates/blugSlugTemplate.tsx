@@ -73,7 +73,6 @@ function BlogSlugTemplate(props: IProps) {
 
     if (location.pathname !== locationPrevRef.current) {
       // location changed
-      console.log('location changed')
       checkOldIframes()
     }
     locationPrevRef.current = location.pathname
