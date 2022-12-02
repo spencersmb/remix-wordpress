@@ -101,24 +101,23 @@ export let action: ActionFunction = async ({ request }): Promise<any | Response>
   if (Object.values(fieldErrors).some(Boolean))
     return { fieldErrors, fields };
   //
-  // try {
-  //   // Sign user up
-  //   const res = await fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       api_key: process.env.CK_KEY,
-  //       email,
-  //     }),
-  //   })
-  //
-  //   return json({ form: 'success' })
-  // } catch (e) {
-  //   return json({ form: 'fail' })
-  // }
-  return { value: 'string' }
+  try {
+    // Sign user up
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: process.env.CK_KEY,
+        email,
+      }),
+    })
+
+    return json({ form: 'success' })
+  } catch (e) {
+    return json({ form: 'fail' })
+  }
 
 }
 

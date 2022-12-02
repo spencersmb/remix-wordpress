@@ -36,7 +36,8 @@ function TmSignupForm(props: Props) {
   }, [actionData, formName])
 
   useEffect(() => {
-    if (transition.state === 'submitting') {
+    console.log('actionData', actionData?.formError);
+    if (transition.state === 'submitting' && actionData?.form?.[`${formName}`]?.message === 'success') {
       formRef.current?.reset()
     }
   }, [transition])

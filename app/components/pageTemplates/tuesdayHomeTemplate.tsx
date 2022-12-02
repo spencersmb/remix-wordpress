@@ -37,6 +37,7 @@ function TuesdayHomeTemplate(props: Props) {
 
   useEffect(() => {
     consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
+    consoleHelper('transition', transition, 'tuesday-makers/index.tsx');
   }, [actionData]);
 
   /*
@@ -54,14 +55,6 @@ function TuesdayHomeTemplate(props: Props) {
     //   />
     // })
   }, [])
-
-
-  React.useEffect(() => {
-    if (transition.state === 'submitting') {
-      formRef.current?.reset()
-    }
-  }, [transition])
-  // consoleHelper('data.form !==', data.form, '/routes/tuesday-makers/index.tsx');
 
   const iPadArt = createImgixSizes({
     width: 1400,

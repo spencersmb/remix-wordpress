@@ -3,6 +3,8 @@ import { createImgixSizes } from "@App/utils/imageHelpers";
 import { staticImages } from "@App/lib/imgix/data";
 import MakersSignUpForm from "../forms/layout/makersSignUpForm";
 import LazyImgix from "../images/lazyImgix";
+import FormErrorMessage from "../forms/messages/ErrorMessage";
+import { AnimatePresence } from "framer-motion";
 
 const MakersFooterSignUp = () => {
   const tuesdayMakersSignUp = useFetcher();
@@ -15,6 +17,7 @@ const MakersFooterSignUp = () => {
     mobileSize: 400,
     src: 'https://et-website.imgix.net/et-website/images/footer-ipad-image_1.jpg'
   })
+  const { data, state } = tuesdayMakersSignUp
 
   return (
     <div className="bg-sage-600 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto py-9 px-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
@@ -37,6 +40,22 @@ const MakersFooterSignUp = () => {
         <p className="text-lg pb-11">
           When you join the Tuesday Makers, you’ll receive special offers on courses + products and gain access to the Resource Library, stocked with over 50 design and lettering files!
         </p>
+        {/*ERROR SUBMISSION*/}
+        {/* @ts-ignore */}
+        <AnimatePresence>
+          {data?.formError && state === 'idle' &&
+            <FormErrorMessage
+              id={'subscriberError'}
+              className='mb-4'
+              message={data?.formError || ''} />
+          }
+          {data?.fieldErrors?.email && state === 'idle' &&
+            <FormErrorMessage
+              id={'passwordError'}
+              className='mb-4'
+              message={data?.fieldErrors.email} />
+          }
+        </AnimatePresence>
         <div>
           <MakersSignUpForm
             Form={tuesdayMakersSignUp.Form}

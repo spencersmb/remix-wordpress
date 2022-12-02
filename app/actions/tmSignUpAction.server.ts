@@ -37,8 +37,8 @@ export async function MakersSignupAction<T>(request: Request): Promise<Response>
     return json({
       formError: {
         [formType]: {
-          message: 'Email Error',
-          formId: 'error'
+          message: `Sorry, Email invalid.`,
+          formId: 'error' 
         }
       },
     })

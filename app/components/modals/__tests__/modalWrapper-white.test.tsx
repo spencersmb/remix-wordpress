@@ -43,13 +43,12 @@ describe('ModalWrapper-White', () => {
     }
   })
 
-  // removed button
   it('Should show custom class', () => {
     const { queryByTestId } = renderUi(
       <ModalLayoutWrapperWhite data-testid="test" {...hasCloseProps}>
         <div>test</div>
       </ModalLayoutWrapperWhite>)
-    const container = queryByTestId('custom-class-mw')
+    const container = queryByTestId('test')
     expect(container).toHaveClass('test-class')
   })
 })

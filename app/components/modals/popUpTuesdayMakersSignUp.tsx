@@ -34,7 +34,7 @@ const TuesdayMakersSignUpModal = ({ closeModal }: IProps) => {
             initial={{ height: 0 }}
             animate={{ height: 'auto' }}
             exit={{ height: 0 }}
-            className="relative flex flex-col items-center mt-12">
+            className="relative flex flex-col items-center mt-12 z-3">
 
             {/* ICON */}
             <div className="relative mb-2 max-w-[200px] w-full">

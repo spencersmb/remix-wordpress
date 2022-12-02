@@ -273,7 +273,7 @@ export function Document({ children, title }: IDocument) {
 
         <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
         <Scripts />
-        {/* <LiveReload port={8002} /> */}
+        <LiveReload port={8002} />
         {/* FOOTER SCRIPTS */}
         {/* {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />} */}
 

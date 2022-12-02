@@ -21,6 +21,7 @@ import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { siteLoginUrls } from "@App/lib/wp/site";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { consoleHelper } from "@App/utils/windowUtils";
 
 
 const page = getStaticPageMeta({
@@ -134,7 +135,7 @@ const ResourceLibraryLogin = () => {
     let { value } = e.target;
     setInputValue(value)
   }
-
+  consoleHelper('actionData', actionData, 'tuesdayMakers/login.tsx')
   useEffect(() => {
     if (inputVaue === 'TUESDAYHUSTLERS') {
       openModal({
@@ -252,6 +253,28 @@ const ResourceLibraryLogin = () => {
                     </div>
                     <p>
                       No user found, please sign up below.
+                    </p>
+                  </div>
+                </motion.div>}
+            </AnimatePresence>
+
+            {/*Invalid Email type SUBMISSION*/}
+            {/* @ts-ignore */}
+            <AnimatePresence>
+              {actionData?.fieldErrors && transition.state === 'idle' &&
+                <motion.div
+                  key={'fieldError'}
+                  id="fieldError"
+                  initial={containerMotion.closed}
+                  animate={containerMotion.open}
+                  exit={containerMotion.closed}
+                  className="mt-3 overflow-hidden text-red-800 bg-red-200 rounded-xl">
+                  <div className="flex flex-row items-center justify-center p-3 ">
+                    <div className="max-w-[24px] w-full mr-2">
+                      <XCircleIcon fill={'#7F1D1D'} />
+                    </div>
+                    <p>
+                      {actionData?.fieldErrors?.email}
                     </p>
                   </div>
                 </motion.div>}

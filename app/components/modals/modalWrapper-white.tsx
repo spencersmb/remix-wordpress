@@ -27,7 +27,8 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
   return (
     <div
       {...extras}
-      className="relative w-[100vw] max-w-[440px] mx-auto">
+      // data-testid="custom-class-mw"
+      className={classNames(className ? className : '', 'relative w-[100vw] max-w-[440px] mx-auto')}>
       {/* BLACK PIN */}
       <div className="w-[100px] absolute top-[-4%] left-[47%] translate-x-[-50%] z-[1]">
         <LazyLoadImage
@@ -53,9 +54,8 @@ const ModalLayoutWrapperWhite = (props: IProps) => {
         </div>
       }
 
-      <div data-testid="custom-class-mw" className={classNames(
-        "bg-white p-5 tablet:p-10 relative overflow-hidden shadow-xxl-grey z-0",
-        className
+      <div className={classNames(
+        "p-5 tablet:p-10 relative overflow-hidden shadow-xxl-grey z-3"
       )}>
 
         {/* CLOSE BUTTON */}

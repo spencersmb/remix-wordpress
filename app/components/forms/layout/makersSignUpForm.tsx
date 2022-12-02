@@ -5,6 +5,7 @@ import type { FormProps } from '@remix-run/react'
 import InputBase from '../input/inputBase'
 import SubmitBtn from '@App/components/buttons/submitBtn'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
+import SignUpSuccess from '@App/components/modals/signUpSuccess'
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
@@ -30,15 +31,17 @@ const MakersPopUp = () => {
  */
 function MakersSignUpForm(props: Props) {
   const { Form, data, transition, type } = props
-  const { openModal } = useSite()
+  const { openModal, closeModal } = useSite()
   // console.log('state', state)
-  // console.log('type', type)
+  // console.log('data', data)
 
   const ref = useRef<any>();
   useEffect(() => {
     if (type === "done" && data?.pass) {
       openModal({
-        template: <MakersPopUp />
+        template: <SignUpSuccess
+          message='Check your email and click the link inside to complete the signup process!'
+          closeModal={closeModal} />
       })
       //@ts-ignore
       ref.current.reset();
@@ -63,18 +66,17 @@ function MakersSignUpForm(props: Props) {
             required={true}
             invalid={Boolean(data?.fieldErrors?.email)}
           />
-          {data?.fieldErrors?.email ? (
-            <p
-              className="form-validation-error"
-              role="alert"
-              id="email-error"
-            >
-              {data?.fieldErrors?.email}
-            </p>
-          ) : null}
         </div>
         <div className='hidden'>
-          <input type="text" name='type' value='footer' readOnly className='hidden' />
+          <input
+            type="text"
+            name='firstName'
+            className='hidden'
+            tabIndex={-1}
+            autoComplete="off"
+            id={`firstName-signup`}
+            placeholder="Your first name here"
+          />
         </div>
         <div className='flex'>
           <SubmitBtn

@@ -65,7 +65,7 @@ describe('Tuesday Makers Signup Actions', () => {
     const result = await response.json()
 
     expect(response.status).toBe(200);
-    expect(result.formError.test.message).toBe('Email Error')
+    expect(result.formError.test.message).toBe('Sorry, Email invalid.')
     expect(result.formError.test.formId).toBe('error')
 
   })

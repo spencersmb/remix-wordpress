@@ -2,7 +2,7 @@
 
 exports[`General Message Modal Component Should render Snapshot of General Message modal 1`] = `
 <div
-  className="relative w-[100vw] max-w-[440px] mx-auto"
+  className="bg-white w-[330px] tablet:w-full relative w-[100vw] max-w-[440px] mx-auto"
   data-testid="test-tuesdayMakersSignUpModal"
 >
   <div
@@ -178,8 +178,7 @@ exports[`General Message Modal Component Should render Snapshot of General Messa
     </svg>
   </div>
   <div
-    className="bg-white p-5 tablet:p-10 relative overflow-hidden shadow-xxl-grey z-0 bg-white w-[330px] tablet:w-full"
-    data-testid="custom-class-mw"
+    className="p-5 tablet:p-10 relative overflow-hidden shadow-xxl-grey z-3"
   >
     <div
       className="relative flex flex-col items-center px-3 mt-12"
