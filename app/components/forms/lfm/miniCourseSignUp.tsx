@@ -1,6 +1,8 @@
 import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
 import SignUpSuccess from "@App/components/modals/signUpSuccess";
 import { spinnerColors } from "@App/components/spinners/spinnerColors";
+import { useResetForm, useSuccessModal } from "@App/hooks/formHooks";
+
 import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
 import { AnimatePresence } from "framer-motion";
@@ -14,32 +16,28 @@ interface Props {
   type: string
 }
 // THIS FORM WILL ONLY SUBMIT WHEN AN INDEX PAGE HAS AN ACTION
+// INDEX PAGE IS LOCATED /routes/learn-font-making/index.tsx
+// ACTION IS CALLED lfmMiniCourseSignUpAction
 const LfmMiniCourseSignUpForm = (props: Props) => {
   const { inputBg, type = 'default' } = props
   let actionData = useActionData<MiniCourseSignUpActionData | undefined>();
   const transition = useTransition()
 
-  const { openModal, closeModal, state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
+  const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
   const formRef: any = useRef()
-  useEffect(() => {
 
-    if (actionData?.form?.[`${type}`]?.message === 'success') {
-      openModal(
-        {
-          template: <SignUpSuccess
-            message='Check your email and click the link inside to watch the first video!'
-            closeModal={closeModal} />
-        }
-      )
-    }
-  }, [actionData, type])
+  useSuccessModal({
+    status: actionData?.form?.[`${type}`]?.message === 'success',
+    modalMessage: 'Check your email and click the link inside to watch the first video!'
+  })
 
-  useEffect(() => {
-    if (transition.state === 'submitting') {
-      formRef.current?.reset()
-    }
-  }, [transition])
+  useResetForm({
+    status: actionData?.form?.[`${type}`]?.message === 'success',
+    formRef
+  })
+
   const ringOffset = type === 'steps' ? 'ring-offset-[#e8f3e9]' : 'ring-offset-white'
+
   return (
     <>
       {/*ERROR SUBMISSION*/}
@@ -50,10 +48,10 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             id={'subscriberError'}
             message={actionData?.formError?.[`${type}`]?.message || ''} />
         }
-        {actionData?.fieldErrors?.email && transition.state === 'idle' &&
+        {actionData?.fieldErrors?.[`${type}`]?.email && transition.state === 'idle' &&
           <FormErrorMessage
-            id={'passwordError'}
-            message={actionData?.fieldErrors.email} />
+            id={'emailError'}
+            message={'Invalid Email used'} />
         }
       </AnimatePresence>
       <div className="login_form relative z-[2] mt-2 w-full">
@@ -71,7 +69,7 @@ const LfmMiniCourseSignUpForm = (props: Props) => {
             labelCss="text-sm text-grey-600 font-semibold"
             className={`mt-2 mb-5 desktop:mb-0 ${inputBg}`}
             invalid={Boolean(
-              actionData?.fieldErrors?.email
+              actionData?.fieldErrors?.[`${type}`]?.email
             ) || undefined}
             id={`email-${type}`}
             name={`email`}

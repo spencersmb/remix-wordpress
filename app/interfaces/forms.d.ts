@@ -59,7 +59,9 @@ type MiniCourseSignUpActionData = {
   }
   subscriberError?: string
   fieldErrors?: {
-    email: string | undefined;
+    [key: string]:{
+      email: string | undefined;
+    }
   };
   fields?: {
     email: string;

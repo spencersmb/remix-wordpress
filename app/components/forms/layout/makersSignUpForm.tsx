@@ -4,7 +4,7 @@ import type { FormProps } from '@remix-run/react'
 import InputBase from '../input/inputBase'
 import SubmitBtn from '@App/components/buttons/submitBtn'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
-import { useResetFormOnComplete, useSignUpEmailSuccessModal } from '@App/hooks/formHooks'
+import { useResetForm, useSuccessModal } from '@App/hooks/formHooks'
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
@@ -27,14 +27,12 @@ function MakersSignUpForm(props: Props) {
 
   const ref = useRef<any>();
 
-  useSignUpEmailSuccessModal({
-    type,
-    dataPass: data?.pass
+  useSuccessModal({
+    status: type === "done" && Boolean(data?.pass),
   })
 
-  useResetFormOnComplete({
-    type,
-    dataPass: data?.pass,
+  useResetForm({
+    status: type === "done" && Boolean(data?.pass),
     formRef: ref
   })
 

@@ -43,7 +43,9 @@ export async function lfmMiniCourseSignUpAction(request: Request): Promise<Respo
 
   let fields = { email };
   let fieldErrors = {
-    email: validateEmail(email)
+    [formType]: {
+      email: validateEmail(email)
+    }
   };
 
   const id = formStatus === 'true'
@@ -51,7 +53,7 @@ export async function lfmMiniCourseSignUpAction(request: Request): Promise<Respo
     : ckFormIds.miniCourse.getNotified
   const url = `https://api.convertkit.com/v3/forms/${id}/subscribe`;
 
-  if (Object.values(fieldErrors).some(Boolean))
+  if (Object.values(fieldErrors[formType]).some(Boolean))
     return json({ fieldErrors, fields });
 
   // Intercept the request and respond with a fake response when testing

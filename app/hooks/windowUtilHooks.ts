@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import { useInView } from 'react-intersection-observer'
 
 export function useGetElementByClassName(className: string) {
   const buttonRef = useRef<null | Element>(null)
@@ -36,5 +37,20 @@ export function useSetSafariTouchRefs() {
   return {
     touchDevice: touchRef.current,
     safariBrowser: safariRef.current
+  }
+}
+
+export function useInViewComponentLoaded(){
+  const [ref, inView] = useInView()
+  const [loaded, setLoaded] = useState(false)
+    useEffect(() => {
+    if (inView) {
+      setLoaded(true)
+    }
+  }, [inView])
+
+  return {
+    ref,
+    loaded
   }
 }

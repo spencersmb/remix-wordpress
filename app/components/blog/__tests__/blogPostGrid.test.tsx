@@ -7,27 +7,36 @@ const noPosts = {
   posts: [],
   category: 'all',
   categories: {
-
+    'all': {
+      posts: [],
+      pageInfo: {
+        page: 1,
+        endCursor: 'string',
+        hasNextPage: false,
+      }
+    }
   }
 }
 const Posts_2 = {
-  posts: [
-    { ...mockPostDataComplete },
-    { ...mockPostDataComplete_2 },
-    { ...mockPostDataComplete_3 }
-  ],
+  posts: [],
   category: 'all',
   categories: {
-
+    'all': {
+      posts: [
+        { ...mockPostDataComplete },
+        { ...mockPostDataComplete_2 },
+      ],
+      pageInfo: {
+        page: 1,
+        endCursor: 'string',
+        hasNextPage: false,
+      }
+    }
   }
 }
 const Posts_Cat_Procreate = {
-  posts: [
-    { ...mockPostDataComplete },
-
-    { ...mockPostDataComplete_3 }
-  ],
-  category: 'all',
+  posts: [],
+  category: 'procreate',
   categories: {
     'procreate': {
       posts: [
@@ -43,7 +52,7 @@ const Posts_Cat_Procreate = {
 }
 
 describe('Blogpost Grid', () => {
-  it('Should show no posts with message for use', () => {
+  it('Should show no posts with message for Category All', () => {
     render(
       <MemoryRouter>
         <BlogPostGrid {...noPosts} />

@@ -1,9 +1,9 @@
 import SubmitFetcherBtn from '@App/components/buttons/submitFetchBtn'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
-import { useResetFormOnComplete } from '@App/hooks/formHooks'
+import { useResetForm } from '@App/hooks/formHooks'
 import type { FormProps } from '@remix-run/react'
 import { AnimatePresence } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import InputBase from '../input/inputBase'
 import FormErrorMessage from '../messages/ErrorMessage'
 
@@ -21,9 +21,8 @@ const MakersSignUpFetcherForm = (props: IProps) => {
 
   const ref = useRef<any>();
 
-  useResetFormOnComplete({
-    type,
-    dataPass: data?.pass,
+  useResetForm({
+    status: type === "done" && Boolean(data?.pass),
     formRef: ref
   })
 

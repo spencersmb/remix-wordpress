@@ -1,7 +1,8 @@
 
-import LfmMiniCourseSignUpFormFooter from '@App/components/forms/lfm/miniCourseSignUpFooter'
+import LfmMiniCourseSignUpForm from '@App/components/forms/lfm/miniCourseSignUp'
 import LazyImgix from '@App/components/images/lazyImgix'
 import useSite from '@App/hooks/useSite'
+import { useInViewComponentLoaded } from '@App/hooks/windowUtilHooks'
 import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
 import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
@@ -28,15 +29,9 @@ function MiniCourseBanner(props: Props) {
     mobileSize: 500
   })
 
-  const [ref, inView] = useInView()
-  const [loaded, setLoaded] = useState(false)
   const { state: { breakpoint, metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
 
-  useEffect(() => {
-    if (inView) {
-      setLoaded(true)
-    }
-  }, [inView])
+  const { loaded, ref } = useInViewComponentLoaded()
 
   return (
 
@@ -70,20 +65,6 @@ function MiniCourseBanner(props: Props) {
             width={'830px'}
             height={'1040px'}
             src={`${lfmImgRoot.aws}/mini-course/footer_hero-mobile.jpg`} alt="Learn Font Making Mini Course: Enroll for free!" />}
-
-          {/* <picture>
-              <source
-                srcSet={`${lfmImgRoot.aws}/mini-course/footer_hero.jpg`}
-                media="(min-width: 768px)"
-              />
-              <source
-                srcSet={`${lfmImgRoot.aws}/mini-course/footer_hero-mobile.jpg`}
-                media="(min-width: 320px)"
-              />
-              <img
-                className='max-w-[740px] tablet:max-w-[830px] laptop:max-w-[840px] desktop:max-w-[1100px] desktopXl:max-w-[1180px]'
-                src={`${lfmImgRoot.aws}/mini-course/footer_hero-mobile.jpg`} alt="Learn Font Making Mini Course: Enroll for free!" />
-            </picture> */}
         </div>
       </div>
 
@@ -117,7 +98,10 @@ function MiniCourseBanner(props: Props) {
       </div>
 
       {showForm && <div className="miniCourse-vids__signUpFooter pb-10 col-start-2 col-span-2 tablet:pb-16 tablet:max-w-[457px] z-2 tablet:row-start-3 tablet:col-start-2 tablet:col-span-12 tablet:min-h-[94px] laptop:min-h-[155px] desktop:pb-32 desktop:ml-8 desktop:max-w-[625px]">
-        <LfmMiniCourseSignUpFormFooter />
+        <LfmMiniCourseSignUpForm
+          type="footer"
+          inputBg="bg-grey-100 tablet:bg-white"
+        />
       </div>}
 
       {children}

@@ -51,7 +51,7 @@ const MakersFooterSignUp = () => {
           }
           {data?.fieldErrors?.email && state === 'idle' &&
             <FormErrorMessage
-              id={'passwordError'}
+              id={'emailError'}
               className='mb-4'
               message={data?.fieldErrors.email} />
           }

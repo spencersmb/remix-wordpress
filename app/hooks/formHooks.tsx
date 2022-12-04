@@ -26,19 +26,41 @@ export function useSignUpEmailSuccessModal({
   }, [closeModal, dataPass, openModal, type]);
 }
 
-interface IuseResetFormOnComplete {
-  type: FetcherTypes
-  dataPass: boolean | undefined
+interface IuseSuccessModal {
+  status: boolean | undefined
+  modalMessage?: string
+}
+export function useSuccessModal({
+  status = false,
+  modalMessage,
+}: IuseSuccessModal) {
+
+  const { openModal, closeModal } = useSite()
+  const defaultMessage = 'Check your email and click the link inside to complete the signup process!'
+  useEffect(() => {
+    if (status) {
+      openModal({
+        template: <SignUpSuccess
+          message={modalMessage || defaultMessage}
+          closeModal={closeModal} />
+      })
+      //@ts-ignore
+      // ref.current.reset();
+    }
+  }, [closeModal, openModal, status, modalMessage]);
+}
+interface IuseResetForm {
+  status: boolean
   formRef: React.RefObject<any>
 }
-export function useResetFormOnComplete({
-  type,
-  dataPass,
+
+export function useResetForm({
+  status,
   formRef
-}: IuseResetFormOnComplete) {
+}: IuseResetForm) {
   useEffect(() => {
-    if (type === "done" && dataPass && formRef.current) {
-      formRef.current.reset();
+    if (status) {
+      formRef.current?.reset()
     }
-  }, [dataPass, type, formRef]);
+  }, [formRef, status])
 }
