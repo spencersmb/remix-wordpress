@@ -1,12 +1,11 @@
 import BasicSubmitBtn from "@App/components/buttons/basicSubmitBtn";
-import SignUpSuccess from "@App/components/modals/signUpSuccess";
 import { spinnerColors } from "@App/components/spinners/spinnerColors";
 import { useResetForm, useSuccessModal } from "@App/hooks/formHooks";
 
 import useSite from "@App/hooks/useSite";
 import { Form, useActionData, useTransition } from "@remix-run/react"
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import InputBase from "../input/inputBase";
 import FormErrorMessage from "../messages/ErrorMessage";
 

@@ -1,5 +1,6 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import React from 'react'
+import { useInputFocusOnTrigger } from '@App/hooks/windowUtilHooks';
 
 interface Props {
   handleOnSearch: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -17,21 +18,16 @@ interface Props {
  */
 function SearchForm(props: Props) {
   const { query, results, category, animationCompleted, handleOnSearch } = props
-  const formRef = useRef<null | HTMLFormElement>(null)
+  const inputRef = useRef<null | HTMLInputElement>(null)
 
   // ON MODAL OPEN/LOAD, BRING INPUT INTO FOCUS AFTER THE WIDTH TRANSITION ANIMATION HAS COMPLETED
-  useEffect(() => {
-    if (formRef.current && animationCompleted) {
-      const searchInput: HTMLInputElement = Array.from(formRef.current.elements)
-        .find((input: any) => input.type === 'search') as HTMLInputElement
-
-      searchInput.focus();
-    }
-  }, [animationCompleted])
+  useInputFocusOnTrigger({
+    elRef: inputRef,
+    trigger: animationCompleted
+  })
 
   return (
     <form
-      ref={formRef}
       data-search-is-active={!!query}
     >
       <fieldset className="flex flex-col">
@@ -51,6 +47,7 @@ function SearchForm(props: Props) {
         </div>
         <div className="relative mt-4">
           <input
+            ref={inputRef}
             id='search-input'
             className="w-full px-4 py-3 text-base duration-200 ease-in-out transform outline-none bg-grey-100 rounded-2xl text-primary-700 hover:ring focus:ring ring-offset-0 focus:ring-sage-500 focus:bg-transparent autofill:bg-warning-100 tablet:px-5 tablet:py-4"
             type="search"

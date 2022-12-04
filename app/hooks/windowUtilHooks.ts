@@ -54,3 +54,21 @@ export function useInViewComponentLoaded(){
     loaded
   }
 }
+
+interface IuseInputFocusOnTrigger {
+  elRef: React.RefObject<HTMLInputElement>
+  trigger: boolean
+}
+export function useInputFocusOnTrigger({
+  elRef,
+  trigger
+}: IuseInputFocusOnTrigger) {
+  useEffect(() => {
+    if (elRef.current && trigger) {
+      // const inputElement: HTMLInputElement = Array.from(elRef.current.elements)
+      //   .find((input: any) => input.type === 'search') as HTMLInputElement
+
+      elRef.current.focus();
+    }
+  }, [trigger, elRef])
+}

@@ -1,11 +1,10 @@
 import BasicSubmitBtn from '@App/components/buttons/basicSubmitBtn';
-import SignUpSuccess from '@App/components/modals/signUpSuccess';
 import { spinnerColors } from '@App/components/spinners/spinnerColors';
-import useSite from '@App/hooks/useSite';
+import { useResetForm, useSuccessModal } from '@App/hooks/formHooks';
 import { classNames } from '@App/utils/appUtils';
 import { Form, useActionData, useTransition } from '@remix-run/react';
 import { AnimatePresence } from 'framer-motion';
-import React, { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import InputBase from '../input/inputBase';
 import FormErrorMessage from '../messages/ErrorMessage';
 
@@ -15,32 +14,21 @@ interface Props {
   flexRow?: boolean
 }
 
+// USED: On the Tuesday Makers Homepage Template
 function TmSignupForm(props: Props) {
   const { inputBg, formName = 'default', flexRow = true } = props
   let actionData = useActionData<RemixSignUpActionData | undefined>();
   const transition = useTransition()
-
-  const { openModal, closeModal } = useSite()
   const formRef: any = useRef()
-  useEffect(() => {
 
-    if (actionData?.form?.[`${formName}`]?.message === 'success') {
-      openModal(
-        {
-          template: <SignUpSuccess
-            message='Check your email and click the link inside to complete the signup process!'
-            closeModal={closeModal} />
-        }
-      )
-    }
-  }, [actionData, formName])
+  useSuccessModal({
+    status: actionData?.form?.[`${formName}`]?.message === 'success',
+  })
 
-  useEffect(() => {
-    console.log('actionData', actionData?.formError);
-    if (transition.state === 'submitting' && actionData?.form?.[`${formName}`]?.message === 'success') {
-      formRef.current?.reset()
-    }
-  }, [transition])
+  useResetForm({
+    status: transition.state === 'submitting' && actionData?.form?.[`${formName}`]?.message === 'success',
+    formRef
+  })
 
   return (
     <>
