@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Sticky, StickyContainer } from 'react-sticky';
 import { ClientOnly } from 'remix-utils';
@@ -39,10 +39,35 @@ function BlogSlugTemplate(props: IProps) {
   const skill = findSkillLevel(post.categories);
   const location = useLocation();
   const locationPrevRef = useRef(location.pathname);
-  console.log('location', location)
-  const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint } } = useSite();
+  const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint, commentsModal } } = useSite();
+  const mobilePrevBreakpointRef = useRef(breakpoint);
   consoleHelper('post', post, 'BlogSlugTemplate.tsx')
 
+  // solve for older blog posts and the iframe issue
+  const checkOldIframes = useCallback(() => {
+
+    if (post.tutorialManager.youtube.id) {
+      return null
+    }
+
+    let blogContent = document.querySelector('.blog-content')
+    let pTags = blogContent?.querySelectorAll('p')
+
+    if (!pTags) {
+      return null
+    }
+
+    pTags.forEach(pTag => {
+      const children = Array.from(pTag.children)
+      children.find(child => {
+        if (child.tagName === 'IFRAME') {
+          addClass(pTag, 'embed-responsive')
+        }
+      })
+    })
+  }, [post.tutorialManager.youtube.id])
+
+  // TODO: useEffect into a hook
   useEffect(() => {
     // window.scrollTo({
     //   top: 0,
@@ -63,12 +88,23 @@ function BlogSlugTemplate(props: IProps) {
     // });
 
     checkOldIframes()
+
     return () => {
-      // unmount or change route, close modal
+
+    }
+  }, [checkOldIframes])
+
+  // TODO: useEffect into a hook
+  useEffect(() => {
+
+    if (location.pathname !== locationPrevRef.current && commentsModal.show) {
+      // location changed
       hideComments()
     }
-  }, [])
+    locationPrevRef.current = location.pathname
+  }, [commentsModal.show, hideComments, location.pathname])
 
+  // TODO: useEffect into a hook
   useEffect(() => {
 
     if (location.pathname !== locationPrevRef.current) {
@@ -76,31 +112,20 @@ function BlogSlugTemplate(props: IProps) {
       checkOldIframes()
     }
     locationPrevRef.current = location.pathname
-  }, [location.pathname, post.tutorialManager.youtube.id])
+  }, [checkOldIframes, location.pathname, post.tutorialManager.youtube.id,])
 
+  useEffect(() => {
 
-  // solve for older blog posts and the iframe issue
-  function checkOldIframes() {
-    if (post.tutorialManager.youtube.id) {
-      return null
+    // if the preivous breakpoint was mobile and the current breakpoint is not mobile
+    if (mobilePrevBreakpointRef.current !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL)) {
+      window.dispatchEvent(new Event('scroll'))
     }
 
-    let blogContent = document.querySelector('.blog-content')
-    let pTags = blogContent?.querySelectorAll('p')
+    mobilePrevBreakpointRef.current = breakpoint
+  }, [breakpoint])
 
-    if (!pTags) {
-      return null
-    }
 
-    pTags.forEach(pTag => {
-      const children = Array.from(pTag.children)
-      children.find(child => {
-        if (child.tagName === 'IFRAME') {
-          addClass(pTag, 'embed-responsive')
-        }
-      })
-    })
-  }
+
 
   const breadcrumbLinks = [
     {
@@ -133,6 +158,9 @@ function BlogSlugTemplate(props: IProps) {
     src: staticImages.profiles.teela.square.src,
     mobileSize: 200
   })
+
+  const stickyMobileStyles = { top: 0, zIndex: 1, position: 'relative', padding: 0 }
+  const isMobile = breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL)
 
   return (
 
@@ -278,12 +306,14 @@ function BlogSlugTemplate(props: IProps) {
                   : '',
                 'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100')}>
 
-                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
+                <div className='max-w-[700px] flex-col desktop:max-w-[1475px] mx-auto w-full relative flex desktop:flex-row items-start '>
 
                   {/* TUTORIAL DOWNLOADS */}
-                  <div className='relative flex-none my-20 desktop:flex-1'>
+                  <div className='relative flex-1 w-full mx-auto tablet:px-8 laptop:px-0 desktop:my-20 desktop:flex-1'>
                     {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
-                      <Sticky topOffset={-20} bottomOffset={184}>
+                      <Sticky
+                        topOffset={-20}
+                        bottomOffset={184}>
                         {({
                           style,
 
@@ -308,17 +338,17 @@ function BlogSlugTemplate(props: IProps) {
                         }}
                       </Sticky>
                     }
-
+                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} />}
                   </div>
 
                   {/* YOUTUBE */}
-                  <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
+                  <div className='flex-initial w-[100%] mt-8 tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
                     <YouTubeVideo
                       id={post.tutorialManager.youtube.id}
                       title={post.title}
                     />
 
-                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} isMobile={true} />}
+
 
                     {/* <PaidProducts post={post} /> */}
                     {/* RESOURCES */}

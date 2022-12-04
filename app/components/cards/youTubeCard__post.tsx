@@ -1,3 +1,4 @@
+import { useGetElementByClassName, useSetSafariTouchRefs } from '@App/hooks/windowUtilHooks';
 import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
@@ -10,6 +11,32 @@ interface Props {
   id: string
   title: string
 }
+interface IUseYouTuveVideoMobile {
+  inView: boolean
+  buttonRef: Element | null
+  touchDevice: boolean
+  safariBrowser: boolean
+}
+function useYouTubeVideoMobile({
+  inView,
+  buttonRef,
+  touchDevice,
+  safariBrowser
+}: IUseYouTuveVideoMobile) {
+  useEffect(() => {
+
+    if (inView && buttonRef && (touchDevice || safariBrowser)) {
+      console.log('touchDeviceRef.current', touchDevice);
+      console.log('safariRef.current', safariBrowser);
+      console.log('inView', inView);
+
+      // @ts-ignore
+      buttonRef.click()
+    }
+
+  }, [buttonRef, inView, safariBrowser, touchDevice])
+}
+
 function YouTubeVideo(props: Props) {
   const { title, id } = props
   // element.addIframe()
@@ -17,45 +44,17 @@ function YouTubeVideo(props: Props) {
     /* Optional options */
     threshold: 0,
   });
-  const buttonRef = useRef<null | Element>(null)
-  const touchRef = useRef<boolean>(false)
-  const safariRef = useRef<boolean>(false)
 
-  useEffect(() => {
-    buttonRef.current = document.getElementsByClassName('lty-playbtn')[0]
-    // window.addEventListener('mousemove', function mouseMoveDetector() {
-    //   touchRef.current = false;
-    //   window.removeEventListener('mousemove', mouseMoveDetector);
-    // });
+  const { buttonRef } = useGetElementByClassName('lty-playbtn')
+  const { touchDevice, safariBrowser } = useSetSafariTouchRefs()
 
-    if (navigator.userAgent.search("Safari") >= 0
-      && navigator.userAgent.search("Chrome") < 0
-      && navigator.vendor === "Apple Computer, Inc.") {
-      // alert("Browser is Safari");
-      safariRef.current = true
-    }
-
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      // touchscreen
-      // console.log('TOUCH device');
-      // alert('TOUCH device');
-      touchRef.current = true;
-
-    }
-  }, [])
-
-  useEffect(() => {
-    // is inVIEW, if there is a button EL, if its touch screen, and if its safari
-    if (inView && buttonRef.current && (touchRef.current || safariRef.current)) {
-      // console.log('touchRef.current', touchRef.current);
-      // console.log('safariRef.current', safariRef.current);
-
-      // @ts-ignore
-      buttonRef.current.click()
-    }
-
-  }, [inView])
-
+  // YouTube has issues on safair / mobile devices so we need to click the play button
+  useYouTubeVideoMobile({
+    inView,
+    buttonRef: buttonRef.current,
+    touchDevice,
+    safariBrowser
+  })
 
   return (
     <div ref={ref} className='relative overflow-hidden tablet:shadow-xs tablet:mb-8 desktop:mb-0 youtube_container'>

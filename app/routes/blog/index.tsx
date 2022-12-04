@@ -1,6 +1,6 @@
 
 import Layout from "@App/components/layoutTemplates/layout";
-import { fetchAPI } from "@App/utils/fetch.server";
+import { fetchAPI, fetchAPIBatch } from "@App/utils/fetch.server";
 import { flattenAllPosts } from "@App/utils/posts";
 import { mdxPageMeta } from "@App/utils/seo";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
@@ -31,58 +31,74 @@ export let loader: LoaderFunction = async ({ request, }) => {
     after: string | null;
     catName?: string;
   } = {
-    first: 13,
-    after: null
+    first: 12,
+    after: null,
+    catName: '' // all
   }
   // check URL for params to fetch the correct amount of items
+  let response
   let url = new URL(request.url)
   let params = url.searchParams
   let pageParam = params.get('page')
   let cat = params.get('cat')
 
-  if (pageParam && !cat) {
+  if (pageParam) {
     variables = {
-      first: (parseInt(pageParam, 10) * 12) + 1, // +1 is to account for the featured post
-      after: null,
+      ...variables,
+      first: (parseInt(pageParam, 10) * 12),
     }
   }
 
-  let wpAPI
-  let wpCatAPI
-  try {
-    wpAPI = await fetchAPI(getGraphQLString(postQuery), {
-      variables
-    })
-
-    if (cat && pageParam) {
-      variables.catName = cat
-      variables.first = (parseInt(pageParam, 10) * 12)
-      wpCatAPI = await fetchAPI(getGraphQLString(catQuery), {
-        variables
-      })
+  if (cat) {
+    variables = {
+      ...variables,
+      catName: cat
     }
+  }
+
+
+  try {
+    response = await fetchAPIBatch([
+      {
+        query: getGraphQLString(postQuery),
+        variables: {
+          first: 1,
+          after: null
+        },
+        operationname: 'GetMorePosts'
+      },
+      {
+        query: getGraphQLString(catQuery),
+        variables,
+        operationname: 'CategoryPageQuery'
+      }
+    ])
 
   } catch (e) {
     console.error('error', e)
   }
-  const pageInfo = wpAPI?.posts.pageInfo
-  const posts = flattenAllPosts(wpAPI?.posts) || []
-  let categories = wpCatAPI && cat ? {
-    selectedCategory: cat,
+  const pageInfo = {}
+  const posts: any = []
+  const filterPosts = flattenAllPosts(response[0].data.posts) as IPost[]
+  const categoryRes = response[1].data.posts
+  let categoryNameRewrite = cat ? cat : 'all'
+  let categories = {
+    selectedCategory: categoryNameRewrite,
     category: {
-      [cat]: {
-        posts: flattenAllPosts(wpCatAPI?.posts),
+      [categoryNameRewrite]: {
+        posts: flattenAllPosts(categoryRes),
         pageInfo: {
-          ...wpCatAPI?.posts.pageInfo,
+          ...categoryRes.pageInfo,
           page: pageParam ? parseInt(pageParam, 10) : 1,
         },
 
       }
     }
-  } : null
-
+  }
   // https://remix.run/api/remix#json
   return json({
+    response,
+    featured: filterPosts[0],
     page,
     posts,
     pageInfo,
@@ -196,7 +212,7 @@ const catQuery = gql`
                 id
                 duration
             }
-            ...postResourceFields
+            # ...postResourceFields
             postExcerpt
           }
           content

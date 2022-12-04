@@ -1,5 +1,6 @@
 import SubmitFetcherBtn from '@App/components/buttons/submitFetchBtn'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
+import { useResetFormOnComplete } from '@App/hooks/formHooks'
 import type { FormProps } from '@remix-run/react'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef } from 'react'
@@ -14,18 +15,17 @@ interface IProps {
   type: FetcherTypes
   btnText?: string
 }
+// This is the form used in the pop-up modal on blog pages
 const MakersSignUpFetcherForm = (props: IProps) => {
   const { Form, data, state, type, btnText } = props
 
   const ref = useRef<any>();
 
-  useEffect(() => {
-    if (type === "done" && data?.pass) {
-
-      //@ts-ignore
-      ref.current.reset();
-    }
-  }, [type, data]);
+  useResetFormOnComplete({
+    type,
+    dataPass: data?.pass,
+    formRef: ref
+  })
 
   return (
     <div>

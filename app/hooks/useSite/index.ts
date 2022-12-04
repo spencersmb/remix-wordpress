@@ -1,4 +1,5 @@
-import type { Dispatch, ReactElement, FunctionComponent } from 'react';
+import type { Dispatch, ReactElement, FunctionComponent} from 'react';
+import { useCallback } from 'react';
 import { useContext, createContext } from 'react'
 import type { ISiteAction} from './useSiteReducer';
 import { ISiteTypes } from './useSiteReducer'
@@ -130,18 +131,18 @@ const useSiteContext = () => {
 const useSite = () => {
   const {state, dispatch} = useSiteContext()
 
-  const openModal = ({template}: {template: FunctionComponent | ReactElement}) => {
+  const openModal = useCallback(({template}: {template: FunctionComponent | ReactElement}) => {
     dispatch({
       type: ISiteTypes.MODAL_OPEN,
       payload: {template}
     })
-  }
+  },[dispatch])
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     dispatch({
       type: ISiteTypes.MODAL_CLOSE,
     })
-  }
+  }, [dispatch])
 
   const resourecLibraryLogin = (data: {user: IResourceUser}) => {
     dispatch({
@@ -172,11 +173,11 @@ const useSite = () => {
     })
   }
 
-  const hideComments = () => {
+  const hideComments = useCallback(() => {
     dispatch({
       type: ISiteTypes.HIDE_COMMENTS,
     })
-  }
+  }, [dispatch])
 
   const addComment = (data: {
     comment: IPostComment

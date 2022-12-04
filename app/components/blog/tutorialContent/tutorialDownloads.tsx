@@ -12,28 +12,29 @@ interface Props {
   isMobile?: boolean
 }
 
-function TutorialDownloads(props: Props) {
-
-  const { post, style, isMobile } = props
-  const { openModal, closeModal, state: { user: { resourceUser } } } = useSite()
+// Checks if Style object has changed and loads the component once style changes
+function useLoadOnMount() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // first time
-    // if (!loaded && (!isEmpty(style) || style?.position)) {
-    //   setLoaded(true);
-    //   return
-    // }
     if (!loaded) {
       setLoaded(true);
       return
     }
+  }, [loaded])
 
-    if (isMobile) {
-      setLoaded(true);
-      return
-    }
-  }, [style, loaded, isMobile])
+  return {
+    loaded
+  }
+
+}
+
+// TODO: TEST THIS
+function TutorialDownloads(props: Props) {
+
+  const { post, style, isMobile } = props
+  const { openModal, closeModal, state: { user: { resourceUser } } } = useSite()
+  const { loaded } = useLoadOnMount()
 
   // OPEN MODAL ON LOAD TESTING
   // useEffect(() => {
@@ -71,11 +72,10 @@ function TutorialDownloads(props: Props) {
     })
   }
 
-
   return (
     <div
       data-testid="test-tutorialDownloads"
-      className={`transition-opacity flex flex-col tablet:mb-8 tablet:shadow-xs overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
+      className={`transition-opacity flex flex-col tablet:shadow-xs overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
       {/* SIGNUP BLOCK */}
       <div className='flex flex-col bg-sage-700 text-sage-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
 

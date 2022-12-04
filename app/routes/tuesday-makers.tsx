@@ -1,12 +1,6 @@
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import FooterPrimary from "@App/components/footer/FooterPrimary";
-import Header from "@App/components/nav/header";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import ContextLoader from "@App/components/layoutTemplates/contextLoader";
-import GlobalEvents from "@App/components/layoutTemplates/globalHooks";
-import BasicModal from "@App/components/modals/BasicModal";
-import SearchModal from "@App/components/modals/searchModal";
 import UseMakersLibraryProvider from "@App/hooks/useFreebies/useFreebiesPaginateProvider";
 import { tuesdayMakersInitialState } from "@App/hooks/useFreebies";
 

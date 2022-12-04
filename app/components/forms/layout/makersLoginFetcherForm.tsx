@@ -1,6 +1,6 @@
 import type { FormProps } from '@remix-run/react'
 import { AnimatePresence } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import SubmitFetcherBtn from '../../buttons/submitFetchBtn'
 import InputBase from '../input/inputBase'
 import FormErrorMessage from '../messages/ErrorMessage'
@@ -13,39 +13,39 @@ interface Props {
   redirectUrl?: string
   onComplete?: (data: FetcherData | undefined) => void
 }
-
+// TODO: DELETE THIS COMPONENT
 const MakersLoginFetchForm = (props: Props) => {
 
-  const { Form, data, state, type, redirectUrl, onComplete } = props
-  const ref = useRef<any>();
+  // const { Form, data, state, type, redirectUrl, onComplete } = props
+  // const ref = useRef<any>();
 
-  useEffect(() => {
-    if (type === "done" && data?.pass) {
+  // use(() => {
+  //   if (type === "done" && data?.pass) {
 
-      //@ts-ignore
-      ref.current.reset();
+  //     //@ts-ignore
+  //     ref.current.reset();
 
-      if (onComplete) {
-        onComplete(data)
-      }
-      // redirect or OnCompleteCallback
-    }
-  }, [type, data]);
+  //     if (onComplete) {
+  //       onComplete(data)
+  //     }
+  //     // redirect or OnCompleteCallback
+  //   }
+  // }, [type, data]);
 
 
 
   return (
     <div>
-      <Form
+      {/* <Form
         ref={ref}
         method="post"
         className="flex flex-col"
         action="/convertkit/tuesday-makers-login"
-      >
+      > */}
 
-        {/*ERROR SUBMISSION*/}
-        {/* @ts-ignore */}
-        <AnimatePresence>
+      {/*ERROR SUBMISSION*/}
+      {/* @ts-ignore */}
+      {/* <AnimatePresence>
           {data?.formError && state === 'idle' &&
             <FormErrorMessage
               id={'subscriberError'}
@@ -58,9 +58,9 @@ const MakersLoginFetchForm = (props: Props) => {
               className='mb-4'
               message={data?.fieldErrors.email} />
           }
-        </AnimatePresence>
+        </AnimatePresence> */}
 
-        <div className='flex-1 mb-5'>
+      {/* <div className='flex-1 mb-5'>
           <InputBase
             className={''}
             label="Email"
@@ -75,10 +75,10 @@ const MakersLoginFetchForm = (props: Props) => {
             placeholder='Enter your email'
           />
 
-        </div>
+        </div> */}
 
-        {/* HONEYPOT */}
-        <label className="inpot" htmlFor="firstName">
+      {/* HONEYPOT */}
+      {/* <label className="inpot" htmlFor="firstName">
           <span className="text-sm font-semibold text-grey-600">First Name</span>
           <input
             tabIndex={-1}
@@ -97,11 +97,12 @@ const MakersLoginFetchForm = (props: Props) => {
           <SubmitFetcherBtn
             className='btn btn-primary btn-lg btn-flex btn-primary-ring'
             state={state}
-            btnText={`Login`}
+            btnText={`Login TEST`}
           />
-        </div>
+        </div> */}
 
-      </Form>
+      {/* </Form> */}
+      DELETE THIS COMPONENT
     </div>
   )
 }

@@ -40,6 +40,7 @@ function BlogComments(props: Props) {
     return !window.open(href, 'Facebook', 'width=640,height=580')
   }
 
+  // USE FOR TESTING
   // useEffect(() => {
   //   showComments({
   //     commentOn: post.databaseId,

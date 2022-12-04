@@ -1,4 +1,5 @@
 import type { Dispatch} from 'react';
+import { useCallback} from 'react';
 import { createContext, useContext } from 'react'
 import type { IFetchPaginateAction, IPageInfo} from './useFetchPaginationReducer';
 import { IFetchPaginateTypes, IPageInfoOld } from './useFetchPaginationReducer'
@@ -91,18 +92,18 @@ const useFetchPaginate = (newData?: updateContext) => {
     })
   }
 
-  const addCategoriAction = (data: IPageInfo & {category: string}) => {
+  const addCategoryAction = useCallback( (data: IPageInfo & {category: string}) => {
     dispatch({
       type: IFetchPaginateTypes.ADD_CATEGORY,
       payload: data
     })
-  }
+  },[dispatch])
 
-  const loadingPosts = ()=>{
+  const loadingPosts = useCallback(() => {
     dispatch({
       type: IFetchPaginateTypes.LOADING
     })
-  }
+  }, [dispatch])
 
   const clearCategory = () => {
     dispatch({
@@ -116,7 +117,7 @@ const useFetchPaginate = (newData?: updateContext) => {
     })
   }
   return {
-    addCategoriAction,
+    addCategoryAction,
     loadingPosts,
     addPostsAction,
     clearCategory,

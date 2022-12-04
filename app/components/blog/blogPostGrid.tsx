@@ -36,7 +36,7 @@ function BlogPostGrid(props: IProps) {
 
       {/* @ts-ignore */}
       <AnimatePresence>
-        {category === 'all' && posts.map((post: any, index: any) => {
+        {/* {category === 'all' && posts.map((post: any, index: any) => {
           return (
             <PostCardOne
               key={post.slug}
@@ -45,21 +45,21 @@ function BlogPostGrid(props: IProps) {
             />
           )
         }).slice(1) // Remove first time because its the featured post
-        }
+        } */}
 
-        {category !== 'all' && categories[category] && categories[category].posts.map((post: IPost) => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
+        {categories[category] && categories[category].posts.map((post: IPost) => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
         )}
 
         {/* Iif Cat === all and no posts */}
-        {(posts.length === 0 && category === 'all')
+        {/* {(posts.length === 0 && category === 'all')
           ?
           <motion.div>
             <h4>Sorry, There are no posts in Category: {category} yet.</h4>
           </motion.div>
           : null
-        }
+        } */}
 
-        {(category !== 'all' && (categories[category] && categories[category].posts.length === 0))
+        {((categories[category] && categories[category].posts.length === 0))
           ?
           <motion.div>
             <h4>Sorry, There are no posts in Category: {category} yet.</h4>

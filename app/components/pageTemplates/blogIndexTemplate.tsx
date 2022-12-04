@@ -5,7 +5,7 @@ import { flattenAllPosts } from "@App/utils/posts";
 import { consoleHelper } from "@App/utils/windowUtils";
 import { AnimatePresence, motion } from "framer-motion";
 import gql from "graphql-tag";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BlogFeaturedPost from "../blog/blogFeaturedPost";
 import BlogCategoryTabs from "../blog/blogHomeTabs/blogCategoryTabs";
 import BlogPostGrid from "../blog/blogPostGrid";
@@ -16,19 +16,26 @@ interface Props {
   loaderData: any
 }
 
-interface ICategory {
-  selectedCategory: string;
-  category: {
-    [id: string]: {
-      posts: any
-      pageInfo: {
-        page: number,
-        endCursor: string,
-        hasNextPage: boolean,
-      }
+interface ICategoryItem {
+  [id: string]: {
+    posts: any
+    pageInfo: {
+      page: number,
+      endCursor: string,
+      hasNextPage: boolean,
     }
   }
 }
+
+interface ICategory {
+  selectedCategory: string;
+  category: ICategoryItem
+}
+interface IFetchCategory {
+  endCursor: string | null,
+  page: number
+}
+
 
 function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any, page: number }, categorysArgs: ICategory | null) {
   let { posts, pageInfo, page } = postsArgs
@@ -77,10 +84,110 @@ function setWindowUrlParams(props: {
   window.history.replaceState(pageTitle, tabTitle, url.href);
 }
 
+function useSetUrlPageHistory(pageNumber: number) {
+
+  // pageInfo.page
+  useEffect(() => {
+    if (pageNumber === 1 || !pageNumber) {
+      return
+    }
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', pageNumber.toString())
+    // window.history.replaceState(`Page: ${pageNumber}`, `Blog: Page ${pageNumber} - Every-Tuesday`, url.href);
+    window.history.pushState(`Page: ${pageNumber}`, `Blog: Page ${pageNumber} - Every-Tuesday`, url.href);
+    document.title = `Blog: Page ${pageNumber} - Every-Tuesday`
+
+    // if page = 4 - means get the first 40 items
+  }, [pageNumber])
+}
+
+
+interface ISetUrlBlogParams {
+  category: string,
+  pageInfo: {
+    page: number,
+  }
+  categories: ICategoryItem
+}
+function useSetUrlBlogParams({
+  category,
+  pageInfo,
+  categories
+}: ISetUrlBlogParams) {
+
+  useEffect(() => {
+    if (category === 'all') {
+      setWindowUrlParams({
+        setParams: [
+          { name: 'page', value: pageInfo && pageInfo.page ? pageInfo.page.toString() : '1' },
+        ],
+        deleteParams: ['cat'],
+        pageTitle: `Page: ${pageInfo.page}`,
+        tabTitle: 'Blog - Every-Tuesday'
+      })
+      return
+    }
+    if (!categories[category]) {
+      return
+    }
+
+    const setParams = [
+      {
+        name: 'page',
+        value: categories[category].pageInfo.page.toString()
+      },
+      {
+        name: 'cat',
+        value: category
+      },
+    ]
+    setWindowUrlParams({
+      setParams,
+      pageTitle: `Category - ${category} / Page: ${categories[category].pageInfo.page}`,
+      tabTitle: 'Blog - Every-Tuesday'
+    })
+  }, [category, categories, pageInfo])
+}
+
+interface IUseFetchCategoryPosts {
+  category: string,
+  categories: ICategoryItem,
+  fetchCategory: any,
+  loadingPosts: any
+}
+// on Category Change, if the category is not defined, then we need to fetch the category of posts
+function useFetchCategoryPosts({
+  category,
+  categories,
+  loadingPosts,
+  fetchCategory
+}: IUseFetchCategoryPosts) {
+
+  // category
+  // categories
+  // loadingPosts fn
+  // fetchCategory Fn
+
+  useEffect(() => {
+
+    if (!categories[category]) {
+      console.log('fetch new posts cat empty', categories)
+      loadingPosts()
+      // fetchMoreCategories()
+      fetchCategory({
+        endCursor: categories[category] ? categories[category].pageInfo.endCursor : null,
+        page: categories[category] ? categories[category].pageInfo.page + 1 : 1
+      })
+    }
+  }, [category, categories, loadingPosts, fetchCategory])
+
+}
+
 function BlogIndexTemplate({ loaderData }: Props) {
-  let { posts, pageInfo, pageUrlParams, categories } = loaderData;
-  consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
-  consoleHelper('pageUrlParams', pageUrlParams, '/routes/blog/index.tsx');
+  let { posts, pageInfo, pageUrlParams, categories, featured } = loaderData;
+  // consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
+  // consoleHelper('pageUrlParams', pageUrlParams, '/routes/blog/index.tsx');
 
   const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
@@ -91,66 +198,68 @@ function BlogIndexTemplate({ loaderData }: Props) {
     page: pageUrlParams
   }, categories)
 
-  const { state, addPostsAction, addCategoriAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
+  const { state, addPostsAction, addCategoryAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
 
+  const fetchCategory = useCallback(async ({
+    endCursor,
+    page
+  }: IFetchCategory) => {
+
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+
+    const variables = {
+      first: 12,
+      after: endCursor,
+      catName: category === 'all' ? '' : category,
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(catQuery),
+          variables
+        })
+      })
+    const response = await body.json()
+    const { data } = response
+    const filteredPosts = flattenAllPosts(response.data.posts) || []
+
+    addCategoryAction({
+      category,
+      pageInfo: {
+        page,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: filteredPosts
+    })
+
+  }, [category, addCategoryAction])
   // console.log('Blog Cat data', categories)
   // consoleHelper('cat posts', posts.length)
   // consoleHelper('cat pageInfo', pageInfo)
   // consoleHelper('state', state)
 
-  useEffect(() => {
-    if (state.pageInfo.page === 1 || !state.pageInfo.page) {
-      return
-    }
+  // Set page number in url each time we change data from fetch for non category pages
+  useSetUrlPageHistory(state.pageInfo.page)
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', state.pageInfo.page.toString())
-    window.history.replaceState(`Page: ${state.pageInfo.page}`, 'Blog - Every-Tuesday', url.href);
+  // Set URL with params depending on category everytime we change category or page
+  useSetUrlBlogParams({
+    category,
+    pageInfo: state.pageInfo,
+    categories: state.categories
+  })
 
-    // if page = 4 - means get the first 40 items
-  }, [state.pageInfo.page])
-
-  useEffect(() => {
-    if (category === 'all') {
-      setWindowUrlParams({
-        setParams: [
-          { name: 'page', value: state.pageInfo && state.pageInfo.page ? state.pageInfo.page.toString() : '1' },
-        ],
-        deleteParams: ['cat'],
-        pageTitle: `Page: ${state.pageInfo.page}`,
-        tabTitle: 'Blog - Every-Tuesday'
-      })
-      return
-    }
-    if (!state.categories[category]) {
-      return
-    }
-
-    const setParams = [
-      {
-        name: 'page',
-        value: state.categories[category].pageInfo.page.toString()
-      },
-      {
-        name: 'cat',
-        value: category
-      },
-    ]
-    setWindowUrlParams({
-      setParams,
-      pageTitle: `Category - ${category} / Page: ${state.categories[category].pageInfo.page}`,
-      tabTitle: 'Blog - Every-Tuesday'
-    })
-  }, [category, state.categories, state.pageInfo])
-
-
-  useEffect(() => {
-
-    if (!state.categories[category] && category !== 'all') {
-      console.log('fetch new posts cat empty', state)
-      fetchMoreCategories()
-    }
-  }, [category])
+  // On Category Change, if the category is not defined, then we need to fetch the category of posts
+  useFetchCategoryPosts({
+    category,
+    categories: state.categories,
+    loadingPosts,
+    fetchCategory
+  })
 
   const handleCatClick = (cat: string) => () => {
     if (state.loading) {
@@ -159,98 +268,18 @@ function BlogIndexTemplate({ loaderData }: Props) {
     setCategory(cat)
   }
 
-  async function fetchMorePosts() {
+  function handleViewMore() {
     loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-    const variables = {
-      first: 12,
-      after: state.pageInfo.endCursor
-    }
-
-    consoleHelper('variables', variables, 'fetchMorePosts() /routes/blog/index.tsx');
-    consoleHelper('postQuery', postQuery, 'fetchMorePosts() /routes/blog/index.tsx');
-
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(postQuery),
-          variables
-        })
-      })
-    const { data } = await body.json()
-    const filteredPosts = flattenAllPosts(data.posts) || []
-    addPostsAction({
-      pageInfo: {
-        page: state.pageInfo.page + 1,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: [
-        ...state.posts,
-        ...filteredPosts
-      ]
+    fetchCategory({
+      endCursor: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
+      page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1
     })
   }
 
-  async function fetchMoreCategories() {
-    loadingPosts()
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-
-    const variables = {
-      first: 12,
-      after: state.categories[category] ? state.categories[category].pageInfo.endCursor : null,
-      catName: category
-    }
-    try {
-      const body = await fetch(url,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: getGraphQLString(catQuery),
-            variables
-          })
-        })
-      const response = await body.json()
-      const { data } = response
-
-      const filteredPosts = flattenAllPosts(response.data.posts) || []
-      let updatedPosts = []
-      if (state.categories[category]) {
-        updatedPosts = [
-          // ...state.categories[category].posts,
-          ...filteredPosts
-        ]
-      } else {
-        updatedPosts = [
-          ...filteredPosts
-        ]
-      }
-
-      addCategoriAction({
-        category,
-        pageInfo: {
-          page: state.categories[category] ? state.categories[category].pageInfo.page + 1 : 1,
-          endCursor: data.posts.pageInfo.endCursor,
-          hasNextPage: data.posts.pageInfo.hasNextPage,
-        },
-        posts: filteredPosts
-      }
-      )
-    } catch (e: any) {
-      console.error('Post Categroy Fetch Error', e)
-    }
-  }
   return (
     <>
 
-      <BlogFeaturedPost featuredPost={posts[0]} />
+      <BlogFeaturedPost featuredPost={featured} />
 
       <div className='grid grid-flow-row row-auto mt-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-16 desktop:grid-cols-desktop'>
         <BlogCategoryTabs catClick={handleCatClick} category={category} />
@@ -263,7 +292,6 @@ function BlogIndexTemplate({ loaderData }: Props) {
           {/* @ts-ignore */}
           <AnimatePresence>
             {state.loading
-              && category !== 'all'
               && !state.categories[category]
               && <motion.div
                 key="catSpinner"
@@ -297,7 +325,7 @@ function BlogIndexTemplate({ loaderData }: Props) {
         </div>
 
         <div className='col-span-2 col-start-2 mb-12 tablet:col-start-2 tablet:col-span-12'>
-          {category === 'all' && state.pageInfo.hasNextPage &&
+          {/* {category === 'all' && state.pageInfo.hasNextPage &&
             <OutlinedButton
               spinnerColors={spinnerColors.sageOutline}
               clickHandler={fetchMorePosts}
@@ -305,12 +333,12 @@ function BlogIndexTemplate({ loaderData }: Props) {
               loadingText="Loading"
               loading={state.loading}
             />
-          }
+          } */}
 
-          {category !== 'all' && state.categories[category] && state.categories[category].pageInfo.hasNextPage &&
+          {state.categories[category] && state.categories[category].pageInfo.hasNextPage &&
             <OutlinedButton
               spinnerColors={spinnerColors.sageOutline}
-              clickHandler={fetchMoreCategories}
+              clickHandler={handleViewMore}
               text='View More'
               loadingText="Loading"
               loading={state.loading}

@@ -35,7 +35,6 @@ function BlogFeaturedPost(props: Props) {
     fallbackImage: defaultImages.thumbnail
   })
 
-  console.log('featuredPost', featuredPost)
   const [tutorialMin] = featuredPost.tutorialManager.youtube?.duration && typeof featuredPost.tutorialManager.youtube.duration === 'string'
     ? featuredPost.tutorialManager.youtube.duration.split(':') : ['00', '00']
 

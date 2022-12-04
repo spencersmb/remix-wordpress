@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react'
-import useSite from '@App/hooks/useSite'
+import React, { useRef } from 'react'
 import type { Transition } from "@remix-run/react/dist/transition"
 import type { FormProps } from '@remix-run/react'
 import InputBase from '../input/inputBase'
 import SubmitBtn from '@App/components/buttons/submitBtn'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
-import SignUpSuccess from '@App/components/modals/signUpSuccess'
+import { useResetFormOnComplete, useSignUpEmailSuccessModal } from '@App/hooks/formHooks'
 
 interface Props {
   Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLFormElement>>
@@ -15,38 +14,29 @@ interface Props {
   type: FetcherTypes
 }
 
-// TODO: Move this to a component and finish design
-const MakersPopUp = () => {
-  return (
-    <div>
-      Success
-    </div>
-  )
-}
 /**
- * Currently Used in the Footer
+ * @Currently Used in the Footer
  * @param props 
  * 
  * @returns 
  */
 function MakersSignUpForm(props: Props) {
   const { Form, data, transition, type } = props
-  const { openModal, closeModal } = useSite()
   // console.log('state', state)
   // console.log('data', data)
 
   const ref = useRef<any>();
-  useEffect(() => {
-    if (type === "done" && data?.pass) {
-      openModal({
-        template: <SignUpSuccess
-          message='Check your email and click the link inside to complete the signup process!'
-          closeModal={closeModal} />
-      })
-      //@ts-ignore
-      ref.current.reset();
-    }
-  }, [type]);
+
+  useSignUpEmailSuccessModal({
+    type,
+    dataPass: data?.pass
+  })
+
+  useResetFormOnComplete({
+    type,
+    dataPass: data?.pass,
+    formRef: ref
+  })
 
   return (
     <div>
@@ -57,7 +47,6 @@ function MakersSignUpForm(props: Props) {
         action="/convertkit/tuesday-makers"
       >
         <div className='flex-1 mb-5 tablet:mr-3 tablet:mb-0'>
-          {/* <label className="text-sm leading-7 text-gray-600" htmlFor="email-input">Email</label> */}
           <InputBase
             type="email"
             name="email"

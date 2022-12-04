@@ -78,7 +78,7 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
   }
 
   try {
-    // GRAPHQL BULK QUERY EXAMPLE
+    // GRAPHQL BULK QUERY EXAMPLE, GRPAHQL BATCHING, GRAPHQL 2 QUERIES
     // MULTIPLE GRAPHQL QUERIES IN ONE REQUEST
     let data = await fetchAPIBatch([
       {
@@ -282,19 +282,9 @@ const ResourceLibraryMembers = () => {
     state
   }, 'members.tsx', { bg: '#ffd321', text: '#000' })
 
-
-
   const featuredDownload = data.featuredFreebie
     ? data.featuredFreebie
     : reshuffledPosts[0]
-
-  const bgPaintStrokes = {
-    width: 2000,
-    height: 2921,
-    alt: `Every Tuesday Watercolor textures`,
-    src: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg?auto=format',
-    placeholder: 'https://et-website.imgix.net/et-website/images/tm-bg-1_1.jpg?auto=format&w=20&fit=clip'
-  }
 
   const paintStreakBg = createImgixSizes({
     width: 2000,

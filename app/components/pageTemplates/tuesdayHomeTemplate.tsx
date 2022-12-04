@@ -30,31 +30,18 @@ type MakersSignupActionData = {
   form?: string
 };
 function TuesdayHomeTemplate(props: Props) {
-  const { openModal, closeModal } = useSite()
-  const formRef: any = React.useRef()
   const transition = useTransition()
   let actionData = useActionData<MakersSignupActionData | undefined>();
 
   useEffect(() => {
     consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
     consoleHelper('transition', transition, 'tuesday-makers/index.tsx');
-  }, [actionData]);
+  }, [actionData, transition]);
 
   /*
   ON page load prefetch data query to speed things up
    */
-  useEffect(() => {
-    async function prefetchData() {
-      await fetchAPIClientSide(getGraphQLString(GetAllFreebiesQuery))
-    }
-    prefetchData().catch()
-
-    // openModal({
-    //   template: <SignUpInstructionsPopUp
-    //     closeModal={closeModal}
-    //   />
-    // })
-  }, [])
+  usePrefetchTuesdayMakersApiCall()
 
   const iPadArt = createImgixSizes({
     width: 1400,
@@ -174,4 +161,18 @@ function TuesdayHomeTemplate(props: Props) {
   )
 }
 
+function usePrefetchTuesdayMakersApiCall() {
+  useEffect(() => {
+    async function prefetchData() {
+      await fetchAPIClientSide(getGraphQLString(GetAllFreebiesQuery))
+    }
+    prefetchData().catch()
+
+    // openModal({
+    //   template: <SignUpInstructionsPopUp
+    //     closeModal={closeModal}
+    //   />
+    // })
+  }, [])
+}
 export default TuesdayHomeTemplate

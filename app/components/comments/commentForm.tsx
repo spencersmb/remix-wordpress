@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSite from "@App/hooks/useSite";
 import { fetchSubmitComment } from "@App/utils/fetch.cleint";
 import { parseComment } from "@App/utils/posts";
