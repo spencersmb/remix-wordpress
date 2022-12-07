@@ -1,8 +1,5 @@
-import { useFetchCategoryPosts, useSetUrlBlogParams } from '@App/hooks/blogHooks'
 import useFetchPaginate from '@App/hooks/useFetchPagination'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from '@App/lib/graphql/queries/posts'
-import { getGraphQLString } from '@App/utils/graphqlUtils'
-import { flattenAllPosts } from '@App/utils/posts'
 import { consoleHelper } from '@App/utils/windowUtils'
 import gql from 'graphql-tag'
 import PostsGrid from '../blog/postsGrid'

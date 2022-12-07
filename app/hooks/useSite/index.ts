@@ -32,6 +32,7 @@ export interface ISiteContextState {
     }
   },
   breakpoint: BreakpointEnums
+  breakpointLoaded: boolean
   nav: {
     mobileNav: {
       isOpen: boolean
@@ -99,6 +100,7 @@ export const siteInitialState: ISiteContextState  = {
     }
   },
   breakpoint: BreakpointEnums.mobile,
+  breakpointLoaded: false,
   nav: {
     mobileNav: {
       isOpen: false

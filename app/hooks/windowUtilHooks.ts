@@ -230,3 +230,14 @@ export function useVisibleOnPageTransition(){
     setVisible
   }
 }
+
+
+export function useWindowOpenUrl({ url, target, open }: { url: string, target: string, open: boolean}){
+
+  useEffect(() => {
+    if (open && window) {
+      window.open(url, target)
+    }
+  }, [open, target, url])
+
+}

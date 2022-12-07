@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import useSite from '@App/hooks/useSite'
 import PaidProductPopUp from '@App/components/modals/paidProductPopUp'
 import { consoleHelper } from '@App/utils/windowUtils'
@@ -27,7 +27,7 @@ const Freebie = (props: Props) => {
   const { openModal, closeModal } = useSite()
 
   // load popup on mount for CSS editing
-  // useEffect(() => {
+  // ue(() => {
   //   if (resource.freebie.licenseRequired) {
   //     popUpDownload()
   //   }

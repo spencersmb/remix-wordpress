@@ -8,6 +8,7 @@ import NavPaddingLayout from '../layoutTemplates/navPaddingLayout'
 import confetti from 'canvas-confetti'
 import useSite from '@App/hooks/useSite'
 import { BreakpointEnums } from '@App/enums/breakpointEnums'
+import { useConfettiDeviceParams } from '@App/hooks/useConfettiConfig'
 
 interface Props {
   user: {
@@ -20,68 +21,11 @@ interface Props {
 function ThankyouSuccessMessage(props: Props) {
   const { user } = props
   const canvasRef = useRef(null)
-  const { state: { breakpoint } } = useSite()
 
-  const confettiConfig = {
-    mobile: {
-      count: 400,
-      origin: {
-        y: .9,
-        x: .5
-      },
-      scalar: 1,
-      spread: {
-        a: 50,
-        b: 60,
-        c: 100
-      },
-      velocity: {
-        a: 55,
-        b: 25,
-        c: 45
-      }
-    },
-    tablet: {
-      count: 400,
-      origin: {
-        y: .7,
-        x: .5
-      },
-      scalar: 1.7,
-      spread: {
-        a: 200,
-        b: 300,
-        c: 100
-      },
-      velocity: {
-        a: 55,
-        b: 25,
-        c: 45
-      }
-    },
-    desktop: {
-      count: 1600,
-      origin: {
-        y: 1,
-        x: .5
-      },
-      scalar: 1.5,
-      spread: {
-        a: 150,
-        b: 40,
-        c: 120
-      },
-      velocity: {
-        a: 125,
-        b: 95,
-        c: 105
-      }
-    }
-  }
-  const [state, setState] = useState({
-    loaded: false,
-    confettiParams: confettiConfig.desktop
-  })
+  // const [state, setState] = useState({
+  //   loaded: false,
+  //   confettiParams: confettiConfig.desktop
+  // })
 
   const authorImg = createImgixSizes({
     width: 800,
@@ -98,86 +42,14 @@ function ThankyouSuccessMessage(props: Props) {
     mobileSize: 288,
   })
 
+  useConfettiDeviceParams({
+    ref: canvasRef,
+  })
 
-  useEffect(() => {
+  // function manualConfettiFire() {
+  //   confettiTest(state.confettiParams)
+  // }
 
-    if (breakpoint === BreakpointEnums.mobile) {
-      setState({
-        loaded: true,
-        confettiParams: confettiConfig.mobile
-      })
-    } else if (breakpoint === BreakpointEnums.tablet) {
-      setState({
-        loaded: true,
-        confettiParams: confettiConfig.tablet
-      })
-    } else {
-      setState({
-        loaded: true,
-        confettiParams: confettiConfig.desktop
-      })
-    }
-
-  }, [breakpoint])
-
-  useEffect(() => {
-
-    if (state.loaded) {
-      confettiTest(state.confettiParams)
-    }
-
-  }, [state])
-
-  function manualConfettiFire() {
-    confettiTest(state.confettiParams)
-  }
-  function confettiTest(params: any) {
-
-
-    if (!canvasRef.current) {
-      return
-    }
-
-    var myConfetti = confetti.create(canvasRef.current, { resize: true });
-    var count = params.count;
-    var defaults = {
-      origin: params.origin
-    };
-
-    function fire(particleRatio: number, opts: any) {
-      myConfetti(Object.assign({}, defaults, opts,
-        {
-          scalar: params.scalar,
-          particleCount: Math.floor(count * particleRatio)
-        }));
-    }
-
-    fire(0.25, {
-      spread: params.spread.a,
-      // startVelocity: 55,
-      startVelocity: params.velocity.a,
-    });
-    fire(0.2, {
-      spread: params.spread.b,
-    });
-    fire(0.35, {
-      spread: params.spread.c,
-      decay: .91,
-      scalar: 0.8
-    });
-    fire(0.1, {
-      spread: 120,
-      // startVelocity: 25,
-      startVelocity: params.velocity.b,
-      decay: 0.92,
-      scalar: 1.2
-    });
-    fire(0.1, {
-      spread: 120,
-      // startVelocity: 45,
-      startVelocity: params.velocity.c,
-    });
-  }
 
   return (
     <NavPaddingLayout bgColor='bg-cream-100'>

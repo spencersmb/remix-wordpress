@@ -10,6 +10,8 @@ import Layout from "@App/components/layoutTemplates/layout";
 import ThankyouSuccessMessage from "@App/components/resourceLibrary/thankyou-success-message";
 import ThankyouErrorMessage from "@App/components/resourceLibrary/thankyou-error-message";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { useEffect } from "react";
+import useSite from "@App/hooks/useSite";
 
 const page = getStaticPageMeta({
   title: 'Tuesday Makers: Thank You for Signing Up',
@@ -111,10 +113,13 @@ const TuesdayMakersThankYou = () => {
     tags: ['tuesdaymakers', 'procreate']
   }
 
+
+
   return (
     <>
       {data.status === 200 && <ThankyouSuccessMessage user={data.user} />}
       {data.status !== 200 && <ThankyouErrorMessage message={data.message} />}
+      {/* <ThankyouSuccessMessage user={fakeUser} /> */}
     </>
   )
 

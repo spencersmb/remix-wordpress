@@ -1,12 +1,6 @@
-import { useFetchCategoryPosts, useSetUrlBlogParams, useSetUrlPageHistory } from "@App/hooks/blogHooks";
 import useFetchPaginate from "@App/hooks/useFetchPagination";
-import { POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
-import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { flattenAllPosts } from "@App/utils/posts";
 import { consoleHelper } from "@App/utils/windowUtils";
 import { AnimatePresence, motion } from "framer-motion";
-import gql from "graphql-tag";
-import { useCallback, useState } from "react";
 import BlogFeaturedPost from "../blog/blogFeaturedPost";
 import BlogCategoryTabs from "../blog/blogHomeTabs/blogCategoryTabs";
 import BlogPostGrid from "../blog/blogPostGrid";

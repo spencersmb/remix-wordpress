@@ -1,11 +1,7 @@
-import useSite from '@App/hooks/useSite'
-import { GetAllFreebiesQuery } from '@App/lib/graphql/queries/resourceLibrary'
-import { fetchAPIClientSide } from '@App/utils/fetch.cleint'
-import { getGraphQLString } from '@App/utils/graphqlUtils'
+import { usePrefetchTuesdayMakersApiCall } from '@App/hooks/useFetchPagination/usePrefecthTMData'
 import { createImgixSizes } from '@App/utils/imageHelpers'
 import { consoleHelper } from '@App/utils/windowUtils'
-import { Link, useActionData, useTransition } from '@remix-run/react'
-import React, { useEffect } from 'react'
+import { Link, useActionData } from '@remix-run/react'
 import TmSignupForm from '../forms/tuesdayMakers/tmSignupForm'
 import IpadLongShadow from '../images/ipadLongShadow'
 import LazyImgix from '../images/lazyImgix'
@@ -14,7 +10,6 @@ import IpadHeader1 from '../layout/headers/ipadHeader1'
 import TmAuthor from '../layout/tuesdayMakers/tmAuthor'
 import TmResourceLibraryModule from '../layout/tuesdayMakers/tmResourceLibraryModule'
 import WygSubscriber from '../layout/tuesdayMakers/wygSubscriber'
-import SignUpInstructionsPopUp from '../modals/signUpInstructionsPopUp'
 import LfmArrowSvg from '../svgs/lfmArrowSvg'
 
 interface Props { }
@@ -30,13 +25,12 @@ type MakersSignupActionData = {
   form?: string
 };
 function TuesdayHomeTemplate(props: Props) {
-  const transition = useTransition()
   let actionData = useActionData<MakersSignupActionData | undefined>();
 
-  useEffect(() => {
-    consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
-    consoleHelper('transition', transition, 'tuesday-makers/index.tsx');
-  }, [actionData, transition]);
+  // ue(() => {
+  //   consoleHelper('actionData', actionData, 'tuesday-makers/index.tsx');
+  //   consoleHelper('transition', transition, 'tuesday-makers/index.tsx');
+  // }, [actionData, transition]);
 
   /*
   ON page load prefetch data query to speed things up
@@ -161,18 +155,4 @@ function TuesdayHomeTemplate(props: Props) {
   )
 }
 
-function usePrefetchTuesdayMakersApiCall() {
-  useEffect(() => {
-    async function prefetchData() {
-      await fetchAPIClientSide(getGraphQLString(GetAllFreebiesQuery))
-    }
-    prefetchData().catch()
-
-    // openModal({
-    //   template: <SignUpInstructionsPopUp
-    //     closeModal={closeModal}
-    //   />
-    // })
-  }, [])
-}
 export default TuesdayHomeTemplate

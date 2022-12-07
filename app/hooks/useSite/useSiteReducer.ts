@@ -229,7 +229,8 @@ export const useSiteReducer = (state: ISiteContextState, action: ISiteAction): I
     case ISiteTypes.UPDATE_BREAKPOINT:{
       return{
         ...state,
-        breakpoint: action.payload.breakpoint
+        breakpoint: action.payload.breakpoint,
+        breakpointLoaded: true
       }
     }
 

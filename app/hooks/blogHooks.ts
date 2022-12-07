@@ -1,8 +1,5 @@
 import { BreakpointEnums } from "@App/enums/breakpointEnums";
-import { QUERY_POSTS_BY_CAT } from "@App/lib/graphql/queries/posts";
-import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { addClass } from "@App/utils/pageUtils";
-import { flattenAllPosts } from "@App/utils/posts";
 import { setWindowUrlParams } from "@App/utils/windowUtils";
 import { useLocation } from "@remix-run/react";
 import { useCallback, useEffect, useRef } from "react";
@@ -69,71 +66,6 @@ interface IUseFetchCategoryPosts {
   categories: ICategoryItem,
   addCategoryAction: any,
   loadingPosts: any
-}
-
-
-// on Category Change, if the category is not defined, then we need to fetch the category of posts
-export function useFetchCategoryPosts({
-  category,
-  categories,
-  loadingPosts,
-  addCategoryAction
-}: IUseFetchCategoryPosts) {
-
-  const fetchCategory = useCallback(async ({
-    endCursor,
-    page
-  }: IFetchCategory) => {
-
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-
-    const variables = {
-      first: 12,
-      after: endCursor,
-      catName: category === 'all' ? '' : category,
-    }
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(QUERY_POSTS_BY_CAT),
-          variables
-        })
-      })
-    const response = await body.json()
-    const { data } = response
-    const filteredPosts = flattenAllPosts(response.data.posts) || []
-
-    addCategoryAction({
-      category,
-      pageInfo: {
-        page,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: filteredPosts
-    })
-
-  }, [category, addCategoryAction])
-
-  useEffect(() => {
-
-    if (!categories[category]) {
-      console.log('fetch new posts cat empty', categories)
-      loadingPosts()
-      // fetchMoreCategories()
-      fetchCategory({
-        endCursor: categories[category] ? categories[category].pageInfo.endCursor : null,
-        page: categories[category] ? categories[category].pageInfo.page + 1 : 1
-      })
-    }
-  }, [category, categories, loadingPosts, fetchCategory])
-
-  return {fetchCategory}
-
 }
 
 export function useCheckOldBlogPost(post: IPost) {

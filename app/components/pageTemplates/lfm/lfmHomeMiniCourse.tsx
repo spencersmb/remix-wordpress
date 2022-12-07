@@ -1,7 +1,7 @@
 import LfmClosedPage from '@App/components/lfm/closedPage'
 import useSite from '@App/hooks/useSite'
+import { useWindowOpenUrl } from '@App/hooks/windowUtilHooks'
 import { formatDate } from '@App/utils/posts'
-import React, { useEffect } from 'react'
 
 interface Props {
   data: any
@@ -16,6 +16,7 @@ function formatAMPM(date: Date) {
   const strTime = hours + ':' + minuteString + ' ' + ampm;
   return strTime;
 }
+
 function LfmHomeMiniCourse(props: Props) {
   const {
     data
@@ -24,11 +25,13 @@ function LfmHomeMiniCourse(props: Props) {
   const { state: { metadata: { courseLaunchBanners: { lfmBanner } } } } = useSite()
 
   const testDate = lfmBanner.nextLaunchDate ? new Date(lfmBanner.nextLaunchDate) : new Date()
-  useEffect(() => {
-    if (isClassOpen && window) {
-      window.open('https://courses.every-tuesday.com/p/learn-font-making', '_self')
-    }
-  }, [])
+  const isClassOpen = lfmBanner.showBanner === "true"
+
+  useWindowOpenUrl({
+    url: 'https://courses.every-tuesday.com/p/learn-font-making',
+    target: '_self',
+    open: isClassOpen
+  })
 
   // can compare dates
   // console.log('getTimeString', testDate.getTime());
@@ -40,7 +43,6 @@ function LfmHomeMiniCourse(props: Props) {
   // console.log('getHours', formatAMPM(testDate));
 
   const nextLaunchDate = lfmBanner.nextLaunchDate ? formatDate(lfmBanner.nextLaunchDate) : ''
-  const isClassOpen = lfmBanner.showBanner === "true"
 
   return (
     <>
