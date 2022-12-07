@@ -1,13 +1,9 @@
 import { staticImages } from '@App/lib/imgix/data'
 import { createImgixSizes } from '@App/utils/imageHelpers'
-import React, { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from '@remix-run/react'
 import LazyImgix from '../images/lazyImgix'
-import Layout from '../layoutTemplates/layout'
 import NavPaddingLayout from '../layoutTemplates/navPaddingLayout'
-import confetti from 'canvas-confetti'
-import useSite from '@App/hooks/useSite'
-import { BreakpointEnums } from '@App/enums/breakpointEnums'
 import { useConfettiDeviceParams } from '@App/hooks/useConfettiConfig'
 
 interface Props {
@@ -21,12 +17,6 @@ interface Props {
 function ThankyouSuccessMessage(props: Props) {
   const { user } = props
   const canvasRef = useRef(null)
-
-  // const [state, setState] = useState({
-  //   loaded: false,
-  //   confettiParams: confettiConfig.desktop
-  // })
-
   const authorImg = createImgixSizes({
     width: 800,
     height: 1367,

@@ -2,6 +2,7 @@ import { useSearchResults } from "@App/hooks/useSearch/useSearchResults";
 import { formatDate } from "@App/utils/posts";
 import { consoleColors, consoleHelper } from "@App/utils/windowUtils";
 import { Link, useTransition } from "@remix-run/react";
+import type { MutableRefObject } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import _ from 'lodash'
@@ -19,46 +20,33 @@ interface Props {
   containerRef: any
 }
 type IProps = Props
+function useKeyDown(fn: any) {
+  useEffect(() => {
+    document.addEventListener('keydown', fn, false);
+
+    return () => {
+      document.removeEventListener('keydown', fn, false);
+    }
+  }, [fn])
+}
 
 /**
- * @component SearchLayout
- * 
- * @tested - 6/22/2022 
- *
- */
-const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
-  const { query, search, results, clearSearch, closeSearch, category, setCategory, state: { isOpen }, pagination } = useSearchResults({
-    maxResults: 10,
-  })
-
+* updatePosition
+* Tracks scroll position and set scrollToTop inView if it reaches the threshold
+*/
+function useShowBackToTopBtn(ref: MutableRefObject<HTMLElement | null>) {
   const [showScrollToTopBtn, setShowScrollToTopBtn] = useState<boolean>(false)
 
-  // used to simulate Infinite Scroll
-  const [postFooterRef, postFooterRefInView] = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
+  const updatePosition = useCallback(() => {
+    if (ref.current && ref.current.scrollTop > 800) {
+      setShowScrollToTopBtn(true)
+    } else {
+      setShowScrollToTopBtn(false)
+    }
+  }, [ref]);
 
-  // Used to track if its in the viewport for help with infinite scroll
-  // const [inputRef, inputInView] = useInView({
-  //   /* Optional options */
-  //   threshold: 0,
-  // });
-
-  // useed to close the Search when user navigates away from the page
-  const listRef = useRef<HTMLDivElement | null>(null);
-
-  consoleHelper('search results', {
-    results,
-    pagination
-  }, 'searchLayout', { bg: consoleColors.orange, text: '#fff' })
-
-  // ON COMPONENT FIRST LOAD
   useEffect(() => {
-    let container = containerRef.current
-    // When the search box opens up, additionally find the search input and focus
-    // on the element so someone can start typing right away
-    document.addEventListener('keydown', escFunction, false);
+    let container = ref.current
 
     // Tack scroll position of the modal container to hide or show the scroll to top button
 
@@ -69,33 +57,65 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
     // addResultsRoving()
     return () => {
-      clearSearch()
-      document.removeEventListener('keydown', escFunction, false);
       if (container) {
         container.removeEventListener("scroll", updatePosition, false);
       }
-      // document.removeEventListener('keydown', handleResultsRoving)
     }
 
-  }, [])
+  }, [ref, updatePosition])
 
-
-  useEffect(() => {
-
-    if (!query && category) {
-      setCategory(null)
-      clearSearch()
-    }
-  }, [query, category, setCategory, clearSearch])
-
-  // When user scrolls to the bottom of the page, load more results
-  useEffect(() => {
-
-    if (results.length && pagination.hasNextPage && postFooterRefInView && !pagination.loading) {
-      pagination.nextPage()
+  /**
+  * goToTop
+  * smooth scroll to the top of the page
+  */
+  const goToTop = () => {
+    if (ref.current) {
+      // formRef.current.scrollIntoView({ behavior: "smooth" });
+      ref.current.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
-  }, [postFooterRefInView, results, pagination])
+  };
+
+
+  return {
+    goToTop,
+    showScrollToTopBtn
+  }
+}
+
+/**
+ * @component SearchLayout
+ * 
+ * @tested - 6/22/2022 
+ *
+ */
+const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
+
+  // used to simulate Infinite Scroll
+  const [postFooterRef, postFooterRefInView] = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  const { query, search, results, clearSearch, closeSearch, category, setCategory, state: { isOpen }, pagination } = useSearchResults({
+    maxResults: 16,
+    postFooterRefInView
+  })
+
+  // useed to close the Search when user navigates away from the page
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  consoleHelper('search results', {
+    results,
+    pagination
+  }, 'searchLayout', { bg: consoleColors.orange, text: '#fff' })
+
+  const { showScrollToTopBtn, goToTop } = useShowBackToTopBtn(containerRef)
+
+  useKeyDown(escFunction)
 
   async function testCall() {
 
@@ -119,16 +139,14 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
   }
 
-
   /**
-  * updatePosition
-  * Tracks scroll position and set scrollToTop inView if it reaches the threshold
-  */
-  const updatePosition = () => {
-    if (containerRef.current && containerRef.current.scrollTop > 800) {
-      setShowScrollToTopBtn(true)
-    } else {
-      setShowScrollToTopBtn(false)
+* escFunction
+* pressing esc while search is focused will close it
+*/
+  function escFunction(event: any) {
+    if (event.keyCode === 27) {
+      clearSearch()
+      closeSearch()
     }
   };
 
@@ -146,37 +164,9 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
   }
 
-  /**
-  * escFunction
-  * pressing esc while search is focused will close it
-  */
-  const escFunction = useCallback((event: any) => {
-    if (event.keyCode === 27) {
-      clearSearch()
-      closeSearch()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
   const handleSetCategory = (cat: string) => () => {
     setCategory(cat)
   }
-
-  /**
-  * goToTop
-  * smooth scroll to the top of the page
-  */
-  const goToTop = () => {
-    if (containerRef.current) {
-      // formRef.current.scrollIntoView({ behavior: "smooth" });
-      containerRef.current.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
-  };
 
   const closeCategory = () => {
     setCategory(null)
@@ -231,9 +221,10 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
               .map((result: SearchResult, index) => {
                 const { item } = result
                 return (
-                  <RenderIfVisible stayRendered={true} key={item.slug} defaultHeight={313}>
-                    <SmallPostCard post={item} />
-                  </RenderIfVisible>
+                  // <RenderIfVisible stayRendered={true} key={item.slug} defaultHeight={313}>
+                  //   <SmallPostCard post={item} />
+                  // </RenderIfVisible>
+                  <SmallPostCard key={item.slug} post={item} />
                 );
               })}
           </div>
@@ -259,6 +250,38 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
             End of Results</div>
         </div>
       }
+
+      {/* @ts-ignore */}
+      <AnimatePresence>
+        {results.length > 0 && pagination.loading &&
+          <div className="mt-2 mb-8 col-span-full">
+            <motion.div
+              key="catSpinner"
+              initial={{
+                opacity: 0,
+                scale: 0,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0
+              }}
+              className='rounded-full mx-auto flex items-center justify-center text-center w-[60px] h-[60px] bg-primary-50 p-1'>
+              <svg
+                className="text-white motion-reduce:hidden animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="#b45309" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="#845c5c" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </motion.div>
+          </div>
+        }
+      </AnimatePresence>
     </div>
   );
 }

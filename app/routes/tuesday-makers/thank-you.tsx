@@ -1,17 +1,15 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { json } from '@remix-run/node'
 import { ckSignUpCookie } from "@App/cookies.server";
 import { findCookie } from "@App/utils/loaderHelpers";
-import { createResourceUserSession, getConvertKitUserByID, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
+import { createResourceUserSession, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
-import Layout from "@App/components/layoutTemplates/layout";
+import { mdxPageMeta } from "@App/utils/seo";
 import ThankyouSuccessMessage from "@App/components/resourceLibrary/thankyou-success-message";
 import ThankyouErrorMessage from "@App/components/resourceLibrary/thankyou-error-message";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
-import { useEffect } from "react";
-import useSite from "@App/hooks/useSite";
+
 
 const page = getStaticPageMeta({
   title: 'Tuesday Makers: Thank You for Signing Up',

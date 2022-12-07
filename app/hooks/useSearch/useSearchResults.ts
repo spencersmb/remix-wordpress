@@ -1,8 +1,8 @@
 import Fuse from "fuse.js";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearch } from ".";
 
-export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) {
+export function useSearchResults ({ defaultQuery = null, maxResults = 5, postFooterRefInView = false } = {}) {
   const {state, addClient, closeSearch} = useSearch()
   const {client, data } = state
 
@@ -11,24 +11,10 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false)
 
-  let results: SearchResult[] = [];
+  // let results: SearchResult[] = [];
+  let results: SearchResult[] = useMemo(() => [], []);
   let pagedResults: SearchResult[] = [];
 
-  useEffect(() => {
-    if(data && !client){
-      let client = new Fuse(data.posts, {
-        keys: ['categories', {name: 'title', weight: 2}, 'tags'], 
-        minMatchCharLength: 1,
-        useExtendedSearch: true,
-        includeMatches: true,
-        threshold: 0.4,
-        isCaseSensitive: false,
-        includeScore: true,
-        ignoreLocation: true,
-      });
-      addClient(client)
-    }
-  },[addClient, client, data])
 
   // If we have a query, make a search. Otherwise, don't modify the
   // results to avoid passing back empty results
@@ -92,12 +78,55 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
   // Once we have results, paginate them
   if (results.length) {
     
-    pagedResults = results.slice(0, page * 10);
+    pagedResults = results.slice(0, page * maxResults);
   }
 
+  // CREATE new client if not already created
+  useEffect(() => {
+    if(data && !client){
+      let client = new Fuse(data.posts, {
+        keys: ['categories', {name: 'title', weight: 2}, 'tags'], 
+        minMatchCharLength: 1,
+        useExtendedSearch: true,
+        includeMatches: true,
+        threshold: 0.4,
+        isCaseSensitive: false,
+        includeScore: true,
+        ignoreLocation: true,
+      });
+      addClient(client)
+    }
+  },[addClient, client, data])
+
+  // if use clears query, but has a category selected, clear category
+  useEffect(() => {
+
+    if (!query && category) {
+      setCategory(null)
+      setQuery(null);
+    }
+  }, [query, category])
+
+  // Infinite Scroll
+  useEffect(() => {
+    const hasNextPage = results.length > page * maxResults
+
+    if (results.length && hasNextPage && postFooterRefInView && !loading) {
+      nextPage()
+    }
+
+  }, [loading, page, postFooterRefInView, results, maxResults])
+  
   // If the defaultQuery argument changes, the hook should reflect
   // that update and set that as the new state
   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
+
+  // CLEAR SEARCH On COMPONENT UNMOUNT
+  useEffect(() => {
+    return () => {
+      handleClearSearch()
+    }
+  }, [])
 
   /**
    * handleSearch
@@ -123,7 +152,7 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5 } = {}) 
 
     setTimeout(()=>{
       setLoading(false)
-    }, 500)
+    }, 700)
   }
 
   return {

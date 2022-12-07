@@ -1,19 +1,14 @@
 import gql from 'graphql-tag';
 import { capitalize } from "lodash";
-import { useEffect } from "react";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllPosts } from "@App/utils/posts";
 import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
-import { consoleHelper } from "@App/utils/windowUtils";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
-import PostsGrid from "@App/components/blog/postsGrid";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { spinnerColors } from '@App/components/spinners/spinnerColors';
-import OutlinedButton from '@App/components/buttons/outlinedButton';
 import CategoryTemplate from '@App/components/pageTemplates/categoryTemplate';
 
 export let meta = mdxPageMeta
