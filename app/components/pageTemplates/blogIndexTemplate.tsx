@@ -1,3 +1,4 @@
+import { useFetchCategoryPosts, useSetUrlBlogParams, useSetUrlPageHistory } from "@App/hooks/blogHooks";
 import useFetchPaginate from "@App/hooks/useFetchPagination";
 import { POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
@@ -5,7 +6,7 @@ import { flattenAllPosts } from "@App/utils/posts";
 import { consoleHelper } from "@App/utils/windowUtils";
 import { AnimatePresence, motion } from "framer-motion";
 import gql from "graphql-tag";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import BlogFeaturedPost from "../blog/blogFeaturedPost";
 import BlogCategoryTabs from "../blog/blogHomeTabs/blogCategoryTabs";
 import BlogPostGrid from "../blog/blogPostGrid";
@@ -16,28 +17,8 @@ interface Props {
   loaderData: any
 }
 
-interface ICategoryItem {
-  [id: string]: {
-    posts: any
-    pageInfo: {
-      page: number,
-      endCursor: string,
-      hasNextPage: boolean,
-    }
-  }
-}
 
-interface ICategory {
-  selectedCategory: string;
-  category: ICategoryItem
-}
-interface IFetchCategory {
-  endCursor: string | null,
-  page: number
-}
-
-
-function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any, page: number }, categorysArgs: ICategory | null) {
+function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any, page: number }, categorysArgs: ICategoryState | null) {
   let { posts, pageInfo, page } = postsArgs
   let initialState = {}
   if (posts.length > 0) {
@@ -62,134 +43,13 @@ function createInitializingFetchState(postsArgs: { posts: IPost[], pageInfo: any
   return initialState
 }
 
-function setWindowUrlParams(props: {
-  setParams: { name: string, value: string }[],
-  deleteParams?: string[],
-  pageTitle: string,
-  tabTitle: string
-}) {
-  let { setParams, deleteParams, pageTitle, tabTitle } = props
-  const url = new URL(window.location.href);
-
-  setParams.forEach(({ name, value }) => {
-    url.searchParams.set(name, value)
-  })
-
-  if (deleteParams) {
-    deleteParams.forEach(name => {
-      url.searchParams.delete(name)
-    })
-  }
-
-  window.history.replaceState(pageTitle, tabTitle, url.href);
-}
-
-function useSetUrlPageHistory(pageNumber: number) {
-
-  // pageInfo.page
-  useEffect(() => {
-    if (pageNumber === 1 || !pageNumber) {
-      return
-    }
-
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', pageNumber.toString())
-    // window.history.replaceState(`Page: ${pageNumber}`, `Blog: Page ${pageNumber} - Every-Tuesday`, url.href);
-    window.history.pushState(`Page: ${pageNumber}`, `Blog: Page ${pageNumber} - Every-Tuesday`, url.href);
-    document.title = `Blog: Page ${pageNumber} - Every-Tuesday`
-
-    // if page = 4 - means get the first 40 items
-  }, [pageNumber])
-}
-
-
-interface ISetUrlBlogParams {
-  category: string,
-  pageInfo: {
-    page: number,
-  }
-  categories: ICategoryItem
-}
-function useSetUrlBlogParams({
-  category,
-  pageInfo,
-  categories
-}: ISetUrlBlogParams) {
-
-  useEffect(() => {
-    if (category === 'all') {
-      setWindowUrlParams({
-        setParams: [
-          { name: 'page', value: pageInfo && pageInfo.page ? pageInfo.page.toString() : '1' },
-        ],
-        deleteParams: ['cat'],
-        pageTitle: `Page: ${pageInfo.page}`,
-        tabTitle: 'Blog - Every-Tuesday'
-      })
-      return
-    }
-    if (!categories[category]) {
-      return
-    }
-
-    const setParams = [
-      {
-        name: 'page',
-        value: categories[category].pageInfo.page.toString()
-      },
-      {
-        name: 'cat',
-        value: category
-      },
-    ]
-    setWindowUrlParams({
-      setParams,
-      pageTitle: `Category - ${category} / Page: ${categories[category].pageInfo.page}`,
-      tabTitle: 'Blog - Every-Tuesday'
-    })
-  }, [category, categories, pageInfo])
-}
-
-interface IUseFetchCategoryPosts {
-  category: string,
-  categories: ICategoryItem,
-  fetchCategory: any,
-  loadingPosts: any
-}
-// on Category Change, if the category is not defined, then we need to fetch the category of posts
-function useFetchCategoryPosts({
-  category,
-  categories,
-  loadingPosts,
-  fetchCategory
-}: IUseFetchCategoryPosts) {
-
-  // category
-  // categories
-  // loadingPosts fn
-  // fetchCategory Fn
-
-  useEffect(() => {
-
-    if (!categories[category]) {
-      console.log('fetch new posts cat empty', categories)
-      loadingPosts()
-      // fetchMoreCategories()
-      fetchCategory({
-        endCursor: categories[category] ? categories[category].pageInfo.endCursor : null,
-        page: categories[category] ? categories[category].pageInfo.page + 1 : 1
-      })
-    }
-  }, [category, categories, loadingPosts, fetchCategory])
-
-}
 
 function BlogIndexTemplate({ loaderData }: Props) {
   let { posts, pageInfo, pageUrlParams, categories, featured } = loaderData;
   // consoleHelper('categories from useLoader', categories, '/routes/blog/index.tsx');
   // consoleHelper('pageUrlParams', pageUrlParams, '/routes/blog/index.tsx');
 
-  const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
+  // const [category, setCategory] = useState(categories ? categories.selectedCategory : 'all')
 
   // Create initializing state for Context
   const initializePostsFromServer = createInitializingFetchState({
@@ -198,68 +58,15 @@ function BlogIndexTemplate({ loaderData }: Props) {
     page: pageUrlParams
   }, categories)
 
-  const { state, addPostsAction, addCategoryAction, loadingPosts, clearPosts, clearCategory } = useFetchPaginate(initializePostsFromServer)
 
-  const fetchCategory = useCallback(async ({
-    endCursor,
-    page
-  }: IFetchCategory) => {
+  const { state, loadingPosts, category, setCategory, fetchCategory } = useFetchPaginate(initializePostsFromServer, {
+    initialCategories: categories
+  })
 
-    const url = window.ENV.PUBLIC_WP_API_URL as string
-
-    const variables = {
-      first: 12,
-      after: endCursor,
-      catName: category === 'all' ? '' : category,
-    }
-    const body = await fetch(url,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: getGraphQLString(catQuery),
-          variables
-        })
-      })
-    const response = await body.json()
-    const { data } = response
-    const filteredPosts = flattenAllPosts(response.data.posts) || []
-
-    addCategoryAction({
-      category,
-      pageInfo: {
-        page,
-        endCursor: data.posts.pageInfo.endCursor,
-        hasNextPage: data.posts.pageInfo.hasNextPage,
-      },
-      posts: filteredPosts
-    })
-
-  }, [category, addCategoryAction])
   // console.log('Blog Cat data', categories)
   // consoleHelper('cat posts', posts.length)
   // consoleHelper('cat pageInfo', pageInfo)
   // consoleHelper('state', state)
-
-  // Set page number in url each time we change data from fetch for non category pages
-  useSetUrlPageHistory(state.pageInfo.page)
-
-  // Set URL with params depending on category everytime we change category or page
-  useSetUrlBlogParams({
-    category,
-    pageInfo: state.pageInfo,
-    categories: state.categories
-  })
-
-  // On Category Change, if the category is not defined, then we need to fetch the category of posts
-  useFetchCategoryPosts({
-    category,
-    categories: state.categories,
-    loadingPosts,
-    fetchCategory
-  })
 
   const handleCatClick = (cat: string) => () => {
     if (state.loading) {
@@ -353,135 +160,3 @@ function BlogIndexTemplate({ loaderData }: Props) {
 }
 
 export default BlogIndexTemplate
-
-const postQuery = gql`
- ${POST_RESOURCE_FIELDS}
-query GetMorePosts($first: Int, $after: String) {
-  posts(first: $first, after: $after) {
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-    edges {
-      node {
-        id
-        tutorialManager {
-          ...postResourceFields
-          postExcerpt
-        }
-        categories {
-          edges {
-            node {
-              databaseId
-              id
-              name
-              slug
-            }
-          }
-        }
-        date
-        excerpt
-        featuredImage {
-          node {
-            mediaDetails {
-              sizes{
-                width
-                file
-                height
-                name
-                sourceUrl
-                mimeType
-              }
-            }
-            altText
-            caption
-            sourceUrl
-            srcSet
-            sizes
-            id
-          }
-        }
-        modified
-        title
-        slug
-        isSticky
-      }
-    }
-  }
-}
-`
-const catQuery = gql`
-  query CategoryPageQuery($first: Int, $catName: String!, $after: String) {
-    posts(
-      first: $first
-      after: $after
-      where: {
-        categoryName: $catName, 
-        orderby: {
-          field: DATE, 
-          order: DESC
-          }
-        }
-    ) {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-      }
-      edges {
-        node {
-          id
-          content
-          date
-          dateGmt
-          excerpt
-          modified
-          databaseId
-          title
-          slug
-          isSticky
-          categories {
-            edges {
-                node {
-                  databaseId
-                  id
-                  name
-                  slug
-                }
-            }
-          }
-          tags{
-            edges{
-                node{
-                  name
-                  slug
-                }
-            }
-          }
-          featuredImage {
-            node {
-              mediaDetails {
-                sizes{
-                  width
-                  file
-                  height
-                  name
-                  sourceUrl
-                  mimeType
-                }
-              }
-              altText
-              caption
-              sourceUrl
-              srcSet
-              sizes
-              id
-            }
-          }
-        }
-      }
-    }
-  }
-`

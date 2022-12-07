@@ -52,7 +52,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
   if (cat) {
     variables = {
       ...variables,
-      catName: cat
+      catName: cat === 'all' ? '' : cat
     }
   }
 

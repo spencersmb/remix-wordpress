@@ -10,6 +10,25 @@ interface ICategories {
 interface ICategoryRaw {
   node: ICategories
 }
+
+interface ICategoryItem {
+  [id: string]: {
+    posts: any
+    pageInfo: {
+      page: number,
+      endCursor: string,
+      hasNextPage: boolean,
+    }
+  }
+}
+interface ICategoryState {
+  selectedCategory: string;
+  category: ICategoryItem
+}
+interface IFetchCategory {
+  endCursor: string | null,
+  page: number
+}
 interface IBreadCrumb {
   url: string
   text: string

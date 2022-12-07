@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { capitalize } from "lodash";
 import { useEffect } from "react";
-import useFetchPaginate from "@App/hooks/useFetchPagination";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";

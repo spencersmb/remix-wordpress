@@ -449,3 +449,77 @@ export const QUERY_POST_BY_ID = gql`
         }
     }
   `
+
+export const QUERY_POSTS_BY_CAT = gql`
+  query PostSByCat($first: Int, $catName: String!, $after: String) {
+    posts(
+      first: $first
+      after: $after
+      where: {
+        categoryName: $catName, 
+        orderby: {
+          field: DATE, 
+          order: DESC
+          }
+        }
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          id
+          content
+          date
+          dateGmt
+          excerpt
+          modified
+          databaseId
+          title
+          slug
+          isSticky
+          categories {
+            edges {
+                node {
+                  databaseId
+                  id
+                  name
+                  slug
+                }
+            }
+          }
+          tags{
+            edges{
+                node{
+                  name
+                  slug
+                }
+            }
+          }
+          featuredImage {
+            node {
+              mediaDetails {
+                sizes{
+                  width
+                  file
+                  height
+                  name
+                  sourceUrl
+                  mimeType
+                }
+              }
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`

@@ -1,12 +1,12 @@
 import Florals2 from "@App/components/svgs/florals/florals-2";
 import { useOutsideAlerter } from "@App/hooks/popOverOutsideElementClick";
-import useSite from "@App/hooks/useSite";
 import { siteLoginUrls } from "@App/lib/wp/site";
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon, ArrowRightIcon } from "@heroicons/react/solid";
-import { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useTransition } from "@remix-run/react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useRef } from "react";
+import { Link, useLocation } from "@remix-run/react";
 import LinkItem from "./linkItem";
+import { useVisibleOnPageTransition } from "@App/hooks/windowUtilHooks";
 
 const menuItems = [
   {
@@ -30,17 +30,13 @@ const menuItems = [
 ]
 
 export default function MasterLoginPopOver() {
-  const { state: { user } } = useSite()
-  const transition = useTransition();
-  const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
   const location = useLocation()
   const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
 
-  // useEffect(() => {
-  //   setVisible(true)
-  // }, [])
+  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
+  const { setVisible, visible } = useVisibleOnPageTransition()
 
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
@@ -49,13 +45,6 @@ export default function MasterLoginPopOver() {
   const handleButtonClick = () => {
     setVisible(!visible)
   }
-
-  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
-  useEffect(() => {
-    if (transition.state === 'loading' && visible) {
-      setVisible(false)
-    }
-  }, [transition, visible])
 
   return (
     <div className="mx-2 text-sm normal-links laptop:font-medium desktop:text-base">

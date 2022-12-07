@@ -75,9 +75,10 @@ function TutorialDownloads(props: Props) {
   return (
     <div
       data-testid="test-tutorialDownloads"
-      className={`transition-opacity flex flex-col tablet:shadow-xs overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} laptop:flex-row desktop:shadow-2xl desktop:mb-0 desktop:flex-col`} >
+      className={`transition-opacity flex flex-col tablet:shadow-xs overflow-hidden  ${loaded ? 'opacity-100' : 'opacity-0'} desktop:shadow-2xl desktop:mb-0`} >
+
       {/* SIGNUP BLOCK */}
-      <div className='flex flex-col bg-sage-700 text-sage-50 p-7 laptop:max-w-[375px] desktop:max-w-none'>
+      <div className='flex flex-col w-full bg-sage-700 text-sage-50 p-7 desktop:max-w-none'>
 
         {resourceUser &&
           <h2 className='mb-0 text-3xl laptop:text-5xl font-sentinel__SemiBoldItal'>

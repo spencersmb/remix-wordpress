@@ -1,10 +1,11 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/solid'
-import { Link, useLocation, useNavigate, useTransition } from '@remix-run/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Link, useLocation, useTransition } from '@remix-run/react'
+import { useRef } from 'react'
 import useSite from '@App/hooks/useSite'
 import popOverMenuItems from './popOverMenuItems'
 import { useOutsideAlerter } from '@App/hooks/popOverOutsideElementClick'
+import { useVisibleOnPageTransition } from '@App/hooks/windowUtilHooks'
 
 /**
  * @Component TuesdayMakersPrimary PopOver menu
@@ -15,12 +16,14 @@ import { useOutsideAlerter } from '@App/hooks/popOverOutsideElementClick'
  */
 export default function TuesdayMakersPopOver() {
   const { state: { user } } = useSite()
-  const transition = useTransition();
-  const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
   const location = useLocation()
   const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
+
+  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
+  const { visible, setVisible } = useVisibleOnPageTransition()
+
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
   });
@@ -29,12 +32,7 @@ export default function TuesdayMakersPopOver() {
     setVisible(!visible)
   }
 
-  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
-  useEffect(() => {
-    if (transition.state === 'loading' && visible) {
-      setVisible(false)
-    }
-  }, [transition, visible])
+
 
   return (
     <div className="text-sm normal-links text-primary-600 laptop:font-medium desktop:text-base">

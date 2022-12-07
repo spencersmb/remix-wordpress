@@ -1,15 +1,15 @@
 import { Popover, Transition } from '@headlessui/react'
 import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/solid'
 import { Link, useLocation } from '@remix-run/react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import useSite from '@App/hooks/useSite'
-import { useTransition } from '@remix-run/react'
 import { aboutMenuItems } from './popOverMenuItems'
 import EmailSvg from '@App/components/svgs/emailSvg'
 import FacebookSvg from '@App/components/svgs/social/facebookSvg'
 import InstagramSvg from '@App/components/svgs/social/instagramSvg'
 import YoutubeSvg from '@App/components/svgs/social/youtubeSvg'
 import { useOutsideAlerter } from '@App/hooks/popOverOutsideElementClick'
+import { useVisibleOnPageTransition } from '@App/hooks/windowUtilHooks'
 
 
 /**
@@ -18,12 +18,13 @@ import { useOutsideAlerter } from '@App/hooks/popOverOutsideElementClick'
  */
 export default function AboutPopOver() {
   const { state: { metadata: { social } } } = useSite()
-  const transition = useTransition();
-  const [visible, setVisible] = useState(false)
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
   const location = useLocation()
   const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
+
+  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
+  const { visible, setVisible } = useVisibleOnPageTransition()
   useOutsideAlerter(wrapperRef, panelRef, () => {
     setVisible(false)
   });
@@ -33,13 +34,6 @@ export default function AboutPopOver() {
   const handleButtonClick = () => {
     setVisible(!visible)
   }
-
-  // IF PAGE IS TRANSITIONING, CLOSE THE PANEL
-  useEffect(() => {
-    if (transition.state === 'loading' && visible) {
-      setVisible(false)
-    }
-  }, [transition, visible])
 
   const buttonStylesLight = {
     visible: 'bg-grey-100 hover:bg-grey-100 hover:opacity-100',

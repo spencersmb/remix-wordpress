@@ -1,6 +1,14 @@
+import { QUERY_POSTS_BY_CAT } from '@App/lib/graphql/queries/posts';
+import { getGraphQLString } from '@App/utils/graphqlUtils';
+import { flattenAllPosts } from '@App/utils/posts';
+import { setWindowUrlParams } from '@App/utils/windowUtils';
 import type { Dispatch} from 'react';
+import { useState} from 'react';
+import { useEffect} from 'react';
 import { useCallback} from 'react';
 import { createContext, useContext } from 'react'
+import { useSetUrlBlogParams, useSetUrlPageHistory } from '../blogHooks';
+import { useHasLoaded } from '../useHasLoaded';
 import type { IFetchPaginateAction, IPageInfo} from './useFetchPaginationReducer';
 import { IFetchPaginateTypes, IPageInfoOld } from './useFetchPaginationReducer'
 
@@ -82,9 +90,10 @@ const useFetchPaginateContent = (newData?:updateContext) => {
  ** Adds posts to the global context so users don't have to keep hitting
  ** an API if they don't refresh the page.
  */
-const useFetchPaginate = (newData?: updateContext) => {
+const useFetchPaginate = (newData?: updateContext, loaderDataCategories?: {initialCategories: any}) => {
   const {state, dispatch} = useFetchPaginateContent(newData)
-
+  const [category, setCategory] = useState(loaderDataCategories ? loaderDataCategories.initialCategories.selectedCategory : 'all')
+  
   const addPostsAction = (data: IPageInfo) => {
     dispatch({
       type: IFetchPaginateTypes.ADD_POSTS,
@@ -105,23 +114,93 @@ const useFetchPaginate = (newData?: updateContext) => {
     })
   }, [dispatch])
 
-  const clearCategory = () => {
+  const clearCategory = useCallback(() => {
     dispatch({
       type: IFetchPaginateTypes.CLEAR_CATEGORY
     })
-  }
+  },[dispatch])
 
   const clearPosts = () => {
     dispatch({
       type: IFetchPaginateTypes.CLEAR_POSTS
     })
   }
+
+  const fetchCategory = useCallback(async ({
+    endCursor,
+    page
+  }: IFetchCategory) => {
+
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+
+    const variables = {
+      first: 12,
+      after: endCursor,
+      catName: category === 'all' ? '' : category,
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(QUERY_POSTS_BY_CAT),
+          variables
+        })
+      })
+    const response = await body.json()
+    const { data } = response
+    const filteredPosts = flattenAllPosts(response.data.posts) || []
+
+    addCategoryAction({
+      category,
+      pageInfo: {
+        page,
+        endCursor: data.posts.pageInfo.endCursor,
+        hasNextPage: data.posts.pageInfo.hasNextPage,
+      },
+      posts: filteredPosts
+    })
+
+  }, [category, addCategoryAction])
+
+  useEffect(() => {
+    const categories = state.categories
+    if (!categories[category]) {
+      console.log('fetch new posts cat empty', categories)
+      loadingPosts()
+      // fetchMoreCategories()
+      fetchCategory({
+        endCursor: categories[category] ? categories[category].pageInfo.endCursor : null,
+        page: categories[category] ? categories[category].pageInfo.page + 1 : 1
+      })
+    }
+  }, [category, fetchCategory, loadingPosts, state.categories])
+
+  // Set page number in url each time we change data from fetch for non category pages
+  useSetUrlPageHistory(state.pageInfo.page)
+
+  // Set URL with params depending on category everytime we change category or page
+  useSetUrlBlogParams({
+    category,
+    pageInfo: state.pageInfo,
+    categories: state.categories
+  })
+
+  // Clear the category when the component unmounts
+  useEffect(() => {
+    return () => {
+      clearCategory()
+    }
+  }, [clearCategory])
+
   return {
-    addCategoryAction,
+    category,
+    setCategory,
+    fetchCategory,
     loadingPosts,
     addPostsAction,
-    clearCategory,
-    clearPosts,
     state,
     dispatch
   }

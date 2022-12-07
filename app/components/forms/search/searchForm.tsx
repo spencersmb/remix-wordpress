@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import React from 'react'
 import { useInputFocusOnTrigger } from '@App/hooks/windowUtilHooks';
 

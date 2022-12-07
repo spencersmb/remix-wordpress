@@ -6,7 +6,7 @@ import { useInViewComponentLoaded } from '@App/hooks/windowUtilHooks'
 import { breakpointConvertPX, classNames } from '@App/utils/appUtils'
 import { createImgixSizes } from '@App/utils/imageHelpers'
 import { lfmImgRoot } from '@App/utils/lfmUtils'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-intersection-observer'
 
 interface Props {

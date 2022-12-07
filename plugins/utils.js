@@ -35,6 +35,7 @@ function promiseToWriteFile(location, content) {
 
 function generateIndexSearch(data) {
   const { posts } = data
+  console.log('search posts length', posts.length);
   const index = posts.edges.map((edge = {}) => {
 
     // We need to decode the title because we're using the
@@ -172,7 +173,8 @@ async function fetchAPIGQL(query, params = {}) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      query
+      query,
+      variables
     }),
   })
   console.log('res', res.status);
@@ -211,7 +213,7 @@ function envConfig() {
     url: isProduction ? "https://etheadless.graphcdn.app/"  : process.env.PUBLIC_WP_API_URL,
     // url: "https://etheadless.graphcdn.app/",
     // postCount: 1000
-    postCount: isProduction ? 1000 : 100
+    postCount: isProduction ? 1000 : 500
   }
 }
 

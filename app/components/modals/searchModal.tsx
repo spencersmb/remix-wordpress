@@ -1,17 +1,12 @@
-import useSite from '@App/hooks/useSite'
-import CommentForm from '../comments/commentForm'
-import Comment from '../comments/comment'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import CloseSvg from '../svgs/closeSvg'
-import { useEffect, useRef, useState } from 'react'
-import gql from 'graphql-tag';
-import TwSpinnerOne from '../svgs/spinners/twSpinnerOne'
-import { getGraphQLString } from '@App/utils/graphqlUtils'
-import { parseComment } from '@App/utils/posts'
+import { useRef, useState } from 'react'
+
 import SearchLayout from '../search/searchLayout'
 import { useSearch } from '@App/hooks/useSearch'
 import { classNames } from '@App/utils/appUtils'
-import { useTransition } from '@remix-run/react'
+import { useCloseModalOnPageTransition, useScrollBarHide } from '@App/hooks/windowUtilHooks'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -24,38 +19,21 @@ import { useTransition } from '@remix-run/react'
  *
  * TODO: ADD TEST
  */
+
 const SearchModal = () => {
   const { state: { isOpen }, closeSearch } = useSearch()
   const [animationCompleted, setAnimationCompleted] = useState(false)
   const containerRef = useRef<null | HTMLDivElement>(null)
-  const transition = useTransition();
   const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
-  // set REFS on load
-  useEffect(() => {
-    htmlDomRef.current = document.querySelector('html')
-  }, [])
 
   // Scroll bar adjustment
-  useEffect(() => {
-    if (isOpen && htmlDomRef.current) {
-      const body = htmlDomRef.current.children[1]
-      htmlDomRef.current.classList.add('animate-addPadding')
-      body.classList.add('overflow-y-hidden')
-    }
+  useScrollBarHide({
+    htmlDomRef,
+    selector: 'html'
+  })
 
-    if (!isOpen && htmlDomRef.current) {
-      const body = htmlDomRef.current.children[1]
-      htmlDomRef.current.classList.remove('animate-addPadding')
-      body.classList.remove('overflow-y-hidden')
-    }
-  }, [isOpen])
-
-  // IF PAGE IS TRANSITIONING, CLOSE THE MODAL
-  useEffect(() => {
-    if (transition.state === 'loading' && isOpen) {
-      closeSearch()
-    }
-  }, [closeSearch, isOpen, transition])
+  // Close an open modal when page transitions
+  useCloseModalOnPageTransition()
 
 
   return (

@@ -3298,35 +3298,6 @@ video {
        -o-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-@-moz-keyframes fadeIn {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-.animate-fadeIn {
-  -webkit-animation: fadeIn 300ms ease-in-out;
-     -moz-animation: fadeIn 300ms ease-in-out;
-          animation: fadeIn 300ms ease-in-out;
-}
 @-webkit-keyframes addPadding {
   0% {
     padding: 0 0px 0 0;
@@ -3358,6 +3329,35 @@ video {
   -webkit-animation: addPadding 0ms 150ms ease-in-out forwards;
      -moz-animation: addPadding 0ms 150ms ease-in-out forwards;
           animation: addPadding 0ms 150ms ease-in-out forwards;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+.animate-fadeIn {
+  -webkit-animation: fadeIn 300ms ease-in-out;
+     -moz-animation: fadeIn 300ms ease-in-out;
+          animation: fadeIn 300ms ease-in-out;
 }
 @-webkit-keyframes spin {
   to {
@@ -4916,9 +4916,6 @@ video {
 }
 .ring-offset-\[\#e8f3e9\] {
   --tw-ring-offset-color: #e8f3e9;
-}
-.ring-offset-lfm-pink-200 {
-  --tw-ring-offset-color: var(--lfm-pink-200);
 }
 .blur {
   --tw-blur: blur(8px);
@@ -7476,9 +7473,6 @@ video {
     --tw-shadow-colored: 0 0 #0000;
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
   }
-  .tablet\:ring-offset-lfm-pink-200 {
-    --tw-ring-offset-color: var(--lfm-pink-200);
-  }
   .tablet\:btn-flex {
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 0%;
@@ -9376,6 +9370,9 @@ video {
   }
   .desktop\:max-w-\[475px\] {
     max-width: 475px;
+  }
+  .desktop\:max-w-\[375px\] {
+    max-width: 375px;
   }
   .desktop\:flex-none {
     -webkit-box-flex: 0;

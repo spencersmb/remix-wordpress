@@ -213,11 +213,11 @@ const useSite = () => {
     })
   }
 
-  const toggleMobileNav = () => {
+  const toggleMobileNav = useCallback(() => {
      dispatch({
       type: ISiteTypes.TOGGLE_MOBILE_NAV
     })
-  }
+  },[dispatch])
 
   return {
     toggleMobileNav,

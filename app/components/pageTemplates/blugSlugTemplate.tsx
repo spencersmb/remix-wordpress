@@ -1,22 +1,16 @@
-import { useCallback, useEffect, useRef } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Sticky, StickyContainer } from 'react-sticky';
-import { ClientOnly } from 'remix-utils';
 import useSite from '@App/hooks/useSite';
-import useWindowResize from '@App/hooks/useWindowResize';
 import { classNames } from '@App/utils/appUtils';
 import { createImgixSizes, defaultImages, loadImageSrc } from '@App/utils/imageHelpers';
-import { addClass } from '@App/utils/pageUtils';
 import { consoleHelper } from '@App/utils/windowUtils';
 import YouTubeVideo from '../cards/youTubeCard__post';
 import LazyImageBase from '../images/lazyImage-base';
 
 import { BreakpointEnums } from '@App/enums/breakpointEnums';
 import { ImageSizeEnums } from '@App/enums/imageEnums';
-import { useSearch } from '@App/hooks/useSearch';
-import { findSkillLevel, getResource, mapPostResources, rearrangeLicenses, reducePostResourceData } from '@App/utils/posts';
+import { findSkillLevel } from '@App/utils/posts';
 import { TagIcon } from '@heroicons/react/solid';
-import { Link, useLocation } from '@remix-run/react';
+import { Link } from '@remix-run/react';
 import ClockSvg from '../svgs/clockSvg';
 import LazyImgix from '../images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
@@ -30,101 +24,25 @@ import PinterestBlock from '../blog/pinterestBlock';
 import PostsGrid from '../blog/postsGrid';
 import TutorialDownloads from '../blog/tutorialContent/tutorialDownloads';
 import TutorialResources from '../blog/tutorialContent/tutorialResources';
+import { useCheckOldBlogPost, useHideCommentsOnTransistion, useStickySidebarDevices } from '@App/hooks/blogHooks';
 
 interface IProps {
   post: IPost
 }
+
+
 function BlogSlugTemplate(props: IProps) {
   const { post } = props
   const skill = findSkillLevel(post.categories);
-  const location = useLocation();
-  const locationPrevRef = useRef(location.pathname);
-  const { resourecLibraryLogin, hideComments, state: { metadata, breakpoint, commentsModal } } = useSite();
-  const mobilePrevBreakpointRef = useRef(breakpoint);
-  consoleHelper('post', post, 'BlogSlugTemplate.tsx')
+  const { state: { metadata, breakpoint } } = useSite();
+  // consoleHelper('post', post, 'BlogSlugTemplate.tsx')
 
-  // solve for older blog posts and the iframe issue
-  const checkOldIframes = useCallback(() => {
+  useCheckOldBlogPost(post)
 
-    if (post.tutorialManager.youtube.id) {
-      return null
-    }
+  useHideCommentsOnTransistion()
 
-    let blogContent = document.querySelector('.blog-content')
-    let pTags = blogContent?.querySelectorAll('p')
-
-    if (!pTags) {
-      return null
-    }
-
-    pTags.forEach(pTag => {
-      const children = Array.from(pTag.children)
-      children.find(child => {
-        if (child.tagName === 'IFRAME') {
-          addClass(pTag, 'embed-responsive')
-        }
-      })
-    })
-  }, [post.tutorialManager.youtube.id])
-
-  // TODO: useEffect into a hook
-  useEffect(() => {
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth"
-    // });
-
-    // openSearch()
-    // handleCommentsClick()
-
-    // // Refresh the window if the user logs in on another page
-    // window.addEventListener('storage', (evt) => {
-    //   console.log('custom fired', evt);
-
-    //   if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
-    //     window.location.reload();
-    //   }
-
-    // });
-
-    checkOldIframes()
-
-    return () => {
-
-    }
-  }, [checkOldIframes])
-
-  // TODO: useEffect into a hook
-  useEffect(() => {
-
-    if (location.pathname !== locationPrevRef.current && commentsModal.show) {
-      // location changed
-      hideComments()
-    }
-    locationPrevRef.current = location.pathname
-  }, [commentsModal.show, hideComments, location.pathname])
-
-  // TODO: useEffect into a hook
-  useEffect(() => {
-
-    if (location.pathname !== locationPrevRef.current) {
-      // location changed
-      checkOldIframes()
-    }
-    locationPrevRef.current = location.pathname
-  }, [checkOldIframes, location.pathname, post.tutorialManager.youtube.id,])
-
-  useEffect(() => {
-
-    // if the preivous breakpoint was mobile and the current breakpoint is not mobile
-    if (mobilePrevBreakpointRef.current !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL)) {
-      window.dispatchEvent(new Event('scroll'))
-    }
-
-    mobilePrevBreakpointRef.current = breakpoint
-  }, [breakpoint])
-
-
+  // hack fix for sidebar not updating on desktop breakpoint
+  useStickySidebarDevices()
 
 
   const breadcrumbLinks = [
@@ -290,6 +208,7 @@ function BlogSlugTemplate(props: IProps) {
 
       </div>
 
+      {/* FOR UPDATED POSTS */}
       {/* TUTORIAL DOWNLOADS */}
       {/* ex youtube ID 4ewfn5Y8_Xs */}
       {post.tutorialManager.youtube.id &&
@@ -338,7 +257,7 @@ function BlogSlugTemplate(props: IProps) {
                         }}
                       </Sticky>
                     }
-                    {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} />}
+
                   </div>
 
                   {/* YOUTUBE */}
@@ -350,11 +269,15 @@ function BlogSlugTemplate(props: IProps) {
 
 
 
-                    {/* <PaidProducts post={post} /> */}
                     {/* RESOURCES */}
                     <TutorialResources
                       resources={post.tutorialManager.resources} />
                   </div>
+
+                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <div className='flex-initial w-[100%] mt-8 tablet:px-8 laptop:px-0'>
+                    <TutorialDownloads post={post} />
+                  </div>}
+
 
                 </div>
 
@@ -385,6 +308,9 @@ function BlogSlugTemplate(props: IProps) {
 
         </div>}
 
+      {/* 
+        FOR NON UPDATED POSTS 
+      */}
       {(!post.tutorialManager.youtube.id || post.tutorialManager.youtube.id === '') &&
         <div
           data-testid='blog-tutorialDownloads'
@@ -399,10 +325,10 @@ function BlogSlugTemplate(props: IProps) {
                   : '',
                 'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0')}>
 
-                <div className='max-w-[700px] desktop:max-w-[1475px] mx-auto w-full relative flex laptop:flex-row items-start '>
+                <div className='max-w-[700px] flex-col desktop:max-w-[1475px] mx-auto w-full relative flex desktop:flex-row items-start '>
 
                   {/* ADDITIONAL RESOURCES */}
-                  <div className='relative flex-none my-20 additional-resources desktop:flex-1'>
+                  <div className='relative flex-1 w-full my-20 additional-resources desktop:flex-1'>
                     {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
                       <Sticky topOffset={-20} bottomOffset={184}>
                         {({
@@ -430,6 +356,8 @@ function BlogSlugTemplate(props: IProps) {
                       </Sticky>
                     }
 
+                    {/* {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <TutorialDownloads post={post} />} */}
+
                   </div>
 
                   {/* BLOG CONTENT */}
@@ -442,6 +370,14 @@ function BlogSlugTemplate(props: IProps) {
                       <div className='blog-content' dangerouslySetInnerHTML={{ __html: post.content }} />
                     </div>
                   </div>
+
+
+                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
+                    <div className='flex-initial w-[100%] tablet:px-8 laptop:px-0'>
+                      <TutorialDownloads post={post} />
+                    </div>
+                  }
+
 
                 </div>
 

@@ -1,5 +1,11 @@
+import { breakpointConvertPX } from "@App/utils/appUtils";
+import { whenAvailable } from "@App/utils/timeUtils";
+import { useTransition } from "@remix-run/react";
+import type { MutableRefObject} from "react";
 import { useEffect, useRef, useState } from "react"
 import { useInView } from 'react-intersection-observer'
+import { useSearch } from "./useSearch"
+import useSite from "./useSite";
 
 export function useGetElementByClassName(className: string) {
   const buttonRef = useRef<null | Element>(null)
@@ -71,4 +77,156 @@ export function useInputFocusOnTrigger({
       elRef.current.focus();
     }
   }, [trigger, elRef])
+}
+
+export function useScrollBarHide({
+  htmlDomRef,
+  selector
+}: { htmlDomRef: MutableRefObject<HTMLElement | null>, selector: string }) {
+  const { state: { isOpen } } = useSearch()
+
+  useEffect(() => {
+
+    if (!htmlDomRef.current) {
+      htmlDomRef.current = document.querySelector(selector)
+    }
+
+    if (isOpen && htmlDomRef.current) {
+      const body = htmlDomRef.current.children[1]
+      htmlDomRef.current.classList.add('animate-addPadding')
+      body.classList.add('overflow-y-hidden')
+    }
+
+    if (!isOpen && htmlDomRef.current) {
+      const body = htmlDomRef.current.children[1]
+      htmlDomRef.current.classList.remove('animate-addPadding')
+      body.classList.remove('overflow-y-hidden')
+    }
+  }, [htmlDomRef, isOpen, selector])
+}
+
+export function useCloseModalOnPageTransition() {
+  const transition = useTransition();
+  const { state: { isOpen }, closeSearch } = useSearch()
+  const prevTransitionState = useRef(transition.state)
+
+  // Track last page transition state to determin if page has finished transitioning
+  useEffect(() => {
+    if (transition.state === 'idle' && isOpen && prevTransitionState.current === 'loading') {
+      closeSearch()
+    }
+    prevTransitionState.current = transition.state
+
+  }, [closeSearch, isOpen, transition])
+
+}
+
+export function useMobileNav() {
+  const { state: { breakpoint, nav: { mobileNav } }, toggleMobileNav } = useSite()
+  const transition = useTransition();
+  const html = useRef<HTMLHtmlElement | null>(null)
+  const breakPointWidth = breakpointConvertPX(breakpoint)
+
+  // Set html overflow to hidden when mobile nav is open
+  useEffect(() => {
+    if (!html.current) {
+      console.log('set HTML CURRENT')
+      html.current = document.querySelector('html')
+    }
+
+    if (mobileNav.isOpen && html.current) {
+      html.current.style.overflow = 'hidden'
+    } else if (!mobileNav.isOpen && html.current) {
+      html.current.style.overflow = 'auto'
+    }
+  }, [mobileNav.isOpen])
+
+  // if user navigates to a different url and mobile nav is open close it
+  useEffect(() => {
+    if (transition.state === 'loading' && mobileNav.isOpen) {
+      toggleMobileNav()
+    }
+  }, [transition, mobileNav.isOpen, toggleMobileNav])
+
+  // show nav bsed on breakpoint
+  useEffect(() => {
+    if (mobileNav.isOpen && breakPointWidth > 1024) {
+      toggleMobileNav()
+    }
+  }, [breakPointWidth, breakpoint, mobileNav.isOpen, toggleMobileNav])
+
+  // TODO: UPDATE FOR NEW Version of GUMROAD
+  // is this for mobile nav?
+
+
+}
+
+export function useGumroadCart(){
+  const [gumroadCartOpen, setGumroadCartOpen] = useState(false)
+
+  // ON load listen to when gumroad cart is available and observe it for style changes
+  useEffect(() => {
+
+    // openSearch()
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutationRecord) {
+        // console.log('style changed!', mutationRecord);
+        // @ts-ignorew
+        const height = mutationRecord.target.style.height
+        // @ts-ignore
+        const widthPx = mutationRecord.target.style.width
+        // console.log('widthPx', widthPx);
+
+        //check if widthPx string contains the string calc
+        // remove px from widthPx and convert to number
+        const width = widthPx.includes('calc')
+          ? 'cart'
+          : Number(widthPx.replace('px', ''))
+
+        // console.log('width', width);
+
+        if (width !== 'cart') {
+          // console.log('close', close);
+
+          setGumroadCartOpen(false)
+        } else if (width === 'cart' && !gumroadCartOpen) {
+          // console.log('open', open);
+
+          setGumroadCartOpen(true)
+        }
+      });
+    });
+
+    const gumroad = whenAvailable('gumroad-scroll-container', (el: any) => {
+      if (el.length > 0) {
+        observer.observe(el[0], { attributes: true, attributeFilter: ['style'] });
+      }
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+
+  }, [gumroadCartOpen])
+
+  return {
+    gumroadCartOpen,
+  }
+}
+
+export function useVisibleOnPageTransition(){
+  const transition = useTransition();
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (transition.state === 'loading' && visible) {
+      setVisible(false)
+    }
+  }, [transition, visible])
+
+  
+  return {
+    visible,
+    setVisible
+  }
 }

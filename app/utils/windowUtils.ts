@@ -26,3 +26,27 @@ export const consoleHelper = (data: string, obj: any = null, location?: String |
   console.log('', );
   
 }
+
+
+
+export function setWindowUrlParams(props: {
+  setParams: { name: string, value: string }[],
+  deleteParams?: string[],
+  pageTitle: string,
+  tabTitle: string
+}) {
+  let { setParams, deleteParams, pageTitle, tabTitle } = props
+  const url = new URL(window.location.href);
+
+  setParams.forEach(({ name, value }) => {
+    url.searchParams.set(name, value)
+  })
+
+  if (deleteParams) {
+    deleteParams.forEach(name => {
+      url.searchParams.delete(name)
+    })
+  }
+
+  window.history.replaceState(pageTitle, tabTitle, url.href);
+}

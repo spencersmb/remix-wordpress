@@ -35,3 +35,17 @@ export function countSeconds(time?: string): number {
   // console.log('percentLeft', percentLeft)
   return (hours * 3600) + (minutes * 60) + secondsLeft
 }
+
+export function whenAvailable(name: string, callback: any) {
+  var interval = 10; // ms
+  window.setTimeout(function () {
+    // const el = document.getElementsByClassName('.gumroad-scroll-container')
+    const el = document.getElementsByClassName(name)
+
+    if (el.length > 0) {
+      callback(el);
+    } else {
+      whenAvailable(name, callback);
+    }
+  }, interval);
+}
