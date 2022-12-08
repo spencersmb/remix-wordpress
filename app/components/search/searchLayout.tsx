@@ -1,90 +1,21 @@
 import { useSearchResults } from "@App/hooks/useSearch/useSearchResults";
-import { formatDate } from "@App/utils/posts";
 import { consoleColors, consoleHelper } from "@App/utils/windowUtils";
-import { Link, useTransition } from "@remix-run/react";
-import type { MutableRefObject } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import _ from 'lodash'
-import PillSmall from "../pills/pillSmall";
-import CloseSvg from "../svgs/closeSvg";
 import { AnimatePresence, motion } from "framer-motion";
 import SmallPostCard from "../cards/smallPostCard";
-import RenderIfVisible from "react-render-if-visible";
 import SearchFilterHeader from "./searchFilterHeader";
 import BackToTopButton from "../buttons/backToTopButton";
 import SearchForm from "../forms/search/searchForm";
+import { useKeyDown, useShowBackToTopBtn } from "@App/hooks/windowUtilHooks";
 
 interface Props {
   animationCompleted: boolean;
   containerRef: any
 }
 type IProps = Props
-function useKeyDown(fn: any) {
-  useEffect(() => {
-    document.addEventListener('keydown', fn, false);
 
-    return () => {
-      document.removeEventListener('keydown', fn, false);
-    }
-  }, [fn])
-}
-
-/**
-* updatePosition
-* Tracks scroll position and set scrollToTop inView if it reaches the threshold
-*/
-function useShowBackToTopBtn(ref: MutableRefObject<HTMLElement | null>) {
-  const [showScrollToTopBtn, setShowScrollToTopBtn] = useState<boolean>(false)
-
-  const updatePosition = useCallback(() => {
-    if (ref.current && ref.current.scrollTop > 800) {
-      setShowScrollToTopBtn(true)
-    } else {
-      setShowScrollToTopBtn(false)
-    }
-  }, [ref]);
-
-  useEffect(() => {
-    let container = ref.current
-
-    // Tack scroll position of the modal container to hide or show the scroll to top button
-
-    if (container) {
-      container.addEventListener("scroll", _.throttle(updatePosition, 500));
-    }
-
-
-    // addResultsRoving()
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", updatePosition, false);
-      }
-    }
-
-  }, [ref, updatePosition])
-
-  /**
-  * goToTop
-  * smooth scroll to the top of the page
-  */
-  const goToTop = () => {
-    if (ref.current) {
-      // formRef.current.scrollIntoView({ behavior: "smooth" });
-      ref.current.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
-  };
-
-
-  return {
-    goToTop,
-    showScrollToTopBtn
-  }
-}
 
 /**
  * @component SearchLayout
@@ -221,9 +152,6 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
               .map((result: SearchResult, index) => {
                 const { item } = result
                 return (
-                  // <RenderIfVisible stayRendered={true} key={item.slug} defaultHeight={313}>
-                  //   <SmallPostCard post={item} />
-                  // </RenderIfVisible>
                   <SmallPostCard key={item.slug} post={item} />
                 );
               })}

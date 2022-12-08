@@ -1,7 +1,9 @@
 import { breakpointConvertPX } from "@App/utils/appUtils";
 import { whenAvailable } from "@App/utils/timeUtils";
 import { useTransition } from "@remix-run/react";
+import _ from "lodash";
 import type { MutableRefObject} from "react";
+import { useCallback} from "react";
 import { useEffect, useRef, useState } from "react"
 import { useInView } from 'react-intersection-observer'
 import { useSearch } from "./useSearch"
@@ -231,7 +233,6 @@ export function useVisibleOnPageTransition(){
   }
 }
 
-
 export function useWindowOpenUrl({ url, target, open }: { url: string, target: string, open: boolean}){
 
   useEffect(() => {
@@ -240,4 +241,70 @@ export function useWindowOpenUrl({ url, target, open }: { url: string, target: s
     }
   }, [open, target, url])
 
+}
+
+export function useKeyDown(fn: any) {
+  useEffect(() => {
+    document.addEventListener('keydown', fn, false);
+
+    return () => {
+      document.removeEventListener('keydown', fn, false);
+    }
+  }, [fn])
+}
+
+/**
+* updatePosition
+* Tracks scroll position and set scrollToTop inView if it reaches the threshold
+*/
+export function useShowBackToTopBtn(ref: MutableRefObject<HTMLElement | null>) {
+  const [showScrollToTopBtn, setShowScrollToTopBtn] = useState<boolean>(false)
+
+  const updatePosition = useCallback(() => {
+    if (ref.current && ref.current.scrollTop > 800) {
+      setShowScrollToTopBtn(true)
+    } else {
+      setShowScrollToTopBtn(false)
+    }
+  }, [ref]);
+
+  useEffect(() => {
+    let container = ref.current
+
+    // Tack scroll position of the modal container to hide or show the scroll to top button
+
+    if (container) {
+      container.addEventListener("scroll", _.throttle(updatePosition, 500));
+    }
+
+
+    // addResultsRoving()
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", updatePosition, false);
+      }
+    }
+
+  }, [ref, updatePosition])
+
+  /**
+  * goToTop
+  * smooth scroll to the top of the page
+  */
+  const goToTop = () => {
+    if (ref.current) {
+      // formRef.current.scrollIntoView({ behavior: "smooth" });
+      ref.current.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+  };
+
+
+  return {
+    goToTop,
+    showScrollToTopBtn
+  }
 }

@@ -1,5 +1,5 @@
 import { classNames } from '@App/utils/appUtils'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import LazyLoadVideo from './lazyLoadVideo'
 

@@ -1,6 +1,6 @@
 import { SEARCH_STATE_ENUMS } from "@App/enums/searchEnums"
 import type { ISearchContextState } from "@App/hooks/useSearch"
-import { fireEvent, screen } from "@testing-library/react"
+import { fireEvent, queryByTestId, screen, waitFor } from "@testing-library/react"
 import { mockSearchData } from "@TestUtils/mock-data/posts"
 import { renderUseSearchProviderUi } from "@TestUtils/providerUtils"
 import { MemoryRouter } from "react-router"
@@ -30,9 +30,25 @@ describe('SearchLayout', () => {
     mockIntersectionObserver.mockReturnValue({
       observe: () => null,
       unobserve: () => null,
-      disconnect: () => null
+      disconnect: () => null,
     });
     window.IntersectionObserver = mockIntersectionObserver;
+    window.IntersectionObserverEntry = {
+      prototype: {
+        // @ts-ignore
+        isIntersecting: () => null,
+      },
+    };
+
+    jest.spyOn(Date.prototype, 'getDay').mockReturnValue(2);
+    jest.spyOn(Date.prototype, 'getMonth').mockReturnValue(11);
+    jest.spyOn(Date.prototype, 'getDate').mockReturnValue(30);
+    jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
+    jest.spyOn(Date.prototype, 'toISOString').mockReturnValue('2000-01-01T00:00:00.000Z');
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks()
   });
 
   it('It should not show filters', () => {
@@ -76,7 +92,9 @@ describe('SearchLayout', () => {
   })
 
   it('It should show 1 Result and end of results message', async () => {
-    const { getByTestId, getByLabelText, queryByText } = renderUseSearchProviderUi(
+
+
+    const { getByTestId, getByLabelText, queryByText, queryByTestId } = renderUseSearchProviderUi(
       <MemoryRouter>
         <SearchLayout {...defaultSearchProps} />
       </MemoryRouter>
@@ -92,9 +110,13 @@ describe('SearchLayout', () => {
     )
     const input = getByLabelText(/Search/i)
     fireEvent.change(input, { target: { value: 'test' } })
-    const resultsContainer = await getByTestId('resultsList')
-    const results = resultsContainer.getElementsByClassName('renderIfVisible')
-    expect(results.length).toBe(2)
-    expect(queryByText(/End of Results/i)).toBeVisible()
+    waitFor(() => {
+      const resultsContainer = queryByTestId('resultsList')
+      const results = resultsContainer?.getElementsByClassName('renderIfVisible')
+      expect(results?.length).toBe(2)
+      expect(queryByText(/End of Results/i)).toBeVisible()
+    })
+
+
   })
 })

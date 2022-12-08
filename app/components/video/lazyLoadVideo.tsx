@@ -1,4 +1,5 @@
 import { classNames } from '@App/utils/appUtils'
+import type { MutableRefObject } from 'react';
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
@@ -6,15 +7,7 @@ interface Props {
   video: string
   className?: string
 }
-
-/**
- * 
- * @function lazyLoadVideo 
- * @tested - 09/08/2022 
- */
-function LazyLoadVideo(props: Props) {
-  const { video, className } = props
-  const videoRef = useRef<null | HTMLVideoElement>(null)
+function useVideoInView(videoRef: MutableRefObject<null | HTMLVideoElement>) {
   const [loaded, setLoaded] = useState<boolean>(false)
   const { ref, inView, entry } = useInView({
     /* Optional options */
@@ -39,7 +32,7 @@ function LazyLoadVideo(props: Props) {
       setLoaded(true)
     }
 
-  }, [inView, loaded])
+  }, [inView, loaded, videoRef])
 
   // USED FOR TESTING
   useEffect(() => {
@@ -58,7 +51,22 @@ function LazyLoadVideo(props: Props) {
       // videoRef.current.load()
       setLoaded(true)
     }
-  }, [])
+  }, [videoRef])
+
+  return {
+    loaded,
+    ref
+  }
+}
+/**
+ * 
+ * @function lazyLoadVideo 
+ * @tested - 09/08/2022 
+ */
+function LazyLoadVideo(props: Props) {
+  const { video, className } = props
+  const videoRef = useRef<null | HTMLVideoElement>(null)
+  const { loaded, ref } = useVideoInView(videoRef)
 
   return (
     <div

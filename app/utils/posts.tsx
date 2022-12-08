@@ -179,7 +179,6 @@ export function formatDate(date: string): string {
   const blogDate = new Date(date)
   const monthIndex: number = blogDate.getMonth()
   const day: number = blogDate.getDate()
-
   const months: string[] = [
     'Jan',
     'Feb',

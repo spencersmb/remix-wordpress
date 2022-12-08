@@ -66,6 +66,7 @@ export const mockUseSiteData_default: ISiteContextState = {
     }
   },
   breakpoint: BreakpointEnums.mobile,
+  breakpointLoaded: false,
   nav: {
     mobileNav: {
       isOpen: false

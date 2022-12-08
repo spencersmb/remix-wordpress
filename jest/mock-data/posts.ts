@@ -2873,8 +2873,12 @@ export const mockSearchData: SearchPostResult[] = [
   {
     title:"Test post 2",
     slug:"test-post",
-    date:"2022-06-11T15:07:0",
-    featuredImage:null,
+    date:"2022-01-04T09:35:00",
+    featuredImage: {
+      node:{
+        ...mockFeatureImageComplete
+      }
+    },
     categories:["Beginner"],
     tags:[],
     tutorialManager: mockTutorailManager__default
@@ -2882,8 +2886,12 @@ export const mockSearchData: SearchPostResult[] = [
   {
     title:"Test post 3",
     slug:"test-pos-3",
-    date:"2022-06-11T15:07:0",
-    featuredImage:null,
+    date:"2022-01-04T09:35:00",
+    featuredImage: {
+      node:{
+        ...mockFeatureImageComplete
+      }
+    },
     categories:["Beginner"],
     tags:[],
     tutorialManager: mockTutorailManager__default
