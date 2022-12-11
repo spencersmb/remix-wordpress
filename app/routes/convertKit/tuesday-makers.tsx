@@ -1,4 +1,3 @@
-import { ckFormIds } from '@App/lib/convertKit/formIds'
 import { validateEmail } from '@App/utils/validation'
 import { fetchConvertKitSignUp } from '@App/utils/fetch.server'
 import React from 'react'
@@ -7,8 +6,7 @@ import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
 import { ckSignUpCookie } from '@App/cookies.server'
 import { getCKFormId } from '@App/utils/resourceLibraryUtils';
-import { mdxPageMeta } from '@App/utils/seo';
-import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { useResetForm } from '@App/hooks/formHooks';
 
 
 export let action: ActionFunction = async ({ request, params }) => {
@@ -96,11 +94,10 @@ const TuesdayMakersFormNoJS = () => {
   const transition = useTransition()
   const formRef: any = React.useRef()
 
-  React.useEffect(() => {
-    if (transition.state === 'submitting') {
-      formRef.current?.reset()
-    }
-  }, [transition])
+  useResetForm({
+    formRef,
+    status: transition.state === 'submitting'
+  })
 
   return (
     <div>

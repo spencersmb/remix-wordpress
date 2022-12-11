@@ -1,5 +1,6 @@
 import { breakpointConvertPX } from "@App/utils/appUtils";
 import { whenAvailable } from "@App/utils/timeUtils";
+import { consoleHelper } from "@App/utils/windowUtils";
 import { useTransition } from "@remix-run/react";
 import _ from "lodash";
 import type { MutableRefObject} from "react";
@@ -307,4 +308,20 @@ export function useShowBackToTopBtn(ref: MutableRefObject<HTMLElement | null>) {
     goToTop,
     showScrollToTopBtn
   }
+}
+
+export function useLoginOtherTabs(){
+  useEffect(() => {
+
+    // Refresh the window if the user logs in on another page
+    window.addEventListener('storage', (evt) => {
+      consoleHelper('custom fired', evt);
+      /**
+       * Right now only using Makers_login add or remove storage to trigger logins or logouts
+       */
+      if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
+        window.location.reload();
+      }
+    });
+  }, [])
 }

@@ -6,6 +6,7 @@ import { redirect } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, useActionData, useTransition } from '@remix-run/react'
 import { createResourceUserSession } from '@App/utils/resourceLibrarySession.server'
+import { useResetForm } from '@App/hooks/formHooks';
 
 export let action: ActionFunction = async ({ request, params }) => {
   let form = await request.formData();
@@ -121,11 +122,10 @@ const TuesdayMakersLoginFormNoJS = () => {
   const transition = useTransition()
   const formRef: any = React.useRef()
 
-  React.useEffect(() => {
-    if (transition.state === 'submitting') {
-      formRef.current?.reset()
-    }
-  }, [transition])
+  useResetForm({
+    formRef,
+    status: transition.state === 'submitting'
+  })
 
   return (
     <div>

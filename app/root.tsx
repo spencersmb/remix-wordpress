@@ -9,14 +9,12 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
-  useTransition
 } from "@remix-run/react";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import deleteMeRemixStyles from "@App/styles/demos/remix.css";
 import globalStylesUrl from "@App/styles/global-old.css";
 import darkStylesUrl from "@App/styles/dark.css";
-import { siteInitialState } from './hooks/useSite'
 import { createSiteMetaData, getDynamicSiteMetadata, getWPMenu } from './lib/wp/site'
 import NProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
@@ -39,6 +37,7 @@ import CommentModal from "./components/modals/commentModal";
 import SearchModal from "./components/modals/searchModal";
 import { ShopPlatformEnum } from "./enums/products";
 import { withSentry } from "@sentry/remix";
+import { useLoginOtherTabs } from "./hooks/windowUtilHooks";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -153,6 +152,8 @@ export let loader: LoaderFunction = async ({ request }) => {
   );
 };
 
+
+
 /**
  * The root module's default export is a component that renders the current
  * route via the `<Outlet />` component. Think of this as the global layout
@@ -178,26 +179,8 @@ export default withSentry(function App() {
   // }, [transition.state]);
 
   // Window localStorage listener to refresh tabs if User Logs In/Out
-  React.useEffect(() => {
+  useLoginOtherTabs()
 
-    // Refresh the window if the user logs in on another page
-    window.addEventListener('storage', (evt) => {
-      consoleHelper('custom fired', evt);
-      /**
-       * Right now only using Makers_login add or remove storage to trigger logins or logouts
-       */
-      if (evt.key === 'makers_login' || evt.key === 'makers_logout') {
-        window.location.reload();
-      }
-    });
-  }, [])
-
-  // const value = {
-  //   ...siteInitialState,
-  //   menu: menus,
-  //   metadata, // merge from Server-side Metadata response from WP
-  //   user,
-  // }
   return (
 
     <Document>

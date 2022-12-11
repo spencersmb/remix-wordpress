@@ -71,9 +71,9 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
   }
 
   /**
-* escFunction
-* pressing esc while search is focused will close it
-*/
+  * escFunction
+  * pressing esc while search is focused will close it
+  */
   function escFunction(event: any) {
     if (event.keyCode === 27) {
       clearSearch()

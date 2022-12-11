@@ -25,7 +25,8 @@ describe('SearchLayout', () => {
   }
 
   beforeEach(() => {
-    // IntersectionObserver isn't available in test environment
+    // IntersectionObserver isn't available in test environment so we mock it
+    // Special isIntersecting added so inView hook works with Lazy Image Loader component
     const mockIntersectionObserver = jest.fn();
     mockIntersectionObserver.mockReturnValue({
       observe: () => null,

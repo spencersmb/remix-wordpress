@@ -1,4 +1,5 @@
 import { classNames } from '@App/utils/appUtils';
+import { navStyles } from '@App/utils/pageUtils';
 import type { ReactNode } from "react";
 import FooterPrimary from "../footer/FooterPrimary";
 import BasicModal from '../modals/BasicModal';
@@ -10,15 +11,15 @@ import GlobalEvents from './globalHooks';
 interface ILayoutProps {
   alternateNav?: ReactNode
   loadEcommerce?: boolean
-  bgColor?: string
+  disableNavStyles?: boolean
 }
 
-export default function Layout({ children, alternateNav, bgColor }: React.PropsWithChildren<{}> & ILayoutProps) {
+export default function Layout({ children, alternateNav, disableNavStyles = false }: React.PropsWithChildren<{}> & ILayoutProps) {
 
   // min-h-fullBot was on main - not sure why 
   return (
     <>
-      <main className={classNames(bgColor ? bgColor : '', 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)] remix-app__main-content flex flex-col ')}>
+      <main className={classNames(!disableNavStyles ? navStyles : '', 'remix-app__main-content flex flex-col ')}>
         {children}
       </main>
     </>

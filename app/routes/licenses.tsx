@@ -19,7 +19,7 @@ import { json } from '@remix-run/node'
 import { cacheControl } from '@App/lib/remix/loaders'
 import { DesktopComputerIcon, UserGroupIcon } from '@heroicons/react/solid'
 import { CurrencyDollarIcon, TagIcon, UserIcon } from '@heroicons/react/outline'
-import { getStaticPageMeta } from '@App/utils/pageUtils'
+import { getStaticPageMeta, navStyles } from '@App/utils/pageUtils'
 
 const page = getStaticPageMeta({
   title: `License Details`,
@@ -53,9 +53,9 @@ function LicensesPage(props: Props) {
   // });
 
   return (
-    <Layout>
+    <Layout disableNavStyles={true}>
       <SimpleTabsProvider>
-        <div className='bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+        <div className={`${navStyles} bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
 
           <div className='col-span-full'>
             <Header1>

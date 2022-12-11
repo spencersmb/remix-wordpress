@@ -1,24 +1,16 @@
 import gql from 'graphql-tag';
-import { useEffect, useState } from "react";
 import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
-import FeaturedProduct from "@App/components/products/featureProduct";
-import GumroadProductCard from "@App/components/products/gumroadProductCard";
 import { metaDataMatches } from "@App/hooks/remixHooks";
-import { LicenseEnum, ShopPlatformEnum } from "@App/enums/products";
-import useSite from "@App/hooks/useSite";
-import { rearrangeLicenses } from "@App/utils/posts";
 import UseFontPreviewProvider from "@App/hooks/useFontPreivew/useFontPreviewProvider";
 import ProductLayout from "@App/components/products/productLayout";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { consoleHelper } from '@App/utils/windowUtils';
 import { formatRawProduct } from '@App/utils/productPageUtils';
-import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 
 const page = getStaticPageMeta({
@@ -60,7 +52,7 @@ function ProductsIndex() {
 
   return (
     <UseFontPreviewProvider>
-      <Layout>
+      <Layout disableNavStyles={true}>
         <ProductLayout products={data.products} metadata={metadata} />
       </Layout>
     </UseFontPreviewProvider>

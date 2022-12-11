@@ -110,9 +110,9 @@ export let loader: LoaderFunction = async ({ request, }) => {
 
 function BlogIndex() {
   let loaderData = useLoaderData<typeof loader>();
-  console.log('loaderData', loaderData)
+
   return (
-    <Layout>
+    <Layout disableNavStyles={true}>
       {/* Blog index */}
       <BlogIndexTemplate loaderData={loaderData} />
 

@@ -147,7 +147,7 @@ function ContactUsForm(props: Props) {
               <BasicSubmitBtn
                 key={'email-btn'}
                 loading={transition.state !== 'idle' && transition.state === 'submitting'}
-                className="max-w-[126px] mt-7 btn-flex ml-auto"
+                className="max-w-[126px] mt-7 btn btn-primary btn-primary-ring btn-flex ml-auto"
                 text={'Send'}
                 loadingText={'Sending...'}
               />

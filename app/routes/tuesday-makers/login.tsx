@@ -10,6 +10,7 @@ import { ArrowRightIcon, XCircleIcon } from "@heroicons/react/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Layout from "@App/components/layoutTemplates/layout";
 import { classNames } from "@App/utils/appUtils";
+import type { MutableRefObject } from "react";
 import { useEffect, useRef, useState } from "react";
 import AccentHeaderText from "@App/components/layout/accentHeaderText";
 import BellSvg from "@App/components/svgs/bellSvg";
@@ -20,7 +21,7 @@ import BackgroundImage from "@App/components/images/backgroundImage";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { siteLoginUrls } from "@App/lib/wp/site";
-import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { getStaticPageMeta, navStyles } from "@App/utils/pageUtils";
 import { consoleHelper } from "@App/utils/windowUtils";
 
 
@@ -124,20 +125,15 @@ export let action: ActionFunction = async ({ request }): Promise<ActionData | Re
 
 }
 
-const ResourceLibraryLogin = () => {
-  let actionData = useActionData<ActionData | undefined>();
-  const transition = useTransition()
+function useOldTuesdayMakersPassword(formRef: MutableRefObject<HTMLFormElement | null>) {
+
   const { openModal, closeModal } = useSite()
   const [inputVaue, setInputValue] = useState<null | string>(null)
-  const [usedOldPassword, setUsedOldPassword] = useState(false)
-  const formRef = useRef<null | HTMLFormElement>(null)
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let { value } = e.target;
-    setInputValue(value)
-  }
-  consoleHelper('actionData', actionData, 'tuesdayMakers/login.tsx')
+  const usedOldPassword = false
+
   useEffect(() => {
     if (inputVaue === 'TUESDAYHUSTLERS') {
+
       openModal({
         template: <GeneralMessageModal
           closeModal={closeModal}
@@ -155,15 +151,38 @@ const ResourceLibraryLogin = () => {
       }
 
     }
-  }, [inputVaue, formRef])
+  }, [inputVaue, formRef, openModal, closeModal])
+
+  return {
+    usedOldPassword,
+    inputVaue,
+    setInputValue
+  }
+
+}
+
+const ResourceLibraryLogin = () => {
+  let actionData = useActionData<ActionData | undefined>();
+  const transition = useTransition()
+  // const { openModal, closeModal } = useSite()
+  // const [inputVaue, setInputValue] = useState<null | string>(null)
+  // const [usedOldPassword, setUsedOldPassword] = useState(false)
+  const formRef = useRef<null | HTMLFormElement>(null)
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let { value } = e.target;
+    setInputValue(value)
+  }
+  consoleHelper('actionData', actionData, 'tuesdayMakers/login.tsx')
+
+  const { inputVaue, usedOldPassword, setInputValue } = useOldTuesdayMakersPassword(formRef)
 
   return (
+    <section className={`grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
 
-    <NavPaddingLayout >
-      <section className='grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:items-center desktop:grid-cols-desktop'>
+      {/* RIGHT */}
+      <div className={`${navStyles} relative row-start-2 col-span-full bg-sage-600 z-3 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center `}>
+        <div className="p-4 px-6 pt-0 pb-20 laptop:px-16 laptop:py-36 desktop:py-44">
 
-
-        <div className="relative row-start-2 p-4 px-6 py-8 pb-12 col-span-full bg-sage-600 z-3 tablet:pb-12 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center laptop:px-16">
           <div className="flex flex-col gap-8 mx-auto text-white bg-sage-600 tablet:flex-row tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[407px] desktop:max-w-[650px]">
 
             {/* NO PASSWORDS */}
@@ -219,11 +238,14 @@ const ResourceLibraryLogin = () => {
 
           </div>
         </div>
+      </div>
 
-        {/* FORM */}
-        <div className="relative col-span-2 col-start-2 px-3 py-8 pb-5 pt-[100px] tablet:py-12 mt-8 mb-4 tablet:pt-[110px] tablet:mt-8 tablet:mb-8 tablet:px-12 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 desktop:pb-[100px] max-w-[475px] w-full mx-auto rounded-lg">
+      {/* LEFT */}
+      <div className={`${navStyles} col-span-2 col-start-2 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 `}>
 
-          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2 desktop:top-1/2 desktop:-translate-y-1/2 desktop:left-[-80%] desktopXl:left-[-134%] desktopXl:w-[1220px]">
+        <div className="relative px-3 py-28 pb-16 tablet:py-28 tablet:pb-16 tablet:px-12 laptop:py-36 desktop:py-44 max-w-[500px] w-full mx-auto rounded-lg">
+
+          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2 desktop:top-1/2 desktop:-translate-y-1/2 desktop:left-[-80%] desktopXl:left-[-104%] desktopXl:w-[1020px]">
             <RedWreathSvg />
           </div>
 
@@ -342,54 +364,57 @@ const ResourceLibraryLogin = () => {
 
             {/* HAVING ISSUES */}
             {/* <p className="mt-4">
-              Having issues?
-            </p>
-            <p className="">
-              <Link className="font-bold underline underline-offset-4" to={'/contact'} prefetch={'intent'}>Contact us for help</Link>.
-            </p> */}
+            Having issues?
+          </p>
+          <p className="">
+            <Link className="font-bold underline underline-offset-4" to={'/contact'} prefetch={'intent'}>Contact us for help</Link>.
+          </p> */}
 
           </div>
         </div>
 
-        {/* ALERT */}
-        {/* <div className="col-span-2 col-start-2 my-4 tablet:mb-8 tablet:col-start-3 tablet:col-span-10 laptop:my-0 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-10">
-          <div className="bg-sage-200 p-4 max-w-[725px] mx-auto tablet:p-8 ">
-            <div className="flex flex-col items-start justify-center my-4 tablet:mx-4">
+      </div>
+      {/* FORM */}
 
-              <div>
-                <div className="mb-4 text-3xl text-center text-sage-800 font-sentinel__SemiBoldItal tablet:mb-8">
-                  No more passwords!
-                </div>
 
-                <p className="text-lg tablet:text-xl">
-                  A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every Tuesday.
-                </p>
+      {/* ALERT */}
+      {/* <div className="col-span-2 col-start-2 my-4 tablet:mb-8 tablet:col-start-3 tablet:col-span-10 laptop:my-0 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-10">
+        <div className="bg-sage-200 p-4 max-w-[725px] mx-auto tablet:p-8 ">
+          <div className="flex flex-col items-start justify-center my-4 tablet:mx-4">
+
+            <div>
+              <div className="mb-4 text-3xl text-center text-sage-800 font-sentinel__SemiBoldItal tablet:mb-8">
+                No more passwords!
               </div>
 
-              <div className="flex flex-col mt-4">
+              <p className="text-lg tablet:text-xl">
+                A password is no longer required to log into the Resource Library. Instead, just use your email associated with Every Tuesday.
+              </p>
+            </div>
 
-                <ul className="ml-4 text-lg">
-                  <li className="mb-4 list-disc">
-                    If you don’t have an active email account with Every Tuesday, you’ll need to <Link to={"/tuesday-makers"} className="font-semibold underline text-sage-800">
-                      Sign up for free
-                    </Link>.
-                  </li>
+            <div className="flex flex-col mt-4">
 
-                  <li className="mb-4 list-disc last:mb-0">
-                    Still having issues? <Link to={"/contact"} className="font-semibold underline text-sage-800">
-                      Contact us for help
-                    </Link>!
-                  </li>
-                </ul>
+              <ul className="ml-4 text-lg">
+                <li className="mb-4 list-disc">
+                  If you don’t have an active email account with Every Tuesday, you’ll need to <Link to={"/tuesday-makers"} className="font-semibold underline text-sage-800">
+                    Sign up for free
+                  </Link>.
+                </li>
 
-              </div>
+                <li className="mb-4 list-disc last:mb-0">
+                  Still having issues? <Link to={"/contact"} className="font-semibold underline text-sage-800">
+                    Contact us for help
+                  </Link>!
+                </li>
+              </ul>
 
             </div>
-          </div>
-        </div> */}
 
-      </section>
-    </NavPaddingLayout>
+          </div>
+        </div>
+      </div> */}
+
+    </section>
   )
 }
 

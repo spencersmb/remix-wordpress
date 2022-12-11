@@ -10,6 +10,7 @@ import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/n
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import CategoryTemplate from '@App/components/pageTemplates/categoryTemplate';
+import { navStyles } from '@App/utils/pageUtils';
 
 export let meta = mdxPageMeta
 
@@ -75,7 +76,7 @@ export default function CategoryPage() {
 
 
   return (
-    <Layout>
+    <Layout disableNavStyles={true}>
       <CategoryTemplate {...data} />
     </Layout>
   )

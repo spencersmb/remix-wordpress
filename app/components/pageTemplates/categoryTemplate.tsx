@@ -1,5 +1,6 @@
 import useFetchPaginate from '@App/hooks/useFetchPagination'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from '@App/lib/graphql/queries/posts'
+import { navStyles } from '@App/utils/pageUtils'
 import { consoleHelper } from '@App/utils/windowUtils'
 import gql from 'graphql-tag'
 import PostsGrid from '../blog/postsGrid'
@@ -47,10 +48,10 @@ function CategoryTemplate(props: ILoaderData) {
   }
 
   return (
-    <div className='grid grid-flow-row row-auto py-24 bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop'>
+    <div className={`${navStyles} grid grid-flow-row row-auto pb-24 bg-neutral-50 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
 
       {/* ARCHIVE TITLE */}
-      <div className='col-span-2 col-start-2 pb-16 mt-2 mb-8 text-center tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
+      <div className='col-span-2 col-start-2 pt-24 pb-16 mt-2 mb-8 text-center tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-12 desktop:col-start-4 desktop:col-span-8'>
         <h2 className="flex flex-col text-display-2">
           <span className="text-base font-normal text-primary-500">Category</span>
           <span className="capitalize font-sentinel__SemiBoldItal">{category}</span>

@@ -49,7 +49,7 @@ function BlogFeaturedPost(props: Props) {
 
 
   return (
-    <div className='grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(50px,auto)_auto_1fr_minmax(50px,auto)] desktop:grid-cols-desktop desktopXl:grid-rows-[minmax(70px,auto)_auto_1fr_minmax(70px,auto)]'>
+    <div className={`grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 laptop:grid-rows-[minmax(50px,auto)_auto_1fr_minmax(50px,auto)] desktop:grid-cols-desktop desktopXl:grid-rows-[minmax(70px,auto)_auto_1fr_minmax(70px,auto)]`}>
 
       {/* FEATURED IMAGE */}
       <div className="relative z-10 w-full col-span-2 col-start-2 row-start-1 mx-auto mt-8 featured_image tablet:col-start-3 tablet:col-span-10 laptop:flex laptop:items-center laptop:col-start-7 laptop:col-span-7 laptop:row-start-2 laptop:row-span-2 laptop:my-0 laptop:mr-[-30px]
@@ -175,7 +175,7 @@ function BlogFeaturedPost(props: Props) {
       </div>
 
       {/* BACKGROUND */}
-      <div className="bg-[#F7F6F7] relative z-0 col-start-1 row-span-4 row-start-1 col-span-full laptop:row-start-1 laptop:row-span-4"></div>
+      {/* <div className="bg-[#F7F6F7] relative z-0 col-start-1 row-span-4 row-start-1 col-span-full laptop:row-start-1 laptop:row-span-4"></div> */}
     </div>
   )
 }

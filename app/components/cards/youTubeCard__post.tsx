@@ -1,5 +1,5 @@
+import { useYouTubeVideoMobile } from '@App/hooks/useYouTubeVideoMobile';
 import { useGetElementByClassName, useSetSafariTouchRefs } from '@App/hooks/windowUtilHooks';
-import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
@@ -11,31 +11,7 @@ interface Props {
   id: string
   title: string
 }
-interface IUseYouTuveVideoMobile {
-  inView: boolean
-  buttonRef: Element | null
-  touchDevice: boolean
-  safariBrowser: boolean
-}
-function useYouTubeVideoMobile({
-  inView,
-  buttonRef,
-  touchDevice,
-  safariBrowser
-}: IUseYouTuveVideoMobile) {
-  useEffect(() => {
 
-    if (inView && buttonRef && (touchDevice || safariBrowser)) {
-      console.log('touchDeviceRef.current', touchDevice);
-      console.log('safariRef.current', safariBrowser);
-      console.log('inView', inView);
-
-      // @ts-ignore
-      buttonRef.click()
-    }
-
-  }, [buttonRef, inView, safariBrowser, touchDevice])
-}
 
 function YouTubeVideo(props: Props) {
   const { title, id } = props
@@ -48,7 +24,7 @@ function YouTubeVideo(props: Props) {
   const { buttonRef } = useGetElementByClassName('lty-playbtn')
   const { touchDevice, safariBrowser } = useSetSafariTouchRefs()
 
-  // YouTube has issues on safair / mobile devices so we need to click the play button
+  // YouTube has issues on safari / mobile devices so we need to click the play button
   useYouTubeVideoMobile({
     inView,
     buttonRef: buttonRef.current,

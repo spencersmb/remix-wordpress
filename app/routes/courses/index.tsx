@@ -53,7 +53,7 @@ const Courses = () => {
   // consoleHelper('data', data, 'routes/courses/index.tsx');
 
   return (
-    <Layout>
+    <Layout disableNavStyles={true}>
       <CourseHeader />
 
       <div className='flex flex-col items-center'>

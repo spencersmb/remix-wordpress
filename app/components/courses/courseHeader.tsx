@@ -2,6 +2,7 @@ import { staticImages } from '@App/lib/imgix/data'
 import LazyImgix from '../images/lazyImgix'
 import { createImgixSizes, imgixDir } from '@App/utils/imageHelpers'
 import LfmArrowSvg from '../svgs/lfmArrowSvg'
+import { navStyles } from '@App/utils/pageUtils'
 
 /**
  * @component CourseHeader
@@ -28,7 +29,8 @@ function CourseHeader() {
 
   return (
     <div className='grid grid-flow-row grid-rows-[auto_auto_minmax(60px,auto)_auto] text-white grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop desktop:grid-rows-[auto_auto_minmax(120px,auto)_auto]'>
-      <div className='relative col-span-2 col-start-2 row-start-1 mt-8 mb-2 z-2 font-sentinel__SemiBoldItal tablet:col-start-2 tablet:col-span-4 tablet:mt-14 desktop:mt-20 desktop:mb-4 desktop:text-xl'>Online Courses</div>
+
+      <div className={`${navStyles} relative col-span-2 col-start-2 row-start-1 mt-8 mb-2 z-2 font-sentinel__SemiBoldItal tablet:col-start-2 tablet:col-span-4 tablet:mt-14 desktop:mt-20 desktop:mb-4 desktop:text-xl`}>Online Courses</div>
 
       <div className='relative col-span-2 col-start-2 row-start-2 mb-8 z-2 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 laptop:col-start-2 laptop:col-span-9 desktop:mb-20 desktop:col-start-2 desktop:col-span-10 desktopXl:col-start-2 desktopXl:col-span-9'>
         <div className='text-3xl font-semibold tablet:text-[39px] tablet:leading-[47px] desktop:text-6xl desktop:font-medium desktop:leading-[4.5rem]'>
@@ -49,8 +51,6 @@ function CourseHeader() {
            ${teela.defaultSrc}&w=1200&fit=clip 1200w,
            `}
         />
-
-
 
         <div className='absolute bottom-[-30px] left-[-30px] w-[75px] rotate-[257deg] desktop:bottom-[-40px]'>
           <LfmArrowSvg fill='var(--sage-900)' />

@@ -1,5 +1,7 @@
 import { defaultFeaturedImage, siteAuthor } from "@App/lib/wp/site"
 
+
+export const navStyles = 'pt-[var(--nav-top-sm)] laptop:pt-[var(--nav-top-lg)]'
 interface StaticPageProps {
   title: string
   slug: string

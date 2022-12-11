@@ -1,6 +1,4 @@
-import { classNames } from '@App/utils/appUtils'
 import React from 'react'
-import { useInView } from 'react-intersection-observer'
 import LazyLoadVideo from './lazyLoadVideo'
 
 interface Props {

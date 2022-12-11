@@ -4,7 +4,7 @@ import SocialLinksList1 from "@App/components/social/socialLinksList1";
 import { cacheControl } from "@App/lib/remix/loaders";
 import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { getStaticPageMeta } from "@App/utils/pageUtils";
+import { getStaticPageMeta, navStyles } from "@App/utils/pageUtils";
 import { mdxPageMeta } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
@@ -103,10 +103,10 @@ export default function Contact() {
   // let data = useActionData()
 
   return (
-    <Layout bgColor="bg-primary-100">
+    <Layout disableNavStyles={true}>
 
       {/* CONTACT FORM + TEXT */}
-      <div className="relative et-grid-basic">
+      <div className={`${navStyles} relative et-grid-basic bg-primary-100`}>
 
         <div className="relative flex flex-col col-span-2 col-start-2 z-2 tablet:col-start-3 tablet:col-span-10 laptop:col-start-3 laptop:col-span-11 laptop:flex-row">
 

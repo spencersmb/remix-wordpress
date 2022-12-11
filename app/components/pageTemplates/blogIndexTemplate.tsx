@@ -1,4 +1,5 @@
 import useFetchPaginate from "@App/hooks/useFetchPagination";
+import { navStyles } from "@App/utils/pageUtils";
 import { consoleHelper } from "@App/utils/windowUtils";
 import { AnimatePresence, motion } from "framer-motion";
 import BlogFeaturedPost from "../blog/blogFeaturedPost";
@@ -79,8 +80,9 @@ function BlogIndexTemplate({ loaderData }: Props) {
 
   return (
     <>
-
-      <BlogFeaturedPost featuredPost={featured} />
+      <div className={`${navStyles} bg-[#F7F6F7]`}>
+        <BlogFeaturedPost featuredPost={featured} />
+      </div>
 
       <div className='grid grid-flow-row row-auto mt-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-16 desktop:grid-cols-desktop'>
         <BlogCategoryTabs catClick={handleCatClick} category={category} />

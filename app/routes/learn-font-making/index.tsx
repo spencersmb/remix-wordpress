@@ -11,7 +11,6 @@ import { getBasicPageMetaTags, mdxPageMeta } from '@App/utils/seo';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData, useNavigate } from '@remix-run/react';
-import { useEffect } from 'react';
 import gridItemsJson from '../../server/fonts/gridItems.json'
 
 const page = getStaticPageMeta({
