@@ -15,7 +15,7 @@ const page = getStaticPageMeta({
   desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
   slug: `tuesday-makers`
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 
 export let loader: LoaderFunction = async ({ request }) => {

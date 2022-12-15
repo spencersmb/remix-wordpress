@@ -26,12 +26,12 @@ const page = getStaticPageMeta({
   desc: `Three clear license options to take the guesswork out of choosing a license, so you can get back to designing.`,
   slug: `licenses`
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async () => {
   return json({ page }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 };

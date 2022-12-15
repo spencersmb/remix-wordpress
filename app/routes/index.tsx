@@ -19,7 +19,7 @@ const page = getStaticPageMeta({
   desc: `Graphic Design Tips, Tricks, Tutorials and Freebies`,
   slug: ``,
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next

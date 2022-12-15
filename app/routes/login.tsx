@@ -21,7 +21,7 @@ const page = getStaticPageMeta({
   desc: `Login Page for Every-Tuesday`,
   slug: `login`,
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -36,7 +36,7 @@ export let loader: LoaderFunction = async ({ request }) => {
     }
   }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 }

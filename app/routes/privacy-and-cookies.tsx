@@ -12,12 +12,12 @@ const page = getStaticPageMeta({
   desc: `Full transparency about the privacy practices implemented here at Every-Tuesday.com`,
   slug: `privacy-and-cookies`,
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 };

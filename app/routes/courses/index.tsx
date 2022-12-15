@@ -21,7 +21,7 @@ const page = getStaticPageMeta({
   desc: description,
   slug: 'courses',
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

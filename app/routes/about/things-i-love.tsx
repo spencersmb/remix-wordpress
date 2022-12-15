@@ -21,7 +21,7 @@ const page = getStaticPageMeta({
   slug: 'about/things-i-love',
   desc: 'Wonder what Teela Cunningham loves, paints with, uses, enjoys, recommends and subscribes to? Here\'s the Holy Grail of all things Teela! From amazing tech, business resources to social media solutions, courses, products, even online printing services! It\'s the home of all things Every Tuesday and it\'s about time you bookmark it!'
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 function mapThingsILoveData(data: ThingsILoveRawData[]) {
   return data.map((item) => {
@@ -43,7 +43,7 @@ export let loader: LoaderFunction = async ({ request, }) => {
       thingsILove: mapThingsILoveData(data.thingsILove?.edges),
     }, {
       headers: {
-        ...cacheControl
+        // ...cacheControl
       }
     })
   } catch (e) {
@@ -139,7 +139,7 @@ function ThingsILove() {
   }
 
   return (
-    <Layout bgColor='bg-cream-100'>
+    <Layout >
       <div className='et-grid-basic grid-rows-[minmax(auto,30px)_auto_1fr] tablet:grid-rows-[minmax(auto,60px)_auto_auto_auto_auto]'>
 
         <div className='relative col-span-2 col-start-2 row-span-2 row-start-1 text-3xl mt-9 z-2 rotate-[-15deg] tablet:col-start-3 tablet:col-span-8 tablet:rotate-0 tablet:flex tablet:items-center laptop:text-6xl laptop:my-[160px]'>

@@ -11,12 +11,12 @@ const page = getStaticPageMeta({
   desc: `Every-Tuesday is an education resource for ambitious graphic designers and hand letterers.`,
   slug: `Our Story`,
 })
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {
     headers: {
-      ...cacheControl
+      // ...cacheControl
     }
   })
 };
@@ -24,7 +24,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function About() {
 
   return (
-    <Layout bgColor="bg-cream-100">
+    <Layout >
       <OurStoryTemplate />
     </Layout>
   )

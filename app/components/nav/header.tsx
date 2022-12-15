@@ -112,11 +112,6 @@ function Header(props: Props) {
                 data-testid="desktop-col-3"
                 className={'hidden items-center justify-end laptop:flex'}>
 
-                {/* COURSE LOGIN */}
-                {/* <div className="">
-            <a className={'normal-link mr-2 underlined after:underlined-active hover:bg-grey-100 border-white border-0 text-grey-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300'} href="https://teachable.com">Course Login</a>
-          </div> */}
-
                 <MasterLoginPopOver />
 
                 {/* DESKTOP SEARCH ICON */}
