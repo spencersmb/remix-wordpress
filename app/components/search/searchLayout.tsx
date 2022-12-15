@@ -1,6 +1,6 @@
 import { useSearchResults } from "@App/hooks/useSearch/useSearchResults";
 import { consoleColors, consoleHelper } from "@App/utils/windowUtils";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import _ from 'lodash'
 import { AnimatePresence, motion } from "framer-motion";
@@ -70,6 +70,12 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
   }
 
+
+  // USED FOR TESTING
+  // useEffect(() => {
+  //   handleOnSearch({ currentTarget: { value: 'Watercolor' } })
+  // }, [])
+
   /**
   * escFunction
   * pressing esc while search is focused will close it
@@ -110,7 +116,7 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
       <div className="col-span-full border-b-[1px] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop pb-8">
 
         {/* SEARCH FORM */}
-        <div className="col-span-2 col-start-2 mt-2 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
+        <div className="col-span-2 col-start-2 mt-2 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[725px] desktop:mx-auto desktop:w-full">
           <SearchForm
             query={query}
             results={results}
@@ -129,7 +135,7 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
               animate={searchFilterMotion.open}
               exit={searchFilterMotion.closed}
               key='searchFilter'
-              className="flex flex-col col-span-2 col-start-2 overflow-hidden tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
+              className="flex flex-col col-span-2 col-start-2 overflow-hidden tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[725px] desktop:mx-auto desktop:w-full">
               <SearchFilterHeader
                 category={category}
                 closeCategory={closeCategory}
@@ -161,7 +167,7 @@ const SearchLayout = ({ animationCompleted, containerRef }: IProps) => {
 
       {/* No Results Found Message */}
       {results.length === 0 && query && query.length > 0 && (
-        <div className="col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
+        <div className="text-center col-span-2 col-start-2 mt-16 mb-8 tablet:col-span-10 tablet:col-start-3 laptop:col-span-6 laptop:col-start-5 desktop:col-span-6 desktop:col-start-5 desktop:max-w-[600px] desktop:mx-auto desktop:w-full">
           <p className="text-xl">
             Sorry, not finding anything for <strong>{query}</strong>
           </p>

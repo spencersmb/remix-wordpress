@@ -20,7 +20,7 @@ function useTopNav(){
       // }
 
       if (scrollTop > lastScrollTop && Math.sign(scrollTop) > 0 && scrollTop > 100) {
-        console.log(navbar.children[0].children.length)
+        // console.log(navbar.children[0].children.length)
         // checkS if Mobile Nav is OPEN so you cant remove nav and mess up viewport
         // if(header && header.children[0].children.length > 1){
         //   return

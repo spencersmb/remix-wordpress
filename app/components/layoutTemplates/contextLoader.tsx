@@ -26,23 +26,14 @@ function ContextLoader(props: Props) {
     metadata: !data ? createSiteMetaData('https://every-tuesday.com') : data.metadata, // merge from Server-side Metadata response from WP
     user: !data ? fallbackUser : data.user,
   }
-  let searchData = !data ? {} : data.searchData
-
   return (
     <>
       <UseSiteProvider defaultState={value}>
-        <UseSearchProvider defaultState={{
-          ...siteSearchState,
-          status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-          data: searchData,
-          // client,
-        }}>
-          <UseFetchPaginateProvider defaultState={fetchInitialState}>
-            <>
-              {children}
-            </>
-          </UseFetchPaginateProvider>
-        </UseSearchProvider>
+        <UseFetchPaginateProvider defaultState={fetchInitialState}>
+          <>
+            {children}
+          </>
+        </UseFetchPaginateProvider>
       </UseSiteProvider>
     </>
   )

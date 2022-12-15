@@ -58,7 +58,6 @@ export default function NotFoundTemplate() {
           </main>
           <FooterPrimary />
           <BasicModal />
-          <SearchModal />
         </ContextLoader>
         <Scripts />
       </body>

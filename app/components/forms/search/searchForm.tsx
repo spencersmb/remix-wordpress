@@ -34,7 +34,7 @@ function SearchForm(props: Props) {
         <div className="flex flex-col items-baseline justify-between mt-2 tablet:flex-row">
           <label
             aria-labelledby='search-input'
-            className="text-xl font-semibold text-grey-800 laptop:text-2xl" htmlFor="search-input">Search</label>
+            className="text-xl font-semibold text-grey-800 laptop:text-3xl" htmlFor="search-input">Search</label>
 
           {results.length > 0 && query && query.length > 0 && (
             <div
@@ -44,12 +44,20 @@ function SearchForm(props: Props) {
             </div>
           )}
 
+          {results.length === 0 && query && query.length > 0 && (
+            <div
+              data-testid='search-count'
+              className="text-base text-grey-500">
+              Found <span className='font-semibold underline text-grey-800 underline-offset-4'>0</span> results
+            </div>
+          )}
+
         </div>
         <div className="relative mt-4">
           <input
             ref={inputRef}
             id='search-input'
-            className="w-full px-4 py-3 text-base duration-200 ease-in-out transform outline-none bg-grey-100 rounded-2xl text-primary-700 hover:ring focus:ring ring-offset-0 focus:ring-sage-500 focus:bg-transparent autofill:bg-warning-100 tablet:px-5 tablet:py-4"
+            className="w-full px-4 py-3 text-base font-medium duration-200 ease-in-out transform outline-none bg-grey-100 rounded-2xl text-primary-700 hover:ring focus:ring ring-offset-0 focus:ring-sage-500 focus:bg-transparent autofill:bg-warning-100 tablet:px-6 tablet:py-4 tablet:text-2xl"
             type="search"
             name="search-input"
             value={query || ''}

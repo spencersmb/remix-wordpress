@@ -41,18 +41,25 @@ export let loader: LoaderFunction = async ({ request, context, params }) => {
    * Get latest tags
    * Don't want to cache them so we can show and hide other data on page dynamically
    */
-  const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
+  let tagResults
+  try {
+    const urlTags = `https://api.convertkit.com/v3/subscribers/${userId}/tags?api_secret=${process.env.CK_SECRET}`;
 
-  const resTag = await fetch(urlTags, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  })
-  const tagResults = await resTag.json()
+    const resTag = await fetch(urlTags, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    tagResults = await resTag.json()
+  } catch (e) {
+    console.error(`e in /tuesday-makers/members tags request`)
+    return redirect('/tuesday-makers/login')
+  }
+
   const newUser = {
     id: userId,
-    tags: tagResults.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
+    tags: tagResults?.tags.map((tag: { id: string, name: string, created_at: string }) => tag.name)
   }
   const defaultCategory = {
     name: 'Procreate Brushes',

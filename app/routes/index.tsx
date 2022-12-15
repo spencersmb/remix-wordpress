@@ -132,7 +132,7 @@ export default function Index() {
   let { courses, posts } = data
 
   return (
-    <Layout>
+    <Layout disableNavStyles={true}>
       {/* Home */}
       <HomeTemplate courses={courses} posts={posts} />
     </Layout>

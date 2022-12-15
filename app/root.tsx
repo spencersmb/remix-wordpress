@@ -219,7 +219,7 @@ export function Document({ children, title }: IDocument) {
 
         <Meta />
         <Links />
-        <JsonLd data={data} />
+        {/* <JsonLd data={data} /> */}
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
@@ -238,7 +238,6 @@ export function Document({ children, title }: IDocument) {
           <FooterPrimary />
           <BasicModal />
           <CommentModal />
-          <SearchModal />
         </ContextLoader>
         {data && data.ENV && <script nonce="845c5c"
           dangerouslySetInnerHTML={{
@@ -257,8 +256,9 @@ export function Document({ children, title }: IDocument) {
         <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
         <Scripts />
         <LiveReload port={8002} />
+
         {/* FOOTER SCRIPTS */}
-        {/* {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />} */}
+        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
 
       </body>
     </html>
@@ -266,7 +266,7 @@ export function Document({ children, title }: IDocument) {
 }
 export function CatchBoundary() {
   const caught = useCatch();
-  console.log('caught', caught)
+  console.error('caught', caught)
   if (caught.status === 404) return (
     <NotFoundTemplate />
   )

@@ -1,3 +1,4 @@
+import { useSearch } from '@App/hooks/useSearch'
 import useSite from '@App/hooks/useSite'
 import { getPrimaryMenu } from '@App/lib/wp/nav'
 import { Link } from '@remix-run/react'
@@ -12,7 +13,6 @@ import LoginDropDown from './loginDropDown'
 import TuesdayMakersNavAd from './tuesdayMakersNavAd'
 
 interface Props {
-  openSearch: () => void
 }
 /**
  * 
@@ -22,7 +22,7 @@ interface Props {
  * 
  */
 function MobileNav(props: Props) {
-  const { openSearch } = props
+  const { openSearch } = useSearch()
   const { state: { menu, metadata } } = useSite()
   const socialkeys = Object.keys(metadata.social)
   const svgColor = 'var(--sage-800)'
@@ -152,7 +152,7 @@ function MobileNav(props: Props) {
           </div>
 
           <div className='text-sm text-grey-400'>
-            © Copyright 2021 Every Tuesday, LLC
+            © Copyright 2017 Every Tuesday, LLC
           </div>
 
         </div>

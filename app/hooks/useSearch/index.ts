@@ -34,6 +34,7 @@ SearchContext.displayName = 'SearchContext'
 
 const useSearchContext = () => {
   const context = useContext(SearchContext)
+  console.log('context', context)
   if (!context) {
     throw new Error('useSearchContext must be used within a SearchContext Provider')
   }

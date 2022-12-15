@@ -21,12 +21,12 @@ function SearchFilterHeader(props: Props) {
 
       {/* FILTER HEADER */}
       <div className="flex flex-row flex-wrap justify-between pt-8 pb-3">
-        <div className="text-sm font-semibold text-grey-400 h-[24px]">FILTER BY SKILL LEVEL</div>
+        <div className="text-sm font-semibold text-emerald-900 h-[24px]">Filter by Skill Level</div>
         {
           category !== null &&
           <div
             data-testid="closeCategory-btn"
-            onClick={closeCategory} className="flex flex-row items-center">
+            onClick={closeCategory} className="flex flex-row items-center cursor-pointer">
             <div className="">Clear</div>
             <div className="w-full max-w-[20px] ml-1">
               <CloseSvg stroke="#384050" strokeWidth={3} />
@@ -38,22 +38,22 @@ function SearchFilterHeader(props: Props) {
       {/* PILLS */}
       <div className="flex flex-row " data-testid="pill-container">
         <PillSmall
-          selectedClassName="bg-success-100 text-grey-600"
+          selectedClassName="bg-emerald-600 text-white border-emerald-600"
           clickHandler={handleSetCategory('Beginner')}
           text={'Beginner'}
-          selected={category === 'Beginner' || category === null}
+          selected={category === 'Beginner'}
         />
         <PillSmall
-          selectedClassName="bg-secondary-200 text-grey-600"
+          selectedClassName="bg-tangerine-500 text-white border-tangerine-500"
           clickHandler={handleSetCategory('Intermediate')}
           text={'Intermediate'}
-          selected={category === 'Intermediate' || category === null}
+          selected={category === 'Intermediate'}
         />
         <PillSmall
-          selectedClassName="bg-primary-200 text-grey-600"
+          selectedClassName="bg-tangerine-800 text-white border-tangerine-800"
           clickHandler={handleSetCategory('Advanced')}
           text={'Advanced'}
-          selected={category === 'Advanced' || category === null}
+          selected={category === 'Advanced'}
         />
       </div>
     </>

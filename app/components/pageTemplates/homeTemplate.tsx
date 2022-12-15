@@ -1,3 +1,4 @@
+import { navStyles } from '@App/utils/pageUtils'
 import React from 'react'
 import CourseCard from '../cards/courseCard'
 import CourseHeader from '../courses/courseHeader'
@@ -18,16 +19,8 @@ interface Props {
 function HomeTemplate(props: Props) {
   const { courses, posts } = props
 
-  // const { state, addPostsAction, loadingPosts, clearPosts } = useFetchPaginate({
-  //   posts: data.posts,
-  //   pageInfo: {
-  //     ...data.pageInfo,
-  //     page: 1
-  //   }
-  // })
-
   return (
-    <div className='remix__page'>
+    <div className={`remix__page`}>
 
       <TransformSkillsHeader />
 

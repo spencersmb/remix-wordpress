@@ -47,7 +47,7 @@ function TmSignupForm(props: Props) {
         }
       </AnimatePresence>
 
-      <div className="login_form relative z-[2] mt-2 w-full">
+      <div className="login_form relative z-[2] mt-8 w-full">
         <Form
           ref={formRef}
           method='post' className={classNames(flexRow
@@ -61,8 +61,8 @@ function TmSignupForm(props: Props) {
           <InputBase
             label="Email"
             wrapperCss="tablet:flex-[1_1_45%]"
-            labelCss="text-sm text-grey-600 font-semibold"
-            className={`mt-2 mb-5 tablet:mb-0 ${inputBg}`}
+            labelCss="text-sm text-white font-semibold"
+            className={`mt-2 mb-6 ${inputBg}`}
             invalid={Boolean(
               actionData?.fieldErrors?.email
             ) || undefined}
@@ -93,7 +93,7 @@ function TmSignupForm(props: Props) {
             text='Sign Up'
             spinnerColors={spinnerColors.sageSolid}
             className={flexRow
-              ? `btn btn-primary btn-flex btn-lg tablet:ml-4` : `btn btn-primary btn-lg btn-primary-ring btn-flex`}
+              ? `btn btn-emerald-100 btn-flex btn-lg tablet:ml-4` : `btn btn-emerald-100 btn-lg btn-emerald-100-ring btn-flex`}
           />
 
         </Form>

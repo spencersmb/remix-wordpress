@@ -326,6 +326,33 @@ button {
  display: flex;
 }
 
+input[type="search" i]::-webkit-search-cancel-button {
+ color: var(--emerald-500);
+ -webkit-appearance: none;
+ display: inline-block;
+ width: 20px;
+ height: 20px;
+ margin-left: 16px;
+ background: linear-gradient(
+   45deg,
+   rgba(0, 0, 0, 0) 0%,
+   rgba(0, 0, 0, 0) 43%,
+   var(--emerald-800) 45%,
+   var(--emerald-800) 55%,
+   rgba(0, 0, 0, 0) 57%,
+   rgba(0, 0, 0, 0) 100%
+  ),
+  linear-gradient(
+   135deg,
+   transparent 0%,
+   transparent 43%,
+   var(--emerald-800) 45%,
+   var(--emerald-800) 55%,
+   transparent 57%,
+   transparent 100%
+  );
+}
+
 .mobileNav-height {
  overflow-y: auto;
  max-height: calc(100vh - 68px);

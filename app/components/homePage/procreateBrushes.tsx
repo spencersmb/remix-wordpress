@@ -1,6 +1,5 @@
 import { createImgixSizes, imgixServerRoot } from '@App/utils/imageHelpers'
 import { Link } from '@remix-run/react'
-import React from 'react'
 import IpadDevice from '../images/ipadDevice'
 import AccentHeaderText from '../layout/accentHeaderText'
 
@@ -48,7 +47,7 @@ function ProcreateBrushes() {
       </div>
 
       {/* CONTENT */}
-      <div className='flex flex-col items-start col-span-2 col-start-2 px-4 py-8 mt-16 tablet:row-start-1 tablet:col-start-3 tablet:col-span-6 tablet:my-[78px] tablet:pb-8 laptop:mt-36 desktop:px-16 desktop:pb-16 desktop:col-start-2 desktop:col-span-6 desktop:max-w-[725px] bg-red-400'>
+      <div className='flex flex-col items-start col-span-2 col-start-2 px-4 py-8 mt-16 tablet:row-start-1 tablet:col-start-3 tablet:col-span-6 tablet:my-[78px] tablet:pb-8 laptop:mt-36 desktop:mb-32 desktop:px-16 desktop:pb-16 desktop:col-start-2 desktop:col-span-6 desktop:max-w-[725px] bg-red-400'>
         <h3 className='relative mt-8 mb-8 text-4xl font-sentinel__SemiBoldItal desktop:text-6xl desktopXl:text-6xl'>
           <AccentHeaderText text={'Brand New!'} cssOverride={'left-[-22px] tablet:!top-[-59px] text-4xl tablet:left-[-52px]'} />
           Make inspiring art using custom procreate brushses!

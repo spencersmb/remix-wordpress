@@ -19,13 +19,76 @@ import { useCloseModalOnPageTransition, useScrollBarHide } from '@App/hooks/wind
  *
  * TODO: ADD TEST
  */
+import React from 'react'
 
-const SearchModal = () => {
+interface Props { }
+
+function SearchModal(props: Props) {
   const { state: { isOpen }, closeSearch } = useSearch()
   const [animationCompleted, setAnimationCompleted] = useState(false)
   const containerRef = useRef<null | HTMLDivElement>(null)
   const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
-
+  const containerMotion = {
+    closed: {
+      // x: '100%',
+      overflow: 'hidden',
+      // width: '0%',
+      right: 0,
+      left: '100%',
+      top: 0,
+      opacity: 1,
+      transition: {
+        duration: .3
+      }
+    },
+    open: {
+      // width: '100%',
+      // x: '0%',
+      overflowY: 'scroll',
+      left: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 30
+      }
+    }
+  }
+  const variants = {
+    initial: {
+      opacity: 0,
+      width: '100%',
+      height: '100%',
+      display: 'block',
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 30,
+      }
+    },
+    exit: {
+      opacity: 0,
+      width: '100%',
+      height: '100%',
+      display: 'black',
+      transition: {
+        opacity: {
+          duration: 0
+        }
+      }
+    },
+    enter: {
+      width: '100%',
+      height: '100%',
+      display: 'block',
+      opacity: .5,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 30,
+      }
+    },
+  }
   // Scroll bar adjustment
   useScrollBarHide({
     htmlDomRef,
@@ -34,7 +97,6 @@ const SearchModal = () => {
 
   // Close an open modal when page transitions
   useCloseModalOnPageTransition()
-
 
   return (
     // @ts-ignore
@@ -76,67 +138,30 @@ const SearchModal = () => {
 
   )
 }
-const containerMotion = {
-  closed: {
-    // x: '100%',
-    overflow: 'hidden',
-    // width: '0%',
-    right: 0,
-    left: '100%',
-    top: 0,
-    opacity: 1,
-    transition: {
-      duration: .3
-    }
-  },
-  open: {
-    // width: '100%',
-    // x: '0%',
-    overflowY: 'scroll',
-    left: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 30
-    }
-  }
-}
-const variants = {
-  initial: {
-    opacity: 0,
-    width: '100%',
-    height: '100%',
-    display: 'block',
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 30,
-    }
-  },
-  exit: {
-    opacity: 0,
-    width: '100%',
-    height: '100%',
-    display: 'black',
-    transition: {
-      opacity: {
-        duration: 0
-      }
-    }
-  },
-  enter: {
-    width: '100%',
-    height: '100%',
-    display: 'block',
-    opacity: .5,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 30,
-    }
-  },
-}
-
 
 export default SearchModal
+
+// const SearchModal = () => {
+//   // const { state: { isOpen }, closeSearch } = useSearch()
+//   // const [animationCompleted, setAnimationCompleted] = useState(false)
+//   // const containerRef = useRef<null | HTMLDivElement>(null)
+//   // const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
+
+//   // Scroll bar adjustment
+//   // useScrollBarHide({
+//   //   htmlDomRef,
+//   //   selector: 'html'
+//   // })
+
+//   // Close an open modal when page transitions
+//   // useCloseModalOnPageTransition()
+
+
+//   return (
+//     <div>modal</div>
+
+
+//   )
+// }
+
+

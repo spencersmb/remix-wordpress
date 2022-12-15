@@ -59,22 +59,25 @@ const Courses = () => {
       <div className='flex flex-col items-center'>
         <h3 className="text-sage-800 mt-12 mb-4 text-5xl font-sentinel__SemiBoldItal desktop:text-6xl desktop:max-w-[500px] desktop:mx-auto text-center tablet:mt-32">Course Collection</h3>
 
-        <div className='grid grid-cols-1 p-8 font-semibold text-center rounded-lg bg-sage-100 tablet:grid-cols-3 tablet:gap-x-4 tablet:p-4'>
-          <div className='mb-4 tablet:mb-0'>
-            Pre-recorded videos
+        <div className='grid grid-cols-1 p-8 font-semibold text-center rounded-lg bg-sage-100 tablet:grid-cols-3col-auto tablet:gap-x-8 tablet:p-4'>
+          <div className='flex flex-row items-center mb-4 tablet:mb-0 tablet:justify-end'>
+            <div className='w-[14px] h-[14px] bg-tangerine-300 mr-1 rounded-sm' />
+            <div>Pre-recorded videos</div>
           </div>
-          <div className='mb-4 tablet:mb-0'>
-            Step-by-step instructions
+          <div className='flex flex-row items-center mb-4 tablet:mb-0'>
+            <div className='w-[14px] h-[14px] bg-yellow-400 mr-1 rounded-sm' />
+            <div>Step-by-step instructions</div>
           </div>
-          <div className=''>
-            Project Based Tutorials
+          <div className='flex flex-row items-center '>
+            <div className='w-[14px] h-[14px] bg-emerald-700 mr-1 rounded-sm' />
+            <div>Project Based Tutorials</div>
           </div>
         </div>
       </div>
 
       {/* COURSES LIST */}
 
-      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16">
+      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16 desktop:grid-cols-4">
 
         {data.courses.map((course: ICourse, index: number) => {
           return <CourseCard key={index} course={course} />

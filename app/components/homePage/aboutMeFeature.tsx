@@ -50,7 +50,7 @@ function AboutMeFeature(props: Props) {
         <div className='relative max-w-[273px] mx-auto laptop:max-w-[420px] desktop:max-w-[445px]'>
 
           {/* TEXTURE */}
-          <div className='absolute top-[-121px] left-[-210px] w-[500px] z-1 tablet:top-[-119px] laptop:left-[-230px] laptop:w-[600px] desktop:w-[700px]'>
+          <div className='absolute top-[-121px] left-[-210px] w-[500px] z-1 tablet:top-[-89px] laptop:left-[-230px] laptop:w-[600px] desktop:w-[700px]'>
             <LazyImgix
               id={'redTexture'}
               image={flowers.image}
@@ -63,17 +63,17 @@ function AboutMeFeature(props: Props) {
           </div>
 
           {/* 2nd IMAGE */}
-          {/* <div className='absolute z-3 top-[-90px] left-[-82px] w-[183px] h-[183px] tablet:w-[213px] tablet:h-[213px] tablet:left-[-184px] tablet:top-[-40px] laptop:w-[282px] laptop:h-[282px] laptop:top-1/2 laptop:-translate-y-1/2 laptop:left-[-250px] desktop:w-[318px] desktop:h-[318px] desktop:left-[-285px] shadow-et_4'>
+          <div className='absolute rotate-3 z-3 top-[270px] left-[-40px] w-[145px] h-[145px] tablet:w-[140px] tablet:h-[140px] tablet:left-[-84px] tablet:top-[270px] laptop:w-[240px] laptop:h-[240px] laptop:top-[450px] laptop:-translate-y-1/2 laptop:left-[-160px] desktop:w-[318px] desktop:top-1/2 desktop:h-[318px] desktop:left-[-255px] shadow-et_4'>
             <LazyImgix
               id={'ipadTeela'}
               image={ipadImg.image}
             // sizes={imgOptions ? imgOptions.sizes : ''}
             // srcSet={imgOptions ? imgOptions.srcSet : ''}
             />
-            <div className='hidden absolute bottom-[-175px] font-bonVivant text-5xl desktop:block -rotate-12 left-[-75px] max-w-[200px]'>
+            <div className='hidden absolute bottom-[-135px] font-bonVivant text-5xl desktop:block -rotate-12 left-[-75px] max-w-[260px]'>
               Tuesdays just got a little better
             </div>
-          </div> */}
+          </div>
 
           {/* Profile IMAGE */}
           <div className='relative z-2'>
@@ -87,22 +87,18 @@ function AboutMeFeature(props: Props) {
               />
             </div>
             <PolaroidImg imgixImage={authorImg.image} rotate='left' />
-            {/* <LazyImgix
-              id={'authorImg'}
-              image={authorImg.image}
-            /> */}
           </div>
         </div>
       </div>
 
       {/* HEADLINE */}
-      <h2 className='relative col-span-2 col-start-2 mt-4 mb-4 text-3xl transition-all duration-300 z-2 font-sentinel__SemiBoldItal tablet:text-4xl tablet:col-start-8 tablet:col-span-6 tablet:row-start-1 laptop:text-6xl laptop:mt-[73px] laptop:col-start-9 laptop:col-span-5 desktop:text-6xl desktop:col-start-9 desktop:ml-8 desktopXl:col-start-9 desktopXl:col-span-4'>
+      <h2 className='relative col-span-2 col-start-2 mt-4 mb-4 text-3xl transition-all duration-300 z-2 font-sentinel__SemiBoldItal tablet:text-4xl tablet:col-start-8 tablet:col-span-6 tablet:row-start-1 laptop:text-6xl laptop:mt-[73px] laptop:col-start-9 laptop:col-span-5 desktop:text-6xl desktop:col-start-9 desktop:ml-16 desktopXl:col-start-9 desktopXl:col-span-4'>
         {/* <AccentHeaderText text='Hello!' cssOverride={'!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 text-4xl'} /> */}
         The Every Tuesday Story
       </h2>
 
       {/* PARAGRAPH */}
-      <div className='col-span-2 col-start-2 tablet:col-start-9 tablet:col-span-5 tablet:flex tablet:flex-col tablet:items-start laptop:col-start-10 laptop:col-span-4 desktop:pr-6 desktop:-ml-8 desktopXl:pr-12'>
+      <div className='col-span-2 col-start-2 tablet:col-start-9 tablet:col-span-5 tablet:flex tablet:flex-col tablet:items-start laptop:col-start-10 laptop:col-span-4 desktop:pr-6 laptop:ml-0 desktopXl:pr-12'>
         <p className='mb-8 desktop:text-lg'>
           Life gets crazy. But, at the very least, we should be dedicating one day a week to pursue our side hustles.
         </p>

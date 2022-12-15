@@ -17,7 +17,6 @@ export const PrimaryNav = () => {
   const selectedNav = 'bg-sage-200 text-grey-800 hover:bg-sage-200'
   const unselectedNav = 'text-grey-700'
   const isTuesdayMakersPage = location.pathname === '/tuesday-makers'
-
   return (
     <div aria-label="desktop navigation" className="transform translate-x-[-100%] left-0 top-[68px] h-[100vh] w-full bg-slate-500 text-center absolute laptop:items-center laptop:translate-x-0 laptop:relative laptop:top-auto laptop:h-full laptop:flex laptop:justify-center laptop:bg-inherit">
 
