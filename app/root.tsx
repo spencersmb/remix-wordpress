@@ -200,53 +200,53 @@ interface IDocument {
   title?: string
 }
 
-// export function meta({ data, matches, parentsData }: any) {
-//   const metadata = data.metadata
-//   return [
-//     {
-//       property: "charSet",
-//       content: "utf-8",
-//     },
-//     {
-//       property: "viewport",
-//       content: "width=device-width,initial-scale=1",
-//     },
-//     {
-//       property: "norton-safeweb-site-verification",
-//       content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l",
-//     },
-//     {
-//       property: 'og:locale',
-//       content: 'en_US',
-//     },
-//     {
-//       property: 'og:type',
-//       content: 'website',
-//     },
-//     {
-//       property: 'twitter:card',
-//       content: `@${metadata.social.twitter.username}`,
-//     },
-//     {
-//       property: 'twitter:site',
-//       content: `@${metadata.social.twitter.username}`,
-//     },
-//     {
-//       property: 'twitter:creator',
-//       content: 'summary_large_image',
-//     },
-//     {
-//       property: 'twitter:label1',
-//       content: `Written by`,
-//     },
-//     {
-//       property: 'twitter:data1',
-//       content: `Teela`,
-//     },
+export function meta({ data, matches, parentsData }: any) {
+  const metadata = data.metadata
+  return [
+    {
+      property: "charSet",
+      content: "utf-8",
+    },
+    {
+      property: "viewport",
+      content: "width=device-width,initial-scale=1",
+    },
+    {
+      property: "norton-safeweb-site-verification",
+      content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l",
+    },
+    {
+      property: 'og:locale',
+      content: 'en_US',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'twitter:card',
+      content: `@${metadata.social.twitter.username}`,
+    },
+    {
+      property: 'twitter:site',
+      content: `@${metadata.social.twitter.username}`,
+    },
+    {
+      property: 'twitter:creator',
+      content: 'summary_large_image',
+    },
+    {
+      property: 'twitter:label1',
+      content: `Written by`,
+    },
+    {
+      property: 'twitter:data1',
+      content: `Teela`,
+    },
 
 
-//   ];
-// }
+  ];
+}
 
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();

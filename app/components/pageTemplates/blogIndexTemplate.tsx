@@ -82,6 +82,7 @@ function BlogIndexTemplate({ loaderData }: Props) {
     <>
       <div className={`${navStyles} bg-[#F7F6F7]`}>
         <BlogFeaturedPost featuredPost={featured} />
+        <BlogFeaturedPost featuredPost={featured} />
       </div>
 
       <div className='grid grid-flow-row row-auto mt-12 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:mt-16 desktop:grid-cols-desktop'>

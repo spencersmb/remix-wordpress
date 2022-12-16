@@ -23,6 +23,7 @@ function HomeTemplate(props: Props) {
     <div className={`remix__page`}>
 
       <TransformSkillsHeader />
+      <TransformSkillsHeader />
 
       {/* <ClientOnly fallback={<p>Loading...</p>}>
         {() => <IpadVerticalAnimation />}
