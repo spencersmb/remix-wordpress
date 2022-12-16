@@ -227,6 +227,22 @@ export function meta({ data, matches, parentsData }: any) {
       property: 'twitter:card',
       content: `@${metadata.social.twitter.username}`,
     },
+    {
+      property: 'twitter:site',
+      content: `@${metadata.social.twitter.username}`,
+    },
+    {
+      property: 'twitter:creator',
+      content: 'summary_large_image',
+    },
+    {
+      property: 'twitter:label1',
+      content: `Written by`,
+    },
+    {
+      property: 'twitter:data1',
+      content: `Teela`,
+    },
 
 
   ];
