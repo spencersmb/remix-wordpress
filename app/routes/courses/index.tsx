@@ -9,7 +9,7 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllCourses } from "@App/utils/posts";
-import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo"
+import { createOgImages, getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo"
 import { consoleHelper } from "@App/utils/windowUtils";
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
@@ -21,7 +21,7 @@ const page = getStaticPageMeta({
   desc: description,
   slug: 'courses',
 })
-// export let meta = mdxPageMeta
+// export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

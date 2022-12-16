@@ -1,7 +1,7 @@
 import { fetchAPI } from '../utils/fetch.server'
 import { mapPostData } from '../utils/posts'
 import Layout from "@App/components/layoutTemplates/layout"
-import { createOgArticle, createOgImages, getHtmlMetadataTags, mdxPageMeta } from '../utils/seo'
+import { createOgArticle, createOgImages, getHtmlMetadataTags, mdxPageMetaV2 } from '../utils/seo'
 import gql from 'graphql-tag';
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE, POST_RESOURCE_FIELDS, PRODUCT_FIELDS, RELEATED_POSTS_FIELDS } from '@App/lib/graphql/queries/posts'
@@ -37,10 +37,11 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   })
 };
 
-// export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();
+  console.log('post', post)
   return (
     <Layout>
       {/* Blog post */}

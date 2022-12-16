@@ -1,7 +1,7 @@
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
-import { mdxPageMeta } from "@App/utils/seo";
+import { mdxPageMetaV2 } from "@App/utils/seo";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -11,7 +11,7 @@ const page = getStaticPageMeta({
   desc: `Your preferences have been updated on Every-Tuesday.com`,
   slug: 'tuesday-makers/updated',
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page })

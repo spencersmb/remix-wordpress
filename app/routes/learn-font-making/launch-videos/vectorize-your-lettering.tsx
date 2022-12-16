@@ -7,7 +7,7 @@ import { staticImages } from "@App/lib/imgix/data"
 import { breakpointConvertPX } from "@App/utils/appUtils"
 import { miniCourseVideoData } from "@App/utils/lfmUtils"
 import { getStaticPageMeta } from "@App/utils/pageUtils"
-import { getHtmlMetadataTags, mdxPageMeta } from "@App/utils/seo"
+import { getHtmlMetadataTags, mdxPageMetaV2 } from "@App/utils/seo"
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node"
 
@@ -16,7 +16,7 @@ const page = getStaticPageMeta({
   slug: 'learn-font-making/launch-videos/vectorize-your-lettering',
   desc: 'Over the last year and a half, I’ve had the opportunity to teach the basics of typography to undergraduate graphic design students. During this time, I’ve noticed some common mistakes that my students make when first learning how to work with type.'
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   /*

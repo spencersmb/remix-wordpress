@@ -15,7 +15,27 @@ import { formatePriceClient } from '@App/utils/productPageUtils'
  *
  *
  **/
-export function createOgImages(image: IOgImageType) {
+export function createOgImages(image: IOgImageType, type?: string | null) {
+  if(type === 'v2'){
+    return [
+      {
+        property: 'og:image:url',
+        content: image.url,
+      },
+      {
+        property: 'og:image:alt',
+        content: image.altText,
+      },
+      {
+        property: 'og:image:width',
+        content: image.width,
+      },
+      {
+        property: 'og:image:height',
+        content: image.height,
+      }
+    ]
+  }
   return {
     'og:image:alt': image.altText,
     'og:image:url': image.url,
@@ -32,7 +52,27 @@ export function createOgImages(image: IOgImageType) {
  *
  *
  **/
-export function createOgArticle(article: IOgArticle){
+export function createOgArticle(article: IOgArticle, type?: string | undefined){
+  if(type === 'v2'){
+    return [
+      {
+        property: 'og:article:published_time',
+        content: article.publishedTime,
+      },
+      {
+        property: 'og:article:modified_time',
+        content: article.modifiedTime,
+      },
+      {
+        property: 'og:article:author',
+        content: article.author,
+      },
+      {
+        property: 'og:article:tags',
+        content: article.tags.map(tag => tag.name).join(', '),
+      }
+    ]
+  }
   return {
     'og:article:publishedTime': article.publishedTime,
     'og:article:modifiedTime': article.modifiedTime,
@@ -183,130 +223,120 @@ const noFollowRoutes = [
   'design'
 ]
 
-export function mdxPageMeta({
+export function mdxPageMetaV2({
   data,
   parentsData,
-  location
+  location,
+  matches
 }: {
+  matches: any[]
   data: {page: any, post: any} | null
   parentsData: {root: any}
-  location: any
-}) {  
-  
+  location: any}){
+
   if (!data || !parentsData || isEmpty(parentsData)) {
     return {
       title: 'Oops! Page Not Found',
       description: 'We couldn\'t find the page you were looking for.',
     }
   }
-  
+
+  let rootModule = matches.find((match: any) => match.route.id === "root");
   let page = data.page || null
   let post = data.post || null
-  const metadata = parentsData.root.metadata
-  const url = `${metadata.domain}${location.pathname}`
+  let metadata = parentsData.root.metadata
+  let url = `${metadata.domain}${location.pathname}`
+  let rootOgTags = rootModule.meta
+
   const noFollow = noFollowRoutes.includes(location.pathname.split('/')[1])
   let googleFollow = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
   let googleNoFollow = 'noindex,nofollow'
+
   if(page){
-    
-    return {
-          'robots': noFollow ? googleNoFollow : googleFollow,
-          title: page.seo.title,
-          description: page.seo.metaDesc,
-          canonical: url,
-          'og:locale': 'en_US',
-          'og:site_name': `${metadata.siteTitle}.com`,
-          'og:title': page.seo.title,
-          'og:type': 'website',
-          'og:description': page.seo.metaDesc,
-          ...createOgImages({
-            altText: defaultFeaturedImage.altText,
-            url: defaultFeaturedImage.sourceUrl,
-            width:'1920',
-            height: '1080'
-          }),
-          'twitter:card': `@${metadata.social.twitter.username}`,
-          'twitter:site': `@${metadata.social.twitter.username}`,
-          'twitter:creator': 'summary_large_image',
-          'twitter:label1': `Written by`,
-          'twitter:data1': `Teela`,
-          'twitter:label2': `Est. reading time`,
-          'twitter:data2': `1 minute`,
-    }
+
+    let pageImages = createOgImages({
+        altText: defaultFeaturedImage.altText,
+        url: defaultFeaturedImage.sourceUrl,
+        width:'1920',
+        height: '1080'
+      }, 
+    'v2') as []
+
+    return [
+      ...rootOgTags,
+      {
+        robots: noFollow ? googleNoFollow : googleFollow,
+      },
+      { title: page.seo.title },
+      { 
+        description: page.seo.metaDesc
+      },
+      { canonical: url },
+      { 
+        property: 'og:title' ,
+        content: page.seo.title
+      },
+      { 
+        property: 'og:description' ,
+        content: page.seo.metaDesc
+      },
+      ...pageImages,
+    ]
   }else if(post){
-    return {
-      'robots': googleFollow,
-      title: post.seo.title,
-      description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description,
-      canonical: url,
-      'og:title': post.seo.title,
-      'og:type': 'article',
-      'og:description': post.seo.metaDesc,
-      ...createOgArticle({
+
+    let ogArticleTags = createOgArticle({
         publishedTime:post.seo.opengraphPublishedTime,
-        modifiedTime: post.seo.opengraphPublishedTime,
+        modifiedTime: post.seo.opengraphModifiedTime,
         author: `${metadata.domain}${post.author.uri}`,
         tags: post.tags
-      }),
-      ...createOgImages({
+      }, 'v2') as []
+
+    let postImages = createOgImages({
         altText: post.featuredImage?.altText || defaultFeaturedImage.altText,
         url: post.featuredImage?.sourceUrl || defaultFeaturedImage.sourceUrl,
         width:'1920',
         height: '1080'
-      }),
-      'twitter:card': `@${metadata.social.twitter.username}`,
-      'twitter:site': `@${metadata.social.twitter.username}`,
-      'twitter:creator': 'summary_large_image',
-      'twitter:label1': `Written by`,
-      'twitter:data1': `Teela`,
-      'twitter:label2': `Est. reading time`,
-      'twitter:data2': `1 minute`,
-    }
+      }, 'v2') as []
+
+    return [
+      ...rootOgTags,
+      {
+        robots: googleFollow,
+      },
+      { title: post.seo.title },
+      { 
+        description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description
+      },
+      { canonical: url },
+      { 
+        property: 'og:type' ,
+        content: 'article'
+      },
+      { 
+        property: 'og:title' ,
+        content: post.seo.title
+      },
+      { 
+        property: 'og:description' ,
+        content: post.seo.metaDesc ? post.seo.metaDesc : metadata.description
+      },
+      ...ogArticleTags,
+      ...postImages
+    ]
   }else{
-    return {
-    title: 'Not found',
-    description:
-      'You landed on a page that Kody the Coding Koala could not find 🐨😢',
-    }
+    return [
+      ...rootOgTags,
+      {
+        title: 'Not found',
+      },
+      {
+        description:
+          'You landed on a page that Kody the Coding Koala could not find 🐨😢',
+      },
+    ]
   }
+
 }
-
-/**
- * @function getBasicPageMetaTags
- * @tested - 6/8/2022
- * @description Helper function to get static Page MetaData to pass to the primary metadata function
- * getHtmlMetadataTags()
- * 
- *
- *
- **/
-// @ts-ignore
-// export let getBasicPageMetaTags: IgetBasicPageMetaTags = (
-//   metaData, 
-//   {title, desc, slug}, 
-//   follow = {googleIndex: true}
-//   ) => {
-
-//     const { data, location, parentsData } = metaData
-//   if (!data || !parentsData || isEmpty(parentsData) || !location) {
-//     return {
-//       title: '404',
-//       description: 'error: No metaData or Parents Data',
-//     }
-//   }
-//   const page = getStaticPageMeta({
-//     title,
-//     desc,
-//     slug
-//   })
-
-//   return getHtmlMetadataTags({
-//     follow: follow.googleIndex,
-//     metadata: parentsData.root.metadata,
-//     page,
-//     location
-//   })
-// }
 
 export function getBasicPageMetaTags(metaData: any, newPage:{title: any, desc:any, slug: any}, follow = {googleIndex: true}){
   return function(){

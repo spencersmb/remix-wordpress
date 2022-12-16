@@ -2,7 +2,7 @@ import Breadcrumbs from "@App/components/blog/breadcrumbs"
 import Layout from "@App/components/layoutTemplates/layout"
 import { cacheControl } from "@App/lib/remix/loaders";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react"
@@ -12,7 +12,7 @@ const page = getStaticPageMeta({
   desc: 'Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms',
   slug: 'terms-and-conditions',
 })
-// export let meta = mdxPageMeta
+// export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {

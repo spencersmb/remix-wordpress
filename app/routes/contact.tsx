@@ -5,7 +5,7 @@ import { cacheControl } from "@App/lib/remix/loaders";
 import { fetchAPIOrigin } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { getStaticPageMeta, navStyles } from "@App/utils/pageUtils";
-import { mdxPageMeta } from "@App/utils/seo";
+import { mdxPageMetaV2 } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -31,7 +31,7 @@ const page = getStaticPageMeta({
   desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
   slug: `design`,
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, { headers: { ...cacheControl } })

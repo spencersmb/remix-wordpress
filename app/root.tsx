@@ -49,6 +49,25 @@ import { useLoginOtherTabs } from "./hooks/windowUtilHooks";
  */
 export let links: LinksFunction = () => {
   return [
+
+    {
+      rel: "preconnect",
+      href: "https://fonts.googleapis.com"
+    },
+    {
+      rel: "preconnect",
+      href: "https://fonts.gstatic.com", crossOrigin: "anonymous"
+    },
+    {
+      rel: "preload",
+      as: "font",
+      type: "font/woff2",
+      href: "/fonts/sentinel/Sentinel-SemiboldItal.woff2", crossOrigin: "anonymous"
+    },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    },
     { rel: "stylesheet", href: globalStylesUrl },
     {
       rel: "stylesheet",
@@ -153,7 +172,6 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 
-
 /**
  * The root module's default export is a component that renders the current
  * route via the `<Outlet />` component. Think of this as the global layout
@@ -226,12 +244,24 @@ export function meta({ data, matches, parentsData }: any) {
       content: "utf-8",
     },
     {
-      property: "viewport",
+      httpEquiv: "Content-Type",
+      content: "text/html; charset=utf-8",
+    },
+    {
+      name: "viewport",
       content: "width=device-width,initial-scale=1",
     },
     {
-      property: "norton-safeweb-site-verification",
+      name: "norton-safeweb-site-verification",
       content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l",
+    },
+    {
+      name: "facebook-domain-verification",
+      content: "49a7ouvzn8x5uhb6gdmg2km5pnbfny",
+    },
+    {
+      name: "application-name",
+      content: "Every-Tuesday",
     },
     {
       property: 'og:locale',
@@ -242,26 +272,25 @@ export function meta({ data, matches, parentsData }: any) {
       content: 'website',
     },
     {
-      property: 'twitter:card',
+      name: 'twitter:card',
       content: `@${metadata.social.twitter.username}`,
     },
     {
-      property: 'twitter:site',
+      name: 'twitter:site',
       content: `@${metadata.social.twitter.username}`,
     },
     {
-      property: 'twitter:creator',
+      name: 'twitter:creator',
       content: 'summary_large_image',
     },
     {
-      property: 'twitter:label1',
+      name: 'twitter:label1',
       content: `Written by`,
     },
     {
-      property: 'twitter:data1',
+      name: 'twitter:data1',
       content: `Teela`,
-    },
-
+    }
 
   ];
 }
@@ -272,22 +301,9 @@ export function Document({ children, title }: IDocument) {
   return (
     <html lang="en">
       <head>
-        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        {/* <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="norton-safeweb-site-verification" content="42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l" />
-        <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
-        <meta name="application-name" content="Every-Tuesday" /> */}
         <Meta />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-        <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-
         <Links />
-        {/* <JsonLd data={data} /> */}
+        <JsonLd data={data} />
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
@@ -299,6 +315,7 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
+
         <ContextLoader>
           <GlobalEvents />
           <Header />
@@ -307,6 +324,7 @@ export function Document({ children, title }: IDocument) {
           <BasicModal />
           <CommentModal />
         </ContextLoader>
+
         {data && data.ENV && <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
@@ -318,15 +336,12 @@ export function Document({ children, title }: IDocument) {
             )}`
           }}
         />}
-
+        <script id='remix-gumroad-script'
+          src="https://gumroad.every-tuesday.com/js/gumroad.js" />
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver" />
         <ScrollRestoration />
-
-        {/* <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script> */}
         <Scripts />
         <LiveReload port={8002} />
-
-        {/* FOOTER SCRIPTS */}
-        {/* {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />} */}
 
       </body>
     </html>

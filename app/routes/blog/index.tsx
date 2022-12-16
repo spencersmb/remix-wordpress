@@ -2,7 +2,7 @@
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI, fetchAPIBatch } from "@App/utils/fetch.server";
 import { flattenAllPosts } from "@App/utils/posts";
-import { mdxPageMeta } from "@App/utils/seo";
+import { mdxPageMetaV2 } from "@App/utils/seo";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { POST_RESOURCE_FIELDS } from "@App/lib/graphql/queries/posts";
 import gql from 'graphql-tag';
@@ -24,49 +24,12 @@ const page = getStaticPageMeta({
   desc: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`
 })
 
-export function meta({ data, matches, location, parentsData }: any) {
-  // Want to snag some meta from a matched route? No problem!
-  let rootModule = matches.find((match: any) => match.route.id === "root");
-  const metadata = parentsData.root.metadata
-  const url = `${metadata.domain}${location.pathname}`
-  // const url = `${metadata.domain}${location.pathname}`
-  // console.log('rootModule', rootModule)
-  // console.log('matches', matches)
-  // console.log('data', data)
-  // Only want to merge its og: tags? Easy breezy!
-  // let rootOgTags = rootModule.meta.filter((meta: any) =>
-  //   meta.property?.startsWith("charSet")
-  // );
-  let rootOgTags = rootModule.meta
+// export function meta({ data, matches, location, parentsData }: any) {
+//   // Want to snag some meta from a matched route? No problem!
 
-  return [
-    ...rootOgTags,
-    { title: 'Blog' },
-    { description: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.` },
-    { canonical: url },
-    {
-      robots: "follow, index",
-    },
-    {
-      property: "og:site_name",
-      content: `${metadata.siteTitle}.com`,
-    },
-    {
-      property: "og:title",
-      content: 'Blog - Every-Tuesday',
-    },
-    {
-      property: "og:description",
-      content: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`,
-    },
-    {
-      property: "music:album",
-      content: "https://open.spotify.com/album/1Igrcji3zf5aC61saylDE1",
-    },
-  ];
-}
+// }
 
-// export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables: {

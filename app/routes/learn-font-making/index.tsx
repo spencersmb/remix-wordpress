@@ -7,7 +7,7 @@ import { cacheControl } from '@App/lib/remix/loaders';
 import { shuffleArray } from '@App/utils/lfmUtils';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { formatDate } from '@App/utils/posts'
-import { getBasicPageMetaTags, mdxPageMeta } from '@App/utils/seo';
+import { getBasicPageMetaTags, mdxPageMetaV2 } from '@App/utils/seo';
 import type { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData, useNavigate } from '@remix-run/react';
@@ -18,7 +18,7 @@ const page = getStaticPageMeta({
   desc: 'The proven step-by-step process to create professional and profitable hand lettered fonts.',
   slug: 'learn-font-making',
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 export let loader: LoaderFunction = async ({ request, params }) => {
 
   const gridItems = gridItemsJson

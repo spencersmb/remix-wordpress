@@ -1,7 +1,7 @@
 import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
-import { getHtmlMetadataTags, mdxPageMeta } from '@App/utils/seo';
+import { getHtmlMetadataTags, mdxPageMetaV2 } from '@App/utils/seo';
 import { findCookie } from '@App/utils/loaderHelpers';
 import type { IlfmMiniCourseCookie } from '../mini-course';
 import { lfmMiniCourseCookie } from '@App/cookies.server';

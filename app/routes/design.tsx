@@ -8,7 +8,7 @@ import Layout from '@App/components/layoutTemplates/layout'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
 import { classNames } from '@App/utils/appUtils'
 import { getStaticPageMeta } from '@App/utils/pageUtils'
-import { mdxPageMeta } from '@App/utils/seo'
+import { mdxPageMetaV2 } from '@App/utils/seo'
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, Link } from '@remix-run/react'
@@ -18,7 +18,7 @@ const page = getStaticPageMeta({
   desc: `Graphic Design Tips, Tricks, Tutorials and Freebies`,
   slug: `design`,
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader = async () => {
   return json({ page })

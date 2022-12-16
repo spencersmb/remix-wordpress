@@ -9,7 +9,7 @@ import type { ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion'
 import { LicenseEnum } from '@App/enums/products'
 import CloseSvg from '@App/components/svgs/closeSvg'
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import LicenseTabContent from '@App/components/tabs/licenseTabs/licenseTabContent'
 import LicenseTabSlider from '@App/components/tabs/licenseTabs/licenseTabSlider'
 import LicenseTabLayout from '@App/components/tabs/licenseTabs/licenseTabLayout'
@@ -26,7 +26,7 @@ const page = getStaticPageMeta({
   desc: `Three clear license options to take the guesswork out of choosing a license, so you can get back to designing.`,
   slug: `licenses`
 })
-// export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async () => {
   return json({ page }, {

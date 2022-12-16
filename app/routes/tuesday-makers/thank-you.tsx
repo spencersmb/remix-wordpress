@@ -5,7 +5,7 @@ import { ckSignUpCookie } from "@App/cookies.server";
 import { findCookie } from "@App/utils/loaderHelpers";
 import { createResourceUserSession, getConvertKitUserIdByEmail, getConvertKitUserTags } from "@App/utils/resourceLibrarySession.server";
 import useTuesdayMakersClientSideLogin from "@App/hooks/useTuesdayMakersClientSideLogin";
-import { mdxPageMeta } from "@App/utils/seo";
+import { mdxPageMetaV2 } from "@App/utils/seo";
 import ThankyouSuccessMessage from "@App/components/resourceLibrary/thankyou-success-message";
 import ThankyouErrorMessage from "@App/components/resourceLibrary/thankyou-error-message";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
@@ -16,7 +16,7 @@ const page = getStaticPageMeta({
   slug: 'tuesday-makers/thank-you',
   desc: 'Thank you for signing up for Tuesday Makers!',
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   const customHeaders = new Headers()

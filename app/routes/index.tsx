@@ -1,7 +1,6 @@
 
 import { flattenAllCourses, flattenAllPosts } from '../utils/posts'
 import { fetchAPI } from '../utils/fetch.server'
-import { mdxPageMeta } from '../utils/seo'
 import { validateEmail } from '@App/utils/validation'
 import { consoleHelper } from '@App/utils/windowUtils'
 import { ckFormIds } from '@App/lib/convertKit/formIds'
@@ -13,6 +12,7 @@ import gql from 'graphql-tag'
 import { getGraphQLString } from '@App/utils/graphqlUtils'
 import HomeTemplate from '@App/components/pageTemplates/homeTemplate'
 import { getStaticPageMeta } from '@App/utils/pageUtils'
+import { mdxPageMetaV2 } from '@App/utils/seo'
 
 const page = getStaticPageMeta({
   title: `Home`,
@@ -20,33 +20,7 @@ const page = getStaticPageMeta({
   slug: ``,
 })
 
-// change kent.env to .env
-// enable / disable meta function in app/routes/index.tsx
-// enable / disable meta function in app/routes/blog/index.tsx
-// Save and start clicking through the site via nav.
-// If that doesnt work, duplicate a component in the blogIndexTemplate.tsx and homeTemplate.tsx
-// Save both files and try clicking around again.
-export function meta({ data, matches, parentsData, location }: any) {
-
-  let rootModule = matches.find((match: any) => match.route.id === "root");
-  const metadata = parentsData.root.metadata
-  const url = `${metadata.domain}${location.pathname}`
-  let rootOgTags = rootModule.meta
-
-  // Merge what you want, where you want. No more magic!
-  return [
-    ...rootOgTags,
-    { title: "Home" },
-    { canonical: url },
-    { property: 'robots', content: 'index, follow' },
-    { property: "music:musician", content: "https://www.newfoundglory.com/" },
-    { property: "music:duration", content: 192 },
-    {
-      property: "music:album",
-      content: "https://open.spotify.com/album/1Igrcji3zf5aC61saylDE1",
-    },
-  ];
-}
+export let meta = mdxPageMetaV2
 
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next

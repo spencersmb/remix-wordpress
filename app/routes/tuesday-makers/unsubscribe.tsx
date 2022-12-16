@@ -2,7 +2,7 @@ import Layout from "@App/components/layoutTemplates/layout";
 import NavPaddingLayout from "@App/components/layoutTemplates/navPaddingLayout";
 import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { getStaticPageMeta } from "@App/utils/pageUtils";
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -12,7 +12,7 @@ const page = getStaticPageMeta({
   slug: 'tuesday-makers/unsubscribe',
   desc: `Every-Tuesday is sad to see you go. We hope you enjoyed the content and found it useful. If you have any feedback, please let us know.`
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page })

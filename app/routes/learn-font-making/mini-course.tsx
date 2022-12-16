@@ -17,7 +17,7 @@ import LazyImgix from '@App/components/images/lazyImgix';
 import { staticImages } from '@App/lib/imgix/data';
 import { breakpointConvertPX } from '@App/utils/appUtils';
 import useSite from '@App/hooks/useSite';
-import { mdxPageMeta } from '@App/utils/seo';
+import { mdxPageMetaV2 } from '@App/utils/seo';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import LfmMiniCourseTemplate from '@App/components/pageTemplates/lfm/lfmMiniCourseTemplate';
 
@@ -32,7 +32,7 @@ const page = getStaticPageMeta({
   desc: 'Watch the basics of hand lettered font making *and* selling in this 3 part free video series.',
   slug: 'learn-font-making/mini-course',
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   // TODO: GET COOKIE DATA FUNCTION

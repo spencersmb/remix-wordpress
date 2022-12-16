@@ -5,7 +5,7 @@ import {
 } from '../utils/loaderHelpers'
 import { logUserInJWT } from '../utils/fetch.server'
 import { createUserSession, setFutureDate } from '../utils/session.server'
-import { mdxPageMeta } from '../utils/seo'
+import { mdxPageMetaV2 } from '../utils/seo'
 import Layout from '@App/components/layoutTemplates/layout'
 import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
@@ -21,7 +21,7 @@ const page = getStaticPageMeta({
   desc: `Login Page for Every-Tuesday`,
   slug: `login`,
 })
-// export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 
 export let loader: LoaderFunction = async ({ request }) => {

@@ -1,5 +1,5 @@
 import { requireResourceLibraryUser } from '../../utils/resourceLibrarySession.server'
-import { mdxPageMeta } from '../../utils/seo'
+import { mdxPageMetaV2 } from '../../utils/seo'
 import { fetchAPIBatch } from '../../utils/fetch.server'
 import { GetFirstFreebiesQuery, GetFreebiesQuery } from '../../lib/graphql/queries/resourceLibrary'
 import { flattenResourceData } from '../../utils/resourceLibraryUtils'
@@ -30,7 +30,7 @@ const page = getStaticPageMeta({
   desc: `First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!`,
   slug: `tuesday-makers/members`,
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   // get user, if no user redirect to login

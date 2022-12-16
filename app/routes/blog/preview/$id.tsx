@@ -3,10 +3,10 @@ import Layout from "@App/components/layoutTemplates/layout"
 import { consoleHelper } from '../../../utils/windowUtils'
 import type { LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { mdxPageMeta } from '@App/utils/seo'
+import { mdxPageMetaV2 } from '@App/utils/seo'
 import BlogSlugTemplate from '@App/components/pageTemplates/blugSlugTemplate'
 
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 export let loader: LoaderFunction = async ({ request, params, context }) => previewLoaderRouteHandler(request, params)
 
 const PostPreview = () => {

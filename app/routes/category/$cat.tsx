@@ -4,7 +4,7 @@ import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
 import { flattenAllPosts } from "@App/utils/posts";
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import { POST_BASIC_FIELDS, POST_FEATURED_IMAGE } from "@App/lib/graphql/queries/posts";
 import type { HeadersFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -12,7 +12,7 @@ import { useLoaderData } from "@remix-run/react";
 import CategoryTemplate from '@App/components/pageTemplates/categoryTemplate';
 import { navStyles } from '@App/utils/pageUtils';
 
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   let variables = {

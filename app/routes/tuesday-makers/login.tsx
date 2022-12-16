@@ -3,7 +3,7 @@ import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/no
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 import { createResourceUserSession, getResourceUser } from "@App/utils/resourceLibrarySession.server";
-import { getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import { validateEmail } from "@App/utils/validation";
 import InputBase from "@App/components/forms/input/inputBase";
 import { ArrowRightIcon, XCircleIcon } from "@heroicons/react/solid";
@@ -30,7 +30,7 @@ const page = getStaticPageMeta({
   desc: 'First to nab special deals on courses + products *and* you get instant access to our Resource Library, stocked with over 200 design and lettering files!',
   slug: `tuesday-makers/login`
 })
-// export let meta = mdxPageMeta
+// export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   const user = await getResourceUser(request)

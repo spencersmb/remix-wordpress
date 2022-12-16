@@ -4,7 +4,7 @@ import { useLoaderData, useOutletContext } from '@remix-run/react'
 import { lfmMiniCourseCookie } from '@App/cookies.server'
 import { findCookie } from '@App/utils/loaderHelpers'
 import { getStaticPageMeta } from '@App/utils/pageUtils'
-import { getHtmlMetadataTags, mdxPageMeta } from '@App/utils/seo'
+import { getHtmlMetadataTags, mdxPageMetaV2 } from '@App/utils/seo'
 import type { IlfmMiniCourseCookie } from '../mini-course'
 import { miniCourseVideoData } from '@App/utils/lfmUtils';
 import useScript from '@App/hooks/useScript';
@@ -15,7 +15,7 @@ const page = getStaticPageMeta({
   slug: 'learn-font-making/mini-course/video-1',
   desc: 'Learn the 3 steps to choosing fonts that look good and make a lot of money'
 })
-export let meta = mdxPageMeta
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, context, params }) => {
   /*

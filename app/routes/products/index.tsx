@@ -3,7 +3,7 @@ import { useFonts } from "@App/hooks/useFonts";
 import Layout from "@App/components/layoutTemplates/layout";
 import { fetchAPI } from "@App/utils/fetch.server";
 import { getGraphQLString } from "@App/utils/graphqlUtils";
-import { createOgImages, getBasicPageMetaTags, mdxPageMeta } from "@App/utils/seo";
+import { createOgImages, getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/seo";
 import { metaDataMatches } from "@App/hooks/remixHooks";
 import UseFontPreviewProvider from "@App/hooks/useFontPreivew/useFontPreviewProvider";
 import ProductLayout from "@App/components/products/productLayout";
@@ -18,7 +18,7 @@ const page = getStaticPageMeta({
   desc: 'Every-Tuesday.com digital products for sale using the Procreate app.',
   slug: 'products',
 })
-// export let meta = mdxPageMeta
+// export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {
