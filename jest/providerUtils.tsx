@@ -114,6 +114,9 @@ function render(ui: React.ReactElement, options?: RenderOptions) {
       trackBoundaries: false,
       trackCatchBoundaries: false,
     },
+    future: {
+      v2_meta: true
+    }
   };
 
   function Wrapper({ children }: { children: React.ReactNode }) {
