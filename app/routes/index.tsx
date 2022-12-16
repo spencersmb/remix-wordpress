@@ -20,27 +20,27 @@ const page = getStaticPageMeta({
   slug: ``,
 })
 
-export function meta({ data, matches, parentsData, location }: any) {
+// export function meta({ data, matches, parentsData, location }: any) {
 
-  let rootModule = matches.find((match: any) => match.route.id === "root");
-  const metadata = parentsData.root.metadata
-  const url = `${metadata.domain}${location.pathname}`
-  let rootOgTags = rootModule.meta
+//   let rootModule = matches.find((match: any) => match.route.id === "root");
+//   const metadata = parentsData.root.metadata
+//   const url = `${metadata.domain}${location.pathname}`
+//   let rootOgTags = rootModule.meta
 
-  // Merge what you want, where you want. No more magic!
-  return [
-    ...rootOgTags,
-    { title: "Home" },
-    { canonical: url },
-    { property: 'robots', content: 'index, follow' },
-    { property: "music:musician", content: "https://www.newfoundglory.com/" },
-    { property: "music:duration", content: 192 },
-    {
-      property: "music:album",
-      content: "https://open.spotify.com/album/1Igrcji3zf5aC61saylDE1",
-    },
-  ];
-}
+//   // Merge what you want, where you want. No more magic!
+//   return [
+//     ...rootOgTags,
+//     { title: "Home" },
+//     { canonical: url },
+//     { property: 'robots', content: 'index, follow' },
+//     { property: "music:musician", content: "https://www.newfoundglory.com/" },
+//     { property: "music:duration", content: 192 },
+//     {
+//       property: "music:album",
+//       content: "https://open.spotify.com/album/1Igrcji3zf5aC61saylDE1",
+//     },
+//   ];
+// }
 // export let meta = mdxPageMeta
 
 // Loaders provide data to components and are only ever called on the server, so
