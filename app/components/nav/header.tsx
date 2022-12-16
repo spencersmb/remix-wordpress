@@ -135,27 +135,21 @@ function Header(props: Props) {
   )
 
   // return (
-  //   <UseSearchProvider defaultState={{
-  //     ...siteSearchState,
-  //     status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-  //     data: searchData,
-  //     // client,
-  //   }}>
-  //     <header data-testid="header" className="bg-white">
-  //       <Link to={'/'}>
-  //         Home
-  //       </Link>
-  //       <Link to={'/blog'}>
-  //         Blog
-  //       </Link>
-  //       <Link to={'/courses'}>
-  //         Courses
-  //       </Link>
-  //       <Link to={'/post'}>
-  //         Courses
-  //       </Link>
-  //     </header>
-  //   </UseSearchProvider>
+
+  //   <header data-testid="header" className="bg-white">
+  //     <Link to={'/'}>
+  //       Home
+  //     </Link>
+  //     <Link to={'/blog'}>
+  //       Blog
+  //     </Link>
+  //     <Link to={'/courses'}>
+  //       Courses
+  //     </Link>
+  //     <Link to={'/post'}>
+  //       Courses
+  //     </Link>
+  //   </header>
   // )
 }
 

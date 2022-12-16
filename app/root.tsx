@@ -200,8 +200,8 @@ interface IDocument {
   title?: string
 }
 
-export function meta({ data, matches }: any) {
-
+export function meta({ data, matches, parentsData }: any) {
+  const metadata = data.metadata
   return [
     {
       property: "charSet",
@@ -215,6 +215,20 @@ export function meta({ data, matches }: any) {
       property: "norton-safeweb-site-verification",
       content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l",
     },
+    {
+      property: 'og:locale',
+      content: 'en_US',
+    },
+    {
+      property: 'og:type',
+      content: 'website',
+    },
+    {
+      property: 'twitter:card',
+      content: `@${metadata.social.twitter.username}`,
+    },
+
+
   ];
 }
 
@@ -239,7 +253,7 @@ export function Document({ children, title }: IDocument) {
         <link rel="preload" href="/fonts/sentinel/Sentinel-SemiboldItal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
         <Links />
-        <JsonLd data={data} />
+        {/* <JsonLd data={data} /> */}
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
@@ -251,6 +265,7 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
+        TEST
         <ContextLoader>
           <GlobalEvents />
           <Header />
@@ -284,59 +299,59 @@ export function Document({ children, title }: IDocument) {
     </html>
   );
 }
-export function CatchBoundary() {
-  const caught = useCatch();
-  console.error('caught', caught)
-  if (caught.status === 404) return (
-    <NotFoundTemplate />
-  )
-  return (
-    <html>
-      <head>
-        <title>Oops!</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <h1>
-          {caught.status} {caught.statusText}
-        </h1>
-        <p>404 Page using CatchBoundry</p>
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-export function ErrorBoundary({ error }: any) {
-  return (
-    <html>
-      <head>
-        <title>Oh no!</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {/* add the UI you want your users to see */}
-        <div className="h-[100vh] bg-sage-100 justify-center items-center flex">
-          <div>
-            <div>
-              This is awkward. Something went wrong.
-            </div>
-            <div>
-              {error.message}
-            </div>
-            <div>
-              <Link
-                className="btn btn-lg btn-primary"
-                to={'/'}>Home</Link>
-            </div>
-          </div>
-        </div>
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+// export function CatchBoundary() {
+//   const caught = useCatch();
+//   console.error('caught', caught)
+//   if (caught.status === 404) return (
+//     <NotFoundTemplate />
+//   )
+//   return (
+//     <html>
+//       <head>
+//         <title>Oops!</title>
+//         <Meta />
+//         <Links />
+//       </head>
+//       <body>
+//         <h1>
+//           {caught.status} {caught.statusText}
+//         </h1>
+//         <p>404 Page using CatchBoundry</p>
+//         <Scripts />
+//       </body>
+//     </html>
+//   );
+// }
+// export function ErrorBoundary({ error }: any) {
+//   return (
+//     <html>
+//       <head>
+//         <title>Oh no!</title>
+//         <Meta />
+//         <Links />
+//       </head>
+//       <body>
+//         {/* add the UI you want your users to see */}
+//         <div className="h-[100vh] bg-sage-100 justify-center items-center flex">
+//           <div>
+//             <div>
+//               This is awkward. Something went wrong.
+//             </div>
+//             <div>
+//               {error.message}
+//             </div>
+//             <div>
+//               <Link
+//                 className="btn btn-lg btn-primary"
+//                 to={'/'}>Home</Link>
+//             </div>
+//           </div>
+//         </div>
+//         <Scripts />
+//       </body>
+//     </html>
+//   );
+// }
 
 /**
  * Provides an alert for screen reader users when the route changes.
