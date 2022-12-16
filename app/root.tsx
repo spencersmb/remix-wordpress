@@ -211,6 +211,10 @@ export function meta({ data, matches }: any) {
       property: "viewport",
       content: "width=device-width,initial-scale=1",
     },
+    {
+      property: "norton-safeweb-site-verification",
+      content: "42o2xv441l6-j8hnbn5bc1wi76o7awsydx8s00-ad8jqokbtj2w3ylsaed7gk2tbd3o-tdzh62ynrlkpicf51voi7pfpa9j61f51405kq0t9z-v896p48l7nlqas6i4l",
+    },
   ];
 }
 
@@ -220,7 +224,7 @@ export function Document({ children, title }: IDocument) {
   return (
     <html lang="en">
       <head>
-
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         {/* <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />

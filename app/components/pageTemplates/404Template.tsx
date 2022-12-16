@@ -47,7 +47,7 @@ export default function NotFoundTemplate() {
         <meta name="facebook-domain-verification" content="49a7ouvzn8x5uhb6gdmg2km5pnbfny" />
         <Meta />
         <Links />
-        <MetaTags domain={rootMetadata?.ENV.APP_ROOT_URL} pathName={location.pathname} />
+        {/* <MetaTags domain={rootMetadata?.ENV.APP_ROOT_URL} pathName={location.pathname} /> */}
       </head>
       <body>
         <ContextLoader>

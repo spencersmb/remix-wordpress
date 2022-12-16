@@ -37,7 +37,7 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   })
 };
 
-export let meta = mdxPageMeta
+// export let meta = mdxPageMeta
 
 export default function PostSlug() {
   let { post } = useLoaderData<typeof loader>();

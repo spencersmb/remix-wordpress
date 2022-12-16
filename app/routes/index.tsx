@@ -21,18 +21,13 @@ const page = getStaticPageMeta({
 })
 
 export function meta({ data, matches }: any) {
-  // Want to snag some meta from a matched route? No problem!
-  // let rootModule = matches.find((match: any) => match.route.id === "root");
-  console.log('matches', matches)
-  console.log('data', data)
-  // Only want to merge its og: tags? Easy breezy!
-  // let rootOgTags = rootModule.meta.filter((meta: any) =>
-  //   meta.property?.startsWith("og:")
-  // );
+  let rootModule = matches.find((match: any) => match.route.id === "root");
+
+  let rootOgTags = rootModule.meta
 
   // Merge what you want, where you want. No more magic!
   return [
-    // // ...rootOgTags,
+    ...rootOgTags,
     { title: "Home" },
     { property: 'robots', content: 'index, follow' },
     { property: "music:musician", content: "https://www.newfoundglory.com/" },

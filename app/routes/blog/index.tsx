@@ -38,7 +38,7 @@ export function meta({ data, matches }: any) {
 
   return [
     ...rootOgTags,
-    { title: page.title },
+    { title: 'static title' },
     {
       property: "music:album",
       content: "https://open.spotify.com/album/1Igrcji3zf5aC61saylDE1",
