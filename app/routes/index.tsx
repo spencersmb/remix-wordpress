@@ -20,6 +20,12 @@ const page = getStaticPageMeta({
   slug: ``,
 })
 
+// change kent.env to .env
+// enable / disable meta function in app/routes/index.tsx
+// enable / disable meta function in app/routes/blog/index.tsx
+// Save and start clicking through the site via nav.
+// If that doesnt work, duplicate a component in the blogIndexTemplate.tsx and homeTemplate.tsx
+// Save both files and try clicking around again.
 export function meta({ data, matches, parentsData, location }: any) {
 
   let rootModule = matches.find((match: any) => match.route.id === "root");
@@ -41,7 +47,6 @@ export function meta({ data, matches, parentsData, location }: any) {
     },
   ];
 }
-// export let meta = mdxPageMeta
 
 // Loaders provide data to components and are only ever called on the server, so
 // you can connect to a database or run any server side code you want right next
@@ -149,6 +154,7 @@ interface LoaderData {
   pageInfo: IwpPageInfo
   posts: IPost[]
 }
+
 export default function Index() {
   let data = useLoaderData<typeof loader>();
   let { courses, posts } = data

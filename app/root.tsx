@@ -189,6 +189,24 @@ export default withSentry(function App() {
 
     </Document>
   );
+
+  // return (
+  //   <html lang="en">
+  //     <head>
+  //       <Meta />
+  //       <Links />
+  //     </head>
+  //     <body>
+  //       <Header />
+  //       <Outlet />
+  //       <ScrollRestoration />
+  //       <Scripts />
+  //       <LiveReload />
+  //       <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+  //       {metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+  //     </body>
+  //   </html>
+  // )
 }, {
   wrapWithErrorBoundary: true,
   errorBoundaryOptions: {
@@ -281,7 +299,6 @@ export function Document({ children, title }: IDocument) {
             src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
           />
         </noscript>
-        TEST
         <ContextLoader>
           <GlobalEvents />
           <Header />
@@ -290,7 +307,7 @@ export function Document({ children, title }: IDocument) {
           <BasicModal />
           <CommentModal />
         </ContextLoader>
-        {data && data.ENV && <script nonce="845c5c"
+        {data && data.ENV && <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
               data.ENV
@@ -304,12 +321,12 @@ export function Document({ children, title }: IDocument) {
 
         <ScrollRestoration />
 
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
+        {/* <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script> */}
         <Scripts />
         <LiveReload port={8002} />
 
         {/* FOOTER SCRIPTS */}
-        {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />}
+        {/* {data?.metadata?.serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && <script id='remix-gumroad-script' async src="https://gumroad.every-tuesday.com/js/gumroad.js" />} */}
 
       </body>
     </html>

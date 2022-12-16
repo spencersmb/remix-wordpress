@@ -29,7 +29,6 @@ export interface IWPMenu {
   slug: string,
   locations: string[],
   menuItems: IWpMenuItem[]
-
 }
 export interface IWpMenus {
   menus: IWPMenu[]
