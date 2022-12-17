@@ -12,7 +12,7 @@ const page = getStaticPageMeta({
   desc: 'Your access to and use of the products and courses within Every Tuesday is conditioned on your acceptance of and compliance with these Terms',
   slug: 'terms-and-conditions',
 })
-// export let meta = mdxPageMetaV2
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {

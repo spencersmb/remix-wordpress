@@ -90,10 +90,10 @@ const FooterLinks = () => {
           if (index !== 2) {
             return (
               <div data-testid="footer-link" key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
-                <p className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</p>
+                <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-sage-300'>{block.heading}</p>
                 <ul>
                   {block.links.map(link => (
-                    <li key={link.url} className='pb-3 text-lg text-sage-300 btn-spencer'>
+                    <li key={link.url} className='pb-3 text-lg text-sage-500 btn-spencer'>
                       <Link data-testid="footer-link--item" className='hover:text-sage-200 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                     </li>
                   ))}
@@ -105,9 +105,8 @@ const FooterLinks = () => {
 
           return (
             <div data-testid="social-links-block" key={index}>
-              <p className='pb-6 font-sentinel__SemiBoldItal text-h5'>{block.heading}</p>
-              <SocialLinksList1
-                svgColor={`var(${cssColors.primaryPlum50})`}
+              <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-sage-300'>{block.heading}</p>
+              <SocialLinksList1 svgColor={`var(${cssColors.primaryPlum50})`}
               />
             </div>
           )

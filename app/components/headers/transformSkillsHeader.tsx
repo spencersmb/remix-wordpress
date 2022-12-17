@@ -40,6 +40,7 @@ function TransformSkillsHeader(props: Props) {
     <section className={`bg-tangerine-50 ${navStyles}`}>
       <div className='relative py-16 pb-8 et-grid-basic laptop:pb-16 desktop:pt-8 desktopXl:py-0'>
 
+
         {/* Border IMAGE */}
         <div className='absolute top-0 w-full -translate-x-1/2 left-1/2 desktop:top-[-100px]'>
           <LazyImgix
@@ -77,6 +78,7 @@ function TransformSkillsHeader(props: Props) {
 
         {/* HEADER IMG */}
         <div className='relative flex items-center col-span-2 col-start-2 mt-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-20 laptop:col-start-2 laptop:col-span-12 laptop:max-w-[837px] laptop:mx-auto laptop:w-full laptop:mt-36 laptop:mb-4 desktopXl:mb-32 desktop:col-start-2 desktop:col-span-7 desktop:ml-16 desktopXl:col-start-2 desktopXl:col-span-7 desktopXl:items-end desktopXl:ml-0 '>
+
           <LazyImgix
             id='text'
             visibleByDefault={true}

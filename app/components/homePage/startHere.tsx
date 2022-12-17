@@ -35,7 +35,7 @@ export default function StartHere() {
       </div>
 
       {/* CARD CONTENT */}
-      <div className='relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white pt-28 z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-2 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center desktopXl:col-start-3 desktopXl:col-span-5' >
+      <div className='relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white pt-28 z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center tablet:pb-10 laptop:col-start-3 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center desktopXl:col-start-3 desktopXl:col-span-5' >
 
         {/* PIN */}
         <div className='absolute top-[-23px] left-1/2 -translate-x-1/2 w-[65px]'>
@@ -52,8 +52,8 @@ export default function StartHere() {
         </div>
 
         {/* TITLE */}
-        <div className='max-w-[250px] mx-auto relative text-5xl font-sentinel__SemiBoldItal text-sage-600'>
-          <AccentHeaderText text='Start Here!' cssOverride='text-4xl text-grey-800' />
+        <div className='max-w-[250px] mx-auto relative text-5xl font-sentinel__SemiBoldItal text-grey-800'>
+          <AccentHeaderText text='Start Here!' cssOverride='text-4xl text-[#FF551F]' />
           New to Procreate?
         </div>
 
@@ -70,7 +70,8 @@ export default function StartHere() {
         {/* LINK */}
         <a
           target={'_blank'}
-          href={'https://learn.every-tuesday.com/procreate-for-beginners'} className='mt-3 btn btn-primary btn-xl' rel="noreferrer">
+          href={'https://learn.every-tuesday.com/procreate-for-beginners'}
+          className='mt-3 btn btn-primary btn-xl btn-primary-ring' rel="noreferrer">
           Start Here
         </a>
       </div>

@@ -25,10 +25,10 @@ function CourseCardSmall(props: Props) {
       target={'_blank'}
       rel={'noreferrer'}
       href={course.details.courseUrl}
-      className='relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 bg-cream-100 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1'>
+      className='relative flex flex-row items-center p-4 mb-4 transition-all duration-300 translate-y-0 z-3 bg-tangerine-200 group laptop:hover:shadow-et_4 laptop:hover:z-2 laptop:hover:-translate-y-1'>
 
       {/* IMAGE */}
-      <div className='rounded-full w-[113px] h-[113px] overflow-hidden bg-sage-500 border-0 transition-all duration-200 group-hover:border-4 border-sage-500'>
+      <div className='rounded-full w-[113px] h-[113px] overflow-hidden border-0 transition-all duration-200'>
         <LazyImageBase
           testId='course-feature-image'
           id={course.id}
@@ -39,8 +39,8 @@ function CourseCardSmall(props: Props) {
 
       {/* TITLE */}
       <div className='flex flex-col flex-1 ml-4'>
-        <div className='text-xs font-semibold uppercase text-sage-600'>course</div>
-        <div className='text-xl font-semibold leading-7'>
+        <div className='text-xs font-semibold uppercase text-emerald-900'>course</div>
+        <div className='text-xl font-semibold leading-7 text-emerald-900'>
           {course.title}
         </div>
       </div>

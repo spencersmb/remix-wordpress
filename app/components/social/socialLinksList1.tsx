@@ -28,7 +28,7 @@ function SocialLinksList1({ svgColor, ulClassName }: Props) {
             return (
               <li key={key} className='flex'>
                 <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                  <YoutubeSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
+                  <YoutubeSvg className='transition-all svg-[var(--sage-300)] group-hover:svg-[var(--sage-100)] group-hover:scale-[1.2]' fill={svgColor} />
                   <span className="sr-only">Every Tuesday on Youtube</span>
                 </a>
               </li>
@@ -37,7 +37,7 @@ function SocialLinksList1({ svgColor, ulClassName }: Props) {
             return (
               <li key={key} className='flex pl-9'>
                 <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                  <FacebookSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
+                  <FacebookSvg className='transition-all svg-[var(--sage-300)] group-hover:svg-[var(--sage-100)] group-hover:scale-[1.2]' fill={svgColor} />
                   <span className="sr-only">Every Tuesday on Facebook</span>
                 </a>
               </li>
@@ -46,7 +46,7 @@ function SocialLinksList1({ svgColor, ulClassName }: Props) {
             return (
               <li key={key} className='flex pl-9'>
                 <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                  <InstagramSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
+                  <InstagramSvg className='transition-all svg-[var(--sage-300)] group-hover:svg-[var(--sage-100)] group-hover:scale-[1.2]' fill={svgColor} />
                   <span className="sr-only">Every Tuesday on Instagram</span>
                 </a>
               </li>
@@ -55,7 +55,7 @@ function SocialLinksList1({ svgColor, ulClassName }: Props) {
             return (
               <li key={key} className='flex pl-9'>
                 <a data-testid="social-link" href={metadata.social[key]} rel="noreferrer" target={'_blank'} className='flex max-w-[28px] group'>
-                  <PinterestSvg className='transition-all group-hover:svg-[var(--sage-400)] group-hover:scale-[1.2]' fill={svgColor} />
+                  <PinterestSvg className='transition-all svg-[var(--sage-300)] group-hover:svg-[var(--sage-100)] group-hover:scale-[1.2]' fill={svgColor} />
                   <span className="sr-only">Every Tuesday on Pinterest</span>
                 </a>
               </li>

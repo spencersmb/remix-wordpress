@@ -30,7 +30,7 @@ function FooterPrimary({ hideSignUp = false }: IProps) {
 
     <footer
       data-testid="footer"
-      className='bg-sage-800 relative pt-[100px] pb-[35px] laptop:pt-[80px] desktop:pt-[120px] laptop:pb-[50px] z-3'>
+      className='bg-emerald-900 relative pt-[100px] pb-[35px] laptop:pt-[80px] desktop:pt-[120px] laptop:pb-[50px] z-3'>
       <div className='container'>
 
         {displaySignup()}

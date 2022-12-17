@@ -22,7 +22,7 @@ function FeaturedBlogPosts(props: Props) {
   const lastThreePosts = posts.slice(1, 4)
 
   return (
-    <section className='bg-[#F7F6F7] et-grid-basic py-8 tablet:py-16 laptop:py-24'>
+    <section className='py-8 et-grid-basic tablet:py-16 laptop:py-24'>
 
       <div className='col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 laptop:col-start-2 laptop:col-span-8 laptop:row-start-1 laptop:mb-0 desktop:col-start-2 desktop:col-span-8'>
         <BlogFeaturePostHomePage post={firstPost} />

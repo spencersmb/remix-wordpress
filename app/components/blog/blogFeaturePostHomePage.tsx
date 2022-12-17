@@ -50,8 +50,8 @@ function BlogFeaturePostHomePage(props: Props) {
 
         {/* TITLE */}
         <Link to={`/${post.slug}`} prefetch={`intent`} className={`group`}>
-          <h2 className='relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-sage-500'>
-            <AccentHeaderText text={'Latest Post'} cssOverride={'!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 laptop:group-hover:text-grey-800 text-4xl'} />
+          <h2 className='relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-tangerine-700'>
+            <AccentHeaderText text={'Latest Post'} cssOverride={'!top-[-50px] left-[-15px] tablet:!top-[-63px] text-[#FF551F] text-4xl'} />
             {post.title}
           </h2>
         </Link>
@@ -73,7 +73,7 @@ function BlogFeaturePostHomePage(props: Props) {
           <div className='mt-4 desktop:text-lg'
             dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />}
 
-        <Link to={`/${post.slug}`} prefetch={`intent`} className="mt-8 btn btn-xl btn-primary tablet:mt-6 tablet:btn-flex">
+        <Link to={`/${post.slug}`} prefetch={`intent`} className="mt-8 btn btn-xl btn-primary-ring btn-primary tablet:mt-6 tablet:btn-flex">
           View the post
         </Link>
 

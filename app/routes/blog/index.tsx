@@ -24,11 +24,6 @@ const page = getStaticPageMeta({
   desc: `Get the most up-to-date content on Procreate from Every-Tuesday. Follow along with our tutorials from the blog, learn new tips and tricks, and get inspired by our community.`
 })
 
-// export function meta({ data, matches, location, parentsData }: any) {
-//   // Want to snag some meta from a matched route? No problem!
-
-// }
-
 export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, }) => {

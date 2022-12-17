@@ -36,8 +36,7 @@ function HomeTemplate(props: Props) {
 
       <ProcreateBrushes />
 
-      <FeaturedBlogPosts
-        posts={posts} />
+      <FeaturedBlogPosts posts={posts} />
 
       <AboutMeFeature />
 

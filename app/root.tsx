@@ -38,6 +38,8 @@ import SearchModal from "./components/modals/searchModal";
 import { ShopPlatformEnum } from "./enums/products";
 import { withSentry } from "@sentry/remix";
 import { useLoginOtherTabs } from "./hooks/windowUtilHooks";
+import CustomScripts from "./components/layout/customScripts";
+import ErrorTemplate from "./components/pageTemplates/errorTemplate";
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -228,7 +230,7 @@ export default withSentry(function App() {
 }, {
   wrapWithErrorBoundary: true,
   errorBoundaryOptions: {
-    fallback: <NotFoundTemplate />
+    fallback: <ErrorTemplate />
   }
 });
 interface IDocument {
@@ -308,13 +310,6 @@ export function Document({ children, title }: IDocument) {
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}
       >
-        {/* <!-- Insert Your Facebook Pixel ID below. --> */}
-        <noscript>
-          <img height="1" width="1" style={{ display: 'none' }}
-            alt="facebook pixel"
-            src="https://www.facebook.com/tr?id=1336949923022263&ev=PageView&noscript=1"
-          />
-        </noscript>
 
         <ContextLoader>
           <GlobalEvents />
@@ -325,20 +320,7 @@ export function Document({ children, title }: IDocument) {
           <CommentModal />
         </ContextLoader>
 
-        {data && data.ENV && <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(
-              data.ENV
-              // {
-              //   PUBLIC_WP_API_URL: 'https://etheadless.local/graphql/',
-              //   APP_ROOT_URL: 'http://localhost:3000'
-              // }
-            )}`
-          }}
-        />}
-        <script id='remix-gumroad-script'
-          src="https://gumroad.every-tuesday.com/js/gumroad.js" />
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver" />
+        <CustomScripts data={data} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload port={8002} />
@@ -347,59 +329,31 @@ export function Document({ children, title }: IDocument) {
     </html>
   );
 }
-// export function CatchBoundary() {
-//   const caught = useCatch();
-//   console.error('caught', caught)
-//   if (caught.status === 404) return (
-//     <NotFoundTemplate />
-//   )
-//   return (
-//     <html>
-//       <head>
-//         <title>Oops!</title>
-//         <Meta />
-//         <Links />
-//       </head>
-//       <body>
-//         <h1>
-//           {caught.status} {caught.statusText}
-//         </h1>
-//         <p>404 Page using CatchBoundry</p>
-//         <Scripts />
-//       </body>
-//     </html>
-//   );
-// }
-// export function ErrorBoundary({ error }: any) {
-//   return (
-//     <html>
-//       <head>
-//         <title>Oh no!</title>
-//         <Meta />
-//         <Links />
-//       </head>
-//       <body>
-//         {/* add the UI you want your users to see */}
-//         <div className="h-[100vh] bg-sage-100 justify-center items-center flex">
-//           <div>
-//             <div>
-//               This is awkward. Something went wrong.
-//             </div>
-//             <div>
-//               {error.message}
-//             </div>
-//             <div>
-//               <Link
-//                 className="btn btn-lg btn-primary"
-//                 to={'/'}>Home</Link>
-//             </div>
-//           </div>
-//         </div>
-//         <Scripts />
-//       </body>
-//     </html>
-//   );
-// }
+export function CatchBoundary() {
+  const caught = useCatch();
+  console.error('caught', caught)
+  if (caught.status === 404) return (
+    <NotFoundTemplate />
+  )
+  return (
+    <html>
+      <head>
+        <title>Oops!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
+        <p>404 Page using CatchBoundry</p>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export let ErrorBoundary = ErrorTemplate
 
 /**
  * Provides an alert for screen reader users when the route changes.

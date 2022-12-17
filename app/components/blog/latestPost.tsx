@@ -18,12 +18,12 @@ function LatestPost(props: Props) {
       <div className='flex flex-row justify-between'>
 
         {/* TITLE */}
-        <div className='relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300'>
+        <div className='relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-tangerine-700 transition-colors duration-300'>
           {post.title}
         </div>
 
         {/* ARROW */}
-        <div className='w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600'>
+        <div className='w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-tangerine-700'>
           <ArrowRightIcon />
         </div>
       </div>

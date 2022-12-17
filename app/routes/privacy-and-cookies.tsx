@@ -3,7 +3,7 @@ import Layout from '@App/components/layoutTemplates/layout'
 import { cacheControl } from '@App/lib/remix/loaders';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { mdxPageMetaV2 } from '@App/utils/seo';
-import type { LoaderFunction } from '@remix-run/node';
+import type { HeadersFunction, LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { Link } from '@remix-run/react';
 
@@ -12,7 +12,7 @@ const page = getStaticPageMeta({
   desc: `Full transparency about the privacy practices implemented here at Every-Tuesday.com`,
   slug: `privacy-and-cookies`,
 })
-// export let meta = mdxPageMetaV2
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {
@@ -20,6 +20,13 @@ export let loader: LoaderFunction = async ({ request }) => {
       // ...cacheControl
     }
   })
+};
+export let headers: HeadersFunction = ({
+  loaderHeaders
+}) => {
+  return {
+    "Cache-Control": 'max-age=604800, must-revalidate'
+  };
 };
 const PrivacyPage = () => {
   const breadcrumbLinks = [
@@ -35,7 +42,7 @@ const PrivacyPage = () => {
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
         <div className='flex flex-col col-start-2 space-y-8 text-xl colo-span-2 tablet:col-span-10 tablet:col-start-3 linkChildren'>
-          <h1 className='pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800'>Use of This Website and Privacy
+          <h1 className='pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800'>Use of This Website and Privacy Cacheed
           </h1>
           <p className='text-xl font-sentinel__SemiBoldItal'>
             Last Updated — Dec 7, 2021
