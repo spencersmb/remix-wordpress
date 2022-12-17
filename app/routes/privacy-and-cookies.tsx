@@ -25,7 +25,7 @@ export let headers: HeadersFunction = ({
   loaderHeaders
 }) => {
   return {
-    "Cache-Control": 'max-age=604800, must-revalidate'
+    "Cache-Control": 'max-age=604800, stale-while-revalidate'
   };
 };
 const PrivacyPage = () => {
@@ -41,8 +41,8 @@ const PrivacyPage = () => {
         <div className='col-span-2 col-start-2 mt-2 mb-8 tablet:col-start-3 tablet:col-span-10 tablet:mt-5 tablet:mb-8'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
-        <div className='flex flex-col col-start-2 space-y-8 text-xl colo-span-2 tablet:col-span-10 tablet:col-start-3 linkChildren'>
-          <h1 className='pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800'>Use of This Website and Privacy Cacheed
+        <div className='flex flex-col col-span-2 col-start-2 space-y-8 text-xl tablet:col-span-10 tablet:col-start-3 linkChildren'>
+          <h1 className='pb-12 text-5xl font-sentinel__SemiBoldItal text-sage-800'>Use of This Website and Privacy Stale
           </h1>
           <p className='text-xl font-sentinel__SemiBoldItal'>
             Last Updated — Dec 7, 2021

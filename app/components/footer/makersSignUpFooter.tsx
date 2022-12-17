@@ -172,8 +172,8 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
         />
       </div>
 
-      {/* SCRIBBLE TEXTURE  */}
-      <div className="absolute top-[-50px] left-[-50px] z-0 w-[301px] tablet:left-[-160px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[550px] laptop:left-[-25px] laptop:top-[-58px] desktop:w-[650px] desktop:left-[20px] desktop:top-[-50px] h-full">
+      {/* FLOWER TEXTURE  */}
+      <div className="absolute top-[-100px] left-[-90px] z-0 w-[371px] tablet:left-[-160px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[660px] laptop:left-[-175px] laptop:top-[-168px] desktop:w-[650px] desktop:left-[-210px] desktop:top-[-190px] desktopXl:w-[780px] desktopXl:left-[-260px] h-full">
         <LazyImgix
           id={'ipadFlowerBg'}
           image={scribble.image}
@@ -184,60 +184,6 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
               ${scribble.defaultSrc}&w=1200&fit=clip 1200w,
               `}
         />
-        {/* <Picture >
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.scribbles.scribble_3.src}
-            width={650}
-            htmlAttributes={{ media: "(min-width: 1280px)" }}
-          />
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.scribbles.scribble_3.src}
-            width={550}
-            htmlAttributes={{ media: "(min-width: 1024px)" }}
-          />
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.scribbles.scribble_3.src}
-            width={500}
-            htmlAttributes={{ media: "(min-width: 768px)" }}
-          />
-          <Source
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            src={staticImages.scribbles.scribble_3.src}
-            width={301}
-            htmlAttributes={{ media: "(min-width: 320px)" }}
-          />
-          <Imgix
-            className="lazyload"
-            src={staticImages.scribbles.scribble_3.src}
-            attributeConfig={{
-              src: 'data-src',
-              srcSet: 'data-srcset',
-              sizes: 'data-sizes'
-            }}
-            imgixParams={{ w: 100 }}
-            htmlAttributes={{
-              src: staticImages.scribbles.scribble_3.placeholder, // low quality image here
-            }} />
-        </Picture> */}
       </div>
     </div>
   )
