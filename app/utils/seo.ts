@@ -235,10 +235,15 @@ export function mdxPageMetaV2({
   location: any}){
 
   if (!data || !parentsData || isEmpty(parentsData)) {
-    return {
-      title: 'Oops! Page Not Found',
-      description: 'We couldn\'t find the page you were looking for.',
-    }
+    return [
+      {
+        title: 'Oops! Page Not Found', 
+      },
+      {
+        name: 'description',
+        content: 'We couldn\'t find the page you were looking for.'
+      }
+    ]
   }
 
   let rootModule = matches.find((match: any) => match.route.id === "root");
@@ -269,7 +274,8 @@ export function mdxPageMetaV2({
       },
       { title: page.seo.title },
       { 
-        description: page.seo.metaDesc
+        name: 'description' ,
+        content: page.seo.metaDesc
       },
       { canonical: url },
       { 
@@ -305,7 +311,8 @@ export function mdxPageMetaV2({
       },
       { title: post.seo.title },
       { 
-        description: post.seo.metaDesc ? post.seo.metaDesc : metadata.description
+        name: 'description' ,
+        content: post.seo.metaDesc ? post.seo.metaDesc : metadata.description
       },
       { canonical: url },
       { 
@@ -330,7 +337,8 @@ export function mdxPageMetaV2({
         title: 'Not found',
       },
       {
-        description:
+        name: 'description',
+        content:
           'You landed on a page that Kody the Coding Koala could not find 🐨😢',
       },
     ]

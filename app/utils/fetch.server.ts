@@ -54,6 +54,9 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
+  if(variables && variables.slug && variables.slug === 'hudson'){
+    console.log('query', query)
+  }
   console.log('VARIABLES API POST',JSON.stringify({
       variables,
     }))

@@ -16,8 +16,8 @@ import deleteMeRemixStyles from "@App/styles/demos/remix.css";
 import globalStylesUrl from "@App/styles/global-old.css";
 import darkStylesUrl from "@App/styles/dark.css";
 import { createSiteMetaData, getDynamicSiteMetadata, getWPMenu } from './lib/wp/site'
-import NProgress from "nprogress";
-import nProgressStyles from "nprogress/nprogress.css";
+// import NProgress from "nprogress";
+// import nProgressStyles from "nprogress/nprogress.css";
 import styles from "./styles/app.css";
 import { getUserSession } from './utils/session.server'
 import { getResourceUser } from './utils/resourceLibrarySession.server'
@@ -77,7 +77,7 @@ export let links: LinksFunction = () => {
       media: "(prefers-color-scheme: dark)"
     },
     { rel: "stylesheet", href: deleteMeRemixStyles },
-    { rel: "stylesheet", href: nProgressStyles },
+    // { rel: "stylesheet", href: nProgressStyles },
     { rel: "stylesheet", href: styles },
   ];
 };

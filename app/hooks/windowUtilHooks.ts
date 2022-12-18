@@ -133,7 +133,6 @@ export function useMobileNav() {
   // Set html overflow to hidden when mobile nav is open
   useEffect(() => {
     if (!html.current) {
-      console.log('set HTML CURRENT')
       html.current = document.querySelector('html')
     }
 
