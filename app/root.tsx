@@ -239,8 +239,9 @@ interface IDocument {
 }
 
 export function meta({ data, matches, parentsData }: any) {
-  const metadata = data.metadata
-  return [
+  const metadata = data?.metadata
+
+  const defaultMeta = [
     {
       property: "charSet",
       content: "utf-8",
@@ -272,8 +273,10 @@ export function meta({ data, matches, parentsData }: any) {
     {
       property: 'og:type',
       content: 'website',
-    },
-    {
+    }
+  ]
+  let twitterMeta = metadata ?
+    [{
       name: 'twitter:card',
       content: `@${metadata.social.twitter.username}`,
     },
@@ -292,8 +295,11 @@ export function meta({ data, matches, parentsData }: any) {
     {
       name: 'twitter:data1',
       content: `Teela`,
-    }
+    }] : []
 
+  return [
+    ...defaultMeta,
+    ...twitterMeta
   ];
 }
 
