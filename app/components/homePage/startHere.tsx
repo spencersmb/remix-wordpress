@@ -14,7 +14,7 @@ export default function StartHere() {
     <section className='relative flex bg-grey-200 tablet:p-0 et-grid-basic'>
 
       {/* BG VIDEO */}
-      <div className='absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[730px] overflow-hidden tablet:h-full tablet:w-full tablet:left-auto tablet:translate-x-0 tablet:relative tablet:col-start-1 tablet:col-end-full tablet:row-start-1'>
+      <div className='absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[730px] overflow-hidden tablet:h-auto tablet:w-full tablet:left-auto tablet:translate-x-0 tablet:relative tablet:col-start-1 tablet:col-end-full tablet:row-start-1'>
         <div className='relative block w-full h-full p-0 overflow-hidden'>
           <div className='relative h-full'>
             {process.env.NODE_ENV !== 'test' && <LazyLoadVideo

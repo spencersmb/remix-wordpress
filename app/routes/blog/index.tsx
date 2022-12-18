@@ -108,7 +108,6 @@ export let loader: LoaderFunction = async ({ request, }) => {
   })
 };
 
-
 function BlogIndex() {
   let loaderData = useLoaderData<typeof loader>();
 

@@ -10,6 +10,7 @@ import FeaturedBlogPosts from '../homePage/featuredBlogPosts'
 import LfmMiniCourse from '../homePage/lfmMiniCourse'
 import ProcreateBrushes from '../homePage/procreateBrushes'
 import StartHere from '../homePage/startHere'
+import YourInstructor from '../homePage/yourInstructor'
 
 interface Props {
   courses: ICourse[]
@@ -20,13 +21,15 @@ function HomeTemplate(props: Props) {
   const { courses, posts } = props
 
   return (
-    <div className={`remix__page`}>
+    <>
 
       <TransformSkillsHeader />
 
       {/* <ClientOnly fallback={<p>Loading...</p>}>
         {() => <IpadVerticalAnimation />}
       </ClientOnly> */}
+
+      <YourInstructor />
 
       <StartHere />
 
@@ -40,7 +43,7 @@ function HomeTemplate(props: Props) {
 
       <AboutMeFeature />
 
-    </div>
+    </>
   )
 }
 

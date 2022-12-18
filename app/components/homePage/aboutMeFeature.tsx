@@ -107,7 +107,7 @@ function AboutMeFeature(props: Props) {
           Life gets crazy. But, at the very least, we should be dedicating one day a week to pursue our side hustles.
         </p>
         <Link
-          className='btn btn-primary btn-xl'
+          className='btn btn-primary btn-xl btn-primary-ring'
           to={`/our-story`}
           prefetch={`intent`}>
           Learn About Us

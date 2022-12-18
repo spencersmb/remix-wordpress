@@ -36,13 +36,13 @@ function TransformSkillsHeader(props: Props) {
     alt: `Every Tuesday - Transform Your Procreate Skills`,
     src: 'https://et-website.imgix.net/et-website/images/flower-bouquet-1.1-min.png',
   })
+
   return (
     <section className={`bg-tangerine-50 ${navStyles}`}>
       <div className='relative py-16 pb-8 et-grid-basic laptop:pb-16 desktop:pt-8 desktopXl:py-0'>
 
-
         {/* Border IMAGE */}
-        <div className='absolute top-0 w-full -translate-x-1/2 left-1/2 desktop:top-[-100px]'>
+        <div className='absolute top-0 w-full -translate-x-1/2 left-1/2 desktop:top-[-75px]'>
           <LazyImgix
             id='skills'
             visibleByDefault={true}
@@ -77,26 +77,28 @@ function TransformSkillsHeader(props: Props) {
         </div>
 
         {/* HEADER IMG */}
-        <div className='relative flex items-center col-span-2 col-start-2 mt-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-20 laptop:col-start-2 laptop:col-span-12 laptop:max-w-[837px] laptop:mx-auto laptop:w-full laptop:mt-36 laptop:mb-4 desktopXl:mb-32 desktop:col-start-2 desktop:col-span-7 desktop:ml-16 desktopXl:col-start-2 desktopXl:col-span-7 desktopXl:items-end desktopXl:ml-0 '>
+        <div className='relative flex items-center col-span-2 col-start-2 mt-8 tablet:col-start-2 tablet:col-span-12 tablet:mt-20 laptop:col-start-2 laptop:col-span-12 laptop:max-w-[837px] laptop:mx-auto laptop:w-full laptop:mt-36 laptop:mb-4 desktopXl:mb-32 desktop:col-start-2 desktop:col-span-7 desktop:ml-8 desktop:mr-0 desktop:items-center desktopXl:col-start-2 desktopXl:col-span-7 desktopXl:ml-0 '>
 
-          <LazyImgix
-            id='text'
-            visibleByDefault={true}
-            image={textImg.image}
-            sizes="(max-width: 666px) 100w, (max-width: 1279px) 70vw, (min-width: 1280px) 50vw, 1204px"
-            srcSet={
-              `
+          <div className='w-full pr-16'>
+            <LazyImgix
+              id='text'
+              visibleByDefault={true}
+              image={textImg.image}
+              sizes="(max-width: 666px) 100w, (max-width: 1279px) 70vw, (min-width: 1280px) 50vw, 1204px"
+              srcSet={
+                `
               ${textImg.defaultSrc}&w=800&fit=clip 800w,
               ${textImg.defaultSrc}&w=1200&fit=clip 1200w,
               ${textImg.defaultSrc}&w=1400&fit=clip 1400w,
               ${textImg.defaultSrc}&w=2000&fit=clip 2000w,
               ${textImg.defaultSrc}&w=2400&fit=clip 2400w,
             `
-            }
-          />
+              }
+            />
+          </div>
         </div>
 
-        <div className='relative flex col-span-2 col-start-2 mt-8 tablet:max-w-[475px] mx-auto tablet:col-start-2 tablet:col-span-12 desktop:mt-28 desktop:col-start-10 desktop:col-span-4 desktopXl:col-start-9 desktopXl:col-span-5  desktopXl:mx-10 desktopXl:mb-28 desktopXl:mt-44'>
+        <div className='relative flex col-span-2 col-start-2 mt-8 tablet:max-w-[475px] mx-auto tablet:col-start-2 tablet:col-span-12 tablet:mb-8 desktop:mt-28 desktop:col-start-9 desktop:col-span-4 desktopXl:col-start-9 desktopXl:col-span-5 desktopXl:mx-10 desktopXl:mb-20 desktopXl:mt-44'>
 
           <div className='relative w-full p-8 text-white bg-emerald-700 z-2'>
             <p className='mb-4 text-2xl font-semibold tablet:text-4xl'>Download hundereds of free procreate assets and start creating today.</p>
@@ -109,7 +111,7 @@ function TransformSkillsHeader(props: Props) {
               formName={'tm-landing-page'} />
           </div>
 
-          <div className='hidden absolute top-0 left-0 w-[600px] tablet:block tablet:left-[30%] tablet:top-[60%] -translate-x-1/2 -translate-y-1/2 z-1 laptop:left-[20%] desktop:hidden'>
+          <div className='hidden absolute top-0 left-0 w-[600px] tablet:block tablet:left-[30%] tablet:top-[50%] -translate-x-1/2 -translate-y-1/2 z-1 laptop:top-[60%] laptop:left-[20%] desktop:hidden'>
             <LazyImgix
               id='flowerBg'
               visibleByDefault={true}

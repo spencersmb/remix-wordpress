@@ -70,7 +70,7 @@ function BlogFeaturePostHomePage(props: Props) {
         </div>
 
         {post.tutorialManager.postExcerpt &&
-          <div className='mt-4 desktop:text-lg'
+          <div className='mt-4 desktop:text-lg line-clamp-3'
             dangerouslySetInnerHTML={{ __html: post.tutorialManager.postExcerpt }} />}
 
         <Link to={`/${post.slug}`} prefetch={`intent`} className="mt-8 btn btn-xl btn-primary-ring btn-primary tablet:mt-6 tablet:btn-flex">

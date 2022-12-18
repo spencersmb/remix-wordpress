@@ -26,7 +26,7 @@ function ProcreateBrushes() {
   return (
     <section
       style={{ backgroundImage: `url(${imgixServerRoot.images}/flower-pattern-01.jpg)` }}
-      className='et-grid-basic bg-repeat overflow-hidden tablet:grid-row-[auto_auto] my-20 tablet:my-0'>
+      className='et-grid-basic bg-repeat overflow-hidden tablet:grid-row-[auto_auto] py-20'>
 
       {/* IMAGE 1 */}
       <div className='image-1 relative col-span-2 col-start-2 h-[350px] tablet:col-start-2 tablet:mt-8 tablet:col-span-8 tablet:row-start-2 tablet:h-[200px] laptop:mt-0 desktop:h-[410px] desktop:col-start-5 desktop:col-span-7 desktop:mr-16'>
@@ -50,8 +50,8 @@ function ProcreateBrushes() {
       </div>
 
       {/* CONTENT */}
-      <div className='flex flex-col items-start col-span-2 col-start-2 px-4 py-8 mt-16 tablet:row-start-1 tablet:col-start-3 tablet:col-span-6 tablet:my-[78px] tablet:pb-8 laptop:mt-36 desktop:mb-32 desktop:px-16 desktop:pb-16 desktop:col-start-2 desktop:col-span-6 desktop:max-w-[725px] bg-white'>
-        <h3 className='relative mt-8 mb-8 text-4xl font-sentinel__SemiBoldItal desktop:text-6xl desktopXl:text-6xl'>
+      <div className='flex flex-col items-start col-span-2 col-start-2 px-8 py-8 mt-16 tablet:row-start-1 tablet:col-start-3 tablet:col-span-6 tablet:my-[78px] tablet:pb-8 laptop:mt-36 desktop:mb-32 desktop:px-16 desktop:pb-16 desktop:col-start-2 desktop:col-span-6 desktop:max-w-[725px] bg-white'>
+        <h3 className='relative mb-8 text-3xl font-sentinel__SemiBoldItal tablet:text-4xl laptop:text-[2.75rem] laptop:leading-[3rem] desktop:text-6xl'>
           <AccentHeaderText text={'Brand New!'} cssOverride={'left-[-22px] tablet:!top-[-59px] text-4xl tablet:left-[-52px] text-[#FF551F]'} />
           Make inspiring art using custom procreate brushses!
         </h3>
