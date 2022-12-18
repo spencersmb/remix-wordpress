@@ -24,6 +24,8 @@ function BlogFeaturePostHomePage(props: Props) {
     fallbackSize: ImageSizeEnums.THUMBNAIL,
     fallbackImage: defaultImages.thumbnail
   })
+  console.log('post', post)
+  console.log('image', image);
 
   return (
     <div className='flex flex-col tablet:flex-row tablet:gap-4 tablet:items-start laptop:flex-row-reverse laptop:items-center laptop:justify-end'>
