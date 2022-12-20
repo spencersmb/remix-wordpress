@@ -9,8 +9,8 @@ interface Props { }
 function TransformSkillsHeader(props: Props) {
   const { } = props
   const flowerBorder = createImgixSizes({
-    width: 1563,
-    height: 304,
+    width: 2500,
+    height: 486,
     mobileSize: 800,
     alt: `Every Tuesday - Transform Your Procreate Skills`,
     src: 'https://et-website.imgix.net/et-website/images/flower-border-01.1-min.png',
@@ -42,12 +42,12 @@ function TransformSkillsHeader(props: Props) {
       <div className='relative py-16 pb-8 et-grid-basic laptop:pb-16 desktop:pt-8 desktopXl:py-0'>
 
         {/* Border IMAGE */}
-        <div className='absolute top-0 w-full -translate-x-1/2 left-1/2 desktop:top-[-75px]'>
+        <div className='absolute top-0 w-full -translate-x-1/2 left-1/2 desktop:top-[-75px] max-w-[2000px]'>
           <LazyImgix
             id='skills'
             visibleByDefault={true}
             image={flowerBorder.image}
-            sizes="(max-width: 666px) 100w, (max-width: 1279px) 70vw, (min-width: 1280px) 50vw, 1204px"
+            sizes="(max-width: 666px) 100w, (max-width: 1279px) 70vw, (min-width: 1280px) 100vw, (min-width: 1500px) 80vw, 1204px"
             srcSet={
               `
               ${flowerBorder.defaultSrc}&w=800&fit=clip 800w,
@@ -102,11 +102,13 @@ function TransformSkillsHeader(props: Props) {
 
           <div className='relative w-full p-8 text-white bg-emerald-700 z-2'>
             <p className='mb-4 text-2xl font-semibold tablet:text-4xl'>Download hundereds of free procreate assets and start creating today.</p>
-            <p className='text'>
+            <p className='mb-8 text'>
               Up your skills and open new creative + financial opportunities by joining the Tuesday Tribe! It’s free and comes with 50+ design and lettering files (we’re talking fonts, textures, patterns + Procreate brushes) you can start using today!
             </p>
             <TmSignupForm
-              flexRow={false}
+              buttonStyles='btn-emerald-100 btn-emerald-100-ring'
+              labelStyles='text-white'
+              row={false}
               inputBg='bg-sage-50 hover:ring-emerald-400 ring-offset-emerald-700 focus:ring-emerald-100'
               formName={'tm-landing-page'} />
           </div>

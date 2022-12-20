@@ -9,7 +9,7 @@ import type { HeadersFunction, LoaderFunction, MetaFunction } from '@remix-run/n
 import { json } from '@remix-run/node'
 import { useLoaderData, useMatches } from '@remix-run/react'
 import { isEmpty } from 'lodash';
-import BlogSlugTemplate from '@App/components/pageTemplates/blugSlugTemplate';
+import BlogSlugTemplate from '@App/components/pageTemplates/blogSlugTemplate';
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....

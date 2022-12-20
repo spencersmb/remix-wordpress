@@ -225,7 +225,7 @@ function BlogSlugTemplate(props: IProps) {
                   : '',
                 'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100')}>
 
-                <div className='max-w-[700px] flex-col desktop:max-w-[1475px] mx-auto w-full relative flex desktop:flex-row items-start '>
+                <div className='max-w-[700px] flex-col desktop:max-w-[1475px] mx-auto w-full flex desktop:flex-row items-start relative z-3'>
 
                   {/* TUTORIAL DOWNLOADS */}
                   <div className='relative flex-1 w-full mx-auto tablet:px-8 laptop:px-0 desktop:my-20 desktop:flex-1'>
@@ -260,14 +260,12 @@ function BlogSlugTemplate(props: IProps) {
 
                   </div>
 
-                  {/* YOUTUBE */}
+                  {/* YOUTUBE && TUTORIAL RESOURCES*/}
                   <div className='flex-initial w-[100%] mt-8 tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
                     <YouTubeVideo
                       id={post.tutorialManager.youtube.id}
                       title={post.title}
                     />
-
-
 
                     {/* RESOURCES */}
                     <TutorialResources

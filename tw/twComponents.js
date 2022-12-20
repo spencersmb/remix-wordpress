@@ -95,7 +95,6 @@ const classes = {
   '.btn-primary-ring': {
     outline: '2px solid transparent',
     outlineOffset: '2px',
-    borderWidth: 0,
     '--tw-ring-offset-width': '4px',
     '--tw-ring-opacity': '1',
     '--tw-ring-color': 'var(--emerald-500)',

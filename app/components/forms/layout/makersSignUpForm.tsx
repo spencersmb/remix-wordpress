@@ -41,10 +41,10 @@ function MakersSignUpForm(props: Props) {
       <Form
         ref={ref}
         method="post"
-        className="flex flex-col tablet:flex-row"
+        className="flex flex-col desktop:flex-row"
         action="/convertkit/tuesday-makers"
       >
-        <div className='flex-1 mb-5 tablet:mr-6 tablet:mb-0'>
+        <div className='flex-1 mb-5 desktop:mr-6 desktop:mb-0'>
           <InputBase
             type="email"
             name="email"
@@ -68,7 +68,7 @@ function MakersSignUpForm(props: Props) {
         <div className='flex'>
           <SubmitBtn
             spinnerColors={spinnerColors.yellowSolid}
-            className='btn btn-tangerine-400 btn-xl btn-tangerine-400-ring'
+            className='btn btn-tangerine-400 btn-xl btn-tangerine-400-ring btn-flex'
             transition={transition}
             btnText='Send the Goods!'
           />

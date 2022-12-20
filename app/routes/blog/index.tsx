@@ -46,7 +46,9 @@ export let loader: LoaderFunction = async ({ request, }) => {
   if (pageParam) {
     variables = {
       ...variables,
-      first: (parseInt(pageParam, 10) * 12),
+      first: cat === 'all'
+        ? (parseInt(pageParam, 10) * 12)
+        : (parseInt(pageParam, 10) * 12),
     }
   }
 

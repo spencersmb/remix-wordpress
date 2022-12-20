@@ -20,7 +20,7 @@ const MakersFooterSignUp = () => {
   const { data, state } = tuesdayMakersSignUp
 
   return (
-    <div className="bg-emerald-800 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto py-9 px-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
+    <div className="bg-emerald-800 rounded-2.5xl shadow-et_4 mb-[7rem] mx-auto p-7 tablet:p-9 max-w-[486px] tablet:max-w-[630px] tablet:pb-14 laptop:max-w-none desktop:px-20 desktop:py-14 relative">
 
       {/* CONTENT */}
       <div className="flex flex-col mt-[80%] ml-auto text-sage-50 max-w-[478px] mx-auto tablet:mt-96 laptop:mr-0 laptop:max-w-[53%] mb-[10px] laptop:mt-0 relative">
@@ -100,7 +100,7 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
     alt: 'Every Tuesday Swatch Card',
     mobileSize: 120
   })
-  const scribble = createImgixSizes({
+  const flowerBouquet = createImgixSizes({
     width: 1312,
     height: 1205,
     alt: 'Every-Tuesday hand drawn flat flower bouquet',
@@ -176,12 +176,12 @@ const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
       <div className="absolute top-[-100px] left-[-90px] z-0 w-[371px] tablet:left-[-160px] tablet:top-[-110px] tablet:w-[500px] laptop:w-[660px] laptop:left-[-175px] laptop:top-[-168px] desktop:w-[650px] desktop:left-[-210px] desktop:top-[-190px] desktopXl:w-[780px] desktopXl:left-[-260px] h-full">
         <LazyImgix
           id={'ipadFlowerBg'}
-          image={scribble.image}
+          image={flowerBouquet.image}
           sizes="(max-width: 666px) 40vw, 1200px"
           srcSet={
             `
-              ${scribble.defaultSrc}&w=600&fit=clip 600w,
-              ${scribble.defaultSrc}&w=1200&fit=clip 1200w,
+              ${flowerBouquet.defaultSrc}&w=600&fit=clip 600w,
+              ${flowerBouquet.defaultSrc}&w=1200&fit=clip 1200w,
               `}
         />
       </div>

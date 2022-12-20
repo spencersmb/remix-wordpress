@@ -36,16 +36,9 @@ function BlogPostGrid(props: IProps) {
 
       {/* @ts-ignore */}
       <AnimatePresence>
-        {/* {category === 'all' && posts.map((post: any, index: any) => {
-          return (
-            <PostCardOne
-              key={post.slug}
-              post={post}
-              scrollPosition={scrollPosition}
-            />
-          )
-        }).slice(1) // Remove first time because its the featured post
-        } */}
+
+        {/* {category === 'all' && categories[category] && categories[category].posts.map((post: IPost) => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
+        ).slice(1)} */}
 
         {categories[category] && categories[category].posts.map((post: IPost) => (<PostCardOne key={post.slug} post={post} scrollPosition={scrollPosition} />)
         )}

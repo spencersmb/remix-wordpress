@@ -144,7 +144,7 @@ function TuesdayHomeTemplate(props: Props) {
         <div className='relative z-2 col-span-full bg-cream-300'>
           <DoubleBgImageLayout
             form={<TmSignupForm
-              flexRow={false}
+              row={false}
               formName={'tmFooter'}
               inputBg={'bg-sage-100 hover:ring-offset-cream-100 tablet:mb-4'} />}
           />

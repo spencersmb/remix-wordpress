@@ -172,6 +172,12 @@ export const POST_RESOURCE_FIELDS = gql`
         ... on Product {
           title
           slug
+          productDetails{
+            productContent{
+              description
+              subtitle
+            }
+          }
           featuredImage {
             node {
               mimeType
@@ -195,6 +201,7 @@ export const POST_RESOURCE_FIELDS = gql`
                 id
             }
           }
+          
           productDetails {
             licences {
               licenseType
