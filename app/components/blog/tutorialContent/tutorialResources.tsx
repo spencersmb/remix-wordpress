@@ -95,13 +95,6 @@ function TutorialResources(props: Props) {
 
           if (resource.link) {
             const { description, name, url } = resource.link
-            const image = createImgixSizes({
-              width: 150,
-              height: 150,
-              alt: `Every-Tuesday Free Color Swatches for Procreate`,
-              src: 'https://et-website.imgix.net/et-website/images/swatch-small_1_1.jpg',
-              mobileSize: 150
-            })
             return (
               <ResourceDownloadLink
                 title={name}

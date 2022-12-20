@@ -47,25 +47,19 @@ export default function TuesdayMakersPopOver() {
               className={`
               ${isTuesdayMakersPage
                   ? visible
-                    ? 'text-sage-50 border-emerald-500 bg-emerald-500 border-[3px] hover:bg-emerald-400 hover:border-emerald-400 text-opacity-70'
-                    : 'text-sage-50 border-emerald-500 bg-emerald-500 border-[3px] hover:bg-emerald-400 hover:border-emerald-400'
+                    ? 'dark-popup text-opacity-70 selected'
+                    : 'dark-popup'
                   : visible
-                    ? 'bg-sage-300 border-sage-300 border-[3px]'
-                    : 'bg-white text-success-700 border-sage-200 border-[3px] hover:bg-sage-100 hover:border-sage-300'}
-                border-0 group px-4 pr-3 py-[13px] rounded-xl inline-flex items-center text-base font-semibold transition-all duration-300 `}
+                    ? 'active'
+                    : ''}
+                nav-btn group px-4 pr-3 py-[13px] border-[3px]`}
             >
               <span className={`
-                ${isTuesdayMakersPage
-                  ? 'text-[#5B1F28] bg-tangerine-600'
-                  : 'text-white bg-sage-600'}
-                  px-2 py-1 text-xs font-extrabold mr-2 rounded-[6px]`}>Popular</span>
+                text-white bg-tangerine-700 px-2 py-1 text-xs font-extrabold mr-2 rounded-[6px]`}>Popular</span>
               <span className='text-sm desktop:text-base'>Tuesday Makers</span>
               <ChevronDownIcon
                 className={`${visible ? 'text-opacity-70' : ''}
-                ${isTuesdayMakersPage
-                    ? 'text-sage-50'
-                    : 'text-success-700 group-hover:fill-sage-700'}
-                  ml-1 h-5 w-5  transition ease-in-out duration-150`}
+                  chevron-down-icon`}
                 aria-hidden="true"
               />
             </Popover.Button>

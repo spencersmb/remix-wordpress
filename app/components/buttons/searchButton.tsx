@@ -20,7 +20,7 @@ function SearchButton(props: Props) {
       className="relative inline-flex items-center justify-center flex-none p-1 overflow-hidden rounded-full w-14 h-14 group">
       <div className={`${isTuesdayMakersPage
         ? 'text-emerald-400'
-        : 'text-sage-600 dark:text-gray-600'} absolute  cursor-pointer `}>
+        : 'text-emerald-500'} absolute  cursor-pointer `}>
         <svg width="56" height="56" >
           <motion.circle
             stroke="currentColor"
@@ -47,7 +47,7 @@ function SearchButton(props: Props) {
       </div>
       <div className={`${isTuesdayMakersPage
         ? 'border border-transparent bg-emerald-500 group-hover:bg-emerald-400'
-        : 'border bg-sage-700 group-hover:bg-sage-500'} transition-colors rounded-full cursor-pointer `}>
+        : 'border bg-emerald-700 group-hover:bg-emerald-500'} transition-colors rounded-full cursor-pointer `}>
         <div className="w-[20px] h-[20px] m-3">
           <SearchSvg fill={isTuesdayMakersPage ? 'var(--sage-50)' : '#ffffff'} />
         </div>

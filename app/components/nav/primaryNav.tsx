@@ -25,7 +25,12 @@ export const PrimaryNav = () => {
           return (
             <li key={menuItem.id}
               data-testid="menu-item"
-              className={`flex items-center justify-center rounded-xl text-base normal-links transition-all duration-300 mx-1 first:ml-0 last:mr-0 ${isTuesdayMakersPage ? 'text-sage-50 hover:bg-emerald-500' : 'hover:bg-grey-100'} laptop:font-semibold desktop:text-base ${location.pathname === menuItem.path ? selectedNav : unselectedNav}`}>
+              className={`${isTuesdayMakersPage
+                ? 'dark'
+                : ''} 
+                ${location.pathname === menuItem.path ? 'selected' : ''}
+                justify-center normal-links mx-1 first:ml-0 last:mr-0 nav-btn
+                `}>
               <Link
                 className="transition-opacity duration-300 p-[11px] desktop:p-[13px] text-sm desktop:text-base desktop:px-4"
                 to={menuItem.path}
