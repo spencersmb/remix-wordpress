@@ -3933,6 +3933,15 @@ video {
 .border-sage-300 {
   border-color: var(--sage-300);
 }
+.border-tangerine-400 {
+  border-color: var(--tangerine-400);
+}
+.border-tangerine-700 {
+  border-color: var(--tangerine-700);
+}
+.\!border-tangerine-400 {
+  border-color: var(--tangerine-400) !important;
+}
 .bg-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(240 227 220 / var(--tw-bg-opacity));
@@ -3974,8 +3983,8 @@ video {
 .bg-emerald-500 {
   background-color: var(--emerald-500);
 }
-.bg-sage-700 {
-  background-color: var(--sage-700);
+.bg-emerald-700 {
+  background-color: var(--emerald-700);
 }
 .bg-tangerine-200 {
   background-color: var(--tangerine-200);
@@ -3983,6 +3992,9 @@ video {
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+.bg-sage-700 {
+  background-color: var(--sage-700);
 }
 .bg-teal-200 {
   --tw-bg-opacity: 1;
@@ -4010,9 +4022,6 @@ video {
 }
 .bg-tangerine-50 {
   background-color: var(--tangerine-50);
-}
-.bg-emerald-700 {
-  background-color: var(--emerald-700);
 }
 .bg-grey-200 {
   --tw-bg-opacity: 1;
@@ -4151,6 +4160,9 @@ video {
 .bg-sage-300 {
   background-color: var(--sage-300);
 }
+.bg-tangerine-400 {
+  background-color: var(--tangerine-400);
+}
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -4186,6 +4198,9 @@ video {
 .bg-success-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(79 113 113 / var(--tw-bg-opacity));
+}
+.\!bg-tangerine-400 {
+  background-color: var(--tangerine-400) !important;
 }
 .bg-contain {
   background-size: contain;
@@ -4778,6 +4793,9 @@ video {
 .text-emerald-400 {
   color: var(--emerald-400);
 }
+.text-emerald-500 {
+  color: var(--emerald-500);
+}
 .text-success-700 {
   --tw-text-opacity: 1;
   color: rgb(52 76 76 / var(--tw-text-opacity));
@@ -4865,9 +4883,6 @@ video {
 .text-grey-400 {
   --tw-text-opacity: 1;
   color: rgb(157 163 175 / var(--tw-text-opacity));
-}
-.text-emerald-500 {
-  color: var(--emerald-500);
 }
 .text-\[\#344C4F\] {
   --tw-text-opacity: 1;
@@ -4987,8 +5002,8 @@ video {
   --tw-text-opacity: 1;
   color: rgb(60 38 38 / var(--tw-text-opacity));
 }
-.text-tangerine-500 {
-  color: var(--tangerine-500);
+.\!text-primary-600 {
+  color: var(--primary-plum-600) !important;
 }
 .text-opacity-70 {
   --tw-text-opacity: 0.7;
@@ -5133,6 +5148,9 @@ video {
 .ring-success-600 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(79 113 113 / var(--tw-ring-opacity));
+}
+.ring-tangerine-700 {
+  --tw-ring-color: var(--tangerine-700);
 }
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
@@ -5794,8 +5812,8 @@ video {
 .hover\:border-emerald-500:hover {
   border-color: var(--emerald-500);
 }
-.hover\:border-sage-300:hover {
-  border-color: var(--sage-300);
+.hover\:\!border-tangerine-400:hover {
+  border-color: var(--tangerine-400) !important;
 }
 .hover\:bg-sage-400:hover {
   background-color: var(--sage-400);
@@ -5831,6 +5849,9 @@ video {
 .hover\:bg-sage-300:hover {
   background-color: var(--sage-300);
 }
+.hover\:bg-tangerine-400:hover {
+  background-color: var(--tangerine-400);
+}
 .hover\:bg-secondary-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(242 192 102 / var(--tw-bg-opacity));
@@ -5864,6 +5885,9 @@ video {
 }
 .hover\:bg-sage-700:hover {
   background-color: var(--sage-700);
+}
+.hover\:\!bg-tangerine-400:hover {
+  background-color: var(--tangerine-400) !important;
 }
 .hover\:text-sage-100:hover {
   color: var(--sage-100);
@@ -5902,6 +5926,9 @@ video {
 .hover\:text-neutral-50:hover {
   --tw-text-opacity: 1;
   color: rgb(252 250 251 / var(--tw-text-opacity));
+}
+.hover\:\!text-primary-600:hover {
+  color: var(--primary-plum-600) !important;
 }
 .hover\:opacity-50:hover {
   opacity: 0.5;
@@ -6323,8 +6350,8 @@ video {
 .group:hover .group-hover\:bg-emerald-400 {
   background-color: var(--emerald-400);
 }
-.group:hover .group-hover\:bg-sage-500 {
-  background-color: var(--sage-500);
+.group:hover .group-hover\:bg-emerald-500 {
+  background-color: var(--emerald-500);
 }
 .group:hover .group-hover\:bg-sage-200 {
   background-color: var(--sage-200);
@@ -6344,9 +6371,6 @@ video {
 .group:hover .group-hover\:bg-success-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(217 229 229 / var(--tw-bg-opacity));
-}
-.group:hover .group-hover\:bg-emerald-500 {
-  background-color: var(--emerald-500);
 }
 .group:hover .group-hover\:fill-grey-700 {
   fill: #384050;
@@ -6376,12 +6400,6 @@ video {
 @media (prefers-reduced-motion: reduce) {
   .motion-reduce\:hidden {
     display: none;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .dark\:text-gray-600 {
-    --tw-text-opacity: 1;
-    color: rgb(75 85 99 / var(--tw-text-opacity));
   }
 }
 @media (min-width: 600px) {
@@ -10420,30 +10438,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 247 / var(--tw-bg-opacity));
 }
-.nav-btn .chevron-down-icon {
-  margin-left: 0.25rem;
-  height: 1.25rem;
-  width: 1.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(52 76 76 / var(--tw-text-opacity));
-  -webkit-transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, -webkit-text-decoration-color, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, -webkit-text-decoration-color, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
-  -o-transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, filter, backdrop-filter, -o-transform;
-  -moz-transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -moz-text-decoration-color, -moz-transform;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -moz-text-decoration-color, -webkit-transform, -moz-transform, -o-transform, -webkit-filter, -webkit-backdrop-filter;
-  -webkit-transition-duration: 150ms;
-     -moz-transition-duration: 150ms;
-       -o-transition-duration: 150ms;
-          transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-     -moz-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-       -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.group:hover .nav-btn .chevron-down-icon {
-  fill: var(--sage-700);
-}
 .nav-btn.selected {
   /* @apply bg-sage-200; */
  }
@@ -10474,6 +10468,28 @@ video {
 .nav-btn.dark-popup.selected {
   border-color: var(--tangerine-200);
   background-color: var(--tangerine-200);
+}
+.chevron-down-icon-nav {
+  margin-left: 0.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  -webkit-transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, -webkit-text-decoration-color, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, -webkit-text-decoration-color, -webkit-transform, -webkit-filter, -webkit-backdrop-filter;
+  -o-transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, filter, backdrop-filter, -o-transform;
+  -moz-transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -moz-text-decoration-color, -moz-transform;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -moz-text-decoration-color, -webkit-transform, -moz-transform, -o-transform, -webkit-filter, -webkit-backdrop-filter;
+  -webkit-transition-duration: 150ms;
+     -moz-transition-duration: 150ms;
+       -o-transition-duration: 150ms;
+          transition-duration: 150ms;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+     -moz-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+       -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .chevron-down-icon-nav {
+  fill: var(--sage-700);
 }
 .lazy-load-image-background.blur {
   -webkit-filter: blur(15px);

@@ -5,10 +5,6 @@
 .nav-btn {
  @apply flex text-emerald-900 border-white rounded-xl items-center font-semibold text-base transition-all duration-300  hover:bg-grey-100 hover:border-grey-100;
 
- .chevron-down-icon {
-  @apply text-success-700 group-hover:fill-sage-700 ml-1 h-5 w-5 transition ease-in-out duration-150;
- }
-
  &.selected {
   /* @apply bg-sage-200; */
  }
@@ -32,4 +28,8 @@
    @apply bg-tangerine-200 border-tangerine-200;
   }
  }
+}
+
+.chevron-down-icon-nav {
+ @apply group-hover:fill-sage-700 ml-1 h-5 w-5 transition ease-in-out duration-150;
 }

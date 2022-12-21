@@ -62,9 +62,9 @@ export default function MasterLoginPopOver() {
                     ? 'text-sage-50 bg-emerald-500 border-emerald-500'
                     : 'bg-transparent text-sage-50 border-emerald-400  hover:bg-emerald-500 hover:border-emerald-500'
                   : visible
-                    ? 'bg-sage-300 border-sage-300'
-                    : 'bg-white text-success-700 border-sage-200 hover:bg-sage-100 hover:border-sage-300'}
-                group px-4 pr-3 py-[13px] border-[3px] rounded-xl inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
+                    ? 'active'
+                    : ''}
+                group px-4 pr-3 py-[13px] border-[3px] nav-btn desktop:ml-3`}
             // className={`
             //   ${visible ? 'bg-sage-300 hover:bg-sage-300 border-sage-300 hover:opacity-100' : 'bg-sage-200 border-white'} border-0  text-success-700 group px-4 pr-3 py-[13px] rounded-lg inline-flex items-center text-base font-semibold transition-all duration-300 desktop:ml-3`}
             >

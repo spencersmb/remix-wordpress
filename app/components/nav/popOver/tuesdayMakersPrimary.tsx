@@ -50,8 +50,8 @@ export default function TuesdayMakersPopOver() {
                     ? 'dark-popup text-opacity-70 selected'
                     : 'dark-popup'
                   : visible
-                    ? 'active'
-                    : ''}
+                    ? '!border-tangerine-400 !bg-tangerine-400 !text-primary-600'
+                    : 'hover:!text-primary-600 hover:!border-tangerine-400 hover:!bg-tangerine-400'}
                 nav-btn group px-4 pr-3 py-[13px] border-[3px]`}
             >
               <span className={`
@@ -59,7 +59,7 @@ export default function TuesdayMakersPopOver() {
               <span className='text-sm desktop:text-base'>Tuesday Makers</span>
               <ChevronDownIcon
                 className={`${visible ? 'text-opacity-70' : ''}
-                  chevron-down-icon`}
+                  chevron-down-icon-nav`}
                 aria-hidden="true"
               />
             </Popover.Button>
