@@ -530,3 +530,57 @@ export const QUERY_POSTS_BY_CAT = gql`
     }
   }
 `
+
+export const allPostsGql = gql`
+  query AllPostsSearch($first: Int, $after: String) {
+        posts(first: $first, after: $after) {
+          pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            node { 
+              tags(first: 20){
+                edges{
+                  node{
+                    name
+                  }
+                }
+              }
+              title
+              slug
+              date
+              excerpt
+              databaseId
+              categories{
+                edges{
+                  node{
+                    name
+                    slug
+                  }
+                }
+              }
+              featuredImage {
+                node {
+                  mediaDetails {
+                    width
+                    height
+                    sizes{
+                      width
+                      height
+                      name
+                      sourceUrl
+                    }
+                  }
+                    altText
+                    sourceUrl
+                    srcSet
+                    sizes
+                  }
+              }
+            }
+          }
+        }
+    }
+    `

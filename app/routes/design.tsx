@@ -6,12 +6,15 @@ import SubmitBtn from '@App/components/buttons/submitBtn'
 import InputBase from '@App/components/forms/input/inputBase'
 import Layout from '@App/components/layoutTemplates/layout'
 import { spinnerColors } from '@App/components/spinners/spinnerColors'
+import { allPostsGql } from '@App/lib/graphql/queries/posts'
 import { classNames } from '@App/utils/appUtils'
+import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { getStaticPageMeta } from '@App/utils/pageUtils'
 import { mdxPageMetaV2 } from '@App/utils/seo'
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node'
 import { Form, Link } from '@remix-run/react'
+import gql from 'graphql-tag'
 
 const page = getStaticPageMeta({
   title: `Design`,
@@ -31,6 +34,7 @@ export const action: ActionFunction = async () => {
 
 function Design(props: any) {
   const { } = props
+  let count = 1
 
   const mockClick = (cat: string) => () => {
 
@@ -42,12 +46,73 @@ function Design(props: any) {
 
   const mockLoad = () => { }
 
+
+  const fetchData = async (endCursor?: null | string) => {
+    console.log('fetching data from', endCursor)
+
+    const url = window.ENV.PUBLIC_WP_API_URL as string
+
+    const variables = {
+      first: 100,
+      after: endCursor ? endCursor : null,
+    }
+    const body = await fetch(url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getGraphQLString(allPostsGql),
+          variables
+        })
+      })
+    const response = await body.json()
+    const { data } = response
+    return data
+  }
+
+  const fetchAllPosts = async (endCursor?: null | string) => new Promise(async (resolve, reject) => {
+    console.log('fetchPosts', count)
+
+    try {
+      const data: any = await fetchData(endCursor)
+      console.log('new data', data)
+      console.log('nextPage', data.posts.pageInfo.hasNextPage)
+      console.log('new endCursor', data.posts.pageInfo.endCursor)
+      if (!data.posts.pageInfo.hasNextPage) {
+        return resolve(data)
+      } else {
+        count = count + 1
+        await fetchAllPosts(data.posts.pageInfo.endCursor)
+      }
+
+    } catch (e: any) {
+      console.log('e', e)
+      return reject(e)
+    }
+
+    // setTimeout(() => resolve("done!"), 1000)
+  })
+
+
+  const callPromise = async () => {
+    const data = await fetchAllPosts()
+    console.log('Done!', data)
+  }
   return (
     <Layout >
       <div className='mb-16 et-grid-basic'>
 
 
         <div className='col-span-10 col-start-3 mb-6'>
+
+          <button
+            type="button"
+            onClick={callPromise}
+          >
+            Search fetchData
+          </button>
           <button
             type="button"
             onClick={() => {

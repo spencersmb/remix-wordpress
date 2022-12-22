@@ -34,8 +34,19 @@ function promiseToWriteFile(location, content) {
 }
 
 function generateIndexSearch(data) {
+  const env = envConfig()
   const { posts } = data
-  console.log('search posts length', posts.length);
+  console.log('search posts length', posts.edges.length);
+
+  if(env.skipSearch){
+    console.log('rewriting wp-search.json')
+    return JSON.stringify({
+      generated: data.generated,
+      posts: posts,
+    });
+  }
+
+
   const index = posts.edges.map((edge = {}) => {
 
     // We need to decode the title because we're using the
@@ -177,7 +188,7 @@ async function fetchAPIGQL(query, params = {}) {
       variables
     }),
   })
-  console.log('res', res.status);
+  console.log('status', res.status);
   try{
     const json = await res.json()
     if (json.errors) {
@@ -208,12 +219,15 @@ function envConfig() {
   const noDef = process.env.NODE_ENV === undefined
   const production = process.env.NODE_ENV === "production"
   const isProduction = noDef || production ? true : false
+  const skipSearch = process.env.SKIP_SEARCH_INDEXING === "true"
   
   return {
     url: isProduction ? "https://etheadless.graphcdn.app/"  : process.env.PUBLIC_WP_API_URL,
     // url: "https://etheadless.graphcdn.app/",
     // postCount: 1000
-    postCount: isProduction ? 1000 : 500
+    skipSearch,
+    production: isProduction,
+    postCount: isProduction ? 1000 : 100
   }
 }
 
