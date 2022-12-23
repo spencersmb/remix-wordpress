@@ -4,6 +4,7 @@ import { useProductLicense } from '@App/hooks/useProductLicense'
 import GumroadBtn from '../buttons/gumroadBtn'
 import LicenseRadioSelect from '../forms/radio/licenseRadioSelect'
 import useSite from '@App/hooks/useSite';
+import ViewLicenseBtn from '../buttons/viewLicenseBtn';
 
 interface Props {
   product: IProduct
@@ -28,15 +29,7 @@ function LicenseSelectSection(props: Props) {
       <div className='flex flex-col flex-1 mb-4'>
 
         {/* View Licenses */}
-        <div className='flex flex-row mb-1 ml-2'>
-          <div>License Type</div>
-          <div className='pt-1 ml-2 text-xs italic font-semibold text-green-700'>
-            <Link
-              target={'_blank'}
-              className='underlined after:underlineAnimation'
-              to={'/licenses'}>What are these?</Link>
-          </div>
-        </div>
+        <ViewLicenseBtn />
 
         {/* License Select */}
         {licenseState && <LicenseRadioSelect

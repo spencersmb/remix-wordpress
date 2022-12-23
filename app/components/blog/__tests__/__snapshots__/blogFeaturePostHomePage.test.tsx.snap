@@ -104,10 +104,10 @@ exports[`Should render Blog Feature Post Home Page Component  1`] = `
       onTouchStart={[Function]}
     >
       <h2
-        className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-sage-500"
+        className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-tangerine-700"
       >
         <div
-          className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 laptop:group-hover:text-grey-800 text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
+          className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-[#FF551F] text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
         >
           Latest Post
         </div>
@@ -122,7 +122,7 @@ exports[`Should render Blog Feature Post Home Page Component  1`] = `
       </div>
     </div>
     <div
-      className="mt-4 desktop:text-lg"
+      className="mt-4 desktop:text-lg line-clamp-3"
       dangerouslySetInnerHTML={
         Object {
           "__html": "EXCERPT",
@@ -130,7 +130,7 @@ exports[`Should render Blog Feature Post Home Page Component  1`] = `
       }
     />
     <a
-      className="mt-8 btn btn-xl btn-primary tablet:mt-6 tablet:btn-flex"
+      className="mt-8 btn btn-xl btn-primary-ring btn-primary tablet:mt-6 tablet:btn-flex"
       href="/test-slug"
       onBlur={[Function]}
       onClick={[Function]}

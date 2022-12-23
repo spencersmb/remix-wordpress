@@ -18,7 +18,7 @@ const page = getStaticPageMeta({
   desc: 'Every-Tuesday.com digital products for sale using the Procreate app.',
   slug: 'products',
 })
-// export let meta = mdxPageMetaV2
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request, }) => {
   let variables = {

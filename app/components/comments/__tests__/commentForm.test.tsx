@@ -51,14 +51,10 @@ describe('Comment Form Component', () => {
 
   it('Should have 3 inputs - name/email/textarea', () => {
     setup()
-    const inputs = screen.getAllByLabelText(/comment/i)
-
-    expect(inputs).toHaveLength(3)
-
     // input name
-    const nameInput = inputs[0]
-    const emailInput = inputs[1]
-    const textarea = inputs[2]
+    const nameInput = screen.getByLabelText('Name')
+    const emailInput = screen.getByLabelText('Email')
+    const textarea = screen.getByLabelText('Comment Body')
 
     expect(nameInput).toHaveProperty('type', 'text')
     expect(emailInput).toHaveProperty('type', 'email')
@@ -79,7 +75,7 @@ describe('Comment Form Component', () => {
 
   it('Should show error message for Name not long enough', () => {
     setup()
-    const nameInput = screen.getByLabelText('Comment Name')
+    const nameInput = screen.getByLabelText('Name')
     fireEvent.change(nameInput, { target: { value: 'a' } })
     const error = screen.getByText('Name must be at least 2 characters long')
     expect(error).toBeDefined()
@@ -88,7 +84,7 @@ describe('Comment Form Component', () => {
 
   it('Should show error message for email not long enough', () => {
     setup()
-    const emailInput = screen.getByLabelText('Comment Email')
+    const emailInput = screen.getByLabelText('Email')
     fireEvent.change(emailInput, { target: { value: 'a' } })
     const error = screen.getByText('Email is invalid')
     expect(error).toBeDefined()
@@ -122,8 +118,8 @@ describe('Comment Form Component', () => {
         comment: null
       }
     })
-    const nameInput = screen.getByLabelText('Comment Name')
-    const emailInput = screen.getByLabelText('Comment Email')
+    const nameInput = screen.getByLabelText('Name')
+    const emailInput = screen.getByLabelText('Email')
     const textarea = screen.getByLabelText('Comment Body')
     // const button = screen.getByTestId('submit-comment-button')
     const button = getByTestId('submit-comment-button')
@@ -193,8 +189,8 @@ describe('Comment Form Component', () => {
         comment: null
       }
     })
-    const nameInput = screen.getByLabelText('Comment Name')
-    const emailInput = screen.getByLabelText('Comment Email')
+    const nameInput = screen.getByLabelText('Name')
+    const emailInput = screen.getByLabelText('Email')
     const textarea = screen.getByLabelText('Comment Body')
     const button = getByTestId('submit-comment-button')
 
@@ -246,8 +242,8 @@ describe('Comment Form Component', () => {
         comment: null
       }
     })
-    const nameInput = screen.getByLabelText('Comment Name')
-    const emailInput = screen.getByLabelText('Comment Email')
+    const nameInput = screen.getByLabelText('Name')
+    const emailInput = screen.getByLabelText('Email')
     const textarea = screen.getByLabelText('Comment Body')
     // const button = screen.getByTestId('submit-comment-button')
     const button = getByTestId('submit-comment-button')

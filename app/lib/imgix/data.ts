@@ -190,5 +190,14 @@ export const staticImages = {
         width: 900,
         height:463
     }
+  },
+  tape:{
+    tape_1:{
+      src: 'https://et-website.imgix.net/et-website/images/tape-1-min.png',
+      placeholder: 'https://et-website.imgix.net/et-website/images/tape-1-min.png?w=20&fit=clip',
+      width: 520,
+      height: 154
+    },
+    
   }
 }

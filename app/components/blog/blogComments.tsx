@@ -55,14 +55,14 @@ function BlogComments(props: Props) {
 
         {/* ICON */}
         <div className='mr-2 w-7'>
-          <CommentsSvg stroke={'var(--sage-700)'} />
+          <CommentsSvg stroke={'var(--tangerine-700)'} />
         </div>
 
         {/* COUNT */}
         <div data-testid="comments-count">
           {post.comments.list.length !== 0
-            ? <p className='text-sage-700'><span className='font-semibold'>{post.comments.list.length}</span> comments</p>
-            : <p className='font-sentinel__SemiBoldItal text-sage-700'>Leave a comment</p>}
+            ? <p className='text-emerald-900'><span className='font-semibold'>{post.comments.list.length}</span> comments</p>
+            : <p className='font-sentinel__SemiBoldItal text-emerald-900'>Leave a comment</p>}
         </div>
       </div>
 

@@ -37,9 +37,7 @@ describe('Feature Product', () => {
     )
     const mobileImage = queryByTestId('featured-image-mobile')
     const laptopImage = queryByTestId('featured-image-laptop')
-    const blackPin = queryByTestId('featured-black-pin')
     expect(laptopImage).toBeTruthy()
-    expect(blackPin).toBeTruthy()
     expect(mobileImage).toBeNull()
   })
 

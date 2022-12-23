@@ -79,7 +79,7 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
       </div>
 
       {/* GREEN TEXTURE  */}
-      <div className="absolute top-[-110px] left-[40px] z-0 w-[390px] tablet:w-[500px] laptop:rotate-[85deg] laptop:w-[740px] laptop:left-[-130px] laptop:top-[-160px] desktop:w-[950px] desktop:left-[-320px] desktop:top-[-250px]">
+      {/* <div className="absolute top-[-110px] left-[40px] z-0 w-[390px] tablet:w-[500px] laptop:rotate-[85deg] laptop:w-[740px] laptop:left-[-130px] laptop:top-[-160px] desktop:w-[950px] desktop:left-[-320px] desktop:top-[-250px]">
 
         <LazyImgix
           id={'green-desktop'}
@@ -93,7 +93,7 @@ const IpadFeatureImage = ({ featuredImage, product }: IFeatureProps) => {
             `}
         />
 
-      </div>
+      </div> */}
     </div>
   )
 }

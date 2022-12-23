@@ -28,7 +28,7 @@ const GumroadProductCard = ({ product }: IProps) => {
 
   return (
     <div className={`z-20 flex flex-col col-span-2 col-start-1 mb-8 card_conainter tablet:col-start-auto tablet:col-auto desktop:mb-16`}>
-      <div className={`wrapper bg-white flex flex-col flex-1 rounded-2.5xl shadow-xs p-6 laptop:mb-0`}>
+      <div className={`wrapper bg-white flex flex-col flex-1 shadow-xs p-6 laptop:mb-0`}>
 
         {/* PRODUCT IMG */}
         <div className="relative z-1">

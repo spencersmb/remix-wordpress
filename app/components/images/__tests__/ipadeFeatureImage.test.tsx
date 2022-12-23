@@ -56,16 +56,4 @@ describe('IpadFeatureImage Component', () => {
     expect(appleArt).toHaveAttribute('src', featuredImage.sourceUrl)
   })
 
-  it('Should not show mobile texture image and should show desktop', () => {
-    const { queryByTestId } = renderUseSiteProviderUi(
-      <IpadFeatureImage {...props} />,
-      {
-        providerProps: siteInitialState
-      }
-    )
-    const textureImg = queryByTestId(`lazy-load-image-green-mobile`)
-    const desktopImg = queryByTestId(`lazy-load-image-green-desktop`)
-    expect(textureImg).toBeNull()
-    expect(desktopImg).toBeVisible()
-  })
 })

@@ -5,7 +5,7 @@ exports[`LFM MiniCourse Homepage Section Should render Snapshot of lfm-mini-cour
   className="relative flex bg-grey-200 tablet:p-0 et-grid-basic"
 >
   <div
-    className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[730px] overflow-hidden tablet:h-full tablet:w-full tablet:left-auto tablet:translate-x-0 tablet:relative tablet:col-start-1 tablet:col-end-full tablet:row-start-1"
+    className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[730px] overflow-hidden tablet:h-auto tablet:w-full tablet:left-auto tablet:translate-x-0 tablet:relative tablet:col-start-1 tablet:col-end-full tablet:row-start-1"
   >
     <div
       className="relative block w-full h-full p-0 overflow-hidden"
@@ -30,7 +30,7 @@ exports[`LFM MiniCourse Homepage Section Should render Snapshot of lfm-mini-cour
     </div>
   </div>
   <div
-    className="relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center laptop:col-start-8 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center"
+    className="relative flex flex-col col-span-2 col-start-2 gap-6 p-6 mb-8 text-center bg-white z-2 mt-60 tablet:col-start-4 tablet:col-span-8 tablet:row-start-1 tablet:my-16 tablet:self-center tablet:pb-10 laptop:col-start-8 laptop:col-span-5 max-w-[433px] mx-auto laptop:items-center"
   >
     <div
       className="absolute top-[-43px] left-[45%] -translate-x-1/2 w-[125px]"
@@ -76,7 +76,7 @@ exports[`LFM MiniCourse Homepage Section Should render Snapshot of lfm-mini-cour
       </div>
     </div>
     <div
-      className="max-w-[270px] mx-auto relative text-5xl font-sentinel__SemiBoldItal text-sage-600 desktop:text-6xl pt-4"
+      className="max-w-[270px] mx-auto relative text-5xl font-sentinel__SemiBoldItal text-grey-800 desktop:text-6xl pt-4"
     >
       Free Font Making
       <div
@@ -134,7 +134,7 @@ exports[`LFM MiniCourse Homepage Section Should render Snapshot of lfm-mini-cour
       Learn all the basics of what font making is. Find out the tools you’ll need and what sofware is required to get started making fonts in this free 3 part video series.
     </p>
     <a
-      className="mt-3 btn btn-primary btn-xl"
+      className="mt-3 btn btn-primary btn-primary-ring btn-xl"
       href="/learn-font-making"
       onBlur={[Function]}
       onClick={[Function]}

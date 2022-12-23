@@ -2,7 +2,7 @@
 
 exports[`Should render Featured Blog posts Section for Homepage  1`] = `
 <section
-  className="bg-[#F7F6F7] et-grid-basic py-8 tablet:py-16 laptop:py-24"
+  className="py-8 et-grid-basic tablet:py-16 laptop:py-24"
 >
   <div
     className="col-span-2 col-start-2 tablet:col-start-2 tablet:col-span-12 tablet:mb-12 laptop:col-start-2 laptop:col-span-8 laptop:row-start-1 laptop:mb-0 desktop:col-start-2 desktop:col-span-8"
@@ -110,10 +110,10 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           onTouchStart={[Function]}
         >
           <h2
-            className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-sage-500"
+            className="relative text-3xl transition-all duration-300 font-sentinel__SemiBoldItal tablet:text-4xl desktop:text-5xl laptop:group-hover:text-tangerine-700"
           >
             <div
-              className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-grey-800 laptop:group-hover:text-grey-800 text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
+              className="!top-[-50px] left-[-15px] tablet:!top-[-63px] text-[#FF551F] text-4xl absolute font-bonVivant text-2xl tablet:text-5xl italic top-[-47px] left-[-25px] rotate-[-14deg]"
             >
               Latest Post
             </div>
@@ -132,7 +132,7 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           </div>
         </div>
         <div
-          className="mt-4 desktop:text-lg"
+          className="mt-4 desktop:text-lg line-clamp-3"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<p>Happy Tuesday! Time for tutorial no.3 (of 6!) in my holiday tutorial series! This week, we’re creating candy cane lettering, complete with wrapped peppermints and decorative, wintery swirls.</p>
@@ -141,7 +141,7 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           }
         />
         <a
-          className="mt-8 btn btn-xl btn-primary tablet:mt-6 tablet:btn-flex"
+          className="mt-8 btn btn-xl btn-primary-ring btn-primary tablet:mt-6 tablet:btn-flex"
           href="/create-candy-cane-lettering-procreate"
           onBlur={[Function]}
           onClick={[Function]}
@@ -173,12 +173,12 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           className="flex flex-row justify-between"
         >
           <div
-            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-tangerine-700 transition-colors duration-300"
           >
             Create Candy Cane Lettering in Procreate
           </div>
           <div
-            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-tangerine-700"
           >
             <svg
               aria-hidden="true"
@@ -226,12 +226,12 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           className="flex flex-row justify-between"
         >
           <div
-            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-tangerine-700 transition-colors duration-300"
           >
             Battling Self Doubt as a Graphic Designer
           </div>
           <div
-            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-tangerine-700"
           >
             <svg
               aria-hidden="true"
@@ -279,12 +279,12 @@ exports[`Should render Featured Blog posts Section for Homepage  1`] = `
           className="flex flex-row justify-between"
         >
           <div
-            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-sage-600 transition-colors duration-300"
+            className="relative flex-1 text-xl font-semibold laptop:text-base laptop:max-w-[240px] desktop:text-2xl desktop:max-w-[340px] laptop:group-hover:text-tangerine-700 transition-colors duration-300"
           >
             Draw a Wrapped Flower Bouquet in Procreate
           </div>
           <div
-            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-sage-600"
+            className="w-[20px] mt-[.5rem] relative transition-all duration-200 translate-x-0 laptop:group-hover:translate-x-[15px] laptop:group-hover:text-tangerine-700"
           >
             <svg
               aria-hidden="true"

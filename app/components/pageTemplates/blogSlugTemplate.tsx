@@ -88,13 +88,13 @@ function BlogSlugTemplate(props: IProps) {
       <div className='col-span-full bg-white et-grid-basic tablet:grid-rows-[auto_auto_auto_auto_1fr_minmax(60px,auto)] desktop:grid-rows-[auto_auto_auto_auto_auto_1fr]'>
 
         {/* BREADCURMBS */}
-        <div className='col-span-2 col-start-2 mt-2 mb-4 text-emerald-500 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
+        <div className='col-span-2 col-start-2 mt-2 mb-4 text-grey-600 tablet:col-start-2 tablet:col-span-12 tablet:mt-5 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-8'>
           <Breadcrumbs links={breadcrumbLinks} />
         </div>
 
         {/* TITLE */}
         <div className='col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-11 tablet:mb-0 laptop:col-start-3 laptop:col-span-10 desktop:mb-8 desktop:row-start-2 desktop:row-span-2 desktop:col-start-2 desktop:col-span-6' >
-          <h1 className='text-3xl text-[#344C4F] font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
+          <h1 className='text-3xl text-emerald-800 font-sentinel__SemiBoldItal tablet:text-display-1 laptop:text-6xl desktoptext-7xl'>
             {post.title}
           </h1>
         </div>
@@ -221,7 +221,7 @@ function BlogSlugTemplate(props: IProps) {
 
               <div className={classNames(
                 post.tutorialManager.downloads
-                  ? 'desktop:px-8'
+                  ? ''
                   : '',
                 'pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100 et-grid-basic ')}>
 

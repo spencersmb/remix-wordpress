@@ -10,6 +10,7 @@ import { ImageSizeEnums } from "@App/enums/imageEnums";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import LazyImgix from "../images/lazyImgix";
 import { navStyles } from "@App/utils/pageUtils";
+import FloralsBorder2Svg from "../svgs/florals/floralsBorderSvg-2";
 
 interface IProps {
   product: IProduct
@@ -33,31 +34,34 @@ const FeaturedProduct = ({ product }: IProps) => {
   })
 
   return (
-    <section className={`${navStyles} bg-sage-200`}>
+    <section className={`${navStyles} bg-white relative `}>
 
+      <div className="absolute top-[10px] w-[1000px] left-[370px] tablet:top-[-30px] tablet:w-[1710px] tablet:left-[117%] laptop:w-[1170px] laptop:left-[57%] laptop:top-5 desktop:top-0 desktop:w-[1400px] -translate-x-1/2">
+        <FloralsBorder2Svg />
+      </div>
       <div className="pt-[80px] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop">
+
         {/* DESKTOP FEATURE IMAGE */}
         {breakpointConvertPX(breakpoint) > BPPX.TABLET &&
           <div
             data-testid="featured-image-laptop"
-            className="relative col-span-2 col-start-2 laptop:col-start-2 laptop:col-span-7 desktop:col-start-2 desktop:col-span-7">
-            <div className="w-full z-[22] relative laptop:absolute rotate-6 tablet:translate-x-0 tablet:w-[70%] tablet:mx-auto laptop:right-[-30px] laptop:w-[114%] laptop:top-0 laptop:rotate-[-3deg] desktop:right-[-30px] desktop:w-[850px] desktop:top-0">
+            className="relative col-span-2 col-start-2 laptop:col-start-7 laptop:col-span-7 desktop:col-start-7 desktop:col-span-7">
+            <div className="w-full z-[22] relative laptop:absolute rotate-6 tablet:translate-x-0 tablet:w-[70%] tablet:mx-auto laptop:right-[-30px] laptop:w-[114%] laptop:top-0 laptop:rotate-[-3deg] desktop:right-[0px] desktop:w-[800px] desktop:top-[-25px]">
 
-              {/* IPAD WRAPPER */}
               <IpadFeatureImage product={product} featuredImage={featuredImage} />
             </div>
           </div>}
 
         {/* PRODUCT CARD */}
-        <div className={`relative z-20 flex flex-col col-span-2 col-start-2 mb-8 card_conainter tablet:col-start-3 tablet:col-span-10 laptop:col-start-9 laptop:col-span-5 laptop:mt-0 desktop:col-start-9 desktop:col-span-5 desktop:mb-16`}>
+        <div className={`relative z-20 flex flex-col col-span-2 col-start-2 mb-8 card_conainter tablet:col-start-3 tablet:col-span-10 laptop:col-start-2 laptop:col-span-5 laptop:mt-0 desktop:col-start-2 desktop:col-span-5 desktop:mb-16`}>
 
-          <div className="bg-white shadow-xs mobile_wrapper pt-14 laptop:bg-transparent laptop:shadow-none laptop:p-0">
+          <div className="mobile_wrapper pt-14 laptop:bg-transparent laptop:p-0">
 
             {/* MOBILE FEATURE IMAGE ONE*/}
             {breakpointConvertPX(breakpoint) < BPPX.LAPTOP &&
               <div
                 data-testid="featured-image-mobile"
-                className="w-full z-[22] relative laptop:absolute rotate-6 tablet:translate-x-0 tablet:w-[70%] tablet:mx-auto">
+                className="w-full z-[22] relative rotate-6 tablet:translate-x-0 tablet:w-[70%] tablet:mx-auto laptop:hidden">
                 {/* IPAD WRAPPER */}
                 <IpadFeatureImage
                   product={product}
@@ -66,22 +70,7 @@ const FeaturedProduct = ({ product }: IProps) => {
               </div>
             }
 
-            <div className={`wrapper laptop:max-w-[438px] bg-white flex flex-col flex-1 laptop:shadow-xs p-6 laptop:m-0 desktop:ml-8 relative`}>
-
-              {/* BLACK PIN */}
-              {breakpointConvertPX(breakpoint) > BPPX.TABLET &&
-                <div
-                  data-testid='featured-black-pin'
-                  className="w-[100px] absolute top-[-4%] left-[50%] translate-x-[-50%] z-[1]">
-                  <LazyImgix
-                    id={'black-pin'}
-                    visibleByDefault={true}
-                    image={{
-                      ...staticImages.assets.pins.black_1,
-                      alt: 'Every Tuesday Hand Made Black Pin',
-                    }}
-                  />
-                </div>}
+            <div className={`wrapper laptop:max-w-[438px] flex flex-col flex-1 p-6 laptop:m-0 desktop:ml-8 relative desktop:max-w-none`}>
 
               {/* PRODUCT CONTENT */}
               <div
@@ -92,20 +81,20 @@ const FeaturedProduct = ({ product }: IProps) => {
                 </span>
 
                 {/* PRODUCT title */}
-                <h1 className={`max-w-[275px] text-gray-900 text-3xl mb-2 font-sentinel__SemiBoldItal tablet:max-w-[260px] desktop:text-4xl laptop:max-w-[355px]`}>
+                <h1 className={`max-w-[275px] text-gray-900 text-3xl mb-2 font-sentinel__SemiBoldItal tablet:max-w-[260px] laptop:text-4xl laptop:max-w-[355px] desktop:text-5xl desktop:max-w-none`}>
                   {product.title}
                 </h1>
 
                 {product.productDetails.productContent.subtitle &&
                   <h2
                     aria-label={`${product.title} subtitle`}
-                    className="mb-2 text-xl laptop:pr-4">
+                    className="mb-2 text-xl font-medium laptop:pr-4">
                     {product.productDetails.productContent.subtitle}
                   </h2>}
                 {product.productDetails.productContent.description &&
                   <p
                     aria-label={`${product.title} description`}
-                    className="text-grey-500">
+                    className="text-grey-700">
                     {product.productDetails.productContent.description}
                   </p>}
 
