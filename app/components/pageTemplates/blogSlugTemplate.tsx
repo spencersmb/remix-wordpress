@@ -100,7 +100,7 @@ function BlogSlugTemplate(props: IProps) {
         </div>
 
         {/* FEATURED IMAGE */}
-        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktop:mt-2 desktopXl:mr-7 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
+        <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktop:mt-2 desktopXl:mr-0 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
           <LazyImageBase image={featuredImage} id={post.id} />
         </div>
 
@@ -110,7 +110,7 @@ function BlogSlugTemplate(props: IProps) {
           <div className='flex flex-col w-full p-4 rounded-lg bg-sage-50 tablet:flex-row tablet:items-center tablet:gap-7 tablet:w-auto tablet:px-5 laptop:justify-between'>
             {/* TAGS */}
             <div className='flex flex-row items-center pb-4 tablet:pb-0'>
-              <div className='max-w-[20px] w-full text-[#344C4F] mr-2'>
+              <div className='max-w-[20px] w-full text-tangerine-700 mr-2'>
                 <TagIcon />
               </div>
               <div className='flex flex-row gap-1 text-[#344C4F]'>
@@ -138,7 +138,7 @@ function BlogSlugTemplate(props: IProps) {
 
 
             {skill && <div className='flex flex-row items-center pb-4 tablet:pb-0'>
-              <div className='max-w-[20px] w-full text-[#344C4F] mr-1'>
+              <div className='max-w-[20px] w-full text-tangerine-700 mr-1'>
                 <BarChartSvg fill={'currentColor'} />
               </div>
               <div className='flex flex-row gap-1 text-[#344C4F]'>
@@ -153,7 +153,7 @@ function BlogSlugTemplate(props: IProps) {
             {/* TIME */}
             {tutorialMin && tutorialMin !== '00' &&
               <div className='flex flex-row items-center'>
-                <div className='max-w-[18px] w-full text-[#344C4F] mr-1'>
+                <div className='max-w-[18px] w-full text-tangerine-700 mr-1'>
                   <ClockSvg fill='currentColor' />
                 </div>
                 <div className='flex flex-row gap-1 text-[#344C4F] font-semibold'>
@@ -177,7 +177,7 @@ function BlogSlugTemplate(props: IProps) {
         <div className='flex relative col-span-2 col-start-2 ml-4 mt-12 mb-8 text-emerald-600 tablet:ml-6 tablet:col-start-2 tablet:col-span-5 tablet:mt-16 tablet:mb-5 laptop:just laptop:items-start laptop:col-start-3 laptop:col-span-3 desktop:col-start-11 desktop:col-span-3 desktopXl:ml-[108px] desktop:row-start-1 desktop:row-span-2 desktop:mb-0 desktop:mt-0 desktop:items-end'>
 
           <div className='relative flex flex-row items-center desktop:mb-4'>
-            <div className='absolute top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>
+            <div className='absolute w-[220px] top-[-60px] left-[-20px] font-bonVivant text-5xl -rotate-6 tablet:top-[-50px] laptop:top-[-60px] laptop:left-[-40px]'>
               Written by
             </div>
             {/* IMAGE */}
@@ -223,12 +223,12 @@ function BlogSlugTemplate(props: IProps) {
                 post.tutorialManager.downloads
                   ? 'desktop:px-8'
                   : '',
-                'px-5 pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100')}>
+                'pt-8 pb-8 tablet:py-16 desktop:py-0 bg-sage-100 et-grid-basic ')}>
 
-                <div className='max-w-[700px] flex-col desktop:max-w-[1475px] mx-auto w-full flex desktop:flex-row items-start relative z-3'>
+                <div className='col-start-2 col-span-2 max-w-[700px] flex-col tablet:max-w-none tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:col-start-2 desktop:col-span-12 mx-auto w-full flex desktop:flex-row items-start relative z-3'>
 
                   {/* TUTORIAL DOWNLOADS */}
-                  <div className='relative flex-1 w-full mx-auto tablet:px-8 laptop:px-0 desktop:my-20 desktop:flex-1'>
+                  <div className='relative flex-1 w-full mx-auto laptop:px-0 desktop:my-20 desktop:flex-1'>
                     {breakpoint === (BreakpointEnums.desktop || BreakpointEnums.desktopXL) &&
                       <Sticky
                         topOffset={-20}
@@ -261,7 +261,7 @@ function BlogSlugTemplate(props: IProps) {
                   </div>
 
                   {/* YOUTUBE && TUTORIAL RESOURCES*/}
-                  <div className='flex-initial w-[100%] mt-8 tablet:px-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
+                  <div className='flex-initial w-[100%] mt-8 laptop:px-0 desktop:w-[70%] desktop:pl-8 desktop:my-20'>
                     <YouTubeVideo
                       id={post.tutorialManager.youtube.id}
                       title={post.title}
@@ -272,7 +272,7 @@ function BlogSlugTemplate(props: IProps) {
                       resources={post.tutorialManager.resources} />
                   </div>
 
-                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <div className='flex-initial w-[100%] mt-8 tablet:px-8 laptop:px-0'>
+                  {breakpoint !== (BreakpointEnums.desktop || BreakpointEnums.desktopXL) && <div className='flex-initial w-[100%] mt-8 laptop:px-0'>
                     <TutorialDownloads post={post} />
                   </div>}
 

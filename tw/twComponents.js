@@ -83,12 +83,12 @@ const classes = {
       color: 'rgb(255 255 255 / var(--tw-text-opacity))'
     },
     '&:disabled':{
-      borderColor: 'var(--sage-200)',
-      backgroundColor: 'var(--sage-200)',
+      borderColor: 'var(--sage-100)',
+      backgroundColor: 'var(--sage-100)',
       color: 'var(--sage-500)',
       '&:hover':{
         color: 'var(--sage-500)',
-        backgroundColor: 'var(--sage-200)',
+        backgroundColor: 'var(--sage-100)',
       }
     }
   },
@@ -109,7 +109,7 @@ const classes = {
        boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
     },
     '&:disabled':{
-      '--tw-ring-color': 'var(--sage-200)',
+      '--tw-ring-color': 'transparent',
       '--tw-ring-shadow': 'var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color)',
       boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
     },

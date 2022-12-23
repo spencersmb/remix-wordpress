@@ -10,6 +10,7 @@ import { getGraphQLString } from '@App/utils/graphqlUtils'
 import { parseComment } from '@App/utils/posts'
 import BasicSubmitBtn from '../buttons/basicSubmitBtn'
 import { spinnerColors } from '../spinners/spinnerColors'
+import { useScrollBarHide } from '@App/hooks/windowUtilHooks'
 
 /*
 2 Forms - main form to leave a comment. 2nd form appears when user clicks reply. That form is for replying a nested comment
@@ -26,6 +27,7 @@ import { spinnerColors } from '../spinners/spinnerColors'
 const CommentModal = () => {
   const { state: { commentsModal }, addComment, hideComments, fetchMoreComments } = useSite()
   const [loading, setLoading] = useState(false)
+  useScrollBarHide(commentsModal.show)
 
   async function fetchMore() {
     setLoading(true)
@@ -88,7 +90,7 @@ const CommentModal = () => {
 
               {/* COMMENT HEADER */}
               <div className="flex flex-row justify-between px-6 pt-6 comments_header tablet:px-12 laptop:pr-10">
-                <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-sage-500'>
+                <div className='flex flex-row items-end font-sentinel__SemiBoldItal text-h3 text-emerald-800'>
                   Comments <span className='text-h5 leading-[1.5] ml-2'>({commentsModal.comments.length})</span>
                 </div>
                 <div data-testid="comments-close-btn" className='w-[40px] hover:cursor-pointer group' onClick={hideComments}>

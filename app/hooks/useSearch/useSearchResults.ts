@@ -5,7 +5,6 @@ import { useSearch } from ".";
 export function useSearchResults ({ defaultQuery = null, maxResults = 5, postFooterRefInView = false } = {}) {
   const {state, addClient, closeSearch} = useSearch()
   const {client, data } = state
-
   const [query, setQuery] = useState<null | string>(defaultQuery);
   const [category, setCategory] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);

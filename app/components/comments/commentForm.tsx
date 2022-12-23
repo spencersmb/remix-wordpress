@@ -390,7 +390,7 @@ const CommentForm = (props: IProps) => {
                   id={`name-input-${type}-${props.index}`}
                   type="text"
                   name='name'
-                  label="Comment Name"
+                  label="Name"
                   onChange={handleNameChange}
                   value={form.name.value}
                   invalid={form.name.isValid === false || form.name.value.length < 4}
@@ -408,7 +408,7 @@ const CommentForm = (props: IProps) => {
                   id={`email-input-${type}-${props.index}`}
                   type="email"
                   name='email'
-                  label="Comment Email"
+                  label="Email"
                   onChange={handleEmailChange}
                   value={form.email.value}
                   required
@@ -460,7 +460,12 @@ const CommentForm = (props: IProps) => {
                 disabled={submitting || !form.name.isValid || !form.email.isValid || !form.comment.isValid}
                 data-testid="submit-comment-button"
                 type='submit'
-                className={`w-full text-sage-50 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:text-grey-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 bg-sage-700 hover:ring-sage-500 hover:bg-sage-500 ring-offset-white focus:ring-sage-700 focus:hover:ring-sage-500 active:bg-sage-500 active:scale-[.98] tablet:w-auto ${props.subForm ? 'ring-offset-sage-100 disabled:bg-sage-200' : 'disabled:bg-sage-100'}`}>
+                className={`btn btn-primary btn-primary-ring 
+                ${props.subForm
+                    ? 'ring-offset-sage-50 disabled:bg-sage-200 disabled:border-sage-200  disabled:hover:bg-sage-200'
+                    : ''}`}
+              // className={`w-full text-sage-50 font-semibold px-5 py-4 rounded-lg hover:ring focus:ring ring-offset-4 text-base outline-none duration-200 ease-in-out flex flex-1 flex-row justify-center items-center disabled:text-grey-400 disabled:hover:ring-0 disabled:hover:ring-offset-0 bg-sage-700 hover:ring-sage-500 hover:bg-sage-500 ring-offset-white focus:ring-sage-700 focus:hover:ring-sage-500 active:bg-sage-500 active:scale-[.98] tablet:w-auto ${props.subForm ? 'ring-offset-sage-100 disabled:bg-sage-200' : 'disabled:bg-sage-100'}`}
+              >
                 {(submitting) && <TwSpinnerOne loaderColors={spinnerColors.sageSolid} />}
                 {submitting ? '...sending' : buttonText}
               </button>

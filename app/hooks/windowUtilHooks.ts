@@ -82,16 +82,13 @@ export function useInputFocusOnTrigger({
   }, [trigger, elRef])
 }
 
-export function useScrollBarHide({
-  htmlDomRef,
-  selector
-}: { htmlDomRef: MutableRefObject<HTMLElement | null>, selector: string }) {
-  const { state: { isOpen } } = useSearch()
+export function useScrollBarHide(isOpen: boolean) {
+  const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
 
   useEffect(() => {
 
     if (!htmlDomRef.current) {
-      htmlDomRef.current = document.querySelector(selector)
+      htmlDomRef.current = document.querySelector('html')
     }
 
     if (isOpen && htmlDomRef.current) {
@@ -105,7 +102,7 @@ export function useScrollBarHide({
       htmlDomRef.current.classList.remove('animate-addPadding')
       body.classList.remove('overflow-y-hidden')
     }
-  }, [htmlDomRef, isOpen, selector])
+  }, [htmlDomRef, isOpen])
 }
 
 export function useCloseModalOnPageTransition() {

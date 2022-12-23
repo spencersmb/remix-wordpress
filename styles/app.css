@@ -227,7 +227,7 @@ button {
  }
 
  .input-success {
-  @apply ring !ring-sage-500;
+  @apply ring !ring-emerald-400;
  }
 
  .input-error {

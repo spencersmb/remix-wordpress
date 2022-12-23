@@ -42,15 +42,15 @@ function BlogAuthor() {
       </div>
 
       {/* AUTHOR INFO */}
-      <div className='relative z-2 my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left text-sage-600 tablet:mt-8'>
+      <div className='relative z-2 my-4 flex flex-col justify-center flex-[1] text-center tablet:my-0 tablet:text-left tablet:mt-8'>
         <div className='absolute text-3xl left-[-6px] top-[-45px] tablet:left-[-35px] rotate-[-6deg] mb-2 tablet:text-4xl text-grey-700 font-bonVivant'>Written By</div>
-        <div className=' font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
-        <div className='text-base text-sage-700'>Every Tuesday's content creator and founder.</div>
+        <div className='font-sentinel__SemiBoldItal text-h3'>Teela Cunningham</div>
+        <div className='text-base text-grey-700'>Every Tuesday's content creator and founder.</div>
       </div>
 
       {/* BUTTON */}
       <div className='mt-2 flex-[1_1_100%] tablet:flex-[0_1_auto] items-center justify-center tablet:self-end pb-2 tablet:mt-0 tablet:pb-0'>
-        <Link to={'/about/our-story'} prefetch='intent' className='btn btn-outline btn-xl' >About Me</Link>
+        <Link to={'/about/our-story'} prefetch='intent' className='font-semibold btn btn-primary btn-primary-ring' >About Me</Link>
       </div>
     </div>
   )

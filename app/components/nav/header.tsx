@@ -40,7 +40,6 @@ function Header(props: Props) {
   const { gumroadCartOpen } = useGumroadCart()
   const rootData = useMatchesLookup('/')
   const searchData = !rootData ? {} : rootData.searchData
-
   useMobileNav()
 
   return (

@@ -36,16 +36,16 @@ function promiseToWriteFile(location, content) {
 function generateIndexSearch(data) {
   const env = envConfig()
   const { posts } = data
-  console.log('search posts length', posts.edges.length);
 
   if(env.skipSearch){
     console.log('rewriting wp-search.json')
     return JSON.stringify({
       generated: data.generated,
-      posts: posts,
+      posts,
     });
   }
 
+  console.log('search posts length', posts.edges.length);
 
   const index = posts.edges.map((edge = {}) => {
 

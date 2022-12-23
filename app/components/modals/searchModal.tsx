@@ -27,7 +27,6 @@ function SearchModal(props: Props) {
   const { state: { isOpen }, closeSearch } = useSearch()
   const [animationCompleted, setAnimationCompleted] = useState(false)
   const containerRef = useRef<null | HTMLDivElement>(null)
-  const htmlDomRef = useRef<null | HTMLHtmlElement>(null)
   const containerMotion = {
     closed: {
       // x: '100%',
@@ -90,10 +89,7 @@ function SearchModal(props: Props) {
     },
   }
   // Scroll bar adjustment
-  useScrollBarHide({
-    htmlDomRef,
-    selector: 'html'
-  })
+  useScrollBarHide(isOpen)
 
   // Close an open modal when page transitions
   useCloseModalOnPageTransition()

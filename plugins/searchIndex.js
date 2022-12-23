@@ -168,9 +168,7 @@ async function getAllPostsRecursive() {
           let rawData = JSON.parse(data)
           return resolve({
             generated: rawData.generated,
-            posts:{
-              edges: rawData.posts
-            }
+            posts:rawData.posts
           })
       });
     }

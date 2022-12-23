@@ -21,7 +21,7 @@ function BlogCategories(props: Props) {
       <ul className='flex flex-row flex-wrap gap-2'>
         {categories.map(cat =>
           <li data-testid="test-category" key={cat.id} className='flex mb-3 overflow-hidden tablet:mb-0'>
-            <Link prefetch="intent" to={`/category/${cat.slug}`} className='btn btn-sm btn-outlineFill'>
+            <Link prefetch="intent" to={`/category/${cat.slug}`} className='font-medium btn btn-sm bg-sage-100 border-sage-100 hover:bg-emerald-500 hover:border-emerald-500 hover:text-sage-50'>
               {cat.name}
             </Link>
           </li>

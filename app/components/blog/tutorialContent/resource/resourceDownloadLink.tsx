@@ -29,7 +29,6 @@ function ResourceDownloadLink(props: Props) {
   const { openModal, closeModal } = useSite()
 
   function openProductModal() {
-    console.log('open product modal')
     product && openModal({
       template: <ProductModal
         closeModal={closeModal}
@@ -48,7 +47,7 @@ function ResourceDownloadLink(props: Props) {
 
   return (
 
-    <div className='tablet:flex-[1_0_48%]'>
+    <div className='tablet:flex-[1_0_47%]'>
 
       {/* CONTENT */}
       <div className='flex flex-col items-start'>
