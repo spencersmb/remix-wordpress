@@ -17,6 +17,10 @@
   @apply text-sage-50 hover:bg-emerald-500;
  }
 
+ &.dark-active {
+  @apply text-sage-50 bg-emerald-500;
+ }
+
  &.dark-popup {
   @apply text-tangerine-900 border-tangerine-400 bg-tangerine-400 hover:bg-tangerine-200 hover:border-tangerine-200;
 
@@ -39,5 +43,13 @@
 }
 
 .chevron-down-icon-nav {
- @apply group-hover:fill-sage-700 ml-1 h-5 w-5 transition ease-in-out duration-150;
+ @apply group-hover:fill-sage-50 ml-1 h-5 w-5 transition ease-in-out duration-300;
+}
+
+.aboutSvg-icon {
+ @apply fill-current group-hover:fill-tangerine-800;
+}
+
+.aboutSvg-icon-bg {
+ @apply fill-transparent group-hover:fill-tangerine-300;
 }

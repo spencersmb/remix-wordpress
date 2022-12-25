@@ -47,19 +47,23 @@ export default function TuesdayMakersPopOver() {
               className={`
               ${isTuesdayMakersPage
                   ? visible
-                    ? 'dark-popup text-opacity-70 selected'
-                    : 'dark-popup'
+                    ? 'dark-active'
+                    : 'dark'
                   : visible
                     ? '!border-tangerine-100 !bg-tangerine-100 !text-primary-600'
                     : 'hover:!text-primary-600 hover:!border-tangerine-100 hover:!bg-tangerine-100'}
-                nav-btn group px-4 pr-3 py-[13px] border-[3px]`}
+                nav-btn group px-4 pr-3 py-[13px]`}
             >
               <span className={`
                 text-white bg-tangerine-700 px-2 py-1 text-xs font-extrabold mr-2 rounded-[6px]`}>Popular</span>
               <span className='text-sm desktop:text-base'>Tuesday Makers</span>
               <ChevronDownIcon
-                className={`${visible ? 'text-opacity-70' : ''}
-                  chevron-down-icon-nav`}
+                className={`${visible ? 'active' : ''}
+                  ${isTuesdayMakersPage
+                    ? 'text-sage-50'
+                    : 'chevron-down'
+                  }
+                  ml-1 h-5 w-5 transition ease-in-out duration-150`}
                 aria-hidden="true"
               />
             </Popover.Button>
@@ -76,11 +80,11 @@ export default function TuesdayMakersPopOver() {
                 <div className="overflow-hidden rounded-lg shadow-xxl-grey">
                   <div className="relative grid gap-0 py-4 bg-white lg:grid-cols-2">
                     {popOverMenuItems.map((item) => (
-                      <Link
+                      <div
                         data-testid="panel-item"
                         key={item.name}
-                        to={item.href}
-                        prefetch={'intent'}
+                        // to={item.href}
+                        // prefetch={'intent'}
                         className="flex items-start p-2 px-4 py-4 mx-5 text-left transition duration-150 ease-in-out rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 group"
                       >
                         {/* ICON */}
@@ -95,17 +99,17 @@ export default function TuesdayMakersPopOver() {
                           <p className="mb-[2px] text-[15px] font-semibold text-charcoal-900">
                             {item.name}
                           </p>
-                          <p style={{ color: '#6D727E' }} className="text-[.8rem] leading-[17px]">
+                          <p className="text-[.8rem] leading-[17px] text-grey-700">
                             {item.description}
                           </p>
                         </div>
 
                         {/* ARROW */}
-                        <div className={`w-full max-w-[15px] mr-2 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-0 group-hover:translate-x-2 ${item.icon.color}`}>
+                        {/* <div className={`w-full max-w-[15px] mr-2 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-0 group-hover:translate-x-2`}>
                           <ArrowRightIcon fill='currentColor' />
-                        </div>
+                        </div> */}
 
-                      </Link>
+                      </div>
                     ))}
                   </div>
                   <div
