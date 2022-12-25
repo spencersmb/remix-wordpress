@@ -56,7 +56,7 @@ export default function AboutPopOver() {
               data-testid="aboutNav-btn"
               className={`
                 ${visible && !isTuesdayMakersPage
-                  ? buttonStylesLight.visible
+                  ? 'active'
                   : buttonStylesLight.hidden} 
                 ${isTuesdayMakersPage
                   ? visible
@@ -65,15 +65,16 @@ export default function AboutPopOver() {
                   : ''} 
                 ${isTuesdayMakersPage
                   ? 'text-sage-50'
-                  : 'text-grey-700'} 
-                  border-0  group px-4 pr-3 py-[13px] rounded-xl inline-flex items-center text-sm desktop:text-base font-semibold transition-all duration-300`}
+                  : ''} 
+                  border-0 nav-btn group px-4 pr-3 py-[13px]`}
             >
               <span>About</span>
               <ChevronDownIcon
-                className={`${visible ? 'text-opacity-70' : ''}
+                className={`${visible ? 'active' : ''}
                   ${isTuesdayMakersPage
                     ? 'text-sage-50'
-                    : 'text-grey-700 group-hover:fill-grey-700'}
+                    : 'chevron-down'
+                  }
                   ml-1 h-5 w-5 transition ease-in-out duration-150`}
                 aria-hidden="true"
               />

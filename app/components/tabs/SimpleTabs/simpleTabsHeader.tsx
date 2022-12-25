@@ -48,7 +48,7 @@ const SimpleTabsHeader = ({ children, className, startPosition = 0 }: IProps) =>
         tabs: elements.tabs
       }
     })
-  }, [])
+  }, [children, setState, startPosition])
 
 
   return (

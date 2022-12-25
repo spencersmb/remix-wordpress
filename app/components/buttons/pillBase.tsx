@@ -26,8 +26,8 @@ const PillBase = (props: IPillProps) => {
     <div
       data-testid="pill"
       className={classNames(selected
-        ? 'pill_selected_state btn-outlineFill--sage'
-        : '',
+        ? 'pill_selected_state btn-outlineFill--sage bg-emerald-700 text-white border-emerald-700 hover:border-emerald-700'
+        : 'bg-sage-50 border-sage-50 hover:border-emerald-500 text-emerald-600',
         'btn btn-outlineFill')} onClick={clickHandler}>
       {/* @ts-ignore */}
       <AnimatePresence>

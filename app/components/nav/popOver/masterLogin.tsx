@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { Link, useLocation } from "@remix-run/react";
 import LinkItem from "./linkItem";
 import { useVisibleOnPageTransition } from "@App/hooks/windowUtilHooks";
+import FloralBouquet26Svg from "@App/components/svgs/florals/floral-bouquet-26";
 
 const menuItems = [
   {
@@ -70,9 +71,11 @@ export default function MasterLoginPopOver() {
             >
               <span className='text-sm desktop:text-base'>Login</span>
               <ChevronDownIcon
-                className={`${visible ? 'text-opacity-70' : ''}
-                ${isTuesdayMakersPage ? 'text-sage-50' : ' text-success-700 group-hover:fill-sage-700'}
-                  ml-1 h-5 w-5 transition ease-in-out duration-150`}
+                className={`${visible ? 'active' : ''}
+                ${isTuesdayMakersPage
+                    ? 'text-sage-50'
+                    : 'chevron-down'}
+                  ml-1 h-5 w-5`}
                 aria-hidden="true"
               />
             </Popover.Button>
@@ -89,17 +92,18 @@ export default function MasterLoginPopOver() {
                 <div className="relative overflow-hidden bg-white rounded-lg shadow-xxl-grey">
 
                   {/* INSERT SVG */}
-                  <div className="absolute top-[-130px] left-[-20px] w-[250px] rotate-90">
-                    <Florals2 />
+                  <div className="absolute top-[-210px] left-[-10px] w-[320px] rotate-[-130deg]">
+                    {/* <Florals2 /> */}
+                    <FloralBouquet26Svg />
                   </div>
 
                   <div className="relative grid grid-cols-2 gap-0 py-7 ">
 
                     <div className="flex flex-col justify-end pb-[14px] px-9 pl-11">
-                      <div className="mb-5 text-4xl font-sentinel__SemiBoldItal">
+                      <div className="mb-3 text-4xl font-sentinel__SemiBoldItal">
                         Resources
                       </div>
-                      <p className="text-grey-500">
+                      <p className="text-grey-700">
                         We use several solutions to help deliver a great experience on the web. Access  your content by selecting one of the options.
                       </p>
                     </div>

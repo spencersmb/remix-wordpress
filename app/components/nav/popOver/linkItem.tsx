@@ -14,7 +14,7 @@ interface Props {
  */
 const LinkItem = ({ title, description }: Props) => {
   return (
-    <div className="p-4 transition-colors duration-200 rounded-lg hover:bg-sage-100 group">
+    <div className="p-4 transition-colors duration-200 rounded-lg hover:bg-tangerine-100 group">
 
       <div className="relative flex flex-row items-center">
 
@@ -23,12 +23,12 @@ const LinkItem = ({ title, description }: Props) => {
         </div>
 
         <div className="relative transition-all duration-200 -translate-x-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-0">
-          <ArrowRightIcon className="w-4 h-4 text-primary-600" />
+          <ArrowRightIcon className="w-4 h-4 text-tangerine-700" />
         </div>
 
       </div>
 
-      <p className="text-sm text-grey-500">
+      <p className="text-sm text-grey-700">
         {description}
       </p>
 

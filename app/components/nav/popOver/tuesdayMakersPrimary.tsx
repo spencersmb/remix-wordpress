@@ -50,8 +50,8 @@ export default function TuesdayMakersPopOver() {
                     ? 'dark-popup text-opacity-70 selected'
                     : 'dark-popup'
                   : visible
-                    ? '!border-tangerine-400 !bg-tangerine-400 !text-primary-600'
-                    : 'hover:!text-primary-600 hover:!border-tangerine-400 hover:!bg-tangerine-400'}
+                    ? '!border-tangerine-100 !bg-tangerine-100 !text-primary-600'
+                    : 'hover:!text-primary-600 hover:!border-tangerine-100 hover:!bg-tangerine-100'}
                 nav-btn group px-4 pr-3 py-[13px] border-[3px]`}
             >
               <span className={`

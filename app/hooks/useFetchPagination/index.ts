@@ -1,7 +1,7 @@
 import { QUERY_POSTS_BY_CAT } from '@App/lib/graphql/queries/posts';
 import { getGraphQLString } from '@App/utils/graphqlUtils';
 import { flattenAllPosts } from '@App/utils/posts';
-import { setWindowUrlParams } from '@App/utils/windowUtils';
+import { consoleHelper, setWindowUrlParams } from '@App/utils/windowUtils';
 import type { Dispatch} from 'react';
 import { useState} from 'react';
 import { useEffect} from 'react';
@@ -94,6 +94,8 @@ const useFetchPaginate = (newData?: updateContext, loaderDataCategories?: {initi
   const {state, dispatch} = useFetchPaginateContent(newData)
   const [category, setCategory] = useState(loaderDataCategories ? loaderDataCategories.initialCategories.selectedCategory : 'all')
   
+  consoleHelper('useFetchPaginate', state, 'state')
+
   const addPostsAction = (data: IPageInfo) => {
     dispatch({
       type: IFetchPaginateTypes.ADD_POSTS,

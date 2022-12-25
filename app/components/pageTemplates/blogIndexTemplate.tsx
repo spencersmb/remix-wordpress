@@ -53,10 +53,10 @@ function BlogIndexTemplate({ loaderData }: Props) {
     page: pageUrlParams
   }, categories)
 
-
   const { state, loadingPosts, category, setCategory, fetchCategory } = useFetchPaginate(initializePostsFromServer, {
     initialCategories: categories
   })
+
 
   // console.log('Blog Cat data', categories)
   // consoleHelper('cat posts', posts.length)
@@ -80,7 +80,7 @@ function BlogIndexTemplate({ loaderData }: Props) {
 
   return (
     <>
-      <div className={`${navStyles} bg-[#F7F6F7]`}>
+      <div className={`${navStyles} bg-sage-50`}>
         <BlogFeaturedPost featuredPost={featured} />
       </div>
 

@@ -82,17 +82,23 @@ const skillLevels = [
 function BlogCategoryTabs(props: Props) {
   const { catClick, category } = props
 
+  // check if category is equal to beginner, intermediate, or advanced
+  // if so, set const to 1, else set to 0
+  const isSkillLevel = skillLevels.find((level) => level.slug === category)
+
   return (
     <SimpleTabsProvider>
 
-      <SimpleTabsHeader className="flex flex-row col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
+      <SimpleTabsHeader
+        startPosition={isSkillLevel ? 1 : 0}
+        className="flex flex-row col-span-2 col-start-2 mb-8 tablet:col-start-2 tablet:col-span-12 laptop:col-start-2 laptop:col-span-12">
         <Tab
-          name={'topics'}
+          name={'category'}
           className="flex-1 first:pr-3 tablet:first:pr-7 tablet:flex-none">
           <TabLabel
             Svg={GridSvg}
             iconFillType={'stroke'}
-            id="topics"
+            id="category"
             text="Search by category" />
         </Tab>
         <Tab
@@ -107,7 +113,7 @@ function BlogCategoryTabs(props: Props) {
 
 
       <div className="flex flex-row col-span-2 col-start-2 mb-5 text-primary-400 tablet:col-start-2 tablet:col-span-12 desktop:col-start-2 desktop:col-span-8">
-        <TabContent id={'topics'} index={0}>
+        <TabContent id={'category'} index={0}>
           <div className="flex flex-row flex-wrap gap-2">
             {categories.map(cat => (
               <PillBase

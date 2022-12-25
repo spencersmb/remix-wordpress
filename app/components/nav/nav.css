@@ -3,14 +3,14 @@
 }
 
 .nav-btn {
- @apply flex text-emerald-900 border-white rounded-xl items-center font-semibold text-base transition-all duration-300  hover:bg-grey-100 hover:border-grey-100;
+ @apply flex text-grey-800 border-white rounded-xl items-center font-semibold text-base transition-all duration-300 hover:text-tangerine-900 hover:bg-tangerine-100 hover:border-tangerine-100;
 
  &.selected {
   /* @apply bg-sage-200; */
  }
 
  &.active {
-  @apply bg-grey-100 border-grey-100;
+  @apply bg-tangerine-100 border-tangerine-100 text-tangerine-900;
  }
 
  &.dark {
@@ -27,6 +27,14 @@
   &.selected {
    @apply bg-tangerine-200 border-tangerine-200;
   }
+ }
+}
+
+.chevron-down {
+ @apply text-grey-800 group-hover:text-tangerine-700 transition ease-in-out duration-300;
+
+ &.active {
+  @apply text-tangerine-700;
  }
 }
 

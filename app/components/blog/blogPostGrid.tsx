@@ -29,7 +29,8 @@ type IProps = LazyComponentProps & Props
  */
 function BlogPostGrid(props: IProps) {
   const { posts, category, categories, scrollPosition } = props
-  consoleHelper('categories', categories, 'components/blog/blogPostGrid.tsx');
+
+  consoleHelper('Blog Categories Loaded', categories, 'components/blog/blogPostGrid.tsx');
 
   return (
     <div data-testid="post-grid" className='grid grid-flow-row grid-cols-1 tablet:grid-cols-2 tablet:gap-x-5 laptop:grid-cols-3 desktop:gap-x-8 '>
