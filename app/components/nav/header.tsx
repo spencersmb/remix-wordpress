@@ -43,18 +43,18 @@ function Header(props: Props) {
   useMobileNav()
 
   return (
-    <UseSearchProvider defaultState={{
-      ...siteSearchState,
-      status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
-      data: searchData,
-      // client,
-    }}>
-      <header
-        id="header"
-        ref={navRef}
-        className={`${commentsModal.show ? 'laptop:animate-addPadding' : ''} fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full ${isTuesdayMakersPage ? 'bg-[#0C2427]' : 'bg-white'} duration-600 inView pr-0 laptop:h-[92px]`}
-      >
-        {/* 
+    // <UseSearchProvider defaultState={{
+    //   ...siteSearchState,
+    //   status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
+    //   data: searchData,
+    //   // client,
+    // }}>
+    <header
+      id="header"
+      ref={navRef}
+      className={`${commentsModal.show ? 'laptop:animate-addPadding' : ''} fixed top-0 h-[69px] left-0 z-40 flex w-full transition-transform -translate-y-full ${isTuesdayMakersPage ? 'bg-[#0C2427]' : 'bg-white'} duration-600 inView pr-0 laptop:h-[92px]`}
+    >
+      {/* 
       <Link to={'/'}>
         Home
       </Link>
@@ -68,69 +68,68 @@ function Header(props: Props) {
         Courses
       </Link> */}
 
-        <div className='flex flex-1 h-full'>
-          <div className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
+      <div className='flex flex-1 h-full'>
+        <div className={classNames(mobileNav.isOpen ? 'border-b border-grey-300' : '', 'z-2 grid items-center w-full px-5 py-2 grid-cols-navMobile laptop:my-[10px] laptop:grid-cols-navDesktop desktop:grid-cols-navDesktopXl')}>
 
-            {/* ET LOGO */}
-            <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
-              <Link to="/" title="Every Tuesday" prefetch="intent" className="">
-                <EveryTuesdayLogo fill={isTuesdayMakersPage ? `var(--tangerine-300)` : `var(--sage-800)`} aria-label='Every Tuesday Logo' />
-              </Link>
-            </div>
+          {/* ET LOGO */}
+          <div data-testid="logo" className="max-w-[144px] desktop:max-w-[200px]">
+            <Link to="/" title="Every Tuesday" prefetch="intent" className="">
+              <EveryTuesdayLogo fill={isTuesdayMakersPage ? `var(--tangerine-300)` : `var(--sage-800)`} aria-label='Every Tuesday Logo' />
+            </Link>
+          </div>
 
-            {/* SEARCH ICON FOR MOBILE */}
-            {/* <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
+          {/* SEARCH ICON FOR MOBILE */}
+          {/* <div data-testid="search-mobile" className="flex justify-center px-2 py-4 laptop:hidden">
             <div className="max-w-[20px]">
               <SearchSvg fill={`var(${cssColors.primaryPlum700})`} />
             </div>
           </div> */}
 
-            {/* HAMBURGER  */}
-            <div data-testid="hamburger"
-              onClick={toggleMobileNav}
-              className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
-                ? 'mr-16'
-                : '',
-                'flex justify-center px-2 py-4 col-start-3 laptop:hidden')}>
-              <div className="max-w-[20px]">
-                <HamburgerSvg fill={isTuesdayMakersPage ? 'var(--sage-50)' : 'var(--sage-800)'} />
-              </div>
+          {/* HAMBURGER  */}
+          <div data-testid="hamburger"
+            onClick={toggleMobileNav}
+            className={classNames(serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen
+              ? 'mr-16'
+              : '',
+              'flex justify-center px-2 py-4 col-start-3 laptop:hidden')}>
+            <div className="max-w-[20px]">
+              <HamburgerSvg fill={isTuesdayMakersPage ? 'var(--sage-50)' : 'var(--sage-800)'} />
             </div>
-
-            {/* PRIMARY NAV */}
-            {breakPointWidth >= 1024 &&
-              <>
-                <PrimaryNav />
-              </>}
-
-            {/* DESKTOP SEARCH AND COURSE LOGIN */}
-            {breakPointWidth >= 1024 &&
-              <motion.div
-                animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
-                variants={gumroadVarients}
-                data-testid="desktop-col-3"
-                className={'hidden items-center justify-end laptop:flex'}>
-
-                <MasterLoginPopOver />
-
-                {/* DESKTOP SEARCH ICON */}
-                <SearchButton />
-
-              </motion.div>}
           </div>
 
-          {/* MOBILE NAV */}
-          <AnimatePresence>
-            {/* {mobileNav.isOpen && <MobileNav />} */}
-            {mobileNav.isOpen && breakPointWidth < 1024 &&
-              <MobileNav />}
-          </AnimatePresence>
+          {/* PRIMARY NAV */}
+          {breakPointWidth >= 1024 &&
+            <>
+              <PrimaryNav />
+            </>}
+
+          {/* DESKTOP SEARCH AND COURSE LOGIN */}
+          {breakPointWidth >= 1024 &&
+            <motion.div
+              animate={serverSettings.productPlatform === ShopPlatformEnum.GUMROAD && gumroadCartOpen ? "open" : "closed"}
+              variants={gumroadVarients}
+              data-testid="desktop-col-3"
+              className={'hidden items-center justify-end laptop:flex'}>
+
+              <MasterLoginPopOver />
+
+              {/* DESKTOP SEARCH ICON */}
+              <SearchButton />
+
+            </motion.div>}
         </div>
-        <SearchModal />
-      </header>
+
+        {/* MOBILE NAV */}
+        <AnimatePresence>
+          {/* {mobileNav.isOpen && <MobileNav />} */}
+          {mobileNav.isOpen && breakPointWidth < 1024 &&
+            <MobileNav />}
+        </AnimatePresence>
+      </div>
+    </header>
 
 
-    </UseSearchProvider>
+    // </UseSearchProvider>
   )
 
   // return (

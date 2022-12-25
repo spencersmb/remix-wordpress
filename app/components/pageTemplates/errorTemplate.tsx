@@ -4,6 +4,7 @@ import FooterPrimary from '../footer/FooterPrimary';
 import ContextLoader from '../layoutTemplates/contextLoader';
 import GlobalEvents from '../layoutTemplates/globalHooks';
 import BasicModal from '../modals/BasicModal';
+import SearchModal from '../modals/searchModal';
 import Header from '../nav/header';
 
 interface Props {
@@ -43,6 +44,7 @@ function ErrorTemplate(props: Props) {
           </main>
           <FooterPrimary />
           <BasicModal />
+          <SearchModal />
         </ContextLoader>
         <Scripts />
       </body>

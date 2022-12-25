@@ -324,6 +324,8 @@ export function Document({ children, title }: IDocument) {
           <FooterPrimary />
           <BasicModal />
           <CommentModal />
+          <SearchModal />
+
         </ContextLoader>
 
         <CustomScripts data={data} />

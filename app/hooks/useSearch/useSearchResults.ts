@@ -105,15 +105,15 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5, postFoo
   //   }
   // }, [query, category])
 
-  // // Infinite Scroll
-  // useEffect(() => {
-  //   const hasNextPage = results.length > page * maxResults
+  // Infinite Scroll
+  useEffect(() => {
+    const hasNextPage = results.length > page * maxResults
 
-  //   if (results.length && hasNextPage && postFooterRefInView && !loading) {
-  //     nextPage()
-  //   }
+    if (results.length && hasNextPage && postFooterRefInView && !loading) {
+      nextPage()
+    }
 
-  // }, [loading, page, postFooterRefInView, results, maxResults])
+  }, [loading, page, postFooterRefInView, results, maxResults])
   
   // // If the defaultQuery argument changes, the hook should reflect
   // // that update and set that as the new state

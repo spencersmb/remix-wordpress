@@ -20,6 +20,7 @@ function ContextLoader(props: Props) {
     resourceUser: null
   }
   const fallbackMenu = getWPMenu(null)
+  const searchData = !data ? {} : data.searchData
   let value = {
     ...siteInitialState,
     menu: !data ? fallbackMenu.menus : data.menus,
@@ -30,9 +31,16 @@ function ContextLoader(props: Props) {
     <>
       <UseSiteProvider defaultState={value}>
         <UseFetchPaginateProvider defaultState={fetchInitialState}>
-          <>
-            {children}
-          </>
+          <UseSearchProvider defaultState={{
+            ...siteSearchState,
+            status: !searchData ? SEARCH_STATE_ENUMS.ERROR : SEARCH_STATE_ENUMS.LOADED,
+            data: searchData,
+            // client,
+          }}>
+            <>
+              {children}
+            </>
+          </UseSearchProvider>
         </UseFetchPaginateProvider>
       </UseSiteProvider>
     </>
