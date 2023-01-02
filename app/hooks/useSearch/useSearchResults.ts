@@ -119,12 +119,12 @@ export function useSearchResults ({ defaultQuery = null, maxResults = 5, postFoo
   // // that update and set that as the new state
   // useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
-  // // CLEAR SEARCH On COMPONENT UNMOUNT
-  // useEffect(() => {
-  //   return () => {
-  //     handleClearSearch()
-  //   }
-  // }, [])
+  // CLEAR SEARCH On COMPONENT UNMOUNT
+  useEffect(() => {
+    return () => {
+      handleClearSearch()
+    }
+  }, [])
 
   /**
    * handleSearch

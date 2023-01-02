@@ -11,7 +11,7 @@ const page = getStaticPageMeta({
   desc: `Every-Tuesday is an education resource for ambitious graphic designers and hand letterers.`,
   slug: `Our Story`,
 })
-// export let meta = mdxPageMetaV2
+export let meta = mdxPageMetaV2
 
 export let loader: LoaderFunction = async ({ request }) => {
   return json({ page }, {
@@ -24,7 +24,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function About() {
 
   return (
-    <Layout >
+    <Layout disableNavStyles={true}>
       <OurStoryTemplate />
     </Layout>
   )
