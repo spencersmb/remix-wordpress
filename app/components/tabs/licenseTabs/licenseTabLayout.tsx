@@ -32,7 +32,7 @@ const LicenseTabLayout = ({ type, requirements, description, usedFor, cannotBeUs
         {/* ITEMS */}
         {requirements.map((item, index) => {
           return (
-            <div key={index} className="max-w-[250px] text-center flex flex-col items-center mb-10 last:mb-0 tablet:mb-0 tablet:max-w-none tablet:flex-1">
+            <div key={index} className="max-w-[250px] text-center flex flex-col items-center last:mb-0 tablet:mb-0 tablet:max-w-none tablet:flex-1">
               <div className='max-w-[43px] w-full mb-2'>{item.icon}</div>
               <div className='flex items-center flex-1 mb-2 text-2xl leading-7 text-success-700 font-sentinel__SemiBoldItal'>{item.title}</div>
               <div className='text-sm laptop:text-base'>{item.description}</div>
@@ -44,7 +44,7 @@ const LicenseTabLayout = ({ type, requirements, description, usedFor, cannotBeUs
       {/* DESCRIpTioN */}
       <div
         data-testid="description"
-        className='flex flex-col p-6 mt-8 mb-16 tablet:flex-row bg-success-50 rounded-2xl'>
+        className='flex flex-col p-6 mx-4 mt-8 mb-16 tablet:mx-0 tablet:flex-row bg-success-50 rounded-2xl'>
         <div className='max-w-[44px] text-sage-700'>
           <CursorClickIcon stroke="currentColor" />
         </div>

@@ -20,6 +20,8 @@ import { cacheControl } from '@App/lib/remix/loaders'
 import { DesktopComputerIcon, UserGroupIcon } from '@heroicons/react/solid'
 import { CurrencyDollarIcon, TagIcon, UserIcon } from '@heroicons/react/outline'
 import { getStaticPageMeta, navStyles } from '@App/utils/pageUtils'
+import { createImgixSizes } from '@App/utils/imageHelpers'
+import LazyImgix from '@App/components/images/lazyImgix'
 
 const page = getStaticPageMeta({
   title: `License Details`,
@@ -48,28 +50,65 @@ const BankNotesOutline = (props: any) => (<svg xmlns="http://www.w3.org/2000/svg
 interface Props { }
 function LicensesPage(props: Props) {
 
+  const flowerBouquet = createImgixSizes({
+    width: 1312,
+    height: 1205,
+    alt: 'Every-Tuesday hand drawn flat flower bouquet',
+    src: 'https://et-website.imgix.net/et-website/images/flower-bouquet-1.2-min.png',
+    mobileSize: 600
+  })
+
+  const flowerImage = <div className='absolute top-[-100px] left-[-80px] w-[870px] rotate-[185deg]'>
+    <LazyImgix
+      id={'ipadFlowerBg'}
+      image={flowerBouquet.image}
+      sizes="(max-width: 666px) 40vw, 1200px"
+      srcSet={
+        `
+              ${flowerBouquet.defaultSrc}&w=600&fit=clip 600w,
+              ${flowerBouquet.defaultSrc}&w=1200&fit=clip 1200w,
+              `}
+    />
+  </div>
+
   // useEffect(() => {
   //   import("@lottiefiles/lottie-player");
   // });
 
   return (
     <Layout disableNavStyles={true}>
-      <SimpleTabsProvider>
-        <div className={`${navStyles} bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
 
+      <SimpleTabsProvider>
+        <div className={`${navStyles} bg-[#F7F6F7] grid grid-flow-row row-auto grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop z-1 relative`}>
+
+          {/* HEADER */}
           <div className='col-span-full'>
-            <Header1>
-              <div className='max-w-[500px] flex flex-col my-32'>
-                <span className='pb-4 text-grey-700'>Every-Tuesday Licenses</span>
-                <h1 className='pb-8 font-sentinel__SemiBoldItal text-heading-3 tablet:text-display-2 text-grey-700'>Licenses to bring your creative projects to life.</h1>
-                <p className='text-xl text-grey-600'>With three clear options, we take the guesswork out of choosing a license so you can get back to designing.</p>
+            <Header1
+            >
+              <div className='max-w-[500px] flex flex-col mt-32 mb-16 mx-auto tablet:my-32 tablet:ml-0'>
+                <span className='pb-4 font-semibold text-tangerine-700'>Every-Tuesday Licenses</span>
+                <h1 className='pb-8 text-4xl font-sentinel__SemiBoldItal tablet:text-display-2 text-emerald-700'>Licenses to bring your creative projects to life.</h1>
+                <p className='text-xl text-grey-700'>With three clear options, we take the guesswork out of choosing a license so you can get back to designing.</p>
+              </div>
+              <div className='absolute top-[-300px] left-[80px] w-[510px] tablet:top-[-100px] tablet:left-[-900px] tablet:w-[870px] rotate-[185deg]'>
+                <LazyImgix
+                  id={'ipadFlowerBg'}
+                  visibleByDefault={true}
+                  image={flowerBouquet.image}
+                  sizes="(max-width: 666px) 40vw, 1200px"
+                  srcSet={
+                    `
+              ${flowerBouquet.defaultSrc}&w=600&fit=clip 600w,
+              ${flowerBouquet.defaultSrc}&w=1200&fit=clip 1200w,
+              `}
+                />
               </div>
             </Header1>
           </div>
 
 
           {/* LICENSE Options Box Wrapper */}
-          <div className='flex flex-col items-center col-span-2 col-start-2 px-3 py-16 mb-16 bg-white shadow-lg tablet:px-12 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:px-24 desktop:mx-10 rounded-xl'>
+          <div className='relative flex flex-col items-center col-span-2 col-start-2 px-3 py-16 mb-16 bg-white shadow-lg z-3 tablet:px-12 tablet:col-start-2 tablet:col-span-12 laptop:col-start-3 laptop:col-span-10 desktop:px-24 desktop:mx-10 rounded-xl'>
             <h2 className='mb-8 text-lg font-semibold text-sage-800'>License Options</h2>
 
             {/* LICENSE TOGGLE */}

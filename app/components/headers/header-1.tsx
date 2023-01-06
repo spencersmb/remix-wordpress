@@ -2,6 +2,7 @@ import React from 'react'
 
 interface Props {
   children: React.ReactNode
+  image?: any
 }
 
 /**
@@ -12,17 +13,17 @@ interface Props {
  */
 // TODO:ADD TEST
 function Header1(props: Props) {
-  const { children } = props
+  const { children, image } = props
 
   return (
-    <div className='flex flex-col px-6 tablet:flex-row-reverse laptop:flex-row'>
+    <div className='flex flex-col px-6 tablet:flex-row laptop:flex-row'>
       {/* IMAGE CONTAINER */}
-      <div className='flex-1 tablet:flex-[0_1_40%] laptop:flex-[0_1_50%]'>
-
+      <div className='relative flex-1 tablet:flex-[0_1_40%] laptop:flex-[0_1_50%]'>
+        {image}
       </div>
 
       {/* TEXT CONTAINER */}
-      <div className='flex-1 tablet:flex-[0_1_60%] laptop:flex-[0_1_50%]'>
+      <div className='relative flex-1 tablet:flex-[0_1_60%] laptop:flex-[0_1_50%]'>
         {children && children}
       </div>
     </div>
