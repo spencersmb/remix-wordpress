@@ -74,15 +74,104 @@ function getCanvasSize(patternType: number) {
   }
 }
 
+const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement) => {
+  const canvasSize = getCanvasSize(patternType);
+  canvas.width = canvasSize.width;
+  canvas.height = canvasSize.height;
+};
+
+const drawImage = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, patternType: number, aspectRatio: number) => {
+  const imageSize = getPatternTypeSize(patternType)
+  const width = imageSize.width / aspectRatio;
+  const height = imageSize.height / aspectRatio;
+
+  switch (patternType) {
+    case 0:
+      ctxDrawStandardPattern(ctx, image, width, height)
+      break;
+    case 1:
+      ctxDrawHalfBlockPattern(ctx, image, width, height)
+      break;
+    case 2:
+      ctxDrawHalfBrickPattern(ctx, image, width, height)
+      break;
+    default:
+      ctxDrawStandardPattern(ctx, image, width, height)
+  }
+}
+
+const ctxDrawHalfBlockPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    0, 0, newWidth / 2, newHeight / 2);
+
+  const halfImageHeight = newHeight / 2
+  const negativeHalfImageHeight = -halfImageHeight
+
+  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    newWidth / 2,
+    negativeHalfImageHeight / 2,
+    newWidth / 2,
+    newHeight / 2);
+
+  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    newWidth / 2,
+    halfImageHeight / 2,
+    newWidth / 2,
+    newHeight / 2);
+}
+const ctxDrawStandardPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    0, 0, newWidth, newHeight);
+
+  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    newWidth, 0, newWidth, newHeight);
+
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    0, newHeight, newWidth, newHeight);
+
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    newWidth, newHeight, newWidth, newHeight);
+}
+const ctxDrawHalfBrickPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    0, 0, newWidth / 2, newHeight / 2);
+
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    newWidth / 2, 0, newWidth / 2, newHeight / 2);
+
+  const halfImageWidth = newWidth / 2
+  const negativeHalfImageWidth = -halfImageWidth
+
+  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    negativeHalfImageWidth / 2,
+    newHeight / 2,
+    newWidth / 2,
+    newHeight / 2);
+
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    halfImageWidth / 2,
+    newHeight / 2,
+    newWidth / 2,
+    newHeight / 2);
+
+  ctx.drawImage(image, 0, 0, image.width, image.height,
+    (halfImageWidth / 2) + (newWidth / 2),
+    newHeight / 2,
+    newWidth / 2,
+    newHeight / 2);
+}
+
 export default function BrushPreview() {
   let data = useLoaderData()
 
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [backgroundImage, setBackgroundImage] = useState<any>(null);
-  // set buttonState to Normal
   const [patternState, setPatternState] = useState(1);
-
   const [imageCache, setImageCache] = useState<any>({
     0: null,
     1: null,
@@ -105,304 +194,99 @@ export default function BrushPreview() {
     reader.readAsDataURL(file);
   };
 
-  const drawImageBasedOnPattern = useCallback((image: any, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
+  /**
+   * @function drawImageBasedOnPattern()
+   * 
+   * The function starts by checking if either image or canvasRef.current is null.If either one is 
+   * null, the function returns without doing anything.
+   * 
+   * Then, it declares a variable canvas and sets it equal to canvasRef.current.It also declares a
+   * variable ctx and sets it equal to the 2D rendering context of the canvas obtained from canvas
+   * getContext("2d").The function returns if ctx is null.
+   * 
+   * Next, the function declares three variables image1Url, image2Url, and image3Url to store the
+   * URLs of the images drawn on the canvas.
+   * 
+   * It also declares a variable aspectRatio and sets it equal to the aspect ratio of the imag
+   * (height divided by width).
+   * 
+   * The function then starts processing three different patterns for drawing the image on the
+   * canvas.For each pattern, it first calls the setCanvasSize function with the pattern number and
+   * the canvas as arguments.Then, it calls the drawImage function with ctx, image, the pattern
+   * number, and aspectRatio as arguments.Finally, it stores the data URL of the canvas in the
+   * corresponding variable(image1Url, image2Url, or image3Url).After each pattern is processed,
+   * the function clears the canvas by calling ctx.clearRect(0, 0, canvas.width, canvas.height)
+   * 
+   * Finally, the function sets the imageCache object with the URLs of the three images stored in
+   * image1Url, image2Url, and image3Url.
+   * 
+   * Note that this function is declared as a useCallback hook, with an empty array of dependencies
+   * This means that it will only be re - created when the dependencies change, otherwise it will
+   * use the cached version.
+   * 
+   */
+  const drawImageBasedOnPattern = useCallback((image: HTMLImageElement | null, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
+    // Exit the function if either the image or the canvas reference is not available
     if (!image || !canvasRef.current) {
       return;
     }
 
+    // Get the canvas element from the reference object
     const canvas = canvasRef.current
+    // Get the 2D rendering context from the canvas
     const ctx = canvas.getContext("2d")
-    const aspectRatio = image.height / image.width
 
+    // Exit the function if the 2D rendering context is not available
     if (!ctx) return
-
-    // const selectedCanvasSize = getCanvasSize(patternState)
-
-    // const canvasSize = {
-    //   width: selectedCanvasSize.width,
-    //   height: selectedCanvasSize.height
-    // }
-
-    // canvas.width = canvasSize.width;
-    // canvas.height = canvasSize.height;
-
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-
-    // switch (patternState) {
-    //   case 0:
-    //     // Code for pattern 0
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       0, 0, imageSize.width, imageSize.height);
-
-    //     if (imageCache[0]) {
-    //       setBackgroundImage(imageCache[0])
-    //       return
-    //     }
-    //     setBackgroundImage(canvas.toDataURL());
-    //     setImageCache({
-    //       ...imageCache,
-    //       0: canvas.toDataURL()
-    //     })
-
-    //     break;
-
-    //   case 1:
-    //     // Code for pattern 1
-    //     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       0, 0, imageSize.width / 2, imageSize.height / 2);
-
-    //     const halfImageHeight = imageSize.height / 2
-    //     const negativeHalfImageHeight = -halfImageHeight
-
-    //     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       imageSize.width / 2,
-    //       negativeHalfImageHeight / 2,
-    //       imageSize.width / 2,
-    //       imageSize.height / 2);
-
-    //     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       imageSize.width / 2,
-    //       halfImageHeight / 2,
-    //       imageSize.width / 2,
-    //       imageSize.height / 2);
-
-    //     if (imageCache[1]) {
-    //       console.log('useCache')
-    //       setBackgroundImage(imageCache[1])
-    //       return
-    //     }
-    //     setBackgroundImage(canvas.toDataURL());
-    //     setImageCache({
-    //       ...imageCache,
-    //       1: canvas.toDataURL()
-    //     })
-
-    //     break;
-
-    //   case 2:
-    //     // Code for pattern 2
-
-    //     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       0, 0, imageSize.width / 2, imageSize.height / 2);
-
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       imageSize.width / 2, 0, imageSize.width / 2, imageSize.height / 2);
-
-    //     const halfImageWidth = imageSize.width / 2
-    //     const negativeHalfImageWidth = -halfImageWidth
-
-    //     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       negativeHalfImageWidth / 2,
-    //       imageSize.height / 2,
-    //       imageSize.width / 2,
-    //       imageSize.height / 2);
-
-    //     ctx.drawImage(image, 0, 0, image.width, image.height,
-    //       halfImageWidth / 2,
-    //       imageSize.height / 2,
-    //       imageSize.width / 2,
-    //       imageSize.height / 2);
-
-    //     if (imageCache[2]) {
-    //       setBackgroundImage(imageCache[2])
-    //       return
-    //     }
-
-    //     setBackgroundImage(canvas.toDataURL());
-    //     setImageCache({
-    //       ...imageCache,
-    //       2: canvas.toDataURL()
-    //     })
-
-    //     break;
-    //   default:
-    //     // Code for default pattern
-    //     break;
-    // }
 
     let image1Url = ''
     let image2Url = ''
     let image3Url = ''
 
-    // Code for pattern 0
-    const normalCanvasSize = getCanvasSize(0)
-    const normalSizes = {
-      width: normalCanvasSize.width,
-      height: normalCanvasSize.height
-    }
-    canvas.width = normalSizes.width;
-    canvas.height = normalSizes.height;
+    // Calculate the aspect ratio of the image
+    const aspectRatio = image.height / image.width
 
-    const normalImageSize = getPatternTypeSize(0)
 
-    const normalSize = {
-      width: normalImageSize.width / aspectRatio,
-      height: normalImageSize.height / aspectRatio
-    }
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      0, 0, normalSize.width, normalSize.height);
-
-    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      normalSize.width, 0, normalSize.width, normalSize.height);
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      0, normalSize.height, normalSize.width, normalSize.height);
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      normalSize.width, normalSize.height, normalSize.width, normalSize.height);
-
+    //// Code for pattern 0
+    // Set the size of the canvas for pattern 0
+    setCanvasSize(0, canvas)
+    // Draw the image onto the canvas with pattern 0
+    drawImage(ctx, image, 0, aspectRatio)
+    // Save the image data URL of pattern 0
     image1Url = canvas.toDataURL()
+    // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Code for pattern 1
-    const halfBlockCanvasSize = getCanvasSize(1)
-    const halfBlockSizes = {
-      width: halfBlockCanvasSize.width,
-      height: halfBlockCanvasSize.height
-    }
-    canvas.width = halfBlockSizes.width;
-    canvas.height = halfBlockSizes.height;
-
-    const getHalfBlockImageSize = getPatternTypeSize(1)
-
-    const halfBlockImageSize = {
-      width: getHalfBlockImageSize.width / aspectRatio,
-      height: getHalfBlockImageSize.height / aspectRatio
-    }
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      0, 0, halfBlockImageSize.width / 2, halfBlockImageSize.height / 2);
-
-    const halfImageHeight = halfBlockImageSize.height / 2
-    const negativeHalfImageHeight = -halfImageHeight
-
-    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      halfBlockImageSize.width / 2,
-      negativeHalfImageHeight / 2,
-      halfBlockImageSize.width / 2,
-      halfBlockImageSize.height / 2);
-
-    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      halfBlockImageSize.width / 2,
-      halfImageHeight / 2,
-      halfBlockImageSize.width / 2,
-      halfBlockImageSize.height / 2);
-
+    //// Code for pattern 1
+    // Set the size of the canvas for pattern 1
+    setCanvasSize(1, canvas)
+    // Draw the image onto the canvas with pattern 1
+    drawImage(ctx, image, 1, aspectRatio)
+    // Save the image data URL of pattern 1
     image2Url = canvas.toDataURL()
+    // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Code for pattern 2
-    const halfBrickCanvasSize = getCanvasSize(2)
-    const halfBrickSizes = {
-      width: halfBrickCanvasSize.width,
-      height: halfBrickCanvasSize.height
-    }
-    canvas.width = halfBrickSizes.width;
-    canvas.height = halfBrickSizes.height;
-
-    const getHalfBrickImageSize = getPatternTypeSize(2)
-
-    const halfBrickImageSize = {
-      width: getHalfBrickImageSize.width / aspectRatio,
-      height: getHalfBrickImageSize.height / aspectRatio
-    }
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      0, 0, halfBrickImageSize.width / 2, halfBrickImageSize.height / 2);
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      halfBrickImageSize.width / 2, 0, halfBrickImageSize.width / 2, halfBrickImageSize.height / 2);
-
-    const halfImageWidth = halfBrickImageSize.width / 2
-    const negativeHalfImageWidth = -halfImageWidth
-
-    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      negativeHalfImageWidth / 2,
-      halfBrickImageSize.height / 2,
-      halfBrickImageSize.width / 2,
-      halfBrickImageSize.height / 2);
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      halfImageWidth / 2,
-      halfBrickImageSize.height / 2,
-      halfBrickImageSize.width / 2,
-      halfBrickImageSize.height / 2);
-
-    ctx.drawImage(image, 0, 0, image.width, image.height,
-      (halfImageWidth / 2) + (halfBrickImageSize.width / 2),
-      halfBrickImageSize.height / 2,
-      halfBrickImageSize.width / 2,
-      halfBrickImageSize.height / 2);
-
+    //// Code for pattern 2
+    // Set the size of the canvas for pattern 2
+    setCanvasSize(2, canvas)
+    // Draw the image onto the canvas with pattern 2
+    drawImage(ctx, image, 2, aspectRatio)
+    // Save the image data URL of pattern 2
     image3Url = canvas.toDataURL()
+    // Set the image cache object with all three patterns
     setImageCache({
       0: image1Url,
       1: image2Url,
       2: image3Url
     })
-
-
   }, [])
-  // const callback = useCallback(() => {},
+
   React.useEffect(() => {
-    // if (image && canvasRef.current) {
-    //   const canvas = canvasRef.current;
-    //   const ctx = canvas.getContext('2d');
-    //   const aspectRatio = image.height / image.width;
-    //   if (!ctx) return
-
-    //   // HALF DROP SIZE 1024 × 512 px
-    //   canvas.width = 1024;
-    //   canvas.height = 512;
-
-    //   const halfDropImageSizes = {
-    //     width: 1024 / aspectRatio,
-    //     height: 1024 / aspectRatio
-    //   }
-
-    //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    //   ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, halfDropImageSizes.width / 2, halfDropImageSizes.height / 2);
-
-    //   const halfImageHeight = halfDropImageSizes.height / 2
-    //   const negativeHalfImageHeight = -halfImageHeight
-
-    //   ctx.drawImage(image, 0, 0, image.width, image.height,
-    //     halfDropImageSizes.width / 2,
-    //     negativeHalfImageHeight / 2,
-    //     halfDropImageSizes.width / 2,
-    //     halfDropImageSizes.height / 2);
-
-    //   // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    //   ctx.drawImage(image, 0, 0, image.width, image.height,
-    //     halfDropImageSizes.width / 2,
-    //     halfImageHeight / 2,
-    //     halfDropImageSizes.width / 2,
-    //     halfDropImageSizes.height / 2);
-
-    //   setBackgroundImage(canvas.toDataURL());
-    // }
-
     drawImageBasedOnPattern(image, canvasRef);
-    console.log('setCache')
   }, [image, canvasRef, drawImageBasedOnPattern]);
 
-
-
   React.useEffect(() => {
-    console.log('imageCache', imageCache)
     switch (patternState) {
       case 0:
         if (imageCache[0]) {
@@ -442,12 +326,6 @@ export default function BrushPreview() {
 
     if (!ctx) return
 
-    // Set the dimensions of the canvas to match the desired pattern size
-    // const imageSize = {
-    //   width: patternSize.width / aspectRatio,
-    //   height: patternSize.height / aspectRatio
-    // }
-
     canvas.width = 1024;
     canvas.height = 512;
     const aspectRatio = selectedImage.height / selectedImage.width
@@ -476,7 +354,6 @@ export default function BrushPreview() {
     // link.download = 'pattern.png';
     // link.click();
   }
-
 
   return (
     <Layout >
