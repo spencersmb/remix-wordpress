@@ -35,5 +35,5 @@ declare namespace JSX {
 }
 
 // declare module "text2png"
-
-
+//@ts-ignore
+// declare module 'html5-file-selector';

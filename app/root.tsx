@@ -40,6 +40,7 @@ import { withSentry } from "@sentry/remix";
 import { useLoginOtherTabs } from "./hooks/windowUtilHooks";
 import CustomScripts from "./components/layout/customScripts";
 import ErrorTemplate from "./components/pageTemplates/errorTemplate";
+import dropZoneStyles from 'react-dropzone-uploader/dist/styles.css'
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -79,6 +80,7 @@ export let links: LinksFunction = () => {
     { rel: "stylesheet", href: deleteMeRemixStyles },
     // { rel: "stylesheet", href: nProgressStyles },
     { rel: "stylesheet", href: styles },
+    { rel: "stylesheet", href: dropZoneStyles },
   ];
 };
 
@@ -321,7 +323,7 @@ export function Document({ children, title }: IDocument) {
           <GlobalEvents />
           <Header />
           <Outlet />
-          <FooterPrimary />
+          {/* <FooterPrimary /> */}
           <BasicModal />
           <CommentModal />
           <SearchModal />

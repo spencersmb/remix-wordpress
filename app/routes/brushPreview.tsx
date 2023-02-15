@@ -6,8 +6,8 @@ import { useLoaderData } from '@remix-run/react';
 import type { MutableRefObject } from 'react';
 import { useCallback } from 'react';
 import React, { Ref, useEffect, useRef, useState } from 'react'
-
-interface Props { }
+import BackgroundDz from '@App/components/patternPlayground/primaryDz/backgroundDz';
+import { drawImage, getCanvasSize, setCanvasSize } from '@App/components/patternPlayground/patternHelpers';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -16,153 +16,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({
     brush: {}
   });
-}
-
-const patternTypeSizes = {
-  normal: {
-    width: 512,
-    height: 512
-  },
-  halfBlock: {
-    width: 1024,
-    height: 1024
-  },
-  halfBrick: {
-    width: 1024,
-    height: 1024
-  }
-}
-
-const canvasSizes = {
-  normal: {
-    width: 1024,
-    height: 1024
-  },
-  halfBlock: {
-    width: 1024,
-    height: 512
-  },
-  halfBrick: {
-    width: 1024,
-    height: 1024
-  }
-}
-
-function getPatternTypeSize(patternType: number) {
-  switch (patternType) {
-    case 0:
-      return patternTypeSizes.normal
-    case 1:
-      return patternTypeSizes.halfBlock
-    case 2:
-      return patternTypeSizes.halfBrick
-    default:
-      return patternTypeSizes.normal
-  }
-}
-
-function getCanvasSize(patternType: number) {
-  switch (patternType) {
-    case 0:
-      return canvasSizes.normal
-    case 1:
-      return canvasSizes.halfBlock
-    case 2:
-      return canvasSizes.halfBrick
-    default:
-      return canvasSizes.normal
-  }
-}
-
-const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement) => {
-  const canvasSize = getCanvasSize(patternType);
-  canvas.width = canvasSize.width;
-  canvas.height = canvasSize.height;
-};
-
-const drawImage = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, patternType: number, aspectRatio: number) => {
-  const imageSize = getPatternTypeSize(patternType)
-  const width = imageSize.width / aspectRatio;
-  const height = imageSize.height / aspectRatio;
-
-  switch (patternType) {
-    case 0:
-      ctxDrawStandardPattern(ctx, image, width, height)
-      break;
-    case 1:
-      ctxDrawHalfBlockPattern(ctx, image, width, height)
-      break;
-    case 2:
-      ctxDrawHalfBrickPattern(ctx, image, width, height)
-      break;
-    default:
-      ctxDrawStandardPattern(ctx, image, width, height)
-  }
-}
-
-const ctxDrawHalfBlockPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    0, 0, newWidth / 2, newHeight / 2);
-
-  const halfImageHeight = newHeight / 2
-  const negativeHalfImageHeight = -halfImageHeight
-
-  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    newWidth / 2,
-    negativeHalfImageHeight / 2,
-    newWidth / 2,
-    newHeight / 2);
-
-  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    newWidth / 2,
-    halfImageHeight / 2,
-    newWidth / 2,
-    newHeight / 2);
-}
-const ctxDrawStandardPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    0, 0, newWidth, newHeight);
-
-  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    newWidth, 0, newWidth, newHeight);
-
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    0, newHeight, newWidth, newHeight);
-
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    newWidth, newHeight, newWidth, newHeight);
-}
-const ctxDrawHalfBrickPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    0, 0, newWidth / 2, newHeight / 2);
-
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    newWidth / 2, 0, newWidth / 2, newHeight / 2);
-
-  const halfImageWidth = newWidth / 2
-  const negativeHalfImageWidth = -halfImageWidth
-
-  // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    negativeHalfImageWidth / 2,
-    newHeight / 2,
-    newWidth / 2,
-    newHeight / 2);
-
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    halfImageWidth / 2,
-    newHeight / 2,
-    newWidth / 2,
-    newHeight / 2);
-
-  ctx.drawImage(image, 0, 0, image.width, image.height,
-    (halfImageWidth / 2) + (newWidth / 2),
-    newHeight / 2,
-    newWidth / 2,
-    newHeight / 2);
 }
 
 export default function BrushPreview() {
@@ -245,7 +98,7 @@ export default function BrushPreview() {
 
     // Calculate the aspect ratio of the image
     const aspectRatio = image.height / image.width
-
+    console.log('aspectRatio', aspectRatio)
 
     //// Code for pattern 0
     // Set the size of the canvas for pattern 0
@@ -275,6 +128,8 @@ export default function BrushPreview() {
     // Save the image data URL of pattern 2
     image3Url = canvas.toDataURL()
     // Set the image cache object with all three patterns
+
+    console.log('image1Url', image1Url)
     setImageCache({
       0: image1Url,
       1: image2Url,
@@ -317,23 +172,30 @@ export default function BrushPreview() {
 
   }, [imageCache, patternState]);
 
+  // Handle saving the image to a file
   function handleSaveImage() {
+
+    // Create a new Image object from the cached image
     const selectedImage = new Image();
-    selectedImage.src = imageCache[patternState]
-    const canvas = canvasRef.current
-    if (!canvas || !image) return
-    const ctx = canvas.getContext("2d")
+    selectedImage.src = imageCache[patternState];
 
-    if (!ctx) return
+    // Get the canvas and its context
+    const canvas = canvasRef.current;
+    if (!canvas || !image) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
+    // Set the image file size
     canvas.width = 1024;
     canvas.height = 512;
-    const aspectRatio = selectedImage.height / selectedImage.width
 
-    console.log('aspectRatio', aspectRatio)
+    // Calculate the aspect ratio of the image
+    const aspectRatio = selectedImage.height / selectedImage.width;
 
-    const dynamicPatternSize = 400
-    const selectedImageBaseSize = getCanvasSize(patternState)
+    // Set the size of the repeat unit
+    // This is based on the user scale slider
+    const dynamicPatternSize = 400;
+    const selectedImageBaseSize = getCanvasSize(patternState);
 
     // Draw the pattern on the canvas
     for (let y = 0; y < canvas.height; y += dynamicPatternSize * aspectRatio) {
@@ -346,13 +208,17 @@ export default function BrushPreview() {
 
     // Get the data URL for the pattern
     const dataURL = canvas.toDataURL();
-    setSavedImage(dataURL)
+    // setSavedImage(dataURL)
 
     // Save the data URL as an image file
-    // const link = document.createElement('a');
-    // link.href = dataURL;
-    // link.download = 'pattern.png';
-    // link.click();
+    const link = document.createElement('a');
+    link.id = 'downloadLink';
+    link.href = dataURL;
+    link.download = 'pattern.jpg';
+    link.click();
+
+    // Remove the link from the DOM
+    document.getElementById('downloadLink')?.remove();
   }
 
   return (
@@ -360,9 +226,8 @@ export default function BrushPreview() {
 
       {/* CONTACT FORM + TEXT */}
       <div>
-        Test brush file
 
-        <div>
+        {/* <div>
           <div>
             <button
               className={patternState === 0 ? 'text-red-700' : 'text-grey-600'}
@@ -392,21 +257,17 @@ export default function BrushPreview() {
             <canvas style={{
               display: 'none'
             }} ref={canvasRef}></canvas>
-            {/* <button onClick={getSettings}>Parse</button> */}
 
             {savedImage && <img
               src={savedImage}
               alt="saved img"
-              // className="transition-all duration-75 ease-linear"
               style={{
                 zIndex: 1,
                 height: '512px',
                 width: '1024px',
               }} />}
 
-            {/* {file && settings && showBrushPreview(settings)} */}
             {<div
-              // className="transition-all duration-75 ease-linear"
               style={{
                 backgroundImage: `url(${backgroundImage})`,
                 zIndex: 1,
@@ -414,13 +275,26 @@ export default function BrushPreview() {
                 height: '512px',
                 width: '1024px',
               }} />}
-
-
-
           </div>
+        </div> */}
+
+        <BackgroundDz patternState={patternState} />
+        <div className='fixed bottom-0 left-0 w-full h-[130px] bg-red-500 z-10'>
+          NAV
         </div>
       </div>
 
     </Layout>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
