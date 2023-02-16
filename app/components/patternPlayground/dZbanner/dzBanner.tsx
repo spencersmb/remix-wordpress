@@ -7,12 +7,13 @@ const DzBanner = ({ backgroundImage }: any) => {
     <>
       <motion.div
         key={`Banner`}
+        id={`dz-banner`}
         initial='initial'
         variants={variants}
         animate={backgroundImage ? "loaded" : "initial"}
         className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl p-3`}
       >
-        <div className="flex flex-col relative z-1">
+        <div className="relative flex flex-col z-1">
           <motion.h1
             className={classNames(backgroundImage ? 'text-left' : 'text-center', 'font-bold font-sentinel__SemiBoldItal')}
             key={`h1`}
@@ -37,7 +38,7 @@ const DzBanner = ({ backgroundImage }: any) => {
         </AnimatePresence>
 
         {!backgroundImage &&
-          <div className=" absolute top-0 left-0 w-full h-full z-2">
+          <div className="absolute top-0 left-0 w-full h-full  z-2">
             <DropZoneTwo />
           </div>}
 

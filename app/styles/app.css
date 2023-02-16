@@ -1873,9 +1873,6 @@ video {
 .left-\[-120px\] {
   left: -120px;
 }
-.z-10 {
-  z-index: 10;
-}
 .z-2 {
   z-index: 2;
 }
@@ -1884,6 +1881,9 @@ video {
 }
 .z-3 {
   z-index: 3;
+}
+.z-10 {
+  z-index: 10;
 }
 .z-\[2\] {
   z-index: 2;
@@ -2344,9 +2344,6 @@ video {
 .hidden {
   display: none;
 }
-.h-\[130px\] {
-  height: 130px;
-}
 .h-14 {
   height: 3.5rem;
 }
@@ -2419,6 +2416,9 @@ video {
 .h-\[60px\] {
   height: 60px;
 }
+.h-\[130px\] {
+  height: 130px;
+}
 .h-\[14px\] {
   height: 14px;
 }
@@ -2454,6 +2454,9 @@ video {
 }
 .h-\[94px\] {
   height: 94px;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .max-h-60 {
   max-height: 15rem;
@@ -4001,10 +4004,6 @@ video {
 .\!border-tangerine-100 {
   border-color: var(--tangerine-100) !important;
 }
-.bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
 .bg-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(240 227 220 / var(--tw-bg-opacity));
@@ -4145,6 +4144,10 @@ video {
 .bg-cream-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 236 230 / var(--tw-bg-opacity));
+}
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 .bg-emerald-100 {
   background-color: var(--emerald-100);
@@ -4639,6 +4642,9 @@ video {
 }
 .pt-\[40px\] {
   padding-top: 40px;
+}
+.pt-1 {
+  padding-top: 0.25rem;
 }
 .text-left {
   text-align: left;
@@ -5779,11 +5785,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.before\:bg-red-100::before {
-  content: var(--tw-content);
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
-}
 .before\:content-\[\'\'\]::before {
   --tw-content: '';
   content: var(--tw-content);
@@ -6155,6 +6156,11 @@ video {
   --tw-text-opacity: 1;
   color: rgb(252 250 251 / var(--tw-text-opacity));
 }
+.focus\:shadow-none:focus {
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -6169,6 +6175,12 @@ video {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 -moz-calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+.focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 -moz-calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 .focus\:ring-primary-300:focus {
@@ -11453,3 +11465,46 @@ input[type="search" i]::-webkit-search-cancel-button {
 .header-white {
  background-color: #fff;
 }
+.dzBackgroundText.dz-drag-hover:after {
+   top: 50%;
+   opacity: 1;
+  }
+.dzBackgroundText:after {
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  transition: 0.3s ease;
+  /* background-color: #4373f0; */
+  content: "Drop Image Here";
+  opacity: 0;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  zindex: 1;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+ }

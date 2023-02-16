@@ -8,6 +8,7 @@ export enum IPPTypes {
   SET_BG_IMAGE = 'SET_BG_IMAGE',
   SET_IMAGE_CACHE = 'SET_IMAGE_CACHE',
   SET_PATTERN_TYPE = 'SET_PATTERN_TYPE',
+  CHANGE_PATTERN_SIZE = 'CHANGE_PATTERN_SIZE',
 }
 
 interface ISetImage {
@@ -37,8 +38,14 @@ interface ISetPatternType {
   type: IPPTypes.SET_PATTERN_TYPE,
   payload: number
 }
+
+interface IChangePatternSize {
+  type: IPPTypes.CHANGE_PATTERN_SIZE,
+  payload: number
+}
 export type IPPAction =
 | ISetImageCache
+| IChangePatternSize
 | ISetPatternType
 | ISetImage
 | ISetBgImage
@@ -76,6 +83,12 @@ export const usePPReducer = (state: IPatternProviderContextState, action: IPPAct
       return {
         ...state,
         patternType: action.payload
+      }
+
+    case IPPTypes.CHANGE_PATTERN_SIZE :
+      return {
+        ...state,
+        patternSize: action.payload
       }
 
     default: {

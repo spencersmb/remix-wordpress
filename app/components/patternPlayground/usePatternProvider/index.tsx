@@ -14,6 +14,7 @@ export interface IPatternProviderContextState {
     [key: number]: string | null;
   }
   patternType: number
+  patternSize: number
 }
 
 interface IPatternProviderContextType {
@@ -29,7 +30,8 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
     1: null,
     2: null
   },
-  patternType: 1
+  patternType: 1,
+  patternSize: 600
 }
 
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
@@ -209,6 +211,13 @@ const usePatternPlayground = () => {
 
   }
 
+  const changePatternSize = (size: number) => {
+    dispatch({
+      type: IPPTypes.CHANGE_PATTERN_SIZE,
+      payload: size
+    })
+  }
+
   useEffect(() => {
     const cache = drawImageBasedOnPattern(state.image, canvasRef);
     if (cache) {
@@ -218,6 +227,7 @@ const usePatternPlayground = () => {
 
 
   return {
+    changePatternSize,
     setBackgroundImage,
     canvasRef,
     setNewImage,
