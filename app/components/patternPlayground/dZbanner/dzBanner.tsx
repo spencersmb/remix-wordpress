@@ -12,7 +12,7 @@ const DzBanner = ({ backgroundImage }: any) => {
         animate={backgroundImage ? "loaded" : "initial"}
         className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl p-3`}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col relative z-1">
           <motion.h1
             className={classNames(backgroundImage ? 'text-left' : 'text-center', 'font-bold font-sentinel__SemiBoldItal')}
             key={`h1`}
@@ -25,16 +25,21 @@ const DzBanner = ({ backgroundImage }: any) => {
         </div>
         <AnimatePresence>
           {!backgroundImage ? <motion.div
-            className="relative overflow-hidden"
+            className="relative overflow-hidden bg-red-300 z-1"
             variants={dzVariants}
             key="dz"
             initial={'initial'}
             exit={'exit'}
             animate={'enter'}
           >
-            <DropZoneTwo />
+
           </motion.div> : null}
         </AnimatePresence>
+
+        {!backgroundImage &&
+          <div className=" absolute top-0 left-0 w-full h-full z-2">
+            <DropZoneTwo />
+          </div>}
 
       </motion.div>
     </>
@@ -46,7 +51,7 @@ export default DzBanner
 const dzVariants = {
   initial: {
     width: '100%',
-    height: 'auto',
+    height: '300px',
     display: 'block',
     overflow: 'hidden',
     transition: {
@@ -68,7 +73,7 @@ const dzVariants = {
   },
   enter: {
     width: '100%',
-    height: 'auto',
+    height: '300px',
     display: 'block',
     overflow: 'hidden',
     transition: {

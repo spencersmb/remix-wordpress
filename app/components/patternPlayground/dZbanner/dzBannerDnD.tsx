@@ -1,6 +1,7 @@
 import Dropzone from "react-dropzone-uploader"
+import DzBannerLayout from "./dzBannerLayout"
 
-const DropZoneTwo = () => {
+const DropZoneTwo = ({ backgroundImage }: any) => {
   const getUploadParams = () => {
     return { url: 'https://httpbin.org/post' }
   }
@@ -19,13 +20,13 @@ const DropZoneTwo = () => {
       getUploadParams={getUploadParams}
       onChangeStatus={handleChangeStatus}
       onSubmit={handleSubmit}
+      // LayoutComponent={props => <DzBannerLayout {...props} backgroundImage={backgroundImage} />}
       classNames={{
-        dropzone: 'dz2 overflow-hidden bg-white w-full'
+        dropzone: 'dz2 overflow-hidden bg-transparent w-full'
       }}
       styles={{
         dropzone: {
-          minHeight: 200,
-          maxHeight: 250
+          height: '100%',
         }
       }}
     />

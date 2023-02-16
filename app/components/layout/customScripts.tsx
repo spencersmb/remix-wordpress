@@ -26,9 +26,9 @@ function CustomScripts(props: Props) {
           )}`
         }}
       />}
-      <script
+      {/* <script
         src="https://gumroad.every-tuesday.com/js/gumroad.js"
-      />
+      /> */}
       <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver" />
     </>
   )

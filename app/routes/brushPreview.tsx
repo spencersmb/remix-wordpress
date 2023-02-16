@@ -8,6 +8,9 @@ import { useCallback } from 'react';
 import React, { Ref, useEffect, useRef, useState } from 'react'
 import BackgroundDz from '@App/components/patternPlayground/primaryDz/backgroundDz';
 import { drawImage, getCanvasSize, setCanvasSize } from '@App/components/patternPlayground/patternHelpers';
+import UsePatternProvider from '@App/components/patternPlayground/usePatternProvider/patternProvider';
+import { patternPlaygroundInitialState } from '@App/components/patternPlayground/usePatternProvider';
+import PatternNav from '@App/components/patternPlayground/patternTypsNav';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -21,31 +24,31 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function BrushPreview() {
   let data = useLoaderData()
 
-  const [image, setImage] = useState<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<any>(null);
+  // const [image, setImage] = useState<HTMLImageElement | null>(null);
+  // const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // const [backgroundImage, setBackgroundImage] = useState<any>(null);
   const [patternState, setPatternState] = useState(1);
   const [imageCache, setImageCache] = useState<any>({
     0: null,
     1: null,
     2: null
   })
-  const [savedImage, setSavedImage] = useState<any>(null)
+  // const [savedImage, setSavedImage] = useState<any>(null)
 
-  const handleFileUpload = (event: any) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  // const handleFileUpload = (event: any) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
 
-    reader.onload = (e: any) => {
-      const loadedImage = new Image();
-      loadedImage.src = e.target.result;
-      loadedImage.onload = () => {
-        setImage(loadedImage);
-      };
-    };
+  //   reader.onload = (e: any) => {
+  //     const loadedImage = new Image();
+  //     loadedImage.src = e.target.result;
+  //     loadedImage.onload = () => {
+  //       setImage(loadedImage);
+  //     };
+  //   };
 
-    reader.readAsDataURL(file);
-  };
+  //   reader.readAsDataURL(file);
+  // };
 
   /**
    * @function drawImageBasedOnPattern()
@@ -137,95 +140,95 @@ export default function BrushPreview() {
     })
   }, [])
 
-  React.useEffect(() => {
-    drawImageBasedOnPattern(image, canvasRef);
-  }, [image, canvasRef, drawImageBasedOnPattern]);
+  // React.useEffect(() => {
+  //   drawImageBasedOnPattern(image, canvasRef);
+  // }, [image, canvasRef, drawImageBasedOnPattern]);
 
-  React.useEffect(() => {
-    switch (patternState) {
-      case 0:
-        if (imageCache[0]) {
-          setBackgroundImage(imageCache[0])
-          return
-        }
-        break;
-      case 1:
-        if (imageCache[1]) {
-          setBackgroundImage(imageCache[1])
-          return
-        }
-        break;
-      case 2:
-        if (imageCache[2]) {
-          setBackgroundImage(imageCache[2])
-          return
-        }
-        break;
-      default:
-        if (imageCache[0]) {
-          setBackgroundImage(imageCache[0])
-          return
-        }
-        break;
-    }
+  // React.useEffect(() => {
+  //   switch (patternState) {
+  //     case 0:
+  //       if (imageCache[0]) {
+  //         setBackgroundImage(imageCache[0])
+  //         return
+  //       }
+  //       break;
+  //     case 1:
+  //       if (imageCache[1]) {
+  //         setBackgroundImage(imageCache[1])
+  //         return
+  //       }
+  //       break;
+  //     case 2:
+  //       if (imageCache[2]) {
+  //         setBackgroundImage(imageCache[2])
+  //         return
+  //       }
+  //       break;
+  //     default:
+  //       if (imageCache[0]) {
+  //         setBackgroundImage(imageCache[0])
+  //         return
+  //       }
+  //       break;
+  //   }
 
 
-  }, [imageCache, patternState]);
+  // }, [imageCache, patternState]);
 
   // Handle saving the image to a file
-  function handleSaveImage() {
+  // function handleSaveImage() {
 
-    // Create a new Image object from the cached image
-    const selectedImage = new Image();
-    selectedImage.src = imageCache[patternState];
+  //   // Create a new Image object from the cached image
+  //   const selectedImage = new Image();
+  //   selectedImage.src = imageCache[patternState];
 
-    // Get the canvas and its context
-    const canvas = canvasRef.current;
-    if (!canvas || !image) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  //   // Get the canvas and its context
+  //   const canvas = canvasRef.current;
+  //   if (!canvas || !image) return;
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
 
-    // Set the image file size
-    canvas.width = 1024;
-    canvas.height = 512;
+  //   // Set the image file size
+  //   canvas.width = 1024;
+  //   canvas.height = 512;
 
-    // Calculate the aspect ratio of the image
-    const aspectRatio = selectedImage.height / selectedImage.width;
+  //   // Calculate the aspect ratio of the image
+  //   const aspectRatio = selectedImage.height / selectedImage.width;
 
-    // Set the size of the repeat unit
-    // This is based on the user scale slider
-    const dynamicPatternSize = 400;
-    const selectedImageBaseSize = getCanvasSize(patternState);
+  //   // Set the size of the repeat unit
+  //   // This is based on the user scale slider
+  //   const dynamicPatternSize = 400;
+  //   const selectedImageBaseSize = getCanvasSize(patternState);
 
-    // Draw the pattern on the canvas
-    for (let y = 0; y < canvas.height; y += dynamicPatternSize * aspectRatio) {
-      for (let x = 0; x < canvas.width; x += dynamicPatternSize) {
-        // Draw a 400x400 repeat unit at (x, y)
-        // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        ctx.drawImage(selectedImage, 0, 0, selectedImageBaseSize.width, selectedImageBaseSize.height, x, y, dynamicPatternSize, dynamicPatternSize * aspectRatio);
-      }
-    }
+  //   // Draw the pattern on the canvas
+  //   for (let y = 0; y < canvas.height; y += dynamicPatternSize * aspectRatio) {
+  //     for (let x = 0; x < canvas.width; x += dynamicPatternSize) {
+  //       // Draw a 400x400 repeat unit at (x, y)
+  //       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  //       ctx.drawImage(selectedImage, 0, 0, selectedImageBaseSize.width, selectedImageBaseSize.height, x, y, dynamicPatternSize, dynamicPatternSize * aspectRatio);
+  //     }
+  //   }
 
-    // Get the data URL for the pattern
-    const dataURL = canvas.toDataURL();
-    // setSavedImage(dataURL)
+  //   // Get the data URL for the pattern
+  //   const dataURL = canvas.toDataURL();
+  //   // setSavedImage(dataURL)
 
-    // Save the data URL as an image file
-    const link = document.createElement('a');
-    link.id = 'downloadLink';
-    link.href = dataURL;
-    link.download = 'pattern.jpg';
-    link.click();
+  //   // Save the data URL as an image file
+  //   const link = document.createElement('a');
+  //   link.id = 'downloadLink';
+  //   link.href = dataURL;
+  //   link.download = 'pattern.jpg';
+  //   link.click();
 
-    // Remove the link from the DOM
-    document.getElementById('downloadLink')?.remove();
-  }
+  //   // Remove the link from the DOM
+  //   document.getElementById('downloadLink')?.remove();
+  // }
 
   return (
     <Layout >
 
       {/* CONTACT FORM + TEXT */}
-      <div>
+      <>
 
         {/* <div>
           <div>
@@ -277,12 +280,14 @@ export default function BrushPreview() {
               }} />}
           </div>
         </div> */}
+        <UsePatternProvider defaultState={patternPlaygroundInitialState} >
+          <>
+            <BackgroundDz />
+            <PatternNav />
+          </>
+        </UsePatternProvider>
 
-        <BackgroundDz patternState={patternState} />
-        <div className='fixed bottom-0 left-0 w-full h-[130px] bg-red-500 z-10'>
-          NAV
-        </div>
-      </div>
+      </>
 
     </Layout>
   )

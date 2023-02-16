@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { classNames } from "@App/utils/appUtils";
+import { useEffect, useRef, useState } from "react";
 
 const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles }, canvasRef, backgroundImage }: any) => {
+  const uploadRef = useRef<any>(null)
   const [isHovering, setIsHovering] = useState(false);
+
   return (
-    <div>
+    <>
       {/* <div>
         {isHovering && <div>isHovering</div>}
         {!isHovering && <div>not isHovering</div>}
       </div> */}
       {/* {previews} */}
-      <div {...dropzoneProps}
+      <div
+        ref={uploadRef}
+        {...dropzoneProps}
         onDragEnter={(e) => {
           // console.log('drag enter', e)
           if (!isHovering) {
@@ -18,15 +23,16 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
         }}
         onDragLeave={(e) => {
           dropzoneProps.onDragLeave(e)
-
-          const parent = document.querySelector('.upload')
+          // console.log('drag leave', e)
+          // console.log('drag leave', uploadRef.current.classList.contains('dzu-dropzoneActive'))
+          // const parent = document.querySelector('.upload')
           // Does parent have class dzu-dropzoneActive
           setTimeout(() => {
-            const hasClass = parent?.classList.contains('dzu-dropzoneActive')
+            const hasClass = uploadRef.current?.classList.contains('dzu-dropzoneActive')
             if (!hasClass) {
               setIsHovering(false)
             }
-          }, 300)
+          }, 150)
         }}
         onDrop={(e) => {
           if (isHovering) {
@@ -37,8 +43,8 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
       >
         {files.length < maxFiles && input}
 
-        <div className={`${isHovering ? 'opacity-70 ' : 'opacity-0'} overlay transition-all bg-[#deebff] duration-150 absolute top-0 left-0 w-full h-full z-2`}>
-        </div>
+        {/* <div className={`${isHovering ? 'opacity-70 ' : 'opacity-0'} overlay transition-all bg-[#deebff] duration-150 absolute top-0 left-0 w-full h-full z-2`}>
+        </div> */}
 
 
 
@@ -58,7 +64,7 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
         </motion.div> */}
 
         {<div
-          className='absolute top-0 left-0 w-full h-full z-1 before:bg-red-100'
+          className={classNames(isHovering ? 'opacity-20' : 'opacity-100', 'transition-all ease-linear absolute top-0 left-0 w-full h-full z-1 before:bg-red-100')}
           style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundColor: '#4373F0',
@@ -69,9 +75,11 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
       </div>
 
       <div>
-        <canvas style={{
-          display: 'none'
-        }} ref={canvasRef}></canvas>
+        <canvas
+          id={'patternCanvas'}
+          style={{
+            display: 'none'
+          }} ref={canvasRef}></canvas>
 
         {/* {savedImage && <img
           src={savedImage}
@@ -85,7 +93,7 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
 
 
       {/* {files.length > 0 && submitButton} */}
-    </div>
+    </>
   )
 }
 
