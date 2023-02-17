@@ -1,5 +1,8 @@
+import { useEffect } from "react"
+
 const BackgroundDzCustomInput = ({ accept, onFiles, files, getFilesFromEvent }: any) => {
   const text = files.length > 0 ? 'Add more files' : 'Choose files'
+
   return (
     <div
       className={'hidden'}

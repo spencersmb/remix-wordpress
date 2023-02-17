@@ -2,7 +2,7 @@ import { classNames } from "@App/utils/appUtils";
 import { useEffect, useRef, useState } from "react";
 import usePatternPlayground from "../usePatternProvider";
 
-const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles }, canvasRef, backgroundImage }: any) => {
+const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles }, canvasRef, backgroundImage, defaultImage }: any) => {
   const uploadRef = useRef<any>(null)
   const bannerRef = useRef<any>(null)
   const [isHovering, setIsHovering] = useState(false);
@@ -81,12 +81,15 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
           </label>
         </motion.div> */}
 
-        <div className={classNames(isHovering ? 'dz-drag-hover' : '', 'absolute top-0 left-0 w-full h-full z-1 dzBackgroundText')}>
+        <div className={classNames(isHovering
+          ? 'dz-drag-hover'
+          : `${!backgroundImage ? 'fade-in-image' : ''}`,
+          'absolute top-0 left-0 w-full h-full z-1 dzBackgroundText')}>
           <div
-            className={classNames(isHovering ? 'opacity-20' : 'opacity-100', 'transition-all ease-linear absolute top-0 left-0 w-full h-full z-1')}
+            className={classNames(isHovering ? 'opacity-20' : 'opacity-100', 'transition-all ease-linear absolute top-0 left-0 w-full h-full z-1 ')}
             style={{
-              backgroundImage: `url(${backgroundImage})`,
-              backgroundColor: '#4373F0',
+              backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultImage})`,
+              // backgroundColor: '#4373F0',
               backgroundSize: `${patternSize}px`,
               height: '100%',
               width: '100%',

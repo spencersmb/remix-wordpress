@@ -6,6 +6,7 @@ export enum IPPTypes {
   MODAL_CLOSE = 'MODAL_CLOSE',
   SAVE_IMAGE = 'SAVE_IMAGE',
   SET_BG_IMAGE = 'SET_BG_IMAGE',
+  SET_DEFAULT_BG = 'SET_DEFAULT_BG',
   SET_IMAGE_CACHE = 'SET_IMAGE_CACHE',
   SET_PATTERN_TYPE = 'SET_PATTERN_TYPE',
   CHANGE_PATTERN_SIZE = 'CHANGE_PATTERN_SIZE',
@@ -23,6 +24,10 @@ interface ISetBgImage {
   payload: {
     url: string
   }
+}
+interface ISetDefaultImage {
+  type: IPPTypes.SET_DEFAULT_BG,
+  payload: string
 }
 
 interface ISetImageCache {
@@ -44,6 +49,7 @@ interface IChangePatternSize {
   payload: number
 }
 export type IPPAction =
+| ISetDefaultImage
 | ISetImageCache
 | IChangePatternSize
 | ISetPatternType
@@ -89,6 +95,12 @@ export const usePPReducer = (state: IPatternProviderContextState, action: IPPAct
       return {
         ...state,
         patternSize: action.payload
+      }
+
+    case IPPTypes.SET_DEFAULT_BG :
+      return {
+        ...state,
+        defaultBackgroundImage: action.payload
       }
 
     default: {

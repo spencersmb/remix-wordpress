@@ -1,6 +1,6 @@
 import type { Dispatch, MutableRefObject } from 'react';
 import { useEffect } from 'react';
-import { ReactElement, FunctionComponent, useRef } from 'react';
+import { useRef } from 'react';
 import { useCallback } from 'react';
 import { useContext, createContext } from 'react'
 import { drawImage, getCanvasSize, setCanvasSize } from '../patternHelpers';
@@ -10,6 +10,7 @@ import { IPPTypes } from './usePPReducer';
 export interface IPatternProviderContextState {
   image: HTMLImageElement | null,
   backgroundImage: string | null,
+  defaultBackgroundImage: string | null,
   imageCache: {
     [key: number]: string | null;
   }
@@ -30,13 +31,14 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
     1: null,
     2: null
   },
+  defaultBackgroundImage: null,
   patternType: 1,
   patternSize: 600
 }
 
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
 PatternProviderContext.displayName = 'PatternProviderContext'
-
+export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/test-pattern-3.png?auto=format'
 const usePatternProviderContext = () => {
   const context = useContext(PatternProviderContext)
   if (!context) {
@@ -48,9 +50,7 @@ const usePatternProviderContext = () => {
 /**
  * @Component useSite
  *
- * Primary context to contain global site data like users, site metadata, menus, etc.
- *
- * Currently used to track logged in Admin user as well as Resource Library user.
+ * Primary context to contain global Pattern Playground data.
  *
  */
 const usePatternPlayground = () => {
@@ -150,6 +150,13 @@ const usePatternPlayground = () => {
 
   }, [])
 
+  const setDefaultImage = useCallback((imageUrl: string) => {
+    dispatch({
+      type: IPPTypes.SET_DEFAULT_BG,
+      payload: imageUrl
+    })
+  }, [dispatch])
+
   const setPatternType = (patternType: number) => {
     dispatch({
       type: IPPTypes.SET_PATTERN_TYPE,
@@ -158,7 +165,7 @@ const usePatternPlayground = () => {
   }
 
   const saveImage = () => {
-    const { image, imageCache, patternType } = state
+    const { image, imageCache, patternType, patternSize } = state
     // Create a new Image object from the cached image
     const selectedImage = new Image();
     selectedImage.src = imageCache[patternType] as string
@@ -183,7 +190,7 @@ const usePatternPlayground = () => {
 
     // Set the size of the repeat unit
     // This is based on the user scale slider
-    const dynamicPatternSize = 400;
+    const dynamicPatternSize = patternSize;
     const selectedImageBaseSize = getCanvasSize(patternType);
 
     // Draw the pattern on the canvas
@@ -227,6 +234,7 @@ const usePatternPlayground = () => {
 
 
   return {
+    setDefaultImage,
     changePatternSize,
     setBackgroundImage,
     canvasRef,

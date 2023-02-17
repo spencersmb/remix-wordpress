@@ -1,4 +1,5 @@
 import { classNames } from "@App/utils/appUtils"
+import { FolderAddIcon } from "@heroicons/react/outline"
 import { AnimatePresence, motion } from "framer-motion"
 import DropZoneTwo from "./dzBannerDnD"
 
@@ -13,9 +14,9 @@ const DzBanner = ({ backgroundImage }: any) => {
         animate={backgroundImage ? "loaded" : "initial"}
         className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl p-3`}
       >
-        <div className="relative flex flex-col z-1">
+        <div className={classNames(backgroundImage ? 'text-left' : 'text-center', 'relative flex flex-col z-1')}>
           <motion.h1
-            className={classNames(backgroundImage ? 'text-left' : 'text-center', 'font-bold font-sentinel__SemiBoldItal')}
+            className={'font-bold font-sentinel__SemiBoldItal'}
             key={`h1`}
             animate={backgroundImage ? "loaded" : "initial"}
             initial='initial'
@@ -23,22 +24,43 @@ const DzBanner = ({ backgroundImage }: any) => {
           >
             Pattern Playground
           </motion.h1>
+          <motion.p
+            className="pt-3"
+            animate={backgroundImage ? "loaded" : "initial"}
+            initial='initial'
+            variants={taglineVariants}
+          >
+            by Every Tuesday
+          </motion.p>
         </div>
         <AnimatePresence>
           {!backgroundImage ? <motion.div
-            className="relative overflow-hidden bg-red-300 z-1"
+            className="relative overflow-hidden text-center z-1"
             variants={dzVariants}
             key="dz"
             initial={'initial'}
             exit={'exit'}
             animate={'enter'}
           >
-
+            <p className="px-3 pt-8 text-xl font-semibold">
+              Quickly test your patterns in the browser!
+            </p>
+            <p className="pt-2">
+              Simply drag your image into the browser and test it out!
+            </p>
+            <div className="rounded-2xl bg-[#F7F5F4] flex flex-col text-center justify-center items-center p-4 py-12 mt-8 dz-dashed-outline">
+              <div className="flex flex-col w-8">
+                <FolderAddIcon stroke={`#007bff`} />
+              </div>
+              <div className="text-sm font-bold">
+                Drag-n-drop your image here
+              </div>
+            </div>
           </motion.div> : null}
         </AnimatePresence>
 
         {!backgroundImage &&
-          <div className="absolute top-0 left-0 w-full h-full  z-2">
+          <div className="absolute top-0 left-0 w-full h-full z-2">
             <DropZoneTwo />
           </div>}
 
@@ -52,7 +74,7 @@ export default DzBanner
 const dzVariants = {
   initial: {
     width: '100%',
-    height: '300px',
+    height: 'auto',
     display: 'block',
     overflow: 'hidden',
     transition: {
@@ -74,7 +96,7 @@ const dzVariants = {
   },
   enter: {
     width: '100%',
-    height: '300px',
+    height: 'auto',
     display: 'block',
     overflow: 'hidden',
     transition: {
@@ -116,8 +138,20 @@ const variants = {
 const h1Variants = {
   loaded: {
     fontSize: '21px',
+    lineHeight: '24px'
   },
   initial: {
     fontSize: '36px',
+    lineHeight: '42px'
+  }
+}
+const taglineVariants = {
+  loaded: {
+    fontSize: '14px',
+    lineHeight: '14px'
+  },
+  initial: {
+    fontSize: '16px',
+    lineHeight: '16px'
   }
 }

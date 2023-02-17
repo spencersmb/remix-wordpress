@@ -391,3 +391,19 @@ input[type="search" i]::-webkit-search-cancel-button {
   justify-content: center;
  }
 }
+
+.dz-dashed-outline {
+ background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%23E4E5E2' stroke-width='5' stroke-dasharray='6%2c12' stroke-dashoffset='14' stroke-linecap='square'/%3e%3c/svg%3e");
+ border-radius: 16px;
+}
+@keyframes fadeIn {
+ 0% {
+  opacity: 0;
+ }
+ 100% {
+  opacity: 1;
+ }
+}
+.fade-in-image {
+ animation: fadeIn 0.5s;
+}
