@@ -407,3 +407,45 @@ input[type="search" i]::-webkit-search-cancel-button {
 .fade-in-image {
  animation: fadeIn 0.5s;
 }
+
+/***** Track Styles *****/
+.dz-range {
+ /* background: #0275ff; */
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+.dz-range[type="range"]::-webkit-slider-runnable-track {
+ background: #c4c4c4;
+ height: 8px;
+ border-radius: 0.25rem;
+}
+
+/******** Firefox ********/
+.dz-range[type="range"]::-moz-range-track {
+ background: #c4c4c4;
+ height: 8px;
+ border-radius: 0.25rem;
+}
+
+.dz-range[type="range"]::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ margin-top: -6px;
+ background-color: #0275ff;
+ height: 1.25rem;
+ width: 1.25rem;
+ border-radius: 50%;
+ -webkit-appearance: none;
+ cursor: pointer;
+ box-shadow: -200px -8px 0 190px #008489;
+}
+
+/***** Thumb Styles *****/
+/***** Firefox *****/
+.dz-range[type="range"]::-moz-range-thumb {
+ border: none; /*Removes extra border that FF applies*/
+ border-radius: 50%; /*Removes default border-radius that FF applies*/
+ background-color: #0275ff;
+ height: 1.25rem;
+ width: 1.25rem;
+}

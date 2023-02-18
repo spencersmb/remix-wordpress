@@ -12,7 +12,7 @@ const DzBanner = ({ backgroundImage }: any) => {
         initial='initial'
         variants={variants}
         animate={backgroundImage ? "loaded" : "initial"}
-        className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl p-3`}
+        className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl p-8`}
       >
         <div className={classNames(backgroundImage ? 'text-left' : 'text-center', 'relative flex flex-col z-1')}>
           <motion.h1
@@ -127,7 +127,7 @@ const variants = {
     x: '-50%',
     left: '50%',
     top: '50%',
-    maxWidth: '285px',
+    maxWidth: '350px',
     transition: {
       type: "spring",
       stiffness: 260,

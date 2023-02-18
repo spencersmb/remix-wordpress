@@ -12,6 +12,7 @@ const BackgroundDz = () => {
 
   const { state: { imageCache, backgroundImage, patternType, defaultBackgroundImage }, setNewImage, canvasRef, setBackgroundImage, setDefaultImage } = usePatternPlayground()
   // console.log('test', test)
+  const loadedRef = useRef<boolean>(false)
 
   // const [image, setImage] = useState<HTMLImageElement | null>(null);
   // const [backgroundImage, setBackgroundImage] = useState<any>(null);
@@ -23,6 +24,9 @@ const BackgroundDz = () => {
 
   useEffect(() => {
     setDefaultImage(starterBgUrl)
+    setTimeout(() => {
+      loadedRef.current = true
+    }, 1000)
     // const loadedImage = new Image();
     // loadedImage.src = starterBgUrl
     // loadedImage.onload = () => {
@@ -117,7 +121,9 @@ const BackgroundDz = () => {
         onChangeStatus={handleChangeStatus}
         LayoutComponent={props => <BackgroundDzCustomLayout {...props}
           defaultImage={defaultBackgroundImage}
-          backgroundImage={backgroundImage} canvasRef={canvasRef} />}
+          backgroundImage={backgroundImage} canvasRef={canvasRef}
+          loaded={loadedRef.current}
+        />}
         onSubmit={handleSubmit}
         classNames={{
           dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',

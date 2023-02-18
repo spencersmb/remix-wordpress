@@ -50,10 +50,10 @@ const css = {
     }
   },
   '.dzBackgroundHeight': {
-    height: 'calc(100vh - (var(--nav-top-sm) + 130px))',
+    height: 'calc(100vh - (var(--nav-top-sm) + 185px))',
     //TABLET
     '@media (min-width: 1024px)': {
-      height: 'calc(100vh - (var(--nav-top-lg) + 130px))',
+      height: 'calc(100vh - (var(--nav-top-lg) + 185px))',
     },
   },
   
