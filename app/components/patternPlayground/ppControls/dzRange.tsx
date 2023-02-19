@@ -11,7 +11,7 @@ const DzRange = () => {
     return Math.ceil((((num - 200) / (1000 - 200)) * 100));
   }
   return (
-    <div className="relative flex flex-row py-3 px-4 text-sm font-semibold bg-[#F0EEED] rounded-lg">
+    <div className="relative flex flex-row py-3 px-4 text-sm font-semibold bg-[#F0EEED] rounded-lg flex-1">
       <label htmlFor="customRange2" className="form-label">Tile Size</label>
       <input
         value={patternSize}

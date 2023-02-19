@@ -49,11 +49,12 @@ const css = {
       position: 'absolute',
     }
   },
+
   '.dzBackgroundHeight': {
-    height: 'calc(100vh - (var(--nav-top-sm) + 185px))',
+    height: 'calc(100vh - (var(--nav-top-sm) + var(--pp-nav)))',
     //TABLET
     '@media (min-width: 1024px)': {
-      height: 'calc(100vh - (var(--nav-top-lg) + 185px))',
+      height: 'calc(100vh - (var(--nav-top-lg) + var(--pp-nav)))',
     },
   },
   

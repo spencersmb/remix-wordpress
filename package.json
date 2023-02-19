@@ -70,6 +70,7 @@
     "react-intersection-observer": "^8.34.0",
     "react-lazy-load-image-component": "1.5.4",
     "react-lite-youtube-embed": "^2.2.2",
+    "react-range": "^1.8.14",
     "react-render-if-visible": "^2.1.0",
     "react-sticky": "^6.0.3",
     "remix": "^1.8.2",

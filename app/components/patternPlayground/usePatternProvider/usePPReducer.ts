@@ -9,7 +9,9 @@ export enum IPPTypes {
   SET_DEFAULT_BG = 'SET_DEFAULT_BG',
   SET_IMAGE_CACHE = 'SET_IMAGE_CACHE',
   SET_PATTERN_TYPE = 'SET_PATTERN_TYPE',
+  SET_TOUCHED = 'SET_TOUCHED',
   CHANGE_PATTERN_SIZE = 'CHANGE_PATTERN_SIZE',
+  CHANGE_PATTERN_RANGE = 'CHANGE_PATTERN_RANGE',
 }
 
 interface ISetImage {
@@ -25,9 +27,8 @@ interface ISetBgImage {
     url: string
   }
 }
-interface ISetDefaultImage {
-  type: IPPTypes.SET_DEFAULT_BG,
-  payload: string
+interface ISetTocuhed {
+  type: IPPTypes.SET_TOUCHED,
 }
 
 interface ISetImageCache {
@@ -48,9 +49,16 @@ interface IChangePatternSize {
   type: IPPTypes.CHANGE_PATTERN_SIZE,
   payload: number
 }
+
+interface IChangePatternRange {
+  type: IPPTypes.CHANGE_PATTERN_RANGE,
+  payload: [number]
+}
+
 export type IPPAction =
-| ISetDefaultImage
+| IChangePatternRange
 | ISetImageCache
+| ISetTocuhed
 | IChangePatternSize
 | ISetPatternType
 | ISetImage
@@ -68,9 +76,17 @@ export const usePPReducer = (state: IPatternProviderContextState, action: IPPAct
       }
 
     case IPPTypes.SAVE_IMAGE :
+      
       return {
         ...state,
         image: action.payload.image
+      }
+
+    case IPPTypes.SET_TOUCHED :
+      
+      return {
+        ...state,
+        touched: true
       }
 
     case IPPTypes.SET_BG_IMAGE :
@@ -97,10 +113,10 @@ export const usePPReducer = (state: IPatternProviderContextState, action: IPPAct
         patternSize: action.payload
       }
 
-    case IPPTypes.SET_DEFAULT_BG :
+    case IPPTypes.CHANGE_PATTERN_RANGE :
       return {
         ...state,
-        defaultBackgroundImage: action.payload
+        patternRange: action.payload
       }
 
     default: {

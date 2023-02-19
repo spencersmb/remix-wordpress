@@ -10,12 +10,13 @@ import { IPPTypes } from './usePPReducer';
 export interface IPatternProviderContextState {
   image: HTMLImageElement | null,
   backgroundImage: string | null,
-  defaultBackgroundImage: string | null,
   imageCache: {
     [key: number]: string | null;
   }
+  touched: boolean,
   patternType: number
   patternSize: number
+  patternRange: [number]
 }
 
 interface IPatternProviderContextType {
@@ -31,14 +32,15 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
     1: null,
     2: null
   },
-  defaultBackgroundImage: null,
   patternType: 1,
-  patternSize: 600
+  patternSize: 600,
+  patternRange: [600],
+  touched: false
 }
 
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
 PatternProviderContext.displayName = 'PatternProviderContext'
-export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/test-pattern-3.png?auto=format'
+export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/test-pattern-2.jpg'
 const usePatternProviderContext = () => {
   const context = useContext(PatternProviderContext)
   if (!context) {
@@ -150,12 +152,18 @@ const usePatternPlayground = () => {
 
   }, [])
 
-  const setDefaultImage = useCallback((imageUrl: string) => {
-    dispatch({
-      type: IPPTypes.SET_DEFAULT_BG,
-      payload: imageUrl
-    })
-  }, [dispatch])
+  const getBase64FromUrl = useCallback(async (url: string) => {
+    const data = await fetch(url);
+    const blob = await data.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        resolve(base64data);
+      }
+    });
+  }, [])
 
   const setPatternType = (patternType: number) => {
     dispatch({
@@ -225,6 +233,19 @@ const usePatternPlayground = () => {
     })
   }
 
+  const changeRangeSize = (size: [number]) => {
+    dispatch({
+      type: IPPTypes.CHANGE_PATTERN_RANGE,
+      payload: size
+    })
+  }
+
+  const userTouchedCanvas = () => {
+    dispatch({
+      type: IPPTypes.SET_TOUCHED
+    })
+  }
+
   useEffect(() => {
     const cache = drawImageBasedOnPattern(state.image, canvasRef);
     if (cache) {
@@ -234,7 +255,9 @@ const usePatternPlayground = () => {
 
 
   return {
-    setDefaultImage,
+    changeRangeSize,
+    userTouchedCanvas,
+    getBase64FromUrl,
     changePatternSize,
     setBackgroundImage,
     canvasRef,

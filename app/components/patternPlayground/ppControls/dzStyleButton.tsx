@@ -15,13 +15,13 @@ function DzStyleButton(props: Props) {
   const blue = 'bg-[#4373F0]'
   return (
     <button
-      className={classNames(isSelected ? `${blue}` : 'bg-[#F0EEED]', 'transition-all rounded-lg p-3 flex flex-col w-full max-w-[168px] justify-between max-h-[100px] h-full')}
+      className={classNames(isSelected ? `${blue}` : 'bg-[#F0EEED]', 'transition-all rounded-lg p-3 flex flex-col w-full justify-between max-h-[100px] h-full')}
       onClick={() => setPatternType(patternType)}
     >
-      <div className='w-12 mb-6 mr-5'>
+      <div className='w-12 mb-4 mr-5 h-[30px]'>
         {<Icon className={'transition-all'} fill={isSelected ? `#fff` : `#4373F0`} />}
       </div>
-      <div className={classNames(isSelected ? 'text-white' : 'text-[#353331]', 'font-bold transition-all')}>
+      <div className={classNames(isSelected ? 'text-white' : 'text-[#353331]', 'font-bold transition-all leading-[1]')}>
         {text}
       </div>
     </button>

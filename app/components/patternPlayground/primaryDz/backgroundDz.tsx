@@ -10,9 +10,9 @@ import usePatternPlayground, { starterBgUrl } from "../usePatternProvider";
 
 const BackgroundDz = () => {
 
-  const { state: { imageCache, backgroundImage, patternType, defaultBackgroundImage }, setNewImage, canvasRef, setBackgroundImage, setDefaultImage } = usePatternPlayground()
+  const { state: { imageCache, backgroundImage, patternType, touched }, setNewImage, canvasRef, setBackgroundImage, getBase64FromUrl, userTouchedCanvas } = usePatternPlayground()
+  const loadedRef = useRef(false)
   // console.log('test', test)
-  const loadedRef = useRef<boolean>(false)
 
   // const [image, setImage] = useState<HTMLImageElement | null>(null);
   // const [backgroundImage, setBackgroundImage] = useState<any>(null);
@@ -23,17 +23,16 @@ const BackgroundDz = () => {
   // })
 
   useEffect(() => {
-    setDefaultImage(starterBgUrl)
     setTimeout(() => {
       loadedRef.current = true
     }, 1000)
-    // const loadedImage = new Image();
-    // loadedImage.src = starterBgUrl
-    // loadedImage.onload = () => {
-    //   setNewImage({ image: loadedImage })
-    // };
+    getBase64FromUrl(starterBgUrl).catch(console.error).then((result: any) => {
+      const loadedImage = new Image();
+      loadedImage.src = result
+      setNewImage({ image: loadedImage })
+    })
 
-  }, [setDefaultImage])
+  }, [getBase64FromUrl, setNewImage])
 
   const getUploadParams = () => {
     return { url: 'https://httpbin.org/post' }
@@ -53,6 +52,10 @@ const BackgroundDz = () => {
         loadedImage.src = e.target.result;
         loadedImage.onload = () => {
           setNewImage({ image: loadedImage })
+
+          if (!touched) {
+            userTouchedCanvas()
+          }
           // setImage(loadedImage)
         };
       };
@@ -114,28 +117,30 @@ const BackgroundDz = () => {
   return (
     <div className='relative'>
 
-      <DzBanner backgroundImage={backgroundImage} />
+      <DzBanner />
 
       <Dropzone
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
         LayoutComponent={props => <BackgroundDzCustomLayout {...props}
-          defaultImage={defaultBackgroundImage}
-          backgroundImage={backgroundImage} canvasRef={canvasRef}
+          touched={touched}
+          backgroundImage={backgroundImage}
+          canvasRef={canvasRef}
           loaded={loadedRef.current}
         />}
         onSubmit={handleSubmit}
         classNames={{
           dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',
         }}
-        accept="image/*,audio/*,video/*"
-        inputContent="Drop Files (Custom Layout)"
+        accept="image/*"
+        inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drag Files')}
         InputComponent={BackgroundDzCustomInput}
         //@ts-ignore
         getFilesFromEvent={getFilesFromEvent}
         styles={{
           dropzone: { minHeight: 600, maxHeight: 1250, overflow: 'hidden', position: 'relative' },
           dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+          inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
           dropzoneActive: { backgroundColor: 'transparent' }
         }}
       />
