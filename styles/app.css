@@ -406,5 +406,5 @@ input[type="search" i]::-webkit-search-cancel-button {
  }
 }
 .fade-in-image {
- animation: fadeIn 0.5s;
+ animation: fadeIn;
 }

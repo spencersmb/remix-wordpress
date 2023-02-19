@@ -23,7 +23,7 @@ function PatternNav() {
             Simply drag your image into the browser and test it out!
           </p>
         </div> */}
-        <div className={classNames(backgroundImage ? 'opacitiy-100' : 'opacity-0', 'transition-all overflow-hidden flex-1 controls max-w-[600px] w-full flex flex-col gap-y-2')}>
+        <div className={classNames(backgroundImage ? 'opacitiy-100' : 'opacity-0', 'transition-all ease-in-out duration-600 overflow-hidden flex-1 controls max-w-[600px] w-full flex flex-col gap-y-2')}>
           <div className='flex flex-row gap-x-2'>
 
             {/* <DzRange /> */}

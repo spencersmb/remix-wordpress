@@ -48,8 +48,8 @@ const DropZoneTwo = () => {
       onSubmit={handleSubmit}
       InputComponent={DzBannerInput}
       accept="image/*"
-      // LayoutComponent={props => <DzBannerLayout {...props} backgroundImage={backgroundImage} />}
-      inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drag Files')}
+      LayoutComponent={props => <DzBannerLayout {...props} />}
+      inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
       classNames={{
         dropzone: 'dz2 overflow-hidden bg-transparent w-full rounded-xl relative'
       }}
@@ -59,10 +59,10 @@ const DropZoneTwo = () => {
           border: '4px solid transparent',
         },
         dropzoneActive: {
-          opacity: '75%',
+          opacity: '90%',
           border: '4px solid #007bff',
         },
-        dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+        dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA', opacity: '90%' },
         inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
       }}
     />
