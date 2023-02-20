@@ -1,7 +1,7 @@
 import usePatternPlayground from '../usePatternProvider';
 import Dropzone from 'react-dropzone-uploader';
-import BackgroundDzCustomLayout from './backgroundDzLayout';
-import BackgroundDzCustomInput from './backgroundDzCustomInput';
+import BackgroundDzCustomLayout from './dzMasterLayout';
+import BackgroundDzCustomInput from './dzMasterCustomInput';
 import { consoleHelper } from '@App/utils/windowUtils';
 interface Props { }
 

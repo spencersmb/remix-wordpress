@@ -3,10 +3,10 @@ import Layout from '@App/components/layoutTemplates/layout'
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import PatternDz from '@App/components/patternPlayground/backgroundDz';
+import PatternDz from '@App/components/patternPlayground/dzBackgroundPattern';
 import UsePatternProvider from '@App/components/patternPlayground/usePatternProvider/patternProvider';
 import { patternPlaygroundInitialState } from '@App/components/patternPlayground/usePatternProvider';
-import PatternNav from '@App/components/patternPlayground/patternTypsNav';
+import PatternNav from '@App/components/patternPlayground/dzPatternNav';
 import { mdxPageMetaV2 } from '@App/utils/seo';
 
 export let meta = mdxPageMetaV2

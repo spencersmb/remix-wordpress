@@ -2,8 +2,8 @@ import { classNames } from '@App/utils/appUtils'
 import PPFullBlock from '../svgs/patternPlayground/fullblock'
 import PPHalfBlockSvg from '../svgs/patternPlayground/halfBlockSvg'
 import PPHalfBrickSvg from '../svgs/patternPlayground/halfBrick'
-import DzReactRange from './ppControls/dzReactRange'
-import DzStyleButton from './ppControls/dzStyleButton'
+import DzReactRange from './dzNavControls/dzReactRange'
+import DzStyleButton from './dzNavControls/dzStyleButton'
 import usePatternPlayground from './usePatternProvider'
 
 
