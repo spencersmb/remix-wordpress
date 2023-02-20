@@ -1,11 +1,7 @@
-import FacebookSvg from "@App/components/svgs/social/facebookSvg"
-import PinterestSvg from "@App/components/svgs/social/pinterestSvg"
-import TwitterSvg from "@App/components/svgs/social/twitterSvg"
 import { classNames } from "@App/utils/appUtils"
 import { FolderAddIcon } from "@heroicons/react/outline"
 import { AnimatePresence, motion } from "framer-motion"
 import usePatternPlayground from "../usePatternProvider"
-import DropZoneTwo from "./dzBannerDnD"
 
 const DzBanner = () => {
   const { state: { touched }, saveImage } = usePatternPlayground()
@@ -77,26 +73,9 @@ const DzBanner = () => {
                 >
                   <span className=''>Save Image</span>
                 </button>
-                {/* <div className="pt-3 font-semibold">Share:</div> */}
-                {/* <div className="flex flex-row gap-x-3">
-                  <div className="w-[35px] h-[35px] rounded-md">
-                    <FacebookSvg fill={`#4373F0`} />
-                  </div>
-                  <div className="w-[35px] h-[35px] rounded-md">
-                    <PinterestSvg fill={`#4373F0`} />
-                  </div>
-                  <div className="w-[35px] h-[35px] rounded-md">
-                    <TwitterSvg fill={`#4373F0`} />
-                  </div>
-                </div> */}
               </div>
             </motion.div >}
         </AnimatePresence>
-
-        {/* {!touched &&
-          <div className="absolute top-0 left-0 w-full h-full z-2">
-            <DropZoneTwo />
-          </div>} */}
 
       </motion.div>
     </>

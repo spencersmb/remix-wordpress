@@ -1,7 +1,6 @@
 import { classNames } from "@App/utils/appUtils"
 
-const DzBannerInput = (props: any) => {
-  const { accept, onFiles, files, getFilesFromEvent, content, extra: { active, reject } } = props
+const BackgroundDzCustomInput = ({ accept, onFiles, files, getFilesFromEvent, content, extra: { active } }: any) => {
   const text = files.length > 0 ? 'Add more files' : 'Choose files'
 
   return (
@@ -23,4 +22,4 @@ const DzBannerInput = (props: any) => {
   )
 }
 
-export default DzBannerInput
+export default BackgroundDzCustomInput

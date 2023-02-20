@@ -3,11 +3,7 @@ import Layout from '@App/components/layoutTemplates/layout'
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import type { MutableRefObject } from 'react';
-import { useCallback } from 'react';
-import React, { Ref, useEffect, useRef, useState } from 'react'
-import BackgroundDz from '@App/components/patternPlayground/primaryDz/backgroundDz';
-import { drawImage, getCanvasSize, setCanvasSize } from '@App/components/patternPlayground/patternHelpers';
+import PatternDz from '@App/components/patternPlayground/backgroundDz';
 import UsePatternProvider from '@App/components/patternPlayground/usePatternProvider/patternProvider';
 import { patternPlaygroundInitialState } from '@App/components/patternPlayground/usePatternProvider';
 import PatternNav from '@App/components/patternPlayground/patternTypsNav';
@@ -61,11 +57,10 @@ export default function BrushPreview() {
 
   return (
     <Layout >
-
       <>
         <UsePatternProvider defaultState={patternPlaygroundInitialState} >
           <>
-            <BackgroundDz />
+            <PatternDz />
             <PatternNav />
           </>
         </UsePatternProvider>

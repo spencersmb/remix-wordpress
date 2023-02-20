@@ -2757,6 +2757,9 @@ video {
 .min-w-\[44px\] {
   min-width: 44px;
 }
+.min-w-\[38px\] {
+  min-width: 38px;
+}
 .max-w-\[548px\] {
   max-width: 548px;
 }
@@ -4687,6 +4690,9 @@ video {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .align-top {
   vertical-align: top;

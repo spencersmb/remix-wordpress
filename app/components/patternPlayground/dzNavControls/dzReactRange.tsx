@@ -1,27 +1,22 @@
 import * as React from 'react';
 import { Range, getTrackBackground } from "react-range";
+import { convertToPercentage } from '../dzPatternHelpers';
 import usePatternPlayground from '../usePatternProvider';
-//@ts-ignore
-import RangeSlider from "react-range-slider-input";
 
-// import "./styles.css";
 const STEP = 1;
 const MIN = 200;
 const MAX = 1000;
 
 const DzReactRange: React.FC<{ rtl: boolean }> = ({ rtl }) => {
-  // const [values, setValues] = React.useState([200]);
-  // console.log('values', values)
+
   const { state: { patternRange }, changeRangeSize } = usePatternPlayground()
-  function convertToPercentage(num: number) {
-    return Math.ceil((((num - 200) / (1000 - 200)) * 100));
-  }
+
   return (
     <div
       className='flex flex-row w-full bg-[#F0EEED] rounded-lg flex-1 py-3 px-4 items-center'
     >
       <div className='text-sm font-semibold'>Tile Size</div>
-      <div className='flex-1 w-full mx-8'>
+      <div className='flex-1 w-full ml-8 mr-6'>
         <Range
           values={patternRange}
           step={STEP}
@@ -85,29 +80,12 @@ const DzReactRange: React.FC<{ rtl: boolean }> = ({ rtl }) => {
         />
       </div>
 
-      <output id="output" className='min-w-[44px]'>
+      <output id="output" className='min-w-[38px] text-sm font-semibold text-right'>
         {/* {values[0].toFixed(1)} */}
         {convertToPercentage(patternRange[0])}%
       </output>
     </div>
   );
-  // return (
-  //   <RangeSlider
-  //     min={200}
-  //     max={1000}
-  //     step={25}
-  //     onInput={(value: any) => {
-  //       console.log('value', value)
-  //       changeRangeSize([value[1]])
-  //     }}
-  //     className="single-thumb"
-  //     defaultValue={[0, 400]}
-  //     value={[0, patternRange[0]]}
-  //     thumbsDisabled={[true, false]}
-  //     rangeSlideDisabled={true}
-  //   />
-
-  // )
 };
 
 export default DzReactRange;

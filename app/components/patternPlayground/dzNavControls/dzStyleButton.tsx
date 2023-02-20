@@ -1,6 +1,5 @@
-import PPFullBlock from '@App/components/svgs/patternPlayground/fullblock'
 import { classNames } from '@App/utils/appUtils'
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 interface Props {
   patternType: number

@@ -1,5 +1,11 @@
-// Size of the base 64 image used as a background image that is then repeated.
-export const patternTypeSizes = {
+
+
+
+/*
+  Size of the base 64 image used inside the canvas element.
+  Determining this size helps to make sure everything is drawn at the same scale.
+*/
+const patternTypeSizes = {
   normal: {
     width: 512,
     height: 512
@@ -13,8 +19,19 @@ export const patternTypeSizes = {
     height: 1024
   }
 }
+const patternTypes = [
+  patternTypeSizes.normal,
+  patternTypeSizes.halfBlock,
+  patternTypeSizes.halfBrick
+]
+export function getPatternTypeSize(patternType: number) {
+  return patternTypes[patternType] || patternTypes[0]
+}
 
-// Size of the Canvas Img Element that contains the pattern type image size
+
+/*
+Size of the Canvas Img Element that contains the pattern type image size
+*/
 export const canvasSizes = {
   normal: {
     width: 1024,
@@ -29,43 +46,38 @@ export const canvasSizes = {
     height: 1024
   }
 }
-
-export function getPatternTypeSize(patternType: number) {
-  switch (patternType) {
-    case 0:
-      return patternTypeSizes.normal
-    case 1:
-      return patternTypeSizes.halfBlock
-    case 2:
-      return patternTypeSizes.halfBrick
-    default:
-      return patternTypeSizes.normal
-  }
-}
-
+const canvasSizesArray = [
+  canvasSizes.normal,
+  canvasSizes.halfBlock,
+  canvasSizes.halfBrick
+]
 export function getCanvasSize(patternType: number) {
-  switch (patternType) {
-    case 0:
-      return canvasSizes.normal
-    case 1:
-      return canvasSizes.halfBlock
-    case 2:
-      return canvasSizes.halfBrick
-    default:
-      return canvasSizes.normal
-  }
+  return canvasSizesArray[patternType] || canvasSizesArray[0]
 }
-
 export const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement) => {
   const canvasSize = getCanvasSize(patternType);
   canvas.width = canvasSize.width;
   canvas.height = canvasSize.height;
 };
 
+/**
+ * Draws an image on a canvas context with a specific pattern type and aspect ratio.
+ *
+ * @param ctx The canvas context to draw on.
+ * @param image The image to draw.
+ * @param patternType The type of pattern to use.
+ * @param aspectRatio The aspect ratio of the image.
+ */
 export const drawImage = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, patternType: number, aspectRatio: number) => {
+
+  // Get the size of the pattern based on the pattern type
   const imageSize = getPatternTypeSize(patternType)
+
+  // Calculate the width and height of the pattern based on the image size and aspect ratio
   const width = imageSize.width / aspectRatio;
   const height = imageSize.height / aspectRatio;
+
+  // Draw the image on the canvas context with the appropriate pattern based on the pattern type
   switch (patternType) {
     case 0:
       ctxDrawStandardPattern(ctx, image, width, height)
@@ -144,4 +156,8 @@ export const ctxDrawHalfBrickPattern = (ctx: CanvasRenderingContext2D, image: HT
     newHeight / 2,
     newWidth / 2,
     newHeight / 2);
+}
+
+export function convertToPercentage(num: number) {
+  return Math.ceil((((num - 200) / (1000 - 200)) * 100));
 }

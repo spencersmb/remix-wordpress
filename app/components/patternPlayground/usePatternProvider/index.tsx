@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useCallback } from 'react';
 import { useContext, createContext } from 'react'
-import { drawImage, getCanvasSize, setCanvasSize } from '../patternHelpers';
+import { drawImage, getCanvasSize, setCanvasSize } from '../dzPatternHelpers';
 import type { IPPAction } from './usePPReducer';
 import { IPPTypes } from './usePPReducer';
 

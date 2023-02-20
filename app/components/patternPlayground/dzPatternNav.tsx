@@ -1,9 +1,7 @@
 import { classNames } from '@App/utils/appUtils'
-import React from 'react'
 import PPFullBlock from '../svgs/patternPlayground/fullblock'
 import PPHalfBlockSvg from '../svgs/patternPlayground/halfBlockSvg'
 import PPHalfBrickSvg from '../svgs/patternPlayground/halfBrick'
-import DzRange from './ppControls/dzRange'
 import DzReactRange from './ppControls/dzReactRange'
 import DzStyleButton from './ppControls/dzStyleButton'
 import usePatternPlayground from './usePatternProvider'
@@ -55,31 +53,3 @@ function PatternNav() {
 }
 
 export default PatternNav
-
-const variants = {
-  enter: {
-    width: 'auto',
-    transition: {
-      type: "spring",
-      stiffness: 360,
-      damping: 30,
-      duration: .2
-    }
-  },
-  initial: {
-    width: 0,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 30
-    }
-  },
-  exit: {
-    width: 0,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 30
-    }
-  }
-}
