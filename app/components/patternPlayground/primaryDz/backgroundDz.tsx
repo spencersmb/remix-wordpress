@@ -6,6 +6,7 @@ import BackgroundDzCustomLayout from "./backgroundDzLayout";
 import BackgroundDzCustomInput from "./backgroundDzCustomInput";
 import usePatternPlayground, { starterBgUrl } from "../usePatternProvider";
 import DzPattern from "./dzPattern";
+import DzMaster from "./dzMaster";
 
 const BackgroundDz = () => {
 
@@ -29,6 +30,7 @@ const BackgroundDz = () => {
 
       <DzPattern />
 
+      <DzMaster />
     </div>
 
   )

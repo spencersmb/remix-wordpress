@@ -17,7 +17,7 @@ const DzBanner = () => {
         initial='initial'
         variants={variants}
         animate={touched ? "loaded" : "initial"}
-        className={`absolute z-3 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl`}
+        className={`absolute z-2 w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl`}
       >
         <div className={classNames(touched ? 'text-left' : 'text-center', 'relative flex flex-col z-1')}>
           <motion.h1
@@ -93,10 +93,10 @@ const DzBanner = () => {
             </motion.div >}
         </AnimatePresence>
 
-        {!touched &&
+        {/* {!touched &&
           <div className="absolute top-0 left-0 w-full h-full z-2">
             <DropZoneTwo />
-          </div>}
+          </div>} */}
 
       </motion.div>
     </>

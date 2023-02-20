@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { Range, getTrackBackground } from "react-range";
 import usePatternPlayground from '../usePatternProvider';
+//@ts-ignore
+import RangeSlider from "react-range-slider-input";
 
-const STEP = 25;
+// import "./styles.css";
+const STEP = 1;
 const MIN = 200;
 const MAX = 1000;
 
@@ -88,6 +91,23 @@ const DzReactRange: React.FC<{ rtl: boolean }> = ({ rtl }) => {
       </output>
     </div>
   );
+  // return (
+  //   <RangeSlider
+  //     min={200}
+  //     max={1000}
+  //     step={25}
+  //     onInput={(value: any) => {
+  //       console.log('value', value)
+  //       changeRangeSize([value[1]])
+  //     }}
+  //     className="single-thumb"
+  //     defaultValue={[0, 400]}
+  //     value={[0, patternRange[0]]}
+  //     thumbsDisabled={[true, false]}
+  //     rangeSlideDisabled={true}
+  //   />
+
+  // )
 };
 
 export default DzReactRange;

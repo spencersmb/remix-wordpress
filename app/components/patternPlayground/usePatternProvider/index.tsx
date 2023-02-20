@@ -58,6 +58,7 @@ const usePatternProviderContext = () => {
 const usePatternPlayground = () => {
   const { state, dispatch } = usePatternProviderContext()
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const previousPatternType = useRef<number>(patternPlaygroundInitialState.patternType);
 
   const setNewImage = useCallback(({ image }: { image: HTMLImageElement }) => {
     dispatch({
@@ -246,6 +247,7 @@ const usePatternPlayground = () => {
     })
   }
 
+  // When state.image changes, draw the image on the canvas and save the image data URL in the image cache
   useEffect(() => {
     const cache = drawImageBasedOnPattern(state.image, canvasRef);
     if (cache) {

@@ -1,57 +1,31 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import usePatternPlayground, { starterBgUrl } from '../usePatternProvider';
-//@ts-ignore
-import { getDroppedOrSelectedFiles } from 'html5-file-selector'
-import Dropzone from 'react-dropzone-uploader';
-import BackgroundDzCustomLayout from './backgroundDzLayout';
-import BackgroundDzCustomInput from './backgroundDzCustomInput';
 import { classNames } from '@App/utils/appUtils';
 
-interface Props { }
+function DzPattern() {
 
-function DzPattern(props: Props) {
-  const { } = props
-
-  const { state: { imageCache, backgroundImage, patternType, touched, patternRange }, setNewImage, canvasRef, setBackgroundImage, getBase64FromUrl, userTouchedCanvas } = usePatternPlayground()
-  const loadedRef = useRef(false)
+  const { state: { imageCache, backgroundImage, patternType, touched, patternRange }, setNewImage, canvasRef, setBackgroundImage, getBase64FromUrl } = usePatternPlayground()
 
   const [loadedState, setLoadedState] = React.useState(false)
 
+  // Tracks when the component has loaded for fade in animations
   useEffect(() => {
-    console.log('imageCache', imageCache)
+    setLoadedState(true)
+  }, [])
 
-    switch (patternType) {
-      case 0:
-        if (imageCache[0]) {
-          setBackgroundImage(imageCache[0])
-          return
-        }
-        break;
+  // useEffect hook that runs when the 'imageCache', 'patternType', or 'setBackgroundImage' variables change
+  useEffect(() => {
+    if (!imageCache[0]) return
 
-      case 1:
-        if (imageCache[1]) {
-          setBackgroundImage(imageCache[1])
-          return
-        }
-        break;
+    // Get the index of the image to use as the background based on the value of patternType
+    const index = [0, 1, 2].includes(patternType) ? patternType : 0
 
-      case 2:
-        if (imageCache[2]) {
-          setBackgroundImage(imageCache[2])
-          return
-        }
-        break;
-
-      default:
-        if (imageCache[0]) {
-          setBackgroundImage(imageCache[0])
-          return
-        }
-        break;
-    }
+    // Set the image at the specified index as the background image and exit the function
+    if (imageCache[index]) setBackgroundImage(imageCache[index] as string)
 
   }, [imageCache, patternType, setBackgroundImage]);
 
+  // ON FIRST LOAD - DRAW STARTER IMAGE FROM AWS URL IMAGE
   useEffect(() => {
 
     getBase64FromUrl(starterBgUrl).catch(console.error).then((result: any) => {
@@ -62,55 +36,6 @@ function DzPattern(props: Props) {
 
   }, [getBase64FromUrl, setNewImage])
 
-  useEffect(() => {
-    setLoadedState(true)
-  }, [])
-
-  const getUploadParams = () => {
-    return { url: 'https://httpbin.org/post' }
-  }
-
-  const handleChangeStatus = (data: any, status: any) => {
-    console.log('status', status)
-    // console.log('meta', data)
-
-    if (status === 'getting_upload_params') {
-      // if (status === 'done') {
-      const file = data.file;
-      const reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        const loadedImage = new Image();
-        loadedImage.src = e.target.result;
-        loadedImage.onload = () => {
-          setNewImage({ image: loadedImage })
-
-          if (!touched) {
-            userTouchedCanvas()
-          }
-          // setImage(loadedImage)
-        };
-      };
-
-      reader.readAsDataURL(file);
-      // }
-    }
-
-  }
-
-  const getFilesFromEvent = (e: any) => {
-    return new Promise(resolve => {
-      getDroppedOrSelectedFiles(e).then((chosenFiles: any) => {
-        resolve(chosenFiles.map((f: any) => f.fileObject))
-      })
-    })
-  }
-
-  const handleSubmit = (files: any, allFiles: any) => {
-    console.log(files.map((f: any) => f.data))
-    allFiles.forEach((f: any) => f.remove())
-  }
-  console.log('loadedRef.current', loadedRef.current)
   return (
     <div className='relative h-full'>
       <div className={classNames(!touched && !loadedState ? 'opacity-0' : 'opacity-100',
@@ -119,44 +44,17 @@ function DzPattern(props: Props) {
           className={classNames('absolute top-0 left-0 w-full h-full z-1')}
           style={{
             backgroundImage: `url(${backgroundImage})`,
-            // backgroundColor: '#4373F0',
             backgroundSize: `${patternRange[0]}px`,
             height: '100%',
             width: '100%',
           }} />
 
       </div>
-      <div className='absolute top-0 left-0 w-full h-full z-2'>
-        <Dropzone
-          getUploadParams={getUploadParams}
-          onChangeStatus={handleChangeStatus}
-          LayoutComponent={props => <BackgroundDzCustomLayout {...props}
-          />}
-          onSubmit={handleSubmit}
-          classNames={{
-            dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',
-          }}
-          accept="image/*"
-          inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
-          InputComponent={BackgroundDzCustomInput}
-          //@ts-ignore
-          getFilesFromEvent={getFilesFromEvent}
-          styles={{
-            dropzone: { minHeight: 600, maxHeight: 1250, overflow: 'hidden', position: 'relative' },
-            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA', opacity: '80%' },
-            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-            dropzoneActive: { opacity: '70%' }
-          }}
-        />
-      </div>
-
-      <div>
-        <canvas
-          id={'patternCanvas'}
-          style={{
-            display: 'none'
-          }} ref={canvasRef}></canvas>
-      </div>
+      <canvas
+        id={'patternCanvas'}
+        style={{
+          display: 'none'
+        }} ref={canvasRef}></canvas>
     </div>
   )
 }
