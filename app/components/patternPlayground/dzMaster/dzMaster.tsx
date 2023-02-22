@@ -3,6 +3,8 @@ import Dropzone from 'react-dropzone-uploader';
 import BackgroundDzCustomLayout from './dzMasterLayout';
 import BackgroundDzCustomInput from './dzMasterCustomInput';
 import { consoleHelper } from '@App/utils/windowUtils';
+//@ts-ignore
+import { getDroppedOrSelectedFiles } from 'html5-file-selector'
 interface Props { }
 
 function DzMaster(props: Props) {
@@ -43,6 +45,14 @@ function DzMaster(props: Props) {
 
   }
 
+  const getFilesFromEvent = (e: any): Promise<File[]> => {
+    return new Promise(resolve => {
+      getDroppedOrSelectedFiles(e).then((chosenFiles: any) => {
+        resolve(chosenFiles.map((f: any) => f.fileObject))
+      })
+    })
+  }
+
   return (
     <div className='absolute top-0 left-0 w-full h-full z-3'>
       <Dropzone
@@ -53,6 +63,7 @@ function DzMaster(props: Props) {
         classNames={{
           dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',
         }}
+        getFilesFromEvent={getFilesFromEvent}
         accept="image/*"
         inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
         InputComponent={BackgroundDzCustomInput}

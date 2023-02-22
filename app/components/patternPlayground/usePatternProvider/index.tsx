@@ -40,6 +40,7 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
 
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
 PatternProviderContext.displayName = 'PatternProviderContext'
+
 export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/test-pattern-2.jpg'
 const usePatternProviderContext = () => {
   const context = useContext(PatternProviderContext)
@@ -58,7 +59,6 @@ const usePatternProviderContext = () => {
 const usePatternPlayground = () => {
   const { state, dispatch } = usePatternProviderContext()
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const previousPatternType = useRef<number>(patternPlaygroundInitialState.patternType);
 
   const setNewImage = useCallback(({ image }: { image: HTMLImageElement }) => {
     dispatch({
@@ -89,6 +89,8 @@ const usePatternPlayground = () => {
     })
   }, [dispatch])
 
+  // not attached to the reducer
+  // explained below
   const drawImageBasedOnPattern = useCallback((image: HTMLImageElement | null, canvasRef: MutableRefObject<HTMLCanvasElement | null>) => {
     // Exit the function if either the image or the canvas reference is not available
     if (!image || !canvasRef.current) {
@@ -153,6 +155,7 @@ const usePatternPlayground = () => {
 
   }, [])
 
+  // not attached to the reducer
   const getBase64FromUrl = useCallback(async (url: string) => {
     const data = await fetch(url);
     const blob = await data.blob();
@@ -272,3 +275,35 @@ const usePatternPlayground = () => {
 }
 
 export default usePatternPlayground
+
+/**
+   * @function drawImageBasedOnPattern()
+   * 
+   * The function starts by checking if either image or canvasRef.current is null.If either one is 
+   * null, the function returns without doing anything.
+   * 
+   * Then, it declares a variable canvas and sets it equal to canvasRef.current.It also declares a
+   * variable ctx and sets it equal to the 2D rendering context of the canvas obtained from canvas
+   * getContext("2d").The function returns if ctx is null.
+   * 
+   * Next, the function declares three variables image1Url, image2Url, and image3Url to store the
+   * URLs of the images drawn on the canvas.
+   * 
+   * It also declares a variable aspectRatio and sets it equal to the aspect ratio of the imag
+   * (height divided by width).
+   * 
+   * The function then starts processing three different patterns for drawing the image on the
+   * canvas.For each pattern, it first calls the setCanvasSize function with the pattern number and
+   * the canvas as arguments.Then, it calls the drawImage function with ctx, image, the pattern
+   * number, and aspectRatio as arguments.Finally, it stores the data URL of the canvas in the
+   * corresponding variable(image1Url, image2Url, or image3Url).After each pattern is processed,
+   * the function clears the canvas by calling ctx.clearRect(0, 0, canvas.width, canvas.height)
+   * 
+   * Finally, the function sets the imageCache object with the URLs of the three images stored in
+   * image1Url, image2Url, and image3Url.
+   * 
+   * Note that this function is declared as a useCallback hook, with an empty array of dependencies
+   * This means that it will only be re - created when the dependencies change, otherwise it will
+   * use the cached version.
+   * 
+   */

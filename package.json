@@ -48,6 +48,7 @@
     "globby": "^13.1.2",
     "graphql": "16.6.0",
     "graphql-tag": "2.12.6",
+    "html5-file-selector": "^2.1.0",
     "isbot": "^3.5.4",
     "lazysizes": "^5.3.2",
     "lodash": "^4.17.21",
