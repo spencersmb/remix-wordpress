@@ -7,16 +7,16 @@
 */
 const patternTypeSizes = {
   normal: {
-    width: 512,
-    height: 512
+    width: 1000,
+    height: 1000
   },
   halfBlock: {
-    width: 1024,
-    height: 1024
+    width: 2000,
+    height: 2000
   },
   halfBrick: {
-    width: 1024,
-    height: 1024
+    width: 2000,
+    height: 2000
   }
 }
 const patternTypes = [
@@ -34,16 +34,16 @@ Size of the Canvas Img Element that contains the pattern type image size
 */
 export const canvasSizes = {
   normal: {
-    width: 1024,
-    height: 1024
+    width: 2000,
+    height: 2000
   },
   halfBlock: {
-    width: 1024,
-    height: 512
+    width: 2000,
+    height: 1000
   },
   halfBrick: {
-    width: 1024,
-    height: 1024
+    width: 2000,
+    height: 2000
   }
 }
 const canvasSizesArray = [
