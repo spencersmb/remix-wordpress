@@ -24,7 +24,7 @@ export default function BrushPreview() {
   let data = useLoaderData()
 
   return (
-    <Layout >
+    <Layout>
       <>
         <UsePatternProvider defaultState={patternPlaygroundInitialState} >
           <>

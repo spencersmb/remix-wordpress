@@ -92,13 +92,15 @@ export let loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
 
   let ENV = {
-    // APP_ROOT_URL: process.env.APP_ROOT_URL,
+    APP_ROOT_URL: process.env.APP_ROOT_URL,
     // Alternate way of setting the APP_ROOT_URL
     // APP_ROOT_URL: 'https://api.every-tuesday.com', // now its dynamic
     // PUBLIC_WP_API_URL: 'https://api.every-tuesday.com/graphql',
     // fetch.server.ts 
-    APP_ROOT_URL: url.origin, // now its dynamic
+    // APP_ROOT_URL: url.origin, // now its dynamic
+    // APP_ROOT_URL: "http://localhost:3000",
     PUBLIC_WP_API_URL: process.env.PUBLIC_WP_API_URL,
+    // PUBLIC_WP_API_URL: "https://etheadless.local/graphql/",
     SHOPIFY_STOREFRONT_ACCESS_TOKEN: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
   }
   const customHeaders = new Headers()

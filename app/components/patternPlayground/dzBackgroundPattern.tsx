@@ -9,7 +9,6 @@ const PatternDz = () => {
   */
   return (
     <div className='relative dzBackgroundHeight'>
-
       <DzBanner />
 
       <DzPattern />

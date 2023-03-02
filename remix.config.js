@@ -17,6 +17,8 @@ module.exports = {
   devServerPort: 8002,
   future: {
     v2_meta: true,
+    unstable_tailwind: true,
+    unstable_dev: true,
   },
     // devServerPort: 8002
   // appDirectory: "app",
