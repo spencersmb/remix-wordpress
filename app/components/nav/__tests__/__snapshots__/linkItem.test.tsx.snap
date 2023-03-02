@@ -2,7 +2,7 @@
 
 exports[`Should render Procreate Brushes Component  1`] = `
 <div
-  className="p-4 transition-colors duration-200 rounded-lg hover:bg-sage-100 group"
+  className="p-4 transition-colors duration-200 rounded-lg hover:bg-tangerine-100 group"
 >
   <div
     className="relative flex flex-row items-center"
@@ -17,7 +17,7 @@ exports[`Should render Procreate Brushes Component  1`] = `
     >
       <svg
         aria-hidden="true"
-        className="w-4 h-4 text-primary-600"
+        className="w-4 h-4 text-tangerine-700"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ exports[`Should render Procreate Brushes Component  1`] = `
     </div>
   </div>
   <p
-    className="text-sm text-grey-500"
+    className="text-sm text-grey-700"
   >
     This is a link item
   </p>

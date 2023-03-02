@@ -14,7 +14,7 @@ describe('LFM: MiniCourse Banner', () => {
     window.IntersectionObserver = mockIntersectionObserver;
   });
 
-  it.skip('Should not show a signup form', () => {
+  it('Should not show a signup form', () => {
     const { queryByTestId } = renderUseSiteProviderUi(
       <MiniCourseBanner />,
       {
@@ -25,7 +25,7 @@ describe('LFM: MiniCourse Banner', () => {
     expect(queryByTestId('lfm-mc-signup-footer')).toBeNull()
   })
 
-  it.skip('Should have title text', () => {
+  it('Should have title text', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MiniCourseBanner />,
       {
@@ -36,7 +36,7 @@ describe('LFM: MiniCourse Banner', () => {
     expect(queryByText('Free Font Making')).toBeVisible()
   })
 
-  it.skip('Should have MiniCourse CTA text', () => {
+  it('Should have MiniCourse CTA text', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MiniCourseBanner />,
       {
@@ -46,7 +46,7 @@ describe('LFM: MiniCourse Banner', () => {
     expect(queryByText('Watch the basics of hand lettered font making *and* selling in this 3 part free video series.')).toBeInTheDocument()
   })
 
-  it.skip('Should have alternate MiniCourse CTA text', () => {
+  it('Should have alternate MiniCourse CTA text', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MiniCourseBanner />,
       {
@@ -68,7 +68,7 @@ describe('LFM: MiniCourse Banner', () => {
     expect(queryByText('Sign up to get notified as soon as enrollment reopens!')).toBeInTheDocument()
   })
 
-  it.skip('Should render child', () => {
+  it('Should render child', () => {
     const { queryByText } = renderUseSiteProviderUi(
       <MiniCourseBanner >
         <div>Child</div>

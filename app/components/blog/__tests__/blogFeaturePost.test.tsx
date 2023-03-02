@@ -101,7 +101,7 @@ describe('BlogFeature Post Component', () => {
       div.innerHTML = mockPostDataComplete.tutorialManager.postExcerpt
     }
     expect(screen.getByTestId('blog-skill'))
-      .toHaveTextContent('Skill ')
+      .toHaveTextContent('SkillIntermediate')
 
     expect(screen.getByTestId('blog-skill')).toHaveTextContent("Intermediate")
   })

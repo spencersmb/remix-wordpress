@@ -103,19 +103,31 @@ function render(ui: React.ReactElement, options?: RenderOptions) {
   };
   window.__remixRouteModules = { root: { default: RootComponent } };
   window.__remixContext = {
-    matches: [],
-    manifest: window.__remixManifest,
-    routeModules: window.__remixRouteModules,
-    routeData: {},
-    appState: {
-      catchBoundaryRouteId: null,
-      loaderBoundaryRouteId: null,
-      renderBoundaryRouteId: "root",
-      trackBoundaries: false,
-      trackCatchBoundaries: false,
+    // matches: [],
+    state: {
+      actionData: null,
+      errors: null,
     },
+    // manifest: window.__remixManifest,
+    // routeModules: window.__remixRouteModules,
+    // routeData: {},
+    // appState: {
+    //   catchBoundaryRouteId: null,
+    //   loaderBoundaryRouteId: null,
+    //   renderBoundaryRouteId: "root",
+    //   trackBoundaries: false,
+    //   trackCatchBoundaries: false,
+    // },
     future: {
-      v2_meta: true
+      v2_meta: true,
+      unstable_cssModules: false,
+      unstable_cssSideEffectImports: false,
+      unstable_dev: false,
+      unstable_postcss: false,
+      unstable_tailwind: false,
+      unstable_vanillaExtract: false,
+      v2_errorBoundary: false,
+      v2_routeConvention: false
     }
   };
 
