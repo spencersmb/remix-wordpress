@@ -2,6 +2,7 @@ import useSite from '@App/hooks/useSite';
 import MakersFooterSignUp from './makersSignUpFooter';
 import FooterLinks from './footerLinks';
 import FooterCopyright from './footerCopyright';
+import { useLocation } from '@remix-run/react';
 interface IProps {
   hideSignUp?: boolean
 }
@@ -11,9 +12,14 @@ interface IProps {
  * @function FooterPrimary 
  * @tested - 8/22/2022 
  */
+
+const PagesToHideFooter = [
+  'brushPreview'
+]
+
 function FooterPrimary({ hideSignUp = false }: IProps) {
   const { state: { user: { resourceUser } } } = useSite()
-
+  const location = useLocation()
   function displaySignup() {
 
     if (hideSignUp) {
@@ -25,7 +31,19 @@ function FooterPrimary({ hideSignUp = false }: IProps) {
     }
     return <MakersFooterSignUp />
   }
+  console.log('location.pathname', location.pathname)
+  function hideFooterCheck() {
+    const path = location.pathname.replace('/', '')
+    if (PagesToHideFooter.includes(path)) {
+      return true
+    }
+    return false
+  }
 
+  // CHECK IF FOOTER SHOULD BE HIDDEN FOR CERTAIN PAGES
+  if (hideFooterCheck()) {
+    return null
+  }
   return (
 
     <footer

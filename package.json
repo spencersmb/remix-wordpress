@@ -29,7 +29,7 @@
     "start": "remix-serve build",
     "hmr": "run-p hmr:*",
     "hmr:build": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 NODE_ENV=development remix dev",
-    "hmr:serve": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 NODE_ENV=development nodemon --watch build node_modules/.bin/remix-serve build"
+    "hmr:serve": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 NODE_ENV=development nodemon -r dotenv/config node_modules/.bin/remix-serve build --watch build node_modules/.bin/remix-serve build"
   },
   "dependencies": {
     "@headlessui/react": "1.7.4",

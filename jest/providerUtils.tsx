@@ -139,7 +139,7 @@ function render(ui: React.ReactElement, options?: RenderOptions) {
   });
 }
 
-function withTransitionsRender(ui: React.ReactElement) {
+function withTransitionsRender(ui: React.ReactElement, path: string = "") {
   const { rerender } = render(ui)
   const parent = screen.getByTestId('parent')
   const queries = getQueriesForElement(parent)

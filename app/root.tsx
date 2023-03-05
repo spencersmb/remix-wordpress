@@ -325,7 +325,7 @@ export function Document({ children, title }: IDocument) {
           <GlobalEvents />
           <Header />
           <Outlet />
-          {/* <FooterPrimary /> */}
+          <FooterPrimary />
           <BasicModal />
           <CommentModal />
           <SearchModal />

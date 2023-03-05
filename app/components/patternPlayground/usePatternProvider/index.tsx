@@ -177,7 +177,7 @@ const usePatternPlayground = () => {
   }
 
   const saveImage = () => {
-    const { image, imageCache, patternType, patternSize } = state
+    const { image, imageCache, patternType, patternRange } = state
     // Create a new Image object from the cached image
     const selectedImage = new Image();
     selectedImage.src = imageCache[patternType] as string
@@ -194,15 +194,15 @@ const usePatternPlayground = () => {
     if (!ctx) return;
 
     // Set the image file size
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = 1600;
+    canvas.height = 1200;
 
     // Calculate the aspect ratio of the image
     const aspectRatio = selectedImage.height / selectedImage.width;
 
     // Set the size of the repeat unit
     // This is based on the user scale slider
-    const dynamicPatternSize = patternSize;
+    const dynamicPatternSize = patternRange[0];
     const selectedImageBaseSize = getCanvasSize(patternType);
 
     // Draw the pattern on the canvas
