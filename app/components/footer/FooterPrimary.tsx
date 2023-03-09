@@ -31,7 +31,6 @@ function FooterPrimary({ hideSignUp = false }: IProps) {
     }
     return <MakersFooterSignUp />
   }
-  console.log('location.pathname', location.pathname)
   function hideFooterCheck() {
     const path = location.pathname.replace('/', '')
     if (PagesToHideFooter.includes(path)) {

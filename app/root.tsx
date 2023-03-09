@@ -309,7 +309,7 @@ export function meta({ data, matches, parentsData }: any) {
 
 export function Document({ children, title }: IDocument) {
   let data = useLoaderData<IRootData>();
-
+  console.log('root data', data)
   return (
     <html lang="en">
       <head>
@@ -329,7 +329,6 @@ export function Document({ children, title }: IDocument) {
           <BasicModal />
           <CommentModal />
           <SearchModal />
-
         </ContextLoader>
 
         <CustomScripts data={data} />
