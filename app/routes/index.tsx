@@ -71,6 +71,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   // https://remix.run/api/remix#json
   return json({
+    wpAPI,
     page,
     posts,
     courses,
@@ -132,6 +133,8 @@ interface LoaderData {
 export default function Index() {
   let data = useLoaderData<typeof loader>();
   let { courses, posts } = data
+
+  console.log('home page data with WPAI', data)
 
   return (
     <Layout disableNavStyles={true}>

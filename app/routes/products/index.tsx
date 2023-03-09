@@ -12,6 +12,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { formatRawProduct } from '@App/utils/productPageUtils';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { consoleHelper } from '@App/utils/windowUtils';
 
 const page = getStaticPageMeta({
   title: 'Products',
@@ -46,16 +47,16 @@ export let loader: LoaderFunction = async ({ request, }) => {
 function ProductsIndex() {
   const data = useLoaderData()
   const { metadata } = metaDataMatches()
-  // consoleHelper('data', data, '/routes/products/index.tsx');
+  consoleHelper('products data', data, '/routes/products/index.tsx');
   // const { fontLoadingState, setFontClickHandler } = useFonts()
   // const { state } = useSite()
 
   return (
     <UseFontPreviewProvider>
       <Layout disableNavStyles={true}>
-        <ProductLayout
+        {/* <ProductLayout
           products={data.products}
-          metadata={metadata} />
+          metadata={metadata} /> */}
       </Layout>
     </UseFontPreviewProvider>
   )
