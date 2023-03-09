@@ -29,7 +29,7 @@ function HomeTemplate(props: Props) {
         {() => <IpadVerticalAnimation />}
       </ClientOnly> */}
 
-      {/* <YourInstructor />
+      <YourInstructor />
 
       <StartHere />
 
@@ -41,7 +41,7 @@ function HomeTemplate(props: Props) {
 
       <FeaturedBlogPosts posts={posts} />
 
-      <AboutMeFeature /> */}
+      <AboutMeFeature />
 
     </>
   )

@@ -54,9 +54,9 @@ function ProductsIndex() {
   return (
     <UseFontPreviewProvider>
       <Layout disableNavStyles={true}>
-        {/* <ProductLayout
+        <ProductLayout
           products={data.products}
-          metadata={metadata} /> */}
+          metadata={metadata} />
       </Layout>
     </UseFontPreviewProvider>
   )
