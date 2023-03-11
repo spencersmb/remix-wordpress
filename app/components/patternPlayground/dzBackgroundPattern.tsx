@@ -8,7 +8,8 @@ const PatternDz = () => {
     dzBackgroundHeight is a class that sets the height of the background dropzone to the height of the window set in tailwindUtilities.js 
   */
   return (
-    <div className='relative dzBackgroundHeight'>
+    <div className='relative dzBackgroundHeight z-1'>
+
       <DzBanner />
 
       <DzPattern />

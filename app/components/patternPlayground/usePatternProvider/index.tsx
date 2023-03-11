@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useCallback } from 'react';
 import { useContext, createContext } from 'react'
-import { drawImage, getCanvasSize, setCanvasSize } from '../dzPatternHelpers';
+import { drawImage, setCanvasSize } from '../dzPatternHelpers';
 import type { IPPAction } from './usePPReducer';
 import { IPPTypes } from './usePPReducer';
 
@@ -112,20 +112,23 @@ const usePatternPlayground = () => {
     // Calculate the aspect ratio of the image
     const aspectRatio = image.height / image.width
 
-
     //// Code for pattern 0
     // Set the size of the canvas for pattern 0
-    setCanvasSize(0, canvas)
+    setCanvasSize(0, canvas, image)
+
     // Draw the image onto the canvas with pattern 0
     drawImage(ctx, image, 0, aspectRatio)
+
     // Save the image data URL of pattern 0
     image1Url = canvas.toDataURL()
+
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //// Code for pattern 1
     // Set the size of the canvas for pattern 1
-    setCanvasSize(1, canvas)
+    setCanvasSize(1, canvas, image)
+
     // Draw the image onto the canvas with pattern 1
     drawImage(ctx, image, 1, aspectRatio)
     // Save the image data URL of pattern 1
@@ -135,7 +138,7 @@ const usePatternPlayground = () => {
 
     //// Code for pattern 2
     // Set the size of the canvas for pattern 2
-    setCanvasSize(2, canvas)
+    setCanvasSize(2, canvas, image)
     // Draw the image onto the canvas with pattern 2
     drawImage(ctx, image, 2, aspectRatio)
     // Save the image data URL of pattern 2
@@ -180,6 +183,7 @@ const usePatternPlayground = () => {
     const { image, imageCache, patternType, patternRange } = state
     // Create a new Image object from the cached image
     const selectedImage = new Image();
+    // Grab the img we've already created in the CANVAS cache
     selectedImage.src = imageCache[patternType] as string
 
     // Get the canvas and its context
@@ -202,15 +206,14 @@ const usePatternPlayground = () => {
 
     // Set the size of the repeat unit
     // This is based on the user scale slider
-    const dynamicPatternSize = patternRange[0];
-    const selectedImageBaseSize = getCanvasSize(patternType);
+    const dynamicPatternSize = patternRange[0]; // background-size
 
     // Draw the pattern on the canvas
     for (let y = 0; y < canvas.height; y += dynamicPatternSize * aspectRatio) {
       for (let x = 0; x < canvas.width; x += dynamicPatternSize) {
         // Draw a 400x400 repeat unit at (x, y)
         // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        ctx.drawImage(selectedImage, 0, 0, selectedImageBaseSize.width, selectedImageBaseSize.height, x, y, dynamicPatternSize, dynamicPatternSize * aspectRatio);
+        ctx.drawImage(selectedImage, 0, 0, selectedImage.width, selectedImage.height, x, y, dynamicPatternSize, dynamicPatternSize * aspectRatio);
       }
     }
 

@@ -1,64 +1,33 @@
 
+export const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement, image: HTMLImageElement, dimension = 1000) => {
 
+  let factor = dimension
+  switch(patternType) {
 
-/*
-  Size of the base 64 image used inside the canvas element.
-  Determining this size helps to make sure everything is drawn at the same scale.
-*/
-const patternTypeSizes = {
-  normal: {
-    width: 1000,
-    height: 1000
-  },
-  halfBlock: {
-    width: 2000,
-    height: 2000
-  },
-  halfBrick: {
-    width: 2000,
-    height: 2000
+    // HALF DROP PATTERN
+    case 1:
+      // create the scale factor based on the image width for 1000px
+      factor = dimension / image.width
+      canvas.width = (image.width * factor);
+      canvas.height = (image.height * factor) / 2 // cut in half because we scaled the image to 1000px
+      break;
+
+    // HALF DROP PATTERN
+    case 2:
+      // create the scale factor based on the image width for 1000px
+      factor = dimension / image.width
+      canvas.width = (image.width * factor)
+      canvas.height = (image.height * factor)
+      break;
+
+    // DROP PATTERN
+    default:
+      factor = dimension
+      const scaleFactor = factor / image.width;
+      canvas.width = factor
+      canvas.height = image.height * scaleFactor
   }
 }
-const patternTypes = [
-  patternTypeSizes.normal,
-  patternTypeSizes.halfBlock,
-  patternTypeSizes.halfBrick
-]
-export function getPatternTypeSize(patternType: number) {
-  return patternTypes[patternType] || patternTypes[0]
-}
-
-
-/*
-Size of the Canvas Img Element that contains the pattern type image size
-*/
-export const canvasSizes = {
-  normal: {
-    width: 2000,
-    height: 2000
-  },
-  halfBlock: {
-    width: 2000,
-    height: 1000
-  },
-  halfBrick: {
-    width: 2000,
-    height: 2000
-  }
-}
-const canvasSizesArray = [
-  canvasSizes.normal,
-  canvasSizes.halfBlock,
-  canvasSizes.halfBrick
-]
-export function getCanvasSize(patternType: number) {
-  return canvasSizesArray[patternType] || canvasSizesArray[0]
-}
-export const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement) => {
-  const canvasSize = getCanvasSize(patternType);
-  canvas.width = canvasSize.width;
-  canvas.height = canvasSize.height;
-};
 
 /**
  * Draws an image on a canvas context with a specific pattern type and aspect ratio.
@@ -71,11 +40,30 @@ export const setCanvasSize = (patternType: number, canvas: HTMLCanvasElement) =>
 export const drawImage = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, patternType: number, aspectRatio: number) => {
 
   // Get the size of the pattern based on the pattern type
-  const imageSize = getPatternTypeSize(patternType)
+  // const imageSize = getPatternTypeSize(patternType)
+  let width = 0;
+  let height = 0;
+  let scaleFactor = 0;
+  switch(patternType) {
+
+    case 1:
+    case 2:
+      scaleFactor = 1000 / image.width;
+      width = 1000
+      height = image.height * scaleFactor
+      break;
+    /*
+    USE FOR STANDARD DROP PATTERN
+    */
+    default:
+      scaleFactor = (1000 / 2) / image.width;
+      width = 1000 / 2
+      height = image.height * scaleFactor
+  }
 
   // Calculate the width and height of the pattern based on the image size and aspect ratio
-  const width = imageSize.width / aspectRatio;
-  const height = imageSize.height / aspectRatio;
+  // const width = imageSize.width / aspectRatio;
+  // const height = imageSize.height / aspectRatio;
 
   // Draw the image on the canvas context with the appropriate pattern based on the pattern type
   switch (patternType) {
@@ -115,6 +103,7 @@ export const ctxDrawHalfBlockPattern = (ctx: CanvasRenderingContext2D, image: HT
     newHeight / 2);
 }
 export const ctxDrawStandardPattern = (ctx: CanvasRenderingContext2D, image: HTMLImageElement, newWidth: number, newHeight: number) => {
+
   ctx.drawImage(image, 0, 0, image.width, image.height,
     0, 0, newWidth, newHeight);
 
