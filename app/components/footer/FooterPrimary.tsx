@@ -3,6 +3,7 @@ import MakersFooterSignUp from './makersSignUpFooter';
 import FooterLinks from './footerLinks';
 import FooterCopyright from './footerCopyright';
 import { useLocation } from '@remix-run/react';
+import FooterSignUp from './footerSignUp';
 interface IProps {
   hideSignUp?: boolean
 }
@@ -29,7 +30,7 @@ function FooterPrimary({ hideSignUp = false }: IProps) {
     if (resourceUser) {
       return null
     }
-    return <MakersFooterSignUp />
+    return <FooterSignUp />
   }
   function hideFooterCheck() {
     const path = location.pathname.replace('/', '')
@@ -47,7 +48,7 @@ function FooterPrimary({ hideSignUp = false }: IProps) {
 
     <footer
       data-testid="footer"
-      className='bg-emerald-900 overflow-hidden relative pt-[100px] pb-[35px] laptop:pt-[80px] desktop:pt-[120px] laptop:pb-[50px] z-3'>
+      className='bg-cream-200 relative pt-[160px] pb-[35px] tablet:pt-[180px] laptop:pb-[50px] z-1'>
       <div className='container'>
 
         {displaySignup()}

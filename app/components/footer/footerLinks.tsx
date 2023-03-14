@@ -73,11 +73,11 @@ const FooterLinks = () => {
       <div data-testid="footer-logo" className='pb-12 laptop:pb-0'>
         <div className='max-w-[249px]'>
           <Link data-testid="logo-link" to={'/'} prefetch='intent' aria-label='Link to Every-Tuesday Home page'>
-            <EveryTuesdayLogo fill={`var(--secondary-500)`} />
+            <EveryTuesdayLogo fill={`var(--tiger-400)`} />
             <span className="sr-only">Every Tuesday Home Page</span>
           </Link>
         </div>
-        <p className='pt-2 text-primary-50 font-sentinel__SemiBoldItal text-h5'>
+        <p className='pt-2 text-grey-800 font-sentinel__SemiBoldItal text-h5'>
           Digital Art + Lettering
         </p>
       </div>
@@ -90,11 +90,11 @@ const FooterLinks = () => {
           if (index !== 2) {
             return (
               <div data-testid="footer-link" key={index} className='pb-7 tablet:pr-16 tablet:pb-0 desktop:pr-24 '>
-                <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-sage-300'>{block.heading}</p>
+                <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-grey-800'>{block.heading}</p>
                 <ul>
                   {block.links.map(link => (
-                    <li key={link.url} className='pb-3 text-lg text-sage-500 btn-spencer'>
-                      <Link data-testid="footer-link--item" className='hover:text-sage-200 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
+                    <li key={link.url} className='pb-3 text-lg text-grey-700 btn-spencer'>
+                      <Link data-testid="footer-link--item" className='font-normal hover:text-emerald-5000 underlined after:underlineAnimation' to={link.url} aria-label={`Footer link to ${link.text}`}>{link.text}</Link>
                     </li>
                   ))}
                 </ul>
@@ -105,8 +105,8 @@ const FooterLinks = () => {
 
           return (
             <div data-testid="social-links-block" key={index}>
-              <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-sage-300'>{block.heading}</p>
-              <SocialLinksList1 svgColor={`var(${cssColors.primaryPlum50})`}
+              <p className='pb-6 font-sentinel__SemiBoldItal text-h5 text-grey-800'>{block.heading}</p>
+              <SocialLinksList1 svgColor={`var(--emerald-400)`}
               />
             </div>
           )

@@ -19,6 +19,7 @@ interface Props {
   blur?: boolean
   visibleByDefault?: boolean
   sizes?: string
+  threshold?: number
 }
 
 /**
@@ -28,7 +29,7 @@ interface Props {
  * 
  */
 function LazyImgix(props: Props) {
-  const { image, id, scrollPosition, testId, srcSet, sizes, blur = true, visibleByDefault = false } = props
+  const { image, id, scrollPosition, testId, srcSet, sizes, blur = true, visibleByDefault = false, threshold = 100 } = props
   const { width, height } = checkWidthHeight(image.width, image.height)
 
   const imagePadding = height / width
@@ -47,6 +48,7 @@ function LazyImgix(props: Props) {
           afterLoad={() => {
             setLoaded(true)
           }}
+          threshold={threshold}
           aria-label='Image'
           data-testid={testId ? testId : `lazy-load-image-${id}`}
           key={id}

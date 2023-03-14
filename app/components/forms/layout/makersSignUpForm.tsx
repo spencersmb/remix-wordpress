@@ -44,11 +44,11 @@ function MakersSignUpForm(props: Props) {
         className="flex flex-col desktop:flex-row"
         action="/convertkit/tuesday-makers"
       >
-        <div className='flex-1 mb-5 desktop:mr-6 desktop:mb-0'>
+        <div className='flex-1 mb-5 desktop:mr-4 desktop:mb-0'>
           <InputBase
             type="email"
             name="email"
-            className='input-field-xl text-sage-50 bg-emerald-700 hover:ring-emerald-400 ring-offset-emerald-800 focus:ring-emerald-200 placeholder:text-emerald-300'
+            className='input-field-xl text-grey-500 bg-grey-200 hover:ring-emerald-400 ring-offset-cream-200 focus:ring-emerald-200 placeholder:text-emerald-300'
             placeholder='Enter Email'
             required={true}
             invalid={Boolean(data?.fieldErrors?.email)}
@@ -70,7 +70,7 @@ function MakersSignUpForm(props: Props) {
             spinnerColors={spinnerColors.yellowSolid}
             className='btn btn-tangerine-400 btn-xl btn-tangerine-400-ring btn-flex'
             transition={transition}
-            btnText='Send the Goods!'
+            btnText='Get em!'
           />
         </div>
 

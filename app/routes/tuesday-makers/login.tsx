@@ -23,6 +23,8 @@ import RedWreathSvg from "@App/components/svgs/redWreathSvg";
 import { siteLoginUrls } from "@App/lib/wp/site";
 import { getStaticPageMeta, navStyles } from "@App/utils/pageUtils";
 import { consoleHelper } from "@App/utils/windowUtils";
+import { spinnerColors } from "@App/components/spinners/spinnerColors";
+import LinkCard from "@App/components/cards/linkCard";
 
 
 const page = getStaticPageMeta({
@@ -177,17 +179,18 @@ const ResourceLibraryLogin = () => {
   const { inputVaue, usedOldPassword, setInputValue } = useOldTuesdayMakersPassword(formRef)
 
   return (
-    <section className={`grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
+    <section className={`relative z-2 grid grid-flow-row row-auto bg-cream-100 grid-cols-mobile gap-x-5 tablet:grid-cols-tablet tablet:gap-x-5 desktop:grid-cols-desktop`}>
 
       {/* RIGHT */}
-      <div className={`${navStyles} relative row-start-2 col-span-full bg-sage-600 z-3 laptop:col-start-8 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-center `}>
-        <div className="p-4 px-6 pt-0 pb-20 laptop:px-16 laptop:py-36 desktop:py-44">
+      <div className={`${navStyles} relative row-start-2 col-span-full bg-emerald-700 z-3 laptop:col-start-7 laptop:row-start-1 laptop:h-full laptop:flex laptop:items-end `}>
 
-          <div className="flex flex-col gap-8 mx-auto text-white bg-sage-600 tablet:flex-row tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[407px] desktop:max-w-[650px]">
+        <div className="p-4 px-6 pt-0 pb-20 laptop:w-full laptop:px-12 laptop:pt-20 laptop:pb-20 desktop:pt-12 ">
+
+          <div className="flex flex-col gap-8 mx-auto text-white tablet:col-start-3 tablet:col-span-10 laptop:ml-0 laptop:flex-col laptop:gap-0 laptop:max-w-[650px] desktop:max-w-[650px]">
 
             {/* NO PASSWORDS */}
-            <div className="flex-1 tablet:flex-[1_0_50%]">
-              <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-4xl  tablet:max-w-[300px] laptop:text-5xl laptop:max-w-none">
+            <div className="flex-1 tablet:flex-[1_0_50%] tablet:max-w-[500px] laptop:max-w-none">
+              <div className="mb-4 text-4xl font-sentinel__SemiBoldItal tablet:text-4xl laptop:text-5xl">
                 No More Passwords!
               </div>
 
@@ -197,65 +200,59 @@ const ResourceLibraryLogin = () => {
             </div>
 
             {/* ALT LOGIN */}
-            <div className="laptop:mt-16 laptop:flex laptop:flex-col desktop:max-w-[405px] desktop:ml-0">
-              <p className="mb-4 text-lg laptop:text-base font-sentinel__SemiBoldItal">
+            <div className="laptop:mt-16 laptop:flex laptop:flex-col desktop:ml-0">
+              <p className="mb-8 text-lg laptop:text-base font-sentinel__SemiBoldItal">
                 Looking for another login?
               </p>
 
               {/* LINKS */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-10 max-w-[621px] tablet:grid-cols-2">
 
                 {/* COURSES */}
-                <div className="flex flex-col">
-                  <div className="text-lg font-semibold laptop:text-xl">
-                    Teach:able
-                  </div>
-                  <p>
-                    Access the courses you’re enrolled in
-                  </p>
-
-                  <a href={siteLoginUrls.teachable}
-                    rel={'noreferrer noopener'}
-                    target={'_blank'}
-                    className="flex flex-row items-center mt-4 font-semibold text-white underline underline-offset-4">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
-                </div>
+                <LinkCard
+                  title={'Teach:able'}
+                  subTitle={'Your Courses'}
+                  desciption={'Access the courses you’re currently enrolled in'}
+                  link={{
+                    url: siteLoginUrls.teachable,
+                    text: 'Login'
+                  }}
+                />
 
                 {/* GUMROAD */}
-                <div>
-                  <div className="text-lg font-semibold laptop:text-xl">
-                    Gumroad
-                  </div>
-                  <p>
-                    Access your digital product purchases.
-                  </p>
-
-                  <a href={siteLoginUrls.gumroad}
-                    rel={'noreferrer noopener'}
-                    target={'_blank'} className="flex flex-row items-center mt-4 font-semibold text-white underline underline-offset-4">Login <span className="ml-3"><ArrowRightIcon className="w-4 h-4 text-white" /></span></a>
-                </div>
+                <LinkCard
+                  title={'Gumroad'}
+                  subTitle={'Your Products'}
+                  desciption={'Access the digital products you’re bought'}
+                  link={{
+                    url: siteLoginUrls.gumroad,
+                    text: 'Login'
+                  }}
+                />
               </div>
             </div>
 
           </div>
         </div>
+
       </div>
 
+
       {/* LEFT */}
-      <div className={`${navStyles} col-span-2 col-start-2 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-6 laptop:row-start-1 desktop:col-start-3 desktop:col-span-5 desktop:mr-0 `}>
+      <div className={`${navStyles} col-span-2 col-start-2 tablet:col-start-4 tablet:col-span-8 laptop:col-start-2 laptop:col-span-5 laptop:row-start-1 desktop:col-start-2 desktop:col-span-5 desktop:mr-0 `}>
 
-        <div className="relative px-3 py-28 pb-16 tablet:py-28 tablet:pb-16 tablet:px-12 laptop:py-36 desktop:py-44 max-w-[500px] w-full mx-auto rounded-lg">
+        <div className="relative px-3 py-12 tablet:py-12 tablet:pb-16 tablet:px-12 laptop:px-6 laptop:pb-20 laptop:pt-12 max-w-[448px] w-full mx-auto rounded-lg">
 
-          <div className="w-[770px] absolute top-[-680px] left-1/2 -translate-x-1/2 z-2 desktop:top-1/2 desktop:-translate-y-1/2 desktop:left-[-80%] desktopXl:left-[-104%] desktopXl:w-[1020px]">
-            <RedWreathSvg />
-          </div>
+          <div className="laptop:w-[125px] laptop:h-[125px] bg-tangerine-50 mx-auto"></div>
 
           <div className="relative flex flex-col items-center z-3">
 
-            <div className="flex flex-col w-full text-left">
+            <div className="flex flex-col w-full text-center">
               <h1 className="relative flex flex-col text-3xl laptop:text-4xl text-sage-700 font-sentinel__SemiBoldItal">
                 {/* <span className="mb-4 text-[44px] laptop:text-[54px] italic font-light font-bonVivant">Tuesday Makers</span> */}
                 Tuesday Makers Login
               </h1>
+              <p className="pt-1 pb-4 text-lg">The ultimate resource library for procreate.</p>
             </div>
 
             {/*ERROR SUBMISSION*/}
@@ -313,7 +310,7 @@ const ResourceLibraryLogin = () => {
                 <InputBase
                   label="Email"
                   labelCss="text-sm text-grey-600 font-semibold"
-                  className="mt-2 mb-5 bg-white ring ring-offset-0 ring-offset-cream-100 ring-grey-300 hover:ring-blue-300 hover:ring-offset-4 focus:ring-blue-300 focus:ring-offset-4"
+                  className="mt-2 mb-5 bg-white ring ring-offset-0 ring-offset-cream-100 ring-grey-300 hover:ring-blue-300 hover:ring-offset-4 focus:ring-blue-300 focus:ring-offset-4 input-field-xl"
                   invalid={Boolean(
                     actionData?.fieldErrors?.email
                   ) || undefined}
@@ -340,7 +337,8 @@ const ResourceLibraryLogin = () => {
                   loading={(transition.state !== 'idle' && !!inputVaue) || usedOldPassword}
                   loadingText={'Loading'}
                   text={'Sign In'}
-                  className="btn btn-primary btn-lg btn-primary-ring ring-offset-cream-100"
+                  spinnerColors={spinnerColors.sageSolid}
+                  className="btn btn-secondary btn-xl btn-secondary-ring ring-offset-cream-100"
                 />
 
               </Form>
@@ -348,7 +346,7 @@ const ResourceLibraryLogin = () => {
 
             <div className="w-full z-[1] relative flex flex-col items-center justify-center text-center">
               <div className="italic">
-                <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" />
+                {/* <span className="z-[1] absolute top-[50%] translate-y-[-50%] h-[1px] bg-black w-full left-0" /> */}
                 <div className="p-4 bg-cream-100 relative z-[2]">Don’t have an account?</div>
               </div>
             </div>
@@ -356,7 +354,7 @@ const ResourceLibraryLogin = () => {
             <div className="flex flex-row relative z-[2] w-full">
               <Link
                 prefetch={'intent'}
-                className="btn btn-outline btn-flex btn-lg"
+                className="btn btn-outline btn-flex btn-xl-ring"
                 to="/tuesday-makers">
                 Sign Up For Free
               </Link>
@@ -430,3 +428,4 @@ const containerMotion = {
     y: 0
   }
 }
+

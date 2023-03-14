@@ -113,6 +113,7 @@ module.exports = {
         700: 'var(--emerald-700)',
         800: 'var(--emerald-800)',
         900: 'var(--emerald-900)',
+        5000: '#46B4B5',
       },
       'tangerine':{
         50: 'var(--tangerine-50)',
@@ -192,7 +193,11 @@ module.exports = {
       },
       'cream':{
         100: '#F7F6F7',
-        300: '#F3ECE6'
+        200: `#F9F5EE`, 
+        300: '#F3ECE6',
+      },
+      'tiger':{
+        400 : '#F97F68'
       }
     },
     extend:{

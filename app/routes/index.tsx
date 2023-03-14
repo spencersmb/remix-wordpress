@@ -134,8 +134,6 @@ export default function Index() {
   let data = useLoaderData<typeof loader>();
   let { courses, posts } = data
 
-  console.log('home page data with WPAI', data)
-
   return (
     <Layout disableNavStyles={true}>
       {/* Home */}

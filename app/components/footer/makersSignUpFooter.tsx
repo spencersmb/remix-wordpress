@@ -77,6 +77,7 @@ interface IFeatureProps {
   alt: string
   id: string
 }
+
 const IpadFooterImage = ({ featuredImage, alt, id }: IFeatureProps) => {
 
   const applePencil = createImgixSizes({

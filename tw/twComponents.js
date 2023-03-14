@@ -56,6 +56,13 @@ const classes = {
   },
   '.btn-xl': {
     fontWeight: '500',
+    padding: '1.1875rem 1.5rem', /* 66px */
+    fontSize: '1.125rem', /* 18px */
+    lineHeight: '1.75rem',/* 28px */
+    borderRadius: '1rem',
+  },
+  '.btn-xl-ring': {
+    fontWeight: '500',
     padding: '1rem 1.5rem', /* 66px */
     fontSize: '1.125rem', /* 18px */
     lineHeight: '1.75rem',/* 28px */
@@ -118,25 +125,21 @@ const classes = {
     }
   },
   '.btn-secondary': {
-    '--tw-bg-opacity': '1',
-    '--tw-text-opacity': '1', 
-    '--tw-border-opacity': '1', 
-   
-    backgroundColor: 'rgb(242 192 102 / var(--tw-bg-opacity))',
-    color: 'rgb(101 76 31 / var(--tw-text-opacity))',
-    borderColor: 'rgb(242 192 102 / var(--tw-border-opacity))',
+    backgroundColor: 'var(--tangerine-400)',
+    color: 'var(--tangerine-900)',
+    borderColor: 'var(--tangerine-400)',
     '&:hover':{
-      backgroundColor: 'rgb(241 208 147 / var(--tw-bg-opacity))',
-      borderColor: 'rgb(241 208 147 / var(--tw-border-opacity))',
+      backgroundColor: 'var(--tangerine-600)',
+      borderColor: 'var(--tangerine-600)',
     },
     '&:disabled':{
-      backgroundColor: 'rgb(241 208 147 / var(--tw-bg-opacity))',
-      color: 'rgb(151 114 47 / var(--tw-text-opacity))',
-      borderColor: 'rgb(241 208 147 / var(--tw-border-opacity))',
+      backgroundColor: 'var(--grey-300)',
+      color: 'var(--grey-700)',
+      borderColor: 'var(--grey-300)',
       '&:hover':{
-        backgroundColor: 'rgb(241 208 147 / var(--tw-bg-opacity))',
-        color: 'rgb(151 114 47 / var(--tw-text-opacity))',
-        borderColor: 'rgb(241 208 147 / var(--tw-border-opacity))',
+        backgroundColor: 'var(--grey-300)',
+        color: 'var(--grey-700)',
+        borderColor: 'var(--grey-300)',
       }
     }
 
@@ -149,20 +152,20 @@ const classes = {
     //RING COLOR
     '--tw-ring-offset-width': '4px',
     '--tw-ring-opacity': '1',
-    '--tw-ring-color': 'rgb(242 192 102 / var(--tw-ring-opacity))',
+    '--tw-ring-color': 'var(--tangerine-400)',
     '--tw-ring-offset-shadow': 'var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)',
     '--tw-ring-shadow': 'var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color)',
-    '--tw-ring-offset-color': 'var(--sage-600)',
+    '--tw-ring-offset-color': '#000',
     '&:hover':{
-      backgroundColor: 'rgb(242 192 102 / var(--tw-bg-opacity))',
+      backgroundColor: 'var(--tangerine-400)',
       boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
     },
     '&:focus':{
        boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
     },
     '&:disabled':{
-      
-      '--tw-ring-color': 'rgb(241 208 147 / var(--tw-ring-opacity))',
+      backgroundColor: 'var(--grey-300)',
+      '--tw-ring-color': 'var(--grey-300)',
       '--tw-ring-shadow': 'var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color)',
       boxShadow: 'var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)',
     },
@@ -187,13 +190,13 @@ const classes = {
     '&:disabled':{}
   },
   '.btn-outline':{
-    color: 'var(--sage-700)',
+    color: 'var(--grey-800)',
     backgroundColor: 'transparent',
-    borderColor: 'var(--sage-700)',
+    borderColor: 'var(--grey-800)',
     '&:hover':{
-      color: 'var(--sage-50)',
-      backgroundColor: 'var(--sage-500)',
-      borderColor: 'var(--sage-500)',
+      color: 'var(--emerald-5000)',
+      backgroundColor: 'transparent',
+      borderColor: 'var(--emerald-5000)',
     },
     '&:active':{
     },
@@ -201,8 +204,8 @@ const classes = {
       
     },
     '&:disabled':{
-      borderColor: 'var(--sage-300)',
-      color: 'var(--sage-400)',
+      borderColor: 'var(--grey-300)',
+      color: 'var(--grey-700)',
       '&:hover':{
         backgroundColor: 'transparent',
       }
