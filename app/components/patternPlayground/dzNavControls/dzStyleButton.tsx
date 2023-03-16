@@ -20,7 +20,7 @@ function DzStyleButton(props: Props) {
       <div className='w-12 mb-4 mr-5 h-[30px]'>
         {<Icon className={'transition-all'} fill={isSelected ? `#fff` : `#4373F0`} />}
       </div>
-      <div className={classNames(isSelected ? 'text-white' : 'text-[#353331]', 'font-bold transition-all leading-[1]')}>
+      <div className={classNames(isSelected ? 'text-white' : 'text-[#353331]', 'font-semibold transition-all leading-[1] text-sm')}>
         {text}
       </div>
     </button>

@@ -3,10 +3,15 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useCallback } from 'react';
 import { useContext, createContext } from 'react'
+import type { ColorResult } from 'react-color';
 import { drawImage, setCanvasSize } from '../dzPatternHelpers';
 import type { IPPAction } from './usePPReducer';
 import { IPPTypes } from './usePPReducer';
 
+export interface IBlendModeType {
+  name: string
+  value: string
+}
 export interface IPatternProviderContextState {
   image: HTMLImageElement | null,
   backgroundImage: string | null,
@@ -17,6 +22,11 @@ export interface IPatternProviderContextState {
   patternType: number
   patternSize: number
   patternRange: [number]
+  blendMode: {
+    isOpen: boolean
+    type: IBlendModeType | null
+    color: ColorResult | undefined
+  }
 }
 
 interface IPatternProviderContextType {
@@ -32,10 +42,30 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
     1: null,
     2: null
   },
-  patternType: 1,
+  patternType: 0,
   patternSize: 600,
   patternRange: [600],
-  touched: false
+  touched: false,
+  blendMode: {
+    isOpen: false,
+    type: null,
+    color: undefined
+    // color: {
+    //   hex: '#000000',
+    //   rgb: {
+    //     r: 0,
+    //     g: 0,
+    //     b: 0,
+    //     a: 1
+    //   },
+    //   hsl: {
+    //     h: 0,
+    //     s: 0,
+    //     l: 0,
+    //     a: 1
+    //   }
+    // }
+  }
 }
 
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
@@ -217,6 +247,18 @@ const usePatternPlayground = () => {
       }
     }
 
+    if (state.blendMode.type && state.blendMode.color) {
+      // Set the blend mode to multiply
+      ctx.globalCompositeOperation = state.blendMode.type.value as GlobalCompositeOperation
+
+      // Set the fill color to red
+      ctx.fillStyle = state.blendMode.color.hex;
+
+      // Draw a rectangle the size of the canvas
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+
     // Get the data URL for the pattern
     const dataURL = canvas.toDataURL();
     // setSavedImage(dataURL)
@@ -253,6 +295,31 @@ const usePatternPlayground = () => {
     })
   }
 
+  const toggleBlendModeMenu = () => {
+    dispatch({
+      type: IPPTypes.TOGGLE_BLENDMODE_MENU
+    })
+  }
+
+  const changeBlendMode = (mode: IBlendModeType) => {
+    dispatch({
+      type: IPPTypes.CHANGE_BLENDMODE,
+      payload: mode
+    })
+  }
+  const changeColor = (color: ColorResult) => {
+    dispatch({
+      type: IPPTypes.CHANGE_COLOR,
+      payload: color
+    })
+  }
+
+  const resetBlendMode = () => {
+    dispatch({
+      type: IPPTypes.RESET_BLENDMODE,
+    })
+  }
+
   // When state.image changes, draw the image on the canvas and save the image data URL in the image cache
   useEffect(() => {
     const cache = drawImageBasedOnPattern(state.image, canvasRef);
@@ -263,6 +330,10 @@ const usePatternPlayground = () => {
 
 
   return {
+    changeColor,
+    resetBlendMode,
+    changeBlendMode,
+    toggleBlendModeMenu,
     changeRangeSize,
     userTouchedCanvas,
     getBase64FromUrl,

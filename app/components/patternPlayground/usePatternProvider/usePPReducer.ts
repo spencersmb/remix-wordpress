@@ -1,6 +1,7 @@
 import type { BreakpointEnums } from '@App/enums/breakpointEnums'
 import { consoleColors, consoleHelper } from '@App/utils/windowUtils'
-import type { IPatternProviderContextState } from '.'
+import type { ColorResult } from 'react-color'
+import type { IBlendModeType, IPatternProviderContextState } from '.'
 
 export enum IPPTypes {
   MODAL_CLOSE = 'MODAL_CLOSE',
@@ -12,6 +13,10 @@ export enum IPPTypes {
   SET_TOUCHED = 'SET_TOUCHED',
   CHANGE_PATTERN_SIZE = 'CHANGE_PATTERN_SIZE',
   CHANGE_PATTERN_RANGE = 'CHANGE_PATTERN_RANGE',
+  TOGGLE_BLENDMODE_MENU = 'TOGGLE_BLENDMODE_MENU',
+  CHANGE_BLENDMODE = 'CHANGE_BLENDMODE',
+  CHANGE_COLOR = 'CHANGE_COLOR',
+  RESET_BLENDMODE = 'RESET_BLENDMODE',
 }
 
 interface ISetImage {
@@ -54,8 +59,27 @@ interface IChangePatternRange {
   type: IPPTypes.CHANGE_PATTERN_RANGE,
   payload: [number]
 }
+interface IToggleBlendModeMenu {
+  type: IPPTypes.TOGGLE_BLENDMODE_MENU
+}
+
+interface IChangeBlendMode {
+  type: IPPTypes.CHANGE_BLENDMODE,
+  payload: IBlendModeType
+}
+interface IChangeColor {
+  type: IPPTypes.CHANGE_COLOR,
+  payload: ColorResult
+}
+interface IResetBlendMode {
+  type: IPPTypes.RESET_BLENDMODE
+}
 
 export type IPPAction =
+| IChangeColor
+| IResetBlendMode
+| IChangeBlendMode
+| IToggleBlendModeMenu
 | IChangePatternRange
 | ISetImageCache
 | ISetTocuhed
@@ -117,6 +141,43 @@ export const usePPReducer = (state: IPatternProviderContextState, action: IPPAct
       return {
         ...state,
         patternRange: action.payload
+      }
+
+    case IPPTypes.TOGGLE_BLENDMODE_MENU :
+      return {
+        ...state,
+        blendMode:{
+          ...state.blendMode,
+          isOpen: !state.blendMode.isOpen
+        }
+      }
+
+    case IPPTypes.CHANGE_BLENDMODE :
+      return {
+        ...state,
+        blendMode:{
+          ...state.blendMode,
+          type: action.payload
+        }
+      }
+
+    case IPPTypes.CHANGE_COLOR :
+      return {
+        ...state,
+        blendMode:{
+          ...state.blendMode,
+          color: action.payload
+        }
+      }
+
+    case IPPTypes.RESET_BLENDMODE :
+      return {
+        ...state,
+        blendMode:{
+          ...state.blendMode,
+          color: undefined,
+          type: null
+        }
       }
 
     default: {

@@ -63,7 +63,7 @@ function DzMaster(props: Props) {
         classNames={{
           dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',
         }}
-        getFilesFromEvent={getFilesFromEvent}
+        // getFilesFromEvent={getFilesFromEvent}
         accept="image/*"
         inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
         InputComponent={BackgroundDzCustomInput}

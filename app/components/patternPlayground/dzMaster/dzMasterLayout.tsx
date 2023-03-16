@@ -10,6 +10,8 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
         ref={uploadRef}
         {...dropzoneProps}
 
+
+
         onDragEnter={(e) => {
           // console.log('drag enter', e)
           if (!isHovering) {

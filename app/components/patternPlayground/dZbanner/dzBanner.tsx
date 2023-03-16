@@ -1,10 +1,20 @@
+import LazyImgix from "@App/components/images/lazyImgix"
 import { classNames } from "@App/utils/appUtils"
+import { createImgixSizes } from "@App/utils/imageHelpers"
 import { FolderAddIcon } from "@heroicons/react/outline"
 import { AnimatePresence, motion } from "framer-motion"
 import usePatternPlayground from "../usePatternProvider"
 
 const DzBanner = () => {
   const { state: { touched }, saveImage } = usePatternPlayground()
+  const ppLogo = createImgixSizes({
+    compress: true,
+    height: 333,
+    width: 600,
+    alt: "Pattern Playground by Every Tuesday",
+    mobileSize: 400,
+    src: 'https://et-website.imgix.net/et-website/images/pattern-playground/pp-logo.jpg'
+  })
   return (
     <>
       <motion.div
@@ -13,7 +23,7 @@ const DzBanner = () => {
         initial='initial'
         variants={variants}
         animate={touched ? "loaded" : "initial"}
-        className={classNames(touched ? 'z-[4]' : 'z-2', `absolute w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl`)}
+        className={classNames(touched ? 'z-[4]' : 'z-3', `absolute w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl`)}
       >
         <div className={classNames(touched ? 'text-left' : 'text-center', 'relative flex flex-col z-1')}>
           <motion.h1
@@ -23,7 +33,16 @@ const DzBanner = () => {
             initial='initial'
             variants={h1Variants}
           >
-            Pattern Playground
+            <LazyImgix
+              id={'pp-logo'}
+              image={ppLogo.image}
+              sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
+              blur={false}
+              srcSet={
+                `
+            ${ppLogo.defaultSrc}&w=600&fit=clip 600w,
+            `}
+            />
           </motion.h1>
           <motion.p
             className=""
