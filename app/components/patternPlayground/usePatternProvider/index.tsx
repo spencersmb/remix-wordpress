@@ -42,7 +42,7 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
     1: null,
     2: null
   },
-  patternType: 0,
+  patternType: 1,
   patternSize: 600,
   patternRange: [600],
   touched: false,
@@ -71,7 +71,7 @@ export const patternPlaygroundInitialState: IPatternProviderContextState = {
 export const PatternProviderContext = createContext<IPatternProviderContextType | undefined>(undefined)
 PatternProviderContext.displayName = 'PatternProviderContext'
 
-export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/test-pattern-2.jpg'
+export const starterBgUrl = 'https://et-website.imgix.net/et-website/images/pattern-playground/pp-2.jpg'
 const usePatternProviderContext = () => {
   const context = useContext(PatternProviderContext)
   if (!context) {

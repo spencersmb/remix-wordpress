@@ -32,8 +32,8 @@ const blendModesList = [
     value: 'lighten',
   },
   {
-    name: 'Lighter',
-    value: 'plus-lighter',
+    name: 'Multiply',
+    value: 'multiply',
   },
   {
     name: 'Overlay',
@@ -114,7 +114,7 @@ function DzBlendModeMenu(props: Props) {
       <div className='flex flex-row'>
 
         <div className='flex-1'>
-          <DzColorPicker color={blendMode.color?.rgb} onChange={handleColorChange} />
+          <DzColorPicker color={blendMode.color?.rgb} hex={blendMode.color?.hex} onChange={handleColorChange} />
         </div>
 
         <div className='flex flex-wrap flex-1 gap-2 blendModes w-[250px] ml-4'>

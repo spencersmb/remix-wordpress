@@ -60,6 +60,9 @@ function DzPattern() {
       case 'plus-lighter':
         return 'mix-blend-plus-lighter'
 
+      case 'multiply':
+        return 'mix-blend-multiply'
+
       case 'overlay':
         return 'mix-blend-overlay'
 

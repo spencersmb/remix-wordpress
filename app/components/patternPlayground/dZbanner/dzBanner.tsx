@@ -37,7 +37,7 @@ const DzBanner = () => {
               id={'pp-logo'}
               image={ppLogo.image}
               sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
-              blur={false}
+              visibleByDefault={true}
               srcSet={
                 `
             ${ppLogo.defaultSrc}&w=600&fit=clip 600w,

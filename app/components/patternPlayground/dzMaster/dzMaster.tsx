@@ -68,7 +68,7 @@ function DzMaster(props: Props) {
         inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
         InputComponent={BackgroundDzCustomInput}
         styles={{
-          dropzone: { minHeight: 600, maxHeight: 1250, overflow: 'hidden', position: 'relative' },
+          dropzone: { overflow: 'hidden', position: 'relative' },
           // dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA', opacity: '80%' },
           inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
           dropzoneActive: { backgroundColor: 'transparent' }

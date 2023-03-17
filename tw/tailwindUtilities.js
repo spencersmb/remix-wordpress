@@ -51,10 +51,12 @@ const css = {
   },
 
   '.dzBackgroundHeight': {
-    height: 'calc(100vh - (var(--nav-top-sm) + var(--pp-nav)))',
+    height: 'calc(var(--app-height) - (var(--nav-top-sm) + var(--pp-nav)))',
+    // height: 'calc(100vh - (var(--nav-top-sm) + var(--pp-nav)))',
     //TABLET
     '@media (min-width: 1024px)': {
-      height: 'calc(100vh - (var(--nav-top-lg) + var(--pp-nav)))',
+      // height: 'calc(100vh - (var(--nav-top-lg) + var(--pp-nav)))',
+      height: 'calc(var(--app-height) - (var(--nav-top-lg) + var(--pp-nav)))',
     },
   },
   

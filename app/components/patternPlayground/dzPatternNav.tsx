@@ -16,7 +16,7 @@ function PatternNav() {
     <>
       <div className='fixed bottom-0 left-0 z-10 flex w-full bg-white '>
         <div id={`pp-nav`} className='bg-white relative z-2 p-4 flex justify-center w-full h-[var(--pp-nav)]'>
-          <div className={classNames(backgroundImage ? 'opacitiy-100' : 'opacity-0', 'transition-all ease-in-out duration-600 overflow-hidden flex-1 controls max-w-[600px] w-full flex flex-col gap-y-2')}>
+          <div className={classNames(backgroundImage ? 'opacitiy-100' : 'opacity-0', 'transition-all ease-in-out duration-600 flex-1 controls max-w-[600px] w-full flex flex-col gap-y-2')}>
 
             {/* RANGE SLIDER */}
             <div className='flex flex-row gap-x-2'>

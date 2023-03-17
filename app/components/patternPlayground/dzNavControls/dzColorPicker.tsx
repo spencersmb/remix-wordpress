@@ -1,10 +1,46 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CustomPicker } from 'react-color'
-import { Saturation, Hue, Alpha, Checkboard } from 'react-color/lib/components/common'
+import { Saturation, Hue, Alpha, Checkboard, EditableInput } from 'react-color/lib/components/common'
 import type { SaturationProps } from 'react-color/lib/components/common/Saturation'
 
-function DzColorPicker(props: SaturationProps) {
-  const { color, onChange } = props
+function DzColorPicker(props: SaturationProps & { hex: string | undefined }) {
+  const { color, onChange, hex } = props
+
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter' && inputRef.current) {
+      // console.log('Enter key was pressed');
+      inputRef.current.blur();
+    }
+  };
+
+  useEffect(() => {
+    inputRef.current = document.querySelector('#rc-editable-input-1');
+    const inputElement = inputRef.current;
+    if (inputElement) {
+      inputElement.addEventListener('focus', handleFocus);
+      inputElement.addEventListener('blur', handleBlur);
+      inputElement.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        if (inputElement) {
+          inputElement.removeEventListener('focus', handleFocus);
+          inputElement.removeEventListener('blur', handleBlur);
+          inputElement.removeEventListener('keydown', handleKeyDown);
+        }
+      };
+    }
+  }, []);
 
   return (
     <div className='relative flex flex-col w-full h-full'>
@@ -29,12 +65,20 @@ function DzColorPicker(props: SaturationProps) {
           direction={'horizontal'} />
       </div>
       <div className='relative w-full h-[20px] mt-3'>
-        {/* <Alpha
-          {...props}
-          //@ts-ignore
-          pointer={HSLPointer}
-          onChange={onChange}
-          direction={'horizontal'} /> */}
+        <EditableInput
+          style={{
+            input: {
+              border: 'none',
+            },
+            label: {
+              fontSize: '12px',
+              color: '#999',
+            },
+          }}
+
+          label="hex"
+          value={hex}
+          onChange={onChange} />
       </div>
     </div>
 

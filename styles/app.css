@@ -92,6 +92,7 @@
  --nav-top-sm: 69px;
  --nav-top-lg: 92px;
  --pp-nav: 177px;
+ --app-height: 100vh;
 }
 
 @font-face {
