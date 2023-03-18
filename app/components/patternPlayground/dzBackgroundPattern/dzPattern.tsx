@@ -119,15 +119,14 @@ function DzPattern() {
         className={classNames(blendMode.type && blendMode.color ? `opacity-100 ${getBlendMode(blendMode.type.value)}` : 'opacity-0', 'mix absolute top-0 left-0 w-full h-full z-2 transition-all duration-200 ')} /> */}
       <div className={classNames(!touched && !loadedState ? 'opacity-0' : 'opacity-100',
         'w-full h-full z-1 transition-all ease-in-out duration-600 relative')}>
-        <div
+        {backgroundImage && <div
           className={classNames('absolute top-0 left-0 w-full h-full z-1')}
           style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: `${patternRange[0]}px`,
             height: '100%',
             width: '100%',
-          }} />
-
+          }} />}
       </div>
       <canvas
         id={'patternCanvas'}

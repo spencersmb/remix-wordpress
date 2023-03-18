@@ -6,14 +6,13 @@ interface Props { }
 
 function DzBlendMode(props: Props) {
   const { toggleBlendModeMenu, state: { blendMode } } = usePatternPlayground()
-  const { } = props
 
   return (
     <div
       onClick={toggleBlendModeMenu}
-      className={classNames(blendMode.isOpen ? 'bg-[#c3c2c1]' : 'bg-[#F0EEED]', 'flex flex-row  rounded-lg py-3 px-3 items-start min-w-[194.66px] relative')}>
+      className={classNames(blendMode.isOpen ? 'bg-[#4373F0] text-white' : 'bg-[#F0EEED]', 'flex flex-row  rounded-lg py-3 px-3 items-start min-w-[194.66px] relative')}>
       <div className='flex flex-col flex-1'>
-        <span className={classNames('text-grey-500 text-[10px] font-semibold')}>Blend Mode:</span>
+        <span className={classNames(blendMode.isOpen ? ' text-white' : 'text-grey-500 ', 'text-[10px] font-semibold')}>Blend Mode:</span>
         <div className='text-sm font-semibold leading-[1]'>
           {blendMode.type ? blendMode.type.name : 'None'}
         </div>

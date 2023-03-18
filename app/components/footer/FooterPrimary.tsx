@@ -15,7 +15,8 @@ interface IProps {
  */
 
 const PagesToHideFooter = [
-  'brushPreview'
+  'brushPreview',
+  'pattern-playground',
 ]
 
 function FooterPrimary({ hideSignUp = false }: IProps) {

@@ -48,7 +48,10 @@ function DzMaster(props: Props) {
   const getFilesFromEvent = (e: any): Promise<File[]> => {
     return new Promise(resolve => {
       getDroppedOrSelectedFiles(e).then((chosenFiles: any) => {
-        resolve(chosenFiles.map((f: any) => f.fileObject))
+        if (!chosenFiles) {
+          resolve([])
+        }
+        resolve(chosenFiles.map((f: any) => f.fileObject || []))
       })
     })
   }
@@ -63,7 +66,7 @@ function DzMaster(props: Props) {
         classNames={{
           dropzone: 'upload transition-all duration-300 ease-in-out w-full dzBackgroundHeight',
         }}
-        // getFilesFromEvent={getFilesFromEvent}
+        getFilesFromEvent={getFilesFromEvent}
         accept="image/*"
         inputContent={(files, extra) => (extra.reject ? 'Image files only' : 'Drop Image')}
         InputComponent={BackgroundDzCustomInput}

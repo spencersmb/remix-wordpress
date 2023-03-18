@@ -33,7 +33,7 @@ const DzBanner = () => {
             initial='initial'
             variants={h1Variants}
           >
-            <LazyImgix
+            {/* <LazyImgix
               id={'pp-logo'}
               image={ppLogo.image}
               sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
@@ -42,7 +42,7 @@ const DzBanner = () => {
                 `
             ${ppLogo.defaultSrc}&w=600&fit=clip 600w,
             `}
-            />
+            /> */}
           </motion.h1>
           <motion.p
             className=""
@@ -64,10 +64,10 @@ const DzBanner = () => {
               animate={'enter'}
             >
               <p className="px-3 pt-8 text-xl font-semibold">
-                Quickly test your patterns in the browser!
+                Design patterns faster
               </p>
               <p className="pt-2">
-                Simply drag your image into the browser and test it out!
+                Ready to test your pattern? Drag your image into the browser
               </p>
               <div className="rounded-2xl bg-[#F7F5F4] flex flex-col text-center justify-center items-center p-4 py-12 mt-8 dz-dashed-outline">
                 <div className="flex flex-col w-8">

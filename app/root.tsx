@@ -315,7 +315,7 @@ export function Document({ children, title }: IDocument) {
       <head>
         <Meta />
         <Links />
-        <JsonLd data={data} />
+        {/* <JsonLd data={data} /> */}
       </head>
       <body
         className={`selection:bg-teal-300 selection:text-teal-900 overflow-x-hidden`}

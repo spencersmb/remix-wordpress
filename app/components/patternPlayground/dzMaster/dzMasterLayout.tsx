@@ -10,8 +10,6 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
         ref={uploadRef}
         {...dropzoneProps}
 
-
-
         onDragEnter={(e) => {
           // console.log('drag enter', e)
           if (!isHovering) {
@@ -21,13 +19,14 @@ const BackgroundDzCustomLayout = ({ input, previews, submitButton, dropzoneProps
 
         onDragLeave={(e) => {
           dropzoneProps.onDragLeave(e)
-          // console.log('drag leave', e)
+          // console.log('drag leave')
           // console.log('drag leave', uploadRef.current.classList.contains('dzu-dropzoneActive'))
           // const parent = document.querySelector('.upload')
           // Does parent have class dzu-dropzoneActive
           setTimeout(() => {
             const hasClass = uploadRef.current?.classList.contains('dzu-dropzoneActive')
             if (!hasClass) {
+              // console.log('drag leave set timeout')
               setIsHovering(false)
             }
           }, 150)
