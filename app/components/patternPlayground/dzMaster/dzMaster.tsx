@@ -56,11 +56,24 @@ function DzMaster(props: Props) {
     })
   }
 
+  // filler to stop error on iPad
+  const getDataTransferItemsFromEvent = (e: any): Promise<any[]> => {
+    return new Promise(resolve => {
+      getDroppedOrSelectedFiles(e).then((chosenFiles: any) => {
+        if (!chosenFiles) {
+          resolve([])
+        }
+        resolve(chosenFiles.map((f: any) => f.fileObject || []))
+      })
+    })
+  }
+
   return (
     <div className='absolute top-0 left-0 w-full h-full z-3'>
       <Dropzone
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
+        getDataTransferItemsFromEvent={getDataTransferItemsFromEvent}
         LayoutComponent={props => <BackgroundDzCustomLayout {...props}
         />}
         classNames={{
