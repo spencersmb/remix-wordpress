@@ -16,7 +16,7 @@ const DzBanner = () => {
     src: 'https://et-website.imgix.net/et-website/images/pattern-playground/pp-logo.jpg'
   })
   return (
-    <>
+    <div className={classNames(touched ? 'z-[4]' : 'z-3', `absolute w-full overflow-hidden h-[calc(100%_-_var(--pp-nav))]`)}>
       <motion.div
         key={`Banner`}
         id={`dz-banner`}
@@ -25,7 +25,7 @@ const DzBanner = () => {
         animate={touched ? "loaded" : "initial"}
         className={classNames(touched ? 'z-[4]' : 'z-3', `absolute w-full flex flex-col rounded-xl overflow-hidden bg-white shadow-2xl`)}
       >
-        <div className={classNames(touched ? 'text-left' : 'text-center', 'relative flex flex-col z-1')}>
+        <div className={'relative flex flex-col z-1 text-center'}>
           <motion.h1
             className={'font-bold font-sentinel__SemiBoldItal'}
             key={`h1`}
@@ -33,7 +33,7 @@ const DzBanner = () => {
             initial='initial'
             variants={h1Variants}
           >
-            {/* <LazyImgix
+            <LazyImgix
               id={'pp-logo'}
               image={ppLogo.image}
               sizes="(max-width: 666px) 40vw, (max-width: 1023px) 60vw, (max-width: 1399px) 40vw, 1400px"
@@ -42,10 +42,10 @@ const DzBanner = () => {
                 `
             ${ppLogo.defaultSrc}&w=600&fit=clip 600w,
             `}
-            /> */}
+            />
           </motion.h1>
           <motion.p
-            className=""
+            className="mb-4"
             animate={touched ? "loaded" : "initial"}
             initial='initial'
             variants={taglineVariants}
@@ -56,20 +56,20 @@ const DzBanner = () => {
         <AnimatePresence>
           {!touched
             ? <motion.div
-              className="relative overflow-hidden text-center z-1"
+              className="relative flex flex-col overflow-hidden text-center z-1 text-grey-800"
               variants={dzVariants}
               key="dz"
               initial={'initial'}
               exit={'exit'}
               animate={'enter'}
             >
-              <p className="px-3 pt-8 text-xl font-semibold">
+              <p className="px-3 mb-0 text-xl font-semibold">
                 Design patterns faster
               </p>
-              <p className="pt-2">
+              <p className="mb-0">
                 Ready to test your pattern? Drag your image into the browser
               </p>
-              <div className="rounded-2xl bg-[#F7F5F4] flex flex-col text-center justify-center items-center p-4 py-12 mt-8 dz-dashed-outline">
+              <div className="rounded-2xl bg-[#F7F5F4] flex flex-col text-center justify-center items-center p-4 py-12 mt-6 dz-dashed-outline">
                 <div className="flex flex-col w-8">
                   <FolderAddIcon stroke={`#007bff`} />
                 </div>
@@ -85,9 +85,9 @@ const DzBanner = () => {
               initial={'initial'}
               exit={'exit'}
               animate={'enter'} >
-              <div className="flex flex-col pt-5">
+              <div className="flex flex-col">
                 <button
-                  className={'text-white bg-[#4C8D94] font-semibold px-4 py-4 rounded-md text-sm'}
+                  className={'text-white bg-[#4373F0] font-semibold px-4 py-4 rounded-md text-sm'}
                   onClick={saveImage}
                 >
                   <span className=''>Save Image</span>
@@ -97,7 +97,7 @@ const DzBanner = () => {
         </AnimatePresence>
 
       </motion.div>
-    </>
+    </div>
   )
 }
 
@@ -211,14 +211,14 @@ const h1Variants = {
 }
 const taglineVariants = {
   loaded: {
-    fontSize: '14px',
-    lineHeight: '14px',
-    paddingTop: '4px'
+    fontSize: '12px',
+    lineHeight: '12px',
+    paddingTop: '4px',
   },
   initial: {
-    fontSize: '16px',
-    lineHeight: '16px',
-    paddingTop: '8px'
+    fontSize: '14px',
+    lineHeight: '14px',
+    paddingTop: '2px',
   }
 }
 

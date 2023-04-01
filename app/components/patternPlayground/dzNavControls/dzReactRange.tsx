@@ -16,7 +16,7 @@ const DzReactRange: React.FC<{ rtl: boolean }> = ({ rtl }) => {
       className='flex flex-row w-full bg-[#F0EEED] rounded-lg flex-1 py-3 px-3 items-center'
     >
       <div className='text-sm font-semibold'>Size</div>
-      <div className='flex-1 w-full ml-4 mr-2'>
+      <div className='flex-1 w-full ml-4 mr-4'>
         <Range
           values={patternRange}
           step={STEP}

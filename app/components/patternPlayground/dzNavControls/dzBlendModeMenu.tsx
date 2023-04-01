@@ -110,7 +110,7 @@ function DzBlendModeMenu(props: Props) {
           stiffness: 260,
           damping: 30,
         }
-      }} ref={menuRef} className='absolute left-[50%] min-w-[500px] bg-white opacity-50 z-1 rounded-2xl shadow-2xl overflow-hidden p-5'>
+      }} ref={menuRef} className='absolute left-[50%] min-w-[600px] bg-white opacity-50 z-1 rounded-2xl shadow-2xl overflow-hidden p-5'>
       <div className='flex flex-row'>
 
         <div className='flex-1'>

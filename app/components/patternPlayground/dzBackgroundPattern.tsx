@@ -7,21 +7,11 @@ const PatternDz = () => {
 
   useEffect(() => {
     const appHeight = () => {
-      const doc = document.querySelector(':root');
-      function getfontfamily() {
-        // @ts-ignore
-        var value = getComputedStyle(doc);
+      const doc: null | HTMLElement = document.querySelector(':root');
 
-        alert("Initial font family: " + value.getPropertyValue('--app-height'));
-
-      }
-      // getfontfamily();
-      // @ts-ignore
       doc?.style.setProperty('--app-height', `${window.innerHeight}px`);
-      console.log('appHeight', window.innerHeight)
-      // const height = `${window.innerHeight}px`
-      // console.log('appHeight', height)
-      // doc?.style.setProperty(`—-app-height`, height)
+      // console.log('appHeight', window.innerHeight)
+
     }
     window.addEventListener('resize', appHeight)
     appHeight()
