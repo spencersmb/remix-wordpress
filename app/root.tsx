@@ -151,7 +151,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   try {
     searchData = await getSearchData(url.origin);
-    dynamicMetaData = await getDynamicSiteMetadata()
+    // dynamicMetaData = await getDynamicSiteMetadata()
   } catch (e: any) {
     searchData = null
   }
