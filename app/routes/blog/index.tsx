@@ -12,6 +12,7 @@ import { useLoaderData } from "@remix-run/react";
 
 import { getStaticPageMeta } from "@App/utils/pageUtils";
 import BlogIndexTemplate from "@App/components/pageTemplates/blogIndexTemplate";
+import { cacheControl } from "@App/lib/remix/loaders";
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -107,6 +108,10 @@ export let loader: LoaderFunction = async ({ request, }) => {
     pageInfo,
     categories,
     pageUrlParams: pageParam && !cat ? parseInt(pageParam, 10) : 1
+  }, {
+    headers: {
+      ...cacheControl
+    }
   })
 };
 

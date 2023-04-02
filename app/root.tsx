@@ -145,7 +145,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   customHeaders.append('Set-Cookie', await commitSession(session))
   // set header cache control
-  customHeaders.append("Cache-Control", `public, max-age=${900}, stale-while-revalidate`)
+  // customHeaders.append("Cache-Control", `public, max-age=${900}, stale-while-revalidate`)
 
   //
   let searchData
@@ -153,7 +153,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   try {
     searchData = await getSearchData(url.origin);
-    dynamicMetaData = await getDynamicSiteMetadata()
+    // dynamicMetaData = await getDynamicSiteMetadata()
   } catch (e: any) {
     searchData = null
   }
