@@ -6,5 +6,10 @@ export const projectId = "pl2opd7f";
 export const dataset = "production";
 export const apiVersion = "2023-01-01";
 
-export const client = createClient({ projectId, dataset });
-export const usePreview = definePreview({ projectId, dataset });
+export const client = createClient({ projectId, 
+  apiVersion,
+  dataset
+ });
+export const usePreview = definePreview({ projectId, 
+  dataset
+ });

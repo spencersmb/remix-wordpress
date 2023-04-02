@@ -11496,7 +11496,7 @@ video {
  font-family: "Bon Vivant";
  font-style: normal;
  font-weight: 400;
- src: url("https://et-fonts.s3.amazonaws.com/bonvivant.woff") format("woff");
+ src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
  font-display: swap;
 }
 html {

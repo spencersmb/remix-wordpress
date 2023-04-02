@@ -101,7 +101,7 @@ function BlogSlugTemplate(props: IProps) {
 
         {/* FEATURED IMAGE */}
         <div className='relative col-span-2 col-start-2 z-2 tablet:row-start-5 tablet:row-span-2 tablet:col-start-7 tablet:col-span-7 laptop:col-start-7 laptop:col-span-6 desktop:col-start-9 desktop:col-span-5 desktop:mt-2 desktopXl:mr-0 desktop:overflow-hidden desktop:row-start-3 desktop:row-span-4'>
-          <LazyImageBase image={featuredImage} id={post.id} />
+          <LazyImageBase visibleByDefault={true} image={featuredImage} id={post.id} />
         </div>
 
         {/* TAGS AND TIME */}
