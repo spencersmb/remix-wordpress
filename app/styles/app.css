@@ -2373,6 +2373,9 @@ video {
 .h-\[1px\] {
   height: 1px;
 }
+.h-\[500px\] {
+  height: 500px;
+}
 .h-\[250px\] {
   height: 250px;
 }
@@ -2475,9 +2478,9 @@ video {
 .h-4 {
   height: 1rem;
 }
-.h-\[calc\(100\%_-_177px\)\] {
-  height: -moz-calc(100% - 177px);
-  height: calc(100% - 177px);
+.h-\[calc\(100\%_-_var\(--pp-nav\)\)\] {
+  height: -moz-calc(100% - var(--pp-nav));
+  height: calc(100% - var(--pp-nav));
 }
 .h-\[35px\] {
   height: 35px;
@@ -2487,13 +2490,6 @@ video {
 }
 .h-\[94px\] {
   height: 94px;
-}
-.h-\[calc\(100\%_-_var\(--pp-nav\)\)\] {
-  height: -moz-calc(100% - var(--pp-nav));
-  height: calc(100% - var(--pp-nav));
-}
-.h-\[500px\] {
-  height: 500px;
 }
 .max-h-60 {
   max-height: 15rem;
@@ -11500,7 +11496,7 @@ video {
  font-family: "Bon Vivant";
  font-style: normal;
  font-weight: 400;
- src: url("/fonts/bonvivant/bonvivant.woff") format("woff");
+ src: url("https://et-fonts.s3.amazonaws.com/bonvivant.woff") format("woff");
  font-display: swap;
 }
 html {
