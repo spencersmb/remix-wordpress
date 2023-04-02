@@ -14,6 +14,7 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { cacheControl } from '@App/lib/remix/loaders';
+import { client } from '@App/lib/sanity/sanity';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
@@ -23,29 +24,34 @@ const page = getStaticPageMeta({
   slug: 'courses',
 })
 // export let meta = mdxPageMetaV2
+export const loader = async () => {
+  const query = `*[_type == "course"]`;
+  const courses = await client.fetch(query);
 
-export let loader: LoaderFunction = async ({ request, }) => {
-  let variables = {
-    first: 50,
-    after: null
-  }
-  try {
-    const data = await fetchAPI(getGraphQLString(getCourses),
-      { variables }
-    )
-
-    return json({
-      page,
-      courses: flattenAllCourses(data.courses),
-    }, {
-      headers: {
-        ...cacheControl
-      }
-    })
-  } catch (e) {
-    console.error('error', e)
-  }
+  return { courses };
 };
+// export let loader: LoaderFunction = async ({ request, }) => {
+//   let variables = {
+//     first: 50,
+//     after: null
+//   }
+//   try {
+//     const data = await fetchAPI(getGraphQLString(getCourses),
+//       { variables }
+//     )
+
+//     return json({
+//       page,
+//       courses: flattenAllCourses(data.courses),
+//     }, {
+//       headers: {
+//         ...cacheControl
+//       }
+//     })
+//   } catch (e) {
+//     console.error('error', e)
+//   }
+// };
 
 interface ILoaderData {
   courses: ICourse[]
@@ -54,6 +60,7 @@ interface ILoaderData {
 const Courses = () => {
 
   const data = useLoaderData<ILoaderData>()
+  console.log('data', data)
   // const test = useSimpleTabs()
   // consoleHelper('data', data, 'routes/courses/index.tsx');
 
@@ -82,13 +89,13 @@ const Courses = () => {
 
       {/* COURSES LIST */}
 
-      <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16 desktop:grid-cols-4">
+      {/* <div className="grid grid-cols-mobile gap-x-5 tablet:grid-cols-2 tablet:grid-flow-row tablet:px-5 laptop:grid-cols-3 max-w-[1450px] mx-auto pb-8 pt-16 desktop:grid-cols-4">
 
         {data.courses.map((course: ICourse, index: number) => {
           return <CourseCard key={index} course={course} />
         })}
 
-      </div>
+      </div> */}
 
 
 
