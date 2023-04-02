@@ -2492,6 +2492,9 @@ video {
   height: -moz-calc(100% - var(--pp-nav));
   height: calc(100% - var(--pp-nav));
 }
+.h-\[500px\] {
+  height: 500px;
+}
 .max-h-60 {
   max-height: 15rem;
 }
