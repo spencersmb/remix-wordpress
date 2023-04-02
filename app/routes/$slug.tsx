@@ -10,6 +10,7 @@ import { json } from '@remix-run/node'
 import { useLoaderData, useMatches } from '@remix-run/react'
 import { isEmpty } from 'lodash';
 import BlogSlugTemplate from '@App/components/pageTemplates/blogSlugTemplate';
+import { cacheControl } from '@App/lib/remix/loaders';
 
 //TODO: Check Comment reply - style single comments
 // TODO: Load Comments after page has loaded....
@@ -32,7 +33,7 @@ export let loader: LoaderFunction = async ({ params, request }) => {
     url
   }, {
     headers: {
-      // ...cacheControl
+      ...cacheControl
     }
   })
 };

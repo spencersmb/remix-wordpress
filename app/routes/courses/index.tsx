@@ -13,6 +13,7 @@ import { createOgImages, getBasicPageMetaTags, mdxPageMetaV2 } from "@App/utils/
 import { consoleHelper } from "@App/utils/windowUtils";
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
+import { cacheControl } from '@App/lib/remix/loaders';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
@@ -36,6 +37,10 @@ export let loader: LoaderFunction = async ({ request, }) => {
     return json({
       page,
       courses: flattenAllCourses(data.courses),
+    }, {
+      headers: {
+        ...cacheControl
+      }
     })
   } catch (e) {
     console.error('error', e)
