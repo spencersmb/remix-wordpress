@@ -43,6 +43,7 @@ function PolaroidImg(props: Props) {
       {imgixImage &&
         <div>
           <LazyImgix
+            visibleByDefault={true}
             id={'polaroidImg'}
             image={imgixImage}
             sizes={imgOptions ? imgOptions.sizes : ''}
