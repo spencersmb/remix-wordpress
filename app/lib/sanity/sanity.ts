@@ -8,7 +8,8 @@ export const apiVersion = "2023-01-01";
 
 export const client = createClient({ projectId, 
   apiVersion,
-  dataset
+  dataset,
+  useCdn: true,
  });
 export const usePreview = definePreview({ projectId, 
   dataset
