@@ -1,13 +1,13 @@
 import Layout from "@App/components/layoutTemplates/layout";
-import { client } from "@App/lib/sanity/sanity";
+// import { client } from "@App/lib/sanity/sanity";
 import { useLoaderData } from "@remix-run/react";
 
-export const loader = async () => {
-  const query = `*[_type == "post"]`;
-  const posts = await client.fetch(query);
+// export const loader = async () => {
+//   const query = `*[_type == "post"]`;
+//   const posts = await client.fetch(query);
 
-  return { posts };
-};
+//   return { posts };
+// };
 
 export default function Sanity() {
   const { posts } = useLoaderData();

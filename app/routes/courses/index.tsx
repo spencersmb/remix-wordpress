@@ -14,7 +14,7 @@ import { consoleHelper } from "@App/utils/windowUtils";
 import { isEmpty } from 'lodash';
 import { getStaticPageMeta } from '@App/utils/pageUtils';
 import { cacheControl } from '@App/lib/remix/loaders';
-import { client } from '@App/lib/sanity/sanity';
+// import { client } from '@App/lib/sanity/sanity';
 
 const description = `Every-Tuesday offers premiem Procreate courses and resources to take your skill to the next level.`;
 const title = 'Courses'
@@ -24,12 +24,12 @@ const page = getStaticPageMeta({
   slug: 'courses',
 })
 // export let meta = mdxPageMetaV2
-export const loader = async () => {
-  const query = `*[_type == "course"]`;
-  const courses = await client.fetch(query);
+// export const loader = async () => {
+//   const query = `*[_type == "course"]`;
+//   const courses = await client.fetch(query);
 
-  return { courses };
-};
+//   return { courses };
+// };
 // export let loader: LoaderFunction = async ({ request, }) => {
 //   let variables = {
 //     first: 50,
